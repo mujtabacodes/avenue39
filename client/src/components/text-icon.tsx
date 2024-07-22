@@ -3,10 +3,10 @@ import { ITextIcon } from '@/types/types';
 import Link from 'next/link';
 import React from 'react';
 
-const TextIcon = ({ Icon, Title,link }: ITextIcon) => {
+const TextIcon = ({ Icon, Title, link }: ITextIcon) => {
   return (
     <Link href={link} className="flex items-center gap-2">
-      {Icon} <P14>{Title}</P14>
+      {Icon}<P14>{Title}</P14>
     </Link>
   );
 };

@@ -36,7 +36,7 @@ export function H1Bold({ children, className }: ITypo) {
 export function P14({ children, className }: ITypo) {
   return (
     <div
-      className={`text-[10px] md:text-[14px] ${className}  ${Para14.className} text-justify`}
+      className={`text-[10px] md:text-[14px] ${className}  ${Para14.className}`}
     >
       {children}
     </div>
