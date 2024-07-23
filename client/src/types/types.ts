@@ -21,6 +21,7 @@ export interface containerprops {
   className?: string;
 }
 
+
 export type SliderSettings = {
   dots: boolean;
   infinite: boolean;
@@ -35,3 +36,10 @@ export type Slide = {
   buttonText: string;
   buttonLink: string;
 };
+
+export interface IServiceItem  {
+  id: number;
+  icon: string;
+  title: string;
+}
+
