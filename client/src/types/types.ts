@@ -20,3 +20,9 @@ export interface containerprops {
   children: ReactNode;
   className?: string;
 }
+
+export interface IServiceItem  {
+  id: number;
+  icon: string;
+  title: string;
+}
