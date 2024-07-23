@@ -1,3 +1,4 @@
+import { StaticImageData } from 'next/image';
 import { ReactNode } from 'react';
 import { IconType } from 'react-icons';
 
@@ -14,15 +15,14 @@ export interface ITextIcon {
   Icon: any;
   Title: string;
   link: string;
-  }
+}
 
-export interface containerprops {
+export interface IContainer {
   children: ReactNode;
   className?: string;
 }
 
-
-export type SliderSettings = {
+export type TSliderSettings = {
   dots: boolean;
   infinite: boolean;
   speed: number;
@@ -30,16 +30,15 @@ export type SliderSettings = {
   slidesToScroll: number;
 };
 
-export type Slide = {
-  image: string;
+export type TSlide = {
+  image: any;
   text: string;
   buttonText: string;
   buttonLink: string;
 };
 
-export interface IServiceItem  {
+export interface IServiceItem {
   id: number;
-  icon: string;
+  icon: StaticImageData;
   title: string;
 }
-

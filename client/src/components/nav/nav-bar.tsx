@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import { FaRegUser, FaShoppingCart, FaUser } from 'react-icons/fa';
-import logo from '../../../public/assets/logo.png';
+import logo from '@icons/logo.png';
 import { IoBagOutline, IoSearchSharp } from 'react-icons/io5';
 import Container from '../ui/Container';
 
@@ -12,7 +12,7 @@ const Navbar = (props: INav) => {
     <div className="">
       <Container className="flex items-center justify-between p-4 gap-10">
         <div className="w-2/12">
-          <Image className='' width={200} height={200} src={logo} alt="Logo" />
+          <Image className="" width={200} height={200} src={logo} alt="Logo" />
         </div>
         <div className="w-6/12 ">
           <div className="relative rounded-md">
@@ -34,7 +34,10 @@ const Navbar = (props: INav) => {
             </div>
           </div>
           <div className="flex gap-8">
-            <Link className="gap-2 flex items-center text-14 hover:underline" href={'/'}>
+            <Link
+              className="gap-2 flex items-center text-14 hover:underline"
+              href={'/'}
+            >
               <FaRegUser size={25} />
               Login/Register
             </Link>

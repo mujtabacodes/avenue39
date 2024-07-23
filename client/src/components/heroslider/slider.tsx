@@ -1,13 +1,14 @@
-'use client'
+'use client';
 
-import React from "react";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import { SliderSettings, Slide } from "../../types/types";
-import { LiaSlidersHSolid } from "react-icons/lia";
+import React from 'react';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import { slides } from '@/data';
+import Image from 'next/image';
+import { TSliderSettings } from '@/types/types';
 
-const settings: SliderSettings = {
+const settings: TSliderSettings = {
   dots: true,
   infinite: true,
   speed: 500,
@@ -15,37 +16,12 @@ const settings: SliderSettings = {
   slidesToScroll: 1,
 };
 
-const slides: Slide[] = [
-  {
-    image: "/images/slide1.jpg",
-    text: "Slide 1 Text",
-    buttonText: "Learn More",
-    buttonLink: "#",
-  },
-  {
-    image: "/images/slide2.jpg",
-    text: "Slide 2 Text",
-    buttonText: "Shop Now",
-    buttonLink: "#",
-  },
-  {
-    image: "/images/slide3.jpg",
-    text: "Slide 3 Text",
-    buttonText: "Discover",
-    buttonLink: "#",
-  },
-  // Add more slides as needed
-];
-
 const SimpleSlider: React.FC = () => {
   return (
     <Slider {...settings}>
       {slides.map((slide, index) => (
         <div key={index} className="relative h-96">
-          <div
-            className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: `url(${slide.image})` }}
-          ></div>
+          <Image src={slide.image} className="w-full h-full" alt="image" />
           <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col items-center justify-center text-white">
             <h3 className="text-2xl mb-4">{slide.text}</h3>
             <a
