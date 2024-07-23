@@ -1,3 +1,4 @@
+import MenuBar from '@/components/nav/menu-bar';
 import Navbar from '@/components/nav/nav-bar';
 import TopNav from '@/components/nav/top-nav';
 import { IHome } from '@/types/types';
@@ -8,7 +9,8 @@ const HomePage = (props: IHome) => {
     <Fragment>
       <TopNav />
       <Navbar />
-      <h1>hdsafasdf</h1>
+      <MenuBar/>
+    
     </Fragment>
   );
 };

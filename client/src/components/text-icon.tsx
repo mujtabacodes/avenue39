@@ -1,11 +1,13 @@
+import { P14 } from '@/styles/typo';
 import { ITextIcon } from '@/types/types';
+import Link from 'next/link';
 import React from 'react';
 
-const TextIcon = ({ Icon, Title }: ITextIcon) => {
+const TextIcon = ({ Icon, Title, link }: ITextIcon) => {
   return (
-    <div className="flex gap-2">
-      {Icon} <span>{Title}</span>
-    </div>
+    <Link href={link} className="flex items-center gap-2">
+      {Icon}<P14>{Title}</P14>
+    </Link>
   );
 };
 

@@ -13,4 +13,10 @@ export interface ITextIcon {
   //TODO: change Icon type
   Icon: any;
   Title: string;
+  link: string;
+}
+
+export interface containerprops {
+  children: ReactNode;
+  className?: string;
 }
