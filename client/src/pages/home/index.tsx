@@ -4,14 +4,19 @@ import TopNav from '@/components/nav/top-nav';
 import Services from '@/components/services/services';
 import { IHome } from '@/types/types';
 import React, { Fragment } from 'react';
+import HeroSlier from '../heroslider/page';
 
 const HomePage = (props: IHome) => {
   return (
     <Fragment>
       <TopNav />
       <Navbar />
-      <MenuBar />
+      <MenuBar/>
+    <HeroSlier />
+
+     
       <Services />
+
     </Fragment>
   );
 };
