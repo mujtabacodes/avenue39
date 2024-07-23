@@ -8,7 +8,7 @@ const HomePage = (props: IHome) => {
     <Fragment>
       <TopNav />
       <Navbar />
-      <h1>hdsafasdf</h1>
+      <h1>Sadakat bhai kab chalain</h1>
     </Fragment>
   );
 };
