@@ -18,6 +18,16 @@ const config = {
       },
     },
     extend: {
+      fontSize: {
+        14: '14px',
+        15: '15px',
+        16: '16px',
+        17: '17px',
+        18: '18px',
+        19: '19px',
+        20: '20px',
+        21: '21px',
+      },
       colors: {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
