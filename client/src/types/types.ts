@@ -14,9 +14,24 @@ export interface ITextIcon {
   Icon: any;
   Title: string;
   link: string;
-}
+  }
 
 export interface containerprops {
   children: ReactNode;
   className?: string;
 }
+
+export type SliderSettings = {
+  dots: boolean;
+  infinite: boolean;
+  speed: number;
+  slidesToShow: number;
+  slidesToScroll: number;
+};
+
+export type Slide = {
+  image: string;
+  text: string;
+  buttonText: string;
+  buttonLink: string;
+};
