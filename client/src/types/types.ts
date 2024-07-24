@@ -42,3 +42,9 @@ export interface IServiceItem {
   icon: StaticImageData;
   title: string;
 }
+
+export interface IDiscountProducts {
+  id: number;
+  imageUrl: StaticImageData;
+  title: string;
+}
