@@ -2,6 +2,7 @@ import { StaticImageData } from 'next/image';
 import { ReactNode } from 'react';
 import { IconType } from 'react-icons';
 
+
 export interface IHome {}
 export interface INav {}
 
@@ -32,6 +33,8 @@ export type TSliderSettings = {
 
 export type TSlide = {
   image: any;
+  bannerHeading: string;
+  bannerSubHeading: string;
   text: string;
   buttonText: string;
   buttonLink: string;
@@ -42,3 +45,8 @@ export interface IServiceItem {
   icon: StaticImageData;
   title: string;
 }
+
+export type BannerImage = {
+  image: StaticImageData;
+  altText: string;
+};
