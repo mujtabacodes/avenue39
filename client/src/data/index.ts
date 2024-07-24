@@ -1,4 +1,4 @@
-import { IDiscountProducts, IServiceItem, TSlide } from '@/types/types';
+import { IChairProducts, IDiscountProducts, IServiceItem, TSlide } from '@/types/types';
 import palette from '@icons/palette.png';
 import delivery from '@icons/delivery-fast.png';
 import privacy from '@icons/privacy.png';
@@ -7,6 +7,7 @@ import banner1 from '@images/banners/banner1.png';
 import banner2 from '@images/banners/banner2.png';
 import banner3 from '@images/banners/banner3.png';
 import opal from '@images/products/OPALdiningtable_900x900S.png'
+import armChair from '@images/products/armchair.png'
 
 export const slides: TSlide[] = [
   {
@@ -97,5 +98,18 @@ export const discountProducts: IDiscountProducts[] = [
     id: 9,
     imageUrl: opal,
     title: 'Extra 20% off Clearance*'
+  },
+]
+
+export const chairProducts: IChairProducts[] = [
+  {
+    id: 1,
+    imageUrl: armChair,
+    title: 'ARMCHAIRS'
+  },
+  {
+    id: 2,
+    imageUrl: armChair,
+    title: 'ARMCHAIRS'
   },
 ]
