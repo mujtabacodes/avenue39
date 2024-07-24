@@ -6,6 +6,8 @@ import { IHome } from '@/types/types';
 import React, { Fragment } from 'react';
 import SimpleSlider from '@/components/heroslider/slider';
 import CardsTabes from '../card-slider/card-slider';
+// import HeroSlier from '../heroslider/page';
+import DiscountCard from '@/components/ui/discount-card';
 
 const HomePage = (props: IHome) => {
   return (
@@ -17,6 +19,9 @@ const HomePage = (props: IHome) => {
       <Services />
       <CardsTabes />
 
+      <section className='px-4 pb-2 my-4 overflow-x-auto discount-product-wrapper'>
+        <DiscountCard />
+      </section>
 
     </Fragment>
   );

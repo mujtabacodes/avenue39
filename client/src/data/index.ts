@@ -1,4 +1,5 @@
-import { IServiceItem, TSlide, SliderData, BannerImage  } from '@/types/types';
+import {  ISliderData, BannerImage,IDiscountProducts  } from '@/types/types';
+import { IServiceItem, TSlide } from '@/types/types';
 import icon1 from '@icons/1.png';
 import icon2 from '@icons/2.png';
 import icon3 from '@icons/3.png';
@@ -8,6 +9,13 @@ import banner2 from '@images/banners/banner2.png';
 import banner3 from '@images/banners/banner3.png';
 import banner4 from '@images/banners/megasale.png';
 import cardimage1 from '@images/imageeee.png';
+
+import palette from '@icons/palette.png';
+import delivery from '@icons/delivery-fast.png';
+import privacy from '@icons/privacy.png';
+import support from '@icons/chat-46.png';
+import opal from '@images/products/OPALdiningtable_900x900S.png'
+
 export const slides: TSlide[] = [
   {
     image: banner1,
@@ -41,27 +49,27 @@ export const bannerImage: BannerImage = {
 export const serviceItems: IServiceItem[] = [
   {
     id: 1,
-    icon: icon1,
+    icon: palette,
     title: 'Unique Everything',
   },
   {
     id: 2,
-    icon: icon2,
+    icon: delivery,
     title: 'Free Shipping & Return',
   },
   {
     id: 3,
-    icon: icon3,
+    icon: privacy,
     title: 'Secure Payments',
   },
   {
     id: 4,
-    icon: icon5,
+    icon: support,
     title: 'Support Customer',
   },
 ];
 
-export const slidersData: SliderData[] = [
+export const slidersData: ISliderData[] = [
   {
     tabTitle: 'Table',
     cards: [
@@ -113,3 +121,50 @@ export const slidersData: SliderData[] = [
     ],
   },
 ];
+export const discountProducts: IDiscountProducts[] = [
+  {
+    id: 1,
+    imageUrl: opal,
+    title: 'Extra 20% off Clearance*'
+  },
+  {
+    id: 2,
+    imageUrl: opal,
+    title: 'Extra 20% off Clearance*'
+  },
+  {
+    id: 3,
+    imageUrl: opal,
+    title: 'Extra 20% off Clearance*'
+  },
+  {
+    id: 4,
+    imageUrl: opal,
+    title: 'Extra 20% off Clearance*'
+  },
+  {
+    id: 5,
+    imageUrl: opal,
+    title: 'Extra 20% off Clearance*'
+  },
+  {
+    id: 6,
+    imageUrl: opal,
+    title: 'Extra 20% off Clearance*'
+  },
+  {
+    id: 7,
+    imageUrl: opal,
+    title: 'Extra 20% off Clearance*'
+  },
+  {
+    id: 8,
+    imageUrl: opal,
+    title: 'Extra 20% off Clearance*'
+  },
+  {
+    id: 9,
+    imageUrl: opal,
+    title: 'Extra 20% off Clearance*'
+  },
+]
