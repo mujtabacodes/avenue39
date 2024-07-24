@@ -20,3 +20,14 @@ export interface containerprops {
   children: ReactNode;
   className?: string;
 }
+
+export interface MenuItem {
+  title: string;
+  icon: string;
+  link: string;
+}
+
+// Define the interface for the menu data object
+export interface MenuData {
+  [key: string]: MenuItem[];
+}
