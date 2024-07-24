@@ -2,8 +2,8 @@ import { INav } from '@/types/types';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
-import { FaRegUser } from 'react-icons/fa';
-import logo from '../../../public/assets/logo.png';
+import { FaRegUser, FaShoppingCart, FaUser } from 'react-icons/fa';
+import logo from '@icons/logo.png';
 import { IoBagOutline, IoSearchSharp } from 'react-icons/io5';
 import Container from '../ui/Container';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
@@ -19,7 +19,6 @@ import {
 } from '@/components/ui/drawer';
 
 import { HiOutlineBars3BottomRight } from 'react-icons/hi2';
-import Star from '../ui/star';
 import StarRating from '../ui/star';
 
 const Navbar = (props: INav) => {
@@ -54,7 +53,7 @@ const Navbar = (props: INav) => {
                   <IoSearchSharp className="cursor-pointer" size={30} />
                 </div>
               </div>
-              <div className='border p-2 max-h-[400px] overflow-y-auto '>
+              <div className='border p-2 max-h-[600px] overflow-y-auto custom-scrollbar '>
                   <div className='flex border p-2 rounded-md bg-white hover:shadow-md transition duration-300 gap-2 mt-2'>
                     <Image width={100} height={100} src={"/assets/search.png"} alt='search' />
                     <div className='pt-1'>
@@ -66,28 +65,7 @@ const Navbar = (props: INav) => {
                         <StarRating totalStars={5} disabled  />
                     </div>
                   </div>
-                  <div className='flex border p-2 rounded-md bg-white hover:shadow-md transition duration-300 gap-2 mt-2'>
-                    <Image width={100} height={100} src={"/assets/search.png"} alt='search' />
-                    <div className='pt-1'>
-                      <p className='text-21 font-normal'>Sparta Coffee Table</p>
-                      <div className='flex items-center gap-4'>
-                      <p className='text-15 font-semibold'>Dhs. <span>150</span>.00</p>
-                      <p className='text-[12px] text-primary-foreground font-bold line-through'><span>150</span>.00</p>
-                      </div>
-                        <StarRating totalStars={5} disabled  />
-                    </div>
-                  </div>
-                  <div className='flex border p-2 rounded-md bg-white hover:shadow-md transition duration-300 gap-2 mt-2'>
-                    <Image width={100} height={100} src={"/assets/search.png"} alt='search' />
-                    <div className='pt-1'>
-                      <p className='text-21 font-normal'>Sparta Coffee Table</p>
-                      <div className='flex items-center gap-4'>
-                      <p className='text-15 font-semibold'>Dhs. <span>150</span>.00</p>
-                      <p className='text-[12px] text-primary-foreground font-bold line-through'><span>150</span>.00</p>
-                      </div>
-                        <StarRating totalStars={5} disabled  />
-                    </div>
-                  </div>
+                  
               </div>
               </div>
             </DrawerContent>
@@ -95,11 +73,43 @@ const Navbar = (props: INav) => {
               </div>
         </div>
         <div className="w-5/12 md:w-6/12 lg:w-5/12 gap-2 flex justify-evenly items-center ">
-        
-          <IoSearchSharp
-            className="cursor-pointer block md:hidden "
-            size={30}
-          />
+        <Drawer>
+            <DrawerTrigger asChild>
+                  <IoSearchSharp
+                  className="cursor-pointer block md:hidden "
+                  size={30}
+                />
+            </DrawerTrigger>
+            <DrawerContent>
+              <div className='max-w-screen-lg w-full mx-auto mt-10 space-y-5 p-2'>
+              <div className="relative rounded-md w-full">
+                <input
+                  type="text"
+                  className="py-4 px-4 pe-11 border block w-full text-sm disabled:opacity-50 "
+                  placeholder="Search Here..."
+                />
+                <div className="absolute inset-y-0 end-0 flex items-center z-20 pe-4 cursor-pointer">
+                  <IoSearchSharp className="cursor-pointer" size={30} />
+                </div>
+              </div>
+              <div className='border p-2 max-h-[600px] overflow-y-auto custom-scrollbar '>
+                  <div className='flex border p-2 rounded-md bg-white hover:shadow-md transition duration-300 gap-2 mt-2'>
+                    <Image width={100} height={100} src={"/assets/search.png"} alt='search' />
+                    <div className='pt-1'>
+                      <p className='text-21 font-normal'>Sparta Coffee Table</p>
+                      <div className='flex items-center gap-4'>
+                      <p className='text-15 font-semibold'>Dhs. <span>150</span>.00</p>
+                      <p className='text-[12px] text-primary-foreground font-bold line-through'><span>150</span>.00</p>
+                      </div>
+                        <StarRating totalStars={5} disabled  />
+                    </div>
+                  </div>
+                  
+              </div>
+              </div>
+            </DrawerContent>
+          </Drawer>
+          
           <div className="bg-red-600 w-14  h-12 rounded-3xl relative flex justify-center items-center text-white">
             <IoBagOutline size={25} />
             <div className="w-5 h-5 rounded-full bg-black flex justify-center items-center absolute top-2 right-2 text-xs">
