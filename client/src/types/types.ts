@@ -70,3 +70,9 @@ export interface IDiscountProducts {
   imageUrl: StaticImageData;
   title: string;
 }
+
+export interface IChairProducts {
+  id: number;
+  imageUrl: StaticImageData;
+  title: string;
+}
