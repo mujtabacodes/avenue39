@@ -8,8 +8,8 @@ type ImageBannerProps = {
 
 const ImageBanner: React.FC<ImageBannerProps> = ({ bannerImage }) => {
   return (
-    <div className="relative h-full ">
-      <Image
+    <div className="relative h-full "> 
+      <Image className="!position-unset"
         src={bannerImage.image}
         alt={bannerImage.altText}
         layout="fill"

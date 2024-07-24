@@ -23,13 +23,13 @@ export interface IContainer {
   className?: string;
 }
 
-export type TSliderSettings = {
-  dots: boolean;
-  infinite: boolean;
-  speed: number;
-  slidesToShow: number;
-  slidesToScroll: number;
-};
+// export type TSliderSettings = {
+//   dots: boolean;
+//   infinite: boolean;
+//   speed: number;
+//   slidesToShow: number;
+//   slidesToScroll: number;
+// };
 
 export type TSlide = {
   image: any;
@@ -50,3 +50,18 @@ export type BannerImage = {
   image: StaticImageData;
   altText: string;
 };
+
+
+
+export interface Card {
+  id: number;
+  image: string;
+  heading: string;
+  price: string;
+  discount: string;
+}
+
+export interface SliderData {
+  tabTitle: string;
+  cards: Card[];
+}

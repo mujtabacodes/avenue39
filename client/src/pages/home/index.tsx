@@ -5,6 +5,7 @@ import Services from '@/components/services/services';
 import { IHome } from '@/types/types';
 import React, { Fragment } from 'react';
 import SimpleSlider from '@/components/heroslider/slider';
+import CardsTabes from '../card-slider/card-slider';
 
 const HomePage = (props: IHome) => {
   return (
@@ -14,6 +15,8 @@ const HomePage = (props: IHome) => {
       <MenuBar/>
       <SimpleSlider />
       <Services />
+      <CardsTabes />
+
 
     </Fragment>
   );
