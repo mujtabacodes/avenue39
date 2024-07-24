@@ -1,39 +1,47 @@
 'use client';
-
 import React from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import { slides } from '@/data';
 import Image from 'next/image';
-import { TSliderSettings } from '@/types/types';
+import { Button } from '../ui/button';
+import ImageBanner from "../mage-banner";
+import { bannerImage, slides } from '@/data';
 
-const settings: TSliderSettings = {
+const settings = {
   dots: true,
   infinite: true,
   speed: 500,
   slidesToShow: 1,
   slidesToScroll: 1,
+ 
 };
 
 const SimpleSlider: React.FC = () => {
   return (
-    <Slider {...settings}>
-      {slides.map((slide, index) => (
-        <div key={index} className="relative h-96">
-          <Image src={slide.image} className="w-full h-full" alt="image" />
-          <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col items-center justify-center text-white">
-            <h3 className="text-2xl mb-4">{slide.text}</h3>
-            <a
-              href={slide.buttonLink}
-              className="px-4 py-2 bg-blue-500 rounded hover:bg-blue-700 transition"
-            >
-              {slide.buttonText}
-            </a>
-          </div>
-        </div>
-      ))}
-    </Slider>
+    <>
+    <div className='flex flex-wrap lg:flex-nowrap  justify-end gap-4'>
+      <div className='overflow-hidden lg:w-[70%]'>
+        <Slider {...settings} className='mb-10'>
+          {slides.map((slide: any, index: any) => (
+            <div key={index} className="relative h-full">
+              <Image src={slide.image} className="w-full h-auto" alt="image" />
+              <div className="absolute lg:left-56 left-10 inset-0 bg-opacity-5 flex flex-col items-start justify-center text-secondary">
+                <h3 className="lg:text-xl  mb-4">{slide.bannerSubHeading}</h3>
+                <h2 className=" lg:text-6xl text-2xl mb-4 font-bold lg:w-1/3">{slide.bannerHeading}</h2>
+                <Button className='lg:mt-5' variant={"link"}>
+                  {slide.buttonText}
+                </Button>
+              </div>
+            </div>
+          ))}
+        </Slider>
+      </div>
+      <div className='lg:w-[30%]'>
+        <ImageBanner bannerImage={bannerImage} />
+      </div>
+    </div>
+    </>
   );
 };
 

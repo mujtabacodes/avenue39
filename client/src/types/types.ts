@@ -2,6 +2,7 @@ import { StaticImageData } from 'next/image';
 import { ReactNode } from 'react';
 import { IconType } from 'react-icons';
 
+
 export interface IHome {}
 export interface INav {}
 
@@ -22,16 +23,18 @@ export interface IContainer {
   className?: string;
 }
 
-export type TSliderSettings = {
-  dots: boolean;
-  infinite: boolean;
-  speed: number;
-  slidesToShow: number;
-  slidesToScroll: number;
-};
+// export type TSliderSettings = {
+//   dots: boolean;
+//   infinite: boolean;
+//   speed: number;
+//   slidesToShow: number;
+//   slidesToScroll: number;
+// };
 
 export type TSlide = {
   image: any;
+  bannerHeading: string;
+  bannerSubHeading: string;
   text: string;
   buttonText: string;
   buttonLink: string;
@@ -43,6 +46,25 @@ export interface IServiceItem {
   title: string;
 }
 
+export type BannerImage = {
+  image: StaticImageData;
+  altText: string;
+};
+
+
+
+export interface ICard {
+  id: number;
+  image: StaticImageData;
+  heading: string;
+  price: string;
+  discount?: string;
+}
+
+export interface ISliderData {
+  tabTitle: string;
+  cards: ICard[];
+}
 export interface IDiscountProducts {
   id: number;
   imageUrl: StaticImageData;

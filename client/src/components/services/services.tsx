@@ -4,7 +4,7 @@ import Image from 'next/image';
 
 const Services: React.FC = () => {
   return (
-    <section className="bg-[#F6F6F6] py-8">
+    <section className="bg-[#F6F6F6] py-8 mt-10">
       <Container>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {serviceItems.map((item) => (
