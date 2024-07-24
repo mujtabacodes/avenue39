@@ -74,7 +74,7 @@ export const slidersData: ISliderData[] = [
       { id: 2, image: cardimage1, heading: 'Sparta Coffee Table', price: '$150' , discount: '$300' , sale: '30%' , reviews: 5},
       { id: 3, image: cardimage1, heading: 'Sparta Coffee Table', price: '$200' , discount: '$300' , sale: '50%' , reviews: 4},
       { id: 4, image: cardimage1, heading: 'Sparta Coffee Table', price: '$250' , discount: '$300' , sale: '45%' , reviews: 2},
-      { id: 5, image: cardimage1, heading: 'Sparta Coffee Table', price: '$300' , discount: '$300' , sale: '70%' , reviews: 3},
+      { id: 5, image: cardimage1, heading: 'Sparta Coffee Table', price: '$300' , discount: '$300' , sale: '70%' , reviews: 4},
     ],
   },
   {
@@ -83,7 +83,7 @@ export const slidersData: ISliderData[] = [
       { id: 1, image: cardimage1, heading: 'Sparta Coffee Table', price: '$350' , discount: '$300' , sale: '50%', reviews: 3},
       { id: 2, image: cardimage1, heading: 'Sparta Coffee Table', price: '$400' , discount: '$300' , sale: '30%', reviews: 5},
       { id: 3, image: cardimage1, heading: 'Sparta Coffee Table', price: '$450' , discount: '$300' , sale: '50%', reviews: 4},
-      { id: 4, image: cardimage1, heading: 'Sparta Coffee Table', price: '$500' , discount: '$300' , sale: '45%', reviews: 2},
+      { id: 4, image: cardimage1, heading: 'Sparta Coffee Table', price: '$500' , discount: '$300' , sale: '45%', reviews: 5},
       { id: 5, image: cardimage1, heading: 'Sparta Coffee Table', price: '$550' , discount: '$300' , sale: '70%', reviews: 3},
     ],
   },
