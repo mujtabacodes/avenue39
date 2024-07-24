@@ -59,6 +59,8 @@ export interface ICard {
   heading: string;
   price: string;
   discount?: string;
+  sale: string;
+  reviews: number;
 }
 
 export interface ISliderData {
