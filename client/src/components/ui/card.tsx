@@ -1,86 +1,30 @@
-import * as React from 'react';
+// components/Card.tsx
 
-import { cn } from '@/lib/utils';
+import React from 'react';
+import Image from 'next/image';
+import { Card } from '@/types/types';
+import { HiOutlineShoppingBag } from "react-icons/hi";
 
-const Card = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => (
-  <div
-    ref={ref}
-    className={cn(
-      'rounded-lg border bg-card text-card-foreground shadow-sm',
-      className,
-    )}
-    {...props}
-  />
-));
-Card.displayName = 'Card';
 
-const CardHeader = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => (
-  <div
-    ref={ref}
-    className={cn('flex flex-col space-y-1.5 p-6', className)}
-    {...props}
-  />
-));
-CardHeader.displayName = 'CardHeader';
 
-const CardTitle = React.forwardRef<
-  HTMLParagraphElement,
-  React.HTMLAttributes<HTMLHeadingElement>
->(({ className, ...props }, ref) => (
-  <h3
-    ref={ref}
-    className={cn(
-      'text-2xl font-semibold leading-none tracking-tight',
-      className,
-    )}
-    {...props}
-  />
-));
-CardTitle.displayName = 'CardTitle';
+interface CardProps {
+  card: Card;
+}
 
-const CardDescription = React.forwardRef<
-  HTMLParagraphElement,
-  React.HTMLAttributes<HTMLParagraphElement>
->(({ className, ...props }, ref) => (
-  <p
-    ref={ref}
-    className={cn('text-sm text-muted-foreground', className)}
-    {...props}
-  />
-));
-CardDescription.displayName = 'CardDescription';
-
-const CardContent = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => (
-  <div ref={ref} className={cn('p-6 pt-0', className)} {...props} />
-));
-CardContent.displayName = 'CardContent';
-
-const CardFooter = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => (
-  <div
-    ref={ref}
-    className={cn('flex items-center p-6 pt-0', className)}
-    {...props}
-  />
-));
-CardFooter.displayName = 'CardFooter';
-
-export {
-  Card,
-  CardHeader,
-  CardFooter,
-  CardTitle,
-  CardDescription,
-  CardContent,
+const Card: React.FC<CardProps> = ({ card }) => {
+  return (
+    <div className="bg-white rounded-lg text-center">
+      <Image src={card.image} alt={card.heading} width={320} height={200} className="object-cover rounded-t-lg" />
+      <h3 className="text-lg font-semibold mt-2">{card.heading}</h3>
+      <p className="text-md font-semibold mt-1">{card.price}</p>
+      <div className='text-center flex justify-center'>
+      <button className="mt-4 px-4 py-2 text-primary border border-primary  rounded-full flex items-center justify-center gap-2 hover:bg-primary hover:text-white">
+      <HiOutlineShoppingBag />
+        <span className="mr-2">Add to card</span>
+      </button>
+      </div>
+    </div>
+  );
 };
+
+export default Card;

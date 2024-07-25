@@ -2,6 +2,7 @@ import { StaticImageData } from 'next/image';
 import { ReactNode } from 'react';
 import { IconType } from 'react-icons';
 
+
 export interface IHome {}
 export interface INav {}
 
@@ -22,16 +23,18 @@ export interface IContainer {
   className?: string;
 }
 
-export type TSliderSettings = {
-  dots: boolean;
-  infinite: boolean;
-  speed: number;
-  slidesToShow: number;
-  slidesToScroll: number;
-};
+// export type TSliderSettings = {
+//   dots: boolean;
+//   infinite: boolean;
+//   speed: number;
+//   slidesToShow: number;
+//   slidesToScroll: number;
+// };
 
 export type TSlide = {
   image: any;
+  bannerHeading: string;
+  bannerSubHeading: string;
   text: string;
   buttonText: string;
   buttonLink: string;
@@ -51,4 +54,24 @@ export interface MenuItem {
 // Define the interface for the menu data object
 export interface MenuData {
   [key: string]: MenuItem[];
+}
+
+export type BannerImage = {
+  image: StaticImageData;
+  altText: string;
+};
+
+
+
+export interface Card {
+  id: number;
+  image: any;
+  heading: string;
+  price: string;
+  discount?: string;
+}
+
+export interface SliderData {
+  tabTitle: string;
+  cards: Card[];
 }

@@ -1,4 +1,65 @@
 /* If need to use classes */
+.slick-dots {
+    position: absolute;
+    bottom: 25px !important;
+    left: 600px !important;
+    display: block;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    text-align: center;
+}
+.slick-dots li button:before {
+    font-family: 'slick';
+    font-size: 6px;
+    line-height: 20px;
+    position: absolute;
+    background: white !important;
+    top: 0px;
+    right: 0px;
+    width: 12px;
+    height: 12px;
+    content: '';
+    text-align: center;
+    opacity: .25;
+    color: black;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    border-radius: 50%;
+}
+.slick-dots li {
+    position: relative;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin: 0px;
+    padding: 0;
+    cursor: pointer;
+}
+.sliderTabes .slick-prev:before, .slick-next:before {
+    font-family: 'slick';
+    font-size: 37px !important;
+    line-height: 1;
+    opacity: .75;
+    color: black;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    z-index: 1;
+}
+.sliderTabes .slick-prev:before, .sliderTabes .slick-next:before{
+    font-family: 'slick';
+    font-size: 37px;
+    line-height: 1;
+    opacity: .75;
+    color: black !important;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    z-index: 1;
+}
+.sliderTabes .slick-prev, .sliderTabes .slick-next{
+    z-index: 1;
+}
 .custom-scrollbar {
     overflow-y: scroll;
     /* Optional: Adding padding, margin, and other styles */
@@ -10,7 +71,7 @@
   }
   
   .custom-scrollbar::-webkit-scrollbar-track {
-    background: f1f1f1; /* Color of the scrollbar track */
+    background: #f1f1f1; /* Color of the scrollbar track */
     border-radius: 4px;
   }
   
@@ -21,5 +82,5 @@
   }
   
   .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: black; /* Color when hovering over the scrollbar thumb */
+    background: black;
   }

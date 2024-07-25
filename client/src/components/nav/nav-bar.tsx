@@ -2,7 +2,7 @@ import { INav } from '@/types/types';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
-import { FaRegUser, FaShoppingCart, FaUser } from 'react-icons/fa';
+import { FaRegHeart, FaRegUser, FaShoppingCart, FaUser } from 'react-icons/fa';
 import logo from '@icons/logo.png';
 import { IoBagOutline, IoSearchSharp } from 'react-icons/io5';
 import Container from '../ui/Container';
@@ -20,13 +20,14 @@ import {
 
 import { HiOutlineBars3BottomRight } from 'react-icons/hi2';
 import StarRating from '../ui/star';
+import SocialLink from '../social-link';
 
 const Navbar = (props: INav) => {
   return (
     <>
-      <Container className="flex items-center justify-between p-4 gap-4">
+      <Container className="flex items-center justify-between p-2 md:p-4 gap-4">
         <div className="w-4/12 md:w-2/12">
-          <Image className="" width={200} height={200} src={logo} alt="Logo" />
+          <Image className="" width={250} height={250} src={logo} alt="Logo" />
         </div>
         <div className="w-0/12 md:w-4/12 lg:w-5/12 ">
               <div className="relative rounded-md hidden md:block">
@@ -72,7 +73,15 @@ const Navbar = (props: INav) => {
           </Drawer>
               </div>
         </div>
-        <div className="w-5/12 md:w-6/12 lg:w-5/12 gap-2 flex justify-evenly items-center ">
+        <div className=' md:w-2/12 lg:w-1/12 hidden md:flex justify-center'>
+        <div className="bg-red-600 lg:w-14 w-12 h-10 lg:h-12 rounded-3xl relative flex justify-center items-center text-white">
+            <IoBagOutline size={25} />
+            <div className="w-5 h-5 rounded-full bg-black flex justify-center items-center absolute top-2 right-2 text-xs">
+              10
+            </div>
+          </div>
+        </div>
+        <div className="w-5/12 md:w-5/12 lg:w-3/12 gap-2 flex justify-end items-center ">
         <Drawer>
             <DrawerTrigger asChild>
                   <IoSearchSharp
@@ -109,13 +118,9 @@ const Navbar = (props: INav) => {
               </div>
             </DrawerContent>
           </Drawer>
-          
-          <div className="bg-red-600 w-14  h-12 rounded-3xl relative flex justify-center items-center text-white">
-            <IoBagOutline size={25} />
-            <div className="w-5 h-5 rounded-full bg-black flex justify-center items-center absolute top-2 right-2 text-xs">
-              12
-            </div>
-          </div>
+        
+         
+         
           <div className="hidden md:flex gap-10 items-center">
             <Link
               className="gap-2 flex items-center text-14 font-semibold hover:underline"
@@ -131,6 +136,7 @@ const Navbar = (props: INav) => {
               Contact Us
             </Link>
           </div>
+
           <div className="md:hidden">
             <Sheet>
               <SheetTrigger asChild>
@@ -140,26 +146,27 @@ const Navbar = (props: INav) => {
                 />
               </SheetTrigger>
               <SheetContent className="pb-5">
-                <div className="grid mt-5">
-                  <Link
-                    className="gap-2 flex items-center text-14 hover:underline"
-                    href={'/'}
-                  >
-                    <FaRegUser size={25} />
-                    Login/Register
-                  </Link>
-                  <Link className="text-14 hover:underline" href={'/'}>
+                <div className="grid mt-10 space-y-2">
+                  <Link className="text-16 font-semibold hover:underline" href={'/'}>
                     About us
                   </Link>
-                  <Link className="text-14 hover:underline" href={'/'}>
+                  <Link className="text-16 font-semibold hover:underline" href={'/'}>
                     Contact Us
                   </Link>
+                  <Link
+                    className="gap-2 flex items-center text-16 font-semibold hover:underline"
+                    href={'/'}
+                  >
+                    Login/Register
+                  </Link>
+                  <SocialLink className={"gap-2 pt-2"} linkClass='p-2 border rounded-md' />
                 </div>
               </SheetContent>
             </Sheet>
           </div>
         </div>
       </Container>
+      
     </>
   );
 };

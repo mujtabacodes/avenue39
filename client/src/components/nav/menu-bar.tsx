@@ -44,8 +44,8 @@ const MenuBar = () => {
 
   return (
     <>
-      <div className='bg-white shadow-md mb-1 pb-2'>
-        <Container className='flex gap-10 items-center justify-evenly whitespace-nowrap md:whitespace-normal overflow-y-scroll md:overflow-hidden'>
+      <div className='bg-white shadow-md mb-1 pb-2 hidden md:block'>
+        <Container className='flex gap-10 items-center justify-evenly '>
           <Link className='font-bold text-19 uppercase hover:underline' href={"/"}>DINING</Link>
           <div 
             className='font-bold text-19 uppercase hover:underline flex gap-2 items-center cursor-pointer' 

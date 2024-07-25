@@ -4,7 +4,9 @@ import TopNav from '@/components/nav/top-nav';
 import Services from '@/components/services/services';
 import { IHome } from '@/types/types';
 import React, { Fragment } from 'react';
-import HeroSlier from '../heroslider/page';
+import SimpleSlider from '@/components/heroslider/slider';
+import CardsTabes from '../card-slider/card-slider';
+import BottomBar from '@/components/nav/bottom-bar';
 
 const HomePage = (props: IHome) => {
   return (
@@ -12,10 +14,12 @@ const HomePage = (props: IHome) => {
       <TopNav />
       <Navbar />
       <MenuBar/>
-    <HeroSlier />
-
-     
+      <BottomBar/>
+      
+      <SimpleSlider />
       <Services />
+      <CardsTabes />
+
 
     </Fragment>
   );
