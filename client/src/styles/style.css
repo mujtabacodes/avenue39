@@ -84,3 +84,14 @@
   .custom-scrollbar::-webkit-scrollbar-thumb:hover {
     background: black;
   }
+.discount-product-wrapper::-webkit-scrollbar {
+    width: 4px !important;
+    height: 5px !important;
+}
+.discount-product-wrapper::-webkit-scrollbar-track {
+    background: #f1f1f1 !important;
+}
+.discount-product-wrapper::-webkit-scrollbar-thumb {
+    background: #C6C6C6 !important;
+    border-radius: 5px !important;
+}

@@ -63,7 +63,7 @@ export type BannerImage = {
 
 
 
-export interface Card {
+export interface ICard {
   id: number;
   image: any;
   heading: string;
@@ -71,7 +71,18 @@ export interface Card {
   discount?: string;
 }
 
-export interface SliderData {
+export interface ISliderData {
   tabTitle: string;
-  cards: Card[];
+  cards: ICard[];
+}
+export interface IDiscountProducts {
+  id: number;
+  imageUrl: StaticImageData;
+  title: string;
+}
+
+export interface IChairProducts {
+  id: number;
+  imageUrl: StaticImageData;
+  title: string;
 }

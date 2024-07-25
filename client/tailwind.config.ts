@@ -42,6 +42,14 @@ const config = {
           DEFAULT: 'var(--secondary)',
           foreground: 'var(--secondary-foreground)',
         },
+        lightforeground: {
+          DEFAULT: 'var(--light-foreground)',
+          foreground: 'var(--light-foreground)',
+        },
+        lightbackground: {
+          DEFAULT: 'var(--light-background)',
+          foreground: 'var(--light-background)',
+        },
         red: {
           DEFAULT: 'var(--red)',
         },
