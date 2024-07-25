@@ -1,23 +1,56 @@
 import {
   Injectable,
-  HttpException,
   HttpStatus,
   UnauthorizedException,
+  HttpException,
 } from '@nestjs/common';
-import { CreateUserDto, LoginDto, UpdateUserDto } from './dto/user.dto';
+
+import {
+  ForgetPasswordDto,
+  LoginDto,
+  SignupDto,
+  UpdateUserDto,
+} from './dto/user.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { customHttpException } from 'src/utils/helper';
-import { comparePassword } from 'src/utils/func';
-import jwt from 'jsonwebtoken';
+import { customHttpException, sendResetEmail } from 'src/utils/helper';
+import { hashPassword, verifyPassword } from 'src/utils/func';
+import * as jwt from 'jsonwebtoken';
+
+import { ConfigService } from '@nestjs/config';
+
 @Injectable()
 export class UsersService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private configService: ConfigService,
+  ) {}
 
-  async create(createUserDto: CreateUserDto) {
+  async signup(signupUserDto: SignupDto) {
     try {
-      return await this.prisma.user.create({
-        data: createUserDto,
+      const { email, password } = signupUserDto;
+      const existingUser = await this.prisma.user.findFirst({
+        where: { email },
       });
+      const hashedPassword = await hashPassword(password, this.configService);
+      if (!existingUser) {
+        const user = await this.prisma.user.create({
+          data: {
+            ...signupUserDto,
+            password: hashedPassword,
+          },
+        });
+        const { password, ...userWithoutPassword } = user;
+        return {
+          message: 'Congrats🎉 Account created successfully',
+          user: userWithoutPassword,
+          status: HttpStatus.OK,
+        };
+      } else {
+        return {
+          message: 'Already user exists',
+          status: HttpStatus.CONFLICT,
+        };
+      }
     } catch (error) {
       customHttpException(error.message, 'BAD_REQUEST');
     }
@@ -25,53 +58,94 @@ export class UsersService {
 
   async login(loginData: LoginDto) {
     const { email, password } = loginData;
-    console.log('Input Details' + loginData);
-    const user = await this.prisma.user.findFirst({
-      where: { email },
-    });
+    try {
+      const existingUser = await this.prisma.user.findFirst({
+        where: { email },
+      });
 
-    const isPasswordValid = await comparePassword(password, user.password);
-    if (!isPasswordValid) {
-      throw new UnauthorizedException('Invalid username or password');
+      if (existingUser) {
+        const isPasswordValid = await verifyPassword(
+          password,
+          existingUser.password,
+          this.configService,
+        );
+        if (!isPasswordValid) {
+          throw new UnauthorizedException('Invalid username or password');
+        }
+
+        const token = jwt.sign({ email: email }, process.env.TOKEN_SECRET, {
+          expiresIn: '24h',
+        });
+        const { password: _, ...userWithoutPassword } = existingUser;
+        return {
+          message: 'Login successful',
+          user: userWithoutPassword,
+          token,
+        };
+      } else {
+        return {
+          message: 'User not found',
+          status: HttpStatus.FORBIDDEN,
+        };
+      }
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
     }
-
-    const token = jwt.sign({ email: email }, process.env.secKey, {
-      expiresIn: '24h',
-    });
-    // Omit password from the user object
-    const { password: _, ...userWithoutPassword } = user;
-
-    return {
-      message: 'Login successful',
-      user: userWithoutPassword,
-      token,
-    };
   }
 
   findAll() {
     return this.prisma.user.findMany({});
   }
 
-  findOne(id: number) {
-    return this.prisma.user.findFirst({
-      where: { id },
-    });
-  }
-
   update(id: number, updateUserDto: UpdateUserDto) {
-    try {
-      return this.prisma.user.update({
-        where: { id: id },
-        data: updateUserDto,
-      });
-    } catch (error) {
-      customHttpException(error.message, 'BAD_REQUEST');
-    }
+    // try {
+    //   return this.prisma.user.update({
+    //     where: { id: id },
+    //     data: updateUserDto,
+    //   });
+    // } catch (error) {
+    //   customHttpException(error.message, 'BAD_REQUEST');
+    // }
   }
 
   remove(id: number) {
     return this.prisma.user.delete({
       where: { id: id },
     });
+  }
+
+  async forgetPassword(PasswordData: ForgetPasswordDto) {
+    try {
+      const { email } = PasswordData;
+      const userData = await this.prisma.user.findFirst({
+        where: { email },
+      });
+      if (!userData) {
+        return {
+          message: 'User not found',
+          status: HttpStatus.NOT_FOUND,
+        };
+      }
+
+      const resetToken = jwt.sign({ email }, process.env.TOKEN_SECRET, {
+        expiresIn: '1h',
+      });
+
+      await this.prisma.user.update({
+        where: { email },
+        data: {
+          resetToken,
+          resetTokenExpiry: new Date(Date.now() + 3600 * 1000),
+        },
+      });
+
+      // await sendResetEmail(email, resetToken);
+      return {
+        message: 'Password reset link sent to your email',
+        status: HttpStatus.OK,
+      };
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
   }
 }
