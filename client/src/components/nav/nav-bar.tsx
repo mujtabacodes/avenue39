@@ -124,7 +124,7 @@ const Navbar = (props: INav) => {
           <div className="hidden md:flex gap-10 items-center">
             <Link
               className="gap-2 flex items-center text-14 font-semibold hover:underline"
-              href={'/'}
+              href={'/login'}
             >
               <FaRegUser size={25} />
               <span>Login</span>
@@ -155,7 +155,7 @@ const Navbar = (props: INav) => {
                   </Link>
                   <Link
                     className="gap-2 flex items-center text-16 font-semibold hover:underline"
-                    href={'/'}
+                    href={'/login'}
                   >
                     Login/Register
                   </Link>

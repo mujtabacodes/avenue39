@@ -18,6 +18,10 @@ const config = {
       },
     },
     extend: {
+      backgroundColor:{
+        // login: 'url("src/assets/images/login.png")',
+  
+      },
       fontSize: {
         14: '14px',
         15: '15px',
@@ -29,6 +33,7 @@ const config = {
         21: '21px',
       },
       colors: {
+        light: '#F6F6F6',
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',

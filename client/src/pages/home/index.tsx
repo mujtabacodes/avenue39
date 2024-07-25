@@ -1,11 +1,7 @@
-import MenuBar from '@/components/nav/menu-bar';
-import Navbar from '@/components/nav/nav-bar';
-import TopNav from '@/components/nav/top-nav';
 import Services from '@/components/services/services';
 import { IHome } from '@/types/types';
 import React, { Fragment } from 'react';
 import SimpleSlider from '@/components/heroslider/slider';
-
 import DiscountCard from '@/components/ui/discount-card';
 import { chairProducts, discountProducts } from '@/data';
 import SofaBanner from '@/components/discount-banner/sofa-banner';
@@ -14,16 +10,10 @@ import Container from '@/components/ui/Container';
 import { Button } from '@/components/ui/button';
 import banner4 from '@assets/images/banners/banner4.png';
 import CardsTabes from '../card-slider/card-slider';
-import BottomBar from '@/components/nav/bottom-bar';
 
 const HomePage = (props: IHome) => {
   return (
-    <Fragment>
-      <TopNav />
-      <Navbar />
-      <MenuBar/>
-      <BottomBar/>
-      
+    <Fragment>   
       <SimpleSlider />
       <Services />
       <section className="px-4 pb-2 my-4 overflow-x-auto discount-product-wrapper">

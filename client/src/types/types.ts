@@ -86,3 +86,12 @@ export interface IChairProducts {
   imageUrl: StaticImageData;
   title: string;
 }
+interface BreadcrumbItem {
+  label: string;
+  href?: string;
+}
+
+interface TopHeroProps {
+  title?: string;
+  breadcrumbs: BreadcrumbItem[];
+}
