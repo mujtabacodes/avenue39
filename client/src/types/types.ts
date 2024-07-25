@@ -69,6 +69,16 @@ export interface ICard {
   heading: string;
   price: string;
   discount?: string;
+  sale: string;
+  reviews: number;
+}
+
+export interface ITestimonialCard {
+  id: number;
+  profile: StaticImageData;
+  name: string;
+  comment: string;
+  reviews: number;
 }
 
 export interface ISliderData {

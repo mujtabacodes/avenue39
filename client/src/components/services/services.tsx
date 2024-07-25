@@ -10,7 +10,7 @@ const Services: React.FC = () => {
           {serviceItems.map((item) => (
             <div key={item.id} className="flex flex-col justify-center items-center gap-3 bg-white p-4 drop-shadow-sm rounded-sm h-28 xs:h-32">
               <Image src={item.icon} width={20} height={20} alt="icon" />
-              <div className='text-xs xs:text-16 md:text-20 font-medium'>{item.title}</div>
+              <div className='text-xs xs:text-16 md:text-20 font-medium text-center xs:text-start'>{item.title}</div>
             </div>
           ))}
         </div>

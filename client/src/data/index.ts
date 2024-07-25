@@ -1,4 +1,4 @@
-import {  IChairProducts, ISliderData, BannerImage, IDiscountProducts , IServiceItem, TSlide  } from '@/types/types';
+import {  IChairProducts, ISliderData, BannerImage, IDiscountProducts , IServiceItem, TSlide, ICard, ITestimonialCard  } from '@/types/types';
 
 import banner1 from '@images/banners/banner1.png';
 import banner2 from '@images/banners/banner2.png';
@@ -12,6 +12,7 @@ import privacy from '@icons/privacy.png';
 import support from '@icons/chat-46.png';
 import opal from '@images/products/OPALdiningtable_900x900S.png'
 import armChair from '@images/products/armchair.png'
+import profileimage1 from '@images/profile/Ellipse 4.png'
 
 export const slides: TSlide[] = [
   {
@@ -70,51 +71,51 @@ export const slidersData: ISliderData[] = [
   {
     tabTitle: 'Table',
     cards: [
-      { id: 1, image: cardimage1, heading: 'Sparta Coffee Table', price: '$100', discount: '$300' },
-      { id: 2, image: cardimage1, heading: 'Sparta Coffee Table', price: '$150' },
-      { id: 3, image: cardimage1, heading: 'Sparta Coffee Table', price: '$200' },
-      { id: 4, image: cardimage1, heading: 'Sparta Coffee Table', price: '$250' },
-      { id: 5, image: cardimage1, heading: 'Sparta Coffee Table', price: '$300' },
+      { id: 1, image: cardimage1, heading: 'Sparta Coffee Table', price: '$100' , discount: '$300' , sale: '50%' , reviews: 3},
+      { id: 2, image: cardimage1, heading: 'Sparta Coffee Table', price: '$150' , discount: '$300' , sale: '30%' , reviews: 5},
+      { id: 3, image: cardimage1, heading: 'Sparta Coffee Table', price: '$200' , discount: '$300' , sale: '50%' , reviews: 0},
+      { id: 4, image: cardimage1, heading: 'Sparta Coffee Table', price: '$250' , discount: '$300' , sale: '45%' , reviews: 2},
+      { id: 5, image: cardimage1, heading: 'Sparta Coffee Table', price: '$300' , discount: '$300' , sale: '70%' , reviews: 4},
     ],
   },
   {
     tabTitle: 'Sofa',
     cards: [
-      { id: 1, image: cardimage1, heading: 'Sparta Coffee Table', price: '$350' },
-      { id: 2, image: cardimage1, heading: 'Sparta Coffee Table', price: '$400' },
-      { id: 3, image: cardimage1, heading: 'Sparta Coffee Table', price: '$450' },
-      { id: 4, image: cardimage1, heading: 'Sparta Coffee Table', price: '$500' },
-      { id: 5, image: cardimage1, heading: 'Sparta Coffee Table', price: '$550' },
+      { id: 1, image: cardimage1, heading: 'Sparta Coffee Table', price: '$350' , discount: '$300' , sale: '50%', reviews: 3},
+      { id: 2, image: cardimage1, heading: 'Sparta Coffee Table', price: '$400' , discount: '$300' , sale: '30%', reviews: 5},
+      { id: 3, image: cardimage1, heading: 'Sparta Coffee Table', price: '$450' , discount: '$300' , sale: '50%', reviews: 4},
+      { id: 4, image: cardimage1, heading: 'Sparta Coffee Table', price: '$500' , discount: '$300' , sale: '45%', reviews: 5},
+      { id: 5, image: cardimage1, heading: 'Sparta Coffee Table', price: '$550' , discount: '$300' , sale: '70%', reviews: 3},
     ],
   },
   {
     tabTitle: 'Lamp',
     cards: [
-      { id: 1, image: cardimage1, heading: 'Sparta Coffee Table', price: '$600' },
-      { id: 2, image: cardimage1, heading: 'Sparta Coffee Table', price: '$650' },
-      { id: 3, image: cardimage1, heading: 'Sparta Coffee Table', price: '$700' },
-      { id: 4, image: cardimage1, heading: 'Sparta Coffee Table', price: '$750' },
-      { id: 5, image: cardimage1, heading: 'Sparta Coffee Table', price: '$800' },
+      { id: 1, image: cardimage1, heading: 'Sparta Coffee Table', price: '$600' , discount: '$300' , sale: '50%', reviews: 3},
+      { id: 2, image: cardimage1, heading: 'Sparta Coffee Table', price: '$650' , discount: '$300' , sale: '30%', reviews: 5},
+      { id: 3, image: cardimage1, heading: 'Sparta Coffee Table', price: '$700' , discount: '$300' , sale: '50%', reviews: 4},
+      { id: 4, image: cardimage1, heading: 'Sparta Coffee Table', price: '$750' , discount: '$300' , sale: '45%', reviews: 2},
+      { id: 5, image: cardimage1, heading: 'Sparta Coffee Table', price: '$800' , discount: '$300' , sale: '70%', reviews: 3},
     ],
   },
   {
     tabTitle: 'Chair',
     cards: [
-      { id: 1, image: cardimage1, heading: 'Sparta Coffee Table', price: '$850' },
-      { id: 2, image: cardimage1, heading: 'Sparta Coffee Table', price: '$900' },
-      { id: 3, image: cardimage1, heading: 'Sparta Coffee Table', price: '$950' },
-      { id: 4, image: cardimage1, heading: 'Sparta Coffee Table', price: '$1000' },
-      { id: 5, image: cardimage1, heading: 'Sparta Coffee Table', price: '$1050' },
+      { id: 1, image: cardimage1, heading: 'Sparta Coffee Table', price: '$850'  , discount: '$300' , sale: '50%', reviews: 3},
+      { id: 2, image: cardimage1, heading: 'Sparta Coffee Table', price: '$900'  , discount: '$300' , sale: '30%', reviews: 5},
+      { id: 3, image: cardimage1, heading: 'Sparta Coffee Table', price: '$950'  , discount: '$300' , sale: '50%', reviews: 4},
+      { id: 4, image: cardimage1, heading: 'Sparta Coffee Table', price: '$1000' , discount: '$300' , sale: '45%', reviews: 2},
+      { id: 5, image: cardimage1, heading: 'Sparta Coffee Table', price: '$1050' , discount: '$300' , sale: '70%', reviews: 3},
     ],
   },
   {
     tabTitle: 'Monitor',
     cards: [
-      { id: 1, image: cardimage1, heading: 'Sparta Coffee Table', price: '$1100' },
-      { id: 2, image: cardimage1, heading: 'Sparta Coffee Table', price: '$1150' },
-      { id: 3, image: cardimage1, heading: 'Sparta Coffee Table', price: '$1200' },
-      { id: 4, image: cardimage1, heading: 'Sparta Coffee Table', price: '$1250' },
-      { id: 5, image: cardimage1, heading: 'Sparta Coffee Table', price: '$1300' },
+      { id: 1, image: cardimage1, heading: 'Sparta Coffee Table', price: '$1100'  , discount: '$300' , sale: '50%', reviews: 3},
+      { id: 2, image: cardimage1, heading: 'Sparta Coffee Table', price: '$1150'  , discount: '$300' , sale: '30%', reviews: 5},
+      { id: 3, image: cardimage1, heading: 'Sparta Coffee Table', price: '$1200'  , discount: '$300' , sale: '50%', reviews: 4},
+      { id: 4, image: cardimage1, heading: 'Sparta Coffee Table', price: '$1250'  , discount: '$300' , sale: '45%', reviews: 2},
+      { id: 5, image: cardimage1, heading: 'Sparta Coffee Table', price: '$1300'  , discount: '$300' , sale: '70%', reviews: 0},
     ],
   },
 ];
@@ -177,4 +178,24 @@ export const chairProducts: IChairProducts[] = [
     imageUrl: armChair,
     title: 'ARMCHAIRS'
   },
+]
+
+export const cards: ICard[] = [
+
+  { id: 1, image: cardimage1, heading: 'Sparta Coffee Table', price: '$100' , discount: '$300' , sale: '50%' , reviews: 3},
+  { id: 2, image: cardimage1, heading: 'Sparta Coffee Table', price: '$150' , discount: '$300' , sale: '30%' , reviews: 5},
+  { id: 3, image: cardimage1, heading: 'Sparta Coffee Table', price: '$200' , discount: '$300' , sale: '50%' , reviews: 2},
+  { id: 4, image: cardimage1, heading: 'Sparta Coffee Table', price: '$250' , discount: '$300' , sale: '45%' , reviews: 0},
+  { id: 5, image: cardimage1, heading: 'Sparta Coffee Table', price: '$300' , discount: '$300' , sale: '70%' , reviews: 4},
+  { id: 6, image: cardimage1, heading: 'Sparta Coffee Table', price: '$300' , discount: '$300' , sale: '70%' , reviews: 5},
+]
+
+export const testimonialcards: ITestimonialCard[] = [
+
+  { id: 1, profile: profileimage1, name: 'Sparta Coffee Table', comment: 'It is very comfortable because there is free internet for tasks, and cheap food', reviews: 3},
+  { id: 2, profile: profileimage1, name: 'Sparta Coffee Table', comment: 'It is very comfortable because there is free internet for tasks, and cheap food', reviews: 5},
+  { id: 3, profile: profileimage1, name: 'Sparta Coffee Table', comment: 'It is very comfortable because there is free internet for tasks, and cheap food', reviews: 2},
+  { id: 4, profile: profileimage1, name: 'Sparta Coffee Table', comment: 'It is very comfortable because there is free internet for tasks, and cheap food', reviews: 5},
+  { id: 5, profile: profileimage1, name: 'Sparta Coffee Table', comment: 'It is very comfortable because there is free internet for tasks, and cheap food', reviews: 4},
+  { id: 6, profile: profileimage1, name: 'Sparta Coffee Table', comment: 'It is very comfortable because there is free internet for tasks, and cheap food', reviews: 5},
 ]

@@ -8,7 +8,12 @@ import {
   Delete,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { CreateUserDto, LoginDto, UpdateUserDto } from './dto/user.dto';
+import {
+  SignupDto,
+  LoginDto,
+  UpdateUserDto,
+  ForgetPasswordDto,
+} from './dto/user.dto';
 
 @Controller('user')
 export class UsersController {
@@ -17,11 +22,6 @@ export class UsersController {
   @Get()
   findAll() {
     return this.usersService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.usersService.findOne(+id);
   }
 
   @Patch(':id')
@@ -35,12 +35,17 @@ export class UsersController {
   }
 
   @Post('/signup')
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.usersService.create(createUserDto);
+  create(@Body() signupUserDto: SignupDto) {
+    return this.usersService.signup(signupUserDto);
   }
 
   @Post('/login')
   login(@Body() loginData: LoginDto) {
     return this.usersService.login(loginData);
+  }
+
+  @Post('forget-password')
+  forget(@Body() PasswordData: ForgetPasswordDto) {
+    return this.usersService.forgetPassword(PasswordData);
   }
 }

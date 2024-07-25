@@ -95,3 +95,36 @@
     background: #C6C6C6 !important;
     border-radius: 5px !important;
 }
+.product-hover-icons{
+    display: none;
+}
+.product-card:hover .product-hover-icons{
+    display: flex;
+}
+.hot-products .slick-slide .product-card{
+    margin-bottom: 40px;
+}
+.custom-prev-arrow, .custom-next-arrow {
+    background-color: white;
+    border-radius: 50%;
+    box-shadow: 0px 6px 12px #19181833;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 45px;
+    height: 45px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+    cursor: pointer;
+}
+.custom-prev-arrow:hover, .custom-next-arrow:hover{
+    filter: invert(1);
+}
+.custom-prev-arrow{
+    left: -10px;
+}
+.custom-next-arrow{
+    right: -10px;
+}

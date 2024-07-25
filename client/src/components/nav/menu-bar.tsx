@@ -44,7 +44,7 @@ const MenuBar = () => {
 
   return (
     <>
-      <div className='bg-white shadow-md mb-1 pb-2 hidden md:block'>
+      <div className='bg-white shadow-md mb-1 pt-3 pb-2 hidden md:block sticky top-0 z-50'>
         <Container className='flex gap-10 items-center justify-evenly '>
           <Link className='font-bold text-19 uppercase hover:underline' href={"/"}>DINING</Link>
           <div 
@@ -67,7 +67,7 @@ const MenuBar = () => {
       </div>
 
       {activeMenu && (
-        <div className='w-full bg-white shadow-lg p-10 z-50 absolute'>
+        <div className='w-full bg-white shadow-lg p-10 z-50 sticky top-[49px]'>
           <Container className='flex gap-4'>
             <div className='w-8/12 space-y-4'>
               <p className='text-19 font-bold w-96'>
