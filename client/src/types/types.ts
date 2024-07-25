@@ -63,6 +63,14 @@ export interface ICard {
   reviews: number;
 }
 
+export interface ITestimonialCard {
+  id: number;
+  profile: StaticImageData;
+  name: string;
+  comment: string;
+  reviews: number;
+}
+
 export interface ISliderData {
   tabTitle: string;
   cards: ICard[];

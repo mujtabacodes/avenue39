@@ -5,7 +5,9 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Card from '../ui/card';
-import { Card as CardType } from '@/types/types';
+import { ICard as CardType } from '@/types/types';
+import CustomNextArrow from './custom-next-arrow';
+import CustomPrevArrow from './custom-prev-arrow';
 
 interface SliderProps {
   cards: CardType[];
@@ -18,6 +20,8 @@ const sliderSettings = {
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 1,
+    prevArrow: <CustomPrevArrow />,
+    nextArrow: <CustomNextArrow />,
     responsive: [
       {
         breakpoint: 1024, // Tablets and small desktops

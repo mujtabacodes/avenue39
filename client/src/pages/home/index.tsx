@@ -7,13 +7,15 @@ import React, { Fragment } from 'react';
 import SimpleSlider from '@/components/heroslider/slider';
 
 import DiscountCard from '@/components/ui/discount-card';
-import { chairProducts, discountProducts } from '@/data';
+import { cards, chairProducts, discountProducts, testimonialcards } from '@/data';
 import SofaBanner from '@/components/discount-banner/sofa-banner';
 import SaleBanner from '@/components/discount-banner/sale-banner';
 import Container from '@/components/ui/Container';
 import { Button } from '@/components/ui/button';
 import banner4 from '@assets/images/banners/banner4.png';
 import CardsTabes from '../card-slider/card-slider';
+import HotProductSlider from '@/components/card-slider/hot-product-slider';
+import Testimonial from '@/components/testimonial/testimonial';
 
 const HomePage = (props: IHome) => {
   return (
@@ -32,6 +34,7 @@ const HomePage = (props: IHome) => {
       <Container className="mt-4 flex justify-center">
         <DiscountCard productItems={chairProducts} />
       </Container>
+      <HotProductSlider slideritems={cards}/>
       <section className="h-[400px] md:h-[600px] lg:h-[700] mt-4">
         <div
           className="w-full h-full flex justify-center items-center"
@@ -58,6 +61,7 @@ const HomePage = (props: IHome) => {
           </div>
         </div>
       </section>
+      <Testimonial testimonialitems={testimonialcards} />
     </Fragment>
   );
 };

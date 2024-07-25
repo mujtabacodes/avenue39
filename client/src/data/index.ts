@@ -1,4 +1,4 @@
-import {  IChairProducts, ISliderData, BannerImage, IDiscountProducts , IServiceItem, TSlide  } from '@/types/types';
+import {  IChairProducts, ISliderData, BannerImage, IDiscountProducts , IServiceItem, TSlide, ICard, ITestimonialCard  } from '@/types/types';
 
 import banner1 from '@images/banners/banner1.png';
 import banner2 from '@images/banners/banner2.png';
@@ -12,6 +12,7 @@ import privacy from '@icons/privacy.png';
 import support from '@icons/chat-46.png';
 import opal from '@images/products/OPALdiningtable_900x900S.png'
 import armChair from '@images/products/armchair.png'
+import profileimage1 from '@images/profile/Ellipse 4.png'
 
 export const slides: TSlide[] = [
   {
@@ -72,7 +73,7 @@ export const slidersData: ISliderData[] = [
     cards: [
       { id: 1, image: cardimage1, heading: 'Sparta Coffee Table', price: '$100' , discount: '$300' , sale: '50%' , reviews: 3},
       { id: 2, image: cardimage1, heading: 'Sparta Coffee Table', price: '$150' , discount: '$300' , sale: '30%' , reviews: 5},
-      { id: 3, image: cardimage1, heading: 'Sparta Coffee Table', price: '$200' , discount: '$300' , sale: '50%' , reviews: 4},
+      { id: 3, image: cardimage1, heading: 'Sparta Coffee Table', price: '$200' , discount: '$300' , sale: '50%' , reviews: 0},
       { id: 4, image: cardimage1, heading: 'Sparta Coffee Table', price: '$250' , discount: '$300' , sale: '45%' , reviews: 2},
       { id: 5, image: cardimage1, heading: 'Sparta Coffee Table', price: '$300' , discount: '$300' , sale: '70%' , reviews: 4},
     ],
@@ -114,7 +115,7 @@ export const slidersData: ISliderData[] = [
       { id: 2, image: cardimage1, heading: 'Sparta Coffee Table', price: '$1150'  , discount: '$300' , sale: '30%', reviews: 5},
       { id: 3, image: cardimage1, heading: 'Sparta Coffee Table', price: '$1200'  , discount: '$300' , sale: '50%', reviews: 4},
       { id: 4, image: cardimage1, heading: 'Sparta Coffee Table', price: '$1250'  , discount: '$300' , sale: '45%', reviews: 2},
-      { id: 5, image: cardimage1, heading: 'Sparta Coffee Table', price: '$1300'  , discount: '$300' , sale: '70%', reviews: 3},
+      { id: 5, image: cardimage1, heading: 'Sparta Coffee Table', price: '$1300'  , discount: '$300' , sale: '70%', reviews: 0},
     ],
   },
 ];
@@ -177,4 +178,24 @@ export const chairProducts: IChairProducts[] = [
     imageUrl: armChair,
     title: 'ARMCHAIRS'
   },
+]
+
+export const cards: ICard[] = [
+
+  { id: 1, image: cardimage1, heading: 'Sparta Coffee Table', price: '$100' , discount: '$300' , sale: '50%' , reviews: 3},
+  { id: 2, image: cardimage1, heading: 'Sparta Coffee Table', price: '$150' , discount: '$300' , sale: '30%' , reviews: 5},
+  { id: 3, image: cardimage1, heading: 'Sparta Coffee Table', price: '$200' , discount: '$300' , sale: '50%' , reviews: 2},
+  { id: 4, image: cardimage1, heading: 'Sparta Coffee Table', price: '$250' , discount: '$300' , sale: '45%' , reviews: 0},
+  { id: 5, image: cardimage1, heading: 'Sparta Coffee Table', price: '$300' , discount: '$300' , sale: '70%' , reviews: 4},
+  { id: 6, image: cardimage1, heading: 'Sparta Coffee Table', price: '$300' , discount: '$300' , sale: '70%' , reviews: 5},
+]
+
+export const testimonialcards: ITestimonialCard[] = [
+
+  { id: 1, profile: profileimage1, name: 'Sparta Coffee Table', comment: 'It is very comfortable because there is free internet for tasks, and cheap food', reviews: 3},
+  { id: 2, profile: profileimage1, name: 'Sparta Coffee Table', comment: 'It is very comfortable because there is free internet for tasks, and cheap food', reviews: 5},
+  { id: 3, profile: profileimage1, name: 'Sparta Coffee Table', comment: 'It is very comfortable because there is free internet for tasks, and cheap food', reviews: 2},
+  { id: 4, profile: profileimage1, name: 'Sparta Coffee Table', comment: 'It is very comfortable because there is free internet for tasks, and cheap food', reviews: 5},
+  { id: 5, profile: profileimage1, name: 'Sparta Coffee Table', comment: 'It is very comfortable because there is free internet for tasks, and cheap food', reviews: 4},
+  { id: 6, profile: profileimage1, name: 'Sparta Coffee Table', comment: 'It is very comfortable because there is free internet for tasks, and cheap food', reviews: 5},
 ]
