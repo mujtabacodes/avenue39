@@ -86,3 +86,10 @@ export interface IChairProducts {
   imageUrl: StaticImageData;
   title: string;
 }
+
+export interface ISocialIcons
+ {
+  id: number;
+  imageUrl: StaticImageData;
+  title: string;
+}
