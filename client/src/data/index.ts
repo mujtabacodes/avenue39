@@ -12,6 +12,8 @@ import privacy from '@icons/privacy.png';
 import support from '@icons/chat-46.png';
 import opal from '@images/products/OPALdiningtable_900x900S.png'
 import armChair from '@images/products/armchair.png'
+import timerImage from '@assets/images/sofa1.png';
+import { TSliderItem } from "@/types/types";
 
 export const slides: TSlide[] = [
   {
@@ -177,4 +179,38 @@ export const chairProducts: IChairProducts[] = [
     imageUrl: armChair,
     title: 'ARMCHAIRS'
   },
-]
+];
+
+
+export const TimerSliderData: TSliderItem[] = [
+  {
+    id: 1,
+    imageUrl: timerImage,
+    productName: "Trent Luxury Armchair",
+    price: "Dhr.443",
+    discountText: "UPTO 50% OFF",
+    buttonText: 'ADD TO CART',
+    dealText: "Deal of the day",
+    timer: "2024-12-31T23:59:59.999Z"
+  },
+  {
+    id: 2,
+    imageUrl: timerImage,
+    productName: "Trent Luxury Armchair",
+    price: "Dhr.443",
+    buttonText: 'ADD TO CART',
+    discountText: "UPTO 50% OFF",
+    dealText: "Deal of the day",
+    timer: "2024-12-31T23:59:59.999Z"
+  },
+  {
+    id: 3,
+    imageUrl: timerImage,
+    productName: "Trent Luxury Armchair",
+    buttonText: 'ADD TO CART',
+    price: "Dhs120.00",
+    discountText: "UPTO 50% OFF",
+    dealText: "Deal of the day",
+    timer: "2024-12-31T23:59:59.999Z",
+  },
+];

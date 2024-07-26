@@ -14,21 +14,20 @@ const settings = {
   speed: 500,
   slidesToShow: 1,
   slidesToScroll: 1,
- 
 };
 
 const SimpleSlider: React.FC = () => {
   return (
     <>
-    <div className='flex flex-wrap lg:flex-nowrap  justify-end gap-4'>
-      <div className='overflow-hidden lg:w-[70%]'>
-        <Slider {...settings} className='mb-10'>
+    <div className='flex flex-wrap lg:flex-nowrap  lg:justify-end justify-center lg:gap-4'>
+      <div className='overflow-hidden lg:w-[70%] sliderTabes__dots'>
+        <Slider {...settings} className='lg:mb-10'>
           {slides.map((slide: any, index: any) => (
             <div key={index} className="relative h-full">
-              <Image src={slide.image} className="w-full h-auto" alt="image" />
+              <Image src={slide.image} className="w-full lg:h-full h-96 object-cover " alt="image" />
               <div className="absolute lg:left-56 left-10 inset-0 bg-opacity-5 flex flex-col items-start justify-center text-secondary">
                 <h3 className="lg:text-xl  mb-4">{slide.bannerSubHeading}</h3>
-                <h2 className=" lg:text-6xl text-2xl mb-4 font-bold lg:w-1/3">{slide.bannerHeading}</h2>
+                <h2 className=" lg:text-6xl md:text-4xl text-2xl mb-4 font-bold md:w-full lg:w-full xl:w-1/2 xxl:w-1/2 text-left">{slide.bannerHeading}</h2>
                 <Button className='lg:mt-5' variant={"link"}>
                   {slide.buttonText}
                 </Button>
@@ -37,7 +36,7 @@ const SimpleSlider: React.FC = () => {
           ))}
         </Slider>
       </div>
-      <div className='lg:w-[30%]'>
+      <div className='lg:w-[30%] md:w-full w-full'>
         <ImageBanner bannerImage={bannerImage} />
       </div>
     </div>

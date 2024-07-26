@@ -1,5 +1,5 @@
 /* If need to use classes */
-.slick-dots {
+.sliderTabes__dots .slick-dots {
     position: absolute;
     bottom: 25px !important;
     left: 600px !important;
@@ -10,7 +10,7 @@
     list-style: none;
     text-align: center;
 }
-.slick-dots li button:before {
+.sliderTabes__dots .slick-dots li button:before {
     font-family: 'slick';
     font-size: 6px;
     line-height: 20px;
@@ -28,7 +28,7 @@
     -moz-osx-font-smoothing: grayscale;
     border-radius: 50%;
 }
-.slick-dots li {
+.sliderTabes__dots .slick-dots li {
     position: relative;
     display: inline-block;
     width: 20px;
@@ -60,6 +60,9 @@
 .sliderTabes .slick-prev, .sliderTabes .slick-next{
     z-index: 1;
 }
+.sliderTabes .slick-next {
+    right: -10px;
+}
 .discount-product-wrapper::-webkit-scrollbar {
     width: 4px !important;
     height: 5px !important;
@@ -70,4 +73,12 @@
 .discount-product-wrapper::-webkit-scrollbar-thumb {
     background: #C6C6C6 !important;
     border-radius: 5px !important;
+}
+.slick-initialized .slick-slide{
+    display: inline-block !important;
+    text-align: center;
+    margin: auto;
+}
+.slick-initialized .slick-slide img{
+    margin:auto
 }

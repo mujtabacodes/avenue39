@@ -14,6 +14,7 @@ import Container from '@/components/ui/Container';
 import { Button } from '@/components/ui/button';
 import banner4 from '@assets/images/banners/banner4.png';
 import CardsTabes from '../card-slider/card-slider';
+import TimerSlider from '@/components/timer-slider/timer-slider';
 
 const HomePage = (props: IHome) => {
   return (
@@ -58,6 +59,7 @@ const HomePage = (props: IHome) => {
           </div>
         </div>
       </section>
+      <TimerSlider />
     </Fragment>
   );
 };

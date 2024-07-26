@@ -76,3 +76,15 @@ export interface IChairProducts {
   imageUrl: StaticImageData;
   title: string;
 }
+
+// Timer slider data type
+export type TSliderItem = {
+  id: number;
+  imageUrl: StaticImageData;
+  productName: string;
+  price: string;
+  discountText: string;
+  dealText: string;
+  timer: string; 
+  buttonText: string;
+}

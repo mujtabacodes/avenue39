@@ -9,11 +9,10 @@ type ImageBannerProps = {
 const ImageBanner: React.FC<ImageBannerProps> = ({ bannerImage }) => {
   return (
     <div className="relative h-full "> 
-      <Image className="!position-unset"
+      <Image className="w-full"
         src={bannerImage.image}
         alt={bannerImage.altText}
-        layout="fill"
-        objectFit="contain"
+        objectFit="cover"
         quality={100}
       />
     </div>
