@@ -1,6 +1,6 @@
-import React from "react";
-import Image from "next/image";
-import { BannerImage } from "@/types/types";
+import React from 'react';
+import Image from 'next/image';
+import { BannerImage } from '@/types/types';
 
 type ImageBannerProps = {
   bannerImage: BannerImage;
@@ -8,8 +8,9 @@ type ImageBannerProps = {
 
 const ImageBanner: React.FC<ImageBannerProps> = ({ bannerImage }) => {
   return (
-    <div className="relative h-full "> 
-      <Image className="!position-unset"
+    <div className="">
+      <Image
+        className="!position-unset"
         src={bannerImage.image}
         alt={bannerImage.altText}
         layout="fill"
