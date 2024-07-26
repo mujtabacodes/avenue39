@@ -27,7 +27,7 @@ const Navbar = (props: INav) => {
     <>
       <Container className="flex items-center justify-between p-2 md:p-4 gap-4">
         <div className="w-4/12 md:w-2/12">
-          <Image className="" width={250} height={250} src={logo} alt="Logo" />
+          <Link href={"/"}><Image className="" width={250} height={250} src={logo} alt="Logo" /></Link>
         </div>
         <div className="w-0/12 md:w-4/12 lg:w-5/12 ">
               <div className="relative rounded-md hidden md:block">
@@ -63,7 +63,7 @@ const Navbar = (props: INav) => {
                       <p className='text-15 font-semibold'>Dhs. <span>150</span>.00</p>
                       <p className='text-[12px] text-primary-foreground font-bold line-through'><span>150</span>.00</p>
                       </div>
-                        <StarRating totalStars={5} disabled  />
+                        <StarRating defaultValue={5} disabled  />
                     </div>
                   </div>
                   
@@ -110,7 +110,7 @@ const Navbar = (props: INav) => {
                       <p className='text-15 font-semibold'>Dhs. <span>150</span>.00</p>
                       <p className='text-[12px] text-primary-foreground font-bold line-through'><span>150</span>.00</p>
                       </div>
-                        <StarRating totalStars={5} disabled  />
+                        <StarRating defaultValue={5} disabled  />
                     </div>
                   </div>
                   
@@ -129,10 +129,10 @@ const Navbar = (props: INav) => {
               <FaRegUser size={25} />
               <span>Login</span>
             </Link>
-            <Link className="text-14 font-semibold hover:underline" href={'/'}>
+            <Link className="text-14 font-semibold hover:underline" href={'/about'}>
               About us
             </Link>
-            <Link className="text-14 font-semibold hover:underline" href={'/'}>
+            <Link className="text-14 font-semibold hover:underline" href={'/contact'}>
               Contact Us
             </Link>
           </div>
@@ -147,10 +147,10 @@ const Navbar = (props: INav) => {
               </SheetTrigger>
               <SheetContent className="pb-5">
                 <div className="grid mt-10 space-y-2">
-                  <Link className="text-16 font-semibold hover:underline" href={'/'}>
+                  <Link className="text-16 font-semibold hover:underline" href={'/about'}>
                     About us
                   </Link>
-                  <Link className="text-16 font-semibold hover:underline" href={'/'}>
+                  <Link className="text-16 font-semibold hover:underline" href={'/contact'}>
                     Contact Us
                   </Link>
                   <Link

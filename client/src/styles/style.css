@@ -128,3 +128,25 @@
 .custom-next-arrow{
     right: -10px;
 }
+.star-rating {
+    display: flex;
+  }
+  
+  .star {
+    cursor: pointer;
+    transition: color 0.2s;
+    stroke: gold;
+    color: white;
+    stroke-width: 30;
+  }
+  
+  .star.filled {
+    color: gold;
+  }
+  
+  .star.disabled {
+    cursor: not-allowed;
+    color: white;
+    stroke: gray;
+
+  }

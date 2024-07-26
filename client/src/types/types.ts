@@ -105,3 +105,20 @@ interface TopHeroProps {
   title?: string;
   breadcrumbs: BreadcrumbItem[];
 }
+interface Product {
+  image: string;
+  name: string;
+  price: number;
+  originalPrice?: number;
+  discount?: string;
+  rating: number;
+}
+
+interface SideCardProps {
+  data: Product[];
+}
+export interface MissionData {
+  title: string;
+  description: string;
+  icon: any;
+}
