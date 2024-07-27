@@ -7,18 +7,18 @@ import SocialLink from '../social-link';
 
 const TopNav = () => {
   return (
-    <div className="bg-black text-secondary p-2 ">
+    <div className="bg-black text-secondary p-2 hidden md:block ">
       <Container className="flex flex-wrap lg:flex-nowrap justify-center md:justify-between items-center gap-4">
         <div className="flex items-center gap-4 md:w-4/12">
           <TextIcon
             link="tel:+001-234-567-890"
             Title="+001-234-567-890"
-            Icon=<IoPhonePortraitOutline className="text-[18px] md:[2xl] lg:text-3xl" />
+            Icon=<IoPhonePortraitOutline className="text-[18px] lg:text-xl" />
           />
           <TextIcon
             link="mailto:+001-234-567-890"
             Title="Your.shopmail@gmail.com"
-            Icon=<IoMailOutline className="text-[18px] md:[2xl] lg:text-3xl" />
+            Icon=<IoMailOutline className="text-[18px]  lg:text-xl" />
           />
         </div>
         <P14 className="hidden md:block md:w-4/12">
