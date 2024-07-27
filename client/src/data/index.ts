@@ -1,10 +1,11 @@
-import {  IChairProducts, ISliderData, BannerImage, IDiscountProducts , IServiceItem, TSlide, ICard, ITestimonialCard  } from '@/types/types';
+import {  IChairProducts, ISliderData, BannerImage, IDiscountProducts , IServiceItem, TSlide, ICard, ITestimonialCard,MissionData  } from '@/types/types';
 
 import banner1 from '@images/banners/banner1.png';
 import banner2 from '@images/banners/banner2.png';
 import banner3 from '@images/banners/banner3.png';
 import banner4 from '@images/banners/megasale.png';
 import cardimage1 from '@images/imageeee.png';
+import { FaSun, FaBullseye, FaEye } from 'react-icons/fa';
 
 import palette from '@icons/palette.png';
 import delivery from '@icons/delivery-fast.png';
@@ -13,6 +14,7 @@ import support from '@icons/chat-46.png';
 import opal from '@images/products/OPALdiningtable_900x900S.png'
 import armChair from '@images/products/armchair.png'
 import profileimage1 from '@images/profile/Ellipse 4.png'
+import { link } from 'fs';
 
 export const slides: TSlide[] = [
   {
@@ -199,3 +201,35 @@ export const testimonialcards: ITestimonialCard[] = [
   { id: 5, profile: profileimage1, name: 'Sparta Coffee Table', comment: 'It is very comfortable because there is free internet for tasks, and cheap food', reviews: 4},
   { id: 6, profile: profileimage1, name: 'Sparta Coffee Table', comment: 'It is very comfortable because there is free internet for tasks, and cheap food', reviews: 5},
 ]
+
+export const productData = [
+  {
+    link:"/",
+    image: cardimage1,
+    name: "Sparta Coffee Table",
+    price: 150.00,
+    originalPrice: 300.00,
+    discount: "-50%",
+    rating: 3,
+  },
+  {
+    link:"/",
+    image: cardimage1,
+    name: "Athena Dining Table",
+    price: 200.00,
+    originalPrice: 400.00,
+    discount: "-50%",
+    rating: 4,
+  },
+  {
+    link:"/",
+    image: cardimage1,
+    name: "Athena Dining Table",
+    price: 200.00,
+    originalPrice: 400.00,
+    discount: "-50%",
+    rating: 4,
+  },
+  // Add more products as needed
+];
+

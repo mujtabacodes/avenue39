@@ -1,13 +1,27 @@
 'use client';
 import React, { useState } from 'react';
 import SliderComponent from './card-slider'; // Make sure to use the correct path
-import { SliderData } from '@/types/types';
+
+interface SliderData {
+  tabTitle: string;
+  cards: ICard[];
+}
+
+interface ICard {
+  id: number;
+  image: any;
+  heading: string;
+  price: string;
+  discount?: string;
+  sale: string;
+  reviews: number;
+}
 
 interface TabsProps {
   slidersData: SliderData[];
 }
 
-const Tabs: React.FC<TabsProps> = ({ slidersData }) => {
+const Tabs: React.FC<TabsProps> = ({ slidersData }:any) => {
   const [activeTab, setActiveTab] = useState(0);
 
   return (
@@ -17,7 +31,7 @@ const Tabs: React.FC<TabsProps> = ({ slidersData }) => {
           <h3 className="text-3xl font-semibold mb-4 md:mb-0">Most Popular Items</h3>
         </div>
         <div className="flex flex-wrap gap-4">
-          {slidersData.map((slider, index) => (
+          {slidersData.map((slider:any, index:any) => (
             <button
               key={index}
               onClick={() => setActiveTab(index)}

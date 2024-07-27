@@ -26,7 +26,7 @@ const SofaBanner: React.FC = () => {
             <div className="text-center">
                 <p className="text-xs sm:text-14 font-normal text-primary-foreground text-white">Get Discount Up to 80%</p>
                 <h3 className="font-semibold text-xl sm:text-2xl mt-1 text-white">White Minimalist Combo Sofa</h3>
-                <Button className="text-black rounded-full px-9 mt-3 font-normal" variant={"secondary"}>Buy Now</Button>
+                <Button className="text-black rounded-full px-9 mt-3 font-normaWl" variant={"secondary"}>Buy Now</Button>
             </div>
             </div>
 
