@@ -2,13 +2,22 @@ import React from 'react';
 import { FaFacebookF, FaInstagram, FaLinkedinIn } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
 
-const SocialLink: React.FC = () => {
+interface LinkSocial{
+  className?: string; 
+  linkClass?: string;  // optional class for link styling
+}
+
+const SocialLink: React.FC<LinkSocial> = ({className,linkClass}) => {
   return (
-    <div className="flex justify-center gap-3 md:gap-4">
-      <FaFacebookF className="text-[16px] md:text-[20px]" />
-      <FaXTwitter className="text-[16px] md:text-[20px]" />
-      <FaInstagram className="text-[16px] md:text-[20px]" />
-      <FaLinkedinIn className="text-[16px] md:text-[20px]" />
+    <div className={`flex justify-start gap-3 md:gap-4 ${className}`}>
+      <div className={`${linkClass}`}><FaFacebookF className={`text-[16px] md:text-[20px] `} /></div>
+      <div className={`${linkClass}`}><FaXTwitter className={`text-[16px] md:text-[20px] `} /></div>
+      <div className={`${linkClass}`}><FaInstagram className={`text-[16px] md:text-[20px] `} /></div>
+      <div className={`${linkClass}`}><FaLinkedinIn className={`text-[16px] md:text-[20px] `} /></div>
+      
+      
+      
+      
     </div>
   );
 };

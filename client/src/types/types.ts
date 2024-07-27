@@ -45,6 +45,16 @@ export interface IServiceItem {
   icon: StaticImageData;
   title: string;
 }
+export interface MenuItem {
+  title: string;
+  icon: string;
+  link: string;
+}
+
+// Define the interface for the menu data object
+export interface MenuData {
+  [key: string]: MenuItem[];
+}
 
 export type BannerImage = {
   image: StaticImageData;
@@ -55,7 +65,7 @@ export type BannerImage = {
 
 export interface ICard {
   id: number;
-  image: StaticImageData;
+  image: any;
   heading: string;
   price: string;
   discount?: string;
@@ -87,9 +97,37 @@ export interface IChairProducts {
   title: string;
 }
 
+
 export interface ISocialIcons
  {
   id: number;
   imageUrl: StaticImageData;
   title: string;
+
+export interface BreadcrumbItem {
+  label: string;
+  href?: string;
+}
+
+interface TopHeroProps {
+  title?: string;
+  breadcrumbs: BreadcrumbItem[];
+}
+interface Product {
+  image: string;
+  name: string;
+  price: number;
+  originalPrice?: number;
+  discount?: string;
+  rating: number;
+}
+
+interface SideCardProps {
+  data: Product[];
+}
+export interface MissionData {
+  title: string;
+  description: string;
+  icon: any;
+
 }

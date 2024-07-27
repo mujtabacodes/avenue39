@@ -1,10 +1,13 @@
-import {  IChairProducts, ISliderData, BannerImage, IDiscountProducts , IServiceItem, TSlide, ICard, ITestimonialCard, ISocialIcons  } from '@/types/types';
+
+import {  IChairProducts, ISliderData, BannerImage, IDiscountProducts , IServiceItem, TSlide, ICard, ITestimonialCard, MissionData,ISocialIcons  } from '@/types/types';
+
 
 import banner1 from '@images/banners/banner1.png';
 import banner2 from '@images/banners/banner2.png';
 import banner3 from '@images/banners/banner3.png';
 import banner4 from '@images/banners/megasale.png';
 import cardimage1 from '@images/imageeee.png';
+import { FaSun, FaBullseye, FaEye } from 'react-icons/fa';
 
 import palette from '@icons/palette.png';
 import delivery from '@icons/delivery-fast.png';
@@ -13,10 +16,14 @@ import support from '@icons/chat-46.png';
 import opal from '@images/products/OPALdiningtable_900x900S.png'
 import armChair from '@images/products/armchair.png'
 import profileimage1 from '@images/profile/Ellipse 4.png'
+
 import facebook from '@icons/Icon-awesome-facebook-f.png'
 import x from '@icons/Icon-awesome-twitter.png'
 import instagram from '@icons/Icon-awesome-instagram.png'
 import linkedin from '@icons/Icon-awesome-linkedin-in.png'
+
+import { link } from 'fs';
+
 
 export const slides: TSlide[] = [
   {
@@ -204,6 +211,7 @@ export const testimonialcards: ITestimonialCard[] = [
   { id: 6, profile: profileimage1, name: 'Sparta Coffee Table', comment: 'It is very comfortable because there is free internet for tasks, and cheap food', reviews: 5},
 ]
 
+
 export const socialicons: ISocialIcons[] = [
 
   { id: 1, imageUrl: facebook, title: 'Facebook'},
@@ -211,3 +219,36 @@ export const socialicons: ISocialIcons[] = [
   { id: 3, imageUrl: instagram, title: 'Instagram'},
   { id: 4, imageUrl: linkedin, title: 'LinkedIn'},
 ]
+
+export const productData = [
+  {
+    link:"/",
+    image: cardimage1,
+    name: "Sparta Coffee Table",
+    price: 150.00,
+    originalPrice: 300.00,
+    discount: "-50%",
+    rating: 3,
+  },
+  {
+    link:"/",
+    image: cardimage1,
+    name: "Athena Dining Table",
+    price: 200.00,
+    originalPrice: 400.00,
+    discount: "-50%",
+    rating: 4,
+  },
+  {
+    link:"/",
+    image: cardimage1,
+    name: "Athena Dining Table",
+    price: 200.00,
+    originalPrice: 400.00,
+    discount: "-50%",
+    rating: 4,
+  },
+ 
+];
+
+
