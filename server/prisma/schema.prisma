@@ -47,8 +47,8 @@ model Categories {
   name      String   @unique
   createdAt DateTime @default(now())
 
-  posterImageUrl      String
-  posterImagePublicId String
+  posterImageUrl      String?
+  posterImagePublicId String?
 
   products Products[]
 }
