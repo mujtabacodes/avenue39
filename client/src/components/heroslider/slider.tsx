@@ -5,8 +5,10 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Image from 'next/image';
 import { Button } from '../ui/button';
-import ImageBanner from '../mage-banner';
-import { bannerImage, slides } from '@/data';
+import { bannerImage, saleitems, slides } from '@/data';
+import Salecard from '../ui/sale-card';
+import { ISaleItems } from '@/types/types';
+import profile1 from '@images/profile/Ellipse 4.png'
 
 const settings = {
   dots: true,
@@ -16,45 +18,85 @@ const settings = {
   slidesToScroll: 1,
 };
 
-const SimpleSlider: React.FC = () => {
+const SimpleSlider: React.FC<ISaleItems> = () => {
   return (
-    <>
-      <div className="flex flex-col md:flex-row md:gap-2">
-        <div className="overflow-hidden lg:w-[70%]">
-          <Slider {...settings} className="mb-10">
-            {slides.map((slide: any, index: any) => (
-              <div key={index} className="relative h-full">
-                <Image
-                  src={slide.image}
-                  className="w-full h-auto"
-                  alt="image"
-                />
-                <div className="absolute lg:left-56 left-10 inset-0 bg-opacity-5 flex flex-col items-start justify-center text-secondary">
-                  <h3 className="md:text lg:text-xl  mb-4">
-                    {slide.bannerSubHeading}
-                  </h3>
-                  <h2 className=" lg:text-6xl text-2xl mb-4 font-bold lg:w-1/3">
-                    {slide.bannerHeading}
-                  </h2>
-                  <Button className="lg:mt-5" variant={'link'}>
+    <div className="flex flex-wrap md:flex-nowrap gap-2 md:gap-4 justify-between">
+      <div className="overflow-hidden w-full md::w-8/12">
+        <Slider
+          {...settings}
+          className="hero-slider-wrapper relative min-h-[250px] sm:min-h-[300px] h-full"
+        >
+          {slides.map((slide, index) => (
+            <div key={index} className="relative">
+              <Image
+                src={slide.image}
+                className="min-h-[350px] w-full h-full"
+                alt="image"
+              />
+              <div className="absolute xl:left-56 lg:20 left-10 inset-0 bg-opacity-5 flex flex-col items-start justify-center text-secondary">
+                <h3 className="md:text lg:text-xl mb-4">
+                  {slide.bannerSubHeading}
+                </h3>
+                <h2 className="xl:leading-relaxed text-2xl xl:text-5xl mb-4 font-bold w-3/4 sm:w-1/2 lg:w-[480px]">
+                  {slide.bannerHeading}
+                </h2>
+                <span className="grid grid-cols-1 xs:flex xs:flex-wrap xs:items-center gap-2 sm:gap-4">
+                  <Button variant={'link'}>
                     {slide.buttonText}
                   </Button>
-                </div>
+                  <span className='flex items-center gap-2 sm:gap-4'>
+                  <span className='flex relative'>
+                    <span className='bg-white w-12 h-12 rounded-full flex items-center justify-center'>
+                    <Image src={profile1} alt='profile' className='w-11 h-11'/>
+                    </span>
+                    <span className='bg-white w-12 h-12 rounded-full flex items-center justify-center -ms-3'>
+                    <Image src={profile1} alt='profile' className='w-11 h-11'/>
+                    </span>
+                    <span className='bg-white w-12 h-12 rounded-full flex items-center justify-center -ms-3'>
+                    <Image src={profile1} alt='profile' className='w-11 h-11'/>
+                    </span>
+                  </span>
+                  <span>
+                    <p className="text-white text-xl sm:text-2xl">578M +</p>
+                    <p className="text-white text-16 sm:text-21">
+                      Clients Happy
+                      <br />
+                      <span className="font-bold">See Reviews</span>
+                    </p>
+                  </span>
+                  </span>
+                </span>
               </div>
-            ))}
-          </Slider>
-        </div>
-
-        <div className="lg:w-[30%] md:p-1">
-          <Image
-            className=""
-            src={bannerImage.image}
-            alt={bannerImage.altText}
-            height={500}
-          />
-        </div>
+            </div>
+          ))}
+        </Slider>
       </div>
-    </>
+
+      <div className="w-full md:w-4/12 md:mt-1 bg-lightforeground text-center rounded-e-xl md:rounded-e-none rounded-s-xl py-4 md:p-5 flex flex-col justify-center items-center mx-2 md:mx-0">
+        <p className="text-2xl font-semibold mb-5">Pay Your Way</p>
+        <div className="flex justify-center gap-4 px-2">
+          {saleitems.map((item) => (
+            <Salecard key={item.id} cards={item} />
+          ))}
+        </div>
+        <div className="flex items-center gap-4 mt-4">
+          <h2 className="text-3xl md:text-4xl  2xl:text-6xl font-normal">
+            MEGA
+            <br />
+            <span className="font-bold">SALE</span>
+          </h2>
+          <h2 className="text-red-500 text-6xl md:text-7xl 2xl:text-9xl font-extrabold relative">
+            50%
+            <span className="absolute -top-1 lg:top-0 right-2 lg:right-5 text-xs font-medium text-black">
+              UPTO
+            </span>
+          </h2>
+        </div>
+        <Button className="underline text-xl mt-4" variant={'ghost'}>
+          Shop Now
+        </Button>
+      </div>
+    </div>
   );
 };
 
