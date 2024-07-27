@@ -18,7 +18,27 @@ const config = {
       },
     },
     extend: {
+      backgroundColor:{
+        // login: 'url("src/assets/images/login.png")',
+  
+      },
+      fontSize: {
+        9: '9px',
+        10: '10px',
+        11: '1p1x',
+        12: '1p2x',
+        13: '13px',
+        14: '14px',
+        15: '15px',
+        16: '16px',
+        17: '17px',
+        18: '18px',
+        19: '19px',
+        20: '20px',
+        21: '21px',
+      },
       colors: {
+        light: '#F6F6F6',
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
@@ -31,6 +51,14 @@ const config = {
         secondary: {
           DEFAULT: 'var(--secondary)',
           foreground: 'var(--secondary-foreground)',
+        },
+        lightforeground: {
+          DEFAULT: 'var(--light-foreground)',
+          foreground: 'var(--light-foreground)',
+        },
+        lightbackground: {
+          DEFAULT: 'var(--light-background)',
+          foreground: 'var(--light-background)',
         },
         red: {
           DEFAULT: 'var(--red)',
@@ -76,6 +104,22 @@ const config = {
         'accordion-up': 'accordion-up 0.2s ease-out',
       },
     },
+    screens: {
+      'sm': '640px',
+      // => @media (min-width: 640px) { ... }
+
+      'md': '895px',
+      // => @media (min-width: 768px) { ... }
+
+      'lg': '1024px',
+      // => @media (min-width: 1024px) { ... }
+
+      'xl': '1280px',
+      // => @media (min-width: 1280px) { ... }
+
+      '2xl': '1536px',
+      // => @media (min-width: 1536px) { ... }
+    }
   },
   plugins: [require('tailwindcss-animate')],
 } satisfies Config;
