@@ -5,7 +5,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Image from 'next/image';
 import { Button } from '../ui/button';
-import { bannerImage, saleitems, slides } from '@/data';
+import {  saleitems, slides } from '@/data';
 import Salecard from '../ui/sale-card';
 import { ISaleItems } from '@/types/types';
 import profile1 from '@images/profile/Ellipse 4.png'
@@ -18,7 +18,7 @@ const settings = {
   slidesToScroll: 1,
 };
 
-const SimpleSlider: React.FC<ISaleItems> = () => {
+const SimpleSlider: React.FC = () => {
   return (
     <div className="flex flex-wrap md:flex-nowrap gap-2 md:gap-4 justify-between">
       <div className="overflow-hidden w-full md::w-8/12">
