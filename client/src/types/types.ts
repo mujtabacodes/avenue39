@@ -103,7 +103,7 @@ export interface ISocialIcons
   id: number;
   imageUrl: StaticImageData;
   title: string;
-
+ }
 export interface BreadcrumbItem {
   label: string;
   href?: string;
