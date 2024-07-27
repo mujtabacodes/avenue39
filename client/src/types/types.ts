@@ -122,3 +122,12 @@ export interface MissionData {
   description: string;
   icon: any;
 }
+export interface Country {
+  code: string;
+  name: string;
+}
+
+export interface City {
+  country: string;
+  name: string;
+}

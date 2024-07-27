@@ -13,3 +13,7 @@ export const checkout = [
   { label: 'Cart', href: '/cart' },
   { label: 'checkout' }
 ];
+export const cartbredcrumbs = [
+  { label: 'Home', href: '/' },
+  { label: 'checkout' }
+];

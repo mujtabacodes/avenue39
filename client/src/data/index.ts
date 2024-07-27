@@ -1,4 +1,4 @@
-import {  IChairProducts, ISliderData, BannerImage, IDiscountProducts , IServiceItem, TSlide, ICard, ITestimonialCard,MissionData  } from '@/types/types';
+import {  IChairProducts, ISliderData, BannerImage, IDiscountProducts , IServiceItem, TSlide, ICard, ITestimonialCard,Country, City  } from '@/types/types';
 
 import banner1 from '@images/banners/banner1.png';
 import banner2 from '@images/banners/banner2.png';
@@ -233,3 +233,36 @@ export const productData = [
   // Add more products as needed
 ];
 
+export const data = {
+  paragraphs: [
+    "Having been established in the UAE for over a decade, the time was right to have a division solely focussed on sourcing and buying the best pieces of unique, modern furniture for your home. The owners are passionate about furnishings and every item selected is something worthy of their own homes. Our buyers spend time hand testing each and every product.",
+    "We visit the factories personally to ensure staff welfare. We take important steps in speaking to the factory staff to be certain that they are treated with respect and dignity and receiving their salaries on time. Any factory that doesn't adhere to our strict stipulations are struck off from our supply chain. Every item is quality checked before being loaded onto containers bound for our warehouse in Dubai.",
+    "Our team at source are paid bonuses to find faults, making it more stringent that goods don't pass this stage easily. Once the products arrive in the UAE, they are once again meticulously checked for any flaws or faults.",
+    "Only then are they assigned a shelf space and available to sell. Another unique trait of ours is the Try Before You Buy guarantee. This allows you to order any item which we deliver and assemble in your home and give you 30 mins to really test and decide if you're satisfied with your selection. If you are, then great. If not, we will simply repack the item and refund your money by the next day time taken for the money to reach your account varies from bank to bank. The TBYB guarantee is available on the majority of items on our website. Those items not a part of this guarantee will be clearly marked."
+  ]
+};
+export const products = [
+  { id: 1, name: 'Sparta Coffee Table', price: 123.45, originalPrice: 200.00, imageUrl: cardimage1 },
+  { id: 2, name: 'Sparta Coffee Table', price: 123.45, originalPrice: 200.00, imageUrl: cardimage1 },
+  { id: 3, name: 'Sparta Coffee Table', price: 123.45, originalPrice: 200.00, imageUrl: cardimage1 },
+];
+
+// Country data
+export const countries: Country[] = [
+  { code: 'AE', name: 'United Arab Emirates' },
+  { code: 'KW', name: 'Kuwait' },
+  { code: 'SA', name: 'Saudi Arabia' },
+  { code: 'QA', name: 'Qatar' },
+];
+
+// City data
+export const cities: City[] = [
+  { country: 'AE', name: 'Dubai' },
+  { country: 'AE', name: 'Abu Dhabi' },
+  { country: 'KW', name: 'Kuwait City' },
+  { country: 'KW', name: 'Al Ahmadi' },
+  { country: 'SA', name: 'Riyadh' },
+  { country: 'SA', name: 'Jeddah' },
+  { country: 'QA', name: 'Doha' },
+  { country: 'QA', name: 'Al Rayyan' },
+];
