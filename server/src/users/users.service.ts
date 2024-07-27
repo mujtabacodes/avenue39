@@ -57,6 +57,7 @@ export class UsersService {
   }
 
   async login(loginData: LoginDto) {
+    //TODO: send token in cookies package 'cookie-parser'
     const { email, password } = loginData;
     try {
       const existingUser = await this.prisma.user.findFirst({
@@ -77,6 +78,7 @@ export class UsersService {
           expiresIn: '24h',
         });
         const { password: _, ...userWithoutPassword } = existingUser;
+
         return {
           message: 'Login successful',
           user: userWithoutPassword,

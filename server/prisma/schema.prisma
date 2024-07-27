@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -21,4 +15,50 @@ model User {
   phone            String?
   resetToken       String?
   resetTokenExpiry DateTime?
+}
+
+model Products {
+  id Int @id @default(autoincrement())
+
+  name          String
+  price         Int
+  description   String
+  stock         Int
+  discountPrice Int?
+
+  productCode String @unique
+
+  posterImageUrl      String
+  posterImagePublicId String
+
+  hoverImageUrl      String
+  hoverImagePublicId String
+
+  productImages         Json[]
+  additionalInformation Json[]
+
+  reviews      Reviews[]
+  Categories   Categories? @relation(fields: [categoriesId], references: [id])
+  categoriesId Int?
+}
+
+model Categories {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  createdAt DateTime @default(now())
+
+  posterImageUrl      String
+  posterImagePublicId String
+
+  products Products[]
+}
+
+model Reviews {
+  id         Int       @unique @default(autoincrement())
+  Name       String
+  Email      String
+  review     String
+  star       Int
+  Products   Products? @relation(fields: [productsId], references: [id])
+  productsId Int?
 }

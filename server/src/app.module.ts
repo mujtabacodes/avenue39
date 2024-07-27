@@ -4,7 +4,6 @@ import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { ProductsModule } from './products/products.module';
-import { ProductsModule } from './products/products.module';
 
 @Module({
   imports: [UsersModule, PrismaModule, ProductsModule],
