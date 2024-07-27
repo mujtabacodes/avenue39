@@ -96,7 +96,15 @@ export interface IChairProducts {
   imageUrl: StaticImageData;
   title: string;
 }
-interface BreadcrumbItem {
+
+
+export interface ISocialIcons
+ {
+  id: number;
+  imageUrl: StaticImageData;
+  title: string;
+
+export interface BreadcrumbItem {
   label: string;
   href?: string;
 }
@@ -121,4 +129,5 @@ export interface MissionData {
   title: string;
   description: string;
   icon: any;
+
 }

@@ -1,4 +1,6 @@
-import {  IChairProducts, ISliderData, BannerImage, IDiscountProducts , IServiceItem, TSlide, ICard, ITestimonialCard,MissionData  } from '@/types/types';
+
+import {  IChairProducts, ISliderData, BannerImage, IDiscountProducts , IServiceItem, TSlide, ICard, ITestimonialCard, MissionData,ISocialIcons  } from '@/types/types';
+
 
 import banner1 from '@images/banners/banner1.png';
 import banner2 from '@images/banners/banner2.png';
@@ -14,7 +16,14 @@ import support from '@icons/chat-46.png';
 import opal from '@images/products/OPALdiningtable_900x900S.png'
 import armChair from '@images/products/armchair.png'
 import profileimage1 from '@images/profile/Ellipse 4.png'
+
+import facebook from '@icons/Icon-awesome-facebook-f.png'
+import x from '@icons/Icon-awesome-twitter.png'
+import instagram from '@icons/Icon-awesome-instagram.png'
+import linkedin from '@icons/Icon-awesome-linkedin-in.png'
+
 import { link } from 'fs';
+
 
 export const slides: TSlide[] = [
   {
@@ -202,6 +211,15 @@ export const testimonialcards: ITestimonialCard[] = [
   { id: 6, profile: profileimage1, name: 'Sparta Coffee Table', comment: 'It is very comfortable because there is free internet for tasks, and cheap food', reviews: 5},
 ]
 
+
+export const socialicons: ISocialIcons[] = [
+
+  { id: 1, imageUrl: facebook, title: 'Facebook'},
+  { id: 2, imageUrl: x, title: 'X'},
+  { id: 3, imageUrl: instagram, title: 'Instagram'},
+  { id: 4, imageUrl: linkedin, title: 'LinkedIn'},
+]
+
 export const productData = [
   {
     link:"/",
@@ -230,6 +248,7 @@ export const productData = [
     discount: "-50%",
     rating: 4,
   },
-  // Add more products as needed
+ 
 ];
+
 

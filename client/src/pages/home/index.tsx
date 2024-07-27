@@ -15,7 +15,9 @@ import Testimonial from '@/components/testimonial/testimonial';
 
 const HomePage = (props: IHome) => {
   return (
-    <Fragment>   
+
+    <Fragment>
+
       <SimpleSlider />
       <Services />
       <section className="px-4 pb-2 my-4 overflow-x-auto discount-product-wrapper">

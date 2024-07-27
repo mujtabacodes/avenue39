@@ -2,7 +2,6 @@ import Image from 'next/image'
 import React from 'react'
 import { MdStar, MdStarBorder } from 'react-icons/md'
 import testimonialIcon from '@icons/Group1425.png'
-import profile1 from '@images/profile/Ellipse 4.png'
 import { ITestimonialCard } from '@/types/types'
 
 
