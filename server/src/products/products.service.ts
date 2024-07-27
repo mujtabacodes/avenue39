@@ -6,10 +6,7 @@ import { AddProductDto } from './dto/product.dto';
 
 @Injectable()
 export class ProductsService {
-  constructor(
-    private prisma: PrismaService,
-    private configService: ConfigService,
-  ) {}
+  constructor(private prisma: PrismaService) {}
 
   getProducts() {
     try {
@@ -84,9 +81,6 @@ export class ProductsService {
 
   async removeProduct(id: number) {
     try {
-      console.log('Hello from remove Product with ID: ' + id);
-
-      // Find the product using findUnique
       const productExist = await this.prisma.products.findUnique({
         where: { id },
       });
@@ -98,7 +92,6 @@ export class ProductsService {
         };
       }
 
-      // Delete the product
       await this.prisma.products.delete({
         where: { id },
       });
