@@ -139,10 +139,20 @@ export interface MissionData {
   icon: any;
 
 }
+export interface Country {
+  code: string;
+  name: string;
+}
 
-
-
-
-
-
-
+export interface City {
+  country: string;
+  name: string;
+}
+export interface Feature {
+  image: any;
+  title: string;
+  rating: number;
+  currentPrice: number;
+  originalPrice: number;
+  discount: number;
+}
