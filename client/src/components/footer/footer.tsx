@@ -59,7 +59,7 @@ const Footer: React.FC = () => {
               <input
                 type="email"
                 placeholder="Enter your mail adress"
-                className="bg-black text-white w-full ps-3 py-5 rounded-2xl text-xs"
+                className="bg-black text-white w-full ps-3 py-5 pe-[156px] rounded-2xl text-xs"
               />
               <Button
                 variant={'secondary'}

@@ -104,7 +104,14 @@ export interface ISocialIcons
   imageUrl: StaticImageData;
   title: string;
  }
- 
+ export interface ISaleItems
+ {
+  id: number;
+  imageUrl: StaticImageData;
+  para: string;
+  btnText: string;
+  btnUrl: string;
+ }
 export interface BreadcrumbItem {
   label: string;
   href?: string;

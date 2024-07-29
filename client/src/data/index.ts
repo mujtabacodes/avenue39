@@ -1,5 +1,5 @@
 
-import {  IChairProducts, ISliderData, BannerImage, IDiscountProducts , IServiceItem, TSlide, ICard, ITestimonialCard, Country, City,ISocialIcons, Feature  } from '@/types/types';
+import {  IChairProducts, ISliderData, BannerImage, IDiscountProducts , IServiceItem, TSlide, ICard, ITestimonialCard, Country, City,ISocialIcons, Feature, ISaleItems  } from '@/types/types';
 
 
 import banner1 from '@images/banners/banner1.png';
@@ -7,7 +7,6 @@ import banner2 from '@images/banners/banner2.png';
 import banner3 from '@images/banners/banner3.png';
 import banner4 from '@images/banners/megasale.png';
 import cardimage1 from '@images/imageeee.png';
-import { FaSun, FaBullseye, FaEye } from 'react-icons/fa';
 
 import palette from '@icons/palette.png';
 import delivery from '@icons/delivery-fast.png';
@@ -21,8 +20,8 @@ import facebook from '@icons/Icon-awesome-facebook-f.png'
 import x from '@icons/Icon-awesome-twitter.png'
 import instagram from '@icons/Icon-awesome-instagram.png'
 import linkedin from '@icons/Icon-awesome-linkedin-in.png'
-
-import { link } from 'fs';
+import saleimage1 from '@icons/EN0-full-logo-black.png'
+import saleimage2 from '@icons/tabby-logo-charcoal.png'
 
 
 export const slides: TSlide[] = [
@@ -218,6 +217,12 @@ export const socialicons: ISocialIcons[] = [
   { id: 2, imageUrl: x, title: 'X'},
   { id: 3, imageUrl: instagram, title: 'Instagram'},
   { id: 4, imageUrl: linkedin, title: 'LinkedIn'},
+]
+
+export const saleitems: ISaleItems[] = [
+
+  { id: 1, imageUrl: saleimage1, para: 'Availble at checkout', btnText: 'Show Now', btnUrl: ''},
+  { id: 2, imageUrl: saleimage2, para: 'Availble at checkout', btnText: 'Show Now', btnUrl: ''},
 ]
 
 export const productData = [
