@@ -4,7 +4,6 @@ import TopHero from '@/components/top-hero';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import Container from '@/components/ui/Container';
-import { LabelInput } from '@/components/ui/label-input';
 import { products } from '@/data';
 import { checkout } from '@/data/data';
 import Image from 'next/image';

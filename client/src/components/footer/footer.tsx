@@ -2,10 +2,11 @@ import React from 'react';
 import Container from '../ui/Container';
 import Image from 'next/image';
 import logo from '@icons/logo.png';
-import { socialicons } from '@/data';
 import { Button } from '../ui/button';
 import { SiMastercard, SiVisa } from 'react-icons/si';
 import { FaPaypal, FaStripe } from 'react-icons/fa';
+import SocialLink from '../social-link';
+import Link from 'next/link';
 
 const Footer: React.FC = () => {
   return (
@@ -18,35 +19,26 @@ const Footer: React.FC = () => {
               Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
               nisi ut aliquip ex ea commodo.
             </p>
-            <div className="flex gap-4 items-center pt-6">
-              {socialicons.map((item) => (
-                <Image
-                  key={item.id}
-                  src={item.imageUrl}
-                  alt={item.title}
-                  className="h-8 object-contain"
-                />
-              ))}
-            </div>
+            <SocialLink socialSize='md:text-[25px]' />
           </div>
         </div>
         <div className=" px-2">
           <h5 className="font-medium text-3xl">Quick Links</h5>
-          <ul className="leading-[50px] font-normal text-20 text-primary-foreground mt-6">
-            <li>About Us</li>
-            <li>Delivery Information</li>
-            <li>Privacy Policy</li>
-            <li>Terms & Conditions</li>
-            <li>Return Policy</li>
+          <ul className="leading-[50px] font-normal text-19 text-primary-foreground mt-6">
+            <li><Link href='/about' target='_blank' className='hover:underline'>About Us</Link></li>
+            <li><Link href='/delivery' target='_blank' className='hover:underline'>Delivery Information</Link></li>
+            <li><Link href='/privacy' target='_blank' className='hover:underline'>Privacy Policy</Link></li>
+            <li><Link href='/terms' target='_blank' className='hover:underline'>Terms & Conditions</Link></li>
+            <li><Link href='/return' target='_blank' className='hover:underline'>Return Policy</Link></li>
           </ul>
         </div>
         <div className=" px-2">
           <h5 className="font-medium text-3xl">Account Info</h5>
-          <ul  className="leading-[50px] font-normal text-20 text-primary-foreground mt-6">
-            <li>My Account</li>
-            <li>Shopping Cart</li>
-            <li>Wishlist</li>
-            <li>Order History</li>
+          <ul  className="leading-[50px] font-normal text-19 text-primary-foreground mt-6">
+            <li><Link href='/profile' target='_blank' className='hover:underline'>My Account</Link></li>
+            <li><Link href='/' target='_blank' className='hover:underline'>Shopping Cart</Link></li>
+            <li><Link href='/' target='_blank' className='hover:underline'>Wishlist</Link></li>
+            <li><Link href='/' target='_blank' className='hover:underline'>Order History</Link></li>
           </ul>
         </div>
         <div className="">
