@@ -108,7 +108,7 @@ const Products = () => {
                 Mega <span className="font-medium">Sale</span>
               </h1>
               <p className="text-white text-sm mt-4 max-w-80">
-                Get up to 50% off for this weak and get offer. Don't miss this
+                Get up to 50% off for this weak and get offer. Don&rsquo;t miss this
                 chance!
               </p>
               <div className='mt-7'>
