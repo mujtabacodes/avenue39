@@ -1,5 +1,5 @@
 
-import {  IChairProducts, ISliderData, BannerImage, IDiscountProducts , IServiceItem, TSlide, ICard, ITestimonialCard, Country, City,ISocialIcons, Feature, ISaleItems  } from '@/types/types';
+import {  IChairProducts, ISliderData, BannerImage, IDiscountProducts , IServiceItem, TSlide, ICard, ITestimonialCard, Country, City,ISocialIcons, Feature, ISaleItems, IProductCategories  } from '@/types/types';
 
 
 import banner1 from '@images/banners/banner1.png';
@@ -333,3 +333,15 @@ export const features: Feature[] = [
   },
   // Add more feature objects here
 ];
+
+export const productcetagories: IProductCategories[] = [
+  {id: 1, title: 'DINNER', totalItems: 12},
+  {id: 2, title: 'LIVING', totalItems: 12},
+  {id: 3, title: 'BEDROOM', totalItems: 12},
+  {id: 4, title: 'CHAIRS', totalItems: 12},
+  {id: 5, title: 'TABLES', totalItems: 12},
+  {id: 6, title: 'Home OFFICE', totalItems: 12},
+  {id: 7, title: 'DINNER', totalItems: 12},
+  {id: 8, title: 'DINNER', totalItems: 12},
+  {id: 9, title: 'DINNER', totalItems: 12},
+]
