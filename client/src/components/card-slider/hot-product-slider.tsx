@@ -6,8 +6,8 @@ import 'slick-carousel/slick/slick-theme.css';
 import Card from '../ui/card';
 import { StaticImageData } from 'next/image';
 import Container from '../ui/Container';
-import CustomPrevArrow from './custom-prev-arrow';
-import CustomNextArrow from './custom-next-arrow';
+import HotProductNextArrow from './hot-product-next-arrow';
+import HotProductPrevArrow from './hot-product-prev-arrow';
 
 interface SliderProps {
   slideritems: Array<{
@@ -29,8 +29,8 @@ const settings = {
   speed: 500,
   rows: 2,
   slidesPerRow: 1,
-  prevArrow: <CustomPrevArrow />,
-  nextArrow: <CustomNextArrow />,
+  prevArrow: <HotProductPrevArrow />,
+  nextArrow: <HotProductNextArrow />,
   responsive: [
     {
       breakpoint: 1025,
@@ -66,10 +66,10 @@ const settings = {
 
 const HotProductSlider: React.FC<SliderProps> = ({ slideritems }) => {
   return (
-    <section className="mt-4">
+    <section className="mt-5">
       <Container className="slider-container w-full">
-        <h2 className="text-2xl xs:text-3xl mb-3 font-semibold">Hot Newest Products</h2>
-        <Slider {...settings} className='mx-4 xs:mx-0 hot-products'>
+        <h2 className="text-xl xs:text-2xl sm:text-3xl mb-4 font-semibold">Hot Newest Products</h2>
+        <Slider {...settings} className='mx-4 xs:mx-0 hot-products mb-2'>
           {slideritems.map((card) => (
             <div key={card.id}>
               <Card card={card} />
