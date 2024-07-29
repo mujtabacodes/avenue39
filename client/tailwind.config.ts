@@ -25,8 +25,8 @@ const config = {
       fontSize: {
         9: '9px',
         10: '10px',
-        11: '1p1x',
-        12: '1p2x',
+        11: '11px',
+        12: '12px',
         13: '13px',
         14: '14px',
         15: '15px',
@@ -105,20 +105,12 @@ const config = {
       },
     },
     screens: {
+      'xs': '480px',
       'sm': '640px',
-      // => @media (min-width: 640px) { ... }
-
       'md': '895px',
-      // => @media (min-width: 768px) { ... }
-
       'lg': '1024px',
-      // => @media (min-width: 1024px) { ... }
-
       'xl': '1280px',
-      // => @media (min-width: 1280px) { ... }
-
       '2xl': '1536px',
-      // => @media (min-width: 1536px) { ... }
     }
   },
   plugins: [require('tailwindcss-animate')],

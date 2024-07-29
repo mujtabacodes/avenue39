@@ -1,6 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import SliderComponent from './card-slider'; // Make sure to use the correct path
+import { ISliderData } from '@/types/types';
 
 
 interface SliderData {
@@ -34,7 +35,7 @@ const Tabs: React.FC<TabsProps> = ({ slidersData }:any) => {
         </div>
 
         <div className="flex flex-nowrap gap-4 w-[518px] overflow-x-auto">
-          {slidersData.map((slider, index) => (
+          {slidersData.map((slider:any, index:any) => (
 
             <button
               key={index}

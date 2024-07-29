@@ -7,6 +7,7 @@ import Footer from '@/components/footer/footer';
 import MenuBar from '@/components/nav/menu-bar';
 import Navbar from '@/components/nav/nav-bar';
 import TopNav from '@/components/nav/top-nav';
+import BottomBar from '@/components/nav/bottom-bar';
 
 const inter = Open_Sans({ subsets: ['latin'] });
 
@@ -26,6 +27,7 @@ export default function RootLayout({
         <TopNav />
         <Navbar />
         <MenuBar />
+        <BottomBar/>
         {children}
         <Footer />
       </body>

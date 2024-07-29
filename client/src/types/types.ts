@@ -103,7 +103,15 @@ export interface ISocialIcons
   id: number;
   imageUrl: StaticImageData;
   title: string;
-
+ }
+ export interface ISaleItems
+ {
+  id: number;
+  imageUrl: StaticImageData;
+  para: string;
+  btnText: string;
+  btnUrl: string;
+ }
 export interface BreadcrumbItem {
   label: string;
   href?: string;
@@ -130,4 +138,21 @@ export interface MissionData {
   description: string;
   icon: any;
 
+}
+export interface Country {
+  code: string;
+  name: string;
+}
+
+export interface City {
+  country: string;
+  name: string;
+}
+export interface Feature {
+  image: any;
+  title: string;
+  rating: number;
+  currentPrice: number;
+  originalPrice: number;
+  discount: number;
 }

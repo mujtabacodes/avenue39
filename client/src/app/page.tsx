@@ -1,5 +1,4 @@
 import Services from '@/components/services/services';
-import { IHome } from '@/types/types';
 import React, { Fragment } from 'react';
 import SimpleSlider from '@/components/heroslider/slider';
 import DiscountCard from '@/components/ui/discount-card';
