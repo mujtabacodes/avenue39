@@ -1,10 +1,12 @@
+import FeatureSlider from '@/components/card-slider/feature-slider';
 import CartOrder from '@/components/cart-order/cart-order';
 import Coupan from '@/components/coupan-code';
+import FeatureCard from '@/components/feature-card/feature-card';
 import OrderPlace from '@/components/order-place/order-place';
 import Services from '@/components/services/services';
 import TopHero from '@/components/top-hero';
 import Container from '@/components/ui/Container';
-import { products } from '@/data';
+import { features, products } from '@/data';
 import { cartbredcrumbs } from '@/data/data';
 import Link from 'next/link';
 import React from 'react';
@@ -31,6 +33,10 @@ const Cart = () => {
         <CartOrder/>
         </div>
 
+      </Container>
+      <Container className='mt-10 mb-20'>
+        <p className='text-[51px] font-medium text-center'>Similar Products</p>
+       <FeatureSlider features={features}/>
       </Container>
       <Services />
     </>

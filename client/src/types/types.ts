@@ -96,7 +96,15 @@ export interface IChairProducts {
   imageUrl: StaticImageData;
   title: string;
 }
-interface BreadcrumbItem {
+
+
+export interface ISocialIcons
+ {
+  id: number;
+  imageUrl: StaticImageData;
+  title: string;
+ }
+export interface BreadcrumbItem {
   label: string;
   href?: string;
 }
@@ -121,6 +129,7 @@ export interface MissionData {
   title: string;
   description: string;
   icon: any;
+
 }
 export interface Country {
   code: string;
@@ -130,4 +139,12 @@ export interface Country {
 export interface City {
   country: string;
   name: string;
+}
+export interface Feature {
+  image: any;
+  title: string;
+  rating: number;
+  currentPrice: number;
+  originalPrice: number;
+  discount: number;
 }
