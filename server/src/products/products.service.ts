@@ -18,9 +18,9 @@ export class ProductsService {
 
   async addProduct(productData: AddProductDto) {
     try {
-      const { productCode } = productData;
+      const { name } = productData;
       const existingProduct = await this.prisma.products.findFirst({
-        where: { productCode },
+        where: { name },
       });
 
       if (!existingProduct) {
@@ -31,7 +31,6 @@ export class ProductsService {
             description: productData.description,
             stock: productData.stock,
             discountPrice: productData.discountPrice ?? null,
-            productCode: productData.productCode,
             posterImageUrl: productData.posterImageUrl,
             posterImagePublicId: productData.posterImagePublicId,
             hoverImageUrl: productData.hoverImageUrl ?? null,
