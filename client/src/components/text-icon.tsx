@@ -5,7 +5,7 @@ import React from 'react';
 
 const TextIcon = ({ Icon, Title, link }: ITextIcon) => {
   return (
-    <Link href={link} className="flex items-center gap-2">
+    <Link href={link} target='_blank' className="flex items-center gap-2">
       {Icon}<P14>{Title}</P14>
     </Link>
   );

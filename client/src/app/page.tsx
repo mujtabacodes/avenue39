@@ -1,5 +1,4 @@
 import Services from '@/components/services/services';
-import { IHome } from '@/types/types';
 import React, { Fragment } from 'react';
 import SimpleSlider from '@/components/heroslider/slider';
 import DiscountCard from '@/components/ui/discount-card';
@@ -32,7 +31,7 @@ export default function Home() {
         <DiscountCard productItems={chairProducts} />
       </Container>
       <HotProductSlider slideritems={cards} />
-      <section className="h-[400px] md:h-[600px] lg:h-[700] mt-4">
+      <section className="h-[400px] md:h-[600px] mt-4">
         <div
           className="w-full h-full flex justify-center items-center"
           style={{
