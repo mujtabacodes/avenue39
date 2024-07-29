@@ -170,3 +170,18 @@
     stroke: gray;
 
   }
+  /* global.css */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: transparent; /* You can change the color as per your design */
+  border-radius: 1px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent; /* You can change the color as per your design */
+  border-radius: 1px;
+}

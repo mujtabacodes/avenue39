@@ -35,7 +35,7 @@ const Tabs: React.FC<TabsProps> = ({ slidersData }:any) => {
         </div>
 
         <div className="flex flex-nowrap gap-4 w-[518px] overflow-x-auto">
-          {slidersData.map((slider:any, index:number) => (
+          {slidersData.map((slider:any, index:any) => (
 
             <button
               key={index}
