@@ -29,7 +29,7 @@ const OrderPlace: React.FC<OrderItemProps> = ({ product }) => {
           <p className='text-16 xl:text-18'>{product.name}</p>
           <div className='flex flex-wrap md:flex-nowrap lg:hidden justify-between items-center gap-2 md:gap-6 pr-4'>
             <p className='text-[18px] font-bold'>Dhs.<span>{product.price.toFixed(2)}</span></p>
-            <p className='text-14 font-semibold line-through text-[#A5A5A5]'>Dhs.<span>{product.originalPrice.toFixed(2)}</span></p>
+            <p className='text-14 font-normal line-through text-[#A5A5A5]'>Dhs.<span>{product.originalPrice.toFixed(2)}</span></p>
             <IoCloseSharp className='cursor-pointer' size={20} />
             {isCartPage && (
               <div>
@@ -46,7 +46,7 @@ const OrderPlace: React.FC<OrderItemProps> = ({ product }) => {
       )}
       <div className='hidden lg:flex items-center gap-6 pr-4'>
         <p className='text-16 xl:text-[22px] font-bold'>Dhs.<span>{product.price.toFixed(2)}</span></p>
-        <p className='text-12 xl:text-18 font-semibold line-through text-[#A5A5A5]'>Dhs.<span>{product.originalPrice.toFixed(2)}</span></p>
+        <p className='text-12 xl:text-16 font-normal line-through text-[#A5A5A5]'>Dhs.<span>{product.originalPrice.toFixed(2)}</span></p>
         <IoCloseSharp className='cursor-pointer' size={25} />
       </div>
     </div>

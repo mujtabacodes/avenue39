@@ -24,7 +24,7 @@ const TopNav = () => {
         <P14 className="hidden md:block md:w-4/12">
           Get Up To 50% off In your first Offer
         </P14>
-        <SocialLink />
+        <SocialLink socialSize='text-[30px]' />
       </Container>
     </div>
   );

@@ -21,7 +21,7 @@ const ContactForm = () => {
   return (
     <>
       <form onSubmit={formik.handleSubmit} className="space-y-5 mt-10">
-        <div className="grid grid-cols-1 md:grid-cols-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           <Input
             id="name"
             name="name"
