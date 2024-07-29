@@ -104,6 +104,7 @@ export interface ISocialIcons
   imageUrl: StaticImageData;
   title: string;
  }
+ 
 export interface BreadcrumbItem {
   label: string;
   href?: string;
