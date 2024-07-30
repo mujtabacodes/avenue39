@@ -71,6 +71,7 @@ export interface ICard {
   discount?: string;
   sale: string;
   reviews: number;
+  productType?: string;
 }
 
 export interface ITestimonialCard {

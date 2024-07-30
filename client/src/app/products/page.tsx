@@ -1,124 +1,128 @@
 'use client';
 import TopHero from '@/components/top-hero';
 import Container from '@/components/ui/Container';
-import { productcetagories, saleitems } from '@/data';
+import { cards } from '@/data';
 import { productsbredcrumbs } from '@/data/data';
-import React, { useEffect, useState } from 'react';
-import { Slider, SliderPrimitive } from '@/components/ui/slider';
-import Salecard from '@/components/ui/sale-card';
-import Image from 'next/image';
-import banner5 from '@images/banners/banner5.png';
-import banner6 from '@images/banners/banner6.png';
-import CounDown from '@/components/countdown/coundown';
+import MegaSale from '@/components/discount-banner/mega-sale';
+import { ImList } from 'react-icons/im';
+import { MdWindow } from 'react-icons/md';
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectSeparator,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import Card from '@/components/ui/card';
+import Services from '@/components/services/services';
+import TopSelling from '@/components/top-selling/top-selling';
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { Button } from '@/components/ui/button';
+import { BsFilterLeft } from 'react-icons/bs';
+import SidebarFilter from '@/components/filters/sidebar-filter';
+import { useState } from 'react';
 
 const Products = () => {
-  const [range, setRange] = useState<[number, number]>([0, 500]);
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [priceRange, setPriceRange] = useState<[number, number]>([0, 500]);
 
-  const handleValueChange = ([start, end]: [number, number]) => {
-    setRange([start, end]);
+  const handleCategoryChange = (category: string, isChecked: boolean) => {
+    if (isChecked) {
+      setSelectedCategories([...selectedCategories, category]);
+    } else {
+      setSelectedCategories(selectedCategories.filter((cat) => cat !== category));
+    }
   };
 
-  const [counter, setCounter] = useState(60);
+  const handlePriceChange = ([start, end]: [number, number]) => {
+    setPriceRange([start, end]);
+  };
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCounter((prevCounter) => (prevCounter > 0 ? prevCounter - 1 : 0));
-    }, 1000);
+  const filteredCards = cards.filter((card) => {
+    const inCategory = selectedCategories.length > 0 ? selectedCategories.includes(card.productType||'') : true;
+    const inPriceRange = parseFloat(card.price.replace('$', '')) >= priceRange[0] && parseFloat(card.price.replace('$', '')) <= priceRange[1];
+    return inCategory && inPriceRange;
+  });
 
-    return () => clearInterval(interval);
-  }, []);
   return (
     <>
       <TopHero breadcrumbs={productsbredcrumbs} />
-      <Container className="mt-5 flex flex-col md:flex-row gap-6">
-        <div className="w-full md:w-1/4">
-          <h3 className="py-5 text-xl font-medium">Filter</h3>
-          <div className="border-t-2 py-6">
-            <h4 className="text-xl font-medium mb-5">Categories</h4>
-            <div>
-              <form
-                action=""
-                className="flex flex-col gap-3 custom-scroll overflow-y-auto max-h-52"
-              >
-                {productcetagories.map((item) => (
-                  <div className="flex items-center gap-2" key={item.id}>
-                    <input
-                      type="checkbox"
-                      name="filter"
-                      id={`Category${item.id}`}
-                      className="rounded-none border-1 border-black w-4 h-4"
-                    />
-                    <label
-                      htmlFor={`Category${item.id}`}
-                      className="text-16 capitalize"
-                    >
-                      {item.title}
-                    </label>
-                    <span className="bg-light px-[2px] font-semibold text-[10px] tracking-tight">
-                      {item.totalItems}
-                    </span>
-                  </div>
-                ))}
-              </form>
-            </div>
-          </div>
-          <div className="border-t-2 py-6">
-            <h4 className="text-xl font-medium mb-5">Prices</h4>
-            <div>
-              <Slider
-                defaultValue={[0, 500]}
-                max={500}
-                step={1}
-                onValueChange={handleValueChange}
-              >
-                <SliderPrimitive.Thumb />
-                <SliderPrimitive.Thumb />
-              </Slider>
-              <div className="flex justify-between mt-2">
-                <span className="text-14 font-medium">Dhs {range[0]}</span>
-                <span className="text-14 font-medium">Dhs {range[1]}</span>
-              </div>
-            </div>
-          </div>
-          <div>
-            <h4 className="text-2xl font-semibold mb-5">Pay Your Way</h4>
-            <div className="flex justify-center gap-4 px-2">
-              {saleitems.map((item) => (
-                <Salecard key={item.id} cards={item} />
-              ))}
-            </div>
-            <div className="mt-7">
-              <Image src={banner5} alt="sale banner" />
-            </div>
-          </div>
+      <Container className="my-5 flex flex-col md:flex-row gap-4 md:gap-8">
+        <div className="w-full md:w-2/6 lg:w-1/4 hidden md:block">
+          <SidebarFilter onCategoryChange={handleCategoryChange} onPriceChange={handlePriceChange} />
         </div>
-        <div className="w-full md:w-3/4">
-          <div
-            className="w-full h-[437px] px-9 py-12 flex items-center"
-            style={{
-              backgroundImage: `url(${banner6.src})`,
-              backgroundSize: 'cover',
-              backgroundRepeat: 'no-repeat',
-              backgroundPosition: 'center',
-            }}
-          >
-            <div>
-              <p className="text-white text-xs">Get Discount Up to 50%</p>
-              <h1 className="text-red-600 text-7xl font-bold">
-                Mega <span className="font-medium">Sale</span>
-              </h1>
-              <p className="text-white text-sm mt-4 max-w-80">
-                Get up to 50% off for this weak and get offer. Don&rsquo;t miss this
-                chance!
-              </p>
-              <div className='mt-7'>
-              <CounDown />
+        <div className="w-full md:w-4/6 lg:w-3/4">
+          <MegaSale />
+          <div className="mt-4">
+            <div className="flex items-center justify-between gap-4 px-2">
+              <div className="md:hidden">
+                <Sheet>
+                  <SheetTrigger asChild>
+                    <div className='flex gap-1 items-center'>
+                    <span>Filter</span>
+                    <BsFilterLeft size={25} /></div>
+                  </SheetTrigger>
+                  <SheetContent className="pb-5 w-4/5 overflow-y-auto">
+                    <div className="relative">
+                      <SidebarFilter onCategoryChange={handleCategoryChange} onPriceChange={handlePriceChange} />
+                    </div>
+                    <div className="h-16 w-4/5 sm:max-w-sm border-t-2 fixed bottom-0 right-0 bg-white flex items-center justify-center gap-4">
+                      <Button variant={'ghost'} className="underline">
+                        Cancel
+                      </Button>
+                      <SheetTrigger asChild>
+                        <Button variant={'default'} className="text-white">
+                          Apply
+                        </Button>
+                      </SheetTrigger>
+                    </div>
+                  </SheetContent>
+                </Sheet>
               </div>
-              <p className='text-white mt-4 text-17 tracking-widest font-light'>BUY NOW PAY LATER</p>
+              <p className="text-15 md:text-18 text-primary-foreground hidden md:block">
+                Showing {filteredCards.length} results
+              </p>
+              <div className="flex items-center gap-2">
+                <MdWindow size={25} />
+                <ImList size={20} />
+                <Select>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Sort by: Default" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      <SelectLabel>Sort Options</SelectLabel>
+                      <SelectItem value="default">Default</SelectItem>
+                      <SelectItem value="name">Name</SelectItem>
+                      <SelectItem value="date">Date</SelectItem>
+                      <SelectSeparator />
+                      <SelectItem value="priority">Priority</SelectItem>
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+              </div>
             </div>
+          </div>
+
+          <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 mt-4">
+            {filteredCards.map((card) => (
+              <div key={card.id}>
+                <Card card={card} />
+              </div>
+            ))}
           </div>
         </div>
       </Container>
+      <div className="my-14 px-8 sm:px-4 md:px-0 relative">
+      <div className='bg-lightbackground absolute top-0 right-0 w-1/2 h-full -z-[1] rounded-s-xl hidden md:block'></div>
+      <Container>
+        <TopSelling />
+      </Container>
+      </div>
+      <Services />
     </>
   );
 };
