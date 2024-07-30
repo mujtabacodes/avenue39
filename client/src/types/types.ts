@@ -156,3 +156,9 @@ export interface Feature {
   originalPrice: number;
   discount: number;
 }
+
+export interface IProductCategories {
+  id: number;
+  title: string;
+  totalItems: number;
+}
