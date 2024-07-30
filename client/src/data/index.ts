@@ -81,51 +81,51 @@ export const slidersData: ISliderData[] = [
   {
     tabTitle: 'Table',
     cards: [
-      { id: 1, image: cardimage1, heading: 'Sparta Coffee Table', price: '$100' , discount: '$300' , sale: '50%' , reviews: 3},
-      { id: 2, image: cardimage1, heading: 'Sparta Coffee Table', price: '$150' , discount: '$300' , sale: '30%' , reviews: 5},
-      { id: 3, image: cardimage1, heading: 'Sparta Coffee Table', price: '$200' , discount: '$300' , sale: '50%' , reviews: 0},
-      { id: 4, image: cardimage1, heading: 'Sparta Coffee Table', price: '$250' , discount: '$300' , sale: '45%' , reviews: 2},
-      { id: 5, image: cardimage1, heading: 'Sparta Coffee Table', price: '$300' , discount: '$300' , sale: '70%' , reviews: 4},
+      { id: 1, image: cardimage1, heading: 'Sparta Coffee Table', price: '$100' , discount: '$300' , sale: '50%' , reviews: 3, productType: 'Dinner'},
+      { id: 2, image: cardimage1, heading: 'Sparta Coffee Table', price: '$150' , discount: '$300' , sale: '30%' , reviews: 5, productType: 'Dinner'},
+      { id: 3, image: cardimage1, heading: 'Sparta Coffee Table', price: '$200' , discount: '$300' , sale: '50%' , reviews: 0, productType: 'Dinner'},
+      { id: 4, image: cardimage1, heading: 'Sparta Coffee Table', price: '$250' , discount: '$300' , sale: '45%' , reviews: 2, productType: 'Dinner'},
+      { id: 5, image: cardimage1, heading: 'Sparta Coffee Table', price: '$300' , discount: '$300' , sale: '70%' , reviews: 4, productType: 'Dinner'},
     ],
   },
   {
     tabTitle: 'Sofa',
     cards: [
-      { id: 1, image: cardimage1, heading: 'Sparta Coffee Table', price: '$350' , discount: '$300' , sale: '50%', reviews: 3},
-      { id: 2, image: cardimage1, heading: 'Sparta Coffee Table', price: '$400' , discount: '$300' , sale: '30%', reviews: 5},
-      { id: 3, image: cardimage1, heading: 'Sparta Coffee Table', price: '$450' , discount: '$300' , sale: '50%', reviews: 4},
-      { id: 4, image: cardimage1, heading: 'Sparta Coffee Table', price: '$500' , discount: '$300' , sale: '45%', reviews: 5},
-      { id: 5, image: cardimage1, heading: 'Sparta Coffee Table', price: '$550' , discount: '$300' , sale: '70%', reviews: 3},
+      { id: 1, image: cardimage1, heading: 'Sparta Coffee Table', price: '$350' , discount: '$300' , sale: '50%', reviews: 3, productType: 'Dinner'},
+      { id: 2, image: cardimage1, heading: 'Sparta Coffee Table', price: '$400' , discount: '$300' , sale: '30%', reviews: 5, productType: 'Dinner'},
+      { id: 3, image: cardimage1, heading: 'Sparta Coffee Table', price: '$450' , discount: '$300' , sale: '50%', reviews: 4, productType: 'Dinner'},
+      { id: 4, image: cardimage1, heading: 'Sparta Coffee Table', price: '$500' , discount: '$300' , sale: '45%', reviews: 5, productType: 'Dinner'},
+      { id: 5, image: cardimage1, heading: 'Sparta Coffee Table', price: '$550' , discount: '$300' , sale: '70%', reviews: 3, productType: 'Dinner'},
     ],
   },
   {
     tabTitle: 'Lamp',
     cards: [
-      { id: 1, image: cardimage1, heading: 'Sparta Coffee Table', price: '$600' , discount: '$300' , sale: '50%', reviews: 3},
-      { id: 2, image: cardimage1, heading: 'Sparta Coffee Table', price: '$650' , discount: '$300' , sale: '30%', reviews: 5},
-      { id: 3, image: cardimage1, heading: 'Sparta Coffee Table', price: '$700' , discount: '$300' , sale: '50%', reviews: 4},
-      { id: 4, image: cardimage1, heading: 'Sparta Coffee Table', price: '$750' , discount: '$300' , sale: '45%', reviews: 2},
-      { id: 5, image: cardimage1, heading: 'Sparta Coffee Table', price: '$800' , discount: '$300' , sale: '70%', reviews: 3},
+      { id: 1, image: cardimage1, heading: 'Sparta Coffee Table', price: '$600' , discount: '$300' , sale: '50%', reviews: 3, productType: 'Dinner'},
+      { id: 2, image: cardimage1, heading: 'Sparta Coffee Table', price: '$650' , discount: '$300' , sale: '30%', reviews: 5, productType: 'Dinner'},
+      { id: 3, image: cardimage1, heading: 'Sparta Coffee Table', price: '$700' , discount: '$300' , sale: '50%', reviews: 4, productType: 'Dinner'},
+      { id: 4, image: cardimage1, heading: 'Sparta Coffee Table', price: '$750' , discount: '$300' , sale: '45%', reviews: 2, productType: 'Dinner'},
+      { id: 5, image: cardimage1, heading: 'Sparta Coffee Table', price: '$800' , discount: '$300' , sale: '70%', reviews: 3, productType: 'Dinner'},
     ],
   },
   {
     tabTitle: 'Chair',
     cards: [
-      { id: 1, image: cardimage1, heading: 'Sparta Coffee Table', price: '$850'  , discount: '$300' , sale: '50%', reviews: 3},
-      { id: 2, image: cardimage1, heading: 'Sparta Coffee Table', price: '$900'  , discount: '$300' , sale: '30%', reviews: 5},
-      { id: 3, image: cardimage1, heading: 'Sparta Coffee Table', price: '$950'  , discount: '$300' , sale: '50%', reviews: 4},
-      { id: 4, image: cardimage1, heading: 'Sparta Coffee Table', price: '$1000' , discount: '$300' , sale: '45%', reviews: 2},
-      { id: 5, image: cardimage1, heading: 'Sparta Coffee Table', price: '$1050' , discount: '$300' , sale: '70%', reviews: 3},
+      { id: 1, image: cardimage1, heading: 'Sparta Coffee Table', price: '$850'  , discount: '$300' , sale: '50%', reviews: 3, productType: 'Dinner'},
+      { id: 2, image: cardimage1, heading: 'Sparta Coffee Table', price: '$900'  , discount: '$300' , sale: '30%', reviews: 5, productType: 'Dinner'},
+      { id: 3, image: cardimage1, heading: 'Sparta Coffee Table', price: '$950'  , discount: '$300' , sale: '50%', reviews: 4, productType: 'Dinner'},
+      { id: 4, image: cardimage1, heading: 'Sparta Coffee Table', price: '$1000' , discount: '$300' , sale: '45%', reviews: 2, productType: 'Dinner'},
+      { id: 5, image: cardimage1, heading: 'Sparta Coffee Table', price: '$1050' , discount: '$300' , sale: '70%', reviews: 3, productType: 'Dinner'},
     ],
   },
   {
     tabTitle: 'Monitor',
     cards: [
-      { id: 1, image: cardimage1, heading: 'Sparta Coffee Table', price: '$1100'  , discount: '$300' , sale: '50%', reviews: 3},
-      { id: 2, image: cardimage1, heading: 'Sparta Coffee Table', price: '$1150'  , discount: '$300' , sale: '30%', reviews: 5},
-      { id: 3, image: cardimage1, heading: 'Sparta Coffee Table', price: '$1200'  , discount: '$300' , sale: '50%', reviews: 4},
-      { id: 4, image: cardimage1, heading: 'Sparta Coffee Table', price: '$1250'  , discount: '$300' , sale: '45%', reviews: 2},
-      { id: 5, image: cardimage1, heading: 'Sparta Coffee Table', price: '$1300'  , discount: '$300' , sale: '70%', reviews: 0},
+      { id: 1, image: cardimage1, heading: 'Sparta Coffee Table', price: '$1100'  , discount: '$300' , sale: '50%', reviews: 3, productType: 'Dinner'},
+      { id: 2, image: cardimage1, heading: 'Sparta Coffee Table', price: '$1150'  , discount: '$300' , sale: '30%', reviews: 5, productType: 'Dinner'},
+      { id: 3, image: cardimage1, heading: 'Sparta Coffee Table', price: '$1200'  , discount: '$300' , sale: '50%', reviews: 4, productType: 'Dinner'},
+      { id: 4, image: cardimage1, heading: 'Sparta Coffee Table', price: '$1250'  , discount: '$300' , sale: '45%', reviews: 2, productType: 'Dinner'},
+      { id: 5, image: cardimage1, heading: 'Sparta Coffee Table', price: '$1300'  , discount: '$300' , sale: '70%', reviews: 0, productType: 'Dinner'},
     ],
   },
 ];
@@ -192,12 +192,15 @@ export const chairProducts: IChairProducts[] = [
 
 export const cards: ICard[] = [
 
-  { id: 1, image: cardimage1, heading: 'Sparta Coffee Table', price: '$100' , discount: '$300' , sale: '50%' , reviews: 3},
-  { id: 2, image: cardimage1, heading: 'Sparta Coffee Table', price: '$150' , discount: '$300' , sale: '30%' , reviews: 5},
-  { id: 3, image: cardimage1, heading: 'Sparta Coffee Table', price: '$200' , discount: '$300' , sale: '50%' , reviews: 2},
-  { id: 4, image: cardimage1, heading: 'Sparta Coffee Table', price: '$250' , discount: '$300' , sale: '45%' , reviews: 0},
-  { id: 5, image: cardimage1, heading: 'Sparta Coffee Table', price: '$300' , discount: '$300' , sale: '70%' , reviews: 4},
-  { id: 6, image: cardimage1, heading: 'Sparta Coffee Table', price: '$300' , discount: '$300' , sale: '70%' , reviews: 5},
+  { id: 1, image: cardimage1, heading: 'Sparta Coffee Table', price: '$100' , discount: '$300' , sale: '50%' , reviews: 3 , productType: 'DINNER'},
+  { id: 2, image: cardimage1, heading: 'Sparta Coffee Table', price: '$150' , discount: '$300' , sale: '30%' , reviews: 5 , productType: 'Home'},
+  { id: 3, image: cardimage1, heading: 'Home Chairs', price: '$200' , discount: '$300' , sale: '50%' , reviews: 2 , productType: 'CHAIRS'},
+  { id: 4, image: cardimage1, heading: 'Sparta Coffee Table', price: '$250' , discount: '$300' , sale: '45%' , reviews: 0 , productType: 'DINNER'},
+  { id: 5, image: cardimage1, heading: 'Sparta Coffee Table', price: '$300' , discount: '$300' , sale: '70%' , reviews: 4 , productType: 'Home OFFICE'},
+  { id: 6, image: cardimage1, heading: 'Sparta Coffee Table', price: '$50' , discount: '$300' , sale: '70%' , reviews: 5 , productType: 'TABLES'},
+  { id: 7, image: cardimage1, heading: 'Office Table', price: '$250' , discount: '$300' , sale: '45%' , reviews: 0 , productType: 'LIVING'},
+  { id: 8, image: cardimage1, heading: 'Chai Table', price: '$300' , discount: '$300' , sale: '70%' , reviews: 4 , productType: 'BEDROOM'},
+  { id: 9, image: cardimage1, heading: 'Test Coffee Table', price: '$300' , discount: '$300' , sale: '70%' , reviews: 5 , productType: 'LIVING'},
 ]
 
 export const testimonialcards: ITestimonialCard[] = [
@@ -341,7 +344,5 @@ export const productcetagories: IProductCategories[] = [
   {id: 4, title: 'CHAIRS', totalItems: 12},
   {id: 5, title: 'TABLES', totalItems: 12},
   {id: 6, title: 'Home OFFICE', totalItems: 12},
-  {id: 7, title: 'DINNER', totalItems: 12},
-  {id: 8, title: 'DINNER', totalItems: 12},
-  {id: 9, title: 'DINNER', totalItems: 12},
+  {id: 7, title: 'Home', totalItems: 12},
 ]

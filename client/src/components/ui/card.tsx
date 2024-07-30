@@ -29,7 +29,7 @@ const Card: React.FC<CardProps> = ({ card }) => {
 
 
   return (
-    <div className="bg-white rounded-lg text-center relative product-card mx-2">
+    <div className="rounded-2xl text-center relative product-card mx-2">
       <div className='relative w-fit mx-auto'>
       <div className='bg-white rounded-full absolute top-4 right-6 flex flex-col gap-2 py-2 px-1 product-hover-icons z-[1]'>
       <PiEyeThin size={18} />
@@ -44,7 +44,7 @@ const Card: React.FC<CardProps> = ({ card }) => {
       {card.reviews != 0 ? renderStars() : ''}
       </div>
       <div className='text-center flex justify-center'>
-      <button className="mt-4 px-4 py-2 text-primary border border-primary  rounded-full flex items-center justify-center gap-2 hover:bg-primary hover:text-white">
+      <button className="my-4 px-4 py-2 text-primary border border-primary  rounded-full flex items-center justify-center gap-2 hover:bg-primary hover:text-white">
       <HiOutlineShoppingBag />
         <span className="mr-2">Add to card</span>
       </button>
