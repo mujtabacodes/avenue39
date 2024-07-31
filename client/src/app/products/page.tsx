@@ -28,6 +28,7 @@ import { useState } from 'react';
 const Products = () => {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 500]);
+  const [sortOption, setSortOption] = useState<string>('default');
 
   const handleCategoryChange = (category: string, isChecked: boolean) => {
     if (isChecked) {
@@ -41,11 +42,26 @@ const Products = () => {
     setPriceRange([start, end]);
   };
 
-  const filteredCards = cards.filter((card) => {
-    const inCategory = selectedCategories.length > 0 ? selectedCategories.includes(card.productType||'') : true;
-    const inPriceRange = parseFloat(card.price.replace('$', '')) >= priceRange[0] && parseFloat(card.price.replace('$', '')) <= priceRange[1];
-    return inCategory && inPriceRange;
-  });
+  const handleSortChange = (sort: string) => {
+    setSortOption(sort);
+  };
+
+  const filteredCards = cards
+    .filter((card) => {
+      const inCategory = selectedCategories.length > 0 ? selectedCategories.includes(card.productType || '') : true;
+      const inPriceRange = parseFloat(card.price.replace('$', '')) >= priceRange[0] && parseFloat(card.price.replace('$', '')) <= priceRange[1];
+      return inCategory && inPriceRange;
+    })
+    .sort((a, b) => {
+      if (sortOption === 'name') {
+        return a.heading.localeCompare(b.heading);
+      } else if (sortOption === 'max') {
+        return parseFloat(b.price.replace('$', '')) - parseFloat(a.price.replace('$', ''));
+      } else if (sortOption === 'min') {
+        return parseFloat(a.price.replace('$', '')) - parseFloat(b.price.replace('$', ''));
+      }
+      return 0;
+    });
 
   return (
     <>
@@ -62,8 +78,9 @@ const Products = () => {
                 <Sheet>
                   <SheetTrigger asChild>
                     <div className='flex gap-1 items-center'>
-                    <span>Filter</span>
-                    <BsFilterLeft size={25} /></div>
+                      <span>Filter</span>
+                      <BsFilterLeft size={25} />
+                    </div>
                   </SheetTrigger>
                   <SheetContent className="pb-5 w-4/5 overflow-y-auto">
                     <div className="relative">
@@ -82,13 +99,13 @@ const Products = () => {
                   </SheetContent>
                 </Sheet>
               </div>
-              <p className="text-15 md:text-18 text-primary-foreground hidden md:block">
+              <p className="md:text-16 text-primary-foreground hidden md:block">
                 Showing {filteredCards.length} results
               </p>
               <div className="flex items-center gap-2">
                 <MdWindow size={25} />
                 <ImList size={20} />
-                <Select>
+                <Select onValueChange={handleSortChange}>
                   <SelectTrigger>
                     <SelectValue placeholder="Sort by: Default" />
                   </SelectTrigger>
@@ -97,16 +114,15 @@ const Products = () => {
                       <SelectLabel>Sort Options</SelectLabel>
                       <SelectItem value="default">Default</SelectItem>
                       <SelectItem value="name">Name</SelectItem>
-                      <SelectItem value="date">Date</SelectItem>
+                      <SelectItem value="max">Price Max</SelectItem>
+                      <SelectItem value="min">Price Min</SelectItem>
                       <SelectSeparator />
-                      <SelectItem value="priority">Priority</SelectItem>
                     </SelectGroup>
                   </SelectContent>
                 </Select>
               </div>
             </div>
           </div>
-
           <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 mt-4">
             {filteredCards.map((card) => (
               <div key={card.id}>
@@ -117,10 +133,10 @@ const Products = () => {
         </div>
       </Container>
       <div className="my-14 px-8 sm:px-4 md:px-0 relative">
-      <div className='bg-lightbackground absolute top-0 right-0 w-1/2 h-full -z-[1] rounded-s-xl hidden md:block'></div>
-      <Container>
-        <TopSelling />
-      </Container>
+        <div className='bg-lightbackground absolute top-0 right-0 w-1/2 h-full -z-[1] rounded-s-xl hidden md:block'></div>
+        <Container>
+          <TopSelling />
+        </Container>
       </div>
       <Services />
     </>
