@@ -2,7 +2,6 @@ import { StaticImageData } from 'next/image';
 import { ReactNode } from 'react';
 import { IconType } from 'react-icons';
 
-
 export interface IHome {}
 export interface INav {}
 
@@ -61,8 +60,6 @@ export type BannerImage = {
   altText: string;
 };
 
-
-
 export interface ICard {
   id: number;
   image: any;
@@ -71,6 +68,7 @@ export interface ICard {
   discount?: string;
   sale: string;
   reviews: number;
+  productType?: string;
 }
 
 export interface ITestimonialCard {
@@ -97,21 +95,18 @@ export interface IChairProducts {
   title: string;
 }
 
-
-export interface ISocialIcons
- {
+export interface ISocialIcons {
   id: number;
   imageUrl: StaticImageData;
   title: string;
- }
- export interface ISaleItems
- {
+}
+export interface ISaleItems {
   id: number;
   imageUrl: StaticImageData;
   para: string;
   btnText: string;
   btnUrl: string;
- }
+}
 export interface BreadcrumbItem {
   label: string;
   href?: string;
@@ -137,7 +132,6 @@ export interface MissionData {
   title: string;
   description: string;
   icon: any;
-
 }
 export interface Country {
   code: string;
@@ -155,4 +149,14 @@ export interface Feature {
   currentPrice: number;
   originalPrice: number;
   discount: number;
+}
+
+export interface IProductCategories {
+  id: number;
+  title: string;
+  totalItems: number;
+}
+
+export interface IProductDetail {
+  id: number;
 }

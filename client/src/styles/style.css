@@ -85,6 +85,30 @@
 }
 .custom-scrollbar {
   overflow-y: scroll;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 5px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: black;
+  border-radius: 4px;
+  border: 3px solid black;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: black;
+}
+.custom-scroll::-webkit-scrollbar {
+  width: 4px !important;
+  height: 5px !important;
+  overflow-y: scroll;
   /* Optional: Adding padding, margin, and other styles */
 }
 
@@ -111,10 +135,10 @@
   width: 4px !important;
   height: 5px !important;
 }
-.discount-product-wrapper::-webkit-scrollbar-track {
+.custom-scroll::-webkit-scrollbar-track {
   background: #f1f1f1 !important;
 }
-.discount-product-wrapper::-webkit-scrollbar-thumb {
+.custom-scroll::-webkit-scrollbar-thumb {
   background: #c6c6c6 !important;
   border-radius: 5px !important;
 }

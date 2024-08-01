@@ -21,11 +21,9 @@ import Container from '@/components/ui/Container';
 import Services from '@/components/services/services';
 import SideCard from '@/components/side-card/side-card';
 import Card from '@/components/ui/card';
-interface ProductPageParams {
-  id: number;
-}
+import { IProductDetail } from '@/types/types';
 
-const ProductPage = ({ params }: { params: ProductPageParams }) => {
+const ProductPage = ({ params }: { params: IProductDetail }) => {
   const productId = Number(params.id);
   const product = products.find((product) => product.id === productId);
   const renderStars = () => {
@@ -50,7 +48,7 @@ const ProductPage = ({ params }: { params: ProductPageParams }) => {
       content: (
         <div className="p-2 flex flex-wrap md:flex-nowrap md:gap-10">
           <div className="w-full">
-            <h1>{product.description}</h1> {/* Ensure proper content here */}
+            <h1>{product.description}</h1>
           </div>
         </div>
       ),
@@ -102,7 +100,6 @@ const ProductPage = ({ params }: { params: ProductPageParams }) => {
           </div>
           <ProductName>{product?.name}</ProductName>
 
-          {/* Rating and Sales Info */}
           <div className="flex gap-6 items-center justify-between mb-4">
             <div className="flex">{renderStars()}</div>
             <h3 className="text-red-500 flex items-center font-medium text-sm">
@@ -160,7 +157,6 @@ const ProductPage = ({ params }: { params: ProductPageParams }) => {
             <span className="absolute right-0 w-1/4 border-t border-gray-300"></span>
           </div>
 
-          {/* Payment Options */}
           <div className="flex gap-2 mb-4">
             <div className="relative w-1/2 border-4 border-[#00FFBC] p-4 rounded-lg">
               <span className="absolute -top-3 left-2 bg-[#00FFBC] text-primary px-2 py-1 rounded-lg text-xs font-extrabold">
@@ -186,7 +182,6 @@ const ProductPage = ({ params }: { params: ProductPageParams }) => {
             </div>
           </div>
 
-          {/* Secure Payments Info */}
           <div className="p-4">
             <div className="flex items-center space-x-4 justify-center">
               <FaLock className="text-green-600 text-xl" />
