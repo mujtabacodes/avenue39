@@ -216,20 +216,22 @@
 
 .column-swipper .swiper-wrapper {
   flex-direction: column !important;
+  /* gap: 10px; */
   overflow: hidden !important;
 }
 .column-swipper {
   /* height: 100vh; */
 }
 
+.text-outline-border {
+  text-shadow: -3px 3px 0 #000,
+      3px 3px 0 #000,
+      3px -3px 0 #000,
+      -3px -3px 0 #000;
+}
 .column-swiper-slider {
   width: 100% !important;
-  height: 35% !important;
-}
-@media screen and (max-width: 390px) {
-  .column-swiper-slider {
-    height: 10% !important;
-  }
+  height: fit-content !important;
 }
 .product_starts {
   display: flex !important;
