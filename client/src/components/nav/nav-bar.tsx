@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import { FaRegHeart, FaRegUser, FaShoppingCart, FaUser } from 'react-icons/fa';
-import { TfiClose } from "react-icons/tfi";
+import { TfiClose } from 'react-icons/tfi';
 import logo from '@icons/logo.png';
 import { IoBagOutline, IoSearchSharp } from 'react-icons/io5';
 import Container from '../ui/Container';
@@ -34,7 +34,7 @@ import StarRating from '../ui/star';
 import SocialLink from '../social-link';
 import { Button } from '../ui/button';
 import { IoIosClose } from 'react-icons/io';
-import productImg from '@images/products/imageeee.png'
+import productImg from '@images/products/imageeee.png';
 
 const Navbar = (props: INav) => {
   return (
@@ -117,20 +117,21 @@ const Navbar = (props: INav) => {
             </SheetTrigger>
             <SheetOverlay className="bg-white opacity-80 z-[51]" />
             <SheetContent className="sm:max-w-lg z-[52] border-s border-black py-10 ps-10 pe-0">
-              
-              <SheetHeader className='flex flex-row items-center justify-between border-b-2 py-8 pe-12'>
-                <SheetTitle className='font-medium text-3xl'>My Cart (3)</SheetTitle>
+              <SheetHeader className="flex flex-row items-center justify-between border-b-2 py-8 pe-12">
+                <SheetTitle className="font-medium text-3xl">
+                  My Cart (3)
+                </SheetTitle>
                 <SheetClose className="flex gap-4 items-center">
-                <span className='font-medium text-2xl'>Close</span>
-                <TfiClose size={25} />
-              </SheetClose>
+                  <span className="font-medium text-2xl">Close</span>
+                  <TfiClose size={25} />
+                </SheetClose>
               </SheetHeader>
-                    <div className='flex items-center'>
-                      <div>
-                        <Image src={productImg} alt='product image' />
-                      </div>
-                      <div></div>
-                    </div>
+              <div className="flex items-center">
+                <div>
+                  <Image src={productImg} alt="product image" />
+                </div>
+                <div></div>
+              </div>
               <SheetFooter>
                 <SheetClose asChild>
                   <Button type="submit">Save changes</Button>
