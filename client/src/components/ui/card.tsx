@@ -29,9 +29,9 @@ const Card: React.FC<CardProps> = ({ card }) => {
 
 
   return (
-    <div className="rounded-2xl text-center relative product-card mx-2">
+    <div className="rounded-2xl text-center relative product-card mx-2 group">
       <div className='relative w-fit mx-auto'>
-      <div className='bg-white rounded-full absolute top-4 right-6 flex flex-col gap-2 py-2 px-1 product-hover-icons z-[1]'>
+      <div className='bg-white rounded-full absolute top-4 right-6 flex flex-col gap-2 py-2 px-1 product-hover-icons z-[1] opacity-0 group-hover:opacity-100 transition-transform -translate-x-5 group-hover:translate-x-0'>
       <PiEyeThin size={18} />
       <CiHeart size={18} />
       </div>

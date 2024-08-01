@@ -3,15 +3,15 @@ import CategoryFilter from './category-filter';
 import { productcetagories, saleitems } from '@/data';
 import { Slider, SliderPrimitive } from '@/components/ui/slider';
 import Salecard from '../ui/sale-card';
-import banner5 from '@images/banners/banner5.png';
-import Image from 'next/image';
+import Image, { StaticImageData } from 'next/image';
 
 interface SidebarFilterProps {
   onCategoryChange: (category: string, isChecked: boolean) => void;
   onPriceChange: (range: [number, number]) => void;
+  sideBanner: StaticImageData;
 }
 
-const SidebarFilter = ({ onCategoryChange, onPriceChange }: SidebarFilterProps) => {
+const SidebarFilter = ({ onCategoryChange, onPriceChange , sideBanner }: SidebarFilterProps) => {
   const [range, setRange] = useState<[number, number]>([0, 500]);
 
   const handleValueChange = ([start, end]: [number, number]) => {
@@ -55,7 +55,7 @@ const SidebarFilter = ({ onCategoryChange, onPriceChange }: SidebarFilterProps) 
             ))}
           </div>
           <div className="mt-10">
-            <Image src={banner5} alt="sale banner" className="mx-auto" />
+            <Image src={sideBanner} alt="sale banner" className="mx-auto" />
           </div>
         </div>
       </div>
