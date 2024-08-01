@@ -30,7 +30,8 @@
       "@data/*": ["./src/data/*"],
       "@redux/*": ["./src/redux/*"],
       "@hooks/*": ["./src/redux/hooks/*"],
-      "@mainSlice/*": ["./src/redux/slices/main/*"]
+      "@mainSlice/*": ["./src/redux/slices/main/*"],
+      "@cartSlice/*": ["./src/redux/slices/cart/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

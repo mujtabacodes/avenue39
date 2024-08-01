@@ -35,6 +35,7 @@ import SocialLink from '../social-link';
 import { Button } from '../ui/button';
 import { IoIosClose } from 'react-icons/io';
 import productImg from '@images/products/imageeee.png';
+import CartItems from '../cart/items';
 
 const Navbar = (props: INav) => {
   return (
@@ -126,12 +127,7 @@ const Navbar = (props: INav) => {
                   <TfiClose size={25} />
                 </SheetClose>
               </SheetHeader>
-              <div className="flex items-center">
-                <div>
-                  <Image src={productImg} alt="product image" />
-                </div>
-                <div></div>
-              </div>
+              <CartItems />
               <SheetFooter>
                 <SheetClose asChild>
                   <Button type="submit">Save changes</Button>

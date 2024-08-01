@@ -1,9 +1,10 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import mainReducer from '@mainSlice/index'; // Ensure this is the reducer, not the slice object
+import mainReducer from '@mainSlice/index';
+import cartReducer from '@cartSlice/index';
 import { initMainState } from '@mainSlice/init';
-import { MainState } from '@mainSlice/types';
+import { initCartState } from './slices/cart/init';
 
 // Configuration for redux-persist
 const persistConfig = {
@@ -13,13 +14,15 @@ const persistConfig = {
     const { _persist = {} } = state || {};
     // Ensure state.main exists and handle possible undefined cases
     const main = { ...initMainState, ...(state?.main || {}) };
-    return Promise.resolve({ _persist, main });
+    const cart = { ...initCartState, ...(state?.cart || {}) };
+    return Promise.resolve({ _persist, main, cart });
   },
 };
 
 // Combine reducers into a single root reducer
 const rootReducer = combineReducers({
   main: mainReducer, // Ensure this is the reducer
+  cart: cartReducer,
 });
 
 // Create a persisted reducer

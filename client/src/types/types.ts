@@ -63,9 +63,9 @@ export type BannerImage = {
 export interface ICard {
   id: number;
   image: any;
-  heading: string;
-  price: string;
-  discount?: string;
+  name: string;
+  price: number;
+  discount?: number;
   sale: string;
   reviews: number;
   productType?: string;
