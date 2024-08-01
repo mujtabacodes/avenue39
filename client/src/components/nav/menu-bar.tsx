@@ -3,12 +3,15 @@ import React, { useState } from 'react';
 import Container from '../ui/Container';
 import Link from 'next/link';
 import { MdOutlineKeyboardArrowDown } from 'react-icons/md';
-import Image from 'next/image';
+import Image, { StaticImageData } from 'next/image';
 import MenuLink from '../menu-link';
-
+import icon3 from '@icons/3.png'
+import icon2 from '@icons/2.png'
+import icon5 from '@icons/5.png'
+import megamenu from '@icons/megamenu.png'
 interface MenuItem {
   title: string;
-  icon: string;
+  icon: string | StaticImageData;
   link: string;
 }
 
@@ -20,18 +23,18 @@ const MenuBar = () => {
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const menuData: MenuData = {
     bedroom: [
-      { link:"/",title: "Bedroom Set 1", icon: '/assets/3.png' },
-      { link:"/",title: "Bedroom Set 2", icon: '/assets/2.png' },
-      { link:"/",title: "Bedroom Set 1", icon: '/assets/3.png' },
-      { link:"/",title: "Bedroom Set 2", icon: '/assets/2.png' },
-      { link:"/",title: "Bedroom Set 1", icon: '/assets/3.png' },
-      { link:"/",title: "Bedroom Set 2", icon: '/assets/2.png' },
-      { link:"/",title: "Bedroom Set 1", icon: '/assets/3.png' },
+      { link:"/",title: "Bedroom Set 1", icon: icon3 },
+      { link:"/",title: "Bedroom Set 2", icon: icon2 },
+      { link:"/",title: "Bedroom Set 1", icon: icon3 },
+      { link:"/",title: "Bedroom Set 2", icon: icon2 },
+      { link:"/",title: "Bedroom Set 1", icon: icon3 },
+      { link:"/",title: "Bedroom Set 2", icon: icon2 },
+      { link:"/",title: "Bedroom Set 1", icon: icon3 },
     ],
     megaSale: [
-      { link:"/",title: "Sale Item 1", icon: '/assets/5.png' },
-      { link:"/",title: "Bedroom Set 1", icon: '/assets/3.png' },
-      { link:"/",title: "Bedroom Set 2", icon: '/assets/2.png' },
+      { link:"/",title: "Sale Item 1", icon: icon5 },
+      { link:"/",title: "Bedroom Set 1", icon: icon3 },
+      { link:"/",title: "Bedroom Set 2", icon: icon2 },
     ]
   };
 
@@ -84,7 +87,7 @@ const MenuBar = () => {
             </div>
             {activeMenu === 'bedroom' && (
               <div className='w-full md:w-4/12'>
-                <Image className='object-contain' width={500} height={500} src={"/assets/megamenu.png"} alt='menu'/>
+                <Image className='object-contain' width={500} height={500} src={megamenu} alt='menu'/>
               </div>
             )}
           </Container>

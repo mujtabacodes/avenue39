@@ -20,13 +20,11 @@ model User {
 model Products {
   id Int @id @default(autoincrement())
 
-  name          String
+  name          String @unique
   price         Int
   description   String
   stock         Int
   discountPrice Int?
-
-  productCode String @unique
 
   posterImageUrl      String
   posterImagePublicId String
@@ -47,8 +45,8 @@ model Categories {
   name      String   @unique
   createdAt DateTime @default(now())
 
-  posterImageUrl      String
-  posterImagePublicId String
+  posterImageUrl      String?
+  posterImagePublicId String?
 
   products Products[]
 }

@@ -30,10 +30,6 @@ export class AddProductDto {
 
   @IsNotEmpty()
   @IsString()
-  productCode: string;
-
-  @IsNotEmpty()
-  @IsString()
   posterImageUrl: string;
 
   @IsNotEmpty()

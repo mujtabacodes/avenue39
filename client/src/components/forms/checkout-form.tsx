@@ -69,7 +69,7 @@ import { Label } from '../ui/label';
                 </Label>
                 <Select onValueChange={(value:any) => formik.setFieldValue('country', value)}>
                 <SelectTrigger>
-                    <SelectValue placeholder="Select a country" />
+                    <SelectValue placeholder="Country" />
                 </SelectTrigger>
                 <SelectContent>
                     <SelectGroup>
