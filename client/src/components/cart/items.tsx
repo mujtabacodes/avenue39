@@ -2,14 +2,25 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { State, Dispatch } from '@redux/store'; // Adjust according to your path
-import { addItem, removeItem, updateItemQuantity } from '@cartSlice/index'; // Adjust according to your path
+import {
+  addItem,
+  removeItem,
+  selectTotalPrice,
+  updateItemQuantity,
+} from '@cartSlice/index'; // Adjust according to your path
 import { CartItem } from '@cartSlice/types'; // Adjust according to your path
 import { NormalText, ProductName, ProductPrice } from '@/styles/typo';
 import { RxCross2 } from 'react-icons/rx';
 import Image from 'next/image';
+import { Button } from '../ui/button';
+import CustomButtom from '../ui/custom-button';
 const CartItems = () => {
   const dispatch = useDispatch<Dispatch>();
   const cartItems = useSelector((state: State) => state.cart.items);
+  const totalPrice = useSelector((state: State) =>
+    selectTotalPrice(state.cart),
+  );
+
   //   const addProductToCart = () => {
   //     dispatch(addItem(exampleProduct));
   //   };
@@ -27,18 +38,18 @@ const CartItems = () => {
     }
   };
   return (
-    <div>
+    <div className="mr-6">
       <ul>
         {cartItems.map((item: any) => (
           <li
             key={item.id}
-            className="relative flex items-center bg-slate-50 mt-2 gap-3 w-full"
+            className="relative flex items-center bg-slate-50 mt-2 border-dotted gap-3 w-full"
           >
             <Image
               src={item.image.src}
               alt={item.name}
-              width={100}
-              height={100}
+              width={80}
+              height={80}
             />
 
             <div>
@@ -53,39 +64,25 @@ const CartItems = () => {
                 </ProductPrice>
               </div>
               <div
-                className="absolute top-0 right-10 cursor-pointer"
+                className="absolute top-0 right-0 cursor-pointer"
                 onClick={() => removeProductFromCart(item.id)}
               >
                 <RxCross2 />
               </div>
             </div>
-            {/* {item.name} -DHR.${item.price * item.quantity} (x{item.quantity})
-            {item.discount && (
-              <div>
-                Discounted Price: {(item.discount * item.quantity).toFixed(2)}
-              </div>
-            )}
-            <button
-              onClick={() => updateProductQuantity(item.id, item.quantity + 1)}
-              className="bg-green-500"
-            >
-              Increase Quantity
-            </button>
-            <button
-              onClick={() => updateProductQuantity(item.id, item.quantity - 1)}
-            >
-              Decrease Quantity
-            </button>
-            <button
-              onClick={() => removeProductFromCart(item.id)}
-              className="bg-red-500"
-            >
-              Remove from Cart
-            </button> */}
           </li>
         ))}
       </ul>
-      <button onClick={ShowCartItems}>Show product</button>
+      <div className=" mt-6 pt-5 border-t-2 flex flex-col gap-2">
+        <NormalText className="text-slate-400 flex justify-between">
+          Subtotal
+          <ProductPrice className="flex gap-2 mb-4">
+            Dhs {totalPrice}
+          </ProductPrice>
+        </NormalText>
+        <CustomButtom variant="light">VIEW CART</CustomButtom>
+        <CustomButtom variant="dark">Check out</CustomButtom>
+      </div>
     </div>
   );
 };

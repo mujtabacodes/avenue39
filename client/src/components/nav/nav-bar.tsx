@@ -36,6 +36,10 @@ import { Button } from '../ui/button';
 import { IoIosClose } from 'react-icons/io';
 import productImg from '@images/products/imageeee.png';
 import CartItems from '../cart/items';
+import { State } from '@/redux/store';
+import { useSelector } from 'react-redux';
+import { totalProductsInCart } from '@/redux/slices/cart';
+import TotalProduct from '@/config/total-products';
 
 const Navbar = (props: INav) => {
   return (
@@ -120,7 +124,7 @@ const Navbar = (props: INav) => {
             <SheetContent className="sm:max-w-lg z-[52] border-s border-black py-10 ps-10 pe-0">
               <SheetHeader className="flex flex-row items-center justify-between border-b-2 py-8 pe-12">
                 <SheetTitle className="font-medium text-3xl">
-                  My Cart (3)
+                  My Cart <TotalProduct />
                 </SheetTitle>
                 <SheetClose className="flex gap-4 items-center">
                   <span className="font-medium text-2xl">Close</span>
@@ -128,11 +132,6 @@ const Navbar = (props: INav) => {
                 </SheetClose>
               </SheetHeader>
               <CartItems />
-              <SheetFooter>
-                <SheetClose asChild>
-                  <Button type="submit">Save changes</Button>
-                </SheetClose>
-              </SheetFooter>
             </SheetContent>
           </Sheet>
         </div>
