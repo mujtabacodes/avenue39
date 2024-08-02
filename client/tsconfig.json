@@ -31,7 +31,8 @@
       "@redux/*": ["./src/redux/*"],
       "@hooks/*": ["./src/redux/hooks/*"],
       "@mainSlice/*": ["./src/redux/slices/main/*"],
-      "@cartSlice/*": ["./src/redux/slices/cart/*"]
+      "@cartSlice/*": ["./src/redux/slices/cart/*"],
+      "@drawerSlice/*": ["./src/redux/slices/drawer/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

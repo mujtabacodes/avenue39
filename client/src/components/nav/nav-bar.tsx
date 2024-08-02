@@ -111,29 +111,7 @@ const Navbar = (props: INav) => {
           </div>
         </div>
         <div className=" md:w-2/12 lg:w-1/12 hidden md:flex justify-center">
-          <Sheet>
-            <SheetTrigger asChild>
-              <div className="bg-red-600 lg:w-20 w-12 h-10 lg:h-12 rounded-3xl relative flex justify-center items-center text-white cursor-pointer">
-                <IoBagOutline size={25} />
-                <div className="w-5 h-5 rounded-full bg-black flex justify-center items-center absolute top-2 right-4 text-xs">
-                  <TotalProducts />
-                </div>
-              </div>
-            </SheetTrigger>
-            <SheetOverlay className="bg-white opacity-80 z-[51]" />
-            <SheetContent className="sm:max-w-lg z-[52] border-s border-black py-10 ps-10 pe-0">
-              <SheetHeader className="flex flex-row items-center justify-between border-b-2 py-8 pe-12">
-                <SheetTitle className="font-medium text-3xl">
-                  My Cart (<TotalProducts />)
-                </SheetTitle>
-                <SheetClose className="flex gap-4 items-center">
-                  <span className="font-medium text-2xl">Close</span>
-                  <TfiClose size={25} />
-                </SheetClose>
-              </SheetHeader>
-              <CartItems />
-            </SheetContent>
-          </Sheet>
+          <CartItems />
         </div>
         <div className="w-5/12 md:w-5/12 lg:w-3/12 gap-2 flex justify-end items-center ">
           <Drawer>

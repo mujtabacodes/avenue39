@@ -1,6 +1,6 @@
 // components/Card.tsx
 
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import { ICard } from '@/types/types';
 import { HiOutlineShoppingBag } from 'react-icons/hi';
@@ -13,6 +13,8 @@ import { State, Dispatch } from '@redux/store'; // Adjust according to your path
 import { addItem, removeItem, updateItemQuantity } from '@cartSlice/index'; // Adjust according to your path
 import { CartItem } from '@cartSlice/types'; // Adjust according to your path
 import { SheetTrigger } from './sheet';
+import CartItems from '../cart/items';
+import { openDrawer } from '@/redux/slices/drawer';
 
 interface CardProps {
   card: ICard;
@@ -27,7 +29,8 @@ const Card: React.FC<CardProps> = ({ card }) => {
   };
   const handleAddToCard = () => {
     dispatch(addItem(itemToAdd));
-    alert('Bhai saab product add krwa di kiya baat');
+    dispatch(openDrawer());
+    // alert('Bhai saab product add krwa di kiya baat');
   };
 
   const renderStars = () => {

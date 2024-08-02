@@ -15,102 +15,147 @@ import Image from 'next/image';
 import { Button } from '../ui/button';
 import CustomButtom from '../ui/custom-button';
 import Counter from '../counter';
-import { IoCloseSharp } from 'react-icons/io5';
+import { IoBagOutline, IoCloseSharp } from 'react-icons/io5';
 import { useRouter } from 'next/navigation';
-import { SheetClose } from '../ui/sheet';
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetHeader,
+  SheetOverlay,
+  SheetTitle,
+  SheetTrigger,
+} from '../ui/sheet';
+import { TfiClose } from 'react-icons/tfi';
+import { TotalProducts } from '@/config';
+import { closeDrawer, openDrawer } from '@/redux/slices/drawer'; // Adjust according to your path
 
 interface ICartItems {
   isCartPage?: boolean;
   isCheckoutPage?: boolean;
 }
+
 const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
-  const Navigate = useRouter();
+  const navigate = useRouter();
   const dispatch = useDispatch<Dispatch>();
   const cartItems = useSelector((state: State) => state.cart.items);
   const totalPrice = useSelector((state: State) =>
     selectTotalPrice(state.cart),
   );
+  const drawerState = useSelector((state: State) => state.drawer);
 
-  //   const addProductToCart = () => {
-  //     dispatch(addItem(exampleProduct));
-  //   };
-  const ShowCartItems = () => {
-    console.log(cartItems);
-  };
   const removeProductFromCart = (id: number) => {
     dispatch(removeItem(id));
   };
 
+  const handleCloseDrawer = () => {
+    dispatch(closeDrawer()); // Close the drawer explicitly
+  };
+
+  const handleOpenDrawer = () => {
+    dispatch(openDrawer()); // Open the drawer explicitly
+  };
+
   const updateProductQuantity = (id: number, quantity: number) => {
     if (quantity > 0) {
-      // Prevent setting quantity to 0 or negative
       dispatch(updateItemQuantity({ id, quantity }));
     }
   };
+  const toggleDrawerState = () => {
+    drawerState == false;
+  };
+
+  useEffect(() => {}, [drawerState]);
+
   return (
     <React.Fragment>
       {!isCartPage ? (
-        <div className="mr-6">
-          <ul>
-            {cartItems.map((item: any) => (
-              <li
-                key={item.id}
-                className="relative flex items-center bg-slate-50 mt-2 border-dotted gap-3 w-full"
+        <Sheet open={drawerState}>
+          <SheetTrigger asChild>
+            <div
+              className="bg-red-600 lg:w-20 w-12 h-10 lg:h-12 rounded-3xl relative flex justify-center items-center text-white cursor-pointer"
+              onClick={handleOpenDrawer}
+            >
+              <IoBagOutline size={25} />
+              <div className="w-5 h-5 rounded-full bg-black flex justify-center items-center absolute top-2 right-4 text-xs">
+                <TotalProducts />
+              </div>
+            </div>
+          </SheetTrigger>
+          <SheetOverlay className="bg-white opacity-80 z-[51]" />
+          <SheetContent className="sm:max-w-lg z-[52] border-s border-black py-10 ps-10 pe-0">
+            <SheetHeader className="flex flex-row items-center justify-between border-b-2 py-8 pe-12">
+              <SheetTitle className="font-medium text-3xl">
+                My Cart (<TotalProducts />)
+              </SheetTitle>
+              <SheetClose
+                className="flex gap-4 items-center"
+                onClick={handleCloseDrawer}
               >
-                <Image
-                  src={item.image.src}
-                  alt={item.name}
-                  width={80}
-                  height={80}
-                />
+                <span className="font-medium text-2xl">Close</span>
+                <TfiClose size={25} />
+              </SheetClose>
+            </SheetHeader>
 
-                <div>
-                  <ProductName>{item.name}</ProductName>
-                  <div className="flex justify-between">
-                    <span> Qty {item.quantity}</span>
-                    <ProductPrice className="flex gap-2 mb-4">
-                      Dhs {item?.discount * item.quantity}
-                      <NormalText className="text-slate-400 line-through">
-                        {item?.price * item.quantity}
-                      </NormalText>
-                    </ProductPrice>
-                  </div>
-                  <div
-                    className="absolute top-0 right-0 cursor-pointer"
-                    onClick={() => removeProductFromCart(item.id)}
+            <div className="mr-6">
+              <ul>
+                {cartItems.map((item: any) => (
+                  <li
+                    key={item.id}
+                    className="relative flex items-center bg-slate-50 mt-2 border-dotted gap-3 w-full"
                   >
-                    <RxCross2 />
-                  </div>
-                </div>
-              </li>
-            ))}
-          </ul>
+                    <Image
+                      src={item.image.src}
+                      alt={item.name}
+                      width={80}
+                      height={80}
+                    />
 
-          <div className=" mt-6 pt-5 border-t-2 flex flex-col gap-2">
-            <NormalText className="text-slate-400 flex justify-between">
-              Subtotal
-              <ProductPrice className="flex gap-2 mb-4">
-                Dhs {totalPrice}
-              </ProductPrice>
-            </NormalText>
-            <SheetClose className="flex gap-4 items-center">
-              <CustomButtom
-                variant="light"
-                onClick={() => Navigate.push('/cart')}
-              >
-                VIEW CART
-              </CustomButtom>
-            </SheetClose>
-            <SheetClose className="flex gap-4 items-center">
-              <CustomButtom
-                variant="dark"
-                onClick={() => Navigate.push('/checkout')}
-              >
-                Check out
-              </CustomButtom>
-            </SheetClose>
-          </div>
-        </div>
+                    <div>
+                      <ProductName>{item.name}</ProductName>
+                      <div className="flex justify-between">
+                        <span> Qty {item.quantity}</span>
+                        <ProductPrice className="flex gap-2 mb-4">
+                          Dhs {item?.discount * item.quantity}
+                          <NormalText className="text-slate-400 line-through">
+                            {item?.price * item.quantity}
+                          </NormalText>
+                        </ProductPrice>
+                      </div>
+                      <div
+                        className="absolute top-0 right-0 cursor-pointer"
+                        onClick={() => removeProductFromCart(item.id)}
+                      >
+                        <RxCross2 />
+                      </div>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+
+              <div className=" mt-6 pt-5 border-t-2 flex flex-col gap-2">
+                <NormalText className="text-slate-400 flex justify-between">
+                  Subtotal
+                  <ProductPrice className="flex gap-2 mb-4">
+                    Dhs {totalPrice}
+                  </ProductPrice>
+                </NormalText>
+                <SheetClose
+                  className="flex gap-4 items-center"
+                  onClick={() => navigate.push('/cart')}
+                >
+                  <CustomButtom variant="light">VIEW CART</CustomButtom>
+                </SheetClose>
+                <SheetClose
+                  className="flex gap-4 items-center"
+                  onClick={() => navigate.push('/checkout')}
+                >
+                  <CustomButtom variant="dark">Check out</CustomButtom>
+                </SheetClose>
+              </div>
+            </div>
+          </SheetContent>
+        </Sheet>
       ) : (
         <div>
           {cartItems.map((item: any) => (
@@ -134,8 +179,11 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                     <p className="text-14 font-normal line-through text-[#A5A5A5]">
                       Dhs.<span> {item?.price * item.quantity}</span>
                     </p>
-                    <IoCloseSharp className="cursor-pointer" size={20} />
-
+                    <IoCloseSharp
+                      className="cursor-pointer"
+                      size={20}
+                      onClick={() => removeProductFromCart(item.id)}
+                    />
                     <div>
                       {!isCheckoutPage && (
                         <Counter
