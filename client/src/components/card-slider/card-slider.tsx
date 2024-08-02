@@ -11,6 +11,7 @@ import CustomPrevArrow from './custom-prev-arrow';
 
 interface SliderProps {
   cards: CardType[];
+  isModel?:boolean;
 }
 
 const sliderSettings = {
@@ -47,12 +48,12 @@ const sliderSettings = {
     ],
   };
 
-const SliderComponent: React.FC<SliderProps> = ({ cards }) => {
+const SliderComponent: React.FC<SliderProps> = ({ cards,isModel }) => {
   return (
     <Slider {...sliderSettings}>
       {cards.map(card => (
         <div key={card.id}>
-          <Card card={card} />
+          <Card card={card} isModel={isModel}/>
         </div>
       ))}
     </Slider>

@@ -142,12 +142,12 @@
   background: #c6c6c6 !important;
   border-radius: 5px !important;
 }
-.product-hover-icons {
+/* .product-hover-icons {
   display: none;
 }
 .product-card:hover .product-hover-icons {
   display: flex;
-}
+} */
 .hot-products .slick-slide .product-card {
   margin-bottom: 40px;
 }
