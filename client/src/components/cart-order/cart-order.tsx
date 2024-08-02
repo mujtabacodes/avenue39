@@ -14,9 +14,12 @@ import { Button } from '../ui/button';
 import { cities, countries } from '@/data';
 import { City } from '@/types/types';
 import { SubTotal, TotalProducts } from '@/config';
+import { useRouter } from 'next/navigation';
+import CustomButtom from '../ui/custom-button';
 
 const CartOrder: React.FC = () => {
   const [filteredCities, setFilteredCities] = useState<City[]>([]);
+  const Navigate = useRouter();
 
   const formik = useFormik({
     initialValues: {
@@ -98,10 +101,9 @@ const CartOrder: React.FC = () => {
             value={formik.values.postalCode}
             onChange={formik.handleChange}
           />
-
-          <Button className="text-18 text-white w-full mt-2 h-[59px] rounded-sm">
+          <CustomButtom variant="dark" className="capitalize">
             Update Total
-          </Button>
+          </CustomButtom>
         </form>
       </div>
       <div className="flex justify-between items-center pt-4">
@@ -115,9 +117,13 @@ const CartOrder: React.FC = () => {
         </p>
       </div>
       <div className="flex justify-between items-center border-t-2 pt-4">
-        <Button className="text-18 text-white w-full mt-2 h-[71px] rounded-sm">
-          Shop now
-        </Button>
+        <CustomButtom
+          variant="dark"
+          className="text-18 text-white w-full mt-2 h-[71px] rounded-sm"
+          onClick={() => Navigate.push('/checkout')}
+        >
+          Proceed to Checkout
+        </CustomButtom>
       </div>
     </div>
   );

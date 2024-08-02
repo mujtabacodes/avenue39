@@ -12,6 +12,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { State, Dispatch } from '@redux/store'; // Adjust according to your path
 import { addItem, removeItem, updateItemQuantity } from '@cartSlice/index'; // Adjust according to your path
 import { CartItem } from '@cartSlice/types'; // Adjust according to your path
+import { SheetTrigger } from './sheet';
 
 interface CardProps {
   card: ICard;
@@ -72,11 +73,12 @@ const Card: React.FC<CardProps> = ({ card }) => {
         {card.reviews != 0 ? renderStars() : ''}
       </div>
       <div className="text-center flex justify-center">
-        <button className="my-4 px-4 py-2 text-primary border border-primary  rounded-full flex items-center justify-center gap-2 hover:bg-primary hover:text-white">
+        <button
+          className="my-4 px-4 py-2 text-primary border border-primary  rounded-full flex items-center justify-center gap-2 hover:bg-primary hover:text-white"
+          onClick={handleAddToCard}
+        >
           <HiOutlineShoppingBag />
-          <span className="mr-2" onClick={handleAddToCard}>
-            Add to card
-          </span>
+          <span className="mr-2">Add to card</span>
         </button>
       </div>
     </div>

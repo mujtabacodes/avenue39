@@ -16,12 +16,15 @@ import { Button } from '../ui/button';
 import CustomButtom from '../ui/custom-button';
 import Counter from '../counter';
 import { IoCloseSharp } from 'react-icons/io5';
+import { useRouter } from 'next/navigation';
+import { SheetClose } from '../ui/sheet';
 
 interface ICartItems {
   isCartPage?: boolean;
   isCheckoutPage?: boolean;
 }
 const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
+  const Navigate = useRouter();
   const dispatch = useDispatch<Dispatch>();
   const cartItems = useSelector((state: State) => state.cart.items);
   const totalPrice = useSelector((state: State) =>
@@ -90,8 +93,22 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                 Dhs {totalPrice}
               </ProductPrice>
             </NormalText>
-            <CustomButtom variant="light">VIEW CART</CustomButtom>
-            <CustomButtom variant="dark">Check out</CustomButtom>
+            <SheetClose className="flex gap-4 items-center">
+              <CustomButtom
+                variant="light"
+                onClick={() => Navigate.push('/cart')}
+              >
+                VIEW CART
+              </CustomButtom>
+            </SheetClose>
+            <SheetClose className="flex gap-4 items-center">
+              <CustomButtom
+                variant="dark"
+                onClick={() => Navigate.push('/checkout')}
+              >
+                Check out
+              </CustomButtom>
+            </SheetClose>
           </div>
         </div>
       ) : (
