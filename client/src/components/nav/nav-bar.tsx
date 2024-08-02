@@ -39,7 +39,7 @@ import CartItems from '../cart/items';
 import { State } from '@/redux/store';
 import { useSelector } from 'react-redux';
 import { totalProductsInCart } from '@/redux/slices/cart';
-import TotalProduct from '@/config/total-products';
+import { TotalProducts } from '@/config/index';
 
 const Navbar = (props: INav) => {
   return (
@@ -116,7 +116,7 @@ const Navbar = (props: INav) => {
               <div className="bg-red-600 lg:w-20 w-12 h-10 lg:h-12 rounded-3xl relative flex justify-center items-center text-white cursor-pointer">
                 <IoBagOutline size={25} />
                 <div className="w-5 h-5 rounded-full bg-black flex justify-center items-center absolute top-2 right-4 text-xs">
-                  1
+                  <TotalProducts />
                 </div>
               </div>
             </SheetTrigger>
@@ -124,7 +124,7 @@ const Navbar = (props: INav) => {
             <SheetContent className="sm:max-w-lg z-[52] border-s border-black py-10 ps-10 pe-0">
               <SheetHeader className="flex flex-row items-center justify-between border-b-2 py-8 pe-12">
                 <SheetTitle className="font-medium text-3xl">
-                  My Cart <TotalProduct />
+                  My Cart (<TotalProducts />)
                 </SheetTitle>
                 <SheetClose className="flex gap-4 items-center">
                   <span className="font-medium text-2xl">Close</span>
