@@ -13,6 +13,9 @@ import {
   Feature,
   ISaleItems,
   IProductCategories,
+  ITabbyPayList,
+  ITabbyList,
+  ITamaraList,
 } from '@/types/types';
 
 import banner1 from '@images/banners/banner1.png';
@@ -35,6 +38,9 @@ import instagram from '@icons/Icon-awesome-instagram.png';
 import linkedin from '@icons/Icon-awesome-linkedin-in.png';
 import saleimage1 from '@icons/EN0-full-logo-black.png';
 import saleimage2 from '@icons/tabby-logo-charcoal.png';
+import masterCard from '@icons/business.png'
+import viseCard from '@icons/card.png'
+import gPayCard from '@icons/pngwing.png'
 
 export const slides: TSlide[] = [
   {
@@ -758,5 +764,136 @@ export const bestSellerProducts: ICard[] = [
     discount: 300,
     sale: '50%',
     reviews: 2,
+  },
+];
+
+export const tabbyfeature:ITabbyList[] = [
+  {id: 1 , para: 'No interest. No fees.'},
+  {id: 2 , para: 'Trusted by 4,5m+ customers.'},
+  {id: 3 , para: 'Shariah-compliant.'},
+] 
+
+export const tabbyhowitwork:ITabbyList[] = [
+  {id: 1 , para: 'Choose Tabby at checkout'},
+  {id: 2 , para: 'Enter your information and add your debit or credit card.'},
+  {id: 3 , para: 'Your first payment is taken when the order is made.'},
+  {id: 4 , para: 'We will send you a reminder when your next payment is due'},
+] 
+
+export const tabbypayicon:ITabbyPayList[] = [
+  {id: 1 , imageUrl: masterCard},
+  {id: 2 , imageUrl: viseCard},
+  {id: 3 , imageUrl: gPayCard},
+] 
+
+export const tamarawhy:ITamaraList[] = [
+  {id: 1 , para: 'Sharia-compliant'},
+  {id: 2 , para: 'No late fees'},
+  {id: 3 , para: 'Quick and easy'},
+] 
+export const tamaralist:ITamaraList[] = [
+  {id: 1 , para: 'ayment options availability may vary based on your order value and Tamara record.'},
+  {id: 2 , para: 'Subject to terms and conditions.'},
+  {id: 3 , para: 'Tamara is Sharia-compliant.'},
+  {id: 4 , para: 'Eligible for customers in United Arab Emirates.'},
+  {id: 5 , para: 'Your final payment plan may vary depending on your credit history.'},
+] 
+
+export const tamarafeature:ITamaraList[] = [
+  {id: 1 , title: 'Split in 4' , para: 'Pay a fraction now and the rest in 3 payments over the next 3 months. No late fees, shariah-compliant!*'},
+  {id: 2 , title: 'Pay in Full' , para: 'Pay the full amount today and enjoy exclusive perks with Tamara!*'},
+] 
+
+
+export const tankyousildercards: ICard[] = [
+  {
+    id: 1,
+    image: cardimage1,
+    heading: 'Sparta Coffee Table',
+    price: '$100',
+    discount: '$300',
+    sale: '50%',
+    reviews: 3,
+    productType: 'DINNER',
+  },
+  {
+    id: 2,
+    image: cardimage1,
+    heading: 'Sparta Coffee Table',
+    price: '$150',
+    discount: '$300',
+    sale: '30%',
+    reviews: 5,
+    productType: 'Home',
+  },
+  {
+    id: 3,
+    image: cardimage1,
+    heading: 'Home Chairs',
+    price: '$200',
+    discount: '$300',
+    sale: '50%',
+    reviews: 2,
+    productType: 'CHAIRS',
+  },
+  {
+    id: 4,
+    image: cardimage1,
+    heading: 'Sparta Coffee Table',
+    price: '$250',
+    discount: '$300',
+    sale: '45%',
+    reviews: 0,
+    productType: 'DINNER',
+  },
+  {
+    id: 5,
+    image: cardimage1,
+    heading: 'Sparta Coffee Table',
+    price: '$300',
+    discount: '$300',
+    sale: '70%',
+    reviews: 4,
+    productType: 'Home OFFICE',
+  },
+  {
+    id: 6,
+    image: cardimage1,
+    heading: 'Sparta Coffee Table',
+    price: '$50',
+    discount: '$300',
+    sale: '70%',
+    reviews: 5,
+    productType: 'TABLES',
+  },
+  {
+    id: 7,
+    image: cardimage1,
+    heading: 'Office Table',
+    price: '$250',
+    discount: '$300',
+    sale: '45%',
+    reviews: 0,
+    productType: 'LIVING',
+  },
+  {
+    id: 8,
+    image: cardimage1,
+    heading: 'Chai Table',
+    price: '$300',
+    discount: '$300',
+    sale: '70%',
+    reviews: 4,
+    productType: 'BEDROOM',
+  },
+  {
+    id: 9,
+    image: cardimage1,
+    heading: 'Test Coffee Table',
+    price: '$300',
+    discount: '$300',
+    sale: '70%',
+    reviews: 5,
+    productType: 'LIVING',
   },
 ];

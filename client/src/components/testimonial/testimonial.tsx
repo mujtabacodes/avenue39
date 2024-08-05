@@ -59,7 +59,7 @@ const Testimonial: React.FC<TestimonialProps> = ({testimonialitems}) => {
             <p className='text-20 font-normal'>Testimonial</p>
             <h2 className='font-medium text-2xl xs:text-3xl md:text-4xl w-5/6 xs:w-3/4 lg:w-1/2 mx-auto tracking-wide leading-relaxed mt-3'>We Care About Our Customer’s Experience Too</h2>
             <div className="testimonial-card-wrapper mt-16">
-            <Slider {...settings} className='mx-4 xs:mx-0 testimonial-slider pb-20'>
+            <Slider {...settings} className='mx-2 xs:mx-0 testimonial-slider pb-20'>
           {testimonialitems.map((card) => (
             <div key={card.id}>
               <TestimonialCard card={card} />

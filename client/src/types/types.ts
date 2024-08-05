@@ -160,3 +160,18 @@ export interface IProductCategories {
 export interface IProductDetail {
   id: number;
 }
+
+export interface ITabbyList{
+  id: number;
+  para: string;
+}
+export interface ITabbyPayList{
+  id: number;
+  imageUrl: StaticImageData;
+}
+
+export interface ITamaraList{
+  id: number;
+  title?: string;
+  para: string;
+}

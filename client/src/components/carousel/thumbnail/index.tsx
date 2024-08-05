@@ -64,9 +64,9 @@ const Thumbnail: React.FC<ThumbProps> = ({ thumbs }) => {
   };
 
   return (
-    <div className="relative h-[600px] p-2">
-      <div className="w-full flex h-full gap-5">
-        <div className="w-1/5 flex-shrink-0 relative">
+    <div className="relative max-h-[600px] p-2">
+      <div className="w-full flex max-h-[580px] gap-5">
+        <div className="w-1/5 flex-shrink-0 relative mb-8">
           <Swiper
             onSwiper={(swiper) => {
               setThumbsSwiper(swiper);
@@ -96,7 +96,7 @@ const Thumbnail: React.FC<ThumbProps> = ({ thumbs }) => {
             ))}
           </Swiper>
           <div
-            className=" absolute  -bottom-1 right-1/3  z-10 cursor-pointer bg-[#F6F6F6] px-3 py-2"
+            className=" absolute  -bottom-5 right-1/3  z-10 cursor-pointer bg-[#F6F6F6] px-3 py-2"
             onClick={() => scrollToSlide('up')}
           >
             <FaSortDown className=" text-black font-" />

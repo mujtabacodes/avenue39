@@ -171,7 +171,7 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
         <div>
           {cartItems.map((item: any) => (
             <div
-              className="shadow rounded-md w-full p-2 mt-3 flex flex-wrap md:flex-nowrap justify-between items-center bg-red-600"
+              className="shadow rounded-md w-full p-2 mt-3 flex flex-wrap md:flex-nowrap justify-between items-center"
               key={item.id}
             >
               <div className="flex items-center gap-4">

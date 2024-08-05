@@ -18,9 +18,10 @@ import { openDrawer } from '@/redux/slices/drawer';
 
 interface CardProps {
   card: ICard;
+  isModel?: boolean;
 }
 
-const Card: React.FC<CardProps> = ({ card }) => {
+const Card: React.FC<CardProps> = ({ card, isModel }) => {
   const dispatch = useDispatch<Dispatch>();
   const cartItems = useSelector((state: State) => state.cart.items);
   const itemToAdd: CartItem = {
@@ -30,9 +31,7 @@ const Card: React.FC<CardProps> = ({ card }) => {
   const handleAddToCard = () => {
     dispatch(addItem(itemToAdd));
     dispatch(openDrawer());
-    // alert('Bhai saab product add krwa di kiya baat');
   };
-
   const renderStars = () => {
     const stars = [];
     for (let i = 1; i <= 5; i++) {
@@ -67,7 +66,7 @@ const Card: React.FC<CardProps> = ({ card }) => {
       </div>
       <h3 className="text-lg font-semibold mt-2">{card.name}</h3>
       <p className="text-md font-semibold mt-1">
-        Dhr {card.price}{' '}
+        {card.price}{' '}
         <span className="line-through text-secondary-foreground ms-2">
           {card.discount}
         </span>
@@ -75,15 +74,21 @@ const Card: React.FC<CardProps> = ({ card }) => {
       <div className="flex gap-1 mt-2 items-center justify-center h-8">
         {card.reviews != 0 ? renderStars() : ''}
       </div>
-      <div className="text-center flex justify-center">
-        <button
-          className="my-4 px-4 py-2 text-primary border border-primary  rounded-full flex items-center justify-center gap-2 hover:bg-primary hover:text-white"
-          onClick={handleAddToCard}
-        >
-          <HiOutlineShoppingBag />
-          <span className="mr-2">Add to card</span>
-        </button>
-      </div>
+
+      {isModel ? null : (
+        <div className="text-center flex flex-none justify-center gap-3">
+          <button
+            className="my-4 w-32 h-8 text-primary border border-primary  rounded-full flex items-center justify-center gap-2 hover:bg-primary hover:text-white"
+            onClick={handleAddToCard}
+          >
+            <HiOutlineShoppingBag />
+            <span className="text-10 font-medium">Add to Cart</span>
+          </button>
+          <button className="my-4 w-32 h-8 text-secondary border border-primary bg-primary rounded-full flex items-center justify-center gap-2 hover:bg-secondary hover:text-primary">
+            <span className="text-10 font-medium">Quick View</span>
+          </button>
+        </div>
+      )}
     </div>
   );
 };
