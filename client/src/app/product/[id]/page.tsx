@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useState } from 'react';
 import { products } from '@/data/products';
 import Image from 'next/image';
 import CustomPaging from '@/components/image-slider';
@@ -27,6 +27,7 @@ import {
   tamarawhy,
 } from '@/data';
 import SliderComponent from '@/components/card-slider/card-slider';
+
 import Container from '@/components/ui/Container';
 import Services from '@/components/services/services';
 import SideCard from '@/components/side-card/side-card';

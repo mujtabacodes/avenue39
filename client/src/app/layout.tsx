@@ -8,6 +8,7 @@ import MenuBar from '@/components/nav/menu-bar';
 import Navbar from '@/components/nav/nav-bar';
 import TopNav from '@/components/nav/top-nav';
 import BottomBar from '@/components/nav/bottom-bar';
+import Providers from '@/redux/provider';
 
 const inter = Open_Sans({ subsets: ['latin'] });
 
@@ -24,12 +25,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <TopNav />
-        <Navbar />
-        <MenuBar />
-        <BottomBar/>
-        {children}
-        <Footer />
+        <Providers>
+          <TopNav />
+          <Navbar />
+          <MenuBar />
+          <BottomBar />
+          {children}
+          <Footer />
+        </Providers>
       </body>
     </html>
   );
