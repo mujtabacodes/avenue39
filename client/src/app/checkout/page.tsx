@@ -1,3 +1,4 @@
+'use client';
 import CheckoutForm from '@/components/forms/checkout-form';
 import OrderPlace from '@/components/order-place/order-place';
 import TopHero from '@/components/top-hero';
@@ -7,45 +8,57 @@ import Container from '@/components/ui/Container';
 import { products } from '@/data';
 import { checkout } from '@/data/data';
 import Image from 'next/image';
-import React from 'react';
-import tabby from '@assets/images/tabby.png';
-import tamara from '@assets/images/tamara.png';
+import React, { Fragment } from 'react';
+import tabby from '@assets/icons/tabby-logo.png';
+import tamara from '@assets/icons/tamara-logo.png';
 import Coupan from '@/components/coupan-code';
 import CartItems from '@/components/cart/items';
+import { SubTotal } from '@/config';
+import { useSelector } from 'react-redux';
+import { State } from '@/redux/store';
+import { selectTotalPrice } from '@/redux/slices/cart';
 const Checkout = () => {
+  const totalPrice = useSelector((state: State) =>
+    selectTotalPrice(state.cart),
+  );
+  const shippingfee = totalPrice > 100 ? 0 : 15;
   return (
-    <>
+    <Fragment>
       <TopHero breadcrumbs={checkout} />
-      <Container className="grid grid-cols-1 md:grid-cols-2 mt-10 md:gap-10">
+      <Container className="grid grid-cols-1 md:grid-cols-2 mt-2 md:gap-10">
         <div>
           <h2 className="text-[33px]">Checkout</h2>
           <CheckoutForm />
         </div>
         <div>
-          <h2 className="text-[33px] mb-10">Promotional Code</h2>
-          <Coupan label="Have a coupon?" />
+          {/* <h2 className="text-[33px] mb-10">Promotional Code</h2> */}
+          {/* <Coupan label="Have a coupon?" /> */}
           <div className="mt-10 space-y-6">
-            <div className="bg-[#EEEEEE] px-4 py-4 space-y-5">
-              <p className="text-center text-[33px]">Your Order</p>
-              <div className="mt-5 max-h-72 px-1 overflow-y-scroll custom-scrollbar">
+            <div className="bg-[#EEEEEE] px-4 py-4 space-y-3">
+              <p className="text-center text-2xl font-extrabold">Your Order</p>
+              <div className="mt-5 max-h-48 px-1 overflow-y-scroll custom-scrollbar">
                 <CartItems isCartPage={true} isCheckoutPage={true} />
               </div>
-              <div className="border-t-4 pt-6 flex justify-between items-center text-[#666666] text-18">
+              <div className="border-t-4 pt-6 flex justify-between items-center text-[#666666] text-sm">
                 <p>Subtotal</p>
                 <p>
-                  Dhs.<span>3000</span>.00
+                  AED.
+                  <span>{totalPrice}</span>
+                  .00
                 </p>
               </div>
-              <div className="border-t-4 pt-6 flex justify-between items-center text-[#666666] text-18">
-                <p>Subtotal</p>
+              <div className="border-t-4 pt-6 flex justify-between items-center text-[#666666] text-sm">
+                <p>Shipping fee</p>
                 <p>
-                  Dhs.<span>3000</span>.00
+                  <span>
+                    {shippingfee == 0 ? 'Free' : ` AED.${shippingfee} .00`}
+                  </span>
                 </p>
               </div>
-              <div className="border-t-4 pt-6 flex justify-between items-center text-[#666666] text-18">
-                <p>Subtotal</p>
+              <div className="border-t-4 pt-6 flex justify-between items-center text-[#666666] text-18 font-bold">
+                <p>Total</p>
                 <p className="text-black text-[25px]">
-                  Dhs.<span>3000</span>.00
+                  AED.<span>{totalPrice + shippingfee}</span>.00
                 </p>
               </div>
             </div>
@@ -58,7 +71,7 @@ const Checkout = () => {
                 Direct Bank Transfer
               </label>
             </div>
-            <div className="bg-[#EEEEEE] px-4 py-4 space-y-5">
+            <div className="bg-[#EEEEEE] px-4 py-1 space-y-5">
               <p className="text-12">
                 Make your payment directly into our bank account. Please use
                 your Order ID as the payment reference. Your order won’t be
@@ -70,7 +83,7 @@ const Checkout = () => {
               <div className="flex gap-4 items-center">
                 <div className="flex items-center space-x-2">
                   <Checkbox id="terms" />
-                  <Image width={100} height={100} src={tabby} alt="tabby" />
+                  <Image width={80} height={80} src={tabby} alt="tabby" />
                 </div>
                 <div className="flex items-center space-x-2">
                   <Checkbox id="terms" />
@@ -86,7 +99,7 @@ const Checkout = () => {
           </div>
         </div>
       </Container>
-    </>
+    </Fragment>
   );
 };
 
