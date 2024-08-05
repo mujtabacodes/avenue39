@@ -28,10 +28,6 @@ const Checkout = () => {
             <div className="bg-[#EEEEEE] px-4 py-4 space-y-5">
               <p className="text-center text-[33px]">Your Order</p>
               <div className="mt-5 max-h-72 px-1 overflow-y-scroll custom-scrollbar">
-                {/* {products.map((product) => (
-                  <OrderPlace key={product.id} product={product} />
-                ))} */}
-
                 <CartItems isCartPage={true} isCheckoutPage={true} />
               </div>
               <div className="border-t-4 pt-6 flex justify-between items-center text-[#666666] text-18">

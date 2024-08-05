@@ -1,18 +1,18 @@
 'use client';
+
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { State, Dispatch } from '@redux/store'; // Adjust according to your path
+import { State, Dispatch } from '@redux/store';
 import {
   addItem,
   removeItem,
   selectTotalPrice,
   updateItemQuantity,
-} from '@cartSlice/index'; // Adjust according to your path
-import { CartItem } from '@cartSlice/types'; // Adjust according to your path
+} from '@cartSlice/index';
+import { CartItem } from '@cartSlice/types';
 import { NormalText, ProductName, ProductPrice } from '@/styles/typo';
 import { RxCross2 } from 'react-icons/rx';
 import Image from 'next/image';
-import { Button } from '../ui/button';
 import CustomButtom from '../ui/custom-button';
 import Counter from '../counter';
 import { IoBagOutline, IoCloseSharp } from 'react-icons/io5';
@@ -21,6 +21,7 @@ import {
   Sheet,
   SheetClose,
   SheetContent,
+  SheetFooter,
   SheetHeader,
   SheetOverlay,
   SheetTitle,
@@ -28,7 +29,7 @@ import {
 } from '../ui/sheet';
 import { TfiClose } from 'react-icons/tfi';
 import { TotalProducts } from '@/config';
-import { closeDrawer, openDrawer } from '@/redux/slices/drawer'; // Adjust according to your path
+import { closeDrawer, openDrawer } from '@/redux/slices/drawer';
 
 interface ICartItems {
   isCartPage?: boolean;
@@ -49,11 +50,11 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
   };
 
   const handleCloseDrawer = () => {
-    dispatch(closeDrawer()); // Close the drawer explicitly
+    dispatch(closeDrawer());
   };
 
   const handleOpenDrawer = () => {
-    dispatch(openDrawer()); // Open the drawer explicitly
+    dispatch(openDrawer());
   };
 
   const updateProductQuantity = (id: number, quantity: number) => {
@@ -61,11 +62,13 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
       dispatch(updateItemQuantity({ id, quantity }));
     }
   };
-  const toggleDrawerState = () => {
-    drawerState == false;
-  };
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      dispatch(closeDrawer());
+    }, 3000);
 
-  useEffect(() => {}, [drawerState]);
+    return () => clearTimeout(timeoutId);
+  }, [drawerState, dispatch]);
 
   return (
     <React.Fragment>
@@ -74,7 +77,7 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
           <SheetTrigger asChild>
             <div
               className="bg-red-600 lg:w-20 w-12 h-10 lg:h-12 rounded-3xl relative flex justify-center items-center text-white cursor-pointer"
-              onClick={handleOpenDrawer}
+              onClick={() => navigate.push('/cart')}
             >
               <IoBagOutline size={25} />
               <div className="w-5 h-5 rounded-full bg-black flex justify-center items-center absolute top-2 right-4 text-xs">
@@ -82,8 +85,11 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
               </div>
             </div>
           </SheetTrigger>
-          <SheetOverlay className="bg-white opacity-80 z-[51]" />
-          <SheetContent className="sm:max-w-lg z-[52] border-s border-black py-10 ps-10 pe-0">
+          <SheetOverlay
+            className="bg-white opacity-80 z-[51]"
+            onClick={handleCloseDrawer}
+          />
+          <SheetContent className="sm:max-w-lg z-[52] border-s border-black py-10 ps-10 pe-0 flex flex-col">
             <SheetHeader className="flex flex-row items-center justify-between border-b-2 py-8 pe-12">
               <SheetTitle className="font-medium text-3xl">
                 My Cart (<TotalProducts />)
@@ -97,12 +103,13 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
               </SheetClose>
             </SheetHeader>
 
-            <div className="mr-6">
-              <ul>
+            <div className="flex-1 overflow-auto mr-6 scrollbar-hidden">
+              <ul className="space-y-4">
+                {' '}
                 {cartItems.map((item: any) => (
                   <li
                     key={item.id}
-                    className="relative flex items-center bg-slate-50 mt-2 border-dotted gap-3 w-full"
+                    className="relative flex items-center bg-slate-50 border-dotted gap-3 p-4 w-full rounded-md"
                   >
                     <Image
                       src={item.image.src}
@@ -132,35 +139,39 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                   </li>
                 ))}
               </ul>
+            </div>
 
-              <div className=" mt-6 pt-5 border-t-2 flex flex-col gap-2">
+            <SheetFooter className="border-t-2 py-4 mr-6">
+              <div className="flex flex-col gap-2 w-full">
                 <NormalText className="text-slate-400 flex justify-between">
                   Subtotal
                   <ProductPrice className="flex gap-2 mb-4">
                     Dhs {totalPrice}
                   </ProductPrice>
                 </NormalText>
-                <SheetClose
-                  className="flex gap-4 items-center"
-                  onClick={() => navigate.push('/cart')}
-                >
-                  <CustomButtom variant="light">VIEW CART</CustomButtom>
-                </SheetClose>
-                <SheetClose
-                  className="flex gap-4 items-center"
-                  onClick={() => navigate.push('/checkout')}
-                >
-                  <CustomButtom variant="dark">Check out</CustomButtom>
-                </SheetClose>
+                <div className="flex flex-col gap-2">
+                  <SheetClose
+                    className="flex gap-4 items-center"
+                    onClick={() => navigate.push('/cart')}
+                  >
+                    <CustomButtom variant="light">VIEW CART</CustomButtom>
+                  </SheetClose>
+                  <SheetClose
+                    className="flex gap-4 items-center"
+                    onClick={() => navigate.push('/checkout')}
+                  >
+                    <CustomButtom variant="dark">Check out</CustomButtom>
+                  </SheetClose>
+                </div>
               </div>
-            </div>
+            </SheetFooter>
           </SheetContent>
         </Sheet>
       ) : (
         <div>
           {cartItems.map((item: any) => (
             <div
-              className="shadow rounded-md w-full p-2 bg-white mt-3 flex flex-wrap md:flex-nowrap justify-between items-center"
+              className="shadow rounded-md w-full p-2 mt-3 flex flex-wrap md:flex-nowrap justify-between items-center bg-red-600"
               key={item.id}
             >
               <div className="flex items-center gap-4">
