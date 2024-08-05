@@ -3,7 +3,7 @@ interface ProductImage {
   public_id: string;
 }
 
-interface AdditionalInformation {
+export interface AdditionalInformation {
   key?: string;
   value?: string;
   colors?: string[];

@@ -15,17 +15,18 @@ const Footer: React.FC = () => {
         <div className="">
           <div>
             <Image src={logo} alt="logo" className="w-72" />
-            <p className="my-11 font-normal text-14 leading-6 text-primary-foreground">
+            <p className="my-11 font-normal text-13 leading-6 text-primary-foreground">
               Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
               nisi ut aliquip ex ea commodo.
             </p>
+            <div className='pt-5'>
             <SocialLink socialSize='md:text-[25px]' />
+            </div>
           </div>
         </div>
         <div className=" px-2">
           <h5 className="font-medium text-3xl">Quick Links</h5>
-          <ul className="leading-[50px] font-normal text-19 text-primary-foreground mt-6">
-            <li><Link href='/about' target='_blank' className='hover:underline'>About Us</Link></li>
+          <ul className="leading-[45px] font-normal text-19 text-primary-foreground mt-6">
             <li><Link href='/delivery' target='_blank' className='hover:underline'>Delivery Information</Link></li>
             <li><Link href='/privacy' target='_blank' className='hover:underline'>Privacy Policy</Link></li>
             <li><Link href='/terms' target='_blank' className='hover:underline'>Terms & Conditions</Link></li>
@@ -34,11 +35,11 @@ const Footer: React.FC = () => {
         </div>
         <div className=" px-2">
           <h5 className="font-medium text-3xl">Account Info</h5>
-          <ul  className="leading-[50px] font-normal text-19 text-primary-foreground mt-6">
-            <li><Link href='/profile' target='_blank' className='hover:underline'>My Account</Link></li>
-            <li><Link href='/' target='_blank' className='hover:underline'>Shopping Cart</Link></li>
-            <li><Link href='/' target='_blank' className='hover:underline'>Wishlist</Link></li>
-            <li><Link href='/' target='_blank' className='hover:underline'>Order History</Link></li>
+          <ul  className="leading-[45px] font-normal text-19 text-primary-foreground mt-6">
+            <li><Link href='/profile' target='_self' className='hover:underline'>My Account</Link></li>
+            <li><Link href='/about' target='_self' className='hover:underline'>About Us</Link></li>
+            <li><Link href='/' target='_self' className='hover:underline'>Shopping Cart</Link></li>
+            <li><Link href='/' target='_self' className='hover:underline'>Order History</Link></li>
           </ul>
         </div>
         <div className="">

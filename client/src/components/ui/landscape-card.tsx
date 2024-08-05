@@ -27,8 +27,8 @@ const LandscapeCard:React.FC<CardProps> = ({ card }) => {
         return stars;
       };
   return (
-    <div className="rounded-2xl text-center relative product-card mx-2 group flex">
-    <div className="relative w-fit">
+    <div className="rounded-2xl text-center relative product-card mx-2 group flex gap-4 items-center flex-col sm:flex-row">
+    <div className="relative w-fit mx-auto sm:w-3/12">
       <div className="bg-white rounded-full absolute top-4 right-6 flex flex-col gap-2 py-2 px-1 product-hover-icons z-[1] opacity-0 group-hover:opacity-100 transition-opacity">
         <PiEyeThin size={17} className="cursor-pointer" />
         <CiHeart size={18} className="cursor-pointer" />
@@ -38,24 +38,25 @@ const LandscapeCard:React.FC<CardProps> = ({ card }) => {
       </span>
       <Image
         src={card.image}
-        alt={card.heading}
+        alt={card.name}
         width={320}
         height={200}
         className="object-cover rounded-t-lg mx-auto"
       />
     </div>
-    <div>
-      <h3 className="text-lg font-semibold mt-2">{card.heading}</h3>
-      <p className="text-md font-semibold mt-1">
-        {card.price}{' '}
+    <div className='w-full sm:w-9/12 text-center sm:text-start px-4 sm:px-0'>
+      <h3 className="text-lg font-semibold mt-2">{card.name}</h3>
+      <p className='mt-2 font-normal text-sm max-h-10 text-ellipsis line-clamp-2'>{card.description}</p>
+      <p className="text-md font-semibold mt-2">
+        AED{card.price}{' '}
         <span className="line-through text-secondary-foreground ms-2">
-          {card.discount}
+        AED{card.discount}
         </span>
       </p>
-      <div className="flex gap-1 mt-2 items-center justify-center h-8">
+      <div className="flex gap-1 mt-2 items-center justify-center sm:justify-start h-8">
         {card.reviews != 0 ? renderStars() : ''}
       </div>
-        <div className="text-center flex flex-none justify-center gap-3">
+        <div className="text-center flex flex-none justify-center sm:justify-start gap-3">
           <button className="my-4 w-32 h-8 text-primary border border-primary  rounded-full flex items-center justify-center gap-2 hover:bg-primary hover:text-white">
             <HiOutlineShoppingBag />
             <span className="text-10 font-medium">Add to Cart</span>

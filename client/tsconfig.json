@@ -27,7 +27,12 @@
       "@assets/*": ["./src/assets/*"],
       "@images/*": ["./src/assets/images/*"],
       "@icons/*": ["./src/assets/icons/*"],
-      "@data/*": ["./src/data/*"]
+      "@data/*": ["./src/data/*"],
+      "@redux/*": ["./src/redux/*"],
+      "@hooks/*": ["./src/redux/hooks/*"],
+      "@mainSlice/*": ["./src/redux/slices/main/*"],
+      "@cartSlice/*": ["./src/redux/slices/cart/*"],
+      "@drawerSlice/*": ["./src/redux/slices/drawer/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

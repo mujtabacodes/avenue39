@@ -8,17 +8,10 @@ import { StaticImageData } from 'next/image';
 import Container from '../ui/Container';
 import HotProductNextArrow from './hot-product-next-arrow';
 import HotProductPrevArrow from './hot-product-prev-arrow';
+import { ICard } from '@/types/types';
 
 interface SliderProps {
-  slideritems: Array<{
-    id: number;
-    image: StaticImageData;
-    heading: string;
-    price: string;
-    discount?: string;
-    sale: string;
-    reviews: number;
-  }>;
+  slideritems: ICard[];
 }
 
 const settings = {

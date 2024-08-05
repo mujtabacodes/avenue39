@@ -92,7 +92,7 @@ const SimpleSlider: React.FC = () => {
             </span>
           </h2>
         </div>
-        <Button className="underline text-xl mt-4" variant={'ghost'}>
+        <Button className="mt-3" variant={'link'}>
           Shop Now
         </Button>
       </div>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import { ICard } from '@/types/types';
 import { HiOutlineShoppingBag } from 'react-icons/hi';
@@ -6,12 +6,30 @@ import { MdStar, MdStarBorder } from 'react-icons/md';
 import { CiHeart } from 'react-icons/ci';
 import { PiEyeThin } from 'react-icons/pi';
 
+import { useSelector, useDispatch } from 'react-redux';
+import { State, Dispatch } from '@redux/store'; // Adjust according to your path
+import { addItem, removeItem, updateItemQuantity } from '@cartSlice/index'; // Adjust according to your path
+import { CartItem } from '@cartSlice/types'; // Adjust according to your path
+import { SheetTrigger } from './sheet';
+import CartItems from '../cart/items';
+import { openDrawer } from '@/redux/slices/drawer';
+
 interface CardProps {
   card: ICard;
   isModel?: boolean;
 }
 
 const Card: React.FC<CardProps> = ({ card, isModel }) => {
+  const dispatch = useDispatch<Dispatch>();
+  const cartItems = useSelector((state: State) => state.cart.items);
+  const itemToAdd: CartItem = {
+    ...card,
+    quantity: 1,
+  };
+  const handleAddToCard = () => {
+    dispatch(addItem(itemToAdd));
+    dispatch(openDrawer());
+  };
   const renderStars = () => {
     const stars = [];
     for (let i = 1; i <= 5; i++) {
@@ -38,35 +56,37 @@ const Card: React.FC<CardProps> = ({ card, isModel }) => {
         </span>
         <Image
           src={card.image}
-          alt={card.heading}
+          alt={card.name}
           width={320}
           height={200}
           className="object-cover rounded-t-lg mx-auto"
         />
       </div>
-      <div>
-        <h3 className="text-lg font-semibold mt-2">{card.heading}</h3>
-        <p className="text-md font-semibold mt-1">
-          {card.price}{' '}
-          <span className="line-through text-secondary-foreground ms-2">
-            {card.discount}
-          </span>
-        </p>
-        <div className="flex gap-1 mt-2 items-center justify-center h-8">
-          {card.reviews != 0 ? renderStars() : ''}
-        </div>
-        {isModel ? null : (
-          <div className="text-center flex flex-none justify-center gap-3">
-            <button className="my-4 w-32 h-8 text-primary border border-primary  rounded-full flex items-center justify-center gap-2 hover:bg-primary hover:text-white">
-              <HiOutlineShoppingBag />
-              <span className="text-10 font-medium">Add to Cart</span>
-            </button>
-            <button className="my-4 w-32 h-8 text-secondary border border-primary bg-primary rounded-full flex items-center justify-center gap-2 hover:bg-secondary hover:text-primary">
-              <span className="text-10 font-medium">Quick View</span>
-            </button>
-          </div>
-        )}
+      <h3 className="text-lg font-semibold mt-2">{card.name}</h3>
+      <p className="text-md font-semibold mt-1">
+        {card.price}{' '}
+        <span className="line-through text-secondary-foreground ms-2">
+          {card.discount}
+        </span>
+      </p>
+      <div className="flex gap-1 mt-2 items-center justify-center h-8">
+        {card.reviews != 0 ? renderStars() : ''}
       </div>
+
+      {isModel ? null : (
+        <div className="text-center flex flex-none justify-center gap-3">
+          <button
+            className="my-4 w-32 h-8 text-primary border border-primary  rounded-full flex items-center justify-center gap-2 hover:bg-primary hover:text-white"
+            onClick={handleAddToCard}
+          >
+            <HiOutlineShoppingBag />
+            <span className="text-10 font-medium">Add to Cart</span>
+          </button>
+          <button className="my-4 w-32 h-8 text-secondary border border-primary bg-primary rounded-full flex items-center justify-center gap-2 hover:bg-secondary hover:text-primary">
+            <span className="text-10 font-medium">Quick View</span>
+          </button>
+        </div>
+      )}
     </div>
   );
 };

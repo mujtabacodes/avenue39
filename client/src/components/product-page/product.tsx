@@ -68,32 +68,28 @@ const ProductPage = ({
   };
 
   const filteredCards = cards
-    .filter((card) => {
-      const inCategory =
-        selectedCategories.length > 0
-          ? selectedCategories.includes(card.productType || '')
-          : true;
-      const inPriceRange =
-        parseFloat(card.price.replace('$', '')) >= priceRange[0] &&
-        parseFloat(card.price.replace('$', '')) <= priceRange[1];
-      return inCategory && inPriceRange;
-    })
-    .sort((a, b) => {
-      if (sortOption === 'name') {
-        return a.heading.localeCompare(b.heading);
-      } else if (sortOption === 'max') {
-        return (
-          parseFloat(b.price.replace('$', '')) -
-          parseFloat(a.price.replace('$', ''))
-        );
-      } else if (sortOption === 'min') {
-        return (
-          parseFloat(a.price.replace('$', '')) -
-          parseFloat(b.price.replace('$', ''))
-        );
-      }
-      return 0;
-    });
+  .filter((card) => {
+    const inCategory =
+      selectedCategories.length > 0
+        ? selectedCategories.includes(card.productType || '')
+        : true;
+    const inPriceRange =
+      card.price >= priceRange[0] && card.price <= priceRange[1];
+    return inCategory && inPriceRange;
+  })
+  .sort((a, b) => {
+    if (sortOption === 'name') {
+      return a.name.localeCompare(b.name);
+    } else if (sortOption === 'max') {
+      return b.price - a.price;
+    } else if (sortOption === 'min') {
+      return a.price - b.price;
+    } else if (sortOption === 'review') {
+    return b.reviews - a.reviews;
+  }
+    return 0;
+  });
+
 
   return (
     <>
@@ -166,6 +162,7 @@ const ProductPage = ({
                       <SelectLabel>Sort Options</SelectLabel>
                       <SelectItem value="default">Default</SelectItem>
                       <SelectItem value="name">Name</SelectItem>
+                      <SelectItem value="review">Rating</SelectItem>
                       <SelectItem value="max">Price Max</SelectItem>
                       <SelectItem value="min">Price Min</SelectItem>
                       <SelectSeparator />

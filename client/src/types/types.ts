@@ -1,3 +1,4 @@
+import { AdditionalInformation } from '@/data/products';
 import { StaticImageData } from 'next/image';
 import { ReactNode } from 'react';
 import { IconType } from 'react-icons';
@@ -63,12 +64,14 @@ export type BannerImage = {
 export interface ICard {
   id: number;
   image: any;
-  heading: string;
-  price: string;
-  discount?: string;
+  name: string;
+  price: number;
+  discount?: number;
   sale: string;
   reviews: number;
   productType?: string;
+  description?: string;
+  additionalInformation?: AdditionalInformation[];
 }
 
 export interface ITestimonialCard {
