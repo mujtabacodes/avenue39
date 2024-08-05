@@ -1,4 +1,3 @@
-'use client';
 import TopHero from '@/components/top-hero';
 import Container from '@/components/ui/Container';
 import { cards } from '@/data';
@@ -16,6 +15,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import Card from '@/components/ui/card';
+import LandscapeCard from '@/components/ui/landscape-card';
 import Services from '@/components/services/services';
 import TopSelling from '@/components/top-selling/top-selling';
 import {
@@ -35,9 +35,16 @@ import { IoIosClose } from 'react-icons/io';
 interface ProductPageProps {
   sideBanner: StaticImageData;
   productBanner: ReactNode;
+  layout: string;
+  Setlayout: (layout: string) => void;
 }
 
-const ProductPage = ({ sideBanner, productBanner }: ProductPageProps) => {
+const ProductPage = ({
+  sideBanner,
+  productBanner,
+  layout,
+  Setlayout,
+}: ProductPageProps) => {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 500]);
   const [sortOption, setSortOption] = useState<string>('default');
@@ -87,6 +94,7 @@ const ProductPage = ({ sideBanner, productBanner }: ProductPageProps) => {
       }
       return 0;
     });
+
   return (
     <>
       <TopHero breadcrumbs={productsbredcrumbs} />
@@ -139,8 +147,16 @@ const ProductPage = ({ sideBanner, productBanner }: ProductPageProps) => {
                 Showing {filteredCards.length} results
               </p>
               <div className="flex items-center gap-2">
-                <MdWindow size={25} />
-                <ImList size={20} />
+                <MdWindow
+                  size={25}
+                  className="cursor-pointer"
+                  onClick={() => Setlayout('grid')}
+                />
+                <ImList
+                  size={20}
+                  className="cursor-pointer"
+                  onClick={() => Setlayout('list')}
+                />
                 <Select onValueChange={handleSortChange}>
                   <SelectTrigger>
                     <SelectValue placeholder="Sort by: Default" />
@@ -159,10 +175,16 @@ const ProductPage = ({ sideBanner, productBanner }: ProductPageProps) => {
               </div>
             </div>
           </div>
-          <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 mt-4">
+          <div
+            className={`grid gap-4 md:gap-8 mt-4 ${layout === 'grid' ? 'grid-cols-1 xs:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1'}`}
+          >
             {filteredCards.map((card) => (
               <div key={card.id}>
-                <Card card={card} />
+                {layout === 'grid' ? (
+                  <Card card={card} />
+                ) : (
+                  <LandscapeCard card={card} />
+                )}
               </div>
             ))}
           </div>
