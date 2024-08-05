@@ -76,7 +76,7 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
         <Sheet open={drawerState}>
           <SheetTrigger asChild>
             <div
-              className="bg-red-600 lg:w-20 w-12 h-10 lg:h-12 rounded-3xl relative flex justify-center items-center text-white cursor-pointer"
+              className="bg-red-500 lg:w-20 w-12 h-10 lg:h-12 rounded-3xl relative flex justify-center items-center text-white cursor-pointer"
               onClick={() => navigate.push('/cart')}
             >
               <IoBagOutline size={25} />
@@ -171,13 +171,13 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
         <div>
           {cartItems.map((item: any) => (
             <div
-              className="shadow rounded-md w-full p-2 mt-3 flex flex-wrap md:flex-nowrap justify-between items-center"
+              className="shadow rounded-md w-full p-2 mt-3 flex flex-wrap md:flex-nowrap justify-between items-center bg-white "
               key={item.id}
             >
               <div className="flex items-center gap-4">
                 <Image
-                  width={100}
-                  height={100}
+                  width={isCheckoutPage ? 50 : 100}
+                  height={isCheckoutPage ? 50 : 100}
                   src={item.image.src}
                   alt={item.name}
                 />
@@ -227,10 +227,10 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
               </div>
               <div className="hidden lg:flex items-center gap-6 pr-4">
                 <p className="text-16 xl:text-[22px] font-bold">
-                  Dhs.<span>{item?.discount * item.quantity}</span>
+                  AED.<span>{item?.discount * item.quantity}</span>
                 </p>
                 <p className="text-12 xl:text-16 font-normal line-through text-[#A5A5A5]">
-                  Dhs.<span>{item?.price * item.quantity}</span>
+                  AED.<span>{item?.price * item.quantity}</span>
                 </p>
                 <IoCloseSharp
                   className="cursor-pointer"

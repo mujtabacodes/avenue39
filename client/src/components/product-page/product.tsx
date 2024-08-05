@@ -140,7 +140,7 @@ const ProductPage = ({
                 </Sheet>
               </div>
               <p className="md:text-16 text-primary-foreground hidden md:block">
-                Showing {filteredCards.length} results
+                {/* Showing {filteredCards.length} results */}
               </p>
               <div className="flex items-center gap-2">
                 <MdWindow

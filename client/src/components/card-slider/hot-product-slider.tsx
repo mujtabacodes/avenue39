@@ -61,8 +61,10 @@ const HotProductSlider: React.FC<SliderProps> = ({ slideritems }) => {
   return (
     <section className="mt-5">
       <Container className="slider-container w-full">
-        <h2 className="text-xl xs:text-2xl sm:text-3xl mb-4 font-semibold">Hot Newest Products</h2>
-        <Slider {...settings} className='mx-4 xs:mx-0 hot-products mb-2'>
+        <h2 className="text-xl xs:text-2xl sm:text-3xl mb-4 font-semibold">
+          Hot Newest Products
+        </h2>
+        <Slider {...settings} className="mx-4 xs:mx-0 hot-products mb-2">
           {slideritems.map((card) => (
             <div key={card.id}>
               <Card card={card} />

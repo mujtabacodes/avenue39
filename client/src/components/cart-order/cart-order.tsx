@@ -48,14 +48,14 @@ const CartOrder: React.FC = () => {
       <div className="flex justify-between items-center border-t-2 pt-4">
         <p className="text-[#666666] text-20">Subtotal</p>
         <p className="font-bold text-18">
-          Dhs.
+          AED.
           <span>
             <SubTotal />
           </span>
           .00
         </p>
       </div>
-      <div className="flex flex-wrap md:flex-nowrap justify-between border-t-2 pt-4">
+      {/* <div className="flex flex-wrap md:flex-nowrap justify-between border-t-2 pt-4">
         <p className="text-[#666666] text-20">Subtotal</p>
         <form className="w-full md:w-6/12" onSubmit={formik.handleSubmit}>
           <Select
@@ -105,11 +105,11 @@ const CartOrder: React.FC = () => {
             Update Total
           </CustomButtom>
         </form>
-      </div>
+      </div> */}
       <div className="flex justify-between items-center pt-4">
-        <p className="text-[#666666] text-20">Total</p>
+        <p className="text-[#666666] font-bold text-20">Total</p>
         <p className="font-medium text-[26px]">
-          Dhs.
+          AED.
           <span>
             <SubTotal />
           </span>
