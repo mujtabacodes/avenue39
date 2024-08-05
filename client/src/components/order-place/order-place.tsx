@@ -40,17 +40,11 @@ const OrderPlace: React.FC<OrderItemProps> = ({ product }) => {
               Dhs.<span>{product.originalPrice.toFixed(2)}</span>
             </p>
             <IoCloseSharp className="cursor-pointer" size={20} />
-            <div>
-              <Counter />
-            </div>
+            <div>{/* <Counter /> */}</div>
           </div>
         </div>
       </div>
-      {isCartPage && (
-        <div className="hidden lg:block">
-          <Counter />
-        </div>
-      )}
+      {isCartPage && <div className="hidden lg:block">{/* <Counter /> */}</div>}
       <div className="hidden lg:flex items-center gap-6 pr-4">
         <p className="text-16 xl:text-[22px] font-bold">
           Dhs.<span>{product.price.toFixed(2)}</span>
