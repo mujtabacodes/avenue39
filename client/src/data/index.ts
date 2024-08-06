@@ -443,6 +443,18 @@ export const cards: ICard[] = [
     sale: '50%',
     reviews: 3,
     productType: 'DINNER',
+    description:
+      'Introducing the Minsk Coffee Table – a modern marvel that enhances your living space with contemporary elegance. The round-shaped metal coffee table boasts a sleek design, combining style and functionality...',
+      additionalInformation: [
+        {
+          key: 'Colors',
+          value: 'red, blue',
+        },
+        {
+          key: 'Dimension',
+          value: '10x10, 20x20',
+        },
+      ],
   },
   {
     id: 2,
@@ -453,6 +465,18 @@ export const cards: ICard[] = [
     sale: '30%',
     reviews: 5,
     productType: 'Home',
+    description:
+      'Introducing the Minsk Coffee Table – a modern marvel that enhances your living space with contemporary elegance. The round-shaped metal coffee table boasts a sleek design, combining style and functionality...',
+      additionalInformation: [
+        {
+          key: 'Colors',
+          value: 'red, blue',
+        },
+        {
+          key: 'Dimension',
+          value: '10x10, 20x20',
+        },
+      ],
   },
   {
     id: 3,
@@ -463,6 +487,18 @@ export const cards: ICard[] = [
     sale: '50%',
     reviews: 2,
     productType: 'CHAIRS',
+    description:
+      'Introducing the Minsk Coffee Table – a modern marvel that enhances your living space with contemporary elegance. The round-shaped metal coffee table boasts a sleek design, combining style and functionality...',
+      additionalInformation: [
+        {
+          key: 'Colors',
+          value: 'red, blue',
+        },
+        {
+          key: 'Dimension',
+          value: '10x10, 20x20',
+        },
+      ],
   },
   {
     id: 4,
@@ -473,6 +509,18 @@ export const cards: ICard[] = [
     sale: '45%',
     reviews: 0,
     productType: 'DINNER',
+    description:
+      'Introducing the Minsk Coffee Table – a modern marvel that enhances your living space with contemporary elegance. The round-shaped metal coffee table boasts a sleek design, combining style and functionality...',
+      additionalInformation: [
+        {
+          key: 'Colors',
+          value: 'red, blue',
+        },
+        {
+          key: 'Dimension',
+          value: '10x10, 20x20',
+        },
+      ],
   },
   {
     id: 5,
@@ -483,6 +531,18 @@ export const cards: ICard[] = [
     sale: '70%',
     reviews: 4,
     productType: 'Home OFFICE',
+    description:
+      'Introducing the Minsk Coffee Table – a modern marvel that enhances your living space with contemporary elegance. The round-shaped metal coffee table boasts a sleek design, combining style and functionality...',
+      additionalInformation: [
+        {
+          key: 'Colors',
+          value: 'red, blue',
+        },
+        {
+          key: 'Dimension',
+          value: '10x10, 20x20',
+        },
+      ],
   },
   {
     id: 6,
@@ -493,6 +553,18 @@ export const cards: ICard[] = [
     sale: '70%',
     reviews: 5,
     productType: 'TABLES',
+    description:
+      'Introducing the Minsk Coffee Table – a modern marvel that enhances your living space with contemporary elegance. The round-shaped metal coffee table boasts a sleek design, combining style and functionality...',
+      additionalInformation: [
+        {
+          key: 'Colors',
+          value: 'red, blue',
+        },
+        {
+          key: 'Dimension',
+          value: '10x10, 20x20',
+        },
+      ],
   },
   {
     id: 7,
@@ -503,6 +575,18 @@ export const cards: ICard[] = [
     sale: '45%',
     reviews: 0,
     productType: 'LIVING',
+    description:
+      'Introducing the Minsk Coffee Table – a modern marvel that enhances your living space with contemporary elegance. The round-shaped metal coffee table boasts a sleek design, combining style and functionality...',
+      additionalInformation: [
+        {
+          key: 'Colors',
+          value: 'red, blue',
+        },
+        {
+          key: 'Dimension',
+          value: '10x10, 20x20',
+        },
+      ],
   },
   {
     id: 8,
@@ -513,6 +597,18 @@ export const cards: ICard[] = [
     sale: '70%',
     reviews: 4,
     productType: 'BEDROOM',
+    description:
+      'Introducing the Minsk Coffee Table – a modern marvel that enhances your living space with contemporary elegance. The round-shaped metal coffee table boasts a sleek design, combining style and functionality...',
+      additionalInformation: [
+        {
+          key: 'Colors',
+          value: 'red, blue',
+        },
+        {
+          key: 'Dimension',
+          value: '10x10, 20x20',
+        },
+      ],
   },
   {
     id: 9,
@@ -523,6 +619,18 @@ export const cards: ICard[] = [
     sale: '70%',
     reviews: 5,
     productType: 'LIVING',
+    description:
+      'Introducing the Minsk Coffee Table – a modern marvel that enhances your living space with contemporary elegance. The round-shaped metal coffee table boasts a sleek design, combining style and functionality...',
+      additionalInformation: [
+        {
+          key: 'Colors',
+          value: 'red, blue',
+        },
+        {
+          key: 'Dimension',
+          value: '10x10, 20x20',
+        },
+      ],
   },
 ];
 

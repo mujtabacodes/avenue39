@@ -1,5 +1,3 @@
-// components/Card.tsx
-
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { ICard } from '@/types/types';
@@ -60,9 +58,9 @@ const Card: React.FC<CardProps> = ({ card, isModel }) => {
       onClick={(e) => handleNavigation(e)}
     >
       <div className="relative w-fit mx-auto">
-        <div className="bg-white rounded-full absolute top-4 right-6 flex flex-col gap-2 py-2 px-1 product-hover-icons z-[1] opacity-0 group-hover:opacity-100 transition-transform -translate-x-5 group-hover:translate-x-0">
-          <PiEyeThin size={18} />
-          <CiHeart size={18} />
+        <div className="bg-white rounded-full absolute top-4 right-6 flex flex-col gap-2 py-2 px-1 product-hover-icons z-[1] opacity-0 group-hover:opacity-100 transition-opacity">
+          <PiEyeThin size={17} className="cursor-pointer" />
+          <CiHeart size={18} className="cursor-pointer" />
         </div>
         <span className="absolute top-4 left-4 text-white text-xs font-light bg-red-500 rounded-full w-14 h-6 flex justify-center items-center">
           {card.sale}

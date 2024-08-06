@@ -2,8 +2,6 @@ import FeatureSlider from '@/components/card-slider/feature-slider';
 import CartOrder from '@/components/cart-order/cart-order';
 import CartItems from '@/components/cart/items';
 import Coupan from '@/components/coupan-code';
-import FeatureCard from '@/components/feature-card/feature-card';
-import OrderPlace from '@/components/order-place/order-place';
 import Services from '@/components/services/services';
 import TopHero from '@/components/top-hero';
 import Container from '@/components/ui/Container';
