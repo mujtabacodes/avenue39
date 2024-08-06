@@ -1,14 +1,17 @@
 
-
+"use client"
 import React from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Card from '../ui/card';
-import { Card as CardType } from '@/types/types';
+import { ICard as CardType } from '@/types/types';
+import CustomNextArrow from './custom-next-arrow';
+import CustomPrevArrow from './custom-prev-arrow';
 
 interface SliderProps {
   cards: CardType[];
+  isModel?:boolean;
 }
 
 const sliderSettings = {
@@ -18,6 +21,8 @@ const sliderSettings = {
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 1,
+    prevArrow: <CustomPrevArrow />,
+    nextArrow: <CustomNextArrow />,
     responsive: [
       {
         breakpoint: 1024, // Tablets and small desktops
@@ -43,12 +48,12 @@ const sliderSettings = {
     ],
   };
 
-const SliderComponent: React.FC<SliderProps> = ({ cards }) => {
+const SliderComponent: React.FC<SliderProps> = ({ cards,isModel }) => {
   return (
     <Slider {...sliderSettings}>
       {cards.map(card => (
         <div key={card.id}>
-          <Card card={card} />
+          <Card card={card} isModel={isModel}/>
         </div>
       ))}
     </Slider>

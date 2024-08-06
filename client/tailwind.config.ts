@@ -18,7 +18,16 @@ const config = {
       },
     },
     extend: {
+      backgroundColor:{
+        // login: 'url("src/assets/images/login.png")',
+  
+      },
       fontSize: {
+        9: '9px',
+        10: '10px',
+        11: '11px',
+        12: '12px',
+        13: '13px',
         14: '14px',
         15: '15px',
         16: '16px',
@@ -29,6 +38,7 @@ const config = {
         21: '21px',
       },
       colors: {
+        light: '#F6F6F6',
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
@@ -97,12 +107,11 @@ const config = {
     screens: {
       'xs': '480px',
       'sm': '640px',
-      'md': '768px',
+      'md': '895px',
       'lg': '1024px',
       'xl': '1280px',
       '2xl': '1536px',
     }
-    
   },
   plugins: [require('tailwindcss-animate')],
 } satisfies Config;

@@ -13,8 +13,8 @@ import SaleBanner from '@/components/discount-banner/sale-banner';
 import Container from '@/components/ui/Container';
 import { Button } from '@/components/ui/button';
 import banner4 from '@assets/images/banners/banner4.png';
-import CardsTabes from '../card-slider/card-slider';
 import TimerSlider from '@/components/timer-slider/timer-slider';
+import CardsTabes from '@/components/card-tabs/card-slider';
 
 const HomePage = (props: IHome) => {
   return (
