@@ -178,3 +178,9 @@ export interface ITamaraList{
   title?: string;
   para: string;
 }
+
+export interface IMAGE_INTERFACE {
+  public_id?: string;
+  imageUrl?: string;
+  name?: string;
+}
