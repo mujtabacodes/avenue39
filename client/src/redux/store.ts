@@ -7,6 +7,10 @@ import drawerReducer from '@drawerSlice/index';
 import { initMainState } from '@mainSlice/init';
 import { initCartState } from './slices/cart/init';
 import { initCartDrawerState } from './slices/drawer/init';
+import usrSlice from './slices/user/userSlice';
+import usersSlice from './slices/Admin/AdminsSlice';
+
+
 
 const persistConfig = {
   key: 'root',
@@ -24,9 +28,10 @@ const persistConfig = {
 
 // Combine reducers into a single root reducer
 const rootReducer = combineReducers({
-  main: mainReducer, // Ensure this is the reducer
+  main: mainReducer, 
   cart: cartReducer,
   drawer: drawerReducer,
+  usersSlice: usersSlice,
 });
 
 // Create a persisted reducer
