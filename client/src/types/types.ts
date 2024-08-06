@@ -1,3 +1,4 @@
+import { AdditionalInformation } from '@/data/products';
 import { StaticImageData } from 'next/image';
 import { ReactNode } from 'react';
 import { IconType } from 'react-icons';
@@ -69,6 +70,8 @@ export interface ICard {
   sale: string;
   reviews: number;
   productType?: string;
+  description?: string;
+  additionalInformation?: AdditionalInformation[];
 }
 
 export interface ITestimonialCard {
@@ -174,4 +177,10 @@ export interface ITamaraList{
   id: number;
   title?: string;
   para: string;
+}
+
+export interface IMAGE_INTERFACE {
+  public_id?: string;
+  imageUrl?: string;
+  name?: string;
 }

@@ -1,4 +1,3 @@
-'use client';
 import TopHero from '@/components/top-hero';
 import Container from '@/components/ui/Container';
 import { cards } from '@/data';
@@ -16,6 +15,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import Card from '@/components/ui/card';
+import LandscapeCard from '@/components/ui/landscape-card';
 import Services from '@/components/services/services';
 import TopSelling from '@/components/top-selling/top-selling';
 import {
@@ -35,9 +35,16 @@ import { IoIosClose } from 'react-icons/io';
 interface ProductPageProps {
   sideBanner: StaticImageData;
   productBanner: ReactNode;
+  layout: string;
+  Setlayout: (layout: string) => void;
 }
 
-const ProductPage = ({ sideBanner, productBanner }: ProductPageProps) => {
+const ProductPage = ({
+  sideBanner,
+  productBanner,
+  layout,
+  Setlayout,
+}: ProductPageProps) => {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 500]);
   const [sortOption, setSortOption] = useState<string>('default');
@@ -60,33 +67,30 @@ const ProductPage = ({ sideBanner, productBanner }: ProductPageProps) => {
     setSortOption(sort);
   };
 
-  // const filteredCards = cards
-  //   .filter((card) => {
-  //     const inCategory =
-  //       selectedCategories.length > 0
-  //         ? selectedCategories.includes(card.productType || '')
-  //         : true;
-  //     const inPriceRange =
-  //       parseFloat(card.price.replace('$', '')) >= priceRange[0] &&
-  //       parseFloat(card.price.replace('$', '')) <= priceRange[1];
-  //     return inCategory && inPriceRange;
-  //   })
-  //   .sort((a, b) => {
-  //     if (sortOption === 'name') {
-  //       return a.heading.localeCompare(b.heading);
-  //     } else if (sortOption === 'max') {
-  //       return (
-  //         parseFloat(b.price.replace('$', '')) -
-  //         parseFloat(a.price.replace('$', ''))
-  //       );
-  //     } else if (sortOption === 'min') {
-  //       return (
-  //         parseFloat(a.price.replace('$', '')) -
-  //         parseFloat(b.price.replace('$', ''))
-  //       );
-  //     }
-  //     return 0;
-  //   });
+  const filteredCards = cards
+  .filter((card) => {
+    const inCategory =
+      selectedCategories.length > 0
+        ? selectedCategories.includes(card.productType || '')
+        : true;
+    const inPriceRange =
+      card.price >= priceRange[0] && card.price <= priceRange[1];
+    return inCategory && inPriceRange;
+  })
+  .sort((a, b) => {
+    if (sortOption === 'name') {
+      return a.name.localeCompare(b.name);
+    } else if (sortOption === 'max') {
+      return b.price - a.price;
+    } else if (sortOption === 'min') {
+      return a.price - b.price;
+    } else if (sortOption === 'review') {
+    return b.reviews - a.reviews;
+  }
+    return 0;
+  });
+
+
   return (
     <>
       <TopHero breadcrumbs={productsbredcrumbs} />
@@ -139,8 +143,16 @@ const ProductPage = ({ sideBanner, productBanner }: ProductPageProps) => {
                 {/* Showing {filteredCards.length} results */}
               </p>
               <div className="flex items-center gap-2">
-                <MdWindow size={25} />
-                <ImList size={20} />
+                <MdWindow
+                  size={25}
+                  className="cursor-pointer"
+                  onClick={() => Setlayout('grid')}
+                />
+                <ImList
+                  size={20}
+                  className="cursor-pointer"
+                  onClick={() => Setlayout('list')}
+                />
                 <Select onValueChange={handleSortChange}>
                   <SelectTrigger>
                     <SelectValue placeholder="Sort by: Default" />
@@ -150,6 +162,7 @@ const ProductPage = ({ sideBanner, productBanner }: ProductPageProps) => {
                       <SelectLabel>Sort Options</SelectLabel>
                       <SelectItem value="default">Default</SelectItem>
                       <SelectItem value="name">Name</SelectItem>
+                      <SelectItem value="review">Rating</SelectItem>
                       <SelectItem value="max">Price Max</SelectItem>
                       <SelectItem value="min">Price Min</SelectItem>
                       <SelectSeparator />
@@ -159,12 +172,18 @@ const ProductPage = ({ sideBanner, productBanner }: ProductPageProps) => {
               </div>
             </div>
           </div>
-          <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 mt-4">
-            {/* {filteredCards.map((card) => (
+          <div
+            className={`grid gap-4 md:gap-8 mt-4 ${layout === 'grid' ? 'grid-cols-1 xs:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1'}`}
+          >
+            {filteredCards.map((card) => (
               <div key={card.id}>
-                <Card card={card} />
+                {layout === 'grid' ? (
+                  <Card card={card} />
+                ) : (
+                  <LandscapeCard card={card} />
+                )}
               </div>
-            ))} */}
+            ))}
           </div>
         </div>
       </Container>

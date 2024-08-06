@@ -13,7 +13,6 @@ const persistConfig = {
   storage,
   migrate: (state: any) => {
     const { _persist = {} } = state || {};
-    // Ensure state.main exists and handle possible undefined cases
     const main = { ...initMainState, ...(state?.main || {}) };
     const cart = { ...initCartState, ...(state?.cart || {}) };
     const drawer =
@@ -22,26 +21,22 @@ const persistConfig = {
   },
 };
 
-// Combine reducers into a single root reducer
 const rootReducer = combineReducers({
-  main: mainReducer, // Ensure this is the reducer
+  main: mainReducer,
   cart: cartReducer,
   drawer: drawerReducer,
 });
 
-// Create a persisted reducer
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-// Create and configure the store
 export const store = configureStore({
   reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
-      serializableCheck: false, // Disable serializable checks if you're using non-serializable data in Redux
+      serializableCheck: false,
     }),
 });
 
-// Create a persistor instance to manage the persisted state
 export const persistor = persistStore(store);
 
 export type State = ReturnType<typeof store.getState>;
