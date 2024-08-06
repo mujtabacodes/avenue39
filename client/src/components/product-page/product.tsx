@@ -60,33 +60,33 @@ const ProductPage = ({ sideBanner, productBanner }: ProductPageProps) => {
     setSortOption(sort);
   };
 
-  const filteredCards = cards
-    .filter((card) => {
-      const inCategory =
-        selectedCategories.length > 0
-          ? selectedCategories.includes(card.productType || '')
-          : true;
-      const inPriceRange =
-        parseFloat(card.price.replace('$', '')) >= priceRange[0] &&
-        parseFloat(card.price.replace('$', '')) <= priceRange[1];
-      return inCategory && inPriceRange;
-    })
-    .sort((a, b) => {
-      if (sortOption === 'name') {
-        return a.heading.localeCompare(b.heading);
-      } else if (sortOption === 'max') {
-        return (
-          parseFloat(b.price.replace('$', '')) -
-          parseFloat(a.price.replace('$', ''))
-        );
-      } else if (sortOption === 'min') {
-        return (
-          parseFloat(a.price.replace('$', '')) -
-          parseFloat(b.price.replace('$', ''))
-        );
-      }
-      return 0;
-    });
+  // const filteredCards = cards
+  //   .filter((card) => {
+  //     const inCategory =
+  //       selectedCategories.length > 0
+  //         ? selectedCategories.includes(card.productType || '')
+  //         : true;
+  //     const inPriceRange =
+  //       parseFloat(card.price.replace('$', '')) >= priceRange[0] &&
+  //       parseFloat(card.price.replace('$', '')) <= priceRange[1];
+  //     return inCategory && inPriceRange;
+  //   })
+  //   .sort((a, b) => {
+  //     if (sortOption === 'name') {
+  //       return a.heading.localeCompare(b.heading);
+  //     } else if (sortOption === 'max') {
+  //       return (
+  //         parseFloat(b.price.replace('$', '')) -
+  //         parseFloat(a.price.replace('$', ''))
+  //       );
+  //     } else if (sortOption === 'min') {
+  //       return (
+  //         parseFloat(a.price.replace('$', '')) -
+  //         parseFloat(b.price.replace('$', ''))
+  //       );
+  //     }
+  //     return 0;
+  //   });
   return (
     <>
       <TopHero breadcrumbs={productsbredcrumbs} />
@@ -136,7 +136,7 @@ const ProductPage = ({ sideBanner, productBanner }: ProductPageProps) => {
                 </Sheet>
               </div>
               <p className="md:text-16 text-primary-foreground hidden md:block">
-                Showing {filteredCards.length} results
+                {/* Showing {filteredCards.length} results */}
               </p>
               <div className="flex items-center gap-2">
                 <MdWindow size={25} />
@@ -160,11 +160,11 @@ const ProductPage = ({ sideBanner, productBanner }: ProductPageProps) => {
             </div>
           </div>
           <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 mt-4">
-            {filteredCards.map((card) => (
+            {/* {filteredCards.map((card) => (
               <div key={card.id}>
                 <Card card={card} />
               </div>
-            ))}
+            ))} */}
           </div>
         </div>
       </Container>
