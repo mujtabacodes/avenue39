@@ -21,9 +21,11 @@
     "@radix-ui/react-slot": "^1.1.0",
     "@radix-ui/react-tabs": "^1.1.0",
     "@reduxjs/toolkit": "^2.2.7",
+    "axios": "^1.7.3",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "formik": "^2.4.6",
+    "js-cookie": "^3.0.5",
     "lucide-react": "^0.418.0",
     "next": "14.2.5",
     "react": "^18",
@@ -41,6 +43,7 @@
     "vaul": "^0.9.1"
   },
   "devDependencies": {
+    "@types/js-cookie": "^3.0.6",
     "@types/node": "20.14.11",
     "@types/react": "18.3.3",
     "@types/react-dom": "^18",
