@@ -55,12 +55,12 @@ const Checkout = () => {
     },
   });
   const selectOption = [
-    { title: 'Dubai', fee: 10 },
-    { title: 'Abu Dhabi', fee: 15 },
-    { title: 'Sharjah', fee: 12 },
-    { title: 'Ajman', fee: 8 },
-    { title: 'Ras Al Khaima', fee: 20 },
-    { title: 'Umm Al Quwain', fee: 18 },
+    { title: 'Dubai', fee: 15 },
+    { title: 'Abu Dhabi', fee: 20 },
+    { title: 'Sharjah', fee: 20 },
+    { title: 'Ajman', fee: 25 },
+    { title: 'Ras Al Khaima', fee: 25 },
+    { title: 'Umm Al Quwain', fee: 25 },
     { title: 'Fujairah', fee: 25 },
   ];
 
@@ -167,9 +167,10 @@ const Checkout = () => {
                   State
                 </Label>
                 <Select
-                  onValueChange={(value: any) =>
-                    formik.setFieldValue('state', value)
-                  }
+                  onValueChange={(value: any) => {
+                    formik.setFieldValue('state', value);
+                    setSelectedState(value);
+                  }}
                 >
                   <SelectTrigger className="flex-grow h-full rounded-full border-0 bg-[#F6F6F6] pl-8 pr-12 py-1  focus-visible:outline-none focus-visible:ring-0 text-15 font-medium outline-none focus-visible:ring-ring focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-50 ">
                     <SelectValue placeholder="Select your state" />
