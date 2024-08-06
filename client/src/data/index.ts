@@ -1,5 +1,5 @@
 import {  IChairProducts, ISliderData, BannerImage, IDiscountProducts , IServiceItem, TSlide  } from '@/types/types';
-
+ 
 import banner1 from '@images/banners/banner1.png';
 import banner2 from '@images/banners/banner2.png';
 import banner3 from '@images/banners/banner3.png';
@@ -15,7 +15,7 @@ import armChair from '@images/products/armchair.png'
 import timerImage from '@assets/images/sofa1.png';
 import { TSliderItem } from "@/types/types";
 
-export const slides: TSlide[] = [
+export const slides: TSlide[] = [  
   {
     image: banner1,
     bannerHeading: 'Build Your Home With Furniture',
