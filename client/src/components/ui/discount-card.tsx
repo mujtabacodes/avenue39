@@ -11,7 +11,7 @@ const DiscountCard: React.FC<DiscountCardProps> = ({ productItems }) => {
           {productItems.map((item) => (
             <div key={item.id}>
               <Image src={item.imageUrl} alt="product image" className="w-full" />
-              <div className='text-16 font-bold mt-2 pb-1 border-b-2 w-max border-black'>{item.title}</div>
+              <div className='text-16 font-bold mt-3 pb-1 border-b-2 w-max border-black'>{item.title}</div>
             </div>
           ))}
         </div>
