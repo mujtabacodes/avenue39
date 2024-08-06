@@ -1,6 +1,6 @@
 import { AdditionalInformation } from '@/data/products';
 import { StaticImageData } from 'next/image';
-import { ReactNode } from 'react';
+import { FormEventHandler, ReactNode, SetStateAction } from 'react';
 import { IconType } from 'react-icons';
 
 export interface IHome {}
@@ -22,7 +22,14 @@ export interface IContainer {
   children: ReactNode;
   className?: string;
 }
-
+export type BRAND = {
+  logo: string;
+  name: string;
+  visitors:number,
+  revenues:string,
+  sales:number,
+  conversion:number
+};
 // export type TSliderSettings = {
 //   dots: boolean;
 //   infinite: boolean;
@@ -183,4 +190,21 @@ export interface IMAGE_INTERFACE {
   public_id?: string;
   imageUrl?: string;
   name?: string;
+}
+export interface USRPROPS {
+  handleSubmit: FormEventHandler<HTMLFormElement>,
+  error:string | null | undefined
+  loading: boolean | null | undefined
+  inputFields:any
+  buttonTitle:string
+  title?: string,
+  descrition? : string  
+  InstructionText? :string,
+  routingText? : string
+  navigationLink?:string
+  navigationTxt?:string
+  SelectComonent?:any
+  setadminType?:React.Dispatch<SetStateAction<string | undefined>>
+  adminType?:string | undefined
+
 }
