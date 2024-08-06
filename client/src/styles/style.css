@@ -224,10 +224,11 @@
 }
 
 .text-outline-border {
-  text-shadow: -3px 3px 0 #000,
-      3px 3px 0 #000,
-      3px -3px 0 #000,
-      -3px -3px 0 #000;
+  text-shadow:
+    -3px 3px 0 #000,
+    3px 3px 0 #000,
+    3px -3px 0 #000,
+    -3px -3px 0 #000;
 }
 .column-swiper-slider {
   width: 100% !important;
@@ -249,4 +250,12 @@
 .scrollbar-hidden {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+.heart-icon {
+  color: gray; /* Default color for the heart icon */
+  transition: color 0.3s ease; /* Smooth transition for color change */
+}
+
+.group-hover\:opacity-100:hover .heart-icon {
+  color: red; /* Color when hovered, indicating a filled heart */
 }
