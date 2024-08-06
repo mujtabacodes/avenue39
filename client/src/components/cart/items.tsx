@@ -111,12 +111,12 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                     key={item.id}
                     className="relative flex items-center bg-slate-50 border-dotted gap-3 p-4 w-full rounded-md"
                   >
-                    <Image
+                    {/* <Image
                       src={item.image.src}
                       alt={item.name}
                       width={80}
                       height={80}
-                    />
+                    /> */}
 
                     <div>
                       <ProductName>{item.name}</ProductName>
@@ -178,7 +178,10 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                 <Image
                   width={isCheckoutPage ? 50 : 100}
                   height={isCheckoutPage ? 50 : 100}
-                  src={item.image.src}
+                  // src={item.posterImageUrl}
+                  src={
+                    'https://furniturezone.pk/wp-content/uploads/2024/03/4-Seater-Interchangeable-L-Shape-Sofa-Set3.jpg'
+                  }
                   alt={item.name}
                 />
                 <div className="">

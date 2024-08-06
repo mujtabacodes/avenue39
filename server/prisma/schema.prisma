@@ -26,6 +26,11 @@ model Products {
   stock         Int
   discountPrice Int?
 
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @default(now())
+  sale         String?  @default("0")
+  saleDuration DateTime @default(now())
+
   posterImageUrl      String
   posterImagePublicId String
 

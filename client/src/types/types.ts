@@ -73,7 +73,27 @@ export interface ICard {
   description?: string;
   additionalInformation?: AdditionalInformation[];
 }
+interface ProductImage {
+  imageUrl: string;
+  public_id: string;
+}
+export interface IProduct {
+  id: number;
+  name: string;
+  price: number;
+  description: string;
+  stock: number;
+  discountPrice: number;
+  sale?: string;
 
+  posterImageUrl: string;
+  posterImagePublicId: string;
+  hoverImageUrl: string;
+  hoverImagePublicId: string;
+  productImages: ProductImage[];
+  additionalInformation: AdditionalInformation[];
+  categoriesId: number;
+}
 export interface ITestimonialCard {
   id: number;
   profile: StaticImageData;
@@ -164,16 +184,16 @@ export interface IProductDetail {
   id: number;
 }
 
-export interface ITabbyList{
+export interface ITabbyList {
   id: number;
   para: string;
 }
-export interface ITabbyPayList{
+export interface ITabbyPayList {
   id: number;
   imageUrl: StaticImageData;
 }
 
-export interface ITamaraList{
+export interface ITamaraList {
   id: number;
   title?: string;
   para: string;

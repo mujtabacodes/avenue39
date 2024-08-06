@@ -9,6 +9,7 @@ import Navbar from '@/components/nav/nav-bar';
 import TopNav from '@/components/nav/top-nav';
 import BottomBar from '@/components/nav/bottom-bar';
 import Providers from '@/redux/provider';
+import Fetch from '@/config/fetch';
 
 const inter = Open_Sans({ subsets: ['latin'] });
 

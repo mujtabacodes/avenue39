@@ -3,10 +3,15 @@ import { useSelector, useDispatch } from 'react-redux';
 import { State, Dispatch } from '@redux/store'; // Adjust according to your path
 import { addItem, removeItem, updateItemQuantity } from '@cartSlice/index'; // Adjust according to your path
 import { CartItem } from '@cartSlice/types'; // Adjust according to your path
-
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import Card from '@/components/ui/card';
+import { setProducts } from '@/redux/slices/main';
 const MyComponent = () => {
   const dispatch = useDispatch<Dispatch>();
   const cartItems = useSelector((state: State) => state.cart.items);
+  const productsDB = useSelector((state: State) => state.products);
+  const products = productsDB.products;
 
   const exampleProduct: CartItem = {
     id: 3,
@@ -45,37 +50,11 @@ const MyComponent = () => {
 
   return (
     <div>
-      <h2>Cart Items</h2>
-      <ul>
-        {cartItems.map((item) => (
-          <li key={item.id}>
-            {item.name} -DHR.${item.price * item.quantity} (x{item.quantity})
-            {item.discount && (
-              <div>
-                Discounted Price: {(item.discount * item.quantity).toFixed(2)}
-              </div>
-            )}
-            <button
-              onClick={() => updateProductQuantity(item.id, item.quantity + 1)}
-              className="bg-green-500"
-            >
-              Increase Quantity
-            </button>
-            <button
-              onClick={() => updateProductQuantity(item.id, item.quantity - 1)}
-            >
-              Decrease Quantity
-            </button>
-            <button
-              onClick={() => removeProductFromCart(item.id)}
-              className="bg-red-500"
-            >
-              Remove from Cart
-            </button>
-          </li>
-        ))}
-      </ul>
-      <button onClick={addProductToCart}>Add Example Product to Cart</button>
+      {products.map((card) => (
+        <div key={card?.id}>
+          <Card card={card} />
+        </div>
+      ))}
     </div>
   );
 };

@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { initMainState } from './init';
+import { initMainState, initProductState } from './init';
+import { IProduct } from '@/types/types';
 
 const MainSlice = createSlice({
   name: 'main',
@@ -11,5 +12,18 @@ const MainSlice = createSlice({
   },
 });
 
+const ProductSlice = createSlice({
+  name: 'product',
+  initialState: initProductState,
+  reducers: {
+    setProducts: (state, action: PayloadAction<IProduct[]>) => {
+      state.products = action.payload;
+    },
+  },
+});
+
 export const { setDummy } = MainSlice.actions;
+export const { setProducts } = ProductSlice.actions;
+
 export default MainSlice.reducer;
+export const productReducer = ProductSlice.reducer;

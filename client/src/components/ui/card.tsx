@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { ICard } from '@/types/types';
+import { ICard, IProduct } from '@/types/types';
 import { HiOutlineShoppingBag } from 'react-icons/hi';
 import { MdStar, MdStarBorder } from 'react-icons/md';
 import { CiHeart } from 'react-icons/ci';
@@ -17,7 +17,7 @@ import { useRouter } from 'next/navigation';
 import { FaHeart } from 'react-icons/fa';
 
 interface CardProps {
-  card: ICard;
+  card: IProduct;
   isModel?: boolean;
 }
 
@@ -36,16 +36,16 @@ const Card: React.FC<CardProps> = ({ card, isModel }) => {
   };
   const renderStars = () => {
     const stars = [];
-    for (let i = 1; i <= 5; i++) {
-      if (i <= (card.reviews || 0)) {
-        stars.push(<MdStar key={i} size={20} className="text-yellow-400" />);
-      } else {
-        stars.push(
-          <MdStarBorder key={i} size={20} className="text-yellow-400" />,
-        );
-      }
-    }
-    return stars;
+    // for (let i = 1; i <= 5; i++) {
+    //   if (i <= (card.reviews || 0)) {
+    //     stars.push(<MdStar key={i} size={20} className="text-yellow-400" />);
+    //   } else {
+    //     stars.push(
+    //       <MdStarBorder key={i} size={20} className="text-yellow-400" />,
+    //     );
+    //   }
+    // }
+    // return stars;
   };
 
   const productId = 5;
@@ -63,11 +63,13 @@ const Card: React.FC<CardProps> = ({ card, isModel }) => {
           <PiEyeThin size={17} className="cursor-pointer" />
           <CiHeart size={18} className="cursor-pointer" />
         </div>
-        <span className="absolute top-4 left-4 text-white text-xs font-light bg-red-500 rounded-full w-14 h-6 flex justify-center items-center">
-          {card.sale}
-        </span>
+        {card.sale !== '0' && (
+          <span className="absolute top-4 left-4 text-white text-xs font-light bg-red-500 rounded-full w-14 h-6 flex justify-center items-center">
+            {card.sale}%
+          </span>
+        )}
         <Image
-          src={card.image}
+          src={card.posterImageUrl}
           alt={card.name}
           width={320}
           height={200}
@@ -76,13 +78,13 @@ const Card: React.FC<CardProps> = ({ card, isModel }) => {
       </div>
       <h3 className="text-lg font-semibold mt-2">{card.name}</h3>
       <p className="text-md font-semibold mt-1">
-        AED{card.price}
+        AED{card.discountPrice}
         <span className="line-through text-secondary-foreground ms-2">
-          {card.discount}
+          {card.price}
         </span>
       </p>
       <div className="flex gap-1 mt-2 items-center justify-center h-8">
-        {card.reviews != 0 ? renderStars() : ''}
+        {/* {card.reviews != 0 ? renderStars() : ''} */}
       </div>
 
       {isModel ? null : (

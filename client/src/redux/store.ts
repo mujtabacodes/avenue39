@@ -1,10 +1,10 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import mainReducer from '@mainSlice/index';
+import mainReducer, { productReducer } from '@mainSlice/index';
 import cartReducer from '@cartSlice/index';
 import drawerReducer from '@drawerSlice/index';
-import { initMainState } from '@mainSlice/init';
+import { initMainState, initProductState } from '@mainSlice/init';
 import { initCartState } from './slices/cart/init';
 import { initCartDrawerState } from './slices/drawer/init';
 
@@ -15,9 +15,10 @@ const persistConfig = {
     const { _persist = {} } = state || {};
     const main = { ...initMainState, ...(state?.main || {}) };
     const cart = { ...initCartState, ...(state?.cart || {}) };
+    // const products = { ...initProductState, ...(state?.products || {}) };
     const drawer =
       typeof state?.drawer === 'boolean' ? state.drawer : initCartDrawerState;
-    return Promise.resolve({ _persist, main, cart });
+    return Promise.resolve({ _persist, main, cart, drawer });
   },
 };
 
@@ -25,6 +26,7 @@ const rootReducer = combineReducers({
   main: mainReducer,
   cart: cartReducer,
   drawer: drawerReducer,
+  products: productReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
