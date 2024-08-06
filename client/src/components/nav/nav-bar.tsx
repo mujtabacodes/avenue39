@@ -165,7 +165,7 @@ const Navbar = (props: INav) => {
               href={'/login'}
             >
               <FaRegUser size={25} />
-              <span>Login</span>
+              <span>Login/Register</span>
             </Link>
             <Link
               className="text-14 font-semibold hover:underline"

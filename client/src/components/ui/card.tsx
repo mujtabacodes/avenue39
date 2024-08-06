@@ -14,6 +14,8 @@ import { SheetTrigger } from './sheet';
 import CartItems from '../cart/items';
 import { openDrawer } from '@/redux/slices/drawer';
 import { useRouter } from 'next/navigation';
+import { Dialog, DialogContent, DialogOverlay, DialogTrigger } from './dialog';
+import { Button } from './button';
 
 interface CardProps {
   card: ICard;
@@ -93,9 +95,17 @@ const Card: React.FC<CardProps> = ({ card, isModel }) => {
             <HiOutlineShoppingBag />
             <span className="text-10 font-medium">Add to Cart</span>
           </button>
-          <button className="my-4 w-32 h-8 text-secondary border border-primary bg-primary rounded-full flex items-center justify-center gap-2 hover:bg-secondary hover:text-primary">
-            <span className="text-10 font-medium">Quick View</span>
-          </button>
+          <Dialog>
+            <DialogTrigger>
+              <button className="my-4 w-32 h-8 text-secondary border border-primary bg-primary rounded-full flex items-center justify-center gap-2 hover:bg-secondary hover:text-primary">
+                <span className="text-10 font-medium">Quick View</span>
+              </button>
+            </DialogTrigger>
+            <DialogOverlay className="bg-white/80" />
+            <DialogContent className="sm:max-w-[80%] lg:max-w-[60%] bg-white px-0 sm:rounded-none border border-black shadow-none gap-0 pb-0">
+              <div className="pb-4 px-5 xs:px-10 md:px-20 me-4 xs:me-7 mt-6 max-h-[80vh] overflow-y-auto custom-scroll"></div>
+            </DialogContent>
+          </Dialog>
         </div>
       )}
     </div>

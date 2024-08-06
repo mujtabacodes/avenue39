@@ -10,7 +10,7 @@ import Link from 'next/link';
 
 const Footer: React.FC = () => {
   return (
-    <section className="pt-16">
+    <section className="pt-16 border-t border-[#EEEEEE]">
       <Container className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 sm:gap-x-8 md:gap-x-12 lg:gap-x-16 gap-y-8 px-4">
         <div className="">
           <div>
