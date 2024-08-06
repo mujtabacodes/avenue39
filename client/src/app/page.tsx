@@ -50,7 +50,7 @@ export default function Home() {
             </h3>
             <Button
               className="text-black rounded-full px-9 mt-3 font-normal"
-              variant={'secondary'}
+              variant={'link'}
             >
               Buy Now
             </Button>

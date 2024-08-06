@@ -13,7 +13,7 @@ const SaleBanner: React.FC = () => {
           <div>
             <p className='text-primary-foreground'>Discount</p>
             <h4 className='text-2xl'>Florence TV Cabinet</h4>
-            <Button className="text-white rounded-full mt-2 px-9 font-normal">
+            <Button className="mt-2 px-9 rounded-full" variant={'default'}>
               Buy Now
             </Button>
           </div>
