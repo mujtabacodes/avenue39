@@ -1,11 +1,9 @@
 'use client';
 import CheckoutForm from '@/components/forms/checkout-form';
-import OrderPlace from '@/components/order-place/order-place';
 import TopHero from '@/components/top-hero';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import Container from '@/components/ui/Container';
-import { products } from '@/data';
 import { checkout } from '@/data/data';
 import Image from 'next/image';
 import React, { Fragment, useEffect, useState } from 'react';

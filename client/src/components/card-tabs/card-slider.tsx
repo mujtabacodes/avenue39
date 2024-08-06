@@ -2,12 +2,13 @@
 import React from 'react';
 import Tabs from '@/components/card-slider/tabs';
 import { slidersData } from '@/data';
+import Container from '../ui/Container';
 
 const CardsTabes: React.FC = () => {
   return (
-    <div className="container mx-auto p-4">
+    <Container>
       <Tabs slidersData={slidersData} />
-    </div>
+    </Container>
   );
 };
 
