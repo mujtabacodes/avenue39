@@ -16,7 +16,7 @@ const ThankYouPage = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsDialogOpen(true);
-    }, 5000);
+    }, 3000);
 
     return () => clearTimeout(timer);
   }, []);
