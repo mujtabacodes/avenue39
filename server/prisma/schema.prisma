@@ -57,11 +57,12 @@ model Categories {
 }
 
 model Reviews {
-  id         Int       @unique @default(autoincrement())
-  Name       String
-  Email      String
-  review     String
-  star       Int
-  Products   Products? @relation(fields: [productsId], references: [id])
-  productsId Int?
+  id     Int    @unique @default(autoincrement())
+  name   String
+  email  String
+  review String
+  star   Int
+
+  Products  Products? @relation(fields: [productId], references: [id])
+  productId Int?
 }
