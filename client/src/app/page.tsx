@@ -31,14 +31,14 @@ export default function Home() {
         <DiscountCard productItems={chairProducts} />
       </Container>
       <HotProductSlider slideritems={cards} />
-      <section className="h-[400px] md:h-[600px] mt-4">
+      <section className="h-[400px] md:h-[700px] mt-4">
         <div
           className="w-full h-full flex justify-center items-center"
           style={{
             backgroundImage: `url(${banner4.src})`,
             backgroundSize: 'cover',
             backgroundRepeat: 'no-repeat',
-            backgroundPosition: 'center',
+            backgroundPosition: 'center center',
           }}
         >
           <div className="text-center">
