@@ -26,9 +26,10 @@ export interface IMAGE_INTERFACE {
 
 interface ThumbProps {
   thumbs: IMAGE_INTERFACE[];
+  isZoom?: Boolean
 }
 
-const Thumbnail: React.FC<ThumbProps> = ({ thumbs }) => {
+const Thumbnail: React.FC<ThumbProps> = ({ thumbs , isZoom }) => {
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
   const [hoveredImage, setHoveredImage] = useState<string | null>(null);
   const [backgroundPosition, setBackgroundPosition] = useState<string>('0% 0%');
@@ -127,7 +128,7 @@ const Thumbnail: React.FC<ThumbProps> = ({ thumbs }) => {
           >
             {thumbs.map((thumb, index) => (
               <SwiperSlide key={index}>
-                <div className="relative cursor-zoom-in w-full">
+                <div className={`relative w-full ${isZoom ? 'cursor-zoom-in' : ''}`}>
                   <Image
                     onMouseEnter={() => handleMouseEnter(thumb.imageUrl || '')}
                     onMouseMove={handleMouseMove}
@@ -144,7 +145,7 @@ const Thumbnail: React.FC<ThumbProps> = ({ thumbs }) => {
           </Swiper>
         </div>
       </div>
-      {hoveredImage && (
+      {hoveredImage && isZoom && (
         <div className="absolute -right-10 top-1 hidden md:block z-40">
           <div
             className="magnified-image absolute left-50 z-50"
