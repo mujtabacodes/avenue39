@@ -25,3 +25,15 @@ export const cartbredcrumbs = [
   { label: 'Home', href: '/' },
   { label: 'checkout' }
 ];
+export const PrivacyPolicybredcrumbs = [
+  { label: 'Home', href: '/' },
+  { label: 'PrivacyPolicy' }
+];
+export const TReturnPolicybredcrumbs = [
+  { label: 'Home', href: '/' },
+  { label: 'ReturnPolicy' }
+];
+export const TShippingPolicybredcrumbs = [
+  { label: 'Home', href: '/' },
+  { label: 'ReturnPolicy' }
+];

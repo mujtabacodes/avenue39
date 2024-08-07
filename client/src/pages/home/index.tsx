@@ -1,3 +1,5 @@
+'use client'
+
 import MenuBar from '@/components/nav/menu-bar';
 import Navbar from '@/components/nav/nav-bar';
 import TopNav from '@/components/nav/top-nav';

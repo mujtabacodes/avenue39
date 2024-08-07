@@ -27,7 +27,7 @@ const Footer: React.FC = () => {
         <div className=" px-2">
           <h5 className="font-medium text-3xl">Quick Links</h5>
           <ul className="leading-[45px] font-normal text-19 text-primary-foreground mt-6">
-            <li><Link href='/delivery' target='_blank' className='hover:underline'>Delivery Information</Link></li>
+            <li><Link href='/shipping' target='_blank' className='hover:underline'>Shipping Policy</Link></li>
             <li><Link href='/privacy' target='_blank' className='hover:underline'>Privacy Policy</Link></li>
             <li><Link href='/terms' target='_blank' className='hover:underline'>Terms & Conditions</Link></li>
             <li><Link href='/return' target='_blank' className='hover:underline'>Return Policy</Link></li>

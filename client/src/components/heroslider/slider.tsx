@@ -37,9 +37,9 @@ const SimpleSlider: React.FC = () => {
                 <h3 className="md:text lg:text-xl mb-4">
                   {slide.bannerSubHeading}
                 </h3>
-                <h2 className="xl:leading-relaxed text-2xl xl:text-5xl mb-4 font-bold w-3/4 sm:w-1/2 lg:w-[480px]">
+                {/* <h2 className="xl:leading-relaxed text-2xl xl:text-5xl mb-4 font-bold w-3/4 sm:w-1/2 lg:w-[480px]">
                   {slide.bannerHeading}
-                </h2>
+                </h2> */}
                 <span className="grid grid-cols-1 xs:flex xs:flex-wrap xs:items-center gap-2 sm:gap-4">
                   <Button variant={'link'}>
                     {slide.buttonText}
