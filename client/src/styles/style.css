@@ -250,3 +250,6 @@
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+.product-swiper .swiper-slide-thumb-active img{
+  border: 2px solid #979797;
+}
