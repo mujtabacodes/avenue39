@@ -107,7 +107,7 @@ const ProductPage = ({ params }: { params: IProductDetail }) => {
   return (
     <div>
       <Container >
-      <ProductDetail params={product} isZoom={false} />
+      <ProductDetail params={product} isZoom={true} />
       </Container>
       <div className="w-full ">
         <DetailTabs tabs={tabs} />
