@@ -16,6 +16,7 @@ import { openDrawer } from '@/redux/slices/drawer';
 import { useRouter } from 'next/navigation';
 import { Dialog, DialogContent, DialogOverlay, DialogTrigger } from './dialog';
 import { Button } from './button';
+import ProductDetail from '../product-detail/product-detail';
 
 interface CardProps {
   card: ICard;
@@ -23,6 +24,9 @@ interface CardProps {
 }
 
 const Card: React.FC<CardProps> = ({ card, isModel }) => {
+  const handleEventProbation = (e: React.MouseEvent<HTMLElement>) => {
+    e.stopPropagation();
+  };
   const Navigate = useRouter();
   const dispatch = useDispatch<Dispatch>();
   const cartItems = useSelector((state: State) => state.cart.items);
@@ -87,7 +91,10 @@ const Card: React.FC<CardProps> = ({ card, isModel }) => {
       </div>
 
       {isModel ? null : (
-        <div className="text-center flex flex-none justify-center gap-3">
+        <div
+          className="text-center flex flex-none justify-center gap-3"
+          onClick={(e) => handleEventProbation(e)}
+        >
           <button
             className="my-4 w-32 h-8 text-primary border border-primary  rounded-full flex items-center justify-center gap-2 hover:bg-primary hover:text-white"
             onClick={(e) => handleAddToCard(e)}
@@ -101,9 +108,11 @@ const Card: React.FC<CardProps> = ({ card, isModel }) => {
                 <span className="text-10 font-medium">Quick View</span>
               </button>
             </DialogTrigger>
-            <DialogOverlay className="bg-white/80" />
-            <DialogContent className="sm:max-w-[80%] lg:max-w-[60%] bg-white px-0 sm:rounded-none border border-black shadow-none gap-0 pb-0">
-              <div className="pb-4 px-5 xs:px-10 md:px-20 me-4 xs:me-7 mt-6 max-h-[80vh] overflow-y-auto custom-scroll"></div>
+            <DialogOverlay />
+            <DialogContent className="max-w-7xl w-11/12 bg-white px-0 sm:rounded-3xl border border-black shadow-none gap-0 pb-0">
+              <div className="pb-6 px-5 xs:px-10 me-4 xs:me-7 mt-6 max-h-[80vh] overflow-y-auto custom-scroll">
+                <ProductDetail params={card} isZoom={false} />
+              </div>
             </DialogContent>
           </Dialog>
         </div>
