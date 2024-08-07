@@ -57,7 +57,7 @@ const Testimonial: React.FC<TestimonialProps> = ({testimonialitems}) => {
     <section className='bg-lightforeground overflow-hidden'>
         <Container className='pt-28 pb-20 text-center'>
             <p className='text-20 font-normal'>Testimonial</p>
-            <h2 className='font-medium text-2xl xs:text-3xl md:text-4xl w-5/6 xs:w-3/4 lg:w-1/2 mx-auto tracking-wide leading-relaxed mt-3'>We Care About Our Customer’s Experience Too</h2>
+            <h2 className='font-medium text-2xl xs:text-3xl md:text-4xl w-5/6 xs:w-3/4 lg:w-5/12 mx-auto tracking-wide leading-relaxed md:leading-relaxed mt-3 px-4'>We Care About Our Customer’s Experience Too</h2>
             <div className="testimonial-card-wrapper mt-16">
             <Slider {...settings} className='mx-2 xs:mx-0 testimonial-slider pb-20'>
           {testimonialitems.map((card) => (
