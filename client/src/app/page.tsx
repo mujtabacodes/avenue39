@@ -16,6 +16,9 @@ import banner4 from '@assets/images/banners/banner4.png';
 import HotProductSlider from '@/components/card-slider/hot-product-slider';
 import Testimonial from '@/components/testimonial/testimonial';
 import CardsTabes from '@/components/card-tabs/card-slider';
+import TimerSlider from '@/components/timer-slider/TimerSlider';
+
+
 export default function Home() {
   return (
     <Fragment>
@@ -27,6 +30,7 @@ export default function Home() {
       <SofaBanner />
       <SaleBanner />
       <CardsTabes />
+      <TimerSlider/>
       <Container className="mt-4 flex justify-center">
         <DiscountCard productItems={chairProducts} />
       </Container>

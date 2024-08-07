@@ -13,8 +13,7 @@ const ImageBanner: React.FC<ImageBannerProps> = ({ bannerImage }) => {
         className="!position-unset"
         src={bannerImage.image}
         alt={bannerImage.altText}
-        layout="fill"
-        objectFit="contain"
+        objectFit="cover"
         quality={100}
       />
     </div>
