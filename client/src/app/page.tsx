@@ -30,7 +30,7 @@ export default function Home() {
       <Container className="mt-4 flex justify-center">
         <DiscountCard productItems={chairProducts} />
       </Container>
-      <HotProductSlider slideritems={cards} />
+      <HotProductSlider />
       <section className="h-[400px] md:h-[600px] mt-4">
         <div
           className="w-full h-full flex justify-center items-center"

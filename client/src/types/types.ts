@@ -104,7 +104,7 @@ export interface ITestimonialCard {
 
 export interface ISliderData {
   tabTitle: string;
-  cards: ICard[];
+  cards: IProduct[];
 }
 export interface IDiscountProducts {
   id: number;
@@ -203,4 +203,12 @@ export interface IMAGE_INTERFACE {
   public_id?: string;
   imageUrl?: string;
   name?: string;
+}
+
+export interface ICategory {
+  id: number;
+  name: string;
+  createdAt?: string;
+  posterImageUrl?: string;
+  posterImagePublicId?: string;
 }

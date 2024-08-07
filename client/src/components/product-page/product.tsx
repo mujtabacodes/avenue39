@@ -33,6 +33,9 @@ import { StaticImageData } from 'next/image';
 import { IoIosClose } from 'react-icons/io';
 import { useSelector } from 'react-redux';
 import { State } from '@/redux/store';
+import { useQuery } from '@tanstack/react-query';
+import { IProduct } from '@/types/types';
+import { fetchProducts } from '@/config/fetch';
 
 interface ProductPageProps {
   sideBanner: StaticImageData;
@@ -49,10 +52,24 @@ const ProductPage = ({
 }: ProductPageProps) => {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 500]);
-  const productsDB = useSelector((state: State) => state.products);
-  const cards = productsDB.products;
-
   const [sortOption, setSortOption] = useState<string>('default');
+  // const productsDB = useSelector((state: State) => state.products);
+  const {
+    data: products = [],
+    error,
+    isLoading,
+  } = useQuery<IProduct[], Error>({
+    queryKey: ['products'],
+    queryFn: fetchProducts,
+  });
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error fetching products: {error.message}</div>;
+  }
 
   const handleCategoryChange = (category: string, isChecked: boolean) => {
     if (isChecked) {
@@ -72,8 +89,8 @@ const ProductPage = ({
     setSortOption(sort);
   };
 
-  const filteredCards = cards;
-  // const filteredCards = cards
+  const filteredCards = products;
+  // const filteredCards1 = products
   //   .filter((card) => {
   //     const inCategory =
   //       selectedCategories.length > 0

@@ -100,54 +100,106 @@ export const slidersData: ISliderData[] = [
     tabTitle: 'Table',
     cards: [
       {
-        id: 1,
-        image: cardimage1,
-        name: 'Sparta Coffee Table',
-        price: 100,
-        discount: 300,
-        sale: '50%',
-        reviews: 3,
-        productType: 'Dinner',
-      },
-      {
-        id: 2,
-        image: cardimage1,
-        name: 'Sparta Coffee Table',
-        price: 100,
-        discount: 300,
-        sale: '30%',
-        reviews: 5,
-        productType: 'Dinner',
-      },
-      {
-        id: 3,
-        image: cardimage1,
-        name: 'Sparta Coffee Table',
-        price: 100,
-        discount: 300,
-        sale: '50%',
-        reviews: 0,
-        productType: 'Dinner',
-      },
-      {
-        id: 4,
-        image: cardimage1,
-        name: 'Sparta Coffee Table',
-        price: 100,
-        discount: 300,
-        sale: '45%',
-        reviews: 2,
-        productType: 'Dinner',
-      },
-      {
         id: 5,
-        image: cardimage1,
-        name: 'Sparta Coffee Table',
-        price: 100,
-        discount: 300,
-        sale: '70%',
-        reviews: 4,
-        productType: 'Dinner',
+        name: 'Table Smartphone1',
+        price: 699,
+        description:
+          'Introducing the Minsk Coffee Table – a modern marvel that enhances your living space with contemporary elegance. The round-shaped metal coffee table boasts a sleek design, combining style and functionality...',
+        stock: 50,
+        discountPrice: 649,
+        posterImageUrl: 'https://example.com/smartphone.jpg',
+        posterImagePublicId: 'smartphone_img',
+        hoverImageUrl: 'https://example.com/smartphone_hover.jpg',
+        hoverImagePublicId: 'smartphone_hover_img',
+        productImages: [
+          {
+            imageUrl:
+              'https://furniturezone.pk/wp-content/uploads/2024/03/4-Seater-Interchangeable-L-Shape-Sofa-Set3.jpg',
+            public_id: 'abc',
+          },
+          {
+            imageUrl:
+              'https://furniturezone.pk/wp-content/uploads/2024/03/4-Seater-Interchangeable-L-Shape-Sofa-Set1.jpg',
+            public_id: 'abc',
+          },
+
+          {
+            imageUrl:
+              'https://furniturezone.pk/wp-content/uploads/2024/03/4-Seater-Interchangeable-L-Shape-Sofa-Set4.jpg',
+            public_id: 'abc',
+          },
+          {
+            imageUrl:
+              'https://furniturezone.pk/wp-content/uploads/2024/03/4-Seater-Interchangeable-L-Shape-Sofa-Set6.jpg',
+            public_id: 'abc',
+          },
+        ],
+        additionalInformation: [
+          {
+            key: 'Colors',
+            value: 'red, blue',
+          },
+          {
+            key: 'Dimension',
+            value: '10x10, 20x20',
+          },
+        ],
+        categoriesId: 3,
+      },
+      {
+        id: 6,
+        name: ' Table Sofa',
+        price: 899,
+        description: 'A comfortable 3-seater sofa.',
+        stock: 20,
+        discountPrice: 799,
+        posterImageUrl: 'https://example.com/sofa.jpg',
+        posterImagePublicId: 'sofa_img',
+        hoverImageUrl: 'https://example.com/sofa_hover.jpg',
+        hoverImagePublicId: 'sofa_hover_img',
+        productImages: [
+          {
+            imageUrl:
+              'https://furniturezone.pk/wp-content/uploads/2024/03/4-Seater-Interchangeable-L-Shape-Sofa-Set3.jpg',
+            public_id: 'abc',
+          },
+          {
+            imageUrl:
+              'https://furniturezone.pk/wp-content/uploads/2024/03/4-Seater-Interchangeable-L-Shape-Sofa-Set1.jpg',
+            public_id: 'abc',
+          },
+          {
+            imageUrl:
+              'https://furniturezone.pk/wp-content/uploads/2024/03/4-Seater-Interchangeable-L-Shape-Sofa-Set6.jpg',
+            public_id: 'abc',
+          },
+          {
+            imageUrl:
+              'https://furniturezone.pk/wp-content/uploads/2024/03/4-Seater-Interchangeable-L-Shape-Sofa-Set2.jpg',
+            public_id: 'abc',
+          },
+          {
+            imageUrl:
+              'https://furniturezone.pk/wp-content/uploads/2024/03/4-Seater-Interchangeable-L-Shape-Sofa-Set4.jpg',
+            public_id: 'abc',
+          },
+          {
+            imageUrl:
+              'https://furniturezone.pk/wp-content/uploads/2024/03/4-Seater-Interchangeable-L-Shape-Sofa-Set6.jpg',
+            public_id: 'abc',
+          },
+        ],
+        additionalInformation: [
+          {
+            key: 'Colors',
+            value: 'red, blue',
+          },
+          {
+            key: 'Dimension',
+            value: '10x10, 20x20',
+          },
+        ],
+        categoriesId: 4,
       },
     ],
   },
@@ -155,54 +207,106 @@ export const slidersData: ISliderData[] = [
     tabTitle: 'Sofa',
     cards: [
       {
-        id: 1,
-        image: cardimage1,
-        name: 'Sparta Coffee Table',
-        price: 100,
-        discount: 300,
-        sale: '50%',
-        reviews: 3,
-        productType: 'Dinner',
-      },
-      {
-        id: 2,
-        image: cardimage1,
-        name: 'Sparta Coffee Table',
-        price: 100,
-        discount: 300,
-        sale: '30%',
-        reviews: 5,
-        productType: 'Dinner',
-      },
-      {
-        id: 3,
-        image: cardimage1,
-        name: 'Sparta Coffee Table',
-        price: 100,
-        discount: 300,
-        sale: '50%',
-        reviews: 4,
-        productType: 'Dinner',
-      },
-      {
-        id: 4,
-        image: cardimage1,
-        name: 'Sparta Coffee Table',
-        price: 100,
-        discount: 300,
-        sale: '45%',
-        reviews: 5,
-        productType: 'Dinner',
-      },
-      {
         id: 5,
-        image: cardimage1,
-        name: 'Sparta Coffee Table',
-        price: 100,
-        discount: 300,
-        sale: '70%',
-        reviews: 3,
-        productType: 'Dinner',
+        name: 'Smartphone',
+        price: 699,
+        description:
+          'Introducing the Minsk Coffee Table – a modern marvel that enhances your living space with contemporary elegance. The round-shaped metal coffee table boasts a sleek design, combining style and functionality...',
+        stock: 50,
+        discountPrice: 649,
+        posterImageUrl: 'https://example.com/smartphone.jpg',
+        posterImagePublicId: 'smartphone_img',
+        hoverImageUrl: 'https://example.com/smartphone_hover.jpg',
+        hoverImagePublicId: 'smartphone_hover_img',
+        productImages: [
+          {
+            imageUrl:
+              'https://furniturezone.pk/wp-content/uploads/2024/03/4-Seater-Interchangeable-L-Shape-Sofa-Set3.jpg',
+            public_id: 'abc',
+          },
+          {
+            imageUrl:
+              'https://furniturezone.pk/wp-content/uploads/2024/03/4-Seater-Interchangeable-L-Shape-Sofa-Set1.jpg',
+            public_id: 'abc',
+          },
+
+          {
+            imageUrl:
+              'https://furniturezone.pk/wp-content/uploads/2024/03/4-Seater-Interchangeable-L-Shape-Sofa-Set4.jpg',
+            public_id: 'abc',
+          },
+          {
+            imageUrl:
+              'https://furniturezone.pk/wp-content/uploads/2024/03/4-Seater-Interchangeable-L-Shape-Sofa-Set6.jpg',
+            public_id: 'abc',
+          },
+        ],
+        additionalInformation: [
+          {
+            key: 'Colors',
+            value: 'red, blue',
+          },
+          {
+            key: 'Dimension',
+            value: '10x10, 20x20',
+          },
+        ],
+        categoriesId: 3,
+      },
+      {
+        id: 6,
+        name: 'Sofa',
+        price: 899,
+        description: 'A comfortable 3-seater sofa.',
+        stock: 20,
+        discountPrice: 799,
+        posterImageUrl: 'https://example.com/sofa.jpg',
+        posterImagePublicId: 'sofa_img',
+        hoverImageUrl: 'https://example.com/sofa_hover.jpg',
+        hoverImagePublicId: 'sofa_hover_img',
+        productImages: [
+          {
+            imageUrl:
+              'https://furniturezone.pk/wp-content/uploads/2024/03/4-Seater-Interchangeable-L-Shape-Sofa-Set3.jpg',
+            public_id: 'abc',
+          },
+          {
+            imageUrl:
+              'https://furniturezone.pk/wp-content/uploads/2024/03/4-Seater-Interchangeable-L-Shape-Sofa-Set1.jpg',
+            public_id: 'abc',
+          },
+          {
+            imageUrl:
+              'https://furniturezone.pk/wp-content/uploads/2024/03/4-Seater-Interchangeable-L-Shape-Sofa-Set6.jpg',
+            public_id: 'abc',
+          },
+          {
+            imageUrl:
+              'https://furniturezone.pk/wp-content/uploads/2024/03/4-Seater-Interchangeable-L-Shape-Sofa-Set2.jpg',
+            public_id: 'abc',
+          },
+          {
+            imageUrl:
+              'https://furniturezone.pk/wp-content/uploads/2024/03/4-Seater-Interchangeable-L-Shape-Sofa-Set4.jpg',
+            public_id: 'abc',
+          },
+          {
+            imageUrl:
+              'https://furniturezone.pk/wp-content/uploads/2024/03/4-Seater-Interchangeable-L-Shape-Sofa-Set6.jpg',
+            public_id: 'abc',
+          },
+        ],
+        additionalInformation: [
+          {
+            key: 'Colors',
+            value: 'red, blue',
+          },
+          {
+            key: 'Dimension',
+            value: '10x10, 20x20',
+          },
+        ],
+        categoriesId: 4,
       },
     ],
   },
@@ -210,54 +314,106 @@ export const slidersData: ISliderData[] = [
     tabTitle: 'Lamp',
     cards: [
       {
-        id: 1,
-        image: cardimage1,
-        name: 'Sparta Coffee Table',
-        price: 100,
-        discount: 300,
-        sale: '50%',
-        reviews: 3,
-        productType: 'Dinner',
-      },
-      {
-        id: 2,
-        image: cardimage1,
-        name: 'Sparta Coffee Table',
-        price: 100,
-        discount: 300,
-        sale: '30%',
-        reviews: 5,
-        productType: 'Dinner',
-      },
-      {
-        id: 3,
-        image: cardimage1,
-        name: 'Sparta Coffee Table',
-        price: 100,
-        discount: 300,
-        sale: '50%',
-        reviews: 4,
-        productType: 'Dinner',
-      },
-      {
-        id: 4,
-        image: cardimage1,
-        name: 'Sparta Coffee Table',
-        price: 100,
-        discount: 300,
-        sale: '45%',
-        reviews: 2,
-        productType: 'Dinner',
-      },
-      {
         id: 5,
-        image: cardimage1,
-        name: 'Sparta Coffee Table',
-        price: 100,
-        discount: 300,
-        sale: '70%',
-        reviews: 3,
-        productType: 'Dinner',
+        name: 'Smartphone',
+        price: 699,
+        description:
+          'Introducing the Minsk Coffee Table – a modern marvel that enhances your living space with contemporary elegance. The round-shaped metal coffee table boasts a sleek design, combining style and functionality...',
+        stock: 50,
+        discountPrice: 649,
+        posterImageUrl: 'https://example.com/smartphone.jpg',
+        posterImagePublicId: 'smartphone_img',
+        hoverImageUrl: 'https://example.com/smartphone_hover.jpg',
+        hoverImagePublicId: 'smartphone_hover_img',
+        productImages: [
+          {
+            imageUrl:
+              'https://furniturezone.pk/wp-content/uploads/2024/03/4-Seater-Interchangeable-L-Shape-Sofa-Set3.jpg',
+            public_id: 'abc',
+          },
+          {
+            imageUrl:
+              'https://furniturezone.pk/wp-content/uploads/2024/03/4-Seater-Interchangeable-L-Shape-Sofa-Set1.jpg',
+            public_id: 'abc',
+          },
+
+          {
+            imageUrl:
+              'https://furniturezone.pk/wp-content/uploads/2024/03/4-Seater-Interchangeable-L-Shape-Sofa-Set4.jpg',
+            public_id: 'abc',
+          },
+          {
+            imageUrl:
+              'https://furniturezone.pk/wp-content/uploads/2024/03/4-Seater-Interchangeable-L-Shape-Sofa-Set6.jpg',
+            public_id: 'abc',
+          },
+        ],
+        additionalInformation: [
+          {
+            key: 'Colors',
+            value: 'red, blue',
+          },
+          {
+            key: 'Dimension',
+            value: '10x10, 20x20',
+          },
+        ],
+        categoriesId: 3,
+      },
+      {
+        id: 6,
+        name: 'Sofa',
+        price: 899,
+        description: 'A comfortable 3-seater sofa.',
+        stock: 20,
+        discountPrice: 799,
+        posterImageUrl: 'https://example.com/sofa.jpg',
+        posterImagePublicId: 'sofa_img',
+        hoverImageUrl: 'https://example.com/sofa_hover.jpg',
+        hoverImagePublicId: 'sofa_hover_img',
+        productImages: [
+          {
+            imageUrl:
+              'https://furniturezone.pk/wp-content/uploads/2024/03/4-Seater-Interchangeable-L-Shape-Sofa-Set3.jpg',
+            public_id: 'abc',
+          },
+          {
+            imageUrl:
+              'https://furniturezone.pk/wp-content/uploads/2024/03/4-Seater-Interchangeable-L-Shape-Sofa-Set1.jpg',
+            public_id: 'abc',
+          },
+          {
+            imageUrl:
+              'https://furniturezone.pk/wp-content/uploads/2024/03/4-Seater-Interchangeable-L-Shape-Sofa-Set6.jpg',
+            public_id: 'abc',
+          },
+          {
+            imageUrl:
+              'https://furniturezone.pk/wp-content/uploads/2024/03/4-Seater-Interchangeable-L-Shape-Sofa-Set2.jpg',
+            public_id: 'abc',
+          },
+          {
+            imageUrl:
+              'https://furniturezone.pk/wp-content/uploads/2024/03/4-Seater-Interchangeable-L-Shape-Sofa-Set4.jpg',
+            public_id: 'abc',
+          },
+          {
+            imageUrl:
+              'https://furniturezone.pk/wp-content/uploads/2024/03/4-Seater-Interchangeable-L-Shape-Sofa-Set6.jpg',
+            public_id: 'abc',
+          },
+        ],
+        additionalInformation: [
+          {
+            key: 'Colors',
+            value: 'red, blue',
+          },
+          {
+            key: 'Dimension',
+            value: '10x10, 20x20',
+          },
+        ],
+        categoriesId: 4,
       },
     ],
   },
@@ -265,54 +421,106 @@ export const slidersData: ISliderData[] = [
     tabTitle: 'Chair',
     cards: [
       {
-        id: 1,
-        image: cardimage1,
-        name: 'Sparta Coffee Table',
-        price: 100,
-        discount: 300,
-        sale: '50%',
-        reviews: 3,
-        productType: 'Dinner',
-      },
-      {
-        id: 2,
-        image: cardimage1,
-        name: 'Sparta Coffee Table',
-        price: 100,
-        discount: 300,
-        sale: '30%',
-        reviews: 5,
-        productType: 'Dinner',
-      },
-      {
-        id: 3,
-        image: cardimage1,
-        name: 'Sparta Coffee Table',
-        price: 100,
-        discount: 300,
-        sale: '50%',
-        reviews: 4,
-        productType: 'Dinner',
-      },
-      {
-        id: 4,
-        image: cardimage1,
-        name: 'Sparta Coffee Table',
-        price: 100,
-        discount: 300,
-        sale: '45%',
-        reviews: 2,
-        productType: 'Dinner',
-      },
-      {
         id: 5,
-        image: cardimage1,
-        name: 'Sparta Coffee Table',
-        price: 100,
-        discount: 300,
-        sale: '70%',
-        reviews: 3,
-        productType: 'Dinner',
+        name: 'Smartphone',
+        price: 699,
+        description:
+          'Introducing the Minsk Coffee Table – a modern marvel that enhances your living space with contemporary elegance. The round-shaped metal coffee table boasts a sleek design, combining style and functionality...',
+        stock: 50,
+        discountPrice: 649,
+        posterImageUrl: 'https://example.com/smartphone.jpg',
+        posterImagePublicId: 'smartphone_img',
+        hoverImageUrl: 'https://example.com/smartphone_hover.jpg',
+        hoverImagePublicId: 'smartphone_hover_img',
+        productImages: [
+          {
+            imageUrl:
+              'https://furniturezone.pk/wp-content/uploads/2024/03/4-Seater-Interchangeable-L-Shape-Sofa-Set3.jpg',
+            public_id: 'abc',
+          },
+          {
+            imageUrl:
+              'https://furniturezone.pk/wp-content/uploads/2024/03/4-Seater-Interchangeable-L-Shape-Sofa-Set1.jpg',
+            public_id: 'abc',
+          },
+
+          {
+            imageUrl:
+              'https://furniturezone.pk/wp-content/uploads/2024/03/4-Seater-Interchangeable-L-Shape-Sofa-Set4.jpg',
+            public_id: 'abc',
+          },
+          {
+            imageUrl:
+              'https://furniturezone.pk/wp-content/uploads/2024/03/4-Seater-Interchangeable-L-Shape-Sofa-Set6.jpg',
+            public_id: 'abc',
+          },
+        ],
+        additionalInformation: [
+          {
+            key: 'Colors',
+            value: 'red, blue',
+          },
+          {
+            key: 'Dimension',
+            value: '10x10, 20x20',
+          },
+        ],
+        categoriesId: 3,
+      },
+      {
+        id: 6,
+        name: 'Sofa',
+        price: 899,
+        description: 'A comfortable 3-seater sofa.',
+        stock: 20,
+        discountPrice: 799,
+        posterImageUrl: 'https://example.com/sofa.jpg',
+        posterImagePublicId: 'sofa_img',
+        hoverImageUrl: 'https://example.com/sofa_hover.jpg',
+        hoverImagePublicId: 'sofa_hover_img',
+        productImages: [
+          {
+            imageUrl:
+              'https://furniturezone.pk/wp-content/uploads/2024/03/4-Seater-Interchangeable-L-Shape-Sofa-Set3.jpg',
+            public_id: 'abc',
+          },
+          {
+            imageUrl:
+              'https://furniturezone.pk/wp-content/uploads/2024/03/4-Seater-Interchangeable-L-Shape-Sofa-Set1.jpg',
+            public_id: 'abc',
+          },
+          {
+            imageUrl:
+              'https://furniturezone.pk/wp-content/uploads/2024/03/4-Seater-Interchangeable-L-Shape-Sofa-Set6.jpg',
+            public_id: 'abc',
+          },
+          {
+            imageUrl:
+              'https://furniturezone.pk/wp-content/uploads/2024/03/4-Seater-Interchangeable-L-Shape-Sofa-Set2.jpg',
+            public_id: 'abc',
+          },
+          {
+            imageUrl:
+              'https://furniturezone.pk/wp-content/uploads/2024/03/4-Seater-Interchangeable-L-Shape-Sofa-Set4.jpg',
+            public_id: 'abc',
+          },
+          {
+            imageUrl:
+              'https://furniturezone.pk/wp-content/uploads/2024/03/4-Seater-Interchangeable-L-Shape-Sofa-Set6.jpg',
+            public_id: 'abc',
+          },
+        ],
+        additionalInformation: [
+          {
+            key: 'Colors',
+            value: 'red, blue',
+          },
+          {
+            key: 'Dimension',
+            value: '10x10, 20x20',
+          },
+        ],
+        categoriesId: 4,
       },
     ],
   },
@@ -320,54 +528,106 @@ export const slidersData: ISliderData[] = [
     tabTitle: 'Monitor',
     cards: [
       {
-        id: 1,
-        image: cardimage1,
-        name: 'Sparta Coffee Table',
-        price: 100,
-        discount: 300,
-        sale: '50%',
-        reviews: 3,
-        productType: 'Dinner',
-      },
-      {
-        id: 2,
-        image: cardimage1,
-        name: 'Sparta Coffee Table',
-        price: 100,
-        discount: 300,
-        sale: '30%',
-        reviews: 5,
-        productType: 'Dinner',
-      },
-      {
-        id: 3,
-        image: cardimage1,
-        name: 'Sparta Coffee Table',
-        price: 100,
-        discount: 300,
-        sale: '50%',
-        reviews: 4,
-        productType: 'Dinner',
-      },
-      {
-        id: 4,
-        image: cardimage1,
-        name: 'Sparta Coffee Table',
-        price: 100,
-        discount: 300,
-        sale: '45%',
-        reviews: 2,
-        productType: 'Dinner',
-      },
-      {
         id: 5,
-        image: cardimage1,
-        name: 'Sparta Coffee Table',
-        price: 100,
-        discount: 300,
-        sale: '70%',
-        reviews: 0,
-        productType: 'Dinner',
+        name: 'Smartphone',
+        price: 699,
+        description:
+          'Introducing the Minsk Coffee Table – a modern marvel that enhances your living space with contemporary elegance. The round-shaped metal coffee table boasts a sleek design, combining style and functionality...',
+        stock: 50,
+        discountPrice: 649,
+        posterImageUrl: 'https://example.com/smartphone.jpg',
+        posterImagePublicId: 'smartphone_img',
+        hoverImageUrl: 'https://example.com/smartphone_hover.jpg',
+        hoverImagePublicId: 'smartphone_hover_img',
+        productImages: [
+          {
+            imageUrl:
+              'https://furniturezone.pk/wp-content/uploads/2024/03/4-Seater-Interchangeable-L-Shape-Sofa-Set3.jpg',
+            public_id: 'abc',
+          },
+          {
+            imageUrl:
+              'https://furniturezone.pk/wp-content/uploads/2024/03/4-Seater-Interchangeable-L-Shape-Sofa-Set1.jpg',
+            public_id: 'abc',
+          },
+
+          {
+            imageUrl:
+              'https://furniturezone.pk/wp-content/uploads/2024/03/4-Seater-Interchangeable-L-Shape-Sofa-Set4.jpg',
+            public_id: 'abc',
+          },
+          {
+            imageUrl:
+              'https://furniturezone.pk/wp-content/uploads/2024/03/4-Seater-Interchangeable-L-Shape-Sofa-Set6.jpg',
+            public_id: 'abc',
+          },
+        ],
+        additionalInformation: [
+          {
+            key: 'Colors',
+            value: 'red, blue',
+          },
+          {
+            key: 'Dimension',
+            value: '10x10, 20x20',
+          },
+        ],
+        categoriesId: 3,
+      },
+      {
+        id: 6,
+        name: 'Sofa',
+        price: 899,
+        description: 'A comfortable 3-seater sofa.',
+        stock: 20,
+        discountPrice: 799,
+        posterImageUrl: 'https://example.com/sofa.jpg',
+        posterImagePublicId: 'sofa_img',
+        hoverImageUrl: 'https://example.com/sofa_hover.jpg',
+        hoverImagePublicId: 'sofa_hover_img',
+        productImages: [
+          {
+            imageUrl:
+              'https://furniturezone.pk/wp-content/uploads/2024/03/4-Seater-Interchangeable-L-Shape-Sofa-Set3.jpg',
+            public_id: 'abc',
+          },
+          {
+            imageUrl:
+              'https://furniturezone.pk/wp-content/uploads/2024/03/4-Seater-Interchangeable-L-Shape-Sofa-Set1.jpg',
+            public_id: 'abc',
+          },
+          {
+            imageUrl:
+              'https://furniturezone.pk/wp-content/uploads/2024/03/4-Seater-Interchangeable-L-Shape-Sofa-Set6.jpg',
+            public_id: 'abc',
+          },
+          {
+            imageUrl:
+              'https://furniturezone.pk/wp-content/uploads/2024/03/4-Seater-Interchangeable-L-Shape-Sofa-Set2.jpg',
+            public_id: 'abc',
+          },
+          {
+            imageUrl:
+              'https://furniturezone.pk/wp-content/uploads/2024/03/4-Seater-Interchangeable-L-Shape-Sofa-Set4.jpg',
+            public_id: 'abc',
+          },
+          {
+            imageUrl:
+              'https://furniturezone.pk/wp-content/uploads/2024/03/4-Seater-Interchangeable-L-Shape-Sofa-Set6.jpg',
+            public_id: 'abc',
+          },
+        ],
+        additionalInformation: [
+          {
+            key: 'Colors',
+            value: 'red, blue',
+          },
+          {
+            key: 'Dimension',
+            value: '10x10, 20x20',
+          },
+        ],
+        categoriesId: 4,
       },
     ],
   },
@@ -445,16 +705,16 @@ export const cards: ICard[] = [
     productType: 'DINNER',
     description:
       'Introducing the Minsk Coffee Table – a modern marvel that enhances your living space with contemporary elegance. The round-shaped metal coffee table boasts a sleek design, combining style and functionality...',
-      additionalInformation: [
-        {
-          key: 'Colors',
-          value: 'red, blue',
-        },
-        {
-          key: 'Dimension',
-          value: '10x10, 20x20',
-        },
-      ],
+    additionalInformation: [
+      {
+        key: 'Colors',
+        value: 'red, blue',
+      },
+      {
+        key: 'Dimension',
+        value: '10x10, 20x20',
+      },
+    ],
   },
   {
     id: 2,
@@ -467,16 +727,16 @@ export const cards: ICard[] = [
     productType: 'Home',
     description:
       'Introducing the Minsk Coffee Table – a modern marvel that enhances your living space with contemporary elegance. The round-shaped metal coffee table boasts a sleek design, combining style and functionality...',
-      additionalInformation: [
-        {
-          key: 'Colors',
-          value: 'red, blue',
-        },
-        {
-          key: 'Dimension',
-          value: '10x10, 20x20',
-        },
-      ],
+    additionalInformation: [
+      {
+        key: 'Colors',
+        value: 'red, blue',
+      },
+      {
+        key: 'Dimension',
+        value: '10x10, 20x20',
+      },
+    ],
   },
   {
     id: 3,
@@ -489,16 +749,16 @@ export const cards: ICard[] = [
     productType: 'CHAIRS',
     description:
       'Introducing the Minsk Coffee Table – a modern marvel that enhances your living space with contemporary elegance. The round-shaped metal coffee table boasts a sleek design, combining style and functionality...',
-      additionalInformation: [
-        {
-          key: 'Colors',
-          value: 'red, blue',
-        },
-        {
-          key: 'Dimension',
-          value: '10x10, 20x20',
-        },
-      ],
+    additionalInformation: [
+      {
+        key: 'Colors',
+        value: 'red, blue',
+      },
+      {
+        key: 'Dimension',
+        value: '10x10, 20x20',
+      },
+    ],
   },
   {
     id: 4,
@@ -511,16 +771,16 @@ export const cards: ICard[] = [
     productType: 'DINNER',
     description:
       'Introducing the Minsk Coffee Table – a modern marvel that enhances your living space with contemporary elegance. The round-shaped metal coffee table boasts a sleek design, combining style and functionality...',
-      additionalInformation: [
-        {
-          key: 'Colors',
-          value: 'red, blue',
-        },
-        {
-          key: 'Dimension',
-          value: '10x10, 20x20',
-        },
-      ],
+    additionalInformation: [
+      {
+        key: 'Colors',
+        value: 'red, blue',
+      },
+      {
+        key: 'Dimension',
+        value: '10x10, 20x20',
+      },
+    ],
   },
   {
     id: 5,
@@ -533,16 +793,16 @@ export const cards: ICard[] = [
     productType: 'Home OFFICE',
     description:
       'Introducing the Minsk Coffee Table – a modern marvel that enhances your living space with contemporary elegance. The round-shaped metal coffee table boasts a sleek design, combining style and functionality...',
-      additionalInformation: [
-        {
-          key: 'Colors',
-          value: 'red, blue',
-        },
-        {
-          key: 'Dimension',
-          value: '10x10, 20x20',
-        },
-      ],
+    additionalInformation: [
+      {
+        key: 'Colors',
+        value: 'red, blue',
+      },
+      {
+        key: 'Dimension',
+        value: '10x10, 20x20',
+      },
+    ],
   },
   {
     id: 6,
@@ -555,16 +815,16 @@ export const cards: ICard[] = [
     productType: 'TABLES',
     description:
       'Introducing the Minsk Coffee Table – a modern marvel that enhances your living space with contemporary elegance. The round-shaped metal coffee table boasts a sleek design, combining style and functionality...',
-      additionalInformation: [
-        {
-          key: 'Colors',
-          value: 'red, blue',
-        },
-        {
-          key: 'Dimension',
-          value: '10x10, 20x20',
-        },
-      ],
+    additionalInformation: [
+      {
+        key: 'Colors',
+        value: 'red, blue',
+      },
+      {
+        key: 'Dimension',
+        value: '10x10, 20x20',
+      },
+    ],
   },
   {
     id: 7,
@@ -577,16 +837,16 @@ export const cards: ICard[] = [
     productType: 'LIVING',
     description:
       'Introducing the Minsk Coffee Table – a modern marvel that enhances your living space with contemporary elegance. The round-shaped metal coffee table boasts a sleek design, combining style and functionality...',
-      additionalInformation: [
-        {
-          key: 'Colors',
-          value: 'red, blue',
-        },
-        {
-          key: 'Dimension',
-          value: '10x10, 20x20',
-        },
-      ],
+    additionalInformation: [
+      {
+        key: 'Colors',
+        value: 'red, blue',
+      },
+      {
+        key: 'Dimension',
+        value: '10x10, 20x20',
+      },
+    ],
   },
   {
     id: 8,
@@ -599,16 +859,16 @@ export const cards: ICard[] = [
     productType: 'BEDROOM',
     description:
       'Introducing the Minsk Coffee Table – a modern marvel that enhances your living space with contemporary elegance. The round-shaped metal coffee table boasts a sleek design, combining style and functionality...',
-      additionalInformation: [
-        {
-          key: 'Colors',
-          value: 'red, blue',
-        },
-        {
-          key: 'Dimension',
-          value: '10x10, 20x20',
-        },
-      ],
+    additionalInformation: [
+      {
+        key: 'Colors',
+        value: 'red, blue',
+      },
+      {
+        key: 'Dimension',
+        value: '10x10, 20x20',
+      },
+    ],
   },
   {
     id: 9,
@@ -621,16 +881,16 @@ export const cards: ICard[] = [
     productType: 'LIVING',
     description:
       'Introducing the Minsk Coffee Table – a modern marvel that enhances your living space with contemporary elegance. The round-shaped metal coffee table boasts a sleek design, combining style and functionality...',
-      additionalInformation: [
-        {
-          key: 'Colors',
-          value: 'red, blue',
-        },
-        {
-          key: 'Dimension',
-          value: '10x10, 20x20',
-        },
-      ],
+    additionalInformation: [
+      {
+        key: 'Colors',
+        value: 'red, blue',
+      },
+      {
+        key: 'Dimension',
+        value: '10x10, 20x20',
+      },
+    ],
   },
 ];
 

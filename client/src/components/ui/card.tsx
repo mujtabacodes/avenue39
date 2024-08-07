@@ -25,6 +25,7 @@ const Card: React.FC<CardProps> = ({ card, isModel }) => {
   const Navigate = useRouter();
   const dispatch = useDispatch<Dispatch>();
   const cartItems = useSelector((state: State) => state.cart.items);
+
   const itemToAdd: CartItem = {
     ...card,
     quantity: 1,
@@ -36,16 +37,16 @@ const Card: React.FC<CardProps> = ({ card, isModel }) => {
   };
   const renderStars = () => {
     const stars = [];
-    // for (let i = 1; i <= 5; i++) {
-    //   if (i <= (card.reviews || 0)) {
-    //     stars.push(<MdStar key={i} size={20} className="text-yellow-400" />);
-    //   } else {
-    //     stars.push(
-    //       <MdStarBorder key={i} size={20} className="text-yellow-400" />,
-    //     );
-    //   }
-    // }
-    // return stars;
+    for (let i = 1; i <= 5; i++) {
+      if (i <= /*card.reviews*/ (4 || 0)) {
+        stars.push(<MdStar key={i} size={20} className="text-yellow-400" />);
+      } else {
+        stars.push(
+          <MdStarBorder key={i} size={20} className="text-yellow-400" />,
+        );
+      }
+    }
+    return stars;
   };
 
   const productId = 5;
@@ -85,6 +86,7 @@ const Card: React.FC<CardProps> = ({ card, isModel }) => {
       </p>
       <div className="flex gap-1 mt-2 items-center justify-center h-8">
         {/* {card.reviews != 0 ? renderStars() : ''} */}
+        {renderStars()}
       </div>
 
       {isModel ? null : (

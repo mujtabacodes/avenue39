@@ -5,29 +5,13 @@ import { ISliderData } from '@/types/types';
 import { useSelector } from 'react-redux';
 import { State } from '@/redux/store';
 
-interface SliderData {
-  tabTitle: string;
-  cards: ICard[];
-}
-
-interface ICard {
-  id: number;
-  image: any;
-  heading: string;
-  price: string;
-  discount?: string;
-  sale: string;
-  reviews: number;
-}
-
 interface TabsProps {
   slidersData: ISliderData[];
 }
 
-const Tabs: React.FC<TabsProps> = ({ slidersData }: any) => {
+const Tabs: React.FC<TabsProps> = ({ slidersData }) => {
   const [activeTab, setActiveTab] = useState(0);
-  const productsDB = useSelector((state: State) => state.products);
-  const products = productsDB.products;
+
   return (
     <div className="p-4">
       <div className="flex flex-row flex-wrap justify-center lg:justify-between gap-6 items-center mt-8">
