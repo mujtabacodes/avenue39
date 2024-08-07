@@ -1162,7 +1162,7 @@ export const policySections = [
     },
     {
       title: "Contact Us",
-      description:  ["If you have any questions about this privacy policy, you can contact us:" , "Email: [[EMAIL_LINK]]", "Phone: [[PHONE_LINK]] ", "WhatsApp: [[PHONE_LINK]]"],
+      description:  ["If you have any questions about this privacy policy, you can contact us:" , "Email: [[EMAIL_LINK]]", "Phone: [[PHONE_LINK]] ", "WhatsApp: [[WHATSAPP_LINK]]"],
     },
   ];
 export const ReturnPolicy = [
@@ -1218,6 +1218,6 @@ export const ShippingPolicy = [
     },
     {
       title: "Questions",
-      description:  ["If you have any further questions, concerns and complains about the delivery and shipment of your order, or if you need to discuss delivery preferences, please contact us at:",  "Email: [[EMAIL_LINK]]", "Phone: [[PHONE_LINK]] ", "WhatsApp: [[PHONE_LINK]]"],
+      description:  ["If you have any further questions, concerns and complains about the delivery and shipment of your order, or if you need to discuss delivery preferences, please contact us at:",  "Email: [[EMAIL_LINK]]", "Phone: [[PHONE_LINK]] ", "WhatsApp: [[WHATSAPP_LINK]]"],
     },
   ];
