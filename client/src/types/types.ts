@@ -2,6 +2,12 @@ import { AdditionalInformation } from '@/data/products';
 import { StaticImageData } from 'next/image';
 import { FormEventHandler, ReactNode, SetStateAction } from 'react';
 import { IconType } from 'react-icons';
+export type TPolicySections = TPolicySection[];
+export type TReturnPolicy = TReturnPolicy[];
+export type TShippingPolicy = TShippingPolicy[];
+export type TTermsCondition = TTermsCondition[];
+export type TTimeRemainingArray = TTimeRemaining[];
+
 
 export interface IHome {}
 export interface INav {}
@@ -11,6 +17,15 @@ export interface ITypo {
   className?: string;
   onClick?: () => void;
 }
+export interface TPolicySection {
+  title: string;
+  description: any | any[];
+}
+
+
+
+
+
 export interface ITextIcon {
   //TODO: change Icon type
   Icon: any;
@@ -21,6 +36,15 @@ export interface ITextIcon {
 export interface IContainer {
   children: ReactNode;
   className?: string;
+}
+export interface TimerSliderItem {
+  discountText: string;
+  dealText: string;
+  price: string;
+  productName: string;
+  buttonText: string;
+  image: any;
+  endDate: string;
 }
 export type BRAND = {
   logo: string;
@@ -40,11 +64,17 @@ export type BRAND = {
 
 export type TSlide = {
   image: any;
-  bannerHeading: string;
-  bannerSubHeading: string;
+  // bannerHeading: string;
+  bannerSubHeading: any;
   text: string;
   buttonText: string;
   buttonLink: string;
+};
+export type TTimeRemaining = {
+  days: number;
+  hours: number;
+  minutes: number;
+  seconds: number;
 };
 
 export interface IServiceItem {
@@ -190,6 +220,18 @@ export interface IMAGE_INTERFACE {
   public_id?: string;
   imageUrl?: string;
   name?: string;
+}
+
+// Timer slider data type
+export type TSliderItem = {
+  id: number;
+  imageUrl: StaticImageData;
+  productName: string;
+  price: string;
+  discountText: string;
+  dealText: string;
+  timer: string; 
+  buttonText: string;
 }
 export interface USRPROPS {
   handleSubmit: FormEventHandler<HTMLFormElement>,
