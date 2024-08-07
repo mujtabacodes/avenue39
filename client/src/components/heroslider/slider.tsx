@@ -33,7 +33,7 @@ const SimpleSlider: React.FC = () => {
                 className="min-h-[350px] w-full h-full"
                 alt="image"
               />
-              <div className="absolute xl:left-56 lg:20 left-10 inset-0 bg-opacity-5 flex flex-col items-start justify-center text-secondary">
+              <div className="absolute xl:left-32 lg:20 left-10 inset-0 flex flex-col items-start justify-center text-secondary">
                 <h3 className="md:text lg:text-xl mb-4">
                   {slide.bannerSubHeading}
                 </h3>
