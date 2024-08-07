@@ -11,6 +11,9 @@
   list-style: none;
   text-align: center;
 }
+
+
+
 .hero-slider-wrapper .slick-dots li button:before {
   font-family: 'slick';
   background: white;
