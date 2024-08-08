@@ -45,6 +45,7 @@ const CardsTabes: React.FC = () => {
 
   return (
     <Container>
+      {/* {!slidersData2?()} */}
       <Tabs slidersData={slidersData2} />
     </Container>
   );

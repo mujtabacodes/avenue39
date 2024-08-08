@@ -1,4 +1,5 @@
-import React from 'react';
+'use client';
+import React, { useState } from 'react';
 import Thumbnail from '../carousel/thumbnail';
 import { products } from '@/data/products';
 import { IProductDetail } from '@/types/types';
@@ -37,7 +38,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { State } from '@/redux/store';
 import { selectTotalPrice, updateItemQuantity } from '@/redux/slices/cart';
 import { Dispatch } from 'redux';
-
+import { HiMinusSm, HiPlusSm } from 'react-icons/hi';
 
 const ProductDetail = ({
   params,
@@ -48,11 +49,14 @@ const ProductDetail = ({
 }) => {
   const dispatch = useDispatch<Dispatch>();
   const cartItems = useSelector((state: State) => state.cart.items);
-  const totalPrice = useSelector((state: State) =>
-    selectTotalPrice(state.cart),
-  );
+  const [count, setCount] = useState(1);
+
   const productId = Number(5);
   const product = products.find((product) => product.id === productId);
+  console.log('bhai saab product ye hai');
+  console.log(product);
+  console.log('Cart items');
+  console.log(cartItems);
   const renderStars = () => {
     const stars = [];
     for (let i = 1; i <= 5; i++) {
@@ -73,6 +77,14 @@ const ProductDetail = ({
     if (quantity > 0) {
       dispatch(updateItemQuantity({ id, quantity }));
     }
+  };
+
+  const onDecrement = () => {
+    setCount((prevCount) => Math.max(prevCount - 1, 1)); // Prevent count from going below 1
+  };
+
+  const onIncrement = () => {
+    setCount((prevCount) => prevCount + 1);
   };
   return (
     <div className="flex flex-col md:flex-row w-full justify-between gap-8 my-10">
@@ -136,8 +148,21 @@ const ProductDetail = ({
         <NormalText className="mb-4">
           Hurry Up! Only <span className="text-red-600">12</span> left in stock:
         </NormalText>
-        <div className="flex items-center gap-4">
-          <span>counter</span>
+        <div className="flex items-center gap-4 ">
+          <div className="flex items-center border border-gray-300 rounded py-1 md:p-2 md:py-3">
+            <button
+              onClick={onDecrement}
+              className="px-2 text-gray-600"
+              disabled={count <= 1}
+            >
+              <HiMinusSm size={20} />
+            </button>
+            <span className="mx-2">{count}</span>
+            <button onClick={onIncrement} className="px-2 text-gray-600">
+              <HiPlusSm size={20} />
+            </button>
+          </div>
+
           <Link
             href="https://wa.me/1XXXXXXXXXX"
             className="w-full h-14 text-white bg-[#64B161] rounded-full flex justify-center items-center gap-2 hover:bg-[#56B400]"

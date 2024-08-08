@@ -2,6 +2,7 @@ import { ICategory, IProduct } from '@/types/types';
 import axios from 'axios';
 
 export const fetchProducts = async (): Promise<IProduct[]> => {
+  console.log(`${process.env.NEXT_PUBLIC_BASE_URL}`);
   const response = await axios.get(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/product/get-all`,
   );
