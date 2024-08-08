@@ -11,7 +11,7 @@ import {
   SignupDto,
   UpdateUserDto,
 } from './dto/user.dto';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '../prisma/prisma.service';
 import { customHttpException, sendResetEmail } from 'src/utils/helper';
 import { hashPassword, verifyPassword } from 'src/utils/func';
 import * as jwt from 'jsonwebtoken';
