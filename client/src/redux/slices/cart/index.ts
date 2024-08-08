@@ -40,7 +40,7 @@ const cartSlice = createSlice({
 
 export const selectTotalPrice = (state: CartState): number => {
   return state.items.reduce((total, item) => {
-    const price = item.discount ? item.discount : item.price;
+    const price = item.discountPrice ? item.discountPrice : item.price;
     return total + price * item.quantity;
   }, 0);
 };

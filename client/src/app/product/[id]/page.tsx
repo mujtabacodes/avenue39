@@ -106,14 +106,14 @@ const ProductPage = ({ params }: { params: IProductDetail }) => {
 
   return (
     <div>
-      <Container >
-      <ProductDetail params={product} isZoom={true} />
+      <Container>
+        <ProductDetail params={product} isZoom={true} />
       </Container>
       <div className="w-full ">
         <DetailTabs tabs={tabs} />
       </div>
-        <Container className="text-center p-3 flex flex-col md:flex-row gap-10 lg:gap-16">
-          <div className='w-full md:w-7/12 lg:w-8/12 2xl:w-9/12'>
+      <Container className="text-center p-3 flex flex-col md:flex-row gap-10 lg:gap-16">
+        <div className="w-full md:w-7/12 lg:w-8/12 2xl:w-9/12">
           <h1 className="text-xl py-3  text-left font-bold">Best Seller</h1>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {bestSellerProducts.map((card) => (
@@ -122,16 +122,16 @@ const ProductPage = ({ params }: { params: IProductDetail }) => {
               </div>
             ))}
           </div>
-          </div>
-          <div className="w-full md:w-5/12 lg:w-4/12 2xl:w-3/12">
+        </div>
+        <div className="w-full md:w-5/12 lg:w-4/12 2xl:w-3/12">
           <h2 className="text-[28px] font-medium mb-5">Your Recently Viewed</h2>
           <SideCard data={productData} />
         </div>
-        </Container>
+      </Container>
 
       <Container className="text-center p-3 ">
         <h1 className="text-3xl py-3 font-bold">Similar Products</h1>
-        <SliderComponent cards={cards} />
+        <SliderComponent cards={products} />
       </Container>
       <Services />
     </div>
