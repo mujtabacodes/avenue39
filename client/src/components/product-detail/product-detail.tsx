@@ -23,7 +23,7 @@ const ProductDetail = ({ params , isZoom }: { params: IProductDetail , isZoom?: 
     const renderStars = () => {
       const stars = [];
       for (let i = 1; i <= 5; i++) {
-        if (i <= (4 || 0)) {
+        if (i <= 4 || i <= 0) {
           stars.push(<MdStar key={i} size={20} className="text-yellow-400" />);
         } else {
           stars.push(
@@ -126,7 +126,9 @@ const ProductDetail = ({ params , isZoom }: { params: IProductDetail , isZoom?: 
                       Learn more
                     </span>
                   </DialogTrigger>
+
                   <DialogOverlay className="bg-white/80" />
+
                   <DialogContent className="sm:max-w-[80%] lg:max-w-[60%] bg-white px-0 sm:rounded-none border border-black shadow-none gap-0 pb-0">
                     <DialogHeader>
                       <DialogTitle className="text-xl xs:text-xl sm:text-2xl md:text-3xl font-bold tracking-wide border-b-2 pb-3 sm:ps-5 md:ps-10 pe-10">
@@ -178,6 +180,7 @@ const ProductDetail = ({ params , isZoom }: { params: IProductDetail , isZoom?: 
                       </div>
                     </div>
                   </DialogContent>
+                  
                 </Dialog>
               </p>
             </div>
