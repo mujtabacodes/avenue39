@@ -6,7 +6,7 @@ export const breadcrumbs = [
 ];
 export const aboutbreadcrumbs = [
   { label: 'Home', href: '/' },
-  { label: 'About' }
+  { label: 'About Us' }
 ];
 export const checkout = [
   { label: 'Home', href: '/' },
