@@ -230,10 +230,11 @@
 }
 
 .text-outline-border {
-  text-shadow: -3px 3px 0 #000,
-      3px 3px 0 #000,
-      3px -3px 0 #000,
-      -3px -3px 0 #000;
+  text-shadow:
+    -3px 3px 0 #000,
+    3px 3px 0 #000,
+    3px -3px 0 #000,
+    -3px -3px 0 #000;
 }
 .column-swiper-slider {
   width: 100% !important;

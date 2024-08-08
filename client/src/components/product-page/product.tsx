@@ -1,6 +1,6 @@
 import TopHero from '@/components/top-hero';
 import Container from '@/components/ui/Container';
-import { cards } from '@/data';
+// import { cards } from '@/data';
 import { productsbredcrumbs } from '@/data/data';
 import { ImList } from 'react-icons/im';
 import { MdWindow } from 'react-icons/md';
@@ -31,6 +31,11 @@ import SidebarFilter from '@/components/filters/sidebar-filter';
 import { ReactNode, useState } from 'react';
 import { StaticImageData } from 'next/image';
 import { IoIosClose } from 'react-icons/io';
+import { useSelector } from 'react-redux';
+import { State } from '@/redux/store';
+import { useQuery } from '@tanstack/react-query';
+import { IProduct } from '@/types/types';
+import { fetchProducts } from '@/config/fetch';
 
 interface ProductPageProps {
   sideBanner: StaticImageData;
@@ -48,6 +53,23 @@ const ProductPage = ({
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 500]);
   const [sortOption, setSortOption] = useState<string>('default');
+  // const productsDB = useSelector((state: State) => state.products);
+  const {
+    data: products = [],
+    error,
+    isLoading,
+  } = useQuery<IProduct[], Error>({
+    queryKey: ['products'],
+    queryFn: fetchProducts,
+  });
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error fetching products: {error.message}</div>;
+  }
 
   const handleCategoryChange = (category: string, isChecked: boolean) => {
     if (isChecked) {
@@ -67,29 +89,29 @@ const ProductPage = ({
     setSortOption(sort);
   };
 
-  const filteredCards = cards
-  .filter((card) => {
-    const inCategory =
-      selectedCategories.length > 0
-        ? selectedCategories.includes(card.productType || '')
-        : true;
-    const inPriceRange =
-      card.price >= priceRange[0] && card.price <= priceRange[1];
-    return inCategory && inPriceRange;
-  })
-  .sort((a, b) => {
-    if (sortOption === 'name') {
-      return a.name.localeCompare(b.name);
-    } else if (sortOption === 'max') {
-      return b.price - a.price;
-    } else if (sortOption === 'min') {
-      return a.price - b.price;
-    } else if (sortOption === 'review') {
-    return b.reviews - a.reviews;
-  }
-    return 0;
-  });
-
+  const filteredCards = products;
+  // const filteredCards1 = products
+  //   .filter((card) => {
+  //     const inCategory =
+  //       selectedCategories.length > 0
+  //         ? selectedCategories.includes(card.productType || '')
+  //         : true;
+  //     const inPriceRange =
+  //       card.price >= priceRange[0] && card.price <= priceRange[1];
+  //     return inCategory && inPriceRange;
+  //   })
+  //   .sort((a, b) => {
+  //     if (sortOption === 'name') {
+  //       return a.name.localeCompare(b.name);
+  //     } else if (sortOption === 'max') {
+  //       return b.price - a.price;
+  //     } else if (sortOption === 'min') {
+  //       return a.price - b.price;
+  //     } else if (sortOption === 'review') {
+  //       return b.reviews - a.reviews;
+  //     }
+  //     return 0;
+  //   });
 
   return (
     <>

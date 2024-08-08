@@ -8,11 +8,9 @@ import { StaticImageData } from 'next/image';
 import Container from '../ui/Container';
 import HotProductNextArrow from './hot-product-next-arrow';
 import HotProductPrevArrow from './hot-product-prev-arrow';
-import { ICard } from '@/types/types';
-
-interface SliderProps {
-  slideritems: ICard[];
-}
+import { IProduct } from '@/types/types';
+import { useQuery } from '@tanstack/react-query';
+import { fetchProducts } from '@/config/fetch';
 
 const settings = {
   arrows: true,
@@ -57,7 +55,15 @@ const settings = {
   ],
 };
 
-const HotProductSlider: React.FC<SliderProps> = ({ slideritems }) => {
+const HotProductSlider: React.FC = () => {
+  const {
+    data: products = [],
+    error: productsError,
+    isLoading: isProductsLoading,
+  } = useQuery<IProduct[], Error>({
+    queryKey: ['products'],
+    queryFn: fetchProducts,
+  });
   return (
     <section className="mt-5">
       <Container className="slider-container w-full">
@@ -65,7 +71,7 @@ const HotProductSlider: React.FC<SliderProps> = ({ slideritems }) => {
           Hot Newest Products
         </h2>
         <Slider {...settings} className="mx-4 xs:mx-0 hot-products mb-2">
-          {slideritems.map((card) => (
+          {products.map((card) => (
             <div key={card.id}>
               <Card card={card} />
             </div>

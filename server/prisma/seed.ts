@@ -92,20 +92,20 @@ async function main() {
   await prisma.reviews.createMany({
     data: [
       {
-        Name: 'Alice Johnson',
-        Email: 'alice.johnson@example.com',
+        name: 'Alice Johnson',
+        email: 'alice.johnson@example.com',
         review: 'Great smartphone with excellent features!',
         star: 5,
-        productsId: (
+        productId: (
           await prisma.products.findFirst({ where: { name: 'Smartphone' } })
         )?.id,
       },
       {
-        Name: 'Bob Williams',
-        Email: 'bob.williams@example.com',
+        name: 'Bob Williams',
+        email: 'bob.williams@example.com',
         review: 'The sofa is very comfortable and stylish.',
         star: 4,
-        productsId: (
+        productId: (
           await prisma.products.findFirst({ where: { name: 'Sofa' } })
         )?.id,
       },

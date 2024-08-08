@@ -8,7 +8,6 @@ export type TShippingPolicy = TShippingPolicy[];
 export type TTermsCondition = TTermsCondition[];
 export type TTimeRemainingArray = TTimeRemaining[];
 
-
 export interface IHome {}
 export interface INav {}
 
@@ -21,10 +20,6 @@ export interface TPolicySection {
   title: string;
   description: any | any[];
 }
-
-
-
-
 
 export interface ITextIcon {
   //TODO: change Icon type
@@ -49,10 +44,10 @@ export interface TimerSliderItem {
 export type BRAND = {
   logo: string;
   name: string;
-  visitors:number,
-  revenues:string,
-  sales:number,
-  conversion:number
+  visitors: number;
+  revenues: string;
+  sales: number;
+  conversion: number;
 };
 // export type TSliderSettings = {
 //   dots: boolean;
@@ -110,7 +105,27 @@ export interface ICard {
   description?: string;
   additionalInformation?: AdditionalInformation[];
 }
+interface ProductImage {
+  imageUrl: string;
+  public_id: string;
+}
+export interface IProduct {
+  id: number;
+  name: string;
+  price: number;
+  description: string;
+  stock: number;
+  discountPrice: number;
+  sale?: string;
 
+  posterImageUrl: string;
+  posterImagePublicId: string;
+  hoverImageUrl: string;
+  hoverImagePublicId: string;
+  productImages: ProductImage[];
+  additionalInformation: AdditionalInformation[];
+  categoriesId: number;
+}
 export interface ITestimonialCard {
   id: number;
   profile: StaticImageData;
@@ -121,7 +136,7 @@ export interface ITestimonialCard {
 
 export interface ISliderData {
   tabTitle: string;
-  cards: ICard[];
+  cards: IProduct[];
 }
 export interface IDiscountProducts {
   id: number;
@@ -201,16 +216,16 @@ export interface IProductDetail {
   id: number;
 }
 
-export interface ITabbyList{
+export interface ITabbyList {
   id: number;
   para: string;
 }
-export interface ITabbyPayList{
+export interface ITabbyPayList {
   id: number;
   imageUrl: StaticImageData;
 }
 
-export interface ITamaraList{
+export interface ITamaraList {
   id: number;
   title?: string;
   para: string;
@@ -222,6 +237,13 @@ export interface IMAGE_INTERFACE {
   name?: string;
 }
 
+export interface ICategory {
+  id: number;
+  name: string;
+  createdAt?: string;
+  posterImageUrl?: string;
+  posterImagePublicId?: string;
+}
 // Timer slider data type
 export type TSliderItem = {
   id: number;
@@ -230,23 +252,22 @@ export type TSliderItem = {
   price: string;
   discountText: string;
   dealText: string;
-  timer: string; 
+  timer: string;
   buttonText: string;
-}
+};
 export interface USRPROPS {
-  handleSubmit: FormEventHandler<HTMLFormElement>,
-  error:string | null | undefined
-  loading: boolean | null | undefined
-  inputFields:any
-  buttonTitle:string
-  title?: string,
-  descrition? : string  
-  InstructionText? :string,
-  routingText? : string
-  navigationLink?:string
-  navigationTxt?:string
-  SelectComonent?:any
-  setadminType?:React.Dispatch<SetStateAction<string | undefined>>
-  adminType?:string | undefined
-
+  handleSubmit: FormEventHandler<HTMLFormElement>;
+  error: string | null | undefined;
+  loading: boolean | null | undefined;
+  inputFields: any;
+  buttonTitle: string;
+  title?: string;
+  descrition?: string;
+  InstructionText?: string;
+  routingText?: string;
+  navigationLink?: string;
+  navigationTxt?: string;
+  SelectComonent?: any;
+  setadminType?: React.Dispatch<SetStateAction<string | undefined>>;
+  adminType?: string | undefined;
 }
