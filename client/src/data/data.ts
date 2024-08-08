@@ -17,6 +17,10 @@ export const profilebreadcrumbs = [
   { label: 'Home', href: '/' },
   { label: 'profile' }
 ];
+export const Orderbreadcrumbs = [
+  { label: 'Home', href: '/' },
+  { label: 'Order History' }
+];
 export const productsbredcrumbs = [
   { label: 'Home', href: '/' },
   { label: 'Shop' }
