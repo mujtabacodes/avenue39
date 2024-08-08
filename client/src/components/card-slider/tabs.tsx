@@ -13,7 +13,7 @@ const Tabs: React.FC<TabsProps> = ({ slidersData }) => {
   const [activeTab, setActiveTab] = useState(0);
 
   return (
-    <div className="p-4">
+    <div className="">
       <div className="flex flex-row flex-wrap justify-center lg:justify-between gap-6 items-center mt-8">
         <div>
           <h3 className="text-3xl font-semibold mb-4 md:mb-0 text-nowrap">

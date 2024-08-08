@@ -14,7 +14,9 @@ import { SheetTrigger } from './sheet';
 import CartItems from '../cart/items';
 import { openDrawer } from '@/redux/slices/drawer';
 import { useRouter } from 'next/navigation';
-import { FaHeart } from 'react-icons/fa';
+import { Dialog, DialogContent, DialogOverlay, DialogTrigger } from './dialog';
+import { Button } from './button';
+import ProductDetail from '../product-detail/product-detail';
 
 interface CardProps {
   card: IProduct;
@@ -22,6 +24,9 @@ interface CardProps {
 }
 
 const Card: React.FC<CardProps> = ({ card, isModel }) => {
+  const handleEventProbation = (e: React.MouseEvent<HTMLElement>) => {
+    e.stopPropagation();
+  };
   const Navigate = useRouter();
   const dispatch = useDispatch<Dispatch>();
   const cartItems = useSelector((state: State) => state.cart.items);
@@ -56,10 +61,10 @@ const Card: React.FC<CardProps> = ({ card, isModel }) => {
   };
   return (
     <div
-      className="rounded-2xl text-center relative product-card mx-2 group hover:shadow-md hover:cursor-pointer hover:bg-white mb-2"
+      className="rounded-3xl text-center relative product-card mx-3 group hover:shadow-md hover:cursor-pointer hover:bg-white mb-2"
       onClick={(e) => handleNavigation(e)}
     >
-      <div className="relative w-fit mx-auto">
+      <div className="relative w-full mx-auto">
         <div className="bg-white rounded-full absolute top-4 right-6 flex flex-col gap-2 py-2 px-1 product-hover-icons z-[1] opacity-0 group-hover:opacity-100 transition-opacity">
           <PiEyeThin size={17} className="cursor-pointer" />
           <CiHeart size={18} className="cursor-pointer" />
@@ -74,7 +79,7 @@ const Card: React.FC<CardProps> = ({ card, isModel }) => {
           alt={card.name}
           width={320}
           height={200}
-          className="object-cover rounded-t-lg mx-auto"
+          className="object-cover rounded-t-lg w-full"
         />
       </div>
       <h3 className="text-lg font-semibold mt-2">{card.name}</h3>
@@ -90,7 +95,10 @@ const Card: React.FC<CardProps> = ({ card, isModel }) => {
       </div>
 
       {isModel ? null : (
-        <div className="text-center flex flex-none justify-center gap-3">
+        <div
+          className="text-center flex flex-none justify-center gap-3"
+          onClick={(e) => handleEventProbation(e)}
+        >
           <button
             className="my-4 w-32 h-8 text-primary border border-primary  rounded-full flex items-center justify-center gap-2 hover:bg-primary hover:text-white"
             onClick={(e) => handleAddToCard(e)}
@@ -98,9 +106,19 @@ const Card: React.FC<CardProps> = ({ card, isModel }) => {
             <HiOutlineShoppingBag />
             <span className="text-10 font-medium">Add to Cart</span>
           </button>
-          <button className="my-4 w-32 h-8 text-secondary border border-primary bg-primary rounded-full flex items-center justify-center gap-2 hover:bg-secondary hover:text-primary">
-            <span className="text-10 font-medium">Quick View</span>
-          </button>
+          <Dialog>
+            <DialogTrigger>
+              <button className="my-4 w-32 h-8 text-secondary border border-primary bg-primary rounded-full flex items-center justify-center gap-2 hover:bg-secondary hover:text-primary">
+                <span className="text-10 font-medium">Quick View</span>
+              </button>
+            </DialogTrigger>
+            <DialogOverlay />
+            <DialogContent className="max-w-7xl w-11/12 bg-white px-0 sm:rounded-3xl border border-black shadow-none gap-0 pb-0">
+              <div className="pb-6 px-5 xs:px-10 me-4 xs:me-7 mt-6 max-h-[80vh] overflow-y-auto custom-scroll">
+                <ProductDetail params={card} isZoom={false} />
+              </div>
+            </DialogContent>
+          </Dialog>
         </div>
       )}
     </div>

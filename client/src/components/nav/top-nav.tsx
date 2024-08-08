@@ -16,7 +16,7 @@ const TopNav = () => {
             Icon=<IoPhonePortraitOutline className="text-[18px] lg:text-xl" />
           />
           <TextIcon
-            link="mailto:+001-234-567-890"
+            link="mailto:Your.shopmail@gmail.com"
             Title="Your.shopmail@gmail.com"
             Icon=<IoMailOutline className="text-[18px]  lg:text-xl" />
           />

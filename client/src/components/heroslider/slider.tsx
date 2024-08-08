@@ -33,13 +33,13 @@ const SimpleSlider: React.FC = () => {
                 className="min-h-[350px] w-full h-full"
                 alt="image"
               />
-              <div className="absolute xl:left-56 lg:20 left-10 inset-0 bg-opacity-5 flex flex-col items-start justify-center text-secondary">
+              <div className="absolute xl:left-32 lg:20 left-10 inset-0 flex flex-col items-start justify-center text-secondary">
                 <h3 className="md:text lg:text-xl mb-4">
                   {slide.bannerSubHeading}
                 </h3>
-                <h2 className="xl:leading-relaxed text-2xl xl:text-5xl mb-4 font-bold w-3/4 sm:w-1/2 lg:w-[480px]">
+                {/* <h2 className="xl:leading-relaxed text-2xl xl:text-5xl mb-4 font-bold w-3/4 sm:w-1/2 lg:w-[480px]">
                   {slide.bannerHeading}
-                </h2>
+                </h2> */}
                 <span className="grid grid-cols-1 xs:flex xs:flex-wrap xs:items-center gap-2 sm:gap-4">
                   <Button variant={'link'}>
                     {slide.buttonText}

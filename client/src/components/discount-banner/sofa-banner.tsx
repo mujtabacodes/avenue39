@@ -8,7 +8,7 @@ const SofaBanner: React.FC = () => {
   return (
     <section className="grid grid-cols-1 lg:grid-cols-2 mt-2 gap-4 relative">
         
-        <div className="bg-lightforeground rounded-r-2xl flex items-center ps-5 xs:ps-10 sm:ps-20 min-h-[300px]">
+        <div className="bg-lightforeground rounded-r-2xl flex items-center ps-5 xs:px-10 sm:ps-20 2xl:ps-32 min-h-[300px]">
             <div className="w-1/2 xs:w-1/3">
                 <p className="text-xs sm:text-14 font-normal text-primary-foreground">Get Discount Up to 80%</p>
                 <h3 className="font-semibold text-xl sm:text-2xl mt-1">White Minimalist<br></br>Combo Sofa</h3>

@@ -26,9 +26,10 @@ export interface IMAGE_INTERFACE {
 
 interface ThumbProps {
   thumbs: IMAGE_INTERFACE[];
+  isZoom?: Boolean
 }
 
-const Thumbnail: React.FC<ThumbProps> = ({ thumbs }) => {
+const Thumbnail: React.FC<ThumbProps> = ({ thumbs , isZoom }) => {
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
   const [hoveredImage, setHoveredImage] = useState<string | null>(null);
   const [backgroundPosition, setBackgroundPosition] = useState<string>('0% 0%');
@@ -64,8 +65,8 @@ const Thumbnail: React.FC<ThumbProps> = ({ thumbs }) => {
   };
 
   return (
-    <div className="relative max-h-[600px] p-2">
-      <div className="w-full flex max-h-[580px] gap-5">
+    <div className="relative p-2">
+      <div className="w-full flex gap-4">
         <div className="w-1/5 flex-shrink-0 relative mb-8">
           <Swiper
             onSwiper={(swiper) => {
@@ -78,7 +79,7 @@ const Thumbnail: React.FC<ThumbProps> = ({ thumbs }) => {
             freeMode={true}
             watchSlidesProgress={true}
             modules={[FreeMode, Navigation, Thumbs]}
-            className="h-full column-swipper swiper-container"
+            className="h-full column-swipper swiper-container product-swiper"
           >
             {thumbs.map((thumb, index) => (
               <SwiperSlide
@@ -103,7 +104,7 @@ const Thumbnail: React.FC<ThumbProps> = ({ thumbs }) => {
           </div>
         </div>
 
-        <div className="w-[65%] flex-grow relative">
+        <div className="w-4/5 flex-grow relative px-2">
           <Swiper
             style={
               {
@@ -127,12 +128,12 @@ const Thumbnail: React.FC<ThumbProps> = ({ thumbs }) => {
           >
             {thumbs.map((thumb, index) => (
               <SwiperSlide key={index}>
-                <div className="relative cursor-zoom-in w-full">
+                <div className={`relative w-full ${isZoom ? 'cursor-zoom-in' : ''}`}>
                   <Image
                     onMouseEnter={() => handleMouseEnter(thumb.imageUrl || '')}
                     onMouseMove={handleMouseMove}
                     onMouseLeave={handleMouseLeave}
-                    className="rounded-lg shadow-xl m-2"
+                    className="rounded-lg shadow h-full w-full border-2 border-gray-100"
                     src={thumb.imageUrl || '/default-image.jpg'}
                     width={550}
                     height={550}
@@ -144,10 +145,10 @@ const Thumbnail: React.FC<ThumbProps> = ({ thumbs }) => {
           </Swiper>
         </div>
       </div>
-      {hoveredImage && (
-        <div className="absolute -right-10 top-1 hidden md:block z-40">
+      {hoveredImage && isZoom && (
+        <div className="absolute -right-5 top-1 hidden md:block z-40">
           <div
-            className="magnified-image absolute left-50 z-50"
+            className="magnified-image fixed left-50 z-50 rounded-2xl"
             style={{
               backgroundImage: `url(${hoveredImage})`,
               backgroundPosition: backgroundPosition,

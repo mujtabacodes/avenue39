@@ -10,7 +10,7 @@ import Link from 'next/link';
 
 const Footer: React.FC = () => {
   return (
-    <section className="pt-16">
+    <section className="pt-16 border-t border-[#EEEEEE]">
       <Container className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 sm:gap-x-8 md:gap-x-12 lg:gap-x-16 gap-y-8 px-4">
         <div className="">
           <div>
@@ -27,10 +27,10 @@ const Footer: React.FC = () => {
         <div className=" px-2">
           <h5 className="font-medium text-3xl">Quick Links</h5>
           <ul className="leading-[45px] font-normal text-19 text-primary-foreground mt-6">
-            <li><Link href='/delivery' target='_blank' className='hover:underline'>Delivery Information</Link></li>
-            <li><Link href='/privacy' target='_blank' className='hover:underline'>Privacy Policy</Link></li>
-            <li><Link href='/terms' target='_blank' className='hover:underline'>Terms & Conditions</Link></li>
-            <li><Link href='/return' target='_blank' className='hover:underline'>Return Policy</Link></li>
+            <li><Link href='/shipping'  className='hover:underline'>Shipping Policy</Link></li>
+            <li><Link href='/privacy'  className='hover:underline'>Privacy Policy</Link></li>
+            <li><Link href='/terms'  className='hover:underline'>Terms & Conditions</Link></li>
+            <li><Link href='/return'  className='hover:underline'>Return Policy</Link></li>
           </ul>
         </div>
         <div className=" px-2">

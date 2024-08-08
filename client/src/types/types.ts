@@ -1,7 +1,12 @@
 import { AdditionalInformation } from '@/data/products';
 import { StaticImageData } from 'next/image';
-import { ReactNode } from 'react';
+import { FormEventHandler, ReactNode, SetStateAction } from 'react';
 import { IconType } from 'react-icons';
+export type TPolicySections = TPolicySection[];
+export type TReturnPolicy = TReturnPolicy[];
+export type TShippingPolicy = TShippingPolicy[];
+export type TTermsCondition = TTermsCondition[];
+export type TTimeRemainingArray = TTimeRemaining[];
 
 export interface IHome {}
 export interface INav {}
@@ -11,6 +16,11 @@ export interface ITypo {
   className?: string;
   onClick?: () => void;
 }
+export interface TPolicySection {
+  title: string;
+  description: any | any[];
+}
+
 export interface ITextIcon {
   //TODO: change Icon type
   Icon: any;
@@ -22,7 +32,23 @@ export interface IContainer {
   children: ReactNode;
   className?: string;
 }
-
+export interface TimerSliderItem {
+  discountText: string;
+  dealText: string;
+  price: string;
+  productName: string;
+  buttonText: string;
+  image: any;
+  endDate: string;
+}
+export type BRAND = {
+  logo: string;
+  name: string;
+  visitors: number;
+  revenues: string;
+  sales: number;
+  conversion: number;
+};
 // export type TSliderSettings = {
 //   dots: boolean;
 //   infinite: boolean;
@@ -33,11 +59,17 @@ export interface IContainer {
 
 export type TSlide = {
   image: any;
-  bannerHeading: string;
-  bannerSubHeading: string;
+  // bannerHeading: string;
+  bannerSubHeading: any;
   text: string;
   buttonText: string;
   buttonLink: string;
+};
+export type TTimeRemaining = {
+  days: number;
+  hours: number;
+  minutes: number;
+  seconds: number;
 };
 
 export interface IServiceItem {
@@ -211,4 +243,31 @@ export interface ICategory {
   createdAt?: string;
   posterImageUrl?: string;
   posterImagePublicId?: string;
+}
+// Timer slider data type
+export type TSliderItem = {
+  id: number;
+  imageUrl: StaticImageData;
+  productName: string;
+  price: string;
+  discountText: string;
+  dealText: string;
+  timer: string;
+  buttonText: string;
+};
+export interface USRPROPS {
+  handleSubmit: FormEventHandler<HTMLFormElement>;
+  error: string | null | undefined;
+  loading: boolean | null | undefined;
+  inputFields: any;
+  buttonTitle: string;
+  title?: string;
+  descrition?: string;
+  InstructionText?: string;
+  routingText?: string;
+  navigationLink?: string;
+  navigationTxt?: string;
+  SelectComonent?: any;
+  setadminType?: React.Dispatch<SetStateAction<string | undefined>>;
+  adminType?: string | undefined;
 }

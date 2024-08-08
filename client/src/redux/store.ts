@@ -7,6 +7,8 @@ import drawerReducer from '@drawerSlice/index';
 import { initMainState, initProductState } from '@mainSlice/init';
 import { initCartState } from './slices/cart/init';
 import { initCartDrawerState } from './slices/drawer/init';
+import usrSlice from './slices/user/userSlice';
+import usersSlice from './slices/Admin/AdminsSlice';
 
 const persistConfig = {
   key: 'root',
@@ -27,6 +29,8 @@ const rootReducer = combineReducers({
   cart: cartReducer,
   drawer: drawerReducer,
   products: productReducer,
+
+  usersSlice: usersSlice,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -43,3 +47,6 @@ export const persistor = persistStore(store);
 
 export type State = ReturnType<typeof store.getState>;
 export type Dispatch = typeof store.dispatch;
+
+export type AppDispatch = typeof store.dispatch;
+export type RootState = ReturnType<typeof store.getState>;
