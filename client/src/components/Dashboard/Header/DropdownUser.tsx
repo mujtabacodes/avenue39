@@ -70,7 +70,6 @@ const DropdownUser = () => {
           </span>
         </span>
       </div>
-
         <div className=" flex items-center gap-3">
           <div className="h-12 w-12 rounded-full overflow-hidden">
             <Image
@@ -84,13 +83,9 @@ const DropdownUser = () => {
               alt="User"
             />
           </div>
-          
           <MdKeyboardArrowDown className='text-white' />
         </div>
-
       </div>
-
-      {/* <!-- Dropdown Start --> */}
       <div
         ref={dropdown}
         onFocus={() => setDropdownOpen(true)}
@@ -106,7 +101,6 @@ const DropdownUser = () => {
               className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base text-black "
             >
               <FaRegUser  size={20} />
-
               My Profile
             </Link>
           </li>
@@ -116,11 +110,9 @@ const DropdownUser = () => {
           onClick={logoutHhandler}
         >
           <RiLogoutBoxLine  size={20} />
-
           Log Out
         </button>
       </div>
-      {/* <!-- Dropdown End --> */}
     </div>
   );
 };
