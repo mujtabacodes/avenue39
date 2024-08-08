@@ -12,8 +12,8 @@ import {
   UpdateUserDto,
 } from './dto/user.dto';
 import { PrismaService } from '../prisma/prisma.service';
-import { customHttpException, sendResetEmail } from 'src/utils/helper';
-import { hashPassword, verifyPassword } from 'src/utils/func';
+import { customHttpException, sendResetEmail } from '../utils/helper';
+import { hashPassword, verifyPassword } from '..//utils/func';
 import * as jwt from 'jsonwebtoken';
 
 import { ConfigService } from '@nestjs/config';
