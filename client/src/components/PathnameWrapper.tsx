@@ -11,7 +11,8 @@ import BottomBar from './nav/bottom-bar';
 
 
 const PathnameWrapper = ({ children }: { children: React.ReactNode }) => {
-  const pathname = usePathname();
+  const pathname= usePathname() as string;
+
   const withoutHeaderPages = [
     "/login",
     '/register',
@@ -24,7 +25,7 @@ const PathnameWrapper = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
       {
-      withoutHeaderPages.includes(pathname)  || pathname.split('/').includes('dashboard') ? null : 
+      withoutHeaderPages.includes(pathname )  || pathname.split('/').includes('dashboard') ? null : 
       <>
           <TopNav />
           <Navbar />

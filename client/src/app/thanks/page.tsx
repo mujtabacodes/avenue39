@@ -7,8 +7,9 @@ import { cards, tankyousildercards } from '@/data';
 import Container from '@/components/ui/Container';
 import Services from '@/components/services/services';
 import { LiaCheckCircle } from 'react-icons/lia';
-import thankyou from '@icons/thankyou.png'
+import thankyou from '@icons/thankyou.png';
 import Image from 'next/image';
+import { products } from '@/data/products';
 
 const ThankYouPage = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -24,20 +25,20 @@ const ThankYouPage = () => {
   return (
     <>
       <Container className="py-16">
-          <Image src={thankyou} alt='thank you icon' className='mx-auto' />
-          <h2 className="font-medium text-3xl xs:text-4xl sm:text-5xl md:text-6xl mt-14 text-center">
-            Thank you for your order !
-          </h2>
-          <p className="text-14 text-[#666666] mt-9 text-center">
-            Your order is complete. Please check your email for the details
-          </p>
-          <Button className="min-w-fit px-10 w-1/3 h-16 flex justify-center items-center text-secondary text-xl xs:text-2xl font-light rounded-2xl mt-16 mx-auto">
-            Continue Shopping
-          </Button>
-            <h3 className="font-medium text-2xl xs:text-3xl sm:text-4xl md:text-5xl text-center mt-16 mb-8">
-              Your Recently Viewed Products
-            </h3>
-      <SliderComponent cards={cards} isModel={true} />
+        <Image src={thankyou} alt="thank you icon" className="mx-auto" />
+        <h2 className="font-medium text-3xl xs:text-4xl sm:text-5xl md:text-6xl mt-14 text-center">
+          Thank you for your order !
+        </h2>
+        <p className="text-14 text-[#666666] mt-9 text-center">
+          Your order is complete. Please check your email for the details
+        </p>
+        <Button className="min-w-fit px-10 w-1/3 h-16 flex justify-center items-center text-secondary text-xl xs:text-2xl font-light rounded-2xl mt-16 mx-auto">
+          Continue Shopping
+        </Button>
+        <h3 className="font-medium text-2xl xs:text-3xl sm:text-4xl md:text-5xl text-center mt-16 mb-8">
+          Your Recently Viewed Products
+        </h3>
+        <SliderComponent cards={products} isModel={true} />
       </Container>
       <Services />
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
@@ -52,7 +53,8 @@ const ThankYouPage = () => {
               </Button>
             </div>
             <div className="mt-16 mb-4">
-              <SliderComponent cards={tankyousildercards} isModel={true} />
+              {/* <SliderComponent cards={tankyousildercards} isModel={true} /> */}
+              <SliderComponent cards={products} isModel={true} />
             </div>
           </div>
         </DialogContent>
