@@ -10,7 +10,7 @@ export interface AdditionalInformation {
   dimension?: string[];
 }
 
-interface Product {
+interface IProduct {
   id: number;
   name: string;
   price: number;
@@ -26,7 +26,7 @@ interface Product {
   categoriesId: number;
 }
 
-export const products: Product[] = [
+export const products: IProduct[] = [
   {
     id: 5,
     name: 'Smartphone',

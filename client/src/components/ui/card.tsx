@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { ICard } from '@/types/types';
+import { ICard, IProduct } from '@/types/types';
 import { HiOutlineShoppingBag } from 'react-icons/hi';
 import { MdStar, MdStarBorder } from 'react-icons/md';
 import { CiHeart } from 'react-icons/ci';
 import { PiEyeThin } from 'react-icons/pi';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { State, Dispatch } from '@redux/store'; // Adjust according to your path
-import { addItem, removeItem, updateItemQuantity } from '@cartSlice/index'; // Adjust according to your path
-import { CartItem } from '@cartSlice/types'; // Adjust according to your path
+import { State, Dispatch } from '@redux/store';
+import { addItem, removeItem, updateItemQuantity } from '@cartSlice/index';
+import { CartItem } from '@cartSlice/types';
 import { SheetTrigger } from './sheet';
 import CartItems from '../cart/items';
 import { openDrawer } from '@/redux/slices/drawer';
@@ -19,7 +19,7 @@ import { Button } from './button';
 import ProductDetail from '../product-detail/product-detail';
 
 interface CardProps {
-  card: ICard;
+  card: IProduct;
   isModel?: boolean;
 }
 
@@ -30,6 +30,7 @@ const Card: React.FC<CardProps> = ({ card, isModel }) => {
   const Navigate = useRouter();
   const dispatch = useDispatch<Dispatch>();
   const cartItems = useSelector((state: State) => state.cart.items);
+
   const itemToAdd: CartItem = {
     ...card,
     quantity: 1,
@@ -42,7 +43,7 @@ const Card: React.FC<CardProps> = ({ card, isModel }) => {
   const renderStars = () => {
     const stars = [];
     for (let i = 1; i <= 5; i++) {
-      if (i <= (card.reviews || 0)) {
+      if (i <= /*card.reviews*/ (4 || 0)) {
         stars.push(<MdStar key={i} size={20} className="text-yellow-400" />);
       } else {
         stars.push(
@@ -68,11 +69,13 @@ const Card: React.FC<CardProps> = ({ card, isModel }) => {
           <PiEyeThin size={17} className="cursor-pointer" />
           <CiHeart size={18} className="cursor-pointer" />
         </div>
-        <span className="absolute top-4 left-4 text-white text-xs font-light bg-red-500 rounded-full w-14 h-6 flex justify-center items-center">
-          {card.sale}
-        </span>
+        {card.sale !== '0' && (
+          <span className="absolute top-4 left-4 text-white text-xs font-light bg-red-500 rounded-full w-14 h-6 flex justify-center items-center">
+            {card.sale}%
+          </span>
+        )}
         <Image
-          src={card.image}
+          src={card.posterImageUrl}
           alt={card.name}
           width={320}
           height={200}
@@ -80,14 +83,15 @@ const Card: React.FC<CardProps> = ({ card, isModel }) => {
         />
       </div>
       <h3 className="text-lg font-semibold mt-2">{card.name}</h3>
-      <p className="text-md font-medium mt-1">
-        AED{card.price}
+      <p className="text-md font-semibold mt-1">
+        AED{card.discountPrice}
         <span className="line-through text-secondary-foreground ms-2">
-          AED{card.discount}
+          {card.price}
         </span>
       </p>
       <div className="flex gap-1 mt-2 items-center justify-center h-8">
-        {card.reviews != 0 ? renderStars() : ''}
+        {/* {card.reviews != 0 ? renderStars() : ''} */}
+        {renderStars()}
       </div>
 
       {isModel ? null : (

@@ -266,6 +266,7 @@ const ProductPage = ({ params }: { params: IProductDetail }) => {
       <div>
         <DetailTabs tabs={tabs} />
       </div>
+   
       <Container className="text-center p-3 flex flex-col md:flex-row gap-10 lg:gap-16">
         <div className="w-full md:w-7/12 lg:w-8/12 2xl:w-9/12">
           <h1 className="text-xl py-3  text-left font-bold">Best Seller</h1>
@@ -285,7 +286,7 @@ const ProductPage = ({ params }: { params: IProductDetail }) => {
 
       <Container className="text-center p-3 ">
         <h1 className="text-3xl py-3 font-bold">Similar Products</h1>
-        <SliderComponent cards={cards} />
+        <SliderComponent cards={products} />
       </Container>
       <Services />
     </div>

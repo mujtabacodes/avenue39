@@ -9,6 +9,7 @@ import {  saleitems, slides } from '@/data';
 import Salecard from '../ui/sale-card';
 import { ISaleItems } from '@/types/types';
 import profile1 from '@images/profile/Ellipse 4.png'
+import Link from 'next/link';
 
 const settings = {
   dots: true,
@@ -37,13 +38,13 @@ const SimpleSlider: React.FC = () => {
                 <h3 className="md:text lg:text-xl mb-4">
                   {slide.bannerSubHeading}
                 </h3>
-                <h2 className="xl:leading-relaxed text-2xl xl:text-5xl mb-4 font-bold w-3/4 sm:w-1/2 lg:w-[480px]">
+                {/* <h2 className="xl:leading-relaxed text-2xl xl:text-5xl mb-4 font-bold w-3/4 sm:w-1/2 lg:w-[480px]">
                   {slide.bannerHeading}
-                </h2>
+                </h2> */}
                 <span className="grid grid-cols-1 xs:flex xs:flex-wrap xs:items-center gap-2 sm:gap-4">
-                  <Button variant={'link'}>
+                  <Link href="/products" className='bg-white py-2 px-3 rounded-full text-black hover:bg-black hover:text-white' >
                     {slide.buttonText}
-                  </Button>
+                  </Link>
                   <span className='flex items-center gap-2 sm:gap-4'>
                   <span className='flex relative'>
                     <span className='bg-white w-12 h-12 rounded-full flex items-center justify-center'>
@@ -92,9 +93,9 @@ const SimpleSlider: React.FC = () => {
             </span>
           </h2>
         </div>
-        <Button className="mt-3" variant={'link'}>
+        <Link href="/products" className='bg-white py-2 px-3 rounded-full text-black hover:bg-black hover:text-white'>
           Shop Now
-        </Button>
+        </Link>
       </div>
     </div>
   );
