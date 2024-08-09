@@ -1,4 +1,5 @@
-import React from 'react';
+'use client';
+import React, { useState } from 'react';
 import Thumbnail from '../carousel/thumbnail';
 import { products } from '@/data/products';
 import { IProductDetail } from '@/types/types';
@@ -25,20 +26,16 @@ import {
   tamaralist,
   tamarawhy,
 } from '@/data';
-import { FaCcVisa, FaLock, FaStripe } from 'react-icons/fa';
-import { FaCcMastercard, FaCcPaypal } from 'react-icons/fa6';
-import MasterCard from '@icons/business.png';
-import VisaCard from '@icons/card.png';
+
 import { IoBagOutline } from 'react-icons/io5';
 import Link from 'next/link';
 import { BsWhatsapp } from 'react-icons/bs';
-import Counter from '../counter';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { State } from '@/redux/store';
 import { selectTotalPrice, updateItemQuantity } from '@/redux/slices/cart';
 import { Dispatch } from 'redux';
+import { HiMinusSm, HiPlusSm } from 'react-icons/hi';
 import paymenticons from '@icons/payment-icons.png';
-
 
 const ProductDetail = ({
   params,
@@ -47,17 +44,17 @@ const ProductDetail = ({
   params: IProductDetail;
   isZoom?: Boolean;
 }) => {
-  const dispatch = useDispatch<Dispatch>();
   const cartItems = useSelector((state: State) => state.cart.items);
-  const totalPrice = useSelector((state: State) =>
-    selectTotalPrice(state.cart),
-  );
+  const [count, setCount] = useState(1);
+
   const productId = Number(5);
   const product = products.find((product) => product.id === productId);
+
+  console.log(cartItems);
   const renderStars = () => {
     const stars = [];
     for (let i = 1; i <= 5; i++) {
-      if (i <= (4) || i <= ( 0)) {
+      if (i <= 4 || i <= 0) {
         stars.push(<MdStar key={i} size={20} className="text-yellow-400" />);
       } else {
         stars.push(
@@ -70,10 +67,13 @@ const ProductDetail = ({
   if (!product) {
     return <div>Product not found</div>;
   }
-  const updateProductQuantity = (id: number, quantity: number) => {
-    if (quantity > 0) {
-      dispatch(updateItemQuantity({ id, quantity }));
-    }
+
+  const onDecrement = () => {
+    setCount((prevCount) => Math.max(prevCount - 1, 1));
+  };
+
+  const onIncrement = () => {
+    setCount((prevCount) => prevCount + 1);
   };
   return (
     <div className="flex flex-col md:flex-row w-full justify-between gap-8 md:gap-32 my-6">
@@ -134,8 +134,24 @@ const ProductDetail = ({
           ))}
         </span>
 
-        <div className="flex items-center justify-between gap-4 mb-2">
-          <span>counter</span>
+        <NormalText className="mb-4">
+          Hurry Up! Only <span className="text-red-600">12</span> left in stock:
+        </NormalText>
+        <div className="flex items-center gap-4 justify-between">
+          <div className="flex items-center border border-gray-300  rounded py-1 md:p-2 md:py-3">
+            <button
+              onClick={onDecrement}
+              className="px-2 text-gray-600"
+              disabled={count <= 1}
+            >
+              <HiMinusSm size={20} />
+            </button>
+            <span className="mx-2">{count}</span>
+            <button onClick={onIncrement} className="px-2 text-gray-600">
+              <HiPlusSm size={20} />
+            </button>
+          </div>
+
           <Link
             href="https://wa.me/1XXXXXXXXXX"
             className="w-fit ps-5 pe-10 h-12 text-white bg-[#64B161] rounded-full flex justify-center items-center gap-2 hover:bg-[#56B400]"
@@ -173,7 +189,7 @@ const ProductDetail = ({
             <span className="absolute -top-3 left-2 bg-[#00FFBC] text-primary px-2 py-1 rounded-lg text-xs font-extrabold">
               tabby
             </span>
-            <p className='text-14 pe-2'>
+            <p className="text-14 pe-2">
               Pay 4 interest-free payments of AED 396.25.{' '}
               <Dialog>
                 <DialogTrigger asChild>
@@ -238,7 +254,7 @@ const ProductDetail = ({
             <span className="absolute -top-3 left-2 bg-gradient-to-r from-blue-300 via-orange-300 to-pink-300 text-primary font-extrabold px-2 py-1 rounded-lg text-xs">
               tamara
             </span>
-            <p className='text-14 pe-2'>
+            <p className="text-14 pe-2">
               Pay 4 interest-free payments of AED 396.25.{' '}
               <Dialog>
                 <DialogTrigger asChild>
@@ -315,7 +331,7 @@ const ProductDetail = ({
         </div>
 
         <div className="flex justify-center">
-          <Image src={paymenticons} alt='payment icons' />
+          <Image src={paymenticons} alt="payment icons" />
         </div>
       </div>
     </div>
