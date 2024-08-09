@@ -18,6 +18,7 @@ import HotProductSlider from '@/components/card-slider/hot-product-slider';
 import {
   bestSellerProducts,
   cards,
+  features,
   productData,
   tabbyfeature,
   tabbyhowitwork,
@@ -30,7 +31,6 @@ import SliderComponent from '@/components/card-slider/card-slider';
 
 import Container from '@/components/ui/Container';
 import Services from '@/components/services/services';
-import SideCard from '@/components/side-card/side-card';
 import Card from '@/components/ui/card';
 import { IProductDetail } from '@/types/types';
 import {
@@ -59,14 +59,17 @@ import {
 } from '@/components/ui/select';
 import profileImg from '@images/profile/Ellipse 7.png';
 import { Rate } from 'antd';
+import TopHero from '@/components/top-hero';
+import { cartpagebredcrumbs } from '@/data/data';
+import { Table } from 'antd';
+import FeatureSlider from '@/components/card-slider/feature-slider';
 
 const ProductPage = ({ params }: { params: IProductDetail }) => {
-  
   const productId = Number(params.id);
   const [formData, setFormData] = useState({
     productId: productId,
     name: '',
-    email:'',
+    email: '',
     review: '',
     star: 0,
   });
@@ -134,13 +137,41 @@ const ProductPage = ({ params }: { params: IProductDetail }) => {
       createdAt: 'at 19 Jan 2024',
     },
   ];
+
+  const columns = [
+    {
+      title: 'Keys',
+      dataIndex: 'key',
+      key: 'key',
+    },
+    {
+      title: 'Value',
+      dataIndex: 'value',
+      key: 'value',
+    },
+  ];
+
+  const dataSource = product.additionalInformation.map((info, index) => ({
+    key: index,
+    ...info,
+  }));
+
   const tabs = [
     {
       label: 'Description',
       content: (
-        <div className="p-2 flex flex-wrap md:flex-nowrap md:gap-10">
-          <div className="w-full">
-            <h1>{product.description}</h1>
+        <div className="p-2 flex flex-col md:flex-row gap-6 md:gap-10">
+          <div className="w-full md:w-3/5">
+            <p className="text-slate-400 text-17 font-normal leading-7">
+              {product.description}
+            </p>
+          </div>
+          <div className="w-full md:w-2/5 border-t-2 md:border-t-0 border-s-0 md:border-s-2 py-4 md:pb-10">
+            <h5 className="ps-12 font-bold text-15">DIMENSIONS</h5>
+            <ul className="list-disc text-slate-400 text-14 ps-16 mt-4">
+              <li>coffee table-0.800*0.800*0.320</li>
+              <li>side table-0.600*0.600*0.517</li>
+            </ul>
           </div>
         </div>
       ),
@@ -149,18 +180,21 @@ const ProductPage = ({ params }: { params: IProductDetail }) => {
       label: 'Review (20)',
       content: (
         <div>
-          <div className="px-2 py-6 flex flex-col sm:flex-row items-center gap-6 md:gap-10 max-w-full lg:max-w-[750px]">
+          <div className="px-2 py-6 flex flex-col lg:flex-row items-center gap-6 md:gap-10 w-full max-w-full lg:max-w-[750px]">
             <div className="w-full xs:w-fit flex flex-col gap-4">
-              {productReviews.map((item , index) => (
+              {productReviews.map((item, index) => (
                 <div className="flex items-center gap-3" key={index}>
                   <span className="text-nowrap">{item.lebal}</span>
-                  <Progress value={item.ratingValue} className="w-72 md:w-80" />
+                  <Progress
+                    value={item.ratingValue}
+                    className="w-80 sm:max-w-72 md:w-80"
+                  />
                   <span className="w-10">{item.ratingValue}%</span>
                 </div>
               ))}
             </div>
-            <div className="flex flex-col gap-4">
-              <div className="w-60 sm:w-48 md:w-60 h-36 border-2 rounded-sm flex flex-col justify-center items-center gap-2">
+            <div className="flex flex-col gap-4 w-full">
+              <div className="w-full h-36 border-2 rounded-sm flex flex-col justify-center items-center gap-2">
                 <span className="text-14 text-lightdark">20 Reviews</span>
                 <h4 className="text-warning text-lg font-semibold">4.8</h4>
                 <span className="flex">{renderStars({ star: 4.8 })}</span>
@@ -171,22 +205,40 @@ const ProductPage = ({ params }: { params: IProductDetail }) => {
                     Write a Review
                   </Button>
                 </DialogTrigger>
-                <DialogContent className='bg-white'>
+                <DialogContent className="bg-white">
                   <DialogHeader>
                     <DialogTitle>Add a Review</DialogTitle>
                   </DialogHeader>
                   <div>
                     <p>Your Email Address Will Not Be Published.</p>
-                    <form action="" className='flex flex-col gap-4 mt-4'>
-                    <Rate onChange={handleStarChange} value={formData.star} />
-                    <div>
-                        <input type="text" name='name' placeholder='Your Name' value={formData.name}  className='border px-2 w-full h-10 rounded-md'/>
+                    <form action="" className="flex flex-col gap-4 mt-4">
+                      <Rate onChange={handleStarChange} value={formData.star} />
+                      <div>
+                        <input
+                          type="text"
+                          name="name"
+                          placeholder="Your Name"
+                          value={formData.name}
+                          className="border px-2 w-full h-10 rounded-md"
+                        />
                       </div>
                       <div>
-                        <input type="email" name='email' placeholder='Your Email' value={formData.email} className='border px-2 w-full h-10 rounded-md' />
+                        <input
+                          type="email"
+                          name="email"
+                          placeholder="Your Email"
+                          value={formData.email}
+                          className="border px-2 w-full h-10 rounded-md"
+                        />
                       </div>
                       <div>
-                        <textarea name="review" className='border px-2 py-2 w-full rounded-md' rows={4} placeholder='Write a Review' value={formData.review}></textarea>
+                        <textarea
+                          name="review"
+                          className="border px-2 py-2 w-full rounded-md"
+                          rows={4}
+                          placeholder="Write a Review"
+                          value={formData.review}
+                        ></textarea>
                       </div>
                       <Button variant={'default'}>Submit</Button>
                     </form>
@@ -216,7 +268,10 @@ const ProductPage = ({ params }: { params: IProductDetail }) => {
           </div>
           <div className="flex flex-col gap-6">
             {productReviewers.map((item) => (
-              <div className="flex items-start gap-4 border-b-2 py-10" key={item.id}>
+              <div
+                className="flex items-start gap-4 border-b-2 py-10"
+                key={item.id}
+              >
                 <div>
                   <Image
                     src={item.profileImg}
@@ -245,49 +300,39 @@ const ProductPage = ({ params }: { params: IProductDetail }) => {
     {
       label: 'Additional Information',
       content: (
-        <div className="p-2">
-          <ul className="list-disc pl-4">
-            {product.additionalInformation.map((info, index) => (
-              <li key={index}>
-                <strong>{info.key}:</strong> {info.value}
-              </li>
-            ))}
-          </ul>
-        </div>
+            <Table
+              columns={columns}
+              dataSource={dataSource}
+              pagination={false}
+              bordered
+              rowKey="key"
+              className="custom-table"
+            />
       ),
     },
   ];
 
   return (
     <div>
+      <TopHero breadcrumbs={cartpagebredcrumbs} />
       <Container>
-        <ProductDetail params={product} isZoom={true} />
+        <ProductDetail
+          params={product}
+          isZoom={true}
+          gap="gap-10 md:gap-40"
+          swiperGap="justify-between gap-6 md:gap-14"
+          detailsWidth="w-full md:w-1/2 lg:w-1/4"
+        />
       </Container>
       <div>
         <DetailTabs tabs={tabs} />
       </div>
-   
-      <Container className="text-center p-3 flex flex-col md:flex-row gap-10 lg:gap-16">
-        <div className="w-full md:w-7/12 lg:w-8/12 2xl:w-9/12">
-          <h1 className="text-xl py-3  text-left font-bold">Best Seller</h1>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {bestSellerProducts.map((card) => (
-              <div key={card.id} className="p-2">
-                <Card card={card} />
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="w-full md:w-5/12 lg:w-4/12 2xl:w-3/12">
-          <h2 className="text-[28px] font-medium mb-5">Your Recently Viewed</h2>
-          <SideCard data={productData} />
-        </div>
+      <div className="mt-10 pt-10 mb-20 border-t-2">
+      <Container>
+        <p className="text-3xl sm:text-4xl md:text-[51px] font-medium text-center mb-4 sm:mb-0">Similar Products</p>
+        <FeatureSlider features={features} />
       </Container>
-
-      <Container className="text-center p-3 ">
-        <h1 className="text-3xl py-3 font-bold">Similar Products</h1>
-        <SliderComponent cards={products} />
-      </Container>
+      </div>
       <Services />
     </div>
   );

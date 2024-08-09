@@ -39,13 +39,18 @@ import { selectTotalPrice, updateItemQuantity } from '@/redux/slices/cart';
 import { Dispatch } from 'redux';
 import paymenticons from '@icons/payment-icons.png';
 
-
 const ProductDetail = ({
   params,
   isZoom,
+  gap,
+  swiperGap,
+  detailsWidth,
 }: {
   params: IProductDetail;
   isZoom?: Boolean;
+  gap?: String;
+  swiperGap?: String;
+  detailsWidth?: String;
 }) => {
   const dispatch = useDispatch<Dispatch>();
   const cartItems = useSelector((state: State) => state.cart.items);
@@ -57,12 +62,10 @@ const ProductDetail = ({
   const renderStars = () => {
     const stars = [];
     for (let i = 1; i <= 5; i++) {
-      if (i <= (4) || i <= ( 0)) {
-        stars.push(<MdStar key={i} size={20} className="text-yellow-400" />);
+      if (i <= 4 || i <= 0) {
+        stars.push(<MdStar key={i} size={15} className="text-warning" />);
       } else {
-        stars.push(
-          <MdStarBorder key={i} size={20} className="text-yellow-400" />,
-        );
+        stars.push(<MdStarBorder key={i} size={15} className="text-warning" />);
       }
     }
     return stars;
@@ -76,12 +79,18 @@ const ProductDetail = ({
     }
   };
   return (
-    <div className="flex flex-col md:flex-row w-full justify-between gap-8 md:gap-32 my-6">
-      <div className="flex-grow md:w-1/2">
-        <Thumbnail thumbs={product?.productImages} isZoom={isZoom} />
+    <div
+      className={`flex flex-col md:flex-row w-full justify-between ${gap} my-6`}
+    >
+      <div className="flex-grow w-full md:w-1/2">
+        <Thumbnail
+          thumbs={product?.productImages}
+          isZoom={isZoom}
+          swiperGap={swiperGap}
+        />
       </div>
 
-      <div className="w-full md:w-1/2 lg:w-[35%] flex flex-col gap-2">
+      <div className={`${detailsWidth} flex flex-col gap-2`}>
         <div className="flex gap-2">
           <div className="bg-[#00AEEF] p-2 rounded-sm text-white text-xs">
             New
@@ -96,9 +105,9 @@ const ProductDetail = ({
         <ProductName>{product?.name}</ProductName>
 
         <div className="flex gap-2 items-center justify-between">
-          <div className="flex gap-2">
-            <span className="flex">{renderStars()}</span>
-            <span className="text-[#999999] text-11 font-medium mt-1 text-nowrap">
+          <div className="flex gap-2 items-center">
+            <span className="flex items-center">{renderStars()}</span>
+            <span className="text-[#999999] text-11 font-medium text-nowrap">
               20 reviews
             </span>
           </div>
@@ -144,10 +153,11 @@ const ProductDetail = ({
             <span className="font-light">PRE-ORDER ONLY</span>
           </Link>
         </div>
-
-        <Button className="bg-primary text-white flex gap-3 justify-center items-center w-full h-12 rounded-2xl mb-3 font-light">
-          <IoBagOutline size={20} /> BUY IT NOW
-        </Button>
+        <Link href="/checkout" passHref>
+          <Button className="bg-primary text-white flex gap-3 justify-center items-center w-full h-12 rounded-2xl mb-3 font-light">
+            <IoBagOutline size={20} /> BUY IT NOW
+          </Button>
+        </Link>
         <div className="flex gap-2 mb-4">
           <Button
             variant={'outline'}
@@ -155,7 +165,7 @@ const ProductDetail = ({
           >
             Add to cart
           </Button>
-          <Button className="bg-yellow-500 w-1/2 text-white flex gap-3 h-12 rounded-2xl">
+          <Button className="bg-warning w-1/2 text-white flex gap-3 h-12 rounded-2xl">
             TRY AT HOME
           </Button>
         </div>
@@ -173,7 +183,7 @@ const ProductDetail = ({
             <span className="absolute -top-3 left-2 bg-[#00FFBC] text-primary px-2 py-1 rounded-lg text-xs font-extrabold">
               tabby
             </span>
-            <p className='text-14 pe-2'>
+            <p className="text-12">
               Pay 4 interest-free payments of AED 396.25.{' '}
               <Dialog>
                 <DialogTrigger asChild>
@@ -238,7 +248,7 @@ const ProductDetail = ({
             <span className="absolute -top-3 left-2 bg-gradient-to-r from-blue-300 via-orange-300 to-pink-300 text-primary font-extrabold px-2 py-1 rounded-lg text-xs">
               tamara
             </span>
-            <p className='text-14 pe-2'>
+            <p className="text-12">
               Pay 4 interest-free payments of AED 396.25.{' '}
               <Dialog>
                 <DialogTrigger asChild>
@@ -315,7 +325,7 @@ const ProductDetail = ({
         </div>
 
         <div className="flex justify-center">
-          <Image src={paymenticons} alt='payment icons' />
+          <Image src={paymenticons} alt="payment icons" />
         </div>
       </div>
     </div>
