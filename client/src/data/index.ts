@@ -52,6 +52,7 @@ import { TTermsCondition } from '@/types/types';
 
 export const timerSliderData: TimerSliderItem[] = [
   {
+    productId: 23234,
     discountText: 'UPTO 50% OFF',
     dealText: 'Deal of the Day',
     price: '$99.99',
@@ -62,6 +63,8 @@ export const timerSliderData: TimerSliderItem[] = [
     endDate: '2024-12-31T23:59:59',
   },
   {
+    productId: 23234,
+
     discountText: 'UPTO 50% OFF',
     dealText: 'Limited Time Offer',
     price: '$79.99',
@@ -77,7 +80,7 @@ export const timerSliderData: TimerSliderItem[] = [
 export const slides: TSlide[] = [
   {
     image: banner1,
-    // bannerHeading: 'Build Your Home With Furniture',
+    bannerHeading: 'Build Your Home With Furniture',
     bannerSubHeading: 'Making Beautiful Your Home',
     text: 'Slide 1 Text 2',
     buttonText: 'Shop Now',
@@ -85,6 +88,7 @@ export const slides: TSlide[] = [
   },
   {
     image: banner2,
+    bannerHeading: 'Build Your Home With Furniture',
     bannerSubHeading: 'Making Beautiful Your Home',
     text: 'Slide 2 Text',
     buttonText: 'Shop Now',
@@ -92,7 +96,7 @@ export const slides: TSlide[] = [
   },
   {
     image: banner3,
-
+    bannerHeading: 'Build Your Home With Furniture',
     bannerSubHeading: 'Making Beautiful Your Home',
     text: 'Slide 3 Text',
     buttonText: 'Shop Now',
