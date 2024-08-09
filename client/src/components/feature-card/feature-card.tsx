@@ -4,8 +4,22 @@ import Image from 'next/image';
 import { IoEyeOutline } from 'react-icons/io5';
 import StarRating from '../ui/star';
 import { Feature } from '@/types/types';
+import { MdStar, MdStarBorder } from 'react-icons/md';
 
 const FeatureCard: React.FC<Feature> = ({ image, title, rating, currentPrice, originalPrice, discount }) => {
+
+  const renderStars = ({ star = 0 }: { star?: number }) => {
+    const stars = [];
+    const maxStars = 5;
+    for (let i = 1; i <= maxStars; i++) {
+      if (i <= star) {
+        stars.push(<MdStar key={i} size={20} className="text-warning" />);
+      } else {
+        stars.push(<MdStarBorder key={i} size={20} className="text-warning" />);
+      }
+    }
+    return stars;
+  };
   return (
     <div className='space-y-3 px-4'>
       <div className='relative group '>
@@ -19,7 +33,9 @@ const FeatureCard: React.FC<Feature> = ({ image, title, rating, currentPrice, or
       </div>
       <div className='flex justify-between px-1'>
         <p className='text-15'>{title}</p>
-        <StarRating defaultValue={rating} />
+        <div className="flex">
+        {renderStars({ star: rating })}
+        </div>
       </div>
       <div className='border-t flex gap-5 pt-3 px-1'>
         <p className='text-12'>Dhs.<span>{currentPrice}</span>.00</p>
