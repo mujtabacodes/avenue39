@@ -34,6 +34,13 @@ export const formatDate = (isoDate: string) => {
 export const calculateRatingsPercentage = (reviews: IReview[]) => {
   const totalReviews = reviews.length;
 
+  if (totalReviews === 0) {
+    return {
+      productReviews: [],
+      averageRating: 0,
+    };
+  }
+
   const ratingCounts: any = {
     5: reviews.filter((review) => review.star === 5).length,
     4: reviews.filter((review) => review.star === 4).length,
@@ -42,6 +49,9 @@ export const calculateRatingsPercentage = (reviews: IReview[]) => {
     1: reviews.filter((review) => review.star === 1).length,
   };
 
+  const totalStars = reviews.reduce((sum, review) => sum + review.star, 0);
+  const averageRating = (totalStars / totalReviews).toFixed(1);
+
   const productReviews = Object.keys(ratingCounts)
     .reverse()
     .map((star) => ({
@@ -49,5 +59,8 @@ export const calculateRatingsPercentage = (reviews: IReview[]) => {
       ratingValue: Math.round((ratingCounts[star] / totalReviews) * 100),
     }));
 
-  return productReviews;
+  return {
+    productReviews,
+    averageRating: parseFloat(averageRating),
+  };
 };

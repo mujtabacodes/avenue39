@@ -280,4 +280,5 @@ export interface IReview {
   star: number;
   createdAt: string;
   productId: number;
+  userProfileImg?: string;
 }

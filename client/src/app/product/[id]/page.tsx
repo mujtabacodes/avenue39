@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useState } from 'react';
 import { products } from '@/data/products';
 import Image from 'next/image';
 import { MdStar, MdStarBorder } from 'react-icons/md';
@@ -25,15 +25,23 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 
-import profileImg from '@images/profile/Ellipse 7.png';
+import profileImg from '@icons/avator.png';
 import { useQuery } from '@tanstack/react-query';
 import { fetchReviews } from '@/config/fetch';
 import { calculateRatingsPercentage, formatDate } from '@/config';
 import WriteReview from '@/components/write-review';
+import { Button } from '@/components/ui/button';
 
 const ProductPage = ({ params }: { params: IProductDetail }) => {
   const productId = Number(params.id);
   const product = products.find((product) => product.id === productId);
+
+  const [sortOption, setSortOption] = useState<string>('default');
+  const [visibleCount, setVisibleCount] = useState(3);
+
+  const loadMoreReviews = () => {
+    setVisibleCount((prevCount) => prevCount + 3);
+  };
 
   const {
     data: reviews = [],
@@ -47,6 +55,22 @@ const ProductPage = ({ params }: { params: IProductDetail }) => {
   const filteredReviews = reviews.filter(
     (review) => review.productId === productId,
   );
+
+  const sortedReviews = [...filteredReviews].sort((a, b) => {
+    switch (sortOption) {
+      case 'name':
+        return a.name.localeCompare(b.name);
+      case 'review':
+        return b.star - a.star;
+      case 'recent':
+        return (
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        );
+      default:
+        return 0;
+    }
+  });
+  const reviewsToDisplay = sortedReviews.slice(0, visibleCount);
 
   const renderStars = ({ star = 0 }: { star?: number }) => {
     const stars = [];
@@ -65,7 +89,8 @@ const ProductPage = ({ params }: { params: IProductDetail }) => {
     return <div>Product not found</div>;
   }
 
-  const productReviews = calculateRatingsPercentage(filteredReviews);
+  const { productReviews, averageRating } =
+    calculateRatingsPercentage(filteredReviews);
 
   const tabs = [
     {
@@ -79,7 +104,7 @@ const ProductPage = ({ params }: { params: IProductDetail }) => {
       ),
     },
     {
-      label: 'Review (20)',
+      label: `Review (${filteredReviews.length})`,
       content: (
         <div>
           <div className="px-2 py-6 flex flex-col sm:flex-row items-center gap-6 md:gap-10 max-w-full lg:max-w-[750px]">
@@ -94,17 +119,25 @@ const ProductPage = ({ params }: { params: IProductDetail }) => {
             </div>
             <div className="flex flex-col gap-4">
               <div className="w-60 sm:w-48 md:w-60 h-36 border-2 rounded-sm flex flex-col justify-center items-center gap-2">
-                <span className="text-14 text-lightdark">20 Reviews</span>
-                <h4 className="text-warning text-lg font-semibold">4.8</h4>
-                <span className="flex">{renderStars({ star: 4.8 })}</span>
+                <span className="text-14 text-lightdark">
+                  {filteredReviews.length} Reviews
+                </span>
+                <h4 className="text-warning text-lg font-semibold">
+                  {averageRating}
+                </h4>
+                <span className="flex">
+                  {renderStars({ star: averageRating })}
+                </span>
               </div>
               <WriteReview productId={productId} />
             </div>
           </div>
           <div className="w-full px-8 h-20 bg-lightbackground flex items-center justify-between">
-            <span className="text-lightdark">1 - 2 of 20 Reviews</span>
+            <span className="text-lightdark">
+              1 - 2 of {filteredReviews.length} Reviews
+            </span>
             <div className="w-fit">
-              <Select>
+              <Select onValueChange={(value) => setSortOption(value)}>
                 <SelectTrigger className="font-semibold">
                   <SelectValue placeholder="Sort by: Default" />
                 </SelectTrigger>
@@ -126,34 +159,48 @@ const ProductPage = ({ params }: { params: IProductDetail }) => {
             ) : isLoading ? (
               <div className="text-gray-500">Loading...</div>
             ) : (
-              filteredReviews.map((item) => (
-                <div
-                  className="flex items-start gap-4 border-b-2 py-10"
-                  key={item.id}
-                >
-                  <div>
-                    <Image
-                      src={profileImg}
-                      alt="profile image"
-                      className="rounded-full"
-                      width={60}
-                      height={60}
-                    />
-                  </div>
-                  <div className="flex flex-col gap-2">
-                    <div className="flex items-center gap-4">
-                      <h5 className="font-semibold">{item.name}</h5>
-                      <span className="text-12 text-lightdark font-medium">
-                        at {formatDate(item.createdAt)}
-                      </span>
+              <>
+                {reviewsToDisplay.map((item) => (
+                  <div
+                    className="flex items-start gap-4 border-b-2 py-10"
+                    key={item.id}
+                  >
+                    <div>
+                      <Image
+                        src={
+                          item.userProfileImg ? item.userProfileImg : profileImg
+                        }
+                        alt="profile image"
+                        className="rounded-full"
+                        width={50}
+                        height={50}
+                      />
                     </div>
-                    <div className="flex">
-                      {renderStars({ star: item.star })}
+                    <div className="flex flex-col gap-2">
+                      <div className="flex items-center gap-4">
+                        <h5 className="font-semibold">{item.name}</h5>
+                        <span className="text-12 text-lightdark font-medium">
+                          at {formatDate(item.createdAt)}
+                        </span>
+                      </div>
+                      <div className="flex">
+                        {renderStars({ star: item.star })}
+                      </div>
+                      <p className="pe-4 text-14">{item.review}</p>
                     </div>
-                    <p className="pe-4 text-14">{item.review}</p>
                   </div>
-                </div>
-              ))
+                ))}
+                {filteredReviews.length > visibleCount && (
+                  <div className="flex  mt-4 py-2 px-4 items-center justify-center">
+                    <Button
+                      onClick={loadMoreReviews}
+                      className=" w-24 flex text-white rounded"
+                    >
+                      Load More
+                    </Button>
+                  </div>
+                )}
+              </>
             )}
           </div>
         </div>
