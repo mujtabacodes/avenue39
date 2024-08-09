@@ -1,4 +1,5 @@
-import React from 'react';
+'use client';
+import React, { useState } from 'react';
 import Thumbnail from '../carousel/thumbnail';
 import { products } from '@/data/products';
 import { IProductDetail } from '@/types/types';
@@ -25,44 +26,44 @@ import {
   tamaralist,
   tamarawhy,
 } from '@/data';
-import { FaCcVisa, FaLock, FaStripe } from 'react-icons/fa';
-import { FaCcMastercard, FaCcPaypal } from 'react-icons/fa6';
-import MasterCard from '@icons/business.png';
-import VisaCard from '@icons/card.png';
+
 import { IoBagOutline } from 'react-icons/io5';
 import Link from 'next/link';
 import { BsWhatsapp } from 'react-icons/bs';
-import Counter from '../counter';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { State } from '@/redux/store';
 import { selectTotalPrice, updateItemQuantity } from '@/redux/slices/cart';
 import { Dispatch } from 'redux';
+import { HiMinusSm, HiPlusSm } from 'react-icons/hi';
 import paymenticons from '@icons/payment-icons.png';
-
 
 const ProductDetail = ({
   params,
   isZoom,
+  gap,
+  swiperGap,
+  detailsWidth,
 }: {
   params: IProductDetail;
   isZoom?: Boolean;
+  gap?: String;
+  swiperGap?: String;
+  detailsWidth?: String;
 }) => {
-  const dispatch = useDispatch<Dispatch>();
   const cartItems = useSelector((state: State) => state.cart.items);
-  const totalPrice = useSelector((state: State) =>
-    selectTotalPrice(state.cart),
-  );
+  const [count, setCount] = useState(1);
+
   const productId = Number(5);
   const product = products.find((product) => product.id === productId);
+
+  console.log(cartItems);
   const renderStars = () => {
     const stars = [];
     for (let i = 1; i <= 5; i++) {
-      if (i <= (4) || i <= ( 0)) {
-        stars.push(<MdStar key={i} size={20} className="text-yellow-400" />);
+      if (i <= 4 || i <= 0) {
+        stars.push(<MdStar key={i} size={15} className="text-warning" />);
       } else {
-        stars.push(
-          <MdStarBorder key={i} size={20} className="text-yellow-400" />,
-        );
+        stars.push(<MdStarBorder key={i} size={15} className="text-warning" />);
       }
     }
     return stars;
@@ -70,18 +71,27 @@ const ProductDetail = ({
   if (!product) {
     return <div>Product not found</div>;
   }
-  const updateProductQuantity = (id: number, quantity: number) => {
-    if (quantity > 0) {
-      dispatch(updateItemQuantity({ id, quantity }));
-    }
+
+  const onDecrement = () => {
+    setCount((prevCount) => Math.max(prevCount - 1, 1));
+  };
+
+  const onIncrement = () => {
+    setCount((prevCount) => prevCount + 1);
   };
   return (
-    <div className="flex flex-col md:flex-row w-full justify-between gap-8 md:gap-32 my-6">
-      <div className="flex-grow md:w-1/2">
-        <Thumbnail thumbs={product?.productImages} isZoom={isZoom} />
+    <div
+      className={`flex flex-col md:flex-row w-full justify-between ${gap} my-6`}
+    >
+      <div className="flex-grow w-full md:w-1/2">
+        <Thumbnail
+          thumbs={product?.productImages}
+          isZoom={isZoom}
+          swiperGap={swiperGap}
+        />
       </div>
 
-      <div className="w-full md:w-1/2 lg:w-[35%] flex flex-col gap-2">
+      <div className={`${detailsWidth} flex flex-col gap-2`}>
         <div className="flex gap-2">
           <div className="bg-[#00AEEF] p-2 rounded-sm text-white text-xs">
             New
@@ -96,9 +106,9 @@ const ProductDetail = ({
         <ProductName>{product?.name}</ProductName>
 
         <div className="flex gap-2 items-center justify-between">
-          <div className="flex gap-2">
-            <span className="flex">{renderStars()}</span>
-            <span className="text-[#999999] text-11 font-medium mt-1 text-nowrap">
+          <div className="flex gap-2 items-center">
+            <span className="flex items-center">{renderStars()}</span>
+            <span className="text-[#999999] text-11 font-medium text-nowrap">
               20 reviews
             </span>
           </div>
@@ -134,8 +144,24 @@ const ProductDetail = ({
           ))}
         </span>
 
-        <div className="flex items-center justify-between gap-4 mb-2">
-          <span>counter</span>
+        <NormalText className="mb-4">
+          Hurry Up! Only <span className="text-red-600">12</span> left in stock:
+        </NormalText>
+        <div className="flex items-center gap-4 justify-between">
+          <div className="flex items-center border border-gray-300  rounded py-1 md:p-2 md:py-3">
+            <button
+              onClick={onDecrement}
+              className="px-2 text-gray-600"
+              disabled={count <= 1}
+            >
+              <HiMinusSm size={20} />
+            </button>
+            <span className="mx-2">{count}</span>
+            <button onClick={onIncrement} className="px-2 text-gray-600">
+              <HiPlusSm size={20} />
+            </button>
+          </div>
+
           <Link
             href="https://wa.me/1XXXXXXXXXX"
             className="w-fit ps-5 pe-10 h-12 text-white bg-[#64B161] rounded-full flex justify-center items-center gap-2 hover:bg-[#56B400]"
@@ -144,10 +170,11 @@ const ProductDetail = ({
             <span className="font-light">PRE-ORDER ONLY</span>
           </Link>
         </div>
-
-        <Button className="bg-primary text-white flex gap-3 justify-center items-center w-full h-12 rounded-2xl mb-3 font-light">
-          <IoBagOutline size={20} /> BUY IT NOW
-        </Button>
+        <Link href="/checkout" passHref>
+          <Button className="bg-primary text-white flex gap-3 justify-center items-center w-full h-12 rounded-2xl mb-3 font-light">
+            <IoBagOutline size={20} /> BUY IT NOW
+          </Button>
+        </Link>
         <div className="flex gap-2 mb-4">
           <Button
             variant={'outline'}
@@ -155,7 +182,7 @@ const ProductDetail = ({
           >
             Add to cart
           </Button>
-          <Button className="bg-yellow-500 w-1/2 text-white flex gap-3 h-12 rounded-2xl">
+          <Button className="bg-warning w-1/2 text-white flex gap-3 h-12 rounded-2xl">
             TRY AT HOME
           </Button>
         </div>
@@ -173,7 +200,7 @@ const ProductDetail = ({
             <span className="absolute -top-3 left-2 bg-[#00FFBC] text-primary px-2 py-1 rounded-lg text-xs font-extrabold">
               tabby
             </span>
-            <p className='text-14 pe-2'>
+            <p className="text-12">
               Pay 4 interest-free payments of AED 396.25.{' '}
               <Dialog>
                 <DialogTrigger asChild>
@@ -238,7 +265,7 @@ const ProductDetail = ({
             <span className="absolute -top-3 left-2 bg-gradient-to-r from-blue-300 via-orange-300 to-pink-300 text-primary font-extrabold px-2 py-1 rounded-lg text-xs">
               tamara
             </span>
-            <p className='text-14 pe-2'>
+            <p className="text-12">
               Pay 4 interest-free payments of AED 396.25.{' '}
               <Dialog>
                 <DialogTrigger asChild>
@@ -315,7 +342,7 @@ const ProductDetail = ({
         </div>
 
         <div className="flex justify-center">
-          <Image src={paymenticons} alt='payment icons' />
+          <Image src={paymenticons} alt="payment icons" />
         </div>
       </div>
     </div>

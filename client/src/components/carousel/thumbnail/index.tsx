@@ -26,10 +26,11 @@ export interface IMAGE_INTERFACE {
 
 interface ThumbProps {
   thumbs: IMAGE_INTERFACE[];
-  isZoom?: Boolean
+  isZoom?: Boolean;
+  swiperGap?: String;
 }
 
-const Thumbnail: React.FC<ThumbProps> = ({ thumbs , isZoom }) => {
+const Thumbnail: React.FC<ThumbProps> = ({ thumbs , isZoom , swiperGap }) => {
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
   const [hoveredImage, setHoveredImage] = useState<string | null>(null);
   const [backgroundPosition, setBackgroundPosition] = useState<string>('0% 0%');
@@ -65,9 +66,9 @@ const Thumbnail: React.FC<ThumbProps> = ({ thumbs , isZoom }) => {
   };
 
   return (
-    <div className="relative">
-      <div className="w-full flex gap-4 max-h-[600px]">
-        <div className="w-1/5 flex-shrink-0 relative">
+    <div className="relative w-full">
+      <div className={`w-full flex ${swiperGap} max-h-[650px]`}>
+        <div className="max-w-1/5 md:flex-shrink-0 relative">
           <Swiper
             onSwiper={(swiper) => {
               setThumbsSwiper(swiper);
@@ -79,32 +80,32 @@ const Thumbnail: React.FC<ThumbProps> = ({ thumbs , isZoom }) => {
             freeMode={true}
             watchSlidesProgress={true}
             modules={[FreeMode, Navigation, Thumbs]}
-            className="h-full column-swipper swiper-container product-swiper"
+            className="h-full column-swipper swiper-container product-swiper w-fit mx-0"
           >
             {thumbs.map((thumb, index) => (
               <SwiperSlide
                 key={index}
-                className="column-swiper-slider swiper-slide py-2 pe-2"
+                className="column-swiper-slider swiper-slide"
               >
                 <Image
                   className="rounded-lg shadow-lg"
                   src={thumb.imageUrl || '/default-image.jpg'}
-                  width={300}
-                  height={300}
+                  width={150}
+                  height={150}
                   alt={thumb.name || 'Thumbnail'}
                 />
               </SwiperSlide>
             ))}
           </Swiper>
           <div
-            className=" absolute  -bottom-5 right-1/3  z-10 cursor-pointer bg-[#F6F6F6] px-3 py-2"
+            className=" absolute  -bottom-5 right-1/3  z-10 cursor-pointer bg-[#F6F6F6] w-12 h-12 flex justify-center items-center"
             onClick={() => scrollToSlide('up')}
           >
-            <FaSortDown className=" text-black font-" />
+            <FaSortDown size={25} className="text-black flex items-center mb-2" />
           </div>
         </div>
 
-        <div className="w-4/5 flex-grow relative px-2">
+        <div className="w-4/5 md:flex-grow relative">
           <Swiper
             style={
               {
@@ -133,7 +134,7 @@ const Thumbnail: React.FC<ThumbProps> = ({ thumbs , isZoom }) => {
                     onMouseEnter={() => handleMouseEnter(thumb.imageUrl || '')}
                     onMouseMove={handleMouseMove}
                     onMouseLeave={handleMouseLeave}
-                    className="rounded-lg shadow h-full w-full border-2 border-gray-100 max-h-[600px]"
+                    className="rounded-lg shadow-lg h-full w-full border-2 border-gray-100 max-h-[650px]"
                     src={thumb.imageUrl || '/default-image.jpg'}
                     width={550}
                     height={550}

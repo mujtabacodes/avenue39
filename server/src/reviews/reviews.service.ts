@@ -25,7 +25,7 @@ export class ReviewsService {
       });
 
       return {
-        message: 'Category Created successfully',
+        message: 'Review Added successfully 🎉',
         status: HttpStatus.OK,
       };
     } catch (error) {

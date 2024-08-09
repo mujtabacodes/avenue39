@@ -96,6 +96,7 @@ const FeatureCard: React.FC<CardProps> = ({ card, isModel }) => {
         <div className='flex'>
           
           {renderStars()}
+    
         </div>
       </div>
       <div className="border-t flex gap-5 pt-3 px-1">

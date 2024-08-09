@@ -222,7 +222,7 @@
 
 .column-swipper .swiper-wrapper {
   flex-direction: column !important;
-  /* gap: 10px; */
+  gap: 26px;
   overflow: hidden !important;
 }
 .column-swipper {
@@ -305,3 +305,16 @@
 .timer_slider .slick-dots .slick-active button:before {
   border-radius: 25% !important;
 }
+
+.custom-table .ant-table {
+  background-color: white;
+}
+
+.custom-table .ant-table-thead > tr > th {
+  background-color: white;
+}
+
+.custom-table .ant-table-tbody > tr > td {
+  background-color: white;
+}
+
