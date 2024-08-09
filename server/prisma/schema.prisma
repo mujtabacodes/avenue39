@@ -57,12 +57,40 @@ model Categories {
 }
 
 model Reviews {
-  id     Int    @unique @default(autoincrement())
-  name   String
-  email  String
-  review String
-  star   Int
+  id        Int      @unique @default(autoincrement())
+  name      String
+  email     String
+  review    String
+  star      Int
+  createdAt DateTime @default(now())
 
   Products  Products? @relation(fields: [productId], references: [id])
   productId Int?
+}
+
+model Admins {
+  id       Int    @id @default(autoincrement())
+  name     String
+  email    String @unique
+  password String
+
+  canAddProduct          Boolean @default(false)
+  canEditProduct         Boolean @default(false)
+  canDeleteProduct       Boolean @default(false)
+  canAddCategory         Boolean @default(false)
+  canDeleteCategory      Boolean @default(false)
+  canEditCategory        Boolean @default(false)
+  canCheckProfit         Boolean @default(false)
+  canCheckRevenue        Boolean @default(false)
+  canCheckVisitors       Boolean @default(false)
+  canViewUsers           Boolean @default(false)
+  canViewSales           Boolean @default(false)
+  canViewAdmins          Boolean @default(false)
+  canViewTotalProducts   Boolean @default(false)
+  canViewTotalCategories Boolean @default(false)
+
+  posterImageUrl      String?
+  posterImagePublicId String?
+
+  role String @default("Admin")
 }

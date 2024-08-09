@@ -1,4 +1,5 @@
-import React from 'react';
+'use client';
+import React, { useState } from 'react';
 import Thumbnail from '../carousel/thumbnail';
 import { products } from '@/data/products';
 import { IProductDetail } from '@/types/types';
@@ -25,18 +26,15 @@ import {
   tamaralist,
   tamarawhy,
 } from '@/data';
-import { FaCcVisa, FaLock, FaStripe } from 'react-icons/fa';
-import { FaCcMastercard, FaCcPaypal } from 'react-icons/fa6';
-import MasterCard from '@icons/business.png';
-import VisaCard from '@icons/card.png';
+
 import { IoBagOutline } from 'react-icons/io5';
 import Link from 'next/link';
 import { BsWhatsapp } from 'react-icons/bs';
-import Counter from '../counter';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { State } from '@/redux/store';
 import { selectTotalPrice, updateItemQuantity } from '@/redux/slices/cart';
 import { Dispatch } from 'redux';
+import { HiMinusSm, HiPlusSm } from 'react-icons/hi';
 import paymenticons from '@icons/payment-icons.png';
 
 const ProductDetail = ({
@@ -52,13 +50,13 @@ const ProductDetail = ({
   swiperGap?: String;
   detailsWidth?: String;
 }) => {
-  const dispatch = useDispatch<Dispatch>();
   const cartItems = useSelector((state: State) => state.cart.items);
-  const totalPrice = useSelector((state: State) =>
-    selectTotalPrice(state.cart),
-  );
+  const [count, setCount] = useState(1);
+
   const productId = Number(5);
   const product = products.find((product) => product.id === productId);
+
+  console.log(cartItems);
   const renderStars = () => {
     const stars = [];
     for (let i = 1; i <= 5; i++) {
@@ -73,10 +71,13 @@ const ProductDetail = ({
   if (!product) {
     return <div>Product not found</div>;
   }
-  const updateProductQuantity = (id: number, quantity: number) => {
-    if (quantity > 0) {
-      dispatch(updateItemQuantity({ id, quantity }));
-    }
+
+  const onDecrement = () => {
+    setCount((prevCount) => Math.max(prevCount - 1, 1));
+  };
+
+  const onIncrement = () => {
+    setCount((prevCount) => prevCount + 1);
   };
   return (
     <div
@@ -143,8 +144,24 @@ const ProductDetail = ({
           ))}
         </span>
 
-        <div className="flex items-center justify-between gap-4 mb-2">
-          <span>counter</span>
+        <NormalText className="mb-4">
+          Hurry Up! Only <span className="text-red-600">12</span> left in stock:
+        </NormalText>
+        <div className="flex items-center gap-4 justify-between">
+          <div className="flex items-center border border-gray-300  rounded py-1 md:p-2 md:py-3">
+            <button
+              onClick={onDecrement}
+              className="px-2 text-gray-600"
+              disabled={count <= 1}
+            >
+              <HiMinusSm size={20} />
+            </button>
+            <span className="mx-2">{count}</span>
+            <button onClick={onIncrement} className="px-2 text-gray-600">
+              <HiPlusSm size={20} />
+            </button>
+          </div>
+
           <Link
             href="https://wa.me/1XXXXXXXXXX"
             className="w-fit ps-5 pe-10 h-12 text-white bg-[#64B161] rounded-full flex justify-center items-center gap-2 hover:bg-[#56B400]"
