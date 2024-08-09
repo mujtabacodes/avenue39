@@ -1118,6 +1118,7 @@ export const cities: City[] = [
 
 export const features: Feature[] = [
   {
+    link:"product/5",
     image: cardimage1,
     title: 'Sparta Coffee Table',
     rating: 4,
@@ -1126,6 +1127,7 @@ export const features: Feature[] = [
     discount: 50,
   },
   {
+    link:"product/5",
     image: cardimage1,
     title: 'Sparta Coffee Table',
     rating: 4,
@@ -1134,6 +1136,7 @@ export const features: Feature[] = [
     discount: 50,
   },
   {
+    link:"product/5",
     image: cardimage1,
     title: 'Sparta Coffee Table',
     rating: 4,
@@ -1142,6 +1145,7 @@ export const features: Feature[] = [
     discount: 30,
   },
   {
+    link:"product/5",
     image: cardimage1,
     title: 'Sparta Coffee Table',
     rating: 4,
@@ -1150,6 +1154,7 @@ export const features: Feature[] = [
     discount: 40,
   },
   {
+    link:"product/5",
     image: cardimage1,
     title: 'Sparta Coffee Table',
     rating: 4,

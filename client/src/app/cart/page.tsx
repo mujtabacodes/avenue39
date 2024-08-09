@@ -37,7 +37,7 @@ const Cart = () => {
       </Container>
       <Container className="mt-10 mb-20">
         <p className="text-[51px] font-medium text-center">Similar Products</p>
-        <FeatureSlider features={features} />
+        <FeatureSlider />
       </Container>
       <Services />
     </>
