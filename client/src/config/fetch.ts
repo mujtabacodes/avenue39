@@ -1,4 +1,4 @@
-import { ICategory, IProduct } from '@/types/types';
+import { ICategory, IProduct, IReview } from '@/types/types';
 import axios from 'axios';
 
 export const fetchProducts = async (): Promise<IProduct[]> => {
@@ -16,7 +16,7 @@ export const fetchCategories = async (): Promise<ICategory[]> => {
   return response.data;
 };
 
-export const fetchReviews = async (): Promise<ICategory[]> => {
+export const fetchReviews = async (): Promise<IReview[]> => {
   const response = await axios.get(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/reviews/get-all`,
   );
