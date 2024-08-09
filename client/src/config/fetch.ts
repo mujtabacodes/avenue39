@@ -16,6 +16,13 @@ export const fetchCategories = async (): Promise<ICategory[]> => {
   return response.data;
 };
 
+export const fetchReviews = async (): Promise<ICategory[]> => {
+  const response = await axios.get(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/reviews/get-all`,
+  );
+  return response.data;
+};
+
 // const fetchProducts = async (): Promise<IProduct[]> => {
 //   return new Promise<IProduct[]>((resolve, reject) => {
 //     setTimeout(async () => {
