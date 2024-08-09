@@ -47,7 +47,7 @@ const Navbar = (props: INav) => {
           </Link>
         </div>
         <div className="w-6/12">
-          <div className="relative rounded-md hidden md:block ">
+          <div className="relative rounded-md hidden md:block">
             <input
               type="text"
               className="py-4 px-4 pe-11 border block w-full  text-sm disabled:opacity-50 "

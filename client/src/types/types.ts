@@ -39,6 +39,7 @@ export interface TimerSliderItem {
   productName: string;
   buttonText: string;
   image: any;
+  productId:number;
   endDate: string;
 }
 export type BRAND = {
@@ -59,7 +60,7 @@ export type BRAND = {
 
 export type TSlide = {
   image: any;
-  // bannerHeading: string;
+  bannerHeading: any;
   bannerSubHeading: any;
   text: string;
   buttonText: string;
@@ -254,6 +255,7 @@ export type TSliderItem = {
   discountText: string;
   dealText: string;
   timer: string;
+  productId:number;
   buttonText: string;
 };
 export interface USRPROPS {
