@@ -1,6 +1,6 @@
-import { ICard } from '@/types/types';
+import { ICard, IProduct } from '@/types/types';
 
-export interface CartItem extends ICard {
+export interface CartItem extends IProduct {
   quantity: number;
 }
 

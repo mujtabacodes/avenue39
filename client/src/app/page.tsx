@@ -17,7 +17,7 @@ import HotProductSlider from '@/components/card-slider/hot-product-slider';
 import Testimonial from '@/components/testimonial/testimonial';
 import CardsTabes from '@/components/card-tabs/card-slider';
 import TimerSlider from '@/components/timer-slider/TimerSlider';
-
+import Link from 'next/link';
 
 export default function Home() {
   return (
@@ -30,12 +30,12 @@ export default function Home() {
       <SofaBanner />
       <SaleBanner />
       <CardsTabes />
-      <TimerSlider/>
+      <TimerSlider />
       <Container className="mt-4 flex justify-center">
         <DiscountCard productItems={chairProducts} />
       </Container>
-      <HotProductSlider slideritems={cards} />
-      <section className="h-[400px] md:h-[700px] mt-4">
+      <HotProductSlider />
+      <section className="h-[400px] md:h-[600px] mt-4">
         <div
           className="w-full h-full flex justify-center items-center"
           style={{
@@ -45,19 +45,20 @@ export default function Home() {
             backgroundPosition: 'center center',
           }}
         >
-          <div className="text-center">
+          <div className="text-center space-y-3">
             <p className="text-xs sm:text-14 font-normal text-primary-foreground text-white">
               Get Discount Up to 80%
             </p>
             <h3 className="font-semibold text-xl sm:text-2xl mt-1 text-white">
               White Minimalist Combo Sofa
             </h3>
-            <Button
-              className="text-black rounded-full px-9 mt-3 font-normal"
-              variant={'link'}
+            <div>
+            <Link href="/products"
+              className='bg-white py-2 px-3 rounded-full text-black hover:bg-black hover:text-white'
             >
               Buy Now
-            </Button>
+            </Link>
+            </div>
           </div>
         </div>
       </section>
