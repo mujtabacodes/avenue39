@@ -1,9 +1,9 @@
 'use client';
-import React, { useState } from 'react';
+import React from 'react';
 import { products } from '@/data/products';
 import Image from 'next/image';
 import { MdStar, MdStarBorder } from 'react-icons/md';
-import { Button } from '@/components/ui/button';
+
 import DetailTabs from '@/components/detail-tabs/detail-tabs';
 import { bestSellerProducts, productData } from '@/data';
 import SliderComponent from '@/components/card-slider/card-slider';
@@ -11,14 +11,7 @@ import Container from '@/components/ui/Container';
 import Services from '@/components/services/services';
 import SideCard from '@/components/side-card/side-card';
 import Card from '@/components/ui/card';
-import { IProductDetail } from '@/types/types';
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog';
+import { IProductDetail, IReview } from '@/types/types';
 
 import ProductDetail from '@/components/product-detail/product-detail';
 import { Progress } from '@/components/ui/progress';
@@ -33,20 +26,27 @@ import {
 } from '@/components/ui/select';
 
 import profileImg from '@images/profile/Ellipse 7.png';
-import { Rate } from 'antd';
+import { useQuery } from '@tanstack/react-query';
+import { fetchReviews } from '@/config/fetch';
+import { calculateRatingsPercentage, formatDate } from '@/config';
+import WriteReview from '@/components/write-review';
 
 const ProductPage = ({ params }: { params: IProductDetail }) => {
   const productId = Number(params.id);
-  console.log('Product ID is ');
-  console.log(productId);
-  const [formData, setFormData] = useState({
-    productId: productId,
-    name: '',
-    email: '',
-    review: '',
-    star: 0,
-  });
   const product = products.find((product) => product.id === productId);
+
+  const {
+    data: reviews = [],
+    error,
+    isLoading,
+  } = useQuery<IReview[], Error>({
+    queryKey: ['reviews'],
+    queryFn: fetchReviews,
+  });
+
+  const filteredReviews = reviews.filter(
+    (review) => review.productId === productId,
+  );
 
   const renderStars = ({ star = 0 }: { star?: number }) => {
     const stars = [];
@@ -64,52 +64,9 @@ const ProductPage = ({ params }: { params: IProductDetail }) => {
   if (!product) {
     return <div>Product not found</div>;
   }
-  const handleStarChange = (value: number) => {
-    setFormData({ ...formData, star: value });
-  };
-  const productReviews = [
-    {
-      lebal: '5 star',
-      ratingValue: 60,
-    },
-    {
-      lebal: '4 star',
-      ratingValue: 20,
-    },
-    {
-      lebal: '3 star',
-      ratingValue: 10,
-    },
-    {
-      lebal: '2 star',
-      ratingValue: 5,
-    },
-    {
-      lebal: '1 star',
-      ratingValue: 5,
-    },
-  ];
 
-  const productReviewers = [
-    {
-      id: 1,
-      profileImg: profileImg,
-      name: 'Sam Lane',
-      star: 5,
-      review:
-        'Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before the final copy is available. Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before the final copy is available.',
-      createdAt: 'at 19 Jan 2024',
-    },
-    {
-      id: 2,
-      profileImg: profileImg,
-      name: 'Sam Lane',
-      star: 4,
-      review:
-        'Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before the final copy is available. Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before the final copy is available.',
-      createdAt: 'at 19 Jan 2024',
-    },
-  ];
+  const productReviews = calculateRatingsPercentage(filteredReviews);
+
   const tabs = [
     {
       label: 'Description',
@@ -129,7 +86,7 @@ const ProductPage = ({ params }: { params: IProductDetail }) => {
             <div className="w-full xs:w-fit flex flex-col gap-4">
               {productReviews.map((item, index) => (
                 <div className="flex items-center gap-3" key={index}>
-                  <span className="text-nowrap">{item.lebal}</span>
+                  <span className="text-nowrap">{item.label}</span>
                   <Progress value={item.ratingValue} className="w-72 md:w-80" />
                   <span className="w-10">{item.ratingValue}%</span>
                 </div>
@@ -141,52 +98,7 @@ const ProductPage = ({ params }: { params: IProductDetail }) => {
                 <h4 className="text-warning text-lg font-semibold">4.8</h4>
                 <span className="flex">{renderStars({ star: 4.8 })}</span>
               </div>
-              <Dialog>
-                <DialogTrigger>
-                  <Button className="bg-warning w-full h-12 rounded-sm font-light">
-                    Write a Review
-                  </Button>
-                </DialogTrigger>
-                <DialogContent className="bg-white">
-                  <DialogHeader>
-                    <DialogTitle>Add a Review</DialogTitle>
-                  </DialogHeader>
-                  <div>
-                    <p>Your Email Address Will Not Be Published.</p>
-                    <form action="" className="flex flex-col gap-4 mt-4">
-                      <Rate onChange={handleStarChange} value={formData.star} />
-                      <div>
-                        <input
-                          type="text"
-                          name="name"
-                          placeholder="Your Name"
-                          value={formData.name}
-                          className="border px-2 w-full h-10 rounded-md"
-                        />
-                      </div>
-                      <div>
-                        <input
-                          type="email"
-                          name="email"
-                          placeholder="Your Email"
-                          value={formData.email}
-                          className="border px-2 w-full h-10 rounded-md"
-                        />
-                      </div>
-                      <div>
-                        <textarea
-                          name="review"
-                          className="border px-2 py-2 w-full rounded-md"
-                          rows={4}
-                          placeholder="Write a Review"
-                          value={formData.review}
-                        ></textarea>
-                      </div>
-                      <Button variant={'default'}>Submit</Button>
-                    </form>
-                  </div>
-                </DialogContent>
-              </Dialog>
+              <WriteReview productId={productId} />
             </div>
           </div>
           <div className="w-full px-8 h-20 bg-lightbackground flex items-center justify-between">
@@ -209,32 +121,40 @@ const ProductPage = ({ params }: { params: IProductDetail }) => {
             </div>
           </div>
           <div className="flex flex-col gap-6">
-            {productReviewers.map((item) => (
-              <div
-                className="flex items-start gap-4 border-b-2 py-10"
-                key={item.id}
-              >
-                <div>
-                  <Image
-                    src={item.profileImg}
-                    alt="profile image"
-                    className="rounded-full"
-                    width={90}
-                    height={90}
-                  />
-                </div>
-                <div className="flex flex-col gap-2">
-                  <div className="flex items-center gap-4">
-                    <h5 className="font-semibold">{item.name}</h5>
-                    <span className="text-12 text-lightdark font-medium">
-                      {item.createdAt}
-                    </span>
+            {error ? (
+              <div className="text-red-500">Error: {error.message}</div>
+            ) : isLoading ? (
+              <div className="text-gray-500">Loading...</div>
+            ) : (
+              filteredReviews.map((item) => (
+                <div
+                  className="flex items-start gap-4 border-b-2 py-10"
+                  key={item.id}
+                >
+                  <div>
+                    <Image
+                      src={profileImg}
+                      alt="profile image"
+                      className="rounded-full"
+                      width={60}
+                      height={60}
+                    />
                   </div>
-                  <div className="flex">{renderStars({ star: item.star })}</div>
-                  <p className="pe-4 text-14">{item.review}</p>
+                  <div className="flex flex-col gap-2">
+                    <div className="flex items-center gap-4">
+                      <h5 className="font-semibold">{item.name}</h5>
+                      <span className="text-12 text-lightdark font-medium">
+                        at {formatDate(item.createdAt)}
+                      </span>
+                    </div>
+                    <div className="flex">
+                      {renderStars({ star: item.star })}
+                    </div>
+                    <p className="pe-4 text-14">{item.review}</p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))
+            )}
           </div>
         </div>
       ),
