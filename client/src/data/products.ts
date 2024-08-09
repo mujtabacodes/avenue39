@@ -32,7 +32,7 @@ export const products: IProduct[] = [
     name: 'Smartphone',
     price: 699,
     description:
-      'Introducing the Minsk Coffee Table – a modern marvel that enhances your living space with contemporary elegance. The round-shaped metal coffee table boasts a sleek design, combining style and functionality...',
+      'Lovely coffee table with matching side table to give that modern look with function. Smoked glass and a marble top blend together great, giving you the luxury feel and finishing. Made from a solid wood frame and available for pre order today.',
     stock: 50,
     discountPrice: 649,
     posterImageUrl: 'https://example.com/smartphone.jpg',
@@ -70,6 +70,10 @@ export const products: IProduct[] = [
       {
         key: 'Dimension',
         value: '10x10, 20x20',
+      },
+      {
+        key: 'Material',
+        value: 'metal, plastic',
       },
     ],
     categoriesId: 3,

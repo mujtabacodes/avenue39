@@ -5,12 +5,9 @@ import Image from 'next/image';
 import { MdStar, MdStarBorder } from 'react-icons/md';
 
 import DetailTabs from '@/components/detail-tabs/detail-tabs';
-import { bestSellerProducts, productData } from '@/data';
-import SliderComponent from '@/components/card-slider/card-slider';
+import {features } from '@/data';
 import Container from '@/components/ui/Container';
 import Services from '@/components/services/services';
-import SideCard from '@/components/side-card/side-card';
-import Card from '@/components/ui/card';
 import { IProductDetail, IReview } from '@/types/types';
 
 import ProductDetail from '@/components/product-detail/product-detail';
@@ -31,6 +28,10 @@ import { fetchReviews } from '@/config/fetch';
 import { calculateRatingsPercentage, formatDate } from '@/config';
 import WriteReview from '@/components/write-review';
 import { Button } from '@/components/ui/button';
+import TopHero from '@/components/top-hero';
+import { cartpagebredcrumbs } from '@/data/data';
+import FeatureSlider from '@/components/card-slider/feature-slider';
+import { Table } from 'antd';
 
 const ProductPage = ({ params }: { params: IProductDetail }) => {
   const productId = Number(params.id);
@@ -92,13 +93,41 @@ const ProductPage = ({ params }: { params: IProductDetail }) => {
   const { productReviews, averageRating } =
     calculateRatingsPercentage(filteredReviews);
 
+
+  const columns = [
+    {
+      title: 'Keys',
+      dataIndex: 'key',
+      key: 'key',
+    },
+    {
+      title: 'Value',
+      dataIndex: 'value',
+      key: 'value',
+    },
+  ];
+
+  const dataSource = product.additionalInformation.map((info, index) => ({
+    key: index,
+    ...info,
+  }));
+
   const tabs = [
     {
       label: 'Description',
       content: (
-        <div className="p-2 flex flex-wrap md:flex-nowrap md:gap-10">
-          <div className="w-full">
-            <h1>{product.description}</h1>
+        <div className="p-2 flex flex-col md:flex-row gap-6 md:gap-10">
+          <div className="w-full md:w-3/5">
+            <p className="text-slate-400 text-17 font-normal leading-7">
+              {product.description}
+            </p>
+          </div>
+          <div className="w-full md:w-2/5 border-t-2 md:border-t-0 border-s-0 md:border-s-2 py-4 md:pb-10">
+            <h5 className="ps-12 font-bold text-15">DIMENSIONS</h5>
+            <ul className="list-disc text-slate-400 text-14 ps-16 mt-4">
+              <li>coffee table-0.800*0.800*0.320</li>
+              <li>side table-0.600*0.600*0.517</li>
+            </ul>
           </div>
         </div>
       ),
@@ -107,7 +136,7 @@ const ProductPage = ({ params }: { params: IProductDetail }) => {
       label: `Review (${filteredReviews.length})`,
       content: (
         <div>
-          <div className="px-2 py-6 flex flex-col sm:flex-row items-center gap-6 md:gap-10 max-w-full lg:max-w-[750px]">
+          <div className="px-2 py-6 flex flex-col lg:flex-row items-center gap-6 md:gap-10 w-full max-w-full lg:max-w-[750px]">
             <div className="w-full xs:w-fit flex flex-col gap-4">
               {productReviews.map((item, index) => (
                 <div className="flex items-center gap-3" key={index}>
@@ -209,49 +238,39 @@ const ProductPage = ({ params }: { params: IProductDetail }) => {
     {
       label: 'Additional Information',
       content: (
-        <div className="p-2">
-          <ul className="list-disc pl-4">
-            {product.additionalInformation.map((info, index) => (
-              <li key={index}>
-                <strong>{info.key}:</strong> {info.value}
-              </li>
-            ))}
-          </ul>
-        </div>
+            <Table
+              columns={columns}
+              dataSource={dataSource}
+              pagination={false}
+              bordered
+              rowKey="key"
+              className="custom-table"
+            />
       ),
     },
   ];
 
   return (
     <div>
+      <TopHero breadcrumbs={cartpagebredcrumbs} />
       <Container>
-        <ProductDetail params={product} isZoom={true} />
+        <ProductDetail
+          params={product}
+          isZoom={true}
+          gap="gap-10 md:gap-40"
+          swiperGap="justify-between gap-6 md:gap-14"
+          detailsWidth="w-full md:w-1/2 lg:w-1/4"
+        />
       </Container>
       <div>
         <DetailTabs tabs={tabs} />
       </div>
-
-      <Container className="text-center p-3 flex flex-col md:flex-row gap-10 lg:gap-16">
-        <div className="w-full md:w-7/12 lg:w-8/12 2xl:w-9/12">
-          <h1 className="text-xl py-3  text-left font-bold">Best Seller</h1>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {bestSellerProducts.map((card) => (
-              <div key={card.id} className="p-2">
-                <Card card={card} />
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="w-full md:w-5/12 lg:w-4/12 2xl:w-3/12">
-          <h2 className="text-[28px] font-medium mb-5">Your Recently Viewed</h2>
-          <SideCard data={productData} />
-        </div>
+      <div className="mt-10 pt-10 mb-20 border-t-2">
+      <Container>
+        <p className="text-3xl sm:text-4xl md:text-[51px] font-medium text-center mb-4 sm:mb-0">Similar Products</p>
+        <FeatureSlider features={features} />
       </Container>
-
-      <Container className="text-center p-3 ">
-        <h1 className="text-3xl py-3 font-bold">Similar Products</h1>
-        <SliderComponent cards={products} />
-      </Container>
+      </div>
       <Services />
     </div>
   );
