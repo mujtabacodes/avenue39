@@ -7,10 +7,10 @@ import {
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { PrismaService } from '../prisma/prisma.service';
-import { LoginDto } from 'src/users/dto/user.dto';
-import { hashPassword, verifyPassword } from 'src/utils/func';
+import { LoginDto } from '../users/dto/user.dto';
+import { hashPassword, verifyPassword } from '../utils/func';
 import * as jwt from 'jsonwebtoken';
-import { customHttpException } from 'src/utils/helper';
+import { customHttpException } from '../utils/helper';
 import { createAdminDto, editAdminDto } from './dto/admin.dto';
 import * as cookieParser from 'cookie-parser';
 @Injectable()
