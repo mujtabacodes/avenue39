@@ -31,13 +31,15 @@ const ShippingPolicy: React.FC = () => {
                           );
                         } else if (part === '[[EMAIL_LINK]]') {
                           return (
-                            <Link key={idx} href="mailto:cs@avenue39.com" className="text-red-600 hover:underline">
+                            <Link key={idx}
+                            href="mailto:cs@avenue39.com"
+                            className="text-red-600 hover:underline">
                               cs@avenue39.com
                             </Link>
                           );
                         } else if (part === '[[WHATSAPP_LINK]]') {
                           return (
-                            <Link key={idx} href="https://wa.me/971505974495" className="text-red-600 hover:underline">
+                            <Link key={idx} target="_blank"  href="https://wa.me/971505974495" className="text-red-600 hover:underline">
                               +971 50 597 4495
                             </Link>
                           );

@@ -14,6 +14,7 @@ import { loggedInAdminAction } from '../../../redux/slices/Admin/AdminsSlice';
 import { ImageRemoveHandler } from '@/utils/helperFunctions';
 import { Input } from "@/components/ui/input";
 import { LabelInput } from "@/components/ui/label-input";
+import { AiOutlineUpload } from "react-icons/ai";
 
 
 
@@ -142,9 +143,9 @@ const Settings = () => {
         <Breadcrumb pageName="Settings" />
         <div className="flex flex-col gap-8">
           <div className="col-span-5 xl:col-span-2">
-            <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+            <div className="rounded-sm border border-stroke bg-white shadow-default dark:bg-black dark:text-white dark:bg-boxdark dark:border-blue-50 dark:border-strokedark dark:bg-boxdark ">
               <div className="border-b border-stroke px-7 py-4 dark:border-strokedark">
-                <h3 className="font-medium text-primary dark:text-black">
+                <h3 className="font-medium text-primary dark:text-white">
                   Profile Photo
                 </h3>
               </div>
@@ -214,27 +215,25 @@ const Settings = () => {
                     </div> */}
 
                   </div>
-                  <div className="relative mb-4  rounded-md border-dashed border-stroke dark:border-strokedark bg-primary py-4 text-white dark:bg-black">
-                    <input
-                      disabled={AdminType}
-                      type="file"
-                      accept="image/*"
-                      onChange={handlePhotoChange}
-                      className="absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer"
-                    />
-                    <div className="flex flex-col items-center justify-center">
-                      <span className="my-2 inline-block rounded-full bg-white border-primary border  p-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20">
-                          <path fill="#c72031" d="M10 16v-5h4v5h5l-7 7-7-7h5zm-4-16v2h12v-2h-12zm-4 4h20v2h-20v-2z" />
-                        </svg>
-                      </span>
-                      <p className="text-white dark:text-white text-sm">
-                        <span className="text-white dark:text-white text-sm">Click to upload</span> or drag and drop
-                      </p>
-                      <p className="mt-1.5 text-white dark:text-white text-sm">SVG, PNG, JPG or GIF</p>
-                      <p className="text-white dark:text-white text-sm">(max, 800 X 800px)</p>
-                    </div>
-                  </div>
+                  <div className="relative mb-4 rounded-md border-dashed bg-primary py-4 text-white dark:bg-black">
+      <input
+        disabled={AdminType}
+        type="file"
+        accept="image/*"
+        onChange={handlePhotoChange}
+        className="absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer"
+      />
+      <div className="flex flex-col items-center justify-center">
+        <span className="my-2 inline-block rounded-full bg-white border-primary border p-2">
+          <AiOutlineUpload className="w-8 h-8 text-primary dark:text-black" />
+        </span>
+        <p className="text-white dark:text-white text-sm">
+          <span className="text-white dark:text-white text-sm">Click to upload</span> or drag and drop
+        </p>
+        <p className="mt-1.5 text-white dark:text-white text-sm">SVG, PNG, JPG or GIF</p>
+        <p className="text-white dark:text-white text-sm">(max, 800 X 800px)</p>
+      </div>
+    </div>
 
                 </div>
 
@@ -245,10 +244,10 @@ const Settings = () => {
             </div>
           </div>
 
-          <div className="col-span-5 xl:col-span-3">
-            <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+          <div className="col-span-5 xl:col-span-3 dark:border-strokedark dark:bg-boxdark dark:border-strokedark dark:bg-boxdark dark:bg-black dark:text-white dark:bg-boxdark dark:border-white ">
+            <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark dark:border-strokedark dark:bg-boxdark dark:bg-black dark:text-white dark:bg-boxdark dark:border-white ">
               <div className="border-b border-stroke px-7 py-4 dark:border-strokedark">
-                <h3 className="font-medium text-primary dark:text-black">
+                <h3 className="font-medium text-primary dark:text-white">
                   Personal Information
                 </h3>
               </div>
