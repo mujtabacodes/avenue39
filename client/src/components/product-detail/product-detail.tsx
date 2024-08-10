@@ -30,12 +30,18 @@ import {
 import { IoBagOutline } from 'react-icons/io5';
 import Link from 'next/link';
 import { BsWhatsapp } from 'react-icons/bs';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { State } from '@/redux/store';
-import { selectTotalPrice, updateItemQuantity } from '@/redux/slices/cart';
+import {
+  addItem,
+  selectTotalPrice,
+  updateItemQuantity,
+} from '@/redux/slices/cart';
 import { Dispatch } from 'redux';
 import { HiMinusSm, HiPlusSm } from 'react-icons/hi';
 import paymenticons from '@icons/payment-icons.png';
+import { openDrawer } from '@/redux/slices/drawer';
+import { CartItem } from '@/redux/slices/cart/types';
 
 const ProductDetail = ({
   params,
@@ -52,8 +58,8 @@ const ProductDetail = ({
 }) => {
   const cartItems = useSelector((state: State) => state.cart.items);
   const [count, setCount] = useState(1);
-
-  const productId = Number(5);
+  const dispatch = useDispatch<Dispatch>();
+  const productId = Number(params.id);
   const product = products.find((product) => product.id === productId);
 
   console.log(cartItems);
@@ -78,6 +84,18 @@ const ProductDetail = ({
 
   const onIncrement = () => {
     setCount((prevCount) => prevCount + 1);
+  };
+  const itemToAdd: CartItem = {
+    ...product,
+    quantity: count,
+  };
+
+  console.log('Bhai saav or');
+  console.log(product);
+  const handleAddToCard = (e: React.MouseEvent<HTMLElement>) => {
+    e.stopPropagation();
+    dispatch(addItem(itemToAdd));
+    dispatch(openDrawer());
   };
   return (
     <div
@@ -144,10 +162,10 @@ const ProductDetail = ({
           ))}
         </span>
 
-        <NormalText className="mb-4">
+        <NormalText className="mb-2">
           Hurry Up! Only <span className="text-red-600">12</span> left in stock:
         </NormalText>
-        <div className="flex items-center gap-4 justify-between">
+        <div className="flex items-center gap-4 justify-between mb-2">
           <div className="flex items-center border border-gray-300  rounded py-1 md:p-2 md:py-3">
             <button
               onClick={onDecrement}
@@ -163,11 +181,11 @@ const ProductDetail = ({
           </div>
 
           <Link
-            href="https://wa.me/1XXXXXXXXXX"
+            href="https://wa.me/971505974495"
             className="w-fit ps-5 pe-10 h-12 text-white bg-[#64B161] rounded-full flex justify-center items-center gap-2 hover:bg-[#56B400]"
           >
             <BsWhatsapp size={35} />
-            <span className="font-light">PRE-ORDER ONLY</span>
+            <span className="font-light text-sm">PRE-ORDER ONLY</span>
           </Link>
         </div>
         <Link href="/checkout" passHref>
@@ -179,6 +197,7 @@ const ProductDetail = ({
           <Button
             variant={'outline'}
             className="text-primary w-1/2 h-12 rounded-2xl flex gap-3"
+            onClick={(e) => handleAddToCard(e)}
           >
             Add to cart
           </Button>

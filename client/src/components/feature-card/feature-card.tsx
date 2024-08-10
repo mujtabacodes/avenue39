@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
@@ -12,7 +12,12 @@ import { CartItem } from '@/redux/slices/cart/types';
 import { addItem } from '@/redux/slices/cart';
 import { openDrawer } from '@/redux/slices/drawer';
 import ProductDetail from '../product-detail/product-detail';
-import { Dialog, DialogContent, DialogOverlay, DialogTrigger } from '../ui/dialog';
+import {
+  Dialog,
+  DialogContent,
+  DialogOverlay,
+  DialogTrigger,
+} from '../ui/dialog';
 import { Skeleton } from '@/components/ui/skeleton'; // Adjust the path as necessary
 import { IProduct } from '@/types/types';
 
@@ -48,16 +53,13 @@ const FeatureCard: React.FC<CardProps> = ({ card, isModel }) => {
     const stars = [];
     for (let i = 1; i <= 5; i++) {
       if (i <= /*card.reviews*/ (4 || 0)) {
-        stars.push(<MdStar key={i} size={20} className="text-yellow-400" />);
+        stars.push(<MdStar key={i} size={20} className="text-warning" />);
       } else {
-        stars.push(
-          <MdStarBorder key={i} size={20} className="text-yellow-400" />,
-        );
+        stars.push(<MdStarBorder key={i} size={20} className="text-warning" />);
       }
     }
     return stars;
   };
-
 
   const handleNavigation = (e: any) => {
     Navigate.push(`/product/${card.id}`); // assuming card has an id
@@ -85,7 +87,13 @@ const FeatureCard: React.FC<CardProps> = ({ card, isModel }) => {
               <DialogOverlay />
               <DialogContent className="max-w-[1400px] w-11/12 bg-white px-0 sm:rounded-3xl border border-black shadow-none gap-0 pb-0">
                 <div className="pb-6 px-5 xs:px-10 me-4 xs:me-7 mt-6 max-h-[80vh] overflow-y-auto custom-scroll">
-                  <ProductDetail params={card} isZoom={false} />
+                  <ProductDetail
+                    params={card}
+                    isZoom={false}
+                    gap="gap-10 md:gap-20"
+                    swiperGap="gap-5"
+                    detailsWidth="w-full md:w-1/2 lg:w-2/5"
+                  />
                 </div>
               </DialogContent>
             </Dialog>
@@ -107,9 +115,7 @@ const FeatureCard: React.FC<CardProps> = ({ card, isModel }) => {
           </div>
           <div className="flex justify-between px-1 mt-3">
             <p className="text-15">{card.name}</p>
-            <div className="flex">
-              {renderStars()}
-            </div>
+            <div className="flex">{renderStars()}</div>
           </div>
           <div className="border-t flex gap-5 pt-3 px-1">
             <p className="text-12">

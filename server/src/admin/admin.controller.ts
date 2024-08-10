@@ -10,7 +10,7 @@ import {
   Res,
 } from '@nestjs/common';
 import { AdminService } from './admin.service';
-import { AdminLoginDto, createAdminDto } from './dto/admin.dto';
+import { AdminLoginDto, createAdminDto, editAdminDto } from './dto/admin.dto';
 
 @Controller('admin')
 export class AdminController {
@@ -37,10 +37,11 @@ export class AdminController {
   adminSignup(@Body() signupUserDto: createAdminDto) {
     return this.adminService.adminSignup(signupUserDto);
   }
-  // @Delete(':id')
-  // removeAdmin(@Param('id') id: string) {
-  //   return this.adminService.removeAdmin(+id);
-  // }
+  @Post('/edit-admin')
+  editAdmin(@Body() updateUserDto: editAdminDto) {
+    return this.adminService.editAdmin(updateUserDto);
+  }
+
   @Delete('delete-admin')
   async removeAdmin(@Query('adminId') adminId: string) {
     const id = parseInt(adminId, 10);

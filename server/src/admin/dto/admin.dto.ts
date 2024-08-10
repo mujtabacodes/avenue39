@@ -76,3 +76,9 @@ export class createAdminDto {
   @IsOptional()
   posterImagePublicId: string;
 }
+
+export class editAdminDto extends createAdminDto {
+  @IsNotEmpty()
+  @IsNumber()
+  id: number;
+}

@@ -40,6 +40,8 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
   const navigate = useRouter();
   const dispatch = useDispatch<Dispatch>();
   const cartItems = useSelector((state: State) => state.cart.items);
+  console.log('cartItems');
+  console.log(cartItems);
   const totalPrice = useSelector((state: State) =>
     selectTotalPrice(state.cart),
   );
@@ -110,20 +112,23 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                     key={item.id}
                     className="relative flex items-center bg-slate-50 border-dotted gap-3 p-4 w-full rounded-md"
                   >
-                    {/* <Image
-                      src={item.image.src}
+                    <Image
+                      src={item.posterImageUrl}
                       alt={item.name}
                       width={80}
                       height={80}
-                    /> */}
+                      className="rounded-md"
+                    />
 
                     <div>
-                      <ProductName>{item.name}</ProductName>
-                      <div className="flex justify-between">
+                      <ProductName className="!text-[16px]">
+                        {item.name}
+                      </ProductName>
+                      <div className="flex justify-between gap-5">
                         <span> Qty {item.quantity}</span>
-                        <ProductPrice className="flex gap-2 mb-4">
-                          Dhs {item?.discount * item.quantity}
-                          <NormalText className="text-slate-400 line-through">
+                        <ProductPrice className="flex gap-2 mb-4 !text-[15px]">
+                          AED {item?.discountPrice * item.quantity}
+                          <NormalText className="text-slate-400 line-through  !text-[15px]">
                             {item?.price * item.quantity}
                           </NormalText>
                         </ProductPrice>
@@ -145,7 +150,7 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                 <NormalText className="text-slate-400 flex justify-between">
                   Subtotal
                   <ProductPrice className="flex gap-2 mb-4">
-                    Dhs {totalPrice}
+                    AED {totalPrice}
                   </ProductPrice>
                 </NormalText>
                 <div className="flex flex-col gap-2">

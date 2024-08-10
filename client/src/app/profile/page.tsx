@@ -151,7 +151,7 @@ export default function Profile() {
       <TopHero breadcrumbs={profilebreadcrumbs} />
 
 
-        <Container className='mt-4'>
+        <Container className='mt-4  dark:border-strokedark dark:bg-boxdark dark:border-strokedark dark:bg-boxdark dark:bg-black dark:text-white dark:bg-boxdark dark:border-white border'>
         <div className='flex flex-wrap md:flex-nowrap md:gap-4'>
           <div className='p-2 rounded-md shadow w-full md:w-4/12 hidden md:block'>
             <div className='space-y-2 flex flex-col'>
@@ -228,10 +228,10 @@ export default function Profile() {
 
 
 
-            <div className="col-span-5 xl:col-span-3">
+            <div className="col-span-5 xl:col-span-3 dark:border-strokedark dark:bg-boxdark dark:border-strokedark dark:bg-boxdark dark:bg-black dark:text-white dark:bg-boxdark dark:border-white border">
               <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
                 <div className="border-b border-stroke px-7 py-4 dark:border-strokedark">
-                  <h3 className="font-medium text-black dark:text-white">
+                  <h3 className="font-medium  dark:text-white">
                     Personal Information
                   </h3>
                 </div>
@@ -241,13 +241,13 @@ export default function Profile() {
 
                       <div className="mb-5 w-full">
                         <label
-                          className="mb-3 block text-sm font-medium text-black dark:text-white"
+                          className="mb-3 block text-sm font-medium  dark:text-white"
                           htmlFor="fullName"
                         >
                           Full Name
                         </label>
                         <input
-                          className="w-full rounded border border-stroke bg-gray px-4 py-3 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
+                          className="w-full rounded border border-stroke bg-gray px-4 py-3  focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
                           type="text"
                           name="fullName"
                           id="fullName"
@@ -259,13 +259,13 @@ export default function Profile() {
 
                       <div className="mb-5 w-full">
                         <label
-                          className="mb-3 block text-sm font-medium text-black dark:text-white"
+                          className="mb-3 block text-sm font-medium  dark:text-white"
                           htmlFor="email"
                         >
                           Email Address
                         </label>
                         <div className="relative">
-                          <span className="absolute left-4 top-4 text-black dark:text-white">
+                          <span className="absolute left-4 top-4  dark:text-white">
                             <svg
                               className="fill-current"
                               width="20"
@@ -291,7 +291,7 @@ export default function Profile() {
                             </svg>
                           </span>
                           <input
-                            className="w-full rounded border border-stroke bg-gray py-3 pl-11 pr-4 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
+                            className="w-full rounded border border-stroke bg-gray py-3 pl-11 pr-4  focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
                             type="email"
                             name="email"
                             id="email"

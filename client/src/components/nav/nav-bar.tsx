@@ -47,7 +47,7 @@ const Navbar = (props: INav) => {
           </Link></div>
         </div>
         <div className="w-6/12">
-          <div className="relative rounded-md hidden md:block">
+          <form className="relative rounded-md hidden md:block">
             <input
               type="text"
               className="px-4 h-12 xl:h-[64.78px]  border block w-full  text-sm disabled:opacity-50 "
@@ -98,7 +98,7 @@ const Navbar = (props: INav) => {
                 </div>
               </DrawerContent>
             </Drawer>
-          </div>
+          </form>
         </div>
         <div className="  gap-2 flex justify-end items-center w-3/12 space-x-8 ">
           <div className=" hidden md:flex justify-center">

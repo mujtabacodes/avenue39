@@ -6,12 +6,12 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { PrismaService } from 'src/prisma/prisma.service';
-import { LoginDto } from 'src/users/dto/user.dto';
-import { hashPassword, verifyPassword } from 'src/utils/func';
+import { PrismaService } from '../prisma/prisma.service';
+import { LoginDto } from '../users/dto/user.dto';
+import { hashPassword, verifyPassword } from '../utils/func';
 import * as jwt from 'jsonwebtoken';
-import { customHttpException } from 'src/utils/helper';
-import { createAdminDto } from './dto/admin.dto';
+import { customHttpException } from '../utils/helper';
+import { createAdminDto, editAdminDto } from './dto/admin.dto';
 import * as cookieParser from 'cookie-parser';
 @Injectable()
 export class AdminService {
@@ -125,6 +125,36 @@ export class AdminService {
   }
 
   async adminSignup(signupUserDto: createAdminDto) {
+    try {
+      const { email, password } = signupUserDto;
+      const existingUser = await this.prisma.admins.findFirst({
+        where: { email },
+      });
+      const hashedPassword = await hashPassword(password, this.configService);
+      if (!existingUser) {
+        const user = await this.prisma.admins.create({
+          data: {
+            ...signupUserDto,
+            password: hashedPassword,
+          },
+        });
+        const { password, ...userWithoutPassword } = user;
+        return {
+          message: 'Congrats🎉 Account created successfully',
+          user: userWithoutPassword,
+          status: HttpStatus.OK,
+        };
+      } else {
+        return {
+          message: 'Already user exists',
+          status: HttpStatus.CONFLICT,
+        };
+      }
+    } catch (error) {
+      customHttpException(error.message, 'BAD_REQUEST');
+    }
+  }
+  async editAdmin(signupUserDto: editAdminDto) {
     try {
       const { email, password } = signupUserDto;
       const existingUser = await this.prisma.admins.findFirst({
