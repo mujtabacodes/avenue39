@@ -40,39 +40,41 @@ const FeatureCard: React.FC<CardProps> = ({ card, isModel }) => {
     const stars = [];
     for (let i = 1; i <= 5; i++) {
       if (i <= /*card.reviews*/ (4 || 0)) {
-        stars.push(<MdStar key={i} size={20} className="text-yellow-400" />);
+        stars.push(<MdStar key={i} size={20} className="text-warning" />);
       } else {
         stars.push(
-          <MdStarBorder key={i} size={20} className="text-yellow-400" />,
+          <MdStarBorder key={i} size={20} className="text-warning" />,
         );
       }
     }
     return stars;
   };
 
-  const productId = 5;
+  const productId = card.id;
 
   const handleNavigation = (e: any) => {
     Navigate.push(`/product/${productId}`);
   };
+
   return (
-    <div className="space-y-3 px-4 relative ">
+    <div className="space-y-3 px-4 relative cursor-pointer" onClick={(e) => handleNavigation(e)}>
       <div className="relative group ">
-      {isModel ? null : (    
+      {isModel ? null : (  
+        <div onClick={(e: React.MouseEvent<HTMLElement>) => handleEventProbation(e)}>  
           <Dialog>
            <DialogTrigger>
               <div className="bg-white h-auto py-3 z-20 absolute top-8 right-2 w-10 rounded-3xl  flex justify-center items-center cursor-pointer opacity-0 group-hover:opacity-100 duration-300 transition-all">
                 <IoEyeOutline size={25} />
               </div>
             </DialogTrigger>
-            <DialogOverlay/>
-          <DialogContent className="max-w-[1400px] w-11/12 bg-white px-0 sm:rounded-3xl border border-black shadow-none gap-0 pb-0">
-          <div className="pb-6 px-5 xs:px-10 me-4 xs:me-7 mt-6 max-h-[80vh] overflow-y-auto custom-scroll">
-                <ProductDetail params={card} isZoom={false} />
+            <DialogOverlay />
+            <DialogContent className="max-w-[1400px] w-11/12 bg-white px-0 sm:rounded-3xl border border-black shadow-none gap-0 pb-0">
+              <div className="pb-6 px-5 xs:px-10 me-4 xs:me-7 mt-6 max-h-[80vh] overflow-y-auto custom-scroll">
+                <ProductDetail params={card} isZoom={false} gap='gap-10 md:gap-20' swiperGap='gap-5' detailsWidth='w-full md:w-1/2 lg:w-2/5' />
               </div>
-          </DialogContent>
+            </DialogContent>
         </Dialog>
-           
+        </div>
             
        )}
         <div className="bg-[#FF0000] h-auto py-2 px-4 rounded-3xl absolute top-8 left-2 flex justify-center items-center cursor-pointer">
@@ -81,7 +83,7 @@ const FeatureCard: React.FC<CardProps> = ({ card, isModel }) => {
             <span>%</span>
           </p>
         </div>
-        <div onClick={(e) => handleNavigation(e)} className='cursor-pointer'>
+        <div className='w-fit mx-auto'>
           <Image
             width={400}
             height={400}
