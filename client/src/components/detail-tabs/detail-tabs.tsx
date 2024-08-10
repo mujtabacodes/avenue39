@@ -1,6 +1,10 @@
 import { useState, FC } from 'react';
 import Container from '../ui/Container';
-import { TiArrowSortedUp } from "react-icons/ti";
+import { TiArrowSortedUp } from 'react-icons/ti';
+import SideCard from '@/components/side-card/side-card';
+import { productData, bestSellerProducts, features } from '@/data';
+import Card from '../ui/card';
+import FeatureSlider from '../card-slider/feature-slider';
 
 interface Tab {
   label: string;
@@ -29,15 +33,32 @@ const DetailTabs: FC<DetailTabsProps> = ({ tabs }) => {
               onClick={() => setActiveTab(index)}
             >
               {tab.label}
-              {activeTab === index && <TiArrowSortedUp size={30} className="absolute -bottom-12 left-1/2 -translate-x-1/2" />}
+              {activeTab === index && (
+                <TiArrowSortedUp
+                  size={30}
+                  className="absolute -bottom-12 left-1/2 -translate-x-1/2"
+                />
+              )}
             </button>
           ))}
         </div>
       </Container>
       {/* Tab Content */}
       <div className="border-t-[1px] pt-6">
-        <Container>
-          {tabs[activeTab].content}
+        <Container className="flex flex-col sm:flex-row gap-2 xl:gap-10">
+          <div className="w-full sm:w-2/3 lg:w-3/4 px-4">
+            {tabs[activeTab].content}
+            <div className="w-full relative">
+              <h1 className="text-2xl py-3 text-left font-semibold absolute -top-3">Best Seller</h1>
+              <FeatureSlider  />
+            </div>
+          </div>
+          <div className="w-1/3 lg:w-1/4 hidden sm:block ">
+            <h2 className="text-2xl font-medium mb-5">
+              Match With
+            </h2>
+            <SideCard data={productData} />
+          </div>
         </Container>
       </div>
     </div>
