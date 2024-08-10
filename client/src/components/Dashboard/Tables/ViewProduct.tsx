@@ -1,16 +1,16 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
-import { Table, notification, Modal } from "antd";
-import Image from "next/image";
-import { RiDeleteBin6Line } from "react-icons/ri";
-import axios from "axios";
-import Loader from "@components/Loader/Loader";
-import { useRouter } from "next/navigation";
-import { FaRegEye } from "react-icons/fa";
-import { LiaEdit } from "react-icons/lia";
-import { useAppSelector } from "@components/Others/HelperRedux";
-import { generateSlug } from "@/data/data";
+import React, { useState } from 'react';
+import { Table, notification, Modal } from 'antd';
+import Image from 'next/image';
+import { RiDeleteBin6Line } from 'react-icons/ri';
+import axios from 'axios';
+import Loader from '@components/Loader/Loader';
+import { useRouter } from 'next/navigation';
+import { FaRegEye } from 'react-icons/fa';
+import { LiaEdit } from 'react-icons/lia';
+import { useAppSelector } from '@components/Others/HelperRedux';
+import { generateSlug } from '@/data/data';
 
 interface Product {
   _id: string;
@@ -36,63 +36,65 @@ const ViewProduct: React.FC<CategoryProps> = ({
   setEditProduct,
 }) => {
   const router = useRouter();
-  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [searchTerm, setSearchTerm] = useState<string>('');
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
   };
 
   const { loggedInUser }: any = useAppSelector((state) => state.usersSlice);
-  
 
-  const canAddProduct=loggedInUser && (loggedInUser.role =='Admin' ?   loggedInUser.canAddProduct : true ) 
-  const canDeleteProduct=loggedInUser && (loggedInUser.role =='Admin' ?  loggedInUser.canDeleteProduct : true )
-  const canEditproduct = loggedInUser && (loggedInUser.role =='Admin'  ? loggedInUser.canEditproduct : true )  
+  // const canAddProduct=loggedInUser && (loggedInUser.role =='Admin' ?   loggedInUser.canAddProduct : true )
+  const canAddProduct = true;
+  const canDeleteProduct =
+    loggedInUser &&
+    (loggedInUser.role == 'Admin' ? loggedInUser.canDeleteProduct : true);
+  const canEditproduct =
+    loggedInUser &&
+    (loggedInUser.role == 'Admin' ? loggedInUser.canEditproduct : true);
 
-
-  console.log(canDeleteProduct, "canAddProduct"
-  )
+  console.log(canDeleteProduct, 'canAddProduct');
 
   const filteredProducts: Product[] =
     Categories?.filter((product: any) =>
-      product.name.toLowerCase().includes(searchTerm.toLowerCase())
+      product.name.toLowerCase().includes(searchTerm.toLowerCase()),
     ) || [];
 
   const confirmDelete = (key: any) => {
     Modal.confirm({
-      title: "Are you sure you want to delete this product?",
-      content: "Once deleted, the product cannot be recovered.",
+      title: 'Are you sure you want to delete this product?',
+      content: 'Once deleted, the product cannot be recovered.',
       onOk: () => handleDelete(key),
-      okText: "Yes",
-      cancelText: "No",
+      okText: 'Yes',
+      cancelText: 'No',
     });
   };
 
   const handleDelete = async (key: string) => {
     try {
       const response = await axios.delete(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/deleteProduct/${key}`
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/deleteProduct/${key}`,
       );
       setCategory((prev: Product[]) => prev.filter((item) => item._id !== key));
       notification.success({
-        message: "Product Deleted",
-        description: "The product has been successfully deleted.",
-        placement: "topRight",
+        message: 'Product Deleted',
+        description: 'The product has been successfully deleted.',
+        placement: 'topRight',
       });
     } catch (err) {
       notification.error({
-        message: "Deletion Failed",
-        description: "There was an error deleting the product.",
-        placement: "topRight",
+        message: 'Deletion Failed',
+        description: 'There was an error deleting the product.',
+        placement: 'topRight',
       });
     }
   };
 
   const columns = [
     {
-      title: "Image",
-      dataIndex: "posterImageUrl",
-      key: "posterImageUrl",
+      title: 'Image',
+      dataIndex: 'posterImageUrl',
+      key: 'posterImageUrl',
       render: (text: any, record: Product) => (
         <Image
           src={record.posterImageUrl?.imageUrl}
@@ -103,75 +105,75 @@ const ViewProduct: React.FC<CategoryProps> = ({
       ),
     },
     {
-      title: "Name",
-      dataIndex: "name",
-      key: "name",
+      title: 'Name',
+      dataIndex: 'name',
+      key: 'name',
     },
     {
-      title: "Stock Quantity",
-      dataIndex: "totalStockQuantity",
-      key: "totalStockQuantity",
+      title: 'Stock Quantity',
+      dataIndex: 'totalStockQuantity',
+      key: 'totalStockQuantity',
     },
     {
-      title: "Date",
-      dataIndex: "createdAt",
-      key: "date",
+      title: 'Date',
+      dataIndex: 'createdAt',
+      key: 'date',
       render: (text: any, record: Product) => {
         const createdAt = new Date(record.createdAt);
         const formattedDate = `${createdAt.getFullYear()}-${String(
-          createdAt.getMonth() + 1
-        ).padStart(2, "0")}-${String(createdAt.getDate()).padStart(2, "0")}`;
+          createdAt.getMonth() + 1,
+        ).padStart(2, '0')}-${String(createdAt.getDate()).padStart(2, '0')}`;
         return <span>{formattedDate}</span>;
       },
     },
     {
-      title: "Time",
-      dataIndex: "createdAt",
-      key: "time",
+      title: 'Time',
+      dataIndex: 'createdAt',
+      key: 'time',
       render: (text: any, record: Product) => {
         const createdAt = new Date(record.createdAt);
-        const formattedTime = `${String(createdAt.getHours()).padStart(2, "0")}:${String(
-          createdAt.getMinutes()
-        ).padStart(2, "0")}`;
+        const formattedTime = `${String(createdAt.getHours()).padStart(2, '0')}:${String(
+          createdAt.getMinutes(),
+        ).padStart(2, '0')}`;
         return <span>{formattedTime}</span>;
       },
     },
     {
-      title: "Preview",
-      key: "Preview",
+      title: 'Preview',
+      key: 'Preview',
       render: (text: any, record: Product) => {
         const handleClick = () => {
           const url = `/product/${generateSlug(record.name)}`;
-          window.open(url, "_blank");
+          window.open(url, '_blank');
         };
         return <FaRegEye className="cursor-pointer" onClick={handleClick} />;
       },
     },
     {
-      title: "Edit",
-      key: "Edit",
+      title: 'Edit',
+      key: 'Edit',
       render: (text: any, record: Product) => (
         <LiaEdit
-          className={`${canEditproduct ? "cursor-pointer" : ""} ${
-            !canEditproduct ? "cursor-not-allowed text-slate-200" : ""
+          className={`${canEditproduct ? 'cursor-pointer' : ''} ${
+            !canEditproduct ? 'cursor-not-allowed text-slate-200' : ''
           }`}
           size={20}
           onClick={() => {
             if (canEditproduct) {
               setEditProduct(record);
-              setselecteMenu("Add Products");
+              setselecteMenu('Add Products');
             }
           }}
         />
       ),
     },
     {
-      title: "Action",
-      key: "action",
+      title: 'Action',
+      key: 'action',
       render: (text: any, record: Product) => (
         <RiDeleteBin6Line
-          className={`${canDeleteProduct ? "text-red cursor-pointer" : ""} ${
-            !canDeleteProduct ? "cursor-not-allowed text-slate-200" : ""
+          className={`${canDeleteProduct ? 'text-red cursor-pointer' : ''} ${
+            !canDeleteProduct ? 'cursor-not-allowed text-slate-200' : ''
           }`}
           size={20}
           onClick={() => {
@@ -203,15 +205,16 @@ const ViewProduct: React.FC<CategoryProps> = ({
             <div>
               <p
                 className={`${
-                  canAddProduct && "cursor-pointer rounded-md"
+                  canAddProduct && 'cursor-pointer rounded-md'
                 } p-2 ${
-                  canAddProduct && "bg-primary text-white rounded-md border"
+                  canAddProduct && 'bg-primary text-white rounded-md border'
                 } dark:border-strokedark  flex justify-center dark:bg-black ${
-                  !canAddProduct && "cursor-not-allowed bg-gray-500 text-white rounded-md"
+                  !canAddProduct &&
+                  'cursor-not-allowed bg-gray-500 text-white rounded-md'
                 }`}
                 onClick={() => {
                   if (canAddProduct) {
-                    setselecteMenu("Add Products");
+                    setselecteMenu('Add Products');
                     setEditProduct(undefined);
                   }
                 }}
@@ -228,8 +231,8 @@ const ViewProduct: React.FC<CategoryProps> = ({
               rowKey="_id"
               pagination={false}
             />
-          ) : ( 
-            <p className='text-primary dark:text-black' >No products found</p>
+          ) : (
+            <p className="text-primary dark:text-black">No products found</p>
           )}
         </>
       )}
