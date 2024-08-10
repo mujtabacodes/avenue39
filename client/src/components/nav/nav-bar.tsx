@@ -17,7 +17,7 @@ import { Drawer, DrawerContent, DrawerTrigger } from '@/components/ui/drawer';
 import { HiOutlineBars3BottomRight } from 'react-icons/hi2';
 import StarRating from '../ui/star';
 import SocialLink from '../social-link';
-import { IoIosClose } from 'react-icons/io';
+import { IoIosClose, IoIosSearch } from 'react-icons/io';
 import CartItems from '../cart/items';
 import { Avatar, Popover } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
@@ -36,28 +36,28 @@ const Navbar = (props: INav) => {
     <div className="bg-white dark:text-black">
       <Container className="flex items-center justify-between p-2 md:p-4 gap-4  dark:bg-white   ">
         <div className="w-3/12">
-          <Link href={'/'}>
+        <div><Link className='relative' href={'/'}>
             <Image
-              className=""
-              width={250}
-              height={250}
+              className="object-contain"
+              width={180}
+              height={180}
               src={logo}
               alt="Logo"
             />
-          </Link>
+          </Link></div>
         </div>
         <div className="w-6/12">
           <form className="relative rounded-md hidden md:block">
             <input
               type="text"
-              className="py-4 px-4 pe-11 border block w-full  text-sm disabled:opacity-50 "
+              className="px-4 h-12 xl:h-[64.78px]  border block w-full  text-sm disabled:opacity-50 "
               placeholder="Search Here..."
             />
             <Drawer>
               <DrawerTrigger asChild>
-                <button type='submit' className="absolute inset-y-0 end-0 flex items-center z-20 pe-4 cursor-pointer">
-                  <IoSearchSharp className="cursor-pointer" size={30} />
-                </button>
+                <div className="absolute inset-y-0 end-0 flex items-center z-20 pe-4 cursor-pointer">
+                  <IoIosSearch className="cursor-pointer text-4xl xl:text-6xl" />
+                </div>
               </DrawerTrigger>
               <DrawerContent>
                 <div className="max-w-screen-lg w-full mx-auto mt-10 space-y-5 p-2">
@@ -144,7 +144,7 @@ const Navbar = (props: INav) => {
           <div className="md:hidden flex gap-2 items-center">
             <Drawer>
               <DrawerTrigger asChild>
-                <IoSearchSharp
+                <IoIosSearch
                   className="cursor-pointer block md:hidden "
                   size={30}
                 />
@@ -158,7 +158,7 @@ const Navbar = (props: INav) => {
                       placeholder="Search Here..."
                     />
                     <div className="absolute inset-y-0 end-0 flex items-center z-20 pe-4 cursor-pointer">
-                      <IoSearchSharp className="cursor-pointer" size={30} />
+                      <IoIosSearch className="cursor-pointer" size={30} />
                     </div>
                   </div>
                   <div className="border p-2 max-h-[600px] overflow-y-auto custom-scrollbar ">

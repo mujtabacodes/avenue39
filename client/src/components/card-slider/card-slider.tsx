@@ -18,7 +18,7 @@ const sliderSettings = {
   arrows: true,
   infinite: true,
   speed: 500,
-  slidesToShow: 4,
+  slidesToShow: 3,
   slidesToScroll: 1,
   prevArrow: <CustomPrevArrow />,
   nextArrow: <CustomNextArrow />,
@@ -52,7 +52,7 @@ const SliderComponent: React.FC<SliderProps> = ({ cards, isModel }) => {
     <Slider {...sliderSettings}>
       {cards.map((card) => (
         <div key={card.id}>
-          <Card card={card} isModel={isModel} />
+          <Card className='lg:w-[303.13px] lg:h-[385.56px]' card={card} isModel={isModel} />
         </div>
       ))}
     </Slider>

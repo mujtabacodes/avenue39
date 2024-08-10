@@ -26,7 +26,7 @@ const SidebarFilter = ({ onCategoryChange, onPriceChange , sideBanner }: Sidebar
         <div className="border-t-2 py-6">
           <CategoryFilter items={productcetagories} onCategoryChange={onCategoryChange} />
         </div>
-        <div className="border-t-2 py-6">
+        <div className="border-t-2 py-6            ">
           <h4 className="text-xl font-medium mb-5">Prices</h4>
           <div>
             <Slider
