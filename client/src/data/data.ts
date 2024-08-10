@@ -29,11 +29,6 @@ export const cartbredcrumbs = [
   { label: 'Home', href: '/' },
   { label: 'checkout' }
 ];
-export const cartpagebredcrumbs = [
-  { label: 'Home', href: '/' },
-  { label: 'Shop', href: '/products' },
-  { label: 'Chart Page' }
-];
 export const PrivacyPolicybredcrumbs = [
   { label: 'Home', href: '/' },
   { label: 'PrivacyPolicy' }

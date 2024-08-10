@@ -117,14 +117,14 @@ const ProductPage = ({
     <>
       <TopHero breadcrumbs={productsbredcrumbs} />
       <Container className="my-5 flex flex-col md:flex-row gap-4 md:gap-8">
-        <div className="w-full md:w-2/6 lg:w-1/4 hidden md:block">
+        <div className="w-full md:w-2/6 lg:w-3/12 hidden md:block">
           <SidebarFilter
             onCategoryChange={handleCategoryChange}
             onPriceChange={handlePriceChange}
             sideBanner={sideBanner}
           />
         </div>
-        <div className="w-full md:w-4/6 lg:w-3/4">
+        <div className="w-full md:w-4/6 lg:w-9/12">
           {productBanner}
           <div className="mt-4">
             <div className="flex items-center justify-between gap-4 px-2">
@@ -200,7 +200,7 @@ const ProductPage = ({
             {filteredCards.map((card) => (
               <div key={card.id}>
                 {layout === 'grid' ? (
-                  <Card card={card} />
+                  <Card className='lg:w-[384.24px] lg:h-[488.73px]' card={card} />
                 ) : (
                   <LandscapeCard card={card} />
                 )}

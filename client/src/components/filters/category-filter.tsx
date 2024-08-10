@@ -18,7 +18,7 @@ const CategoryFilter = ({ items, onCategoryChange }: ICategoryFilter) => {
       <div>
         <form
           action=""
-          className="flex flex-col gap-5 custom-scroll overflow-y-auto max-h-64"
+          className="flex flex-col gap-5 custom-scroll overflow-y-auto max-h-[280px]"
         >
           {items.map((item) => (
             <div className="flex items-center gap-2" key={item.id}>

@@ -1,3 +1,4 @@
+"use client"
 import FilterTable from '@/components/Dashboard/Tables/FilterTable';
 import TopHero from '@/components/top-hero';
 import { Button } from '@/components/ui/button';
@@ -9,11 +10,12 @@ import {
   ordercolumns,
   Orderdata,
 } from '@/data/table';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import React from 'react';
 import { FaRegUser } from 'react-icons/fa6';
 
 const OrderHistory = () => {
+  const router = useRouter();
   return (
     <>
       <TopHero breadcrumbs={Orderbreadcrumbs} />
@@ -21,7 +23,7 @@ const OrderHistory = () => {
         <div className="flex justify-between">
           <div className="space-y-2">
             <h1 className="text-2xl lg:text-3xl font-semibold">Account</h1>
-            <Button className="gap-2 text-xl" variant={'ghost'}>
+            <Button onClick={() => router.push('/login')} className="gap-2 text-xl" variant={'ghost'}>
               <FaRegUser size={20} /> Logout
             </Button>
           </div>
