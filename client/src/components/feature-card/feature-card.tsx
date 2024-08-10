@@ -50,7 +50,7 @@ const FeatureCard: React.FC<CardProps> = ({ card, isModel }) => {
     return stars;
   };
 
-  const productId = 5;
+  const productId = card.id;
 
   const handleNavigation = (e: any) => {
     Navigate.push(`/product/${productId}`);
@@ -83,7 +83,7 @@ const FeatureCard: React.FC<CardProps> = ({ card, isModel }) => {
             <span>%</span>
           </p>
         </div>
-        <div>
+        <div className='w-fit mx-auto'>
           <Image
             width={400}
             height={400}

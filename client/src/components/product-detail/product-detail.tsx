@@ -59,7 +59,7 @@ const ProductDetail = ({
   const cartItems = useSelector((state: State) => state.cart.items);
   const [count, setCount] = useState(1);
   const dispatch = useDispatch<Dispatch>();
-  const productId = Number(5);
+  const productId = Number(params.id);
   const product = products.find((product) => product.id === productId);
 
   console.log(cartItems);
