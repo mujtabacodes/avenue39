@@ -39,6 +39,7 @@ export interface TimerSliderItem {
   productName: string;
   buttonText: string;
   image: any;
+  productId:number;
   endDate: string;
 }
 export type BRAND = {
@@ -59,7 +60,7 @@ export type BRAND = {
 
 export type TSlide = {
   image: any;
-  // bannerHeading: string;
+  bannerHeading: any;
   bannerSubHeading: any;
   text: string;
   buttonText: string;
@@ -79,7 +80,7 @@ export interface IServiceItem {
 }
 export interface MenuItem {
   title: string;
-  icon: string;
+  icon: any;
   link: string;
 }
 
@@ -198,6 +199,7 @@ export interface City {
   name: string;
 }
 export interface Feature {
+  link: string;
   image: any;
   title: string;
   rating: number;
@@ -253,6 +255,7 @@ export type TSliderItem = {
   discountText: string;
   dealText: string;
   timer: string;
+  productId:number;
   buttonText: string;
 };
 export interface USRPROPS {
@@ -270,4 +273,15 @@ export interface USRPROPS {
   SelectComonent?: any;
   setadminType?: React.Dispatch<SetStateAction<string | undefined>>;
   adminType?: string | undefined;
+}
+
+export interface IReview {
+  id: number;
+  name: string;
+  email: string;
+  review: string;
+  star: number;
+  createdAt: string;
+  productId: number;
+  userProfileImg?: string;
 }
