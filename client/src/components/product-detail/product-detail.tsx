@@ -30,12 +30,18 @@ import {
 import { IoBagOutline } from 'react-icons/io5';
 import Link from 'next/link';
 import { BsWhatsapp } from 'react-icons/bs';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { State } from '@/redux/store';
-import { selectTotalPrice, updateItemQuantity } from '@/redux/slices/cart';
+import {
+  addItem,
+  selectTotalPrice,
+  updateItemQuantity,
+} from '@/redux/slices/cart';
 import { Dispatch } from 'redux';
 import { HiMinusSm, HiPlusSm } from 'react-icons/hi';
 import paymenticons from '@icons/payment-icons.png';
+import { openDrawer } from '@/redux/slices/drawer';
+import { CartItem } from '@/redux/slices/cart/types';
 
 const ProductDetail = ({
   params,
@@ -46,7 +52,7 @@ const ProductDetail = ({
 }) => {
   const cartItems = useSelector((state: State) => state.cart.items);
   const [count, setCount] = useState(1);
-
+  const dispatch = useDispatch<Dispatch>();
   const productId = Number(5);
   const product = products.find((product) => product.id === productId);
 
@@ -74,6 +80,18 @@ const ProductDetail = ({
 
   const onIncrement = () => {
     setCount((prevCount) => prevCount + 1);
+  };
+  const itemToAdd: CartItem = {
+    ...product,
+    quantity: count,
+  };
+
+  console.log('Bhai saav or');
+  console.log(product);
+  const handleAddToCard = (e: React.MouseEvent<HTMLElement>) => {
+    e.stopPropagation();
+    dispatch(addItem(itemToAdd));
+    dispatch(openDrawer());
   };
   return (
     <div className="flex flex-col md:flex-row w-full justify-between gap-8 md:gap-32 my-6">
@@ -168,6 +186,7 @@ const ProductDetail = ({
           <Button
             variant={'outline'}
             className="text-primary w-1/2 h-12 rounded-2xl flex gap-3"
+            onClick={(e) => handleAddToCard(e)}
           >
             Add to cart
           </Button>
