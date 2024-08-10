@@ -188,11 +188,11 @@ const ProductDetail = ({
         </div>
 
         <div className="flex items-center justify-center relative mb-2">
-          <span className="absolute left-0 w-1/4 border-t border-gray-300"></span>
-          <NormalText className="text-center px-4">
+          <span className="absolute left-0 w-1/6 border-t border-gray-300"></span>
+          <NormalText className="text-center px-3 w-4/6 whitespace-nowrap">
             Guaranteed Safe Checkout
           </NormalText>
-          <span className="absolute right-0 w-1/4 border-t border-gray-300"></span>
+          <span className="absolute right-0 w-1/6 border-t border-gray-300"></span>
         </div>
 
         <div className="flex gap-2 mb-4">

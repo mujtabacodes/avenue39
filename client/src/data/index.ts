@@ -1040,7 +1040,7 @@ export const saleitems: ISaleItems[] = [
 
 export const productData = [
   {
-    link: '/',
+    link: '/product/5',
     image: cardimage1,
     name: 'Sparta Coffee Table',
     price: 150.0,
@@ -1049,7 +1049,7 @@ export const productData = [
     rating: 3,
   },
   {
-    link: '/',
+    link: '/product/5',
     image: cardimage1,
     name: 'Athena Dining Table',
     price: 200.0,
@@ -1058,7 +1058,7 @@ export const productData = [
     rating: 4,
   },
   {
-    link: '/',
+    link: '/product/5',
     image: cardimage1,
     name: 'Athena Dining Table',
     price: 200.0,
