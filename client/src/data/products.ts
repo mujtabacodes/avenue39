@@ -2,32 +2,11 @@ import { IProduct } from '@/types/types';
 import productImg1 from '@images/products/imageeee.png';
 import { StaticImageData } from 'next/image';
 
-interface ProductImage {
-  imageUrl: string;
-  public_id: string;
-}
-
 export interface AdditionalInformation {
   key?: string;
   value?: string;
   colors?: string[];
   dimension?: string[];
-}
-
-interface IProduct {
-  id: number;
-  name: string;
-  price: number;
-  description: string;
-  stock: number;
-  discountPrice: number;
-  posterImageUrl: string | StaticImageData;
-  posterImagePublicId: string;
-  hoverImageUrl: string;
-  hoverImagePublicId: string;
-  productImages: ProductImage[];
-  additionalInformation: AdditionalInformation[];
-  categoriesId: number;
 }
 
 export const products: IProduct[] = [
