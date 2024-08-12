@@ -6,22 +6,28 @@ import { MdStar, MdStarBorder } from 'react-icons/md';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { State, Dispatch } from '@redux/store';
-import { addItem, } from '@cartSlice/index';
+import { addItem } from '@cartSlice/index';
 import { CartItem } from '@cartSlice/types';
 import { openDrawer } from '@/redux/slices/drawer';
 import { useRouter } from 'next/navigation';
 import { Dialog, DialogContent, DialogOverlay, DialogTrigger } from './dialog';
 import ProductDetail from '../product-detail/product-detail';
-import { cn } from "@/lib/utils"
+import { cn } from '@/lib/utils';
 import { Skeleton } from './skeleton';
+import { generateSlug } from '@/config';
 interface CardProps {
   card: IProduct;
   isModel?: boolean;
-  className?: string; 
+  className?: string;
   skeletonHeight?: string;
 }
 
-const Card: React.FC<CardProps> = ({ card, isModel,className , skeletonHeight}) => {
+const Card: React.FC<CardProps> = ({
+  card,
+  isModel,
+  className,
+  skeletonHeight,
+}) => {
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch<Dispatch>();
   const cartItems = useSelector((state: State) => state.cart.items);
@@ -59,61 +65,63 @@ const Card: React.FC<CardProps> = ({ card, isModel,className , skeletonHeight}) 
     return stars;
   };
 
-  const productId = card.id;
-
   const handleNavigation = (e: any) => {
-    Navigate.push(`/product/${productId}`);
+    Navigate.push(`/product/${generateSlug(card.name)}`);
   };
   return (
     <div
-    className="rounded-3xl text-center relative product-card mx-4 group hover:cursor-pointer mb-2"
-    onClick={(e) => handleNavigation(e)}
-  >
-    <div className="relative w-full">
+      className="rounded-3xl text-center relative product-card mx-4 group hover:cursor-pointer mb-2"
+      onClick={(e) => handleNavigation(e)}
+    >
+      <div className="relative w-full">
+        {loading ? (
+          <Skeleton className={`w-full rounded-3xl ${skeletonHeight}`} />
+        ) : (
+          <>
+            {card.sale !== '0' && (
+              <span className="absolute top-4 left-4 text-white text-15 font-light bg-red-500 rounded-full w-[76px] h-9 flex justify-center items-center">
+                - {card.sale}%
+              </span>
+            )}
+            <Image
+              src={card.posterImageUrl}
+              alt={card.name}
+              width={600}
+              height={600}
+              className={cn(
+                'object-cover rounded-3xl',
+                className,
+                skeletonHeight,
+              )}
+            />
+          </>
+        )}
+      </div>
       {loading ? (
-        <Skeleton className={`w-full rounded-3xl ${skeletonHeight}`} />
+        <>
+          <Skeleton className="h-5 w-52 mx-auto mt-3" />
+          <Skeleton className="h-3 w-40 mx-auto mt-2" />
+          <div className="flex gap-1 items-center justify-center h-4 mt-2">
+            {Array.from({ length: 5 }).map((_, index) => (
+              <Skeleton key={index} className="h-3 w-3 rounded-full" />
+            ))}
+          </div>
+        </>
       ) : (
         <>
-          {card.sale !== '0' && (
-            <span className="absolute top-4 left-4 text-white text-15 font-light bg-red-500 rounded-full w-[76px] h-9 flex justify-center items-center">
-              - {card.sale}%
+          <h3 className="text-lg font-semibold mt-2">{card.name}</h3>
+          <p className="text-xs font-semibold mt-1">
+            AED{card.discountPrice}
+            <span className="line-through text-secondary-foreground ms-2">
+              AED{card.price}
             </span>
-          )}
-          <Image
-            src={card.posterImageUrl}
-            alt={card.name}
-            width={600}
-            height={600}
-            className={cn("object-cover rounded-3xl", className , skeletonHeight)}
-          />
+          </p>
+          <div className="flex gap-1 items-center justify-center mt-1">
+            {renderStars()}
+          </div>
         </>
       )}
-    </div>
-    {loading ? (
-      <>
-        <Skeleton className="h-5 w-52 mx-auto mt-3" />
-        <Skeleton className="h-3 w-40 mx-auto mt-2" />
-        <div className="flex gap-1 items-center justify-center h-4 mt-2">
-          {Array.from({ length: 5 }).map((_, index) => (
-            <Skeleton key={index} className="h-3 w-3 rounded-full" />
-          ))}
-        </div>
-      </>
-    ) : (
-      <>
-        <h3 className="text-lg font-semibold mt-2">{card.name}</h3>
-        <p className="text-xs font-semibold mt-1">
-          AED{card.discountPrice}
-          <span className="line-through text-secondary-foreground ms-2">
-            AED{card.price}
-          </span>
-        </p>
-        <div className="flex gap-1 items-center justify-center mt-1">
-          {renderStars()}
-        </div>
-      </>
-    )}
-         {loading ? (
+      {loading ? (
         <div className="flex gap-3 justify-center mt-3">
           <Skeleton className="w-32 h-8 rounded-full" />
           <Skeleton className="w-32 h-8 rounded-full" />
@@ -152,7 +160,7 @@ const Card: React.FC<CardProps> = ({ card, isModel,className , skeletonHeight}) 
         </div>
       )}
     </div>
-);
+  );
 };
 
 export default Card;

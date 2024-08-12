@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import React, { useState } from 'react';
 import { products } from '@/data/products';
 import Image from 'next/image';
@@ -7,7 +7,8 @@ import DetailTabs from '@/components/detail-tabs/detail-tabs';
 import { features } from '@/data';
 import Container from '@/components/ui/Container';
 import Services from '@/components/services/services';
-import { IProductDetail, IReview } from '@/types/types';
+import { IProduct, IProductDetail, IReview } from '@/types/types';
+
 import ProductDetail from '@/components/product-detail/product-detail';
 import { Progress } from '@/components/ui/progress';
 import {
@@ -21,8 +22,8 @@ import {
 } from '@/components/ui/select';
 import profileImg from '@icons/avator.png';
 import { useQuery } from '@tanstack/react-query';
-import { fetchReviews } from '@/config/fetch';
-import { calculateRatingsPercentage, formatDate } from '@/config';
+import { fetchProducts, fetchReviews } from '@/config/fetch';
+import { calculateRatingsPercentage, formatDate, generateSlug } from '@/config';
 import WriteReview from '@/components/write-review';
 import { Button } from '@/components/ui/button';
 import TopHero from '@/components/top-hero';
@@ -30,8 +31,22 @@ import FeatureSlider from '@/components/card-slider/feature-slider';
 import { Table } from 'antd';
 
 const ProductPage = ({ params }: { params: IProductDetail }) => {
-  const productId = Number(params.id);
-  const product = products.find((product) => product.id === productId);
+  const slug = params.name;
+  console.log(slug);
+  const {
+    data: products = [],
+    error: productError,
+    isLoading: productIsLoading,
+  } = useQuery<IProduct[], Error>({
+    queryKey: ['products'],
+    queryFn: fetchProducts,
+  });
+  const product = products.find(
+    (product) => generateSlug(product.name) === slug,
+  );
+
+  console.log('Products are here');
+  console.log(product);
 
   const [sortOption, setSortOption] = useState<string>('default');
   const [visibleCount, setVisibleCount] = useState(3);
@@ -48,7 +63,7 @@ const ProductPage = ({ params }: { params: IProductDetail }) => {
     queryKey: ['reviews'],
     queryFn: fetchReviews,
   });
-
+  const productId = product?.id;
   const filteredReviews = reviews.filter(
     (review) => review.productId === productId,
   );
@@ -153,7 +168,7 @@ const ProductPage = ({ params }: { params: IProductDetail }) => {
                   {renderStars({ star: averageRating })}
                 </span>
               </div>
-              <WriteReview productId={productId} />
+              <WriteReview productId={productId || 0} />
             </div>
           </div>
           <div className="w-full px-8 h-20 bg-lightbackground flex items-center justify-between">
@@ -248,7 +263,7 @@ const ProductPage = ({ params }: { params: IProductDetail }) => {
   const cartpageBreadcrumbs = [
     { label: 'Home', href: '/' },
     { label: 'Product', href: '/products' },
-    { label: product?.name ?? 'Product Page' }
+    { label: product?.name ?? 'Product Page' },
   ];
 
   return (
