@@ -48,3 +48,26 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
           <PiEyeThin size={17} className="cursor-pointer" />
           <CiHeart size={18} className="cursor-pointer" />
         </div> */}
+
+          // const filteredCards1 = products
+  //   .filter((card) => {
+  //     const inCategory =
+  //       selectedCategories.length > 0
+  //         ? selectedCategories.includes(card.productType || '')
+  //         : true;
+  //     const inPriceRange =
+  //       card.price >= priceRange[0] && card.price <= priceRange[1];
+  //     return inCategory && inPriceRange;
+  //   })
+  //   .sort((a, b) => {
+  //     if (sortOption === 'name') {
+  //       return a.name.localeCompare(b.name);
+  //     } else if (sortOption === 'max') {
+  //       return b.price - a.price;
+  //     } else if (sortOption === 'min') {
+  //       return a.price - b.price;
+  //     } else if (sortOption === 'review') {
+  //       return b.reviews - a.reviews;
+  //     }
+  //     return 0;
+  //   });

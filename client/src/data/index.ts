@@ -1169,15 +1169,15 @@ export const features: Feature[] = [
   // Add more feature objects here
 ];
 
-export const productcetagories: IProductCategories[] = [
-  { id: 1, title: 'DINNER', totalItems: 12 },
-  { id: 2, title: 'LIVING', totalItems: 12 },
-  { id: 3, title: 'BEDROOM', totalItems: 12 },
-  { id: 4, title: 'CHAIRS', totalItems: 12 },
-  { id: 5, title: 'TABLES', totalItems: 12 },
-  { id: 6, title: 'Home OFFICE', totalItems: 12 },
-  { id: 7, title: 'Home', totalItems: 12 },
-];
+// export const productcetagories: IProductCategories[] = [
+//   { id: 1, name: 'DINNER', totalItems: 12 },
+//   { id: 2, name: 'LIVING', totalItems: 12 },
+//   { id: 3, name: 'BEDROOM', totalItems: 12 },
+//   { id: 4, name: 'CHAIRS', totalItems: 12 },
+//   { id: 5, name: 'TABLES', totalItems: 12 },
+//   { id: 6, name: 'Home OFFICE', totalItems: 12 },
+//   { id: 7, name: 'Home', totalItems: 12 },
+// ];
 
 export const bestSellerProducts: IProduct[] = [
   {
