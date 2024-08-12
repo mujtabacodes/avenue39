@@ -358,3 +358,12 @@
   background-color: #24303f !important;
   outline: none;
 }
+
+.top-selling .slick-dots li button:before{
+  font-size: 12px;
+  opacity: .5;
+}
+
+.top-selling .slick-dots li.slick-active button:before {
+  opacity: .25;
+}

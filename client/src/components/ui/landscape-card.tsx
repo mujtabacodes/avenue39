@@ -37,19 +37,19 @@ const LandscapeCard: React.FC<CardProps> = ({ card }) => {
   return (
     <div className="rounded-2xl text-center relative product-card mx-2 group flex gap-4 items-center flex-col sm:flex-row">
       <div className="relative w-fit mx-auto sm:w-3/12">
-        <div className="bg-white rounded-full absolute top-4 right-6 flex flex-col gap-2 py-2 px-1 product-hover-icons z-[1] opacity-0 group-hover:opacity-100 transition-opacity">
+        {/* <div className="bg-white rounded-full absolute top-4 right-6 flex flex-col gap-2 py-2 px-1 product-hover-icons z-[1] opacity-0 group-hover:opacity-100 transition-opacity">
           <PiEyeThin size={17} className="cursor-pointer" />
           <CiHeart size={18} className="cursor-pointer" />
-        </div>
+        </div> */}
         {loading ? (
-          <Skeleton className="w-[300px] h-[200px] rounded-lg mx-auto" />
+          <Skeleton className="w-[296px] h-[296px] rounded-lg mx-auto" />
         ) : (
           <Image
             src={card.posterImageUrl}
             alt={card.name}
             width={320}
             height={200}
-            className="object-cover rounded-t-lg mx-auto"
+            className="object-cover rounded-t-lg mx-auto max-w-[296px] max-h-[300px]"
           />
         )}
         {card.sale !== '0' && !loading && (
@@ -75,7 +75,7 @@ const LandscapeCard: React.FC<CardProps> = ({ card }) => {
             <p className="text-md font-semibold mt-2">
               AED{card.discountPrice}
               <span className="line-through text-secondary-foreground ms-2">
-                {card.price}
+                AED{card.price}
               </span>
             </p>
           </>
