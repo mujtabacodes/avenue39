@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import React, { useState } from 'react';
 import { AiOutlineHome } from 'react-icons/ai';
-import { BiSolidToTop } from 'react-icons/bi';
+import { BiLogInCircle, BiSolidToTop } from 'react-icons/bi';
 import { FaRegHeart } from 'react-icons/fa';
 import { IoBagOutline } from 'react-icons/io5';
 import { MdCategory } from 'react-icons/md';
@@ -10,6 +10,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { Avatar, Popover } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { CgLogIn } from 'react-icons/cg';
+import { BsShop } from 'react-icons/bs';
 
 
 interface AccordionItemType {
@@ -70,13 +71,14 @@ const BottomBar: React.FC = () => {
     setOpen(newOpen);
   };
   return (
-    <div className='flex justify-between items-center px-5 md:hidden py-3 border-t w-full fixed bottom-0 bg-white z-50'>
+    <div className='flex justify-between items-center px-4 md:hidden py-3 border-t w-full fixed bottom-0 bg-white z-50'>
       <Link href={"/"}><AiOutlineHome size={25} /></Link>
-      <Link href={"/"}><FaRegHeart size={25} /></Link>
+      <Link href={"/products"}><BsShop size={25} /></Link>
+      {/* <Link href={"/"}><FaRegHeart size={25} /></Link> */}
       
       <Sheet>
         <SheetTrigger asChild>
-          <div className='relative'>
+          <div className='relative w-14'>
             <div className='triangle-shape bg-black text-white cursor-pointer z-50'><MdCategory size={25} /></div>
           </div>
         </SheetTrigger>
@@ -116,7 +118,7 @@ const BottomBar: React.FC = () => {
       </Sheet>
             
       <Link href={"/"}><IoBagOutline size={25} /></Link>
-      {/* <Link href={"/"}><CgLogIn size={25} /></Link> */}
+      {/* <Link href={"/login"}><BiLogInCircle size={25} /></Link> */}
       <Popover
               content={
                 <>

@@ -57,7 +57,7 @@ const MenuBar = () => {
             // Render skeletons while loading
             <div className="flex gap-4">
             {Array.from({ length: 9 }).map((_, index) => (
-              <Skeleton key={index} className="h-10 w-44" />
+              <Skeleton key={index} className="h-6 w-36" />
             ))}
           </div>
           ) : (
