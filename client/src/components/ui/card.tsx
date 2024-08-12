@@ -89,7 +89,7 @@ const Card: React.FC<CardProps> = ({ card, isModel }) => {
           AED{card.price}
         </span>
       </p>
-      <div className="flex gap-1 mt-2 items-center justify-center h-8">
+      <div className="flex gap-1 mt-2 items-center justify-center h-8">``
         {/* {card.reviews != 0 ? renderStars() : ''} */}
         {renderStars()}
       </div>
