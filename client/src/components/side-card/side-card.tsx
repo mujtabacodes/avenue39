@@ -45,7 +45,6 @@ const SideCard: React.FC<SideCardProps> = ({ data }) => {
 
   return (
     <div className='mt-7 flex flex-col gap-7'>
-<<<<<<< HEAD
       {loading ? (
         // Render skeletons while loading
         Array(3).fill(0).map((_, index) => (
@@ -57,27 +56,6 @@ const SideCard: React.FC<SideCardProps> = ({ data }) => {
               <Skeleton className='h-2 w-1/4' />
               <Skeleton className='h-2 w-1/4' />
               <Skeleton className='h-4 w-2/4' />
-=======
-      {data.map((item, index) => (
-        <Link href={`/product/${productId}`} key={index} className='flex gap-4 items-center'>
-          <div className='w-1/2 min-w-32'>
-            <Image src={item.image} alt={item.name} className='w-44 h-44' />
-          </div>
-          <div className='flex flex-col gap-3 w-1/2'>
-            <p className='text-[13px] font-semibold'>{item.name}</p>
-            <hr/>
-            <p className='text-[12px] font-semibold'>Dhs. {item.price.toFixed(2)}</p>
-            {item.originalPrice && (
-              <p className='text-9 font-semibold line-through text-[#A5A5A5]'>Dhs. {item.originalPrice.toFixed(2)}</p>
-            )}
-            {item.discount && (
-              <div className='bg-[#FF0000] w-10 h-5 text-[8px] rounded-3xl text-white flex justify-center items-center'>
-                {item.discount}
-              </div>
-            )}
-            <div className='flex'>
-              {renderStars({ star: item.rating })}
->>>>>>> 6b02df9a8ddb45509240b5773f8eeacbea312590
             </div>
           </div>
         ))

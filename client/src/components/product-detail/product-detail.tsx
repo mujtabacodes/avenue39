@@ -210,7 +210,7 @@ const ProductDetail = ({
           <span className="absolute left-0 w-1/5 border-t border-gray-300"></span>
           <p className="text-18 font-semibold text-center px-4">
           <span className="absolute left-0 w-1/6 border-t border-gray-300"></span>
-          <NormalText className="text-center px-3 w-4/6 whitespace-nowrap">
+          <NormalText className="text-center px-3 w-4/6 whitespace-nowrap" />
             Guaranteed Safe Checkout
           </p>
           <span className="absolute right-0 w-1/5 border-t border-gray-300"></span>

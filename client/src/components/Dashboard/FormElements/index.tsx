@@ -26,10 +26,7 @@ import {
   AddProductvalidationSchema,
   withoutVariation,
 } from '@/data/data';
-<<<<<<< HEAD
 import { AiFillCloseCircle } from 'react-icons/ai';
-=======
->>>>>>> 6b02df9a8ddb45509240b5773f8eeacbea312590
 
 const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
   EditInitialValues,

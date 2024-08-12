@@ -47,11 +47,10 @@ const MenuBar = () => {
   }, []);
 
   return (
-<<<<<<< HEAD
     <div className={`${isSticky ? 'sticky top-0 z-50' : 'relative md:pb-12'}`}>
-=======
+
     <div className={`${isSticky ? 'sticky top-0 z-50' : 'relative h-12'}`}>
->>>>>>> 6b02df9a8ddb45509240b5773f8eeacbea312590
+
       <div className={`bg-white shadow-md mb-1 pt-3 pb-2 hidden md:block z-50 ${isSticky ? '' : 'absolute w-full top-0'}`}>
         <Container className="flex flex-wrap items-center justify-between">
           {loading ? (
@@ -103,6 +102,7 @@ const MenuBar = () => {
           </Container>
         </div>
       )}
+    </div>
     </div>
   );
 };

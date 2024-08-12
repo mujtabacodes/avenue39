@@ -12,7 +12,7 @@ export interface IHome {}
 export interface INav {}
 
 export interface ITypo {
-  children: ReactNode;
+  children: any; 
   className?: string;
   onClick?: () => void;
 }
