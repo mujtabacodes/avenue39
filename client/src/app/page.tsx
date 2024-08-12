@@ -32,7 +32,7 @@ export default function Home() {
       <SimpleSlider />
       <Services />
       <section className="px-4 pb-2 my-4 overflow-x-auto discount-product-wrapper custom-scroll">
-        <DiscountCard productItems={discountProducts} />
+        <DiscountCard productItems={discountProducts} showSkeleton={true} />
       </section>
 
       <SofaBanner />
@@ -40,7 +40,7 @@ export default function Home() {
       <CardsTabes />
       <TimerSlider />
       <Container className="mt-4 flex justify-center">
-        <DiscountCard productItems={chairProducts} />
+        <DiscountCard productItems={chairProducts} showSkeleton={false} />
       </Container>
       <HotProductSlider />
         <div

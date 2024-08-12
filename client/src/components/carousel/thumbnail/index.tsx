@@ -101,7 +101,7 @@ const Thumbnail: React.FC<ThumbProps> = ({ thumbs, isZoom, swiperGap }) => {
                   className="column-swiper-slider swiper-slide"
                 >
                   <Image
-                    className="rounded-lg shadow-lg"
+                    className="rounded-lg shadow-md"
                     src={thumb.imageUrl || '/default-image.jpg'}
                     width={150}
                     height={150}
@@ -146,12 +146,12 @@ const Thumbnail: React.FC<ThumbProps> = ({ thumbs, isZoom, swiperGap }) => {
             >
               {thumbs.map((thumb, index) => (
                 <SwiperSlide key={index}>
-                  <div className={`relative w-full h-full ${isZoom ? 'cursor-zoom-in' : ''}`}>
+                  <div className={`relative w-full h-full p-1 ${isZoom ? 'cursor-zoom-in' : ''}`}>
                     <Image
                       onMouseEnter={() => handleMouseEnter(thumb.imageUrl || '')}
                       onMouseMove={handleMouseMove}
                       onMouseLeave={handleMouseLeave}
-                      className="rounded-lg shadow-lg h-full w-full border-2 border-gray-100 max-h-[650px]"
+                      className="rounded-lg shadow h-full w-full border-2 border-gray-100 max-h-[650px]"
                       src={thumb.imageUrl || '/default-image.jpg'}
                       width={550}
                       height={550}
