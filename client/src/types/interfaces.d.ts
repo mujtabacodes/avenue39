@@ -18,31 +18,36 @@ export interface USRPROPS {
   adminType?: string | undefined;
 }
 
-export interface PRODUCTCARDPROPS {
-  ImgUrl: string;
-  title: string;
-  strikThroughPrice: string;
-  price: string;
-}
-
-export interface Product {
-  name: string;
-  description: string;
-  price: string;
-  category: string;
-  colors: { colorName: string }[];
-  totalStockQuantity: number;
-  variantStockQuantities: { variant: string; quantity: number }[];
-  modelDetails: { name: string; detail: string }[];
-  spacification: { specsDetails: string }[];
-  discountPrice: string;
-  category: string;
-}
-
-export interface Category {
-  name: string;
-  description: string;
-}
+  export interface PRODUCTCARDPROPS {
+    ImgUrl: string,
+    title: string,
+    strikThroughPrice: string,
+    price: string
+    width?: any; 
+  height?: any;
+  }
+  
+  
+  
+  export interface Product {
+    name: string;
+    description: string;
+    price: string;
+    category: string;
+    colors: { colorName: string }[];
+    totalStockQuantity: number;
+    variantStockQuantities: { variant: string; quantity: number }[]; 
+    modelDetails: { name: string; detail: string }[]; 
+    spacification: { specsDetails: string }[];
+    discountPrice: string;
+    category: string
+  }
+  
+  export interface Category {
+    name: string;
+    description: string
+  
+  }
 
 interface CategoriesType {
   posterImageUrl: IMAGE_INTERFACE;

@@ -14,6 +14,8 @@ import { Dialog, DialogContent, DialogOverlay, DialogTrigger } from './dialog';
 import ProductDetail from '../product-detail/product-detail';
 import { cn } from '@/lib/utils';
 import { Skeleton } from './skeleton';
+import { PiEyeThin } from 'react-icons/pi';
+import { CiHeart } from 'react-icons/ci';
 import { generateSlug } from '@/config';
 interface CardProps {
   card: IProduct;
