@@ -235,6 +235,7 @@
   flex-direction: column !important;
   gap: 26px;
   overflow: hidden !important;
+  padding-left: 2px;
 }
 
 .text-outline-border {

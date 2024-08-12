@@ -18,9 +18,10 @@ interface CardProps {
   card: IProduct;
   isModel?: boolean;
   className?: string; 
+  skeletonHeight?: string;
 }
 
-const Card: React.FC<CardProps> = ({ card, isModel,className }) => {
+const Card: React.FC<CardProps> = ({ card, isModel,className , skeletonHeight}) => {
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch<Dispatch>();
   const cartItems = useSelector((state: State) => state.cart.items);
@@ -48,29 +49,29 @@ const Card: React.FC<CardProps> = ({ card, isModel,className }) => {
     const stars = [];
     for (let i = 1; i <= 5; i++) {
       if (i <= /*card.reviews*/ (4 || 0)) {
-        stars.push(<MdStar key={i} size={20} className="text-yellow-400" />);
+        stars.push(<MdStar key={i} size={18} className="text-yellow-400" />);
       } else {
         stars.push(
-          <MdStarBorder key={i} size={20} className="text-yellow-400" />,
+          <MdStarBorder key={i} size={18} className="text-yellow-400" />,
         );
       }
     }
     return stars;
   };
 
-  const productId = 5;
+  const productId = card.id;
 
   const handleNavigation = (e: any) => {
     Navigate.push(`/product/${productId}`);
   };
   return (
     <div
-    className="rounded-3xl text-center relative product-card  group hover:cursor-pointer mb-2"
+    className="rounded-3xl text-center relative product-card mx-4 group hover:cursor-pointer mb-2"
     onClick={(e) => handleNavigation(e)}
   >
-    <div className="relative w-full mx-auto">
+    <div className="relative w-full">
       {loading ? (
-        <Skeleton className="w-full h-[600px] rounded-3xl" />
+        <Skeleton className={`w-full rounded-3xl ${skeletonHeight}`} />
       ) : (
         <>
           {card.sale !== '0' && (
@@ -81,39 +82,39 @@ const Card: React.FC<CardProps> = ({ card, isModel,className }) => {
           <Image
             src={card.posterImageUrl}
             alt={card.name}
-            width={300}
+            width={600}
             height={600}
-            className={cn("object-cover lg:w-[528px] lg:h-[672px] rounded-3xl", className)}
+            className={cn("object-cover rounded-3xl", className , skeletonHeight)}
           />
         </>
       )}
     </div>
     {loading ? (
       <>
-        <Skeleton className="h-6 w-3/4 mx-auto mt-3" />
-        <Skeleton className="h-4 w-1/2 mx-auto mt-2" />
-        <div className="flex gap-1 items-center justify-center h-8 mt-2">
+        <Skeleton className="h-5 w-52 mx-auto mt-3" />
+        <Skeleton className="h-3 w-40 mx-auto mt-2" />
+        <div className="flex gap-1 items-center justify-center h-4 mt-2">
           {Array.from({ length: 5 }).map((_, index) => (
-            <Skeleton key={index} className="h-5 w-5 rounded-full" />
+            <Skeleton key={index} className="h-3 w-3 rounded-full" />
           ))}
         </div>
       </>
     ) : (
       <>
         <h3 className="text-lg font-semibold mt-2">{card.name}</h3>
-        <p className="text-md font-semibold">
+        <p className="text-xs font-semibold mt-1">
           AED{card.discountPrice}
           <span className="line-through text-secondary-foreground ms-2">
             AED{card.price}
           </span>
         </p>
-        <div className="flex gap-1 items-center justify-center  mt-1">
+        <div className="flex gap-1 items-center justify-center mt-1">
           {renderStars()}
         </div>
       </>
     )}
          {loading ? (
-        <div className="flex gap-3 justify-center ">
+        <div className="flex gap-3 justify-center mt-3">
           <Skeleton className="w-32 h-8 rounded-full" />
           <Skeleton className="w-32 h-8 rounded-full" />
         </div>

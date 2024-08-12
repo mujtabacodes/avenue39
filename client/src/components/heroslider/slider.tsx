@@ -47,7 +47,7 @@ const SimpleSlider: React.FC = () => {
                   >
                     {slide.buttonText}
                   </Link>
-                  <span className="flex items-center gap-2 sm:gap-4">
+                  <Link href='#testimonial-section' className="flex items-center gap-2 sm:gap-4">
                     <span className="flex relative">
                       <span className="bg-white w-12 h-12 rounded-full flex items-center justify-center">
                         <Image
@@ -79,7 +79,7 @@ const SimpleSlider: React.FC = () => {
                         <span className="font-bold">See Reviews</span>
                       </p>
                     </span>
-                  </span>
+                  </Link>
                 </span>
               </div>
             </div>
