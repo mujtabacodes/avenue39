@@ -64,3 +64,15 @@ export const calculateRatingsPercentage = (reviews: IReview[]) => {
     averageRating: parseFloat(averageRating),
   };
 };
+
+export const generateSlug = (text: string) => {
+  const formatedSlug = text
+    .toString()
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, '-')
+    .replace(/[^\w\-]+/g, '')
+    .replace(/\-\-+/g, '-');
+
+  return formatedSlug;
+};

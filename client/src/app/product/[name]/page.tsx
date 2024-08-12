@@ -23,7 +23,7 @@ import {
 import profileImg from '@icons/avator.png';
 import { useQuery } from '@tanstack/react-query';
 import { fetchProducts, fetchReviews } from '@/config/fetch';
-import { calculateRatingsPercentage, formatDate } from '@/config';
+import { calculateRatingsPercentage, formatDate, generateSlug } from '@/config';
 import WriteReview from '@/components/write-review';
 import { Button } from '@/components/ui/button';
 import TopHero from '@/components/top-hero';
@@ -31,7 +31,7 @@ import FeatureSlider from '@/components/card-slider/feature-slider';
 import { Table } from 'antd';
 
 const ProductPage = ({ params }: { params: IProductDetail }) => {
-  const slug = String(params.name);
+  const slug = params.name;
   console.log(slug);
   const {
     data: products = [],
@@ -41,7 +41,10 @@ const ProductPage = ({ params }: { params: IProductDetail }) => {
     queryKey: ['products'],
     queryFn: fetchProducts,
   });
-  const product = products.find((product) => product.name === slug);
+  const product = products.find(
+    (product) => generateSlug(product.name) === slug,
+  );
+
   console.log('Products are here');
   console.log(product);
 
