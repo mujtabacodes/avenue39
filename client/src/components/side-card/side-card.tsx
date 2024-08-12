@@ -44,7 +44,7 @@ const SideCard: React.FC<SideCardProps> = ({ data }) => {
   const productId = 5;
 
   return (
-    <div className='mt-7 flex flex-col gap-7'>
+    <div className='mt-7 flex flex-col lg:gap-7 sm:gap-12'>
       {loading ? (
         // Render skeletons while loading
         Array(3).fill(0).map((_, index) => (
