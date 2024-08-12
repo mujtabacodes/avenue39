@@ -1,4 +1,3 @@
-import { AdditionalInformation } from '@/data/products';
 import { StaticImageData } from 'next/image';
 import { FormEventHandler, ReactNode, SetStateAction } from 'react';
 import { IconType } from 'react-icons';
@@ -12,7 +11,7 @@ export interface IHome {}
 export interface INav {}
 
 export interface ITypo {
-  children: ReactNode;
+  children: any; 
   className?: string;
   onClick?: () => void;
 }
@@ -39,7 +38,7 @@ export interface TimerSliderItem {
   productName: string;
   buttonText: string;
   image: any;
-  productId:number;
+  productId: number;
   endDate: string;
 }
 export type BRAND = {
@@ -119,7 +118,7 @@ export interface IProduct {
   discountPrice: number;
   sale?: string;
 
-  posterImageUrl: string;
+  posterImageUrl: string | StaticImageData;
   posterImagePublicId: string;
   hoverImageUrl: string;
   hoverImagePublicId: string;
@@ -127,6 +126,21 @@ export interface IProduct {
   additionalInformation: AdditionalInformation[];
   categoriesId: number;
 }
+// export interface IProduct {
+//   id: number;
+//   name: string;
+//   price: number;
+//   description: string;
+//   stock: number;
+//   discountPrice: number;
+//   posterImageUrl: string;
+//   posterImagePublicId: string;
+//   hoverImageUrl: string;
+//   hoverImagePublicId: string;
+//   productImages: ProductImage[];
+//   additionalInformation: AdditionalInformation[];
+//   categoriesId: number;
+// }
 export interface ITestimonialCard {
   id: number;
   profile: StaticImageData;
@@ -215,7 +229,7 @@ export interface IProductCategories {
 }
 
 export interface IProductDetail {
-  id: number;
+  name: string;
 }
 
 export interface ITabbyList {
@@ -255,7 +269,7 @@ export type TSliderItem = {
   discountText: string;
   dealText: string;
   timer: string;
-  productId:number;
+  productId: number;
   buttonText: string;
 };
 export interface USRPROPS {
@@ -284,4 +298,17 @@ export interface IReview {
   createdAt: string;
   productId: number;
   userProfileImg?: string;
+}
+
+export type IProductWithoutId = Omit<IProduct, 'id'>;
+interface ProductImage {
+  imageUrl: string;
+  public_id: string;
+}
+
+export interface AdditionalInformation {
+  key?: string;
+  value?: string;
+  colors?: string[];
+  dimension?: string[];
 }

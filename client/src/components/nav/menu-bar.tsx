@@ -48,13 +48,16 @@ const MenuBar = () => {
 
   return (
     <div className={`${isSticky ? 'sticky top-0 z-50' : 'relative md:pb-12'}`}>
+
+    <div className={`${isSticky ? 'sticky top-0 z-50' : 'relative h-12'}`}>
+
       <div className={`bg-white shadow-md mb-1 pt-3 pb-2 hidden md:block z-50 ${isSticky ? '' : 'absolute w-full top-0'}`}>
         <Container className="flex flex-wrap items-center justify-between">
           {loading ? (
             // Render skeletons while loading
             <div className="flex gap-4">
             {Array.from({ length: 9 }).map((_, index) => (
-              <Skeleton key={index} className="h-10 w-44" />
+              <Skeleton key={index} className="h-6 w-36" />
             ))}
           </div>
           ) : (
@@ -99,6 +102,7 @@ const MenuBar = () => {
           </Container>
         </div>
       )}
+    </div>
     </div>
   );
 };

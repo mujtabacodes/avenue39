@@ -235,6 +235,7 @@
   flex-direction: column !important;
   gap: 26px;
   overflow: hidden !important;
+  padding-left: 2px;
 }
 
 .text-outline-border {
@@ -356,4 +357,15 @@
   border: 1px solid white;
   background-color: #24303f !important;
   outline: none;
+}
+.dark .ant-skeleton-header .ant-skeleton-avatar, .dark .ant-skeleton-content .ant-skeleton-title, .dark .ant-skeleton-paragraph li{
+  border: 1px solid white;
+  background-color: #24303f !important;
+}
+.dark input[type="number"]::-webkit-inner-spin-button,
+.dark input[type="number"]::-webkit-outer-spin-button {
+  /* -webkit-appearance:; */
+  background-color: #24303f !important;
+  text-align: black;
+
 }

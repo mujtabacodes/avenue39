@@ -35,8 +35,8 @@ const Navbar = (props: INav) => {
   return (
     <div className="bg-white dark:text-black">
       <Container className="flex items-center justify-between p-2 md:p-4 gap-4  dark:bg-white   ">
-        <div className="w-3/12">
-        <div><Link className='relative' href={'/'}>
+        <div className="w-3/12 min-w-32">
+          <Link className="relative" href={'/'}>
             <Image
               className="object-contain"
               width={180}
@@ -44,7 +44,7 @@ const Navbar = (props: INav) => {
               src={logo}
               alt="Logo"
             />
-          </Link></div>
+          </Link>
         </div>
         <div className="w-6/12">
           <form className="relative rounded-md hidden md:block">
@@ -55,9 +55,9 @@ const Navbar = (props: INav) => {
             />
             <Drawer>
               <DrawerTrigger asChild>
-                <div className="absolute inset-y-0 end-0 flex items-center z-20 pe-4 cursor-pointer">
-                  <IoIosSearch className="cursor-pointer text-4xl xl:text-6xl" />
-                </div>
+                <button type='submit' className="absolute inset-y-0 end-0 flex items-center z-20 pe-4 cursor-pointer">
+                  <IoSearchSharp className="cursor-pointer" size={30} />
+                </button>
               </DrawerTrigger>
               <DrawerContent>
                 <div className="max-w-screen-lg w-full mx-auto mt-10 space-y-5 p-2">
