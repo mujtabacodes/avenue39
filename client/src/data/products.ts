@@ -1,30 +1,4 @@
-interface ProductImage {
-  imageUrl: string;
-  public_id: string;
-}
-
-export interface AdditionalInformation {
-  key?: string;
-  value?: string;
-  colors?: string[];
-  dimension?: string[];
-}
-
-interface IProduct {
-  id: number;
-  name: string;
-  price: number;
-  description: string;
-  stock: number;
-  discountPrice: number;
-  posterImageUrl: string;
-  posterImagePublicId: string;
-  hoverImageUrl: string;
-  hoverImagePublicId: string;
-  productImages: ProductImage[];
-  additionalInformation: AdditionalInformation[];
-  categoriesId: number;
-}
+import { IProduct } from '@/types/types';
 
 export const products: IProduct[] = [
   {

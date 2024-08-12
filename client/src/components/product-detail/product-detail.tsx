@@ -1,8 +1,8 @@
 'use client';
 import React, { useState } from 'react';
 import Thumbnail from '../carousel/thumbnail';
-import { products } from '@/data/products';
-import { IProductDetail } from '@/types/types';
+// import { products } from '@/data/products';
+import { IProduct, IProductDetail } from '@/types/types';
 import { MdLocalFireDepartment, MdStar, MdStarBorder } from 'react-icons/md';
 import { NormalText, ProductName, ProductPrice } from '@/styles/typo';
 import { Button } from '../ui/button';
@@ -42,6 +42,9 @@ import { HiMinusSm, HiPlusSm } from 'react-icons/hi';
 import paymenticons from '@icons/payment-icons.png';
 import { openDrawer } from '@/redux/slices/drawer';
 import { CartItem } from '@/redux/slices/cart/types';
+import { useRouter } from 'next/navigation';
+import { useQuery } from '@tanstack/react-query';
+import { fetchProducts } from '@/config/fetch';
 
 const ProductDetail = ({
   params,
@@ -59,9 +62,18 @@ const ProductDetail = ({
   const cartItems = useSelector((state: State) => state.cart.items);
   const [count, setCount] = useState(1);
   const dispatch = useDispatch<Dispatch>();
-  const productId = Number(5);
-  const product = products.find((product) => product.id === productId);
-
+  const slug = String(params.name);
+  console.log(slug);
+  const {
+    data: products = [],
+    error,
+    isLoading,
+  } = useQuery<IProduct[], Error>({
+    queryKey: ['products'],
+    queryFn: fetchProducts,
+  });
+  const product = products.find((product) => product.name === slug);
+  const Navigate = useRouter();
   console.log(cartItems);
   const renderStars = () => {
     const stars = [];
@@ -90,12 +102,16 @@ const ProductDetail = ({
     quantity: count,
   };
 
-  console.log('Bhai saav or');
-  console.log(product);
   const handleAddToCard = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
     dispatch(addItem(itemToAdd));
     dispatch(openDrawer());
+  };
+
+  const handleBuyNow = (e: React.MouseEvent<HTMLElement>) => {
+    e.stopPropagation();
+    dispatch(addItem(itemToAdd));
+    Navigate.push('/checkout');
   };
   return (
     <div
@@ -188,11 +204,14 @@ const ProductDetail = ({
             <span className="font-light">PRE-ORDER ONLY</span>
           </Link>
         </div>
-        <Link href="/checkout" passHref>
-          <Button className="bg-primary text-white flex gap-3 justify-center items-center w-full h-12 rounded-2xl mb-3 font-light">
-            <IoBagOutline size={20} /> BUY IT NOW
-          </Button>
-        </Link>
+
+        <Button
+          className="bg-primary text-white flex gap-3 justify-center items-center w-full h-12 rounded-2xl mb-3 font-light"
+          onClick={(e) => handleBuyNow(e)}
+        >
+          <IoBagOutline size={20} /> BUY IT NOW
+        </Button>
+
         <div className="flex gap-2 mb-4">
           <Button
             variant={'outline'}

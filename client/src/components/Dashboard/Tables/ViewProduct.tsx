@@ -97,7 +97,7 @@ const ViewProduct: React.FC<CategoryProps> = ({
       key: 'posterImageUrl',
       render: (text: any, record: Product) => (
         <Image
-          src={record.posterImageUrl?.imageUrl}
+          src={`${record?.posterImageUrl}`}
           alt={`Image of ${record.name}`}
           width={50}
           height={50}
@@ -111,8 +111,8 @@ const ViewProduct: React.FC<CategoryProps> = ({
     },
     {
       title: 'Stock Quantity',
-      dataIndex: 'totalStockQuantity',
-      key: 'totalStockQuantity',
+      dataIndex: 'stock',
+      key: 'stock',
     },
     {
       title: 'Date',

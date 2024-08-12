@@ -20,10 +20,12 @@ const Products = () => {
       try {
         setProductloading(true);
         const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/api/products/get-all`,
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/product/get-all`,
         );
-        const Allproducts = await response.json();
-        setProducts(Allproducts.products);
+        const allProducts = await response.json();
+        console.log('Products are here');
+        console.log(allProducts);
+        setProducts(allProducts);
         setProductloading(false);
       } catch (err) {
         console.log('error Occured');
