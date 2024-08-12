@@ -29,22 +29,21 @@ export const cartbredcrumbs = [
   { label: 'Home', href: '/' },
   { label: 'checkout' }
 ];
-export const cartpagebredcrumbs = [
+export const Tersmandcondition = [
   { label: 'Home', href: '/' },
-  { label: 'Shop', href: '/products' },
-  { label: 'Chart Page' }
+  { label: 'Terms-Condition' }
 ];
 export const PrivacyPolicybredcrumbs = [
   { label: 'Home', href: '/' },
-  { label: 'PrivacyPolicy' }
+  { label: 'Privacy-Policy' }
 ];
 export const TReturnPolicybredcrumbs = [
   { label: 'Home', href: '/' },
-  { label: 'ReturnPolicy' }
+  { label: 'Return-Policy' }
 ];
 export const TShippingPolicybredcrumbs = [
   { label: 'Home', href: '/' },
-  { label: 'ReturnPolicy' }
+  { label: 'Shipping-Policy' }
 ];
 
 

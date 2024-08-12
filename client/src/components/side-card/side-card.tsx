@@ -26,18 +26,20 @@ const SideCard: React.FC<SideCardProps> = ({ data }) => {
     const maxStars = 5;
     for (let i = 1; i <= maxStars; i++) {
       if (i <= star) {
-        stars.push(<MdStar key={i} size={20} className="text-warning" />);
+        stars.push(<MdStar key={i} size={15} className="text-warning" />);
       } else {
-        stars.push(<MdStarBorder key={i} size={20} className="text-warning" />);
+        stars.push(<MdStarBorder key={i} size={15} className="text-warning" />);
       }
     }
     return stars;
   };
 
+  const productId = 5;
+
   return (
     <div className='mt-7 flex flex-col gap-7'>
       {data.map((item, index) => (
-        <Link href={item.link} key={index} className='flex gap-4 items-center'>
+        <Link href={`/product/${productId}`} key={index} className='flex gap-4 items-center'>
           <div className='w-1/2 min-w-32'>
             <Image src={item.image} alt={item.name} className='w-44 h-44' />
           </div>

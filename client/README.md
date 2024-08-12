@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 
@@ -44,3 +45,30 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+=======
+# Clone repository
+
+``` 
+https://github.com/Team2Guys/avenue39.git
+```
+
+## Move to front end 
+``` 
+cd client
+```
+
+## Install yarn
+``` 
+npm install -g yarn
+```
+## Install dependcies
+``` 
+yarn 
+```
+## Add or remove package
+``` 
+yarn add package_name
+
+yarn remove package_name
+```
+>>>>>>> a2315a36ed354f5df06eb7c12d5dd050b7a555f5

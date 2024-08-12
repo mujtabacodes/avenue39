@@ -47,7 +47,7 @@ const Navbar = (props: INav) => {
           </Link>
         </div>
         <div className="w-6/12">
-          <div className="relative rounded-md hidden md:block">
+          <form className="relative rounded-md hidden md:block">
             <input
               type="text"
               className="py-4 px-4 pe-11 border block w-full  text-sm disabled:opacity-50 "
@@ -55,9 +55,9 @@ const Navbar = (props: INav) => {
             />
             <Drawer>
               <DrawerTrigger asChild>
-                <div className="absolute inset-y-0 end-0 flex items-center z-20 pe-4 cursor-pointer">
+                <button type='submit' className="absolute inset-y-0 end-0 flex items-center z-20 pe-4 cursor-pointer">
                   <IoSearchSharp className="cursor-pointer" size={30} />
-                </div>
+                </button>
               </DrawerTrigger>
               <DrawerContent>
                 <div className="max-w-screen-lg w-full mx-auto mt-10 space-y-5 p-2">
@@ -98,7 +98,7 @@ const Navbar = (props: INav) => {
                 </div>
               </DrawerContent>
             </Drawer>
-          </div>
+          </form>
         </div>
         <div className="  gap-2 flex justify-end items-center w-3/12 space-x-8 ">
           <div className=" hidden md:flex justify-center">
