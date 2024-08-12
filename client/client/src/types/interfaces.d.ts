@@ -25,6 +25,8 @@ export interface USRPROPS {
     title: string,
     strikThroughPrice: string,
     price: string
+    width?: any; 
+  height?: any;
   }
   
   

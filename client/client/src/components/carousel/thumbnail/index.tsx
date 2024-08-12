@@ -120,48 +120,44 @@ const Thumbnail: React.FC<ThumbProps> = ({ thumbs, isZoom, swiperGap }) => {
         </div>
 
         <div className="w-4/5 md:flex-grow relative">
-          {loading ? (
-            <Skeleton className="h-[600px] w-full" />
-          ) : (
-            <Swiper
-              style={
-                {
-                  '--swiper-navigation-color': '#ffffff',
-                  '--swiper-pagination-color': '#ffffff',
-                } as React.CSSProperties
-              }
-              loop={true}
-              spaceBetween={10}
-              thumbs={{ swiper: thumbsSwiper }}
-              modules={[FreeMode, Navigation, Thumbs]}
-              className="h-full swiper-container"
-              navigation={{
-                prevEl: prevRef.current,
-                nextEl: nextRef.current,
-              }}
-              onBeforeInit={(swiper) => {
-                swiper.params.navigation.prevEl = prevRef.current;
-                swiper.params.navigation.nextEl = nextRef.current;
-              }}
-            >
-              {thumbs.map((thumb, index) => (
-                <SwiperSlide key={index}>
-                  <div className={`relative w-full h-full ${isZoom ? 'cursor-zoom-in' : ''}`}>
-                    <Image
-                      onMouseEnter={() => handleMouseEnter(thumb.imageUrl || '')}
-                      onMouseMove={handleMouseMove}
-                      onMouseLeave={handleMouseLeave}
-                      className="rounded-lg shadow-lg h-full w-full border-2 border-gray-100 max-h-[650px]"
-                      src={thumb.imageUrl || '/default-image.jpg'}
-                      width={550}
-                      height={550}
-                      alt={thumb.name || 'Main Image'}
-                    />
-                  </div>
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          )}
+          <Swiper
+            style={
+              {
+                '--swiper-navigation-color': '#ffffff',
+                '--swiper-pagination-color': '#ffffff',
+              } as React.CSSProperties
+            }
+            loop={true}
+            spaceBetween={10}
+            thumbs={{ swiper: thumbsSwiper }}
+            modules={[FreeMode, Navigation, Thumbs]}
+            className="h-full swiper-container"
+            navigation={{
+              prevEl: prevRef.current,
+              nextEl: nextRef.current,
+            }}
+            onBeforeInit={(swiper) => {
+              swiper.params.navigation.prevEl = prevRef.current;
+              swiper.params.navigation.nextEl = nextRef.current;
+            }}
+          >
+            {thumbs.map((thumb, index) => (
+              <SwiperSlide key={index}>
+                <div className={`relative w-full h-full p-1 ${isZoom ? 'cursor-zoom-in' : ''}`}>
+                  <Image
+                    onMouseEnter={() => handleMouseEnter(thumb.imageUrl || '')}
+                    onMouseMove={handleMouseMove}
+                    onMouseLeave={handleMouseLeave}
+                    className="relative rounded-lg shadow-md h-full w-full border-2 border-gray-100 max-h-[650px]"
+                    src={thumb.imageUrl || '/default-image.jpg'}
+                    width={700}
+                    height={700}
+                    alt={thumb.name || 'Main Image'}
+                  />
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
         </div>
       </div>
       {hoveredImage && isZoom && (

@@ -1,33 +1,27 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Clone repository
 
-
-Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process
-
-const handleRatingChange = (newRating:any) => {
-        console.log('New Rating:', newRating);
-      };
- <StarRating defaultValue={2} onChange={handleRatingChange} />
-
-
-
-## Getting Started
-
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+``` 
+https://github.com/Team2Guys/avenue39.git
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Move to front end 
+``` 
+cd client
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Install yarn
+``` 
+npm install -g yarn
+```
+## Install dependcies
+``` 
+yarn 
+```
+## Add or remove package
+``` 
+yarn add package_name
 
+<<<<<<< HEAD
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
 ## Learn More
@@ -48,3 +42,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
           <PiEyeThin size={17} className="cursor-pointer" />
           <CiHeart size={18} className="cursor-pointer" />
         </div> */}
+=======
+yarn remove package_name
+```
+>>>>>>> 7656a0a0badf0b2453fefe4a7e343238b764c46a
