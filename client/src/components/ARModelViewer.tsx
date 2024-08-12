@@ -1,4 +1,5 @@
-"use client"
+"use client";
+
 import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import { ARButton } from 'three/examples/jsm/webxr/ARButton.js';
@@ -12,7 +13,6 @@ const ARExperience: React.FC = () => {
 
   useEffect(() => {
     if (containerRef.current) {
-      // Setup scene, camera, and renderer
       const scene = new THREE.Scene();
       sceneRef.current = scene;
 
@@ -25,7 +25,6 @@ const ARExperience: React.FC = () => {
       containerRef.current.appendChild(renderer.domElement);
       rendererRef.current = renderer;
 
-      // Add ARButton to enable AR mode
       document.body.appendChild(ARButton.createButton(renderer));
 
       // Load 3D model
@@ -33,6 +32,14 @@ const ARExperience: React.FC = () => {
       loader.load('/models/example.glb', (gltf) => {
         scene.add(gltf.scene);
       });
+
+      const textureLoader = new THREE.TextureLoader();
+      const texture = textureLoader.load('/images/dummy-avatar.jpg');
+      const geometry = new THREE.PlaneGeometry(2, 2); 
+      const material = new THREE.MeshBasicMaterial({ map: texture });
+      const plane = new THREE.Mesh(geometry, material);
+      plane.position.set(0, 0, -3); 
+      scene.add(plane);
 
       const onWindowResize = () => {
         if (cameraRef.current && rendererRef.current) {
@@ -54,11 +61,12 @@ const ARExperience: React.FC = () => {
 
       animate();
 
-    //   return () => {
-    //     window.removeEventListener('resize', onWindowResize);
-    //     containerRef.current?.removeChild(renderer.domElement);
-    //     document.body.removeChild(ARButton.createButton(renderer));
-    //   };
+      // Cleanup
+      return () => {
+        window.removeEventListener('resize', onWindowResize);
+        containerRef.current?.removeChild(renderer.domElement);
+        document.body.removeChild(ARButton.createButton(renderer));
+      };
     }
   }, []);
 
