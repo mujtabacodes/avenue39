@@ -38,7 +38,7 @@ const SelectGroupTwo: React.FC<PROPS> = ({
           name={name}
           value={value}
           onChange={changeHandler}
-          className={`relative z-20 w-full appearance-none rounded border border-stroke bg-transparent px-12 py-3 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input text-black dark:text-white ${
+          className={`relative z-20 w-full appearance-none rounded border border-stroke bg-transparent px-12 py-3 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:border-strokedark dark:bg-boxdark dark:border-strokedark dark:bg-boxdark dark:bg-black dark:text-white dark:bg-boxdark dark:border-white  ${
             isOptionSelected ? 'text-black dark:text-white' : ''
           }`}
         >

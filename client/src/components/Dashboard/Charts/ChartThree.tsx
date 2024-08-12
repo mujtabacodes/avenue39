@@ -79,7 +79,7 @@ const ChartThree: React.FC = () => {
               id=""
               className="relative z-20 inline-flex appearance-none bg-transparent py-1 pl-3 pr-8 text-sm font-medium outline-none text-primary dark:text-white"
             >
-              <option value="" className="dark:bg-boxdark dark:text-white ">
+              <option value="" className="dark:bg-boxdark text-primary ">
                 Monthly
               </option>
               <option value="" className="dark:bg-boxdark text-primary">

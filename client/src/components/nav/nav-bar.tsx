@@ -55,9 +55,9 @@ const Navbar = (props: INav) => {
             />
             <Drawer>
               <DrawerTrigger asChild>
-                <div className="absolute inset-y-0 end-0 flex items-center z-20 pe-4 cursor-pointer">
-                  <IoIosSearch className="cursor-pointer text-4xl xl:text-6xl" />
-                </div>
+                <button type='submit' className="absolute inset-y-0 end-0 flex items-center z-20 pe-4 cursor-pointer">
+                  <IoSearchSharp className="cursor-pointer" size={30} />
+                </button>
               </DrawerTrigger>
               <DrawerContent>
                 <div className="max-w-screen-lg w-full mx-auto mt-10 space-y-5 p-2">

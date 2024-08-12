@@ -166,7 +166,7 @@ const ChartOne: React.FC = () => {
     } catch (err) {
       console.error("Error fetching monthly record:", err);
     } finally {
-      setLoading(false); // Set loading to false after data is fetched
+      setLoading(false); 
     }
   };
 

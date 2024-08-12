@@ -47,7 +47,7 @@ const DetailTabs: FC<DetailTabsProps> = ({ tabs }) => {
         <Container className="flex flex-col sm:flex-row gap-2 xl:gap-10">
           <div className="w-full sm:w-2/3 lg:w-3/4 px-4">
             {tabs[activeTab].content}
-            <div className="w-full relative mt-4">
+            <div className="w-full relative lg:mt-4">
               <h1 className="text-2xl py-3 text-left font-semibold absolute -top-3">Best Seller</h1>
               <BestSellingSlider />
             </div>
