@@ -222,12 +222,12 @@ const ProductPage = ({
             </div>
           </div>
           <div
-            className={`grid gap-4 md:gap-8 mt-4 ${layout === 'grid' ? 'grid-cols-1 xs:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1'}`}
+            className={`grid gap-4 md:gap-8 mt-4 ${layout === 'grid' ? 'grid-cols-1 sm:grid-cols-2 xl:grid-cols-3' : 'grid-cols-1'}`}
           >
             {filteredCards.map((card) => (
               <div key={card.id}>
                 {layout === 'grid' ? (
-                  <Card className='lg:w-[384.24px] lg:h-[488.73px]' card={card} />
+                  <Card className='lg:w-[384.24px]' skeletonHeight='h-[380px] xs:h-[488px] sm:h-[380px] 2xl:h-[488px]' card={card} />
                 ) : (
                   <LandscapeCard card={card} />
                 )}
@@ -236,7 +236,7 @@ const ProductPage = ({
           </div>
         </div>
       </Container>
-      <div className="my-14 px-8 sm:px-4 md:px-0 relative">
+      <div className="my-14 px-2 sm:px-4 md:px-0 relative">
         <div className="bg-lightbackground absolute top-0 right-0 w-1/2 h-full -z-[1] rounded-s-xl hidden md:block"></div>
         <Container>
           <TopSelling />

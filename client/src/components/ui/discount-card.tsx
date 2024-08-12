@@ -6,28 +6,28 @@ import { Skeleton } from "./skeleton";
 
 interface DiscountCardProps {
   productItems: Array<{ id: number; imageUrl: string | StaticImageData; title: string }>;
+  showSkeleton?: boolean
 }
 
-const DiscountCard: React.FC<DiscountCardProps> = ({ productItems }) => {
+const DiscountCard: React.FC<DiscountCardProps> = ({ productItems , showSkeleton}) => {
   const [loading, setLoading] = useState(true);
-  const skeletonCount = 5; // Adjust based on your design
+  const skeletonCount = 5;
 
   useEffect(() => {
-    // Simulate loading state
     const timer = setTimeout(() => {
       setLoading(false);
     }, 3000); 
 
-    return () => clearTimeout(timer); // Cleanup timer on component unmount
+    return () => clearTimeout(timer); 
   }, []);
 
   return (
     <div className="flex gap-6 w-max mb-2">
-       {loading ? (
+       {loading && showSkeleton ? (
         Array.from({ length: skeletonCount }).map((_, index) => (
           <div className="flex flex-col " key={index}>
-            <Skeleton className="w-80 h-80 rounded-md" /> {/* Adjust size */}
-            <Skeleton className="mt-2 w-44 h-6 rounded-md" /> {/* Adjust size */}
+            <Skeleton className="w-[365px] h-[375px] rounded-md" /> 
+            <Skeleton className="mt-2 w-44 h-6 rounded-md" />
           </div>
         ))
       ) : (

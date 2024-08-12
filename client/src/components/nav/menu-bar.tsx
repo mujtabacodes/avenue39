@@ -49,10 +49,10 @@ const MenuBar = ({menuData,error,loading}:any) => {
           {loading ? (
             // Render skeletons while loading
             <div className="flex gap-4">
-              {Array.from({ length: 9 }).map((_, index) => (
-                <Skeleton key={index} className="h-10 w-44" />
-              ))}
-            </div>
+            {Array.from({ length: 9 }).map((_, index) => (
+              <Skeleton key={index} className="h-6 w-36" />
+            ))}
+          </div>
           ) : (
             // Render menu items after loading
             menuData.map((menu: any) => (

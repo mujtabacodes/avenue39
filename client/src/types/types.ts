@@ -119,7 +119,7 @@ export interface IProduct {
   discountPrice: number;
   sale?: string;
 
-  posterImageUrl: string;
+  posterImageUrl: string | StaticImageData;
   posterImagePublicId: string;
   hoverImageUrl: string;
   hoverImagePublicId: string;
