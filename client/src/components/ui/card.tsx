@@ -14,6 +14,8 @@ import { Dialog, DialogContent, DialogOverlay, DialogTrigger } from './dialog';
 import ProductDetail from '../product-detail/product-detail';
 import { cn } from "@/lib/utils"
 import { Skeleton } from './skeleton';
+import { PiEyeThin } from 'react-icons/pi';
+import { CiHeart } from 'react-icons/ci';
 interface CardProps {
   card: IProduct;
   isModel?: boolean;
@@ -65,59 +67,40 @@ const Card: React.FC<CardProps> = ({ card, isModel,className }) => {
   };
   return (
     <div
-    className="rounded-3xl text-center relative product-card  group hover:cursor-pointer mb-2"
-    onClick={(e) => handleNavigation(e)}
-  >
-    <div className="relative w-full mx-auto">
-      {loading ? (
-        <Skeleton className="w-full h-[600px] rounded-3xl" />
-      ) : (
-        <>
-          {card.sale !== '0' && (
-            <span className="absolute top-4 left-4 text-white text-15 font-light bg-red-500 rounded-full w-[76px] h-9 flex justify-center items-center">
-              - {card.sale}%
-            </span>
-          )}
-          <Image
-            src={card.posterImageUrl}
-            alt={card.name}
-            width={300}
-            height={600}
-            className={cn("object-cover lg:w-[528px] lg:h-[672px] rounded-3xl", className)}
-          />
-        </>
-      )}
-    </div>
-    {loading ? (
-      <>
-        <Skeleton className="h-6 w-3/4 mx-auto mt-3" />
-        <Skeleton className="h-4 w-1/2 mx-auto mt-2" />
-        <div className="flex gap-1 items-center justify-center h-8 mt-2">
-          {Array.from({ length: 5 }).map((_, index) => (
-            <Skeleton key={index} className="h-5 w-5 rounded-full" />
-          ))}
+      className="rounded-3xl text-center relative product-card mx-3 group hover:shadow-md hover:cursor-pointer hover:bg-white mb-2"
+      onClick={(e) => handleNavigation(e)}
+    >
+      <div className="relative w-full mx-auto">
+        <div className="bg-white rounded-full absolute top-4 right-6 flex flex-col gap-2 py-2 px-1 product-hover-icons z-[1] opacity-0 group-hover:opacity-100 transition-opacity">
+          <PiEyeThin size={17} className="cursor-pointer" />
+          <CiHeart size={18} className="cursor-pointer" />
         </div>
-      </>
-    ) : (
-      <>
-        <h3 className="text-lg font-semibold mt-2">{card.name}</h3>
-        <p className="text-md font-semibold">
-          AED{card.discountPrice}
-          <span className="line-through text-secondary-foreground ms-2">
-            AED{card.price}
+        {card.sale !== '0' && (
+          <span className="absolute top-4 left-4 text-white text-xs font-light bg-red-500 rounded-full w-14 h-6 flex justify-center items-center">
+            {card.sale}%
           </span>
-        </p>
-        <div className="flex gap-1 items-center justify-center  mt-1">
-          {renderStars()}
-        </div>
-      </>
-    )}
-         {loading ? (
-        <div className="flex gap-3 justify-center ">
-          <Skeleton className="w-32 h-8 rounded-full" />
-          <Skeleton className="w-32 h-8 rounded-full" />
-        </div>
-      ) : isModel ? null : (
+        )}
+        <Image
+          src={card.posterImageUrl}
+          alt={card.name}
+          width={300}
+          height={600}
+          className="object-cover lg:w-[528px] lg:h-[672px] rounded-3xl "
+        />
+      </div>
+      <h3 className="text-lg font-semibold mt-2">{card.name}</h3>
+      <p className="text-md font-semibold mt-1">
+        AED{card.discountPrice}
+        <span className="line-through text-secondary-foreground ms-2">
+          AED{card.price}
+        </span>
+      </p>
+      <div className="flex gap-1 mt-2 items-center justify-center h-8">``
+        {/* {card.reviews != 0 ? renderStars() : ''} */}
+        {renderStars()}
+      </div>
+
+      {isModel ? null : (
         <div
           className="text-center flex flex-none justify-center gap-3 "
           onClick={(e) => handleEventProbation(e)}

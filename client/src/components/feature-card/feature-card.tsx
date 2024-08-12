@@ -55,17 +55,29 @@ const FeatureCard: React.FC<CardProps> = ({ card, isModel }) => {
       if (i <= /*card.reviews*/ (4 || 0)) {
         stars.push(<MdStar key={i} size={20} className="text-warning" />);
       } else {
+<<<<<<< HEAD
         stars.push(<MdStarBorder key={i} size={20} className="text-warning" />);
+=======
+        stars.push(
+          <MdStarBorder key={i} size={20} className="text-warning" />,
+        );
+>>>>>>> 6b02df9a8ddb45509240b5773f8eeacbea312590
       }
     }
     return stars;
   };
 
+<<<<<<< HEAD
+=======
+  const productId = card.id;
+
+>>>>>>> 6b02df9a8ddb45509240b5773f8eeacbea312590
   const handleNavigation = (e: any) => {
     Navigate.push(`/product/${card.id}`); // assuming card has an id
   };
 
   return (
+<<<<<<< HEAD
     <div className="space-y-3 px-4 relative ">
       {loading ? (
         // Skeleton Loader
@@ -125,6 +137,42 @@ const FeatureCard: React.FC<CardProps> = ({ card, isModel }) => {
               Dhs.<span>{card.price}</span>.00
             </p>
           </div>
+=======
+    <div className="space-y-3 px-4 relative cursor-pointer" onClick={(e) => handleNavigation(e)}>
+      <div className="relative group ">
+      {isModel ? null : (  
+        <div onClick={(e: React.MouseEvent<HTMLElement>) => handleEventProbation(e)}>  
+          <Dialog>
+           <DialogTrigger>
+              <div className="bg-white h-auto py-3 z-20 absolute top-8 right-2 w-10 rounded-3xl  flex justify-center items-center cursor-pointer opacity-0 group-hover:opacity-100 duration-300 transition-all">
+                <IoEyeOutline size={25} />
+              </div>
+            </DialogTrigger>
+            <DialogOverlay />
+            <DialogContent className="max-w-[1400px] w-11/12 bg-white px-0 sm:rounded-3xl border border-black shadow-none gap-0 pb-0">
+              <div className="pb-6 px-5 xs:px-10 me-4 xs:me-7 mt-6 max-h-[80vh] overflow-y-auto custom-scroll">
+                <ProductDetail params={card} isZoom={false} gap='gap-10 md:gap-20' swiperGap='gap-5' detailsWidth='w-full md:w-1/2 lg:w-2/5' />
+              </div>
+            </DialogContent>
+        </Dialog>
+        </div>
+            
+       )}
+        <div className="bg-[#FF0000] h-auto py-2 px-4 rounded-3xl absolute top-8 left-2 flex justify-center items-center cursor-pointer">
+          <p className="text-15 text-white">
+            {card.sale}
+            <span>%</span>
+          </p>
+        </div>
+        <div className='w-fit mx-auto'>
+          <Image
+            width={400}
+            height={400}
+            src={card.posterImageUrl}
+            alt={card.name}
+            className="z-10"
+          />
+>>>>>>> 6b02df9a8ddb45509240b5773f8eeacbea312590
         </div>
       )}
     </div>
