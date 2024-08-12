@@ -114,13 +114,34 @@ const ProductPage = ({
   };
 
   const filteredCards = products;
-
+          // const filteredCards1 = products
+  //   .filter((card) => {
+  //     const inCategory =
+  //       selectedCategories.length > 0
+  //         ? selectedCategories.includes(card.productType || '')
+  //         : true;
+  //     const inPriceRange =
+  //       card.price >= priceRange[0] && card.price <= priceRange[1];
+  //     return inCategory && inPriceRange;
+  //   })
+  //   .sort((a, b) => {
+  //     if (sortOption === 'name') {
+  //       return a.name.localeCompare(b.name);
+  //     } else if (sortOption === 'max') {
+  //       return b.price - a.price;
+  //     } else if (sortOption === 'min') {
+  //       return a.price - b.price;
+  //     } else if (sortOption === 'review') {
+  //       return b.reviews - a.reviews;
+  //     }
+  //     return 0;
+  //   });
 
   return (
     <>
       <TopHero breadcrumbs={productsbredcrumbs} />
       <Container className="my-5 flex flex-col md:flex-row gap-4 md:gap-8">
-        <div className="w-full md:w-2/6 lg:w-3/12 hidden md:block">
+        <div className="w-full md:w-2/6 lg:w-[392px] hidden md:block">
           <SidebarFilter
             onCategoryChange={handleCategoryChange}
             onPriceChange={handlePriceChange}

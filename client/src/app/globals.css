@@ -36,6 +36,10 @@
     --light-dark: #666666;
   }
 }
+html {
+  scroll-behavior: smooth;
+}
+
 .triangle-shape {
   position: absolute;
   bottom: -20px; /* Adjust this value to fine-tune the positioning */

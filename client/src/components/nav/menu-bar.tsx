@@ -1,3 +1,4 @@
+//@ts-nocheck
 import React, { useState, useEffect } from 'react';
 import Container from '../ui/Container';
 import { MdOutlineKeyboardArrowDown } from 'react-icons/md';
@@ -6,34 +7,10 @@ import MenuLink from '../menu-link';
 import megamenu from '@icons/megamenu.png';
 import { Skeleton } from '@/components/ui/skeleton'; // Import Skeleton
 
-const MenuBar = () => {
+const MenuBar = ({menuData,error,loading}:any) => {
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const [isSticky, setIsSticky] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(true); // Add loading state
-  const [menuData, setMenuData] = useState<any[]>([]); // State for fetched data
-  const [error, setError] = useState<string | null>(null); // State for error handling
 
-  useEffect(() => {
-    // Fetch menu data from API
-    const fetchMenuData = async () => {
-      try {
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/api/category/get-all`,
-        );
-        if (!response.ok) {
-          throw new Error('Failed to fetch data');
-        }
-        const data = await response.json();
-        setMenuData(data); // Set fetched data
-        setLoading(false); // Set loading to false when data is ready
-      } catch (error:any) {
-        setError(error.message); // Set error message
-        setLoading(false); // Set loading to false in case of error
-      }
-    };
-
-    fetchMenuData();
-  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
