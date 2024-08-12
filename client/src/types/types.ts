@@ -118,7 +118,7 @@ export interface IProduct {
   discountPrice: number;
   sale?: string;
 
-  posterImageUrl: string;
+  posterImageUrl: string | StaticImageData;
   posterImagePublicId: string;
   hoverImageUrl: string;
   hoverImagePublicId: string;
@@ -126,6 +126,21 @@ export interface IProduct {
   additionalInformation: AdditionalInformation[];
   categoriesId: number;
 }
+// export interface IProduct {
+//   id: number;
+//   name: string;
+//   price: number;
+//   description: string;
+//   stock: number;
+//   discountPrice: number;
+//   posterImageUrl: string;
+//   posterImagePublicId: string;
+//   hoverImageUrl: string;
+//   hoverImagePublicId: string;
+//   productImages: ProductImage[];
+//   additionalInformation: AdditionalInformation[];
+//   categoriesId: number;
+// }
 export interface ITestimonialCard {
   id: number;
   profile: StaticImageData;
@@ -283,22 +298,6 @@ export interface IReview {
   createdAt: string;
   productId: number;
   userProfileImg?: string;
-}
-
-export interface IProduct {
-  id: number;
-  name: string;
-  price: number;
-  description: string;
-  stock: number;
-  discountPrice: number;
-  posterImageUrl: string;
-  posterImagePublicId: string;
-  hoverImageUrl: string;
-  hoverImagePublicId: string;
-  productImages: ProductImage[];
-  additionalInformation: AdditionalInformation[];
-  categoriesId: number;
 }
 
 export type IProductWithoutId = Omit<IProduct, 'id'>;

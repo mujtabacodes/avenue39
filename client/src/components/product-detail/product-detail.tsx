@@ -178,10 +178,10 @@ const ProductDetail = ({
           ))}
         </span>
 
-        <NormalText className="mb-4">
+        <NormalText className="mb-2">
           Hurry Up! Only <span className="text-red-600">12</span> left in stock:
         </NormalText>
-        <div className="flex items-center gap-4 justify-between">
+        <div className="flex items-center gap-4 justify-between mb-2">
           <div className="flex items-center border border-gray-300  rounded py-1 md:p-2 md:py-3">
             <button
               onClick={onDecrement}
@@ -197,11 +197,11 @@ const ProductDetail = ({
           </div>
 
           <Link
-            href="https://wa.me/1XXXXXXXXXX"
+            href="https://wa.me/971505974495"
             className="w-fit ps-5 pe-10 h-12 text-white bg-[#64B161] rounded-full flex justify-center items-center gap-2 hover:bg-[#56B400]"
           >
             <BsWhatsapp size={35} />
-            <span className="font-light">PRE-ORDER ONLY</span>
+            <span className="font-light text-sm">PRE-ORDER ONLY</span>
           </Link>
         </div>
 
@@ -226,11 +226,11 @@ const ProductDetail = ({
         </div>
 
         <div className="flex items-center justify-center relative mb-2">
-          <span className="absolute left-0 w-1/4 border-t border-gray-300"></span>
-          <NormalText className="text-center px-4">
+          <span className="absolute left-0 w-1/6 border-t border-gray-300"></span>
+          <p className="text-center px-3 w-4/6 whitespace-nowrap font-semibold text-sm xs:text-base lg:text-xs xl:text-base">
             Guaranteed Safe Checkout
-          </NormalText>
-          <span className="absolute right-0 w-1/4 border-t border-gray-300"></span>
+          </p>
+          <span className="absolute right-0 w-1/6 border-t border-gray-300"></span>
         </div>
 
         <div className="flex gap-2 mb-4">

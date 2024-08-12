@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import { products } from '@/data/products';
 import Image from 'next/image';
 import { MdStar, MdStarBorder } from 'react-icons/md';
-
 import DetailTabs from '@/components/detail-tabs/detail-tabs';
 import { features } from '@/data';
 import Container from '@/components/ui/Container';
@@ -21,7 +20,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-
 import profileImg from '@icons/avator.png';
 import { useQuery } from '@tanstack/react-query';
 import { fetchProducts, fetchReviews } from '@/config/fetch';
@@ -29,7 +27,6 @@ import { calculateRatingsPercentage, formatDate } from '@/config';
 import WriteReview from '@/components/write-review';
 import { Button } from '@/components/ui/button';
 import TopHero from '@/components/top-hero';
-import { cartpagebredcrumbs } from '@/data/data';
 import FeatureSlider from '@/components/card-slider/feature-slider';
 import { Table } from 'antd';
 
@@ -133,8 +130,8 @@ const ProductPage = ({ params }: { params: IProductDetail }) => {
             </p>
           </div>
           <div className="w-full md:w-2/5 border-t-2 md:border-t-0 border-s-0 md:border-s-2 py-4 md:pb-10">
-            <h5 className="ps-12 font-bold text-15">DIMENSIONS</h5>
-            <ul className="list-disc text-slate-400 text-14 ps-16 mt-4">
+            <h5 className="px-0 md:ps-12 font-bold text-15">DIMENSIONS</h5>
+            <ul className="list-disc text-slate-400 text-14 px-4 md:ps-16 mt-4">
               <li>coffee table-0.800*0.800*0.320</li>
               <li>side table-0.600*0.600*0.517</li>
             </ul>
@@ -173,7 +170,7 @@ const ProductPage = ({ params }: { params: IProductDetail }) => {
           </div>
           <div className="w-full px-8 h-20 bg-lightbackground flex items-center justify-between">
             <span className="text-lightdark">
-              1 - 2 of {filteredReviews.length} Reviews
+              {filteredReviews.length} Reviews
             </span>
             <div className="w-fit">
               <Select onValueChange={(value) => setSortOption(value)}>
@@ -260,9 +257,15 @@ const ProductPage = ({ params }: { params: IProductDetail }) => {
     },
   ];
 
+  const cartpageBreadcrumbs = [
+    { label: 'Home', href: '/' },
+    { label: 'Product', href: '/products' },
+    { label: product?.name ?? 'Product Page' },
+  ];
+
   return (
     <div>
-      <TopHero breadcrumbs={cartpagebredcrumbs} />
+      <TopHero breadcrumbs={cartpageBreadcrumbs} />
       <Container>
         <ProductDetail
           params={product}
