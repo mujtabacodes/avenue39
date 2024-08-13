@@ -11,7 +11,7 @@ import { LoginDto } from '../users/dto/user.dto';
 import { hashPassword, verifyPassword } from '../utils/func';
 import * as jwt from 'jsonwebtoken';
 import { customHttpException } from '../utils/helper';
-import { createAdminDto, editAdminDto } from './dto/admin.dto';
+import { AdminLoginDto, createAdminDto, editAdminDto } from './dto/admin.dto';
 import * as cookieParser from 'cookie-parser';
 @Injectable()
 export class AdminService {
@@ -33,13 +33,18 @@ export class AdminService {
       throw new HttpException(error.message, HttpStatus.NOT_FOUND);
     }
   }
-  async adminLogin(loginData: LoginDto, res) {
+  async adminLogin(loginData: AdminLoginDto, res) {
     const { email, password } = loginData;
     try {
       const existingUser = await this.prisma.admins.findFirst({
         where: { email },
       });
-
+      if (existingUser.role !== 'Admin') {
+        return {
+          message: 'Admin credentials is incorrect😴',
+          status: HttpStatus.FORBIDDEN,
+        };
+      }
       if (existingUser) {
         const isPasswordValid = await verifyPassword(
           password,
@@ -63,7 +68,7 @@ export class AdminService {
         return {
           message: 'Login successfull 🎉',
           user: userWithoutPassword,
-          //   token,
+          // token,
         };
       } else {
         return {
@@ -75,7 +80,7 @@ export class AdminService {
       throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
-  async superAdminLogin(loginData: LoginDto, res) {
+  async superAdminLogin(loginData: AdminLoginDto, res) {
     const { email, password } = loginData;
     try {
       const existingUser = await this.prisma.admins.findFirst({
@@ -83,7 +88,7 @@ export class AdminService {
       });
       if (existingUser.role !== 'Super-Admin') {
         return {
-          message: 'Check again super admin credentials😴',
+          message: 'Super Admin credentials is correct😴',
           status: HttpStatus.FORBIDDEN,
         };
       }
@@ -154,34 +159,40 @@ export class AdminService {
       customHttpException(error.message, 'BAD_REQUEST');
     }
   }
-  async editAdmin(signupUserDto: editAdminDto) {
+  async editAdmin(updateUserDto: editAdminDto) {
     try {
-      const { email, password } = signupUserDto;
+      const { id, password } = updateUserDto;
       const existingUser = await this.prisma.admins.findFirst({
-        where: { email },
+        where: { id },
       });
-      const hashedPassword = await hashPassword(password, this.configService);
+      const hashedPassword = password
+        ? await hashPassword(password, this.configService)
+        : existingUser.password;
+
       if (!existingUser) {
-        const user = await this.prisma.admins.create({
+        return {
+          message: 'Admin does not exist with this ID',
+          status: HttpStatus.BAD_REQUEST,
+        };
+      } else {
+        const updatedUser = await this.prisma.admins.update({
+          where: { id },
           data: {
-            ...signupUserDto,
+            ...updateUserDto,
             password: hashedPassword,
           },
         });
-        const { password, ...userWithoutPassword } = user;
+
+        const { password, ...userWithoutPassword } = updatedUser;
+
         return {
-          message: 'Congrats🎉 Account created successfully',
+          message: 'Admin details updated successfully',
           user: userWithoutPassword,
           status: HttpStatus.OK,
         };
-      } else {
-        return {
-          message: 'Already user exists',
-          status: HttpStatus.CONFLICT,
-        };
       }
     } catch (error) {
-      customHttpException(error.message, 'BAD_REQUEST');
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }
   }
 
@@ -210,6 +221,71 @@ export class AdminService {
       }
     } catch (error) {
       customHttpException(error.message, 'BAD_REQUEST');
+    }
+  }
+
+  async adminHandler(authToken: string) {
+    try {
+      if (!authToken) {
+        throw new HttpException('No token provided', HttpStatus.UNAUTHORIZED);
+      }
+
+      const token = authToken.startsWith('Bearer ')
+        ? authToken.substring(7)
+        : authToken;
+      console.log(authToken);
+      console.log(token);
+      const decoded = jwt.verify(token, process.env.TOKEN_SECRET) as {
+        email: string;
+      };
+      const email = decoded.email;
+
+      if (!email) {
+        throw new HttpException('Invalid token', HttpStatus.UNAUTHORIZED);
+      }
+
+      const existingUser = await this.prisma.admins.findFirst({
+        where: { email },
+      });
+      const { password: _, ...userWithoutPassword } = existingUser;
+      return {
+        message: 'Admin details are here 🎉',
+        user: userWithoutPassword,
+      };
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.UNAUTHORIZED);
+    }
+  }
+  async superAdminHandler(authToken: string) {
+    try {
+      if (!authToken) {
+        throw new HttpException('No token provided', HttpStatus.UNAUTHORIZED);
+      }
+
+      const token = authToken.startsWith('Bearer ')
+        ? authToken.substring(7)
+        : authToken;
+      console.log(authToken);
+      console.log(token);
+      const decoded = jwt.verify(token, process.env.TOKEN_SECRET) as {
+        email: string;
+      };
+      const email = decoded.email;
+
+      if (!email) {
+        throw new HttpException('Invalid token', HttpStatus.UNAUTHORIZED);
+      }
+
+      const existingUser = await this.prisma.admins.findFirst({
+        where: { email },
+      });
+      const { password: _, ...userWithoutPassword } = existingUser;
+      return {
+        message: 'Super Admin details are here 🎉',
+        user: userWithoutPassword,
+      };
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.UNAUTHORIZED);
     }
   }
 }

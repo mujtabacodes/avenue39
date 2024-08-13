@@ -82,3 +82,9 @@ export class editAdminDto extends createAdminDto {
   @IsNumber()
   id: number;
 }
+
+export class adminHandlerDto {
+  @IsNotEmpty()
+  @IsNumber()
+  email: string;
+}

@@ -23,12 +23,18 @@ import {
 import profileImg from '@icons/avator.png';
 import { useQuery } from '@tanstack/react-query';
 import { fetchProducts, fetchReviews } from '@/config/fetch';
-import { calculateRatingsPercentage, formatDate, generateSlug } from '@/config';
+import {
+  calculateRatingsPercentage,
+  formatDate,
+  generateSlug,
+  renderStars,
+} from '@/config';
 import WriteReview from '@/components/write-review';
 import { Button } from '@/components/ui/button';
 import TopHero from '@/components/top-hero';
 import FeatureSlider from '@/components/card-slider/feature-slider';
 import { Table } from 'antd';
+import Loader from '@/components/Loader/Loader';
 
 const ProductPage = ({ params }: { params: IProductDetail }) => {
   const slug = params.name;
@@ -84,21 +90,8 @@ const ProductPage = ({ params }: { params: IProductDetail }) => {
   });
   const reviewsToDisplay = sortedReviews.slice(0, visibleCount);
 
-  const renderStars = ({ star = 0 }: { star?: number }) => {
-    const stars = [];
-    const maxStars = 5;
-    for (let i = 1; i <= maxStars; i++) {
-      if (i <= star) {
-        stars.push(<MdStar key={i} size={20} className="text-warning" />);
-      } else {
-        stars.push(<MdStarBorder key={i} size={20} className="text-warning" />);
-      }
-    }
-    return stars;
-  };
-
   if (!product) {
-    return <div>Product not found</div>;
+    return <Loader />;
   }
 
   const { productReviews, averageRating } =

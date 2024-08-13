@@ -1,4 +1,4 @@
-"use client"
+'use client';
 import React, { useRef } from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
@@ -22,9 +22,9 @@ const settings = {
   slidesToScroll: 1,
   autoplay: false,
   pauseOnHover: true,
-    responsive: [
+  responsive: [
     {
-      breakpoint: 1024, 
+      breakpoint: 1024,
       settings: {
         slidesToShow: 2,
         slidesToScroll: 1,
@@ -36,7 +36,7 @@ const settings = {
         slidesToShow: 1,
         slidesToScroll: 1,
       },
-    }
+    },
   ],
 };
 
@@ -65,32 +65,32 @@ const BestSellingSlider: React.FC = () => {
 
   return (
     <div className="slider-container">
-        <div className='text-end mb-3 px-4'>
-        <button className="button" onClick={previous} style={{ marginRight: "10px" }}>
-        <IoIosArrowBack size={30} />
+      <div className="text-end mb-3 px-4">
+        <button
+          className="button"
+          onClick={previous}
+          style={{ marginRight: '10px' }}
+        >
+          <IoIosArrowBack size={30} />
         </button>
         <button className="button" onClick={next}>
-        <IoIosArrowForward size={30} />
-
+          <IoIosArrowForward size={30} />
         </button>
       </div>
       <Slider
-        ref={slider => {
+        ref={(slider) => {
           sliderRef.current = slider;
         }}
         {...settings}
       >
-           {products.map((card) => (
-            <div key={card.id}>
-              <FeatureCard card={card} />
-            </div>
-          ))}
-         
-
+        {products.map((card) => (
+          <div key={card.id}>
+            <FeatureCard isLoading={isProductsLoading} card={card} />
+          </div>
+        ))}
       </Slider>
-  
     </div>
   );
-}
+};
 
 export default BestSellingSlider;
