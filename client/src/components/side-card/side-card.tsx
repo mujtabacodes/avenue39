@@ -5,6 +5,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { MdStar, MdStarBorder } from 'react-icons/md';
 import { Skeleton } from '@/components/ui/skeleton'; // Adjust the path as necessary
+import { generateSlug } from '@/config';
 
 interface Product {
     link: string;
@@ -41,7 +42,6 @@ const SideCard: React.FC<SideCardProps> = ({ data }) => {
     return stars;
   };
 
-  const productId = 5;
 
   return (
     <div className='mt-7 flex flex-col lg:gap-7 sm:gap-12'>
@@ -61,7 +61,7 @@ const SideCard: React.FC<SideCardProps> = ({ data }) => {
         ))
       ) : (
         data.map((item, index) => (
-          <Link href={`/product/${productId}`} key={index} className='flex gap-4 items-center'>
+          <Link href={`/product/${generateSlug(item.name)}`} key={index} className='flex gap-4 items-center'>
             <div className='w-1/2 min-w-32'>
               <Image src={item.image} alt={item.name} className='w-44 h-44' />
             </div>
