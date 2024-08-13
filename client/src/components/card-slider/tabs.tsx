@@ -34,7 +34,7 @@ const Tabs: React.FC<TabsProps> = ({ slidersData }) => {
         </div>
       </div>
       <div className="mt-4 sliderTabes">
-        <SliderComponent cards={slidersData[activeTab].cards} />
+        <SliderComponent cards={slidersData[activeTab].cards} sliderArrow={true} />
       </div>
     </div>
   );

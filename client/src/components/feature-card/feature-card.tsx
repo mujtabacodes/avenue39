@@ -20,6 +20,7 @@ import {
 } from '../ui/dialog';
 import { Skeleton } from '@/components/ui/skeleton'; // Adjust the path as necessary
 import { IProduct } from '@/types/types';
+import { generateSlug } from '@/config';
 
 interface CardProps {
   card: IProduct;
@@ -62,7 +63,7 @@ const FeatureCard: React.FC<CardProps> = ({ card, isModel }) => {
   };
 
   const handleNavigation = (e: any) => {
-    Navigate.push(`/product/${card.id}`); // assuming card has an id
+    Navigate.push(`/product/${generateSlug(card.name)}`);
   };
 
   return (
