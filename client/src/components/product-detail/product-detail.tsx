@@ -1,8 +1,8 @@
 'use client';
 import React, { useState } from 'react';
 import Thumbnail from '../carousel/thumbnail';
-import { products } from '@/data/products';
-import { IProductDetail } from '@/types/types';
+// import { products } from '@/data/products';
+import { IProduct, IProductDetail } from '@/types/types';
 import { MdLocalFireDepartment, MdStar, MdStarBorder } from 'react-icons/md';
 import { NormalText, ProductName, ProductPrice } from '@/styles/typo';
 import { Button } from '../ui/button';
@@ -42,6 +42,9 @@ import { HiMinusSm, HiPlusSm } from 'react-icons/hi';
 import paymenticons from '@icons/payment-icons.png';
 import { openDrawer } from '@/redux/slices/drawer';
 import { CartItem } from '@/redux/slices/cart/types';
+import { useRouter } from 'next/navigation';
+import { useQuery } from '@tanstack/react-query';
+import { fetchProducts } from '@/config/fetch';
 
 const ProductDetail = ({
   params,
@@ -59,9 +62,18 @@ const ProductDetail = ({
   const cartItems = useSelector((state: State) => state.cart.items);
   const [count, setCount] = useState(1);
   const dispatch = useDispatch<Dispatch>();
-  const productId = Number(5);
-  const product = products.find((product) => product.id === productId);
-
+  const slug = String(params.name);
+  console.log(slug);
+  const {
+    data: products = [],
+    error,
+    isLoading,
+  } = useQuery<IProduct[], Error>({
+    queryKey: ['products'],
+    queryFn: fetchProducts,
+  });
+  const product = products.find((product) => product.name === slug);
+  const Navigate = useRouter();
   console.log(cartItems);
   const renderStars = () => {
     const stars = [];
@@ -90,16 +102,20 @@ const ProductDetail = ({
     quantity: count,
   };
 
-  console.log('Bhai saav or');
-  console.log(product);
   const handleAddToCard = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
     dispatch(addItem(itemToAdd));
     dispatch(openDrawer());
   };
+
+  const handleBuyNow = (e: React.MouseEvent<HTMLElement>) => {
+    e.stopPropagation();
+    dispatch(addItem(itemToAdd));
+    Navigate.push('/checkout');
+  };
   return (
     <div
-      className={`flex flex-col md:flex-row w-full justify-between ${gap} my-6`}
+      className={`flex flex-col md:flex-row w-full justify-between ${gap} my-6 relative`}
     >
       <div className="flex-grow w-full md:w-1/2">
         <Thumbnail
@@ -162,14 +178,14 @@ const ProductDetail = ({
           ))}
         </span>
 
-        <NormalText className="mb-4">
+        <NormalText className="mb-2">
           Hurry Up! Only <span className="text-red-600">12</span> left in stock:
         </NormalText>
-        <div className="flex items-center gap-4 justify-between">
-          <div className="flex items-center border border-gray-300  rounded py-1 md:p-2 md:py-3">
+        <div className="flex items-center gap-4 justify-between mb-2">
+          <div className="flex items-center border border-gray-300 rounded py-1 md:p-2 md:py-3">
             <button
               onClick={onDecrement}
-              className="px-2 text-gray-600"
+              className="px-2 text-gray-600  "
               disabled={count <= 1}
             >
               <HiMinusSm size={20} />
@@ -181,18 +197,21 @@ const ProductDetail = ({
           </div>
 
           <Link
-            href="https://wa.me/1XXXXXXXXXX"
+            href="https://wa.me/971505974495"
             className="w-fit ps-5 pe-10 h-12 text-white bg-[#64B161] rounded-full flex justify-center items-center gap-2 hover:bg-[#56B400]"
           >
             <BsWhatsapp size={35} />
-            <span className="font-light">PRE-ORDER ONLY</span>
+            <span className="font-light text-sm">PRE-ORDER ONLY</span>
           </Link>
         </div>
-        <Link href="/checkout" passHref>
-          <Button className="bg-primary text-white flex gap-3 justify-center items-center w-full h-12 rounded-2xl mb-3 font-light">
-            <IoBagOutline size={20} /> BUY IT NOW
-          </Button>
-        </Link>
+
+        <Button
+          className="bg-primary text-white flex gap-3 justify-center sm:w-1/2 items-center lg:w-full h-12 rounded-2xl mb-3 font-light"
+          onClick={(e) => handleBuyNow(e)}
+        >
+          <IoBagOutline  size={20} /> BUY IT NOW
+        </Button>
+
         <div className="flex gap-2 mb-4">
           <Button
             variant={'outline'}
@@ -207,11 +226,11 @@ const ProductDetail = ({
         </div>
 
         <div className="flex items-center justify-center relative mb-2">
-          <span className="absolute left-0 w-1/4 border-t border-gray-300"></span>
-          <NormalText className="text-center px-4">
+          <span className="absolute left-0 w-1/6 border-t border-gray-300"></span>
+          <p className="text-center px-3 w-4/6 whitespace-nowrap font-semibold text-sm xs:text-base lg:text-xs xl:text-base">
             Guaranteed Safe Checkout
-          </NormalText>
-          <span className="absolute right-0 w-1/4 border-t border-gray-300"></span>
+          </p>
+          <span className="absolute right-0 w-1/6 border-t border-gray-300"></span>
         </div>
 
         <div className="flex gap-2 mb-4">

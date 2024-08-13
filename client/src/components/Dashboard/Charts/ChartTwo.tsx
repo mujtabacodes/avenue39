@@ -141,16 +141,16 @@ const ChartTwo: React.FC = () => {
   }, []);
 
   return (
-    <div className="col-span-12 rounded-sm border border-stroke bg-white p-7 shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-4">
+    <div className="col-span-12 rounded-sm border border-stroke bg-white p-7 shadow-default xl:col-span-4 dark:border-strokedark dark:bg-boxdark dark:bg-black dark:text-white dark:bg-boxdark dark:drop-shadow-none dark:border-blue-50">
       <div className="mb-4 justify-between gap-4 sm:flex">
         <div>
-          <h4 className="text-xl font-semibold text-primary dark:text-black">
+          <h4 className="text-xl font-semibold dark:text-white">
             {AdminType ? "Sales, Revenue and Profit " : "Sales And Revenue "}
           </h4>
         </div>
         <div>
           <div className="relative z-20 inline-block">
-            <p className="inline-flex appearance-none bg-transparent py-1 pl-3 pr-8 text-sm font-medium outline-none text-primary dark:text-black"> Previous Week</p>
+            <p className="inline-flex appearance-none bg-transparent py-1 pl-3 pr-8 text-sm font-medium outline-none dark:text-white"> Previous Week</p>
           </div>
         </div>
       </div>

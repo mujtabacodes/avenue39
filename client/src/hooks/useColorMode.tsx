@@ -1,25 +1,25 @@
 import { useEffect, useState } from 'react';
 
 const useColorMode = () => {
-  const [colorMode, setColorMode] = useState<'light' | 'dark'>('light');
+  const [colorMode, setColorMode] = useState<'light' | 'dark'>(() => {
+    if (typeof window !== 'undefined') {
+      const savedColorMode = localStorage.getItem('colorMode') as 'light' | 'dark' | null;
+      return savedColorMode || 'light';
+    }
+    return 'light';
+  });
 
   useEffect(() => {
-    // Read color mode from localStorage
-    const savedColorMode = localStorage.getItem('colorMode');
-    if (savedColorMode) {
-      setColorMode(savedColorMode as 'light' | 'dark');
-      document.documentElement.classList.add(savedColorMode);
-    }
-  }, []);
-
-  const setMode = (mode: 'light' | 'dark') => {
-    setColorMode(mode);
-    localStorage.setItem('colorMode', mode);
     document.documentElement.classList.remove('light', 'dark');
-    document.documentElement.classList.add(mode);
+    document.documentElement.classList.add(colorMode);
+    localStorage.setItem('colorMode', colorMode);
+  }, [colorMode]);
+
+  const toggleColorMode = () => {
+    setColorMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
   };
 
-  return [colorMode, setMode] as const;
+  return [colorMode, toggleColorMode] as const;
 };
 
 export default useColorMode;

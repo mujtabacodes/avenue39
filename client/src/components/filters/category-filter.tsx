@@ -18,7 +18,7 @@ const CategoryFilter = ({ items, onCategoryChange }: ICategoryFilter) => {
       <div>
         <form
           action=""
-          className="flex flex-col gap-5 custom-scroll overflow-y-auto max-h-64"
+          className="flex flex-col gap-5 custom-scroll overflow-y-auto max-h-[280px]"
         >
           {items.map((item) => (
             <div className="flex items-center gap-2" key={item.id}>
@@ -26,7 +26,7 @@ const CategoryFilter = ({ items, onCategoryChange }: ICategoryFilter) => {
                 type="checkbox"
                 name="filter"
                 id={`Category${item.id}`}
-                value={item.title}
+                value={item.name}
                 className="rounded-none border-1 border-black w-4 h-4"
                 onChange={handleCheckboxChange}
               />
@@ -34,7 +34,7 @@ const CategoryFilter = ({ items, onCategoryChange }: ICategoryFilter) => {
                 htmlFor={`Category${item.id}`}
                 className="text-16 uppercase"
               >
-                {item.title}
+                {item.name}
               </label>
               <span className="bg-light px-[2px] font-semibold text-[10px] tracking-tight">
                 {item.totalItems}

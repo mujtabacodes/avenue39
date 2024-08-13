@@ -47,39 +47,39 @@ const SimpleSlider: React.FC = () => {
                   >
                     {slide.buttonText}
                   </Link>
-                  <span className="flex items-center gap-2 sm:gap-4">
+                  <Link href='#testimonial-section' className="flex items-center gap-2 sm:gap-4">
                     <span className="flex relative">
-                      <span className="bg-white w-12 h-12 rounded-full flex items-center justify-center">
+                      <span className="bg-white w-[62.68px] h-[62.68px] rounded-full flex items-center justify-center">
                         <Image
                           src={profile1}
                           alt="profile"
-                          className="w-11 h-11"
+                          className="w-[55px] h-[55px]"
                         />
                       </span>
-                      <span className="bg-white w-12 h-12 rounded-full flex items-center justify-center -ms-3">
+                      <span className="bg-white w-[62.68px] h-[62.68px] rounded-full flex items-center justify-center -ms-3">
                         <Image
                           src={profile1}
                           alt="profile"
-                          className="w-11 h-11"
+                          className="w-[55px] h-[55px]"
                         />
                       </span>
-                      <span className="bg-white w-12 h-12 rounded-full flex items-center justify-center -ms-3">
+                      <span className="bg-white w-[62.68px] h-[62.68px] rounded-full flex items-center justify-center -ms-3">
                         <Image
                           src={profile1}
                           alt="profile"
-                          className="w-11 h-11"
+                          className="w-[55px] h-[55px]"
                         />
                       </span>
                     </span>
-                    <span>
+                    <span className='text-start'>
                       <p className="text-white text-xl sm:text-2xl">578M +</p>
                       <p className="text-white text-16 sm:text-21">
                         Clients Happy
                         <br />
-                        <span className="font-bold">See Reviews</span>
+                        <Link href="#testimonial-section" className="font-bold scroll-smooth">See Reviews</Link>
                       </p>
                     </span>
-                  </span>
+                  </Link>
                 </span>
               </div>
             </div>
@@ -87,8 +87,8 @@ const SimpleSlider: React.FC = () => {
         </Slider>
       </div>
 
-      <div className="w-full md:w-4/12 md:mt-1 bg-lightforeground text-center rounded-e-xl md:rounded-e-none rounded-s-xl py-4 md:pr-32 md:p-5 flex flex-col justify-center items-center mx-2 md:mx-0">
-        <p className="text-2xl font-semibold mb-5">Pay Your Way</p>
+      <div className="w-full md:w-4/12 md:mt-1 bg-lightforeground text-center rounded-e-xl md:rounded-e-none rounded-s-xl py-4 md:pr-32 md:p-5 flex flex-col lg:justify-center lg:items-start items-center mx-2 md:mx-0 px-2 lg:pl-8">
+        <p className="text-2xl font-semibold text-center mx-auto mb-5">Pay Your Way</p>
         <div className="flex justify-center gap-4 w-full">
           {saleitems.map((item) => (
             <Salecard key={item.id} cards={item} />
@@ -100,7 +100,7 @@ const SimpleSlider: React.FC = () => {
             <br />
             <span className="font-bold">SALE</span>
           </h2>
-          <h2 className="text-red-500 text-6xl md:text-7xl 2xl:text-9xl font-extrabold relative">
+          <h2 className="text-red-500 text-6xl md:text-7xl 2xl:text-[120px] font-extrabold relative">
             50%
             <span className="absolute -top-1 lg:top-0 right-2 lg:right-5 text-xs font-medium text-black">
               UPTO
@@ -109,7 +109,7 @@ const SimpleSlider: React.FC = () => {
         </div>
         <Link
           href="/products"
-          className="bg-none text-base lg:mt-3  font-semibold h-5 tracking-widest border-black border-b-2"
+          className="bg-none text-base lg:mt-3  font-semibold h-5 tracking-widest border-black border-b-2 mx-auto"
         >
           SHOP NOW
         </Link>

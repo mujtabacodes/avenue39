@@ -11,48 +11,53 @@ import CustomPrevArrow from './custom-prev-arrow';
 interface SliderProps {
   cards: IProduct[];
   isModel?: boolean;
+  cardHeight?: string;
+  sliderArrow?: boolean;
+  silderName?: string;
 }
 
-const sliderSettings = {
-  dots: false,
-  arrows: true,
-  infinite: true,
-  speed: 500,
-  slidesToShow: 4,
-  slidesToScroll: 1,
-  prevArrow: <CustomPrevArrow />,
-  nextArrow: <CustomNextArrow />,
-  responsive: [
-    {
-      breakpoint: 1024, // Tablets and small desktops
-      settings: {
-        slidesToShow: 3,
-        slidesToScroll: 1,
-      },
-    },
-    {
-      breakpoint: 768, // Tablets
-      settings: {
-        slidesToShow: 2,
-        slidesToScroll: 1,
-      },
-    },
-    {
-      breakpoint: 480, // Mobile devices
-      settings: {
-        slidesToShow: 1,
-        slidesToScroll: 1,
-      },
-    },
-  ],
-};
 
-const SliderComponent: React.FC<SliderProps> = ({ cards, isModel }) => {
+const SliderComponent: React.FC<SliderProps> = ({ cards, isModel, cardHeight , sliderArrow , silderName}) => {
+  const sliderSettings = {
+    dots: !sliderArrow ? true : false,
+    arrows: sliderArrow ? true : false,
+    className: silderName ? silderName : '',
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    prevArrow: <CustomPrevArrow />,
+    nextArrow: <CustomNextArrow />,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  };
+
   return (
     <Slider {...sliderSettings}>
       {cards.map((card) => (
         <div key={card.id}>
-          <Card card={card} isModel={isModel} />
+          <Card className='w-full' card={card} isModel={isModel} skeletonHeight={`h-[400px] md:h-[250px] lg:h-[400px] ${cardHeight ? cardHeight : 'xl:h-[672px]'}`} />
         </div>
       ))}
     </Slider>

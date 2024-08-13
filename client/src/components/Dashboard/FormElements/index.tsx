@@ -1,7 +1,7 @@
 //@ts-nocheck
-"use client";
+'use client';
 
-import React, { useState, useEffect, useLayoutEffect } from "react";
+import React, { useState, useEffect, useLayoutEffect } from 'react';
 import {
   Formik,
   FieldArray,
@@ -9,32 +9,46 @@ import {
   Form,
   ErrorMessage,
   Field,
-} from "formik";
+} from 'formik';
 
-import SelectGroupTwo from "@components/Dashboard/SelectGroup/SelectGroupTwo";
-import Imageupload from "@components/ImageUpload/Imageupload";
-import { RxCross2 } from "react-icons/rx";
-import Image from "next/image";
-import { ImageRemoveHandler } from "@/utils/helperFunctions";
-import Toaster from "@components/Toaster/Toaster";
-import axios from "axios";
-import { IoMdArrowRoundBack } from "react-icons/io";
-import Loader from "@components/Loader/Loader";
-import { ADDPRODUCTFORMPROPS, FormValues } from "@/types/interfaces";
-import { AddproductsinitialValues, AddProductvalidationSchema, withoutVariation } from "@/data/data";
+import SelectGroupTwo from '@components/Dashboard/SelectGroup/SelectGroupTwo';
+import Imageupload from '@components/ImageUpload/Imageupload';
+import { RxCross2 } from 'react-icons/rx';
+import Image from 'next/image';
+import { ImageRemoveHandler } from '@/utils/helperFunctions';
+import Toaster from '@components/Toaster/Toaster';
+import axios from 'axios';
+import { IoMdArrowRoundBack } from 'react-icons/io';
+import Loader from '@components/Loader/Loader';
+import { ADDPRODUCTFORMPROPS, FormValues } from '@/types/interfaces';
+import {
+  AddproductsinitialValues,
+  AddProductvalidationSchema,
+  withoutVariation,
+} from '@/data/data';
+import { AiFillCloseCircle } from 'react-icons/ai';
 
-const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({EditInitialValues,EditProductValue,setselecteMenu,setEditProduct,
+const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
+  EditInitialValues,
+  EditProductValue,
+  setselecteMenu,
+  setEditProduct,
 }) => {
-  const [selectedOption, setSelectedOption] = useState<string>("");
+  const [selectedOption, setSelectedOption] = useState<string>('');
   const [isOptionSelected, setIsOptionSelected] = useState<boolean>(false);
   const [imagesUrl, setImagesUrl] = useState<any[]>([]);
-  const [posterimageUrl, setposterimageUrl] = useState<any[] | null>( EditInitialValues ? [EditInitialValues.posterImageUrl] : []);
+  const [posterimageUrl, setposterimageUrl] = useState<any[] | null>(
+    EditInitialValues ? [EditInitialValues.posterImageUrl] : [],
+  );
   const [hoverImage, sethoverImage] = useState<any[] | null | undefined>();
   const [loading, setloading] = useState<boolean>(false);
-  const [productInitialValue, setProductInitialValue] = useState<any | null | undefined>(EditProductValue);
+  const [productInitialValue, setProductInitialValue] = useState<
+    any | null | undefined
+  >(EditProductValue);
   const [imgError, setError] = useState<string | null | undefined>();
   const [Categories, setCategories] = useState<any[]>();
-  const [VariationOption, setVariationOption] = useState<string>("withoutVariation");
+  const [VariationOption, setVariationOption] =
+    useState<string>('withoutVariation');
 
   const handleOptionChange = (e: any) => {
     console.log(e);
@@ -45,8 +59,8 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({EditInitialValues,EditProd
     setIsOptionSelected(true);
   };
 
-console.log("posterimageUrl", posterimageUrl)
-  
+  console.log('posterimageUrl', posterimageUrl);
+
   useLayoutEffect(() => {
     const CategoryHandler = async () => {
       try {
@@ -63,7 +77,7 @@ console.log("posterimageUrl", posterimageUrl)
         imageUrl ? setImagesUrl(imageUrl) : null;
         posterImageUrl ? setposterimageUrl([posterImageUrl]) : null;
       } catch (err) {
-        console.log(err, "err");
+        console.log(err, 'err');
       }
     };
 
@@ -71,7 +85,7 @@ console.log("posterimageUrl", posterimageUrl)
   }, []);
 
   const onSubmit = async (values: any, { resetForm }: any) => {
-    console.log(values, "values")
+    console.log(values, 'values');
 
     try {
       setError(null);
@@ -79,7 +93,7 @@ console.log("posterimageUrl", posterimageUrl)
       // let hoverImageUrl = hoverImage && hoverImage[0];
       let createdAt = Date.now();
       if (!posterImageUrl || !(imagesUrl.length > 0)) {
-        throw new Error("Please select relevant Images");
+        throw new Error('Please select relevant Images');
       }
       let newValue = {
         ...values,
@@ -95,17 +109,16 @@ console.log("posterimageUrl", posterimageUrl)
         ? `/api/updateProduct/${EditInitialValues._id} `
         : null;
       let url = `${process.env.NEXT_PUBLIC_BASE_URL}${
-        updateFlag ? addProductUrl : "/api/addProduct"
+        updateFlag ? addProductUrl : '/api/addProduct'
       }`;
 
-
       const response = await axios.post(url, newValue);
-      console.log(response, "response");
+      console.log(response, 'response');
       Toaster(
-        "success",
+        'success',
         updateFlag
-          ? "Product has been sucessufully Updated !"
-          : "Product has been sucessufully Created !"
+          ? 'Product has been sucessufully Updated !'
+          : 'Product has been sucessufully Created !',
       );
       setProductInitialValue(AddproductsinitialValues);
       resetForm();
@@ -117,12 +130,12 @@ console.log("posterimageUrl", posterimageUrl)
     } catch (err: any) {
       if (err.response && err.response.data && err.response.data.error) {
         setError(err.response.data.error);
-        console.log(err.response.data.error, "err.response.data.message");
+        console.log(err.response.data.error, 'err.response.data.message');
       } else {
         if (err instanceof Error) {
           setError(err.message);
         } else {
-          setError("An unexpected error occurred");
+          setError('An unexpected error occurred');
         }
       }
     } finally {
@@ -134,34 +147,34 @@ console.log("posterimageUrl", posterimageUrl)
     const CategoryHandler = async () => {
       try {
         const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/api/getAllcategories`
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/getAllcategories`,
         );
         const Categories = await response.json();
         setCategories(Categories);
       } catch (err) {
-        console.log(err, "err");
+        console.log(err, 'err');
       }
     };
 
     CategoryHandler();
   }, []);
 
-
   return (
     <>
       <p
-        className="text-lg font-black mb-4 flex items-center justify-center gap-2 hover:bg-gray-200 w-fit p-2 cursor-pointer text-black dark:text-white"
+        className="text-lg font-black mb-4 flex items-center justify-center gap-2 hover:bg-gray-200 w-fit p-2 cursor-pointer text-black dark:text-white "
         onClick={() => {
-          setselecteMenu("Add All Products");
+          setselecteMenu('Add All Products');
         }}
       >
-        {" "}
+        {' '}
         <IoMdArrowRoundBack /> Back
       </p>
 
       <Formik
         enableReinitialize
-        initialValues={productInitialValue ? productInitialValue : AddproductsinitialValues
+        initialValues={
+          productInitialValue ? productInitialValue : AddproductsinitialValues
         }
         validationSchema={AddProductvalidationSchema}
         onSubmit={onSubmit}
@@ -170,17 +183,16 @@ console.log("posterimageUrl", posterimageUrl)
           return (
             <Form onSubmit={formik.handleSubmit}>
               <div className="grid grid-cols-1 gap-9 sm:grid-cols-2">
-                <div className="flex flex-col gap-9 dark:border-strokedark dark:bg-boxdark">
-                  <div className="rounded-sm border border-stroke bg-white dark:border-strokedark dark:bg-boxdark ">
-                    <div className="rounded-sm border border-stroke bg-white dark:border-strokedark dark:bg-boxdark">
-                      <div className="border-b border-stroke py-4 px-4 dark:border-strokedark">
+                <div className="flex flex-col gap-9 dark:border-strokedark dark:bg-boxdark dark:border-strokedark dark:bg-boxdark dark:bg-black dark:text-white dark:bg-boxdark dark:border-white border ">
+                  <div className="rounded-sm border border-stroke bg-white dark:border-strokedark dark:bg-boxdark dark:border-strokedark dark:bg-boxdark dark:bg-black dark:text-white dark:bg-boxdark dark:border-white  ">
+                    <div className="rounded-sm border border-stroke bg-white dark:border-strokedark dark:bg-boxdark dark:border-strokedark dark:bg-boxdark dark:bg-black dark:text-white dark:bg-boxdark dark:border-white  ">
+                      <div className="border-b border-stroke py-4 px-4  ">
                         <h3 className="font-medium text-black dark:text-white">
                           Add Product Images
                         </h3>
                       </div>
 
-
-                      {(posterimageUrl && posterimageUrl?.length > 0 ) ? (
+                      {posterimageUrl && posterimageUrl?.length > 0 ? (
                         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 p-4">
                           {posterimageUrl.map((item: any, index) => {
                             return (
@@ -189,13 +201,13 @@ console.log("posterimageUrl", posterimageUrl)
                                 key={index}
                               >
                                 <div className="absolute top-1 right-1 invisible group-hover:visible text-red bg-white rounded-full">
-                                  <RxCross2
+                                  <AiFillCloseCircle
                                     className="cursor-pointer text-red-500 hover:text-red-700"
                                     size={17}
                                     onClick={() => {
                                       ImageRemoveHandler(
                                         item.public_id,
-                                        setposterimageUrl
+                                        setposterimageUrl,
                                       );
                                     }}
                                   />
@@ -217,7 +229,7 @@ console.log("posterimageUrl", posterimageUrl)
                       )}
                     </div>
 
-                    <div className="flex flex-col gap-5.5 p-6.5">
+                    <div className="flex flex-col gap-5.5 p-6.5 p-4">
                       <div>
                         <label className="mb-3 block text-sm font-medium text-black dark:text-white ">
                           Product Title
@@ -231,20 +243,20 @@ console.log("posterimageUrl", posterimageUrl)
                           placeholder="Title"
                           className={`w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${
                             formik.touched.name && formik.errors.name
-                              ? "border-red-500"
-                              : ""
+                              ? 'border-red-500'
+                              : ''
                           }`}
                         />
                         {formik.touched.name && formik.errors.name ? (
-                          <div className="text-red text-sm">
+                          <div className="text-red-600 text-sm dark:text-red-200">
                             {formik.errors.name as String}
                           </div>
                         ) : null}
                       </div>
 
                       <div>
-                        <label className="mb-3 block text-sm font-medium text-black dark:text-white">
-                          description{" "}
+                        <label className="mb-3 block text-sm font-medium text-black dark:text-white py-2 ">
+                          description{' '}
                         </label>
                         <textarea
                           name="description"
@@ -254,23 +266,23 @@ console.log("posterimageUrl", posterimageUrl)
                           className={`w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${
                             formik.touched.description &&
                             formik.errors.description
-                              ? "border-red-500"
-                              : ""
+                              ? 'border-red-500'
+                              : ''
                           }`}
                         />
                         {formik.touched.description &&
                         formik.errors.description ? (
-                          <div className="text-red text-sm">
+                          <div className="text-red-600 text-sm dark:text-red-200">
                             {
                               formik.errors.description as FormikErrors<
-                                FormValues["description"]
+                                FormValues['description']
                               >
                             }
                           </div>
                         ) : null}
                       </div>
 
-                      <div className="flex full gap-4">
+                      <div className="flex full gap-4 py-4 px-2">
                         <div className="w-[33%]">
                           <label className="mb-3 block text-sm font-medium text-black dark:text-white">
                             Sale Price
@@ -285,17 +297,17 @@ console.log("posterimageUrl", posterimageUrl)
                             className={`w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${
                               formik.touched.salePrice &&
                               formik.errors.salePrice
-                                ? "border-red-500"
-                                : ""
+                                ? 'border-red-500'
+                                : ''
                             }`}
                           />
                           {formik.touched.salePrice &&
                           formik.errors.salePrice ? (
-                            <div className="text-red text-sm">
-                              {" "}
+                            <div className="text-red-600 text-sm dark:text-red-200">
+                              {' '}
                               {
                                 formik.errors.salePrice as FormikErrors<
-                                  FormValues["salePrice"]
+                                  FormValues['salePrice']
                                 >
                               }
                             </div>
@@ -316,16 +328,16 @@ console.log("posterimageUrl", posterimageUrl)
                             className={`w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${
                               formik.touched.purchasePrice &&
                               formik.errors.purchasePrice
-                                ? "border-red-500"
-                                : ""
+                                ? 'border-red-500'
+                                : ''
                             }`}
                           />
                           {formik.touched.purchasePrice &&
                           formik.errors.purchasePrice ? (
-                            <div className="text-red text-sm">
+                            <div className="text-red-600 text-sm dark:text-red-200">
                               {
                                 formik.errors.purchasePrice as FormikErrors<
-                                  FormValues["purchasePrice"]
+                                  FormValues['purchasePrice']
                                 >
                               }
                             </div>
@@ -345,20 +357,20 @@ console.log("posterimageUrl", posterimageUrl)
                             className={`w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${
                               formik.touched.discountPrice &&
                               formik.errors.discountPrice
-                                ? "border-red-500"
-                                : ""
+                                ? 'border-red-500'
+                                : ''
                             }`}
                           />
                           {formik.touched.discountPrice &&
                           formik.errors.discountPrice ? (
-                            <div className="text-red text-sm">
+                            <div className="text-red-600 text-sm dark:text-red-200">
                               {formik.errors.discountPrice as String}
                             </div>
                           ) : null}
                         </div>
                       </div>
 
-                      <div className="flex gap-4">
+                      <div className="flex gap-4 py-4 px-2">
                         <div className="w-2/4">
                           <label className="mb-3 block text-sm font-medium text-black dark:text-white">
                             Product Code
@@ -371,12 +383,12 @@ console.log("posterimageUrl", posterimageUrl)
                             placeholder="Product code"
                             className={`w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${
                               formik.touched.name && formik.errors.name
-                                ? "border-red-500"
-                                : ""
+                                ? 'border-red-500'
+                                : ''
                             }`}
                           />
                           {formik.touched.name && formik.errors.code ? (
-                            <div className="text-red text-sm">
+                            <div className="text-red-600 text-sm dark:text-red-200">
                               {formik.errors.code as String}
                             </div>
                           ) : null}
@@ -400,24 +412,21 @@ console.log("posterimageUrl", posterimageUrl)
                           />
                         </div>
                       </div>
-
-                     
                     </div>
                   </div>
                 </div>
 
                 <div className="flex flex-col gap-5">
-                  <div className="py-4 px-6.5 rounded-sm border border-stroke">
-                    <div className="mb-4  bg-white dark:border-strokedark dark:bg-boxdark  text-black dark:text-white">
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Add Stock Quantity
+                  <div className="py-4 px-6.5 rounded-sm ">
+                    <div className="mb-4  bg-white text-black dark:border-strokedark dark:bg-boxdark dark:border-strokedark dark:bg-boxdark dark:bg-black dark:text-white dark:bg-boxdark dark:border-white border ">
+                      <label className="block text-sm font-medium text-gray-700 py-4 px-4 dark:text-white ">
+                        Add Stock Quantity
                       </label>
-                   
                     </div>
 
-                    {VariationOption === "withoutVariation" && (
+                    {VariationOption === 'withoutVariation' && (
                       <>
-                        {withoutVariation.map((inputField, index) => (
+                        {withoutVariation && withoutVariation.map((inputField, index) => (
                           <div key={index} className="mb-4">
                             {/* <label className="block text-sm font-medium mb-1 text-dark dark:text-white">
                               {inputField.name.charAt(0).toLocaleUpperCase() +
@@ -426,7 +435,6 @@ console.log("posterimageUrl", posterimageUrl)
                             <Field
                               type={inputField.type}
                               name={inputField.name}
-                             
                               className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary "
                             />
                             <ErrorMessage
@@ -493,7 +501,7 @@ console.log("posterimageUrl", posterimageUrl)
                                 <button
                                   type="button"
                                   onClick={() => push({ name: "", detail: "" })}
-                                  className="px-4 py-2 bg-black text-white rounded-md shadow-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-black"
+                                  className="px-4 py-2 bg-black text-white rounded-md shadow-md dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-black"
                                 >
                                   Add Variation
                                 </button>
@@ -504,19 +512,18 @@ console.log("posterimageUrl", posterimageUrl)
                       </>
                     )} */}
                   </div>
-                 
-                  <div className="rounded-sm border border-stroke bg-white dark:border-strokedark dark:bg-boxdark">
+
+                  <div className="rounded-sm border border-stroke bg-white dark:border-strokedark dark:bg-boxdark dark:border-strokedark dark:bg-boxdark dark:bg-black dark:text-white dark:bg-boxdark dark:border-white  ">
                     <div className="border-b border-stroke py-4 px-6.5 dark:border-strokedark">
-                      <h3 className="font-medium text-black dark:text-white">
+                      <h3 className="font-medium text-black dark:text-white px-4">
                         Model Details
                       </h3>
                     </div>
                     <div className="flex flex-col gap-5.5 p-6.5">
                       <FieldArray name="modelDetails">
                         {({ push, remove }) => (
-                          <div className="flex flex-col gap-2">
-                            {formik.values.modelDetails.map(
-                              (model: any, index: any) => (
+                          <div className="flex flex-col gap-2 p-4">
+                            {formik.values.modelDetails && formik.values.modelDetails.map((model: any, index: any) => (
                                 <div key={index} className="flex items-center">
                                   <input
                                     type="text"
@@ -533,11 +540,11 @@ console.log("posterimageUrl", posterimageUrl)
                                       (
                                         formik.errors
                                           .modelDetails as FormikErrors<
-                                          FormValues["modelDetails"]
+                                          FormValues['modelDetails']
                                         >
                                       )?.[index]?.name
-                                        ? "border-red-500"
-                                        : ""
+                                        ? 'border-red-500'
+                                        : ''
                                     }`}
                                   />
                                   <input
@@ -555,27 +562,27 @@ console.log("posterimageUrl", posterimageUrl)
                                       (
                                         formik.errors
                                           .modelDetails as FormikErrors<
-                                          FormValues["modelDetails"]
+                                          FormValues['modelDetails']
                                         >
                                       )?.[index]?.detail
-                                        ? "border-red-500"
-                                        : ""
+                                        ? 'border-red-500'
+                                        : ''
                                     }`}
                                   />
                                   <button
                                     type="button"
                                     onClick={() => remove(index)}
-                                    className="ml-2 text-red "
+                                    className="ml-2   "
                                   >
-                                    <RxCross2 className="text-red" size={25} />
+                                    <RxCross2 className="text-red-800 dark:text-red-200" size={25} />
                                   </button>
                                 </div>
-                              )
+                              ),
                             )}
                             <button
                               type="button"
-                              onClick={() => push({ name: "", detail: "" })}
-                              className="px-4 py-2 bg-black text-white rounded-md shadow-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-black w-fit"
+                              onClick={() => push({ name: '', detail: '' })}
+                              className="px-4 py-2 bg-black text-white rounded-md shadow-md dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-black w-fit"
                             >
                               Add Model
                             </button>
@@ -585,7 +592,7 @@ console.log("posterimageUrl", posterimageUrl)
                     </div>
                   </div>
 
-                  <div className="rounded-sm border border-stroke bg-white dark:border-strokedark dark:bg-boxdark">
+                  <div className="rounded-sm border border-stroke bg-white dark:border-strokedark dark:bg-boxdark dark:border-strokedark dark:bg-boxdark dark:bg-black dark:text-white dark:bg-boxdark dark:border-white ">
                     <div className="border-b border-stroke py-4 px-4 dark:border-strokedark">
                       <h3 className="font-medium text-black dark:text-white">
                         Specification
@@ -595,7 +602,7 @@ console.log("posterimageUrl", posterimageUrl)
                       <FieldArray name="spacification">
                         {({ push, remove }) => (
                           <div className="flex flex-col gap-2">
-                            {formik.values.spacification.map(
+                            {formik.values.spacification && formik.values.spacification.map(
                               (spec: any, index: any) => (
                                 <div key={index} className="flex items-center">
                                   <input
@@ -614,27 +621,27 @@ console.log("posterimageUrl", posterimageUrl)
                                       (
                                         formik.errors
                                           .spacification as FormikErrors<
-                                          FormValues["spacification"]
+                                          FormValues['spacification']
                                         >
                                       )?.[index]?.specsDetails
-                                        ? "border-red-500"
-                                        : ""
+                                        ? 'border-red-500'
+                                        : ''
                                     }`}
                                   />
                                   <button
                                     type="button"
                                     onClick={() => remove(index)}
-                                    className="ml-2 text-red"
+                                    className="ml-2 text-red-800 dark:text-red-200 "
                                   >
-                                    <RxCross2 className="text-red" size={25} />
+                                    <RxCross2 className="text-red-800 dark:text-red-200" size={25} />
                                   </button>
                                 </div>
-                              )
+                              ),
                             )}
                             <button
                               type="button"
-                              onClick={() => push({ specsDetails: "" })}
-                              className="px-4 py-2 bg-black text-white rounded-md shadow-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-black w-fit"
+                              onClick={() => push({ specsDetails: '' })}
+                              className="px-4 py-2 bg-black text-white rounded-md shadow-md dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-black w-fit"
                             >
                               Add Specification
                             </button>
@@ -644,8 +651,7 @@ console.log("posterimageUrl", posterimageUrl)
                     </div>
                   </div>
 
-
-                  <div className="rounded-sm border border-stroke bg-white dark:border-strokedark dark:bg-boxdark">
+                  <div className="rounded-sm border border-stroke bg-white dark:border-strokedark dark:bg-boxdark dark:border-strokedark dark:bg-boxdark dark:bg-black dark:text-white dark:bg-boxdark dark:border-white border ">
                     <div className="border-b border-stroke py-4 px-4 dark:border-strokedark">
                       <h3 className="font-medium text-black dark:text-white">
                         Add Sizes in Length
@@ -655,7 +661,7 @@ console.log("posterimageUrl", posterimageUrl)
                       <FieldArray name="sizes">
                         {({ push, remove }) => (
                           <div className="flex flex-col gap-2">
-                            {formik.values.sizes.map(
+                            {formik.values.sizes && formik.values.sizes.map(
                               (spec: any, index: any) => (
                                 <div key={index} className="flex items-center">
                                   <input
@@ -663,38 +669,34 @@ console.log("posterimageUrl", posterimageUrl)
                                     name={`sizes[${index}].sizesDetails`}
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
-                                    value={
-                                      formik.values.sizes[index]
-                                        .sizes
-                                    }
+                                    value={formik.values.sizes[index].sizes}
                                     placeholder="Sizes"
                                     className={`w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${
                                       formik.touched.spacification?.[index]
                                         ?.sizesDetails &&
                                       (
-                                        formik.errors
-                                          .sizes as FormikErrors<
-                                          FormValues["sizes"]
+                                        formik.errors.sizes as FormikErrors<
+                                          FormValues['sizes']
                                         >
                                       )?.[index]?.sizesDetails
-                                        ? "border-red-500"
-                                        : ""
+                                        ? 'border-red-500'
+                                        : ''
                                     }`}
                                   />
                                   <button
                                     type="button"
                                     onClick={() => remove(index)}
-                                    className="ml-2 text-red"
+                                    className="ml-2 text-red-800 dark:text-red-200 "
                                   >
-                                    <RxCross2 className="text-red" size={25} />
+                                    <RxCross2 className="text-red-800 dark:text-red-200" size={25} />
                                   </button>
                                 </div>
-                              )
+                              ),
                             )}
                             <button
                               type="button"
-                              onClick={() => push({sizesDetails: ""})}
-                              className="px-4 py-2 bg-black text-white rounded-md shadow-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-black w-fit"
+                              onClick={() => push({ sizesDetails: '' })}
+                              className="px-4 py-2 bg-black text-white rounded-md shadow-md dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-black w-fit"
                             >
                               Add Sizes
                             </button>
@@ -704,9 +706,7 @@ console.log("posterimageUrl", posterimageUrl)
                     </div>
                   </div>
 
-
-
-                  {/* <div className="rounded-sm border border-stroke bg-white dark:border-strokedark dark:bg-boxdark">
+                  {/* <div className="rounded-sm border border-stroke bg-white dark:border-strokedark dark:bg-boxdark dark:border-strokedark dark:bg-boxdark dark:bg-black dark:text-white dark:bg-boxdark dark:border-white border ">
                     <div className="border-b border-stroke py-4 px-4 dark:border-strokedark">
                       <h3 className="font-medium text-black dark:text-white">
                         Add Hover Image
@@ -750,7 +750,7 @@ console.log("posterimageUrl", posterimageUrl)
                     )}
                   </div> */}
 
-                  <div className="rounded-sm border border-stroke bg-white dark:border-strokedark dark:bg-boxdark">
+                  <div className="rounded-sm border border-stroke bg-white dark:border-strokedark dark:bg-boxdark dark:border-strokedark dark:bg-boxdark dark:bg-black dark:text-white dark:bg-boxdark dark:border-white">
                     <div className="border-b border-stroke py-4 px-4 dark:border-strokedark">
                       <h3 className="font-medium text-black dark:text-white">
                         Add Product Images
@@ -760,22 +760,21 @@ console.log("posterimageUrl", posterimageUrl)
                     <Imageupload setImagesUrl={setImagesUrl} />
 
                     {imagesUrl && imagesUrl.length > 0 ? (
-                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4">
                         {imagesUrl.map((item: any, index) => {
                           return (
                             <div
-                            className="relative group rounded-lg overflow-hidden shadow-md bg-white transform transition-transform duration-300 hover:scale-105"
-                            key={index}
-                          >
+                              className="relative group rounded-lg overflow-hidden shadow-md bg-white transform transition-transform duration-300 hover:scale-105"
+                              key={index}
+                            >
                               <div className="absolute top-1 right-1 invisible group-hover:visible text-red bg-white rounded-full">
-                                <RxCross2
-                                 className="cursor-pointer text-red-500 hover:text-red-700"
-                                 size={17}
+                                <AiFillCloseCircle
+                                  className="cursor-pointer text-red-500 hover:text-red-700"
+                                  size={17}
                                   onClick={() => {
-                                    console.log("funciton called");
                                     ImageRemoveHandler(
                                       item.public_id,
-                                      setImagesUrl
+                                      setposterimageUrl,
                                     );
                                   }}
                                 />
@@ -803,12 +802,14 @@ console.log("posterimageUrl", posterimageUrl)
                 </div>
               ) : null}
 
+              <div className='mt-4'>
               <button
-                type="submit"
-                className="px-10 py-2 bg-black text-white rounded-md shadow-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-black"
+                type="submit pt-4"
+                className="px-10 py-2 bg-black text-white rounded-md shadow-md dark:bg-gray-800 focus:ring-2  "
               >
-                {loading ? <Loader /> : "Submit"}
+                {loading ? <Loader /> : 'Submit'}
               </button>
+              </div>
             </Form>
           );
         }}

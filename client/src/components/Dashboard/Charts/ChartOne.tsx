@@ -166,7 +166,7 @@ const ChartOne: React.FC = () => {
     } catch (err) {
       console.error("Error fetching monthly record:", err);
     } finally {
-      setLoading(false); // Set loading to false after data is fetched
+      setLoading(false); 
     }
   };
 
@@ -175,29 +175,29 @@ const ChartOne: React.FC = () => {
   }, []);
 
   return (
-    <div className="col-span-12 rounded-sm border border-stroke bg-white px-5 pb-5 pt-7 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7 xl:col-span-8">
-      <div className="flex flex-wrap items-start justify-between gap-3 sm:flex-nowrap">
+    <div className="col-span-12 rounded-sm border border-stroke bg-white px-5 pb-5 pt-7 shadow-default sm:px-7 xl:col-span-8 dark:bg-black dark:text-white dark:bg-boxdark dark:drop-shadow-none dark:border-blue-50">
+      <div className="flex flex-wrap items-start justify-between gap-3 sm:flex-nowrap dark:bg-black dark:text-white dark:bg-boxdark dark:drop-shadow-none dark:border-blue-50">
         <div className="flex w-full flex-wrap gap-3 sm:gap-5">
           <div className="flex min-w-47.5">
-            <span className="mr-2 mt-1 flex h-4 w-full max-w-4 items-center justify-center rounded-full border border-primary">
-              <span className="block h-2.5 w-full max-w-2.5 rounded-full bg-primary"></span>
+            <span className="mr-2 mt-1 flex h-4 w-full max-w-4 items-center justify-center rounded-full border border-primary dark:bg-boxdark dark:drop-shadow-none dark:border-blue-50 dak:bg-white">
+              <span className="block h-2.5 w-full max-w-2.5 rounded-full bg-primary dark:bg-white"></span>
             </span>
             <div className="w-full">
-              <p className="font-semibold text-primary">Monthly Record</p>
+              <p className="font-semibold dark:text-whtie">Monthly Record</p>
             </div>
           </div>
           <div className="flex min-w-47.5">
-            <span className="mr-2 mt-1 flex h-4 w-full max-w-4 items-center justify-center rounded-full border border-secondary">
-              <span className="block h-2.5 w-full max-w-2.5 rounded-full bg-secondary"></span>
+          <span className="mr-2 mt-1 flex h-4 w-full max-w-4 items-center justify-center rounded-full border border-primary dark:bg-boxdark dark:drop-shadow-none dark:border-blue-50 dak:bg-white">
+              <span className="block h-2.5 w-full max-w-2.5 rounded-full bg-primary dark:bg-white"></span>
             </span>
             <div className="w-full">
-              <p className="font-semibold text-secondary">Total Sales</p>
+              <p className="font-semibold dark:text-whtie">Total Sales</p>
             </div>
           </div>
         </div>
         <div className="flex w-full max-w-45 justify-end">
           <div className="inline-flex items-center rounded-md bg-whiter p-1.5 dark:bg-meta-4">
-            <button className="rounded px-3 py-1 text-xs font-medium text-primary hover:bg-white hover:shadow-card dark:text-black dark:hover:bg-boxdark">
+            <button className="rounded px-3 py-1 text-xs font-medium dark:text-whtie hover:shadow-card ">
               Month
             </button>
           </div>

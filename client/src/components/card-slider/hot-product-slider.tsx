@@ -15,8 +15,8 @@ import { fetchProducts } from '@/config/fetch';
 const settings = {
   arrows: true,
   infinite: true,
-  slidesToShow: 4,
-  slidesToScroll: 4,
+  slidesToShow: 3,
+  slidesToScroll: 3,
   speed: 500,
   rows: 2,
   slidesPerRow: 1,
@@ -65,15 +65,15 @@ const HotProductSlider: React.FC = () => {
     queryFn: fetchProducts,
   });
   return (
-    <section className="mt-5">
+    <section className="mt-10">
       <Container className="slider-container w-full">
-        <h2 className="text-xl xs:text-2xl sm:text-3xl mb-4 font-semibold">
+        <h2 className="text-xl xs:text-2xl sm:text-4xl mb-10 font-semibold">
           Hot Newest Products
         </h2>
         <Slider {...settings} className="mx-4 xs:mx-0 hot-products mb-2">
           {products.map((card) => (
             <div key={card.id}>
-              <Card card={card} />
+              <Card className='w-full' skeletonHeight='h-[300px] md:h-[250px] lg:h-[400px] xl:h-[672px]' card={card} />
             </div>
           ))}
         </Slider>

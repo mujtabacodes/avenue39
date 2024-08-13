@@ -2,13 +2,13 @@
 import TopHero from '@/components/top-hero';
 import Link from 'next/link';
 import React from 'react';
-import { PrivacyPolicybredcrumbs } from '@/data/data';
+import { Tersmandcondition } from '@/data/data';
 import { TermsCondition } from '@/data';
 
 const TermsAndConitions: React.FC = () => {
   return (
     <>
-      <TopHero title="Terms & Conditions--Avenue39" breadcrumbs={PrivacyPolicybredcrumbs} />
+      <TopHero title="Terms & Conditions--Avenue39" breadcrumbs={Tersmandcondition} />
       <div>
         <div className="max-w-5xl mx-auto p-4">
           {TermsCondition.map((section: any, index: number) => (
@@ -24,13 +24,13 @@ const TermsAndConitions: React.FC = () => {
                         .map((part, idx) => {
                           if (part === '[[PHONE_LINK]]') {
                             return (
-                              <Link key={idx} href="tel:+971505974495" className="text-red-600 hover:underline">
+                              <Link key={idx} href="tel:+971505974495" target="_blank" className="text-red-600 hover:underline">
                                  +971 50 597 4495
                               </Link>
                             );
                           } else if (part === '[[EMAIL_LINK]]') {
                             return (
-                              <Link key={idx} href="mailto:cs@avenue39.com" className="text-red-600 hover:underline">
+                              <Link key={idx} target="_blank" href="mailto:cs@avenue39.com" className="text-red-600 hover:underline">
                                 cs@avenue39.com
                               </Link>
                             );

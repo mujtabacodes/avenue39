@@ -97,7 +97,7 @@ const ViewProduct: React.FC<CategoryProps> = ({
       key: 'posterImageUrl',
       render: (text: any, record: Product) => (
         <Image
-          src={record.posterImageUrl?.imageUrl}
+          src={`${record?.posterImageUrl}`}
           alt={`Image of ${record.name}`}
           width={50}
           height={50}
@@ -111,8 +111,8 @@ const ViewProduct: React.FC<CategoryProps> = ({
     },
     {
       title: 'Stock Quantity',
-      dataIndex: 'totalStockQuantity',
-      key: 'totalStockQuantity',
+      dataIndex: 'stock',
+      key: 'stock',
     },
     {
       title: 'Date',
@@ -196,7 +196,7 @@ const ViewProduct: React.FC<CategoryProps> = ({
         <>
           <div className="flex justify-between mb-4 items-center flex-wrap text-black dark:text-white">
             <input
-              className="peer lg:p-3 p-2 block outline-none border rounded-md border-gray-200 dark:bg-boxdark dark:drop-shadow-none text-sm dark:focus:border-primary focus:border-dark focus:ring-dark-500 disabled:opacity-50 disabled:pointer-events-none"
+              className="peer lg:p-3 p-2 block outline-none border rounded-md border-gray-200 dark:bg-boxdark dark:bg-transparent dark:border-white text-sm dark:focus:border-primary focus:border-dark focus:ring-dark-500 disabled:opacity-50 disabled:pointer-events-none dark:text-black"
               type="search"
               placeholder="Search Product"
               value={searchTerm}
@@ -232,7 +232,7 @@ const ViewProduct: React.FC<CategoryProps> = ({
               pagination={false}
             />
           ) : (
-            <p className="text-primary dark:text-black">No products found</p>
+            <p className="text-primary dark:text-white">No products found</p>
           )}
         </>
       )}

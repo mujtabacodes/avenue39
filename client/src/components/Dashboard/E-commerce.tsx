@@ -86,11 +86,11 @@ const ECommerce: React.FC = () => {
   }, []);
   return (
     <>
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5 dark:bg-black dark:text-white dark:bg-boxdark dark:border-blue-50 dark:border-strokedark dark:bg-boxdark">
 
       {loading ? (
           <>
-            <Skeleton avatar active  />
+            <Skeleton avatar active   />
             <Skeleton avatar active  />
             <Skeleton avatar active  />
             <Skeleton avatar active  />

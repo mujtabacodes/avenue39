@@ -126,7 +126,7 @@ const FilterTable: React.FC<FilterTableProps> = ({ data, columns }) => {
     ...getColumnSearchProps(col.dataIndex as DataIndex),
   }));
 
-  return <Table className='overflow-x-auto mt-10' columns={enhancedColumns} dataSource={data} pagination={false} />;
+  return <Table className='overflow-x-auto mt-10 dark:bg-boxdark dark:bg-black dark:text-white dark:bg-boxdark dark:border-white border' columns={enhancedColumns} dataSource={data} pagination={false} />;
 };
 
 export default FilterTable;

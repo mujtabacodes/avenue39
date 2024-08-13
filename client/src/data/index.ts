@@ -1040,7 +1040,7 @@ export const saleitems: ISaleItems[] = [
 
 export const productData = [
   {
-    link: '/',
+    link: '/product/5',
     image: cardimage1,
     name: 'Sparta Coffee Table',
     price: 150.0,
@@ -1049,7 +1049,7 @@ export const productData = [
     rating: 3,
   },
   {
-    link: '/',
+    link: '/product/5',
     image: cardimage1,
     name: 'Athena Dining Table',
     price: 200.0,
@@ -1058,7 +1058,7 @@ export const productData = [
     rating: 4,
   },
   {
-    link: '/',
+    link: '/product/5',
     image: cardimage1,
     name: 'Athena Dining Table',
     price: 200.0,
@@ -1169,15 +1169,15 @@ export const features: Feature[] = [
   // Add more feature objects here
 ];
 
-export const productcetagories: IProductCategories[] = [
-  { id: 1, title: 'DINNER', totalItems: 12 },
-  { id: 2, title: 'LIVING', totalItems: 12 },
-  { id: 3, title: 'BEDROOM', totalItems: 12 },
-  { id: 4, title: 'CHAIRS', totalItems: 12 },
-  { id: 5, title: 'TABLES', totalItems: 12 },
-  { id: 6, title: 'Home OFFICE', totalItems: 12 },
-  { id: 7, title: 'Home', totalItems: 12 },
-];
+// export const productcetagories: IProductCategories[] = [
+//   { id: 1, name: 'DINNER', totalItems: 12 },
+//   { id: 2, name: 'LIVING', totalItems: 12 },
+//   { id: 3, name: 'BEDROOM', totalItems: 12 },
+//   { id: 4, name: 'CHAIRS', totalItems: 12 },
+//   { id: 5, name: 'TABLES', totalItems: 12 },
+//   { id: 6, name: 'Home OFFICE', totalItems: 12 },
+//   { id: 7, name: 'Home', totalItems: 12 },
+// ];
 
 export const bestSellerProducts: IProduct[] = [
   {
@@ -1557,7 +1557,7 @@ export const ReturnPolicy = [
       'All rights, the initiators of returns are asked to return the products to their usual store when they do not achieve the expected result.',
       'To start the return procedure, follow these steps:',
       '1. Send an email to us with your concerns and complaints due to which you made the decision to return the product.',
-      '2. The customer care service will contact you as soon as they receive the email you have sent to cs@avenue39.com within 24 hours from getting the product.',
+      '2. The customer care service will contact you as soon as they receive the email you have sent to [[EMAIL_LINK]] within 24 hours from getting the product.',
       '3. Within the email textbox area include details such as your name, order number and the phone number used to process your purchase.',
       'IWe will always emphasize on the promptity with Avenue39. You will receive the detailed guidance within 1 working day. Even more, they will inform you if your product can be accepted or not.',
     ],
@@ -1614,7 +1614,7 @@ export const ShippingPolicy = [
       '5.  While making a purchase, customers are responsible for providing accurate and correct address details on the order confirmation page. Avenue39 is not liable or responsible for any delays, misplacements, or incorrect deliveries if they arise. The customer is solely responsible for incorrect or incomplete information, resulting in delay or cancellation of the ordered item.',
       '6.  It will be your responsibility to thoroughly examine the product, its parts or any other details, at the time of delivery before signing the delivery receipt. ',
       '7. By signing the delivery receipt, customers agree to this policy and acknowledge that they have inspected the product(s) at the time of delivery. They agree that the product is free from any visible faults or undisclosed issues.  ',
-      '8.  If a product is found to be faulty, damaged, not the same product ordered by customers upon delivery, notify our customer service at cs@avenue39.com.',
+      '8.  If a product is found to be faulty, damaged, not the same product ordered by customers upon delivery, notify our customer service at [[EMAIL_LINK]].',
     ],
   },
   {

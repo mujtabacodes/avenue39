@@ -28,7 +28,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { BsFilterLeft } from 'react-icons/bs';
 import SidebarFilter from '@/components/filters/sidebar-filter';
-import { ReactNode, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { StaticImageData } from 'next/image';
 import { IoIosClose } from 'react-icons/io';
 import { useSelector } from 'react-redux';
@@ -54,6 +54,30 @@ const ProductPage = ({
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 500]);
   const [sortOption, setSortOption] = useState<string>('default');
   // const productsDB = useSelector((state: State) => state.products);
+  const [loading, setLoading] = useState<boolean>(true); // Add loading state
+  const [category, setCategory] = useState<any[]>([]); // State for fetched data
+  
+  useEffect(() => {
+    // Fetch menu data from API
+    const fetchMenuData = async () => {
+      try {
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/category/get-all`,
+        );
+        if (!response.ok) {
+          throw new Error('Failed to fetch data');
+        }
+        const data = await response.json();
+        setCategory(data); // Set fetched data
+        setLoading(false); // Set loading to false when data is ready
+      } catch (error:any) {
+        setLoading(false); // Set loading to false in case of error
+      }
+    };
+
+    fetchMenuData();
+  }, []);
+
   const {
     data: products = [],
     error,
@@ -90,7 +114,7 @@ const ProductPage = ({
   };
 
   const filteredCards = products;
-  // const filteredCards1 = products
+          // const filteredCards1 = products
   //   .filter((card) => {
   //     const inCategory =
   //       selectedCategories.length > 0
@@ -117,14 +141,15 @@ const ProductPage = ({
     <>
       <TopHero breadcrumbs={productsbredcrumbs} />
       <Container className="my-5 flex flex-col md:flex-row gap-4 md:gap-8">
-        <div className="w-full md:w-2/6 lg:w-1/4 hidden md:block">
+        <div className="w-full md:w-2/6 lg:w-[392px] hidden md:block">
           <SidebarFilter
             onCategoryChange={handleCategoryChange}
             onPriceChange={handlePriceChange}
             sideBanner={sideBanner}
+            category={category}
           />
         </div>
-        <div className="w-full md:w-4/6 lg:w-3/4">
+        <div className="w-full md:w-4/6 lg:w-9/12">
           {productBanner}
           <div className="mt-4">
             <div className="flex items-center justify-between gap-4 px-2">
@@ -146,6 +171,8 @@ const ProductPage = ({
                         onCategoryChange={handleCategoryChange}
                         onPriceChange={handlePriceChange}
                         sideBanner={sideBanner}
+                        category={category}
+
                       />
                     </div>
                     <div className="h-16 w-4/5 sm:max-w-sm border-t-2 fixed bottom-0 right-0 bg-white flex items-center justify-center gap-4 transition-all">
@@ -195,12 +222,12 @@ const ProductPage = ({
             </div>
           </div>
           <div
-            className={`grid gap-4 md:gap-8 mt-4 ${layout === 'grid' ? 'grid-cols-1 xs:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1'}`}
+            className={`grid gap-4 md:gap-8 mt-4 ${layout === 'grid' ? 'grid-cols-1 sm:grid-cols-2 xl:grid-cols-3' : 'grid-cols-1'}`}
           >
             {filteredCards.map((card) => (
               <div key={card.id}>
                 {layout === 'grid' ? (
-                  <Card card={card} />
+                  <Card className='lg:w-[384.24px]' skeletonHeight='h-[380px] xs:h-[488px] sm:h-[380px] 2xl:h-[488px]' card={card} />
                 ) : (
                   <LandscapeCard card={card} />
                 )}
@@ -209,7 +236,7 @@ const ProductPage = ({
           </div>
         </div>
       </Container>
-      <div className="my-14 px-8 sm:px-4 md:px-0 relative">
+      <div className="my-14 px-2 sm:px-4 md:px-0 relative">
         <div className="bg-lightbackground absolute top-0 right-0 w-1/2 h-full -z-[1] rounded-s-xl hidden md:block"></div>
         <Container>
           <TopSelling />
