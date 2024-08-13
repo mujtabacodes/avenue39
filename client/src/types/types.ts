@@ -224,8 +224,8 @@ export interface Feature {
 
 export interface IProductCategories {
   id: number;
-  title: string;
-  totalItems: number;
+  name: string;
+  totalItems?: number;
 }
 
 export interface IProductDetail {

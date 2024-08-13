@@ -8,6 +8,7 @@ import TopNav from './nav/top-nav';
 import Navbar from './nav/nav-bar';
 import MenuBar from './nav/menu-bar';
 import BottomBar from './nav/bottom-bar';
+import Header from './nav/Header';
 
 
 const PathnameWrapper = ({ children }: { children: React.ReactNode }) => {
@@ -25,10 +26,7 @@ const PathnameWrapper = ({ children }: { children: React.ReactNode }) => {
       {
       withoutHeaderPages.includes(pathname )  || pathname.split('/').includes('dashboard') ? null : 
       <>
-          <TopNav />
-          <Navbar />
-          <MenuBar />
-          <BottomBar />
+        <Header/>
       </>
       }
       {children}

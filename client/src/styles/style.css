@@ -4,7 +4,6 @@
   bottom: 35px !important;
   left: 10px;
   display: flex;
-  gap: 10px;
   width: 100%;
   padding: 0;
   margin: 0;
@@ -19,12 +18,12 @@
 .hero-slider-wrapper .slick-dots li button:before {
   font-family: 'slick';
   background: white;
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
   content: '';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  border-radius: 50%;
+  border-radius: 100%;
   border: white;
 }
 .hero-slider-wrapper .slick-list {
@@ -45,25 +44,26 @@
 }
 .hero-slider-wrapper .sliderTabes__dots .slick-dots li {
   position: relative;
-  width: 8px;
+  width: 10px;
   margin: 0px;
   padding: 0;
   cursor: pointer;
 }
 .hero-slider-wrapper .slick-dots .slick-active button::before {
-  width: 25px;
+  width: 30px;
   /* background-color: white; */
   border: none;
   opacity: 1;
   transition: all 0.5s;
 }
 .hero-slider-wrapper .slick-dots .slick-active {
-  width: 25px !important;
+  width: 30px !important;
   border: none;
   background-color: none;
 }
 .hero-slider-wrapper .slick-dots .slick-active button:before {
-  border-radius: 25% !important;
+  border-radius: 30px !important;
+  gap: 2px !important;
 }
 
 .sliderTabes .slick-prev:before,
@@ -165,7 +165,6 @@
 }
 .hot-product-prev-arrow svg,
 .hot-product-next-arrow svg {
-  height: 13px !important;
   font-weight: bolder;
 }
 .custom-prev-arrow,

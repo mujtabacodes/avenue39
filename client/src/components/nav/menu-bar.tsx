@@ -1,27 +1,17 @@
-'use client';
 import React, { useState, useEffect } from 'react';
 import Container from '../ui/Container';
 import { MdOutlineKeyboardArrowDown } from 'react-icons/md';
 import Image from 'next/image';
 import MenuLink from '../menu-link';
 import megamenu from '@icons/megamenu.png';
-import { menuData } from '@/data/menu';
 import { Skeleton } from '@/components/ui/skeleton'; // Import Skeleton
 import { useRouter, usePathname } from 'next/navigation';
 
-const MenuBar = () => {
+const MenuBar = ({menuData,error,loading}:any) => {
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const [isSticky, setIsSticky] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(true); // Add loading state
   const Navigate = useRouter();
   const pathname = usePathname(); // Get the current pathname
-
-  useEffect(() => {
-    // Simulate loading delay
-    setTimeout(() => {
-      setLoading(false); // Set loading to false when data is ready
-    }, 2000); // Adjust time as needed
-  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -49,6 +39,10 @@ const MenuBar = () => {
     };
   }, []);
 
+  if (error) {
+    return <div>Error: {error}</div>; // Display error if occurred
+  }
+
   const handleMegaSaleClick = () => {
     Navigate.push('/products');
   };
@@ -69,24 +63,14 @@ const MenuBar = () => {
             </div>
           ) : (
             // Render menu items after loading
-            Object.keys(menuData).map((menu) => (
-              menu === 'megaSale' ? (
-                <button
-                  key={menu}
-                  className={`menu-item text-12 lg:text-14 xl:text-17 font-semibold uppercase whitespace-nowrap text-red-600 dark:text-red-600 flex flex-row gap-2 items-center cursor-pointer ${pathname === '/products' ? 'linkactive' : 'link-underline'}`}
-                  onClick={handleMegaSaleClick}
-                >
-                  MEGA SALE
-                </button>
-              ) : (
-                <button
-                  key={menu}
-                  className={`menu-item text-12 lg:text-14 xl:text-17 font-semibold uppercase whitespace-nowrap text-black dark:text-black flex flex-row gap-2 items-center cursor-pointer ${activeMenu === menu ? 'linkactive' : 'link-underline'}`}
-                  onClick={() => setActiveMenu(activeMenu === menu ? null : menu)}
-                >
-                  {menu.replace(/([A-Z])/g, ' $1').toUpperCase()} <MdOutlineKeyboardArrowDown size={25} />
-                </button>
-              )
+            menuData.map((menu: any) => (
+              <button
+                key={menu.id}
+                className={`menu-item text-12 lg:text-14 xl:text-17 font-semibold uppercase whitespace-nowrap text-black dark:text-black flex flex-row gap-2 items-center cursor-pointer ${activeMenu === menu.name ? 'linkactive' : 'link-underline'} ${menu.name === 'megaSale' ? 'text-red-600' : ''}`}
+                onClick={() => setActiveMenu(activeMenu === menu.name ? null : menu.name)}
+              >
+                {menu.name.toUpperCase()} <MdOutlineKeyboardArrowDown size={25} />
+              </button>
             ))
           )}
         </Container>
@@ -100,10 +84,10 @@ const MenuBar = () => {
               </p>
               <div className="border-b-4 w-14 border-red-600" />
               <div className="grid grid-cols-3 space-y-3">
-                <MenuLink menudata={menuData[activeMenu]} onLinkClick={() => setActiveMenu(null)} loading={loading} />
+               ​<MenuLink menudata={menuData.find((menu: { name: string }) => menu.name === activeMenu)} onLinkClick={() => setActiveMenu(null)} loading={loading}/>
               </div>
             </div>
-            {(activeMenu === 'bedroom' || activeMenu === 'megaSale') && (
+            {(activeMenu === 'Electronics' || activeMenu === 'megaSale') && (
               <div className="w-full md:w-4/12">
                 <Image
                   className="object-contain"
