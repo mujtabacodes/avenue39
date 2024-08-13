@@ -45,7 +45,7 @@ const CardsTabes: React.FC = () => {
 
   return (
     <Container>
-      {slidersData2 || productsError || categoriesError ? null : (
+      {productsError || categoriesError ? null : (
         <Tabs slidersData={slidersData2} />
       )}
     </Container>
