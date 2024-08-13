@@ -191,12 +191,12 @@ const Thumbnail: React.FC<ThumbProps> = ({ thumbs, isZoom, swiperGap }) => {
                   <SwiperSlide key={index}>
                     <div className={`w-full h-full rounded-lg`}>
                       <Image
-                        className={`rounded-lg h-full w-full max-h-[690px] ${zoomEnabled ? 'cursor-none' : 'cursor-zoom-in'}`}
+                        className={`rounded-lg h-full w-full max-h-[690px] pointer-events-none md:pointer-events-auto  ${zoomEnabled ? 'cursor-none' : ''} ${isZoom? 'cursor-default': ''} ${!zoomEnabled && isZoom ? 'cursor-zoom-in': ''}`}
                         src={thumb.imageUrl || '/default-image.jpg'}
                         width={550}
                         height={550}
                         alt={thumb.name || 'Main Image'}
-                        onClick={(e) => handleClick(thumb.imageUrl || '', e)}
+                        onClick={(e) => isZoom? handleClick(thumb.imageUrl || '', e) : ''}
                         onMouseEnter={(e) =>
                           handleMouseEnter(thumb.imageUrl || '', e)
                         }

@@ -68,9 +68,9 @@ const SideCard: React.FC<SideCardProps> = ({ data }) => {
             <div className='flex flex-col gap-3 w-1/2'>
               <p className='text-[13px] font-semibold'>{item.name}</p>
               <hr/>
-              <p className='text-[12px] font-semibold'>Dhs. {item.price.toFixed(2)}</p>
+              <p className='text-[12px] font-semibold'>AED{item.price.toFixed(2)}</p>
               {item.originalPrice && (
-                <p className='text-9 font-semibold line-through text-[#A5A5A5]'>Dhs. {item.originalPrice.toFixed(2)}</p>
+                <p className='text-9 font-semibold line-through text-[#A5A5A5]'>AED{item.originalPrice.toFixed(2)}</p>
               )}
               {item.discount && (
                 <div className='bg-[#FF0000] w-10 h-5 text-[8px] rounded-3xl text-white flex justify-center items-center'>
