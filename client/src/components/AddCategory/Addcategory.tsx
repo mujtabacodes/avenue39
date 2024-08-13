@@ -72,7 +72,7 @@ const FormLayout = ({ seteditCategory, editCategory, setMenuType }: editCategory
   return (
     <>
       <p
-        className="text-lg font-black mb-4 flex items-center justify-center gap-2 hover:bg-gray-200 w-fit p-2 cursor-pointer text-black dark:text-white"
+        className="text-lg font-black mb-4 flex items-center justify-center gap-2 hover:bg-gray-200 w-fit p-2 cursor-pointer text-black dark:bg-boxdark dark:bg-black dark:text-white dark:bg-boxdark dark:border-white"
         onClick={() => {
           setMenuType("Categories");
         }}
@@ -88,24 +88,24 @@ const FormLayout = ({ seteditCategory, editCategory, setMenuType }: editCategory
         {(formik) => {
           return (
             <Form onSubmit={formik.handleSubmit}>
-              <div className="flex justify-center ">
-                <div className="flex flex-col gap-9 w-2/5 dark:border-strokedark dark:bg-boxdark">
-                  <div className="rounded-sm border border-stroke bg-white  dark:border-strokedark dark:bg-boxdark">
+              <div className="flex justify-center dark:bg-boxdark dark:bg-black dark:text-white dark:bg-boxdark dark:border-white">
+                <div className="flex flex-col gap-9 w-2/5 dark:bg-boxdark dark:bg-black dark:text-white dark:bg-boxdark dark:border-white">
+                  <div className="rounded-sm border border-stroke bg-white  dark:bg-boxdark dark:bg-black dark:text-white dark:bg-boxdark dark:border-white p-3">
                     <div className="rounded-sm border border-stroke bg-white  dark:border-strokedark dark:bg-boxdark">
-                      <div className="border-b border-stroke py-4 px-4 dark:border-strokedark">
+                      <div className="border-b border-stroke py-4 px-2 dark:bg-boxdark dark:bg-black dark:text-white dark:bg-boxdark dark:border-white">
                         <h3 className="font-medium text-black dark:text-white">
                           Add Category Images
                         </h3>
                       </div>
                       {posterimageUrl && posterimageUrl.length > 0 ? (
-                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4 dark:bg-boxdark dark:bg-black dark:text-white dark:bg-boxdark dark:border-white">
                           {posterimageUrl.map((item: any, index) => {
                             return (
                               <div
                                 className="relative group rounded-lg overflow-hidden shadow-md bg-white transform transition-transform duration-300 hover:scale-105"
                                 key={index}
                               >
-                                <div className="absolute top-1 right-1 invisible group-hover:visible text-red bg-white rounded-full">
+                                <div className="absolute top-1 right-1 invisible group-hover:visible text-red bg-white rounded-full ">
                                   <RxCross2
                                     className="cursor-pointer text-red-500 hover:text-red-700"
                                     size={17}
@@ -136,7 +136,7 @@ const FormLayout = ({ seteditCategory, editCategory, setMenuType }: editCategory
 
                     <div className="flex flex-col gap-5.5 p-6.5">
                       <div>
-                        <label className="mb-3 block text-sm font-medium text-black dark:text-white">
+                        <label className="mb-3 block py-4 px-2 text-sm font-medium text-black dark:text-white">
                           Category Title
                         </label>
                         <input
@@ -159,7 +159,7 @@ const FormLayout = ({ seteditCategory, editCategory, setMenuType }: editCategory
 
 
                       <div>
-                        <label className="mb-3 block text-sm font-medium text-black dark:text-white">
+                        <label className="mb-3 block py-4 px-2 text-sm font-medium text-black dark:text-white">
                           Category Description
                         </label>
                         <textarea
@@ -187,7 +187,7 @@ const FormLayout = ({ seteditCategory, editCategory, setMenuType }: editCategory
               <div className="flex justify-center">
                 <button
                   type="submit"
-                  className="mt-4 px-8 py-2 bg-blue-500 text-white rounded"
+                  className="mt-4 px-8 py-2 bg-primary text-white rounded"
                 >
                   {loading ? <Loader /> : "Submit"}
                 </button>
