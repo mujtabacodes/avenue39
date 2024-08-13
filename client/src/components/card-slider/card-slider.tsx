@@ -15,7 +15,7 @@ interface SliderProps {
   cardHeight?: string;
   sliderArrow?: boolean;
   silderName?: string;
-  isLoading: boolean;
+  isLoading?: boolean;
 }
 
 const SliderComponent: React.FC<SliderProps> = ({

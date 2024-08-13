@@ -39,11 +39,13 @@ const Tabs: React.FC<TabsProps> = ({ slidersData, isLoading }) => {
         <SliderComponent
           // cards={slidersData[activeTab].cards}
           isLoading={isLoading}
+          sliderArrow={true}
         />
       ) : (
         <SliderComponent
           cards={slidersData[activeTab].cards}
           isLoading={isLoading}
+          sliderArrow={true}
         />
       )}
     </div>

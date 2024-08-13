@@ -13,7 +13,7 @@ import SofaBanner from '@/components/discount-banner/sofa-banner';
 import SaleBanner from '@/components/discount-banner/sale-banner';
 import Container from '@/components/ui/Container';
 import { Button } from '@/components/ui/button';
-import banner4 from '@assets/images/banners/banner4.png';
+import banner4 from '@assets/images/banners/banner10.png';
 import HotProductSlider from '@/components/card-slider/hot-product-slider';
 import Testimonial from '@/components/testimonial/testimonial';
 import CardsTabes from '@/components/card-tabs/card-slider';
@@ -49,7 +49,7 @@ export default function Home() {
           backgroundImage: `url(${banner4.src})`,
           backgroundSize: 'cover',
           backgroundRepeat: 'no-repeat',
-          backgroundPosition: 'center',
+          backgroundPosition: 'bottom',
         }}
       >
         <div className="text-center  md:space-y-10">
@@ -62,7 +62,7 @@ export default function Home() {
           <div className="pt-10">
             <Link
               href="/products"
-              className=" bg-white text-black font-semibold text-base py-7 px-24 md:text-[30px] rounded-[30px] hover:bg-black hover:text-white "
+              className=" bg-white text-black font-semibold text-base py-5 px-24 md:text-[25px] rounded-[30px] hover:bg-black hover:text-white "
             >
               Buy Now
             </Link>

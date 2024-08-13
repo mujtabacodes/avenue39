@@ -4,25 +4,26 @@ import useColorMode from "@/hooks/useColorMode";
 
 const DarkModeSwitcher = () => {
   const [colorMode, toggleColorMode] = useColorMode();
+
   return (
     <li>
-     <label
+      <label
         className={`relative m-0 block h-7 w-14 rounded-full border ${
           colorMode === "dark" ? "bg-primary" : "bg-stroke"
         }`}
       >
-         <input
+        <input
           type="checkbox"
           checked={colorMode === "dark"}
           onChange={toggleColorMode}
           className="absolute top-0 z-50 h-full w-full cursor-pointer opacity-0"
         />
-      <span
-          className={`absolute top-1/2 left-[3px] flex h-6 w-6 -translate-y-1/2 translate-x-0 items-center justify-center rounded-full bg-white shadow-switcher duration-75 ease-linear ${
+        <span
+          className={`absolute top-1/2 left-[3px] flex h-6 w-6 -translate-y-1/2 translate-x-0 items-center justify-center rounded-full bg-white shadow-switcher duration-200 ease-in-out ${
             colorMode === "dark" ? "!right-[3px] !translate-x-full" : ""
           }`}
         >
-           <span className="hidden dark:block">
+          <span className="hidden dark:block">
             <svg
               width="16"
               height="16"
@@ -40,17 +41,77 @@ const DarkModeSwitcher = () => {
               />
             </svg>
           </span>
+
           <span className="block dark:hidden">
             <svg
-              width="16"
-              height="16"
-              viewBox="0 0 16 16"
+              width="17"
+              height="17"
+              viewBox="0 0 17 17"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
-                d="M14.3533 10.62C14.2466 10.44 13.9466 10.16 13.1999 10.2933C12.7866 10.3667 12.3666 10.4 11.9466 10.38C10.3933 10.3133 8.98659 9.6 8.00659 8.5C7.13993 7.53333 6.60659 6.27333 6.59993 4.91333C6.59993 4.15333 6.74659 3.42 7.04659 2.72666C7.33993 2.05333 7.13326 1.7 6.98659 1.55333C6.83326 1.4 6.47326 1.18666 5.76659 1.48C3.03993 2.62666 1.35326 5.36 1.55326 8.28666C1.75326 11.04 3.68659 13.3933 6.24659 14.28C6.85993 14.4933 7.50659 14.62 8.17326 14.6467C8.27993 14.6533 8.38659 14.66 8.49326 14.66C10.7266 14.66 12.8199 13.6067 14.1399 11.8133C14.5866 11.1933 14.4666 10.8 14.3533 10.62Z"
-                fill="#969AA1"
+                d="M8.50002 12.4166C10.8134 12.4166 12.7084 10.5216 12.7084 8.20825C12.7084 5.89491 10.8134 4.00001 8.50002 4.00001C6.18668 4.00001 4.29169 5.89491 4.29169 8.20825C4.29169 10.5216 6.18668 12.4166 8.50002 12.4166Z"
+                stroke="#969AA1"
+                strokeWidth="1.3"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M8.5 1.83333V2.83333"
+                stroke="#969AA1"
+                strokeWidth="1.3"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M8.5 14.2083V15.2083"
+                stroke="#969AA1"
+                strokeWidth="1.3"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M3.22498 3.22498L3.89998 3.89998"
+                stroke="#969AA1"
+                strokeWidth="1.3"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M13.1 13.1L13.775 13.775"
+                stroke="#969AA1"
+                strokeWidth="1.3"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M1.83334 8.5H2.83334"
+                stroke="#969AA1"
+                strokeWidth="1.3"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M14.1667 8.5H15.1667"
+                stroke="#969AA1"
+                strokeWidth="1.3"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M3.22498 13.775L3.89998 13.1"
+                stroke="#969AA1"
+                strokeWidth="1.3"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M13.1 3.89998L13.775 3.22498"
+                stroke="#969AA1"
+                strokeWidth="1.3"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               />
             </svg>
           </span>

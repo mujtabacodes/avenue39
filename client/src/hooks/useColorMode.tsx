@@ -1,26 +1,22 @@
 import { useEffect, useState } from 'react';
 
 const useColorMode = () => {
-  const [colorMode, setColorMode] = useState<'light' | 'dark'>('light');
+  const [colorMode, setColorMode] = useState<'light' | 'dark'>(() => {
+    if (typeof window !== 'undefined') {
+      const savedColorMode = localStorage.getItem('colorMode') as 'light' | 'dark' | null;
+      return savedColorMode || 'light';
+    }
+    return 'light';
+  });
 
   useEffect(() => {
-    const savedColorMode = localStorage.getItem('colorMode') as 'light' | 'dark' | null;
-    const initialMode = savedColorMode || 'light';
-    setColorMode(initialMode);
-    document.documentElement.classList.add(initialMode);
-
-    console.log('Initial Color Mode:', initialMode);
-  }, []);
+    document.documentElement.classList.remove('light', 'dark');
+    document.documentElement.classList.add(colorMode);
+    localStorage.setItem('colorMode', colorMode);
+  }, [colorMode]);
 
   const toggleColorMode = () => {
-    const newColorMode = colorMode === 'light' ? 'dark' : 'light';
-    setColorMode(newColorMode);
-    localStorage.setItem('colorMode', newColorMode);
-
-    document.documentElement.classList.remove('light', 'dark');
-    document.documentElement.classList.add(newColorMode);
-
-    console.log('Toggled Color Mode:', newColorMode);
+    setColorMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
   };
 
   return [colorMode, toggleColorMode] as const;
