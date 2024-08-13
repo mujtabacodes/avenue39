@@ -117,7 +117,7 @@ const ProductDetail = ({
   };
   return (
     <div
-      className={`flex flex-col md:flex-row w-full justify-between ${gap} my-6 relative`}
+      className={`flex flex-col md:flex-row w-full justify-between overflow-hidden ${gap} my-6 relative`}
     >
       <div className="flex-grow w-full md:w-1/2">
         <Thumbnail
@@ -127,7 +127,7 @@ const ProductDetail = ({
         />
       </div>
 
-      <div className={`${detailsWidth} flex flex-col gap-2`}>
+      <div className={`${detailsWidth} flex flex-col gap-2 pt-2`}>
         <div className="flex gap-2">
           <div className="bg-[#00AEEF] p-2 rounded-sm text-white text-xs">
             New
