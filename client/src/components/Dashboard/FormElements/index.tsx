@@ -426,7 +426,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
 
                     {VariationOption === 'withoutVariation' && (
                       <>
-                        {withoutVariation.map((inputField, index) => (
+                        {withoutVariation && withoutVariation.map((inputField, index) => (
                           <div key={index} className="mb-4">
                             {/* <label className="block text-sm font-medium mb-1 text-dark dark:text-white">
                               {inputField.name.charAt(0).toLocaleUpperCase() +
@@ -523,8 +523,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                       <FieldArray name="modelDetails">
                         {({ push, remove }) => (
                           <div className="flex flex-col gap-2 p-4">
-                            {formik.values.modelDetails.map(
-                              (model: any, index: any) => (
+                            {formik.values.modelDetails && formik.values.modelDetails.map((model: any, index: any) => (
                                 <div key={index} className="flex items-center">
                                   <input
                                     type="text"
@@ -603,7 +602,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                       <FieldArray name="spacification">
                         {({ push, remove }) => (
                           <div className="flex flex-col gap-2">
-                            {formik.values.spacification.map(
+                            {formik.values.spacification && formik.values.spacification.map(
                               (spec: any, index: any) => (
                                 <div key={index} className="flex items-center">
                                   <input
@@ -662,7 +661,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                       <FieldArray name="sizes">
                         {({ push, remove }) => (
                           <div className="flex flex-col gap-2">
-                            {formik.values.sizes.map(
+                            {formik.values.sizes && formik.values.sizes.map(
                               (spec: any, index: any) => (
                                 <div key={index} className="flex items-center">
                                   <input
