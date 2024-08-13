@@ -1557,7 +1557,7 @@ export const ReturnPolicy = [
       'All rights, the initiators of returns are asked to return the products to their usual store when they do not achieve the expected result.',
       'To start the return procedure, follow these steps:',
       '1. Send an email to us with your concerns and complaints due to which you made the decision to return the product.',
-      '2. The customer care service will contact you as soon as they receive the email you have sent to cs@avenue39.com within 24 hours from getting the product.',
+      '2. The customer care service will contact you as soon as they receive the email you have sent to [[EMAIL_LINK]] within 24 hours from getting the product.',
       '3. Within the email textbox area include details such as your name, order number and the phone number used to process your purchase.',
       'IWe will always emphasize on the promptity with Avenue39. You will receive the detailed guidance within 1 working day. Even more, they will inform you if your product can be accepted or not.',
     ],
@@ -1614,7 +1614,7 @@ export const ShippingPolicy = [
       '5.  While making a purchase, customers are responsible for providing accurate and correct address details on the order confirmation page. Avenue39 is not liable or responsible for any delays, misplacements, or incorrect deliveries if they arise. The customer is solely responsible for incorrect or incomplete information, resulting in delay or cancellation of the ordered item.',
       '6.  It will be your responsibility to thoroughly examine the product, its parts or any other details, at the time of delivery before signing the delivery receipt. ',
       '7. By signing the delivery receipt, customers agree to this policy and acknowledge that they have inspected the product(s) at the time of delivery. They agree that the product is free from any visible faults or undisclosed issues.  ',
-      '8.  If a product is found to be faulty, damaged, not the same product ordered by customers upon delivery, notify our customer service at cs@avenue39.com.',
+      '8.  If a product is found to be faulty, damaged, not the same product ordered by customers upon delivery, notify our customer service at [[EMAIL_LINK]].',
     ],
   },
   {

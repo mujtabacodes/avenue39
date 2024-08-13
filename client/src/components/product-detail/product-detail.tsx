@@ -115,7 +115,7 @@ const ProductDetail = ({
   };
   return (
     <div
-      className={`flex flex-col md:flex-row w-full justify-between ${gap} my-6`}
+      className={`flex flex-col md:flex-row w-full justify-between ${gap} my-6 relative`}
     >
       <div className="flex-grow w-full md:w-1/2">
         <Thumbnail
@@ -182,10 +182,10 @@ const ProductDetail = ({
           Hurry Up! Only <span className="text-red-600">12</span> left in stock:
         </NormalText>
         <div className="flex items-center gap-4 justify-between mb-2">
-          <div className="flex items-center border border-gray-300  rounded py-1 md:p-2 md:py-3">
+          <div className="flex items-center border border-gray-300 rounded py-1 md:p-2 md:py-3">
             <button
               onClick={onDecrement}
-              className="px-2 text-gray-600"
+              className="px-2 text-gray-600  "
               disabled={count <= 1}
             >
               <HiMinusSm size={20} />
@@ -206,10 +206,10 @@ const ProductDetail = ({
         </div>
 
         <Button
-          className="bg-primary text-white flex gap-3 justify-center items-center w-full h-12 rounded-2xl mb-3 font-light"
+          className="bg-primary text-white flex gap-3 justify-center sm:w-1/2 items-center lg:w-full h-12 rounded-2xl mb-3 font-light"
           onClick={(e) => handleBuyNow(e)}
         >
-          <IoBagOutline size={20} /> BUY IT NOW
+          <IoBagOutline  size={20} /> BUY IT NOW
         </Button>
 
         <div className="flex gap-2 mb-4">

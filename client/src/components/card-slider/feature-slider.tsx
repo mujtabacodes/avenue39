@@ -99,6 +99,7 @@ const FeatureSlider: React.FC = () => {
       </Slider>
   
     </div>
+
   );
 }
 

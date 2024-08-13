@@ -1,4 +1,3 @@
-//@ts-nocheck
 import React, { useState, useEffect } from 'react';
 import Container from '../ui/Container';
 import { MdOutlineKeyboardArrowDown } from 'react-icons/md';
@@ -6,11 +5,13 @@ import Image from 'next/image';
 import MenuLink from '../menu-link';
 import megamenu from '@icons/megamenu.png';
 import { Skeleton } from '@/components/ui/skeleton'; // Import Skeleton
+import { useRouter, usePathname } from 'next/navigation';
 
 const MenuBar = ({menuData,error,loading}:any) => {
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const [isSticky, setIsSticky] = useState<boolean>(false);
-
+  const Navigate = useRouter();
+  const pathname = usePathname(); // Get the current pathname
 
   useEffect(() => {
     const handleScroll = () => {
@@ -42,17 +43,24 @@ const MenuBar = ({menuData,error,loading}:any) => {
     return <div>Error: {error}</div>; // Display error if occurred
   }
 
+  const handleMegaSaleClick = () => {
+    Navigate.push('/products');
+  };
+
   return (
     <div className={`${isSticky ? 'sticky top-0 z-50' : 'relative md:pb-12'}`}>
+
+    <div className={`${isSticky ? 'sticky top-0 z-50' : 'relative h-12'}`}>
+
       <div className={`bg-white shadow-md mb-1 pt-3 pb-2 hidden md:block z-50 ${isSticky ? '' : 'absolute w-full top-0'}`}>
         <Container className="flex flex-wrap items-center justify-between">
           {loading ? (
             // Render skeletons while loading
             <div className="flex gap-4">
-            {Array.from({ length: 9 }).map((_, index) => (
-              <Skeleton key={index} className="h-6 w-36" />
-            ))}
-          </div>
+              {Array.from({ length: 9 }).map((_, index) => (
+                <Skeleton key={index} className="h-6 w-36" />
+              ))}
+            </div>
           ) : (
             // Render menu items after loading
             menuData.map((menu: any) => (
@@ -76,7 +84,7 @@ const MenuBar = ({menuData,error,loading}:any) => {
               </p>
               <div className="border-b-4 w-14 border-red-600" />
               <div className="grid grid-cols-3 space-y-3">
-                <MenuLink menudata={menuData.find(menu => menu.name === activeMenu)} onLinkClick={() => setActiveMenu(null)} loading={loading} />
+               ​<MenuLink menudata={menuData.find((menu: { name: string }) => menu.name === activeMenu)} onLinkClick={() => setActiveMenu(null)} loading={loading}/>
               </div>
             </div>
             {(activeMenu === 'Electronics' || activeMenu === 'megaSale') && (
@@ -93,6 +101,7 @@ const MenuBar = ({menuData,error,loading}:any) => {
           </Container>
         </div>
       )}
+    </div>
     </div>
   );
 };

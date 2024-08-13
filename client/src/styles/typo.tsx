@@ -50,7 +50,7 @@ export function ProductPrice({ children, className }: ITypo) {
     </div>
   );
 }
-export function NormalText({ children, className }: ITypo) {
+export function NormalText({ children, className }: any) {
   return (
     <div
       className={`${normal.className} text-[20px] text-justify text-primary  ${className}`}
