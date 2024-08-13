@@ -29,7 +29,7 @@ const MenuLink: React.FC<MenuLinkProps> = ({ menudata,onLinkClick ,loading }) =>
       ) : (
         // Render menu items when not loading
         menudata.map((item, index) => (
-          <Link href={item.link} className='flex gap-2 items-center' key={index} onClick={onLinkClick}>
+          <Link href={`${item.link}/${item.title}`} className='flex gap-2 items-center' key={index} onClick={onLinkClick}>
             <div className='rounded-md h-20 w-20 border'>
               <Image src={item.icon} alt={item.title} width={80} height={80} />
             </div>

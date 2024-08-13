@@ -358,6 +358,15 @@
   background-color: #24303f !important;
   outline: none;
 }
+
+.top-selling .slick-dots li button:before{
+  font-size: 12px;
+  opacity: .5;
+}
+
+.top-selling .slick-dots li.slick-active button:before {
+  opacity: .25;
+}
 .dark .ant-skeleton-header .ant-skeleton-avatar, .dark .ant-skeleton-content .ant-skeleton-title, .dark .ant-skeleton-paragraph li{
   border: 1px solid white;
   background-color: #24303f !important;

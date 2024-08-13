@@ -274,7 +274,7 @@ const ProductPage = ({ params }: { params: IProductDetail }) => {
           params={product}
           isZoom={true}
           gap="gap-10 md:gap-40"
-          swiperGap="justify-between gap-6 md:gap-14"
+          swiperGap="justify-between gap-2 xs:gap-6 md:gap-14"
           detailsWidth="w-full md:w-1/2 lg:w-1/4"
         />
       </Container>

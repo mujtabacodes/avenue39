@@ -70,11 +70,5 @@ import { MenuData } from '@/types/types';
   ],
   megaSale: [
     { link:"/products",title: "Bedroom Set 1", icon: icon3 },
-    { link:"/products",title: "Bedroom Set 2", icon: icon2 },
-    { link:"/products",title: "Bedroom Set 1", icon: icon3 },
-    { link:"/products",title: "Bedroom Set 2", icon: icon2 },
-    { link:"/products",title: "Bedroom Set 1", icon: icon3 },
-    { link:"/products",title: "Bedroom Set 2", icon: icon2 },
-    { link:"/products",title: "Bedroom Set 1", icon: icon3 },
   ],
 };
