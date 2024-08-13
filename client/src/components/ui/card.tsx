@@ -56,7 +56,7 @@ const Card: React.FC<CardProps> = ({
   const renderStars = () => {
     const stars = [];
     for (let i = 1; i <= 5; i++) {
-      if (i <= /*card.reviews*/ (4 || 0)) {
+      if (i <=0 || i <= 4) {
         stars.push(<MdStar key={i} size={18} className="text-yellow-400" />);
       } else {
         stars.push(

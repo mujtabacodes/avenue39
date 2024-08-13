@@ -27,7 +27,6 @@ const ARExperience: React.FC = () => {
 
       document.body.appendChild(ARButton.createButton(renderer));
 
-      // Load 3D model
       const loader = new GLTFLoader();
       loader.load('/models/example.glb', (gltf) => {
         scene.add(gltf.scene);
@@ -52,7 +51,7 @@ const ARExperience: React.FC = () => {
 
       window.addEventListener('resize', onWindowResize);
 
-      // Animation loop
+
       const animate = () => {
         renderer.setAnimationLoop(() => {
           renderer.render(scene, camera);
@@ -60,8 +59,6 @@ const ARExperience: React.FC = () => {
       };
 
       animate();
-
-      // Cleanup
       return () => {
         window.removeEventListener('resize', onWindowResize);
         containerRef.current?.removeChild(renderer.domElement);

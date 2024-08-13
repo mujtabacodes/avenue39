@@ -38,10 +38,10 @@ const Thumbnail: React.FC<ThumbProps> = ({ thumbs, isZoom, swiperGap }) => {
 
   const prevRef = useRef<HTMLDivElement>(null);
   const nextRef = useRef<HTMLDivElement>(null);
-  const swiperRef = useRef<SwiperType | null>(null); // Ensure correct type
+  const swiperRef = useRef<SwiperType | null>(null);
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 2000); // Simulate a loading time
+    const timer = setTimeout(() => setLoading(false), 2000); 
     return () => clearTimeout(timer);
   }, []);
 
