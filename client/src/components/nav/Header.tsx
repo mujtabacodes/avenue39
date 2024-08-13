@@ -34,7 +34,9 @@ const Header = () => {
     <>
           <TopNav />
           <Navbar />
-          <MenuBar menuData={menuData} loading={loading} error={error} />
+          <MenuBar
+          //  menuData={menuData} loading={loading} error={error}
+            />
           <BottomBar />
     </>
   )
