@@ -34,6 +34,7 @@ const Thumbnail: React.FC<ThumbProps> = ({ thumbs, isZoom, swiperGap }) => {
   const [hoveredImage, setHoveredImage] = useState<string | null>(null);
   const [backgroundPosition, setBackgroundPosition] = useState<string>('0% 0%');
   const [loading, setLoading] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const prevRef = useRef<HTMLDivElement>(null);
   const nextRef = useRef<HTMLDivElement>(null);
@@ -68,6 +69,16 @@ const Thumbnail: React.FC<ThumbProps> = ({ thumbs, isZoom, swiperGap }) => {
         swiperRef.current.slideNext();
       }
     }
+  };
+
+  const handleImageClick = () => {
+    if (isZoom) {
+      setIsModalOpen(true);
+    }
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
   };
 
   return (
@@ -151,7 +162,9 @@ const Thumbnail: React.FC<ThumbProps> = ({ thumbs, isZoom, swiperGap }) => {
                 {thumbs.map((thumb, index) => (
                   <SwiperSlide key={index}>
                     <div
-                      className={`relative w-full h-full p-1 ${isZoom ? 'cursor-zoom-in' : ''}`}
+                      className={`relative w-full h-full p-1 ${
+                        isZoom ? 'cursor-zoom-in' : ''
+                      }`}
                     >
                       <Image
                         onMouseEnter={() =>
@@ -159,6 +172,7 @@ const Thumbnail: React.FC<ThumbProps> = ({ thumbs, isZoom, swiperGap }) => {
                         }
                         onMouseMove={handleMouseMove}
                         onMouseLeave={handleMouseLeave}
+                        onClick={handleImageClick}
                         className="rounded-lg shadow h-full w-full border-2 border-gray-100 max-h-[650px]"
                         src={thumb.imageUrl || '/default-image.jpg'}
                         width={550}
@@ -188,9 +202,27 @@ const Thumbnail: React.FC<ThumbProps> = ({ thumbs, isZoom, swiperGap }) => {
           </div>
         )}
       </div>
-      {/* {hoveredImage && (
-        <div className="absolute inset-0 bg-white/70 z-30"></div>
-      )} */}
+
+      {/* Modal for fullscreen image view */}
+      {isModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75">
+          <div className="relative">
+            <button
+              className="absolute top-2 right-2 text-white"
+              onClick={closeModal}
+            >
+              Close
+            </button>
+            <Image
+              src={hoveredImage || '/default-image.jpg'}
+              className="rounded-lg shadow-lg"
+              alt="Zoomed Image"
+              width={800}
+              height={800}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 };
