@@ -11,6 +11,8 @@ async function bootstrap() {
       'http://localhost:3000',
       'https://avenue39.vercel.app',
       'https://avenue39-git-dev-interior-films-projects.vercel.app',
+      "https://avenue39-73ck3f2xg-interior-films-projects.vercel.app",
+      'https://avenue39-git-faad-dev-interior-films-projects.vercel.app'
     ],
     credentials: true,
   });
