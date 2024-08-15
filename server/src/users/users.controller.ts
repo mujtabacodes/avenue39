@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  Res,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import {
@@ -40,8 +41,11 @@ export class UsersController {
   }
 
   @Post('/login')
-  login(@Body() loginData: LoginDto) {
-    return this.usersService.login(loginData);
+  login(
+    @Body() loginData: LoginDto,
+    @Res({ passthrough: true }) res: Response,
+  ) {
+    return this.usersService.login(loginData, res);
   }
 
   @Post('forget-password')

@@ -22,23 +22,23 @@ export const productsbredcrumbs = [
 ];
 export const cartbredcrumbs = [
   { label: 'Home', href: '/' },
-  { label: 'checkout' }
+  { label: 'checkout' },
 ];
 export const Tersmandcondition = [
   { label: 'Home', href: '/' },
-  { label: 'Terms-Condition' }
+  { label: 'Terms-Condition' },
 ];
 export const PrivacyPolicybredcrumbs = [
   { label: 'Home', href: '/' },
-  { label: 'Privacy-Policy' }
+  { label: 'Privacy-Policy' },
 ];
 export const TReturnPolicybredcrumbs = [
   { label: 'Home', href: '/' },
-  { label: 'Return-Policy' }
+  { label: 'Return-Policy' },
 ];
 export const TShippingPolicybredcrumbs = [
   { label: 'Home', href: '/' },
-  { label: 'Shipping-Policy' }
+  { label: 'Shipping-Policy' },
 ];
 
 import * as Yup from 'yup';
@@ -134,62 +134,8 @@ export const loginInitialValue = {
   password: '',
 };
 
-export const generateSlug = (text: string) => {
-  return text
-    .toString()
-    .toLowerCase()
-    .trim()
-    .replace(/\s+/g, '-')
-    .replace(/[^\w\-]+/g, '')
-    .replace(/\-\-+/g, '-');
-};
-
 // @ts-nocheck
 export const AddProductvalidationSchema = Yup.object().shape({
-  // name: Yup.string()
-  //   .min(2, 'Too Short!')
-  //   .max(50, 'Too Long!')
-  //   .required('Required'),
-  // description: Yup.string().required('Required'),
-  // salePrice: Yup.number()
-  //   .min(1, 'Minimum sales price must be at least 1')
-  //   .required('Required'),
-  // purchasePrice: Yup.number().min(1, 'Must be at least 1').required('Required'),
-  // discountPrice: Yup.number().nullable(),
-  // starRating: Yup.number()
-  //   .min(1, 'Rating must be at least 1')
-  //   .max(5, 'Star Rating should be a maximum of 5')
-  //   .nullable(),
-  // reviews: Yup.string().nullable(),
-  // colors: Yup.array().of(
-  //   Yup.object().shape({
-  //     colorName: Yup.string().nullable(),
-  //   }),
-  // ),
-  // modelDetails: Yup.array().of(
-  //   Yup.object().shape({
-  //     name: Yup.string().nullable(),
-  //     detail: Yup.string().nullable(),
-  //   }),
-  // ),
-  // spacification: Yup.array().of(
-  //   Yup.object().shape({
-  //     specsDetails: Yup.string().nullable(),
-  //   }),
-  // ),
-  // sizes: Yup.array().of(
-  //   Yup.object().shape({
-  //     sizesDetails: Yup.string().nullable(),
-  //   }),
-  // ),
-  // category: Yup.string().required('Category is required'),
-  // totalStockQuantity: Yup.number().nullable(),
-  // variantStockQuantities: Yup.array().of(
-  //   Yup.object().shape({
-  //     variant: Yup.string().nullable(),
-  //     quantity: Yup.number().nullable(),
-  //   }),
-  // ),
   name: Yup.string()
     .min(2, 'Too Short!')
     .max(50, 'Too Long!')
@@ -214,21 +160,6 @@ export const AddProductvalidationSchema = Yup.object().shape({
 });
 
 export const AddproductsinitialValues: IProductWithoutId = {
-  // name: '',
-  // description: '',
-  // // salePrice: '',
-  // price: 0,
-  // discountPrice: 0,
-  // // starRating: '',
-  // // reviews: '',
-  // colors: [],
-  // variantStockQuantities: [],
-  // totalStockQuantity: 0,
-  // modelDetails: [],
-  // spacification: [],
-  // sizes: [],
-  // category: '',
-  // code: '',
   name: '',
   price: 0,
   description: '',

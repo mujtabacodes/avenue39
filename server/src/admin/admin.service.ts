@@ -34,6 +34,7 @@ export class AdminService {
     }
   }
   async adminLogin(loginData: AdminLoginDto, res) {
+    console.log('React');
     const { email, password } = loginData;
     try {
       const existingUser = await this.prisma.admins.findFirst({
@@ -59,7 +60,7 @@ export class AdminService {
           expiresIn: '24h',
         });
         const { password: _, ...userWithoutPassword } = existingUser;
-        res.cookie('authToken', token, {
+        res.cookie('adminToken', token, {
           httpOnly: true,
           secure: process.env.NODE_ENV === 'production',
           maxAge: 24 * 60 * 60 * 1000,
@@ -107,7 +108,7 @@ export class AdminService {
           expiresIn: '24h',
         });
         const { password: _, ...userWithoutPassword } = existingUser;
-        res.cookie('authToken', token, {
+        res.cookie('superAdminToken', token, {
           httpOnly: true,
           secure: process.env.NODE_ENV === 'production',
           maxAge: 24 * 60 * 60 * 1000,
