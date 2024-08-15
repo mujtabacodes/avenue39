@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import axios from 'axios';
 import { GetServerSideProps } from 'next';
 import { IReview } from '@/types/types';
+import { MdStar, MdStarBorder } from 'react-icons/md';
 
 export const SubTotal = () => {
   const totalPrice = useSelector((state: State) =>
@@ -75,4 +76,17 @@ export const generateSlug = (text: string) => {
     .replace(/\-\-+/g, '-');
 
   return formatedSlug;
+};
+
+export const renderStars = ({ star = 0 }: { star?: number }) => {
+  const stars = [];
+  const maxStars = 5;
+  for (let i = 1; i <= maxStars; i++) {
+    if (i <= star) {
+      stars.push(<MdStar key={i} size={20} className="text-warning" />);
+    } else {
+      stars.push(<MdStarBorder key={i} size={20} className="text-warning" />);
+    }
+  }
+  return stars;
 };

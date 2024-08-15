@@ -26,9 +26,10 @@ const CardsTabes: React.FC = () => {
     queryFn: fetchCategories,
   });
 
-  if (isProductsLoading || isCategoriesLoading) {
-    return <div>Loading...</div>;
-  }
+  // if (isProductsLoading || isCategoriesLoading) {
+  //   return <div>Loading...</div>;
+  // }
+  // const isloading = isProductsLoading || isCategoriesLoading;
 
   if (productsError) {
     return <div>Error fetching products: {productsError.message}</div>;
@@ -46,7 +47,10 @@ const CardsTabes: React.FC = () => {
   return (
     <Container>
       {productsError || categoriesError ? null : (
-        <Tabs slidersData={slidersData2} />
+        <Tabs
+          slidersData={slidersData2}
+          isLoading={isProductsLoading || isCategoriesLoading}
+        />
       )}
     </Container>
   );

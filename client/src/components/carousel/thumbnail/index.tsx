@@ -29,9 +29,15 @@ interface ThumbProps {
   thumbs: IMAGE_INTERFACE[];
   isZoom?: Boolean;
   swiperGap?: String;
+  isLoading: boolean;
 }
 
-const Thumbnail: React.FC<ThumbProps> = ({ thumbs, isZoom, swiperGap }) => {
+const Thumbnail: React.FC<ThumbProps> = ({
+  thumbs,
+  isZoom,
+  swiperGap,
+  isLoading,
+}) => {
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
   const [imageThumbsSwiper, setImageThumbsSwiper] = useState<SwiperType | null>(
     null,
@@ -49,9 +55,10 @@ const Thumbnail: React.FC<ThumbProps> = ({ thumbs, isZoom, swiperGap }) => {
   const swiperImageRef = useRef<SwiperType | null>(null);
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 2000); // Simulate a loading time
-    return () => clearTimeout(timer);
-  }, []);
+    if (isLoading == false) {
+      setLoading(false);
+    }
+  }, [isLoading]);
 
   const handleMouseEnter = (imageUrl: string, e: React.MouseEvent) => {
     if (zoomEnabled) {

@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import Thumbnail from '../carousel/thumbnail';
 // import { products } from '@/data/products';
-import { IProduct, IProductDetail } from '@/types/types';
+import { IProduct, IProductDetail, IReview } from '@/types/types';
 import { MdLocalFireDepartment, MdStar, MdStarBorder } from 'react-icons/md';
 import { NormalText, ProductName, ProductPrice } from '@/styles/typo';
 import { Button } from '../ui/button';
@@ -44,7 +44,9 @@ import { openDrawer } from '@/redux/slices/drawer';
 import { CartItem } from '@/redux/slices/cart/types';
 import { useRouter } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
-import { fetchProducts } from '@/config/fetch';
+import { fetchProducts, fetchReviews } from '@/config/fetch';
+import { calculateRatingsPercentage, renderStars } from '@/config';
+import Loader from '../Loader/Loader';
 
 const ProductDetail = ({
   params,
@@ -74,20 +76,25 @@ const ProductDetail = ({
   });
   const product = products.find((product) => product.name === slug);
   const Navigate = useRouter();
+
+  const {
+    data: reviews = [],
+    error: reviewError,
+    isLoading: reviewLoading,
+  } = useQuery<IReview[], Error>({
+    queryKey: ['reviews'],
+    queryFn: fetchReviews,
+  });
+  const productId = product?.id;
+  const filteredReviews = reviews.filter(
+    (review) => review.productId === productId,
+  );
+  const { averageRating, productReviews } =
+    calculateRatingsPercentage(filteredReviews);
   console.log(cartItems);
-  const renderStars = () => {
-    const stars = [];
-    for (let i = 1; i <= 5; i++) {
-      if (i <= 4 || i <= 0) {
-        stars.push(<MdStar key={i} size={15} className="text-warning" />);
-      } else {
-        stars.push(<MdStarBorder key={i} size={15} className="text-warning" />);
-      }
-    }
-    return stars;
-  };
+
   if (!product) {
-    return <div>Product not found</div>;
+    return <Loader />;
   }
 
   const onDecrement = () => {
@@ -122,6 +129,7 @@ const ProductDetail = ({
           thumbs={product?.productImages}
           isZoom={isZoom}
           swiperGap={swiperGap}
+          isLoading={isLoading}
         />
       </div>
 
@@ -141,9 +149,12 @@ const ProductDetail = ({
 
         <div className="flex gap-2 items-center justify-between">
           <div className="flex gap-2 items-center">
-            <span className="flex items-center">{renderStars()}</span>
+            <span className="flex items-center">
+              {' '}
+              {renderStars({ star: averageRating })}
+            </span>
             <span className="text-[#999999] text-11 font-medium text-nowrap">
-              20 reviews
+              {productReviews.length} reviews
             </span>
           </div>
           <h3 className="text-red-500 flex items-center font-medium text-sm">
@@ -209,7 +220,7 @@ const ProductDetail = ({
           className="bg-primary text-white flex gap-3 justify-center sm:w-1/2 items-center lg:w-full h-12 rounded-2xl mb-3 font-light"
           onClick={(e) => handleBuyNow(e)}
         >
-          <IoBagOutline  size={20} /> BUY IT NOW
+          <IoBagOutline size={20} /> BUY IT NOW
         </Button>
 
         <div className="flex gap-2 mb-4">
