@@ -218,7 +218,7 @@ const Thumbnail: React.FC<ThumbProps> = ({thumbs,isZoom,swiperGap,HoverImage,isL
                         alt={thumb.name || 'Main Image'}
                         onClick={(e) => isZoom? handleClick(thumb.imageUrl || '', e) : ''}
                         onMouseEnter={(e) =>
-                          handleMouseEnter(thumb.imageUrl || '', e)
+                          handleMouseEnter(thumb.imageUrl || '',thumb.public_id || "", e)
                         }
                         onMouseMove={handleMouseMove}
                         onMouseLeave={handleMouseLeave}

@@ -97,8 +97,6 @@ console.log(slug, "slug")
   );
   const { averageRating, productReviews } =
     calculateRatingsPercentage(filteredReviews);
-  console.log(cartItems);
-
   if (!product) {
     return <Loader />;
   }

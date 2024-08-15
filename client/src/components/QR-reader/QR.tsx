@@ -8,8 +8,9 @@ interface QRPROPS{
 }
 
 const QRExample = ({url,hoveredImage}:QRPROPS) => {
-    console.log(url, "url")
+    console.log(hoveredImage, "hoveredImage")
 let newUrl = `${window.location.origin}/AR/${generateSlug(url)}?Image_id=${generateSlug(hoveredImage)}`
+console.log(newUrl, "newUrl")
   return (
 
     <div className='flex justify-center items-center py-5 h-full w-full'>
