@@ -128,10 +128,10 @@ const FeatureCard: React.FC<CardProps> = ({ card, isModel, isLoading }) => {
           </div>
           <div className="border-t flex gap-5 pt-3 px-1">
             <p className="text-12">
-              Dhs.<span>{card.discountPrice}</span>.00
+              AED<span>{card.discountPrice}</span>.00
             </p>
             <p className="text-12 line-through text-[#A5A5A5] font-semibold">
-              Dhs.<span>{card.price}</span>.00
+              AED<span>{card.price}</span>.00
             </p>
           </div>
         </div>
