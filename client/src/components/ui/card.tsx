@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { IProduct } from '@/types/types';
+import { IProduct, IReview } from '@/types/types';
 import { HiOutlineShoppingBag } from 'react-icons/hi';
 import { MdStar, MdStarBorder } from 'react-icons/md';
 
@@ -14,14 +14,20 @@ import { Dialog, DialogContent, DialogOverlay, DialogTrigger } from './dialog';
 import ProductDetail from '../product-detail/product-detail';
 import { cn } from '@/lib/utils';
 import { Skeleton } from './skeleton';
-import { PiEyeThin } from 'react-icons/pi';
-import { CiHeart } from 'react-icons/ci';
-import { generateSlug } from '@/config';
+import {
+  calculateRatingsPercentage,
+  generateSlug,
+  renderStars,
+} from '@/config';
+import { useQuery } from '@tanstack/react-query';
+import { fetchReviews } from '@/config/fetch';
+import CardSkeleton from '../cardSkelton';
 interface CardProps {
   card: IProduct;
   isModel?: boolean;
   className?: string;
   skeletonHeight?: string;
+  isLoading?: boolean;
 }
 
 const Card: React.FC<CardProps> = ({
@@ -29,17 +35,18 @@ const Card: React.FC<CardProps> = ({
   isModel,
   className,
   skeletonHeight,
+  isLoading,
 }) => {
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch<Dispatch>();
-  const cartItems = useSelector((state: State) => state.cart.items);
   const Navigate = useRouter();
 
   useEffect(() => {
-    // Simulate loading delay
-    const timer = setTimeout(() => setLoading(false), 4000); // Simulate 2-second loading time
-    return () => clearTimeout(timer);
-  }, []);
+    if (isLoading == false) {
+      setLoading(false);
+    }
+  }, [isLoading]);
+
   const handleEventProbation = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
   };
@@ -53,23 +60,28 @@ const Card: React.FC<CardProps> = ({
     dispatch(addItem(itemToAdd));
     dispatch(openDrawer());
   };
-  const renderStars = () => {
-    const stars = [];
-    for (let i = 1; i <= 5; i++) {
-      if (i <=0 || i <= 4) {
-        stars.push(<MdStar key={i} size={18} className="text-yellow-400" />);
-      } else {
-        stars.push(
-          <MdStarBorder key={i} size={18} className="text-yellow-400" />,
-        );
-      }
-    }
-    return stars;
-  };
+
+  const {
+    data: reviews = [],
+    error,
+    isLoading: reviewLoading,
+  } = useQuery<IReview[], Error>({
+    queryKey: ['reviews'],
+    queryFn: fetchReviews,
+  });
+  const productId = card?.id;
+  const filteredReviews = reviews.filter(
+    (review) => review.productId === productId,
+  );
+  const { averageRating } = calculateRatingsPercentage(filteredReviews);
 
   const handleNavigation = (e: any) => {
     Navigate.push(`/product/${generateSlug(card.name)}`);
   };
+
+  if (isLoading) {
+    return <CardSkeleton />;
+  }
   return (
     <div
       className="rounded-3xl text-center relative product-card mx-4 group hover:cursor-pointer mb-2"
@@ -77,7 +89,7 @@ const Card: React.FC<CardProps> = ({
     >
       <div className="relative w-full">
         {loading ? (
-          <Skeleton className={`w-full rounded-3xl ${skeletonHeight}`} />
+          <CardSkeleton skeletonHeight={skeletonHeight} />
         ) : (
           <>
             {card.sale !== '0' && (
@@ -119,7 +131,7 @@ const Card: React.FC<CardProps> = ({
             </span>
           </p>
           <div className="flex gap-1 items-center justify-center mt-1">
-            {renderStars()}
+            {renderStars({ star: averageRating })}
           </div>
         </>
       )}

@@ -17,6 +17,7 @@ import Image from 'next/image';
 import { FaSortDown } from 'react-icons/fa';
 import { Skeleton } from '@/components/ui/skeleton'; // Adjust the path as necessary
 import { CiZoomIn } from 'react-icons/ci';
+import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 
 export interface IMAGE_INTERFACE {
   public_id?: string;
@@ -29,10 +30,14 @@ interface ThumbProps {
   isZoom?: Boolean;
   swiperGap?: String;
   HoverImage?: React.Dispatch<SetStateAction<string|null>>
+  isLoading: boolean;
 }
 
-const Thumbnail: React.FC<ThumbProps> = ({ thumbs, isZoom,swiperGap,HoverImage }) => {
+const Thumbnail: React.FC<ThumbProps> = ({thumbs,isZoom,swiperGap,HoverImage,isLoading}) => {
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
+  const [imageThumbsSwiper, setImageThumbsSwiper] = useState<SwiperType | null>(
+    null,
+  );
   const [hoveredImage, setHoveredImage] = useState<string | null>(null);
   const [backgroundPosition, setBackgroundPosition] = useState<string>('0% 0%');
   const [loading, setLoading] = useState(true);
@@ -43,12 +48,17 @@ const Thumbnail: React.FC<ThumbProps> = ({ thumbs, isZoom,swiperGap,HoverImage }
   const prevRef = useRef<HTMLDivElement>(null);
   const nextRef = useRef<HTMLDivElement>(null);
   const swiperRef = useRef<SwiperType | null>(null);
+  const swiperImageRef = useRef<SwiperType | null>(null);
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 2000); 
-    return () => clearTimeout(timer);
-  }, []); 
-console.log(thumbs, "thumbs")
+    if (isLoading == false) {
+      setLoading(false);
+    }
+  }, [isLoading]);
+
+
+
+
   const handleMouseEnter = (imageUrl: string, public_id:sting, e: React.MouseEvent) => {
     HoverImage && HoverImage(public_id)
 
@@ -96,11 +106,20 @@ console.log(thumbs, "thumbs")
       }
     }
   };
+  const HoverImgToSlide = (direction: 'up' | 'down') => {
+    if (swiperImageRef.current) {
+      if (direction === 'up') {
+        swiperImageRef.current.slidePrev();
+      } else if (direction === 'down') {
+        swiperImageRef.current.slideNext();
+      }
+    }
+  };
 
   return (
     <div>
       <div className="relative w-full">
-        <div className={`w-full flex ${swiperGap} max-h-[700px]`}>
+        <div className={`w-full flex ${swiperGap} max-h-[750px]`}>
           <div className="max-w-1/5 md:flex-shrink-0 relative h-fit">
             {loading ? (
               <div className="flex flex-col space-y-4 pb-2">
@@ -150,9 +169,9 @@ console.log(thumbs, "thumbs")
             </div>
           </div>
 
-          <div className="w-4/5 md:flex-grow relative">
+          <div className="w-4/5 md:flex-grow relative border-2 border-gray-100 shadow">
             {loading ? (
-              <Skeleton className="h-[600px] w-full" />
+              <Skeleton className="h-[700px] w-full" />
             ) : (
               <Swiper
                 style={
@@ -165,7 +184,7 @@ console.log(thumbs, "thumbs")
                 spaceBetween={10}
                 thumbs={{ swiper: thumbsSwiper }}
                 modules={[FreeMode, Navigation, Thumbs]}
-                className="h-full swiper-container"
+                className="h-full swiper-container product-img"
                 navigation={{
                   prevEl: prevRef.current,
                   nextEl: nextRef.current,
@@ -173,6 +192,10 @@ console.log(thumbs, "thumbs")
                 onBeforeInit={(swiper) => {
                   swiper.params.navigation.prevEl = prevRef.current;
                   swiper.params.navigation.nextEl = nextRef.current;
+                }}
+                onSwiper={(swiper) => {
+                  setImageThumbsSwiper(swiper);
+                  swiperImageRef.current = swiper;
                 }}
               >
                 {thumbs.map((thumb, index) => (
@@ -188,15 +211,40 @@ console.log(thumbs, "thumbs")
                       onMouseLeave={handleMouseLeave}
                     >
                       <Image
-                        className="rounded-lg shadow h-full w-full border-2 border-gray-100 max-h-[700px]"
+                        className={`rounded-lg h-full w-full max-h-[690px] pointer-events-none md:pointer-events-auto  ${zoomEnabled ? 'cursor-none' : ''} ${isZoom? 'cursor-default': ''} ${!zoomEnabled && isZoom ? 'cursor-zoom-in': ''}`}
                         src={thumb.imageUrl || '/default-image.jpg'}
                         width={550}
                         height={550}
                         alt={thumb.name || 'Main Image'}
+                        onClick={(e) => isZoom? handleClick(thumb.imageUrl || '', e) : ''}
+                        onMouseEnter={(e) =>
+                          handleMouseEnter(thumb.imageUrl || '', e)
+                        }
+                        onMouseMove={handleMouseMove}
+                        onMouseLeave={handleMouseLeave}
                       />
                     </div>
                   </SwiperSlide>
                 ))}
+
+                {zoomEnabled && (
+                  <div className="relative w-full h-8 my-2">
+                    <div className="flex gap-2 items-center justify-end absolute top-0 right-2">
+                      <span
+                        className="w-8 h-8 flex justify-center items-center cursor-pointer bg-[#F6F6F6] shadow"
+                        onClick={() => HoverImgToSlide('up')}
+                      >
+                        <IoIosArrowBack size={20} />
+                      </span>
+                      <span
+                        className="w-8 h-8 flex justify-center items-center cursor-pointer bg-[#F6F6F6] shadow"
+                        onClick={() => HoverImgToSlide('down')}
+                      >
+                        <IoIosArrowForward size={20} />
+                      </span>
+                    </div>
+                  </div>
+                )}
               </Swiper>
             )}
           </div>
@@ -244,5 +292,4 @@ console.log(thumbs, "thumbs")
     </div>
   );
 };
-
 export default Thumbnail;

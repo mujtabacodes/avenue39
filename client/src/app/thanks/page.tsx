@@ -33,7 +33,10 @@ const ThankYouPage = () => {
         <p className="text-14 text-[#666666] mt-9 text-center mb-3">
           Your order is complete. Please check your email for the details
         </p>
-        <Link href={"/"} className="min-w-fit px-10 w-1/3 h-16 flex justify-center items-center bg-black text-white hover:text-black hover:bg-white text-sm rounded-md border-2 border-black mx-auto">
+        <Link
+          href={'/'}
+          className="min-w-fit px-10 w-1/3 h-16 flex justify-center items-center bg-black text-white hover:text-black hover:bg-white text-sm rounded-md border-2 border-black mx-auto"
+        >
           Continue Shopping
         </Link>
         <h3 className="font-medium text-2xl xs:text-3xl sm:text-4xl md:text-5xl text-center mt-16 mb-8">
@@ -49,7 +52,10 @@ const ThankYouPage = () => {
             <h2 className="text-center font-bold text-5xl">Get 10% Off</h2>
             <p className="mt-10 text-center">Your Next Purchase/</p>
             <div className="mt-16 flex justify-center">
-              <Link href={"/"} className="w-60 h-16 bg-black text-white hover:text-black hover:bg-white text-sm rounded-md border-2 border-black flex justify-center items-center">
+              <Link
+                href={'/'}
+                className="w-60 h-16 bg-black text-white hover:text-black hover:bg-white text-sm rounded-md border-2 border-black flex justify-center items-center"
+              >
                 Shop Now
               </Link>
             </div>
