@@ -26,19 +26,6 @@ const CardsTabes: React.FC = () => {
     queryFn: fetchCategories,
   });
 
-  // if (isProductsLoading || isCategoriesLoading) {
-  //   return <div>Loading...</div>;
-  // }
-  // const isloading = isProductsLoading || isCategoriesLoading;
-
-  if (productsError) {
-    return <div>Error fetching products: {productsError.message}</div>;
-  }
-
-  if (categoriesError) {
-    return <div>Error fetching categories: {categoriesError.message}</div>;
-  }
-
   const slidersData2 = categories.map((category) => ({
     tabTitle: category.name,
     cards: products.filter((product) => product.categoriesId === category.id),
