@@ -52,7 +52,6 @@ console.log(TryAtHomeImage?.imageUrl, " TryAtHomeImage")
 {
 !TryAtHomeImage ? 'Unexpected error':
 <>
-<div>My Post: {TryAtHomeImage.imageUrl}</div>
 <ARExperience ImageUrl={TryAtHomeImage.imageUrl}/>
 </>
 
