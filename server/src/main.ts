@@ -8,9 +8,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableCors({
     origin: [
-      'http://localhost:3000',
-      'https://avenue39.vercel.app',
-      'https://avenue39-git-dev-interior-films-projects.vercel.app',
+     "*"
     ],
   });
   app.setGlobalPrefix('api');

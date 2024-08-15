@@ -1,7 +1,7 @@
 //@ts-nocheck
 'use client';
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, SetStateAction } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/free-mode';
@@ -29,15 +29,11 @@ interface ThumbProps {
   thumbs: IMAGE_INTERFACE[];
   isZoom?: Boolean;
   swiperGap?: String;
+  HoverImage?: React.Dispatch<SetStateAction<string|null>>
   isLoading: boolean;
 }
 
-const Thumbnail: React.FC<ThumbProps> = ({
-  thumbs,
-  isZoom,
-  swiperGap,
-  isLoading,
-}) => {
+const Thumbnail: React.FC<ThumbProps> = ({thumbs,isZoom,swiperGap,HoverImage,isLoading}) => {
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
   const [imageThumbsSwiper, setImageThumbsSwiper] = useState<SwiperType | null>(
     null,
@@ -60,9 +56,15 @@ const Thumbnail: React.FC<ThumbProps> = ({
     }
   }, [isLoading]);
 
-  const handleMouseEnter = (imageUrl: string, e: React.MouseEvent) => {
+
+
+
+  const handleMouseEnter = (imageUrl: string, public_id:sting, e: React.MouseEvent) => {
+    HoverImage && HoverImage(public_id)
+
     if (zoomEnabled) {
       setHoveredImage(imageUrl);
+      HoverImage && HoverImage(imageUrl)
       setCursorVisible(true);
       setCursorPosition({ x: e.clientX, y: e.clientY });
     }
@@ -84,7 +86,9 @@ const Thumbnail: React.FC<ThumbProps> = ({
     setCursorVisible(false);
   };
 
-  const handleClick = (imageUrl: string, e: React.MouseEvent) => {
+  const handleClick = (imageUrl: string,public_id:sting, e: React.MouseEvent) => {
+    HoverImage && HoverImage(public_id)
+    
     setZoomEnabled((prev) => !prev);
     setCursorPosition({ x: e.clientX, y: e.clientY });
     if (!zoomEnabled) {
@@ -196,7 +200,16 @@ const Thumbnail: React.FC<ThumbProps> = ({
               >
                 {thumbs.map((thumb, index) => (
                   <SwiperSlide key={index}>
-                    <div className={`w-full h-full rounded-lg`}>
+                    <div
+                      className={`relative w-full h-full p-1 ${zoomEnabled ? 'cursor-none' : 'cursor-zoom-in'}`}
+                      onClick={(e) =>
+                        handleClick(thumb.imageUrl || '',thumb.public_id || "" , e)}
+                      onMouseEnter={(e) =>
+                        handleMouseEnter(thumb.imageUrl || '',thumb.public_id || "", e)
+                      }
+                      onMouseMove={handleMouseMove}
+                      onMouseLeave={handleMouseLeave}
+                    >
                       <Image
                         className={`rounded-lg h-full w-full max-h-[690px] pointer-events-none md:pointer-events-auto  ${zoomEnabled ? 'cursor-none' : ''} ${isZoom? 'cursor-default': ''} ${!zoomEnabled && isZoom ? 'cursor-zoom-in': ''}`}
                         src={thumb.imageUrl || '/default-image.jpg'}
@@ -279,5 +292,4 @@ const Thumbnail: React.FC<ThumbProps> = ({
     </div>
   );
 };
-
 export default Thumbnail;

@@ -45,6 +45,8 @@ import { CartItem } from '@/redux/slices/cart/types';
 import { useRouter } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 import { fetchProducts, fetchReviews } from '@/config/fetch';
+import { QRCode } from 'antd';
+import QRScanner from '../QR-reader/QR';
 import { calculateRatingsPercentage, renderStars } from '@/config';
 import Loader from '../Loader/Loader';
 
@@ -61,11 +63,11 @@ const ProductDetail = ({
   swiperGap?: String;
   detailsWidth?: String;
 }) => {
+  const [hoveredImage, setHoveredImage] = useState<string | null>(null);
   const cartItems = useSelector((state: State) => state.cart.items);
   const [count, setCount] = useState(1);
   const dispatch = useDispatch<Dispatch>();
   const slug = String(params.name);
-  console.log(slug);
   const {
     data: products = [],
     error,
@@ -74,6 +76,10 @@ const ProductDetail = ({
     queryKey: ['products'],
     queryFn: fetchProducts,
   });
+
+
+
+console.log(slug, "slug")
   const product = products.find((product) => product.name === slug);
   const Navigate = useRouter();
 
@@ -97,6 +103,7 @@ const ProductDetail = ({
     return <Loader />;
   }
 
+
   const onDecrement = () => {
     setCount((prevCount) => Math.max(prevCount - 1, 1));
   };
@@ -109,6 +116,8 @@ const ProductDetail = ({
     quantity: count,
   };
 
+
+
   const handleAddToCard = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
     dispatch(addItem(itemToAdd));
@@ -120,6 +129,12 @@ const ProductDetail = ({
     dispatch(addItem(itemToAdd));
     Navigate.push('/checkout');
   };
+
+ const TryatHomehandler =(ImageUrl: string)=>{
+  localStorage.setItem('atHome_Image_url', ImageUrl)
+ }
+
+
   return (
     <div
       className={`flex flex-col md:flex-row w-full justify-between overflow-hidden ${gap} my-6 relative`}
@@ -129,6 +144,7 @@ const ProductDetail = ({
           thumbs={product?.productImages}
           isZoom={isZoom}
           swiperGap={swiperGap}
+          HoverImage={setHoveredImage}
           isLoading={isLoading}
         />
       </div>
@@ -231,9 +247,47 @@ const ProductDetail = ({
           >
             Add to cart
           </Button>
+
+          {/* <Dialog>
+
+          <DialogTrigger asChild>
           <Button className="bg-warning w-1/2 text-white flex gap-3 h-12 rounded-2xl">
             TRY AT HOME
           </Button>
+                </DialogTrigger>
+      
+                <DialogOverlay className="bg-white/80" />
+                <DialogContent className="sm:max-w-[80%] lg:max-w-[60%] bg-white px-0 sm:rounded-none border border-gray shadow-sm gap-0 pb-0">
+                  <DialogHeader>
+                    <DialogTitle className="text-xl xs:text-xl sm:text-2xl md:text-3xl font-bold tracking-wide border-b-2 pb-3 sm:ps-5 md:ps-10 pe-10">
+                   SCAN QR
+                    </DialogTitle>
+                  </DialogHeader>
+                 SCAN qr
+                </DialogContent>
+          </Dialog> */}
+
+
+<Dialog>
+  <DialogTrigger asChild>
+    <Button className="bg-warning w-1/2 text-white flex gap-3 h-12 rounded-2xl" onClick={()=>{TryatHomehandler(hoveredImage ? hoveredImage : product?.productImages[0].imageUrl)}}>
+      TRY AT HOME
+    </Button>
+  </DialogTrigger>
+
+  <DialogOverlay className="bg-white/80" />
+  <DialogContent  className="sm:max-w-[80%] lg:max-w-[30%] bg-white px-0 pt-0 sm:rounded-none border border-gray shadow-sm gap-0 pb-0">
+    <DialogHeader  className="flex items-start px-5 pt-0 py-5 border-b-2">
+      <DialogTitle className="text-xl xs:text-xl sm:text-2xl md:text-3xl font-bold tracking-wide">
+        SCAN QR
+      </DialogTitle>
+ 
+    </DialogHeader>
+          <QRScanner hoveredImage={hoveredImage ? hoveredImage : product?.productImages[0].imageUrl} url={slug}/>
+  </DialogContent>
+</Dialog>
+
+
         </div>
 
         <div className="flex items-center justify-center relative mb-2">
@@ -251,12 +305,15 @@ const ProductDetail = ({
             </span>
             <p className="text-12">
               Pay 4 interest-free payments of AED 396.25.{' '}
+
+
               <Dialog>
                 <DialogTrigger asChild>
                   <span className="text-red-600 underline cursor-pointer">
                     Learn more
                   </span>
                 </DialogTrigger>
+
                 <DialogOverlay className="bg-white/80" />
                 <DialogContent className="sm:max-w-[80%] lg:max-w-[60%] bg-white px-0 sm:rounded-none border border-black shadow-none gap-0 pb-0">
                   <DialogHeader>
@@ -308,6 +365,8 @@ const ProductDetail = ({
                   </div>
                 </DialogContent>
               </Dialog>
+
+
             </p>
           </div>
           <div className="relative w-1/2 border-4 border-[#D47C84] p-4 rounded-lg shadow">
@@ -322,6 +381,8 @@ const ProductDetail = ({
                     Learn more
                   </span>
                 </DialogTrigger>
+
+
                 <DialogOverlay className="bg-white/80" />
                 <DialogContent className="sm:max-w-[80%] lg:max-w-[60%] bg-white px-0 sm:rounded-none border border-black shadow-none gap-0 pb-0">
                   <DialogHeader>
@@ -386,6 +447,7 @@ const ProductDetail = ({
                   </div>
                 </DialogContent>
               </Dialog>
+
             </p>
           </div>
         </div>
