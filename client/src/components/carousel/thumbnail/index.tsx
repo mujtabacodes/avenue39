@@ -1,7 +1,7 @@
 //@ts-nocheck
 'use client';
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, SetStateAction } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/free-mode';
@@ -28,9 +28,10 @@ interface ThumbProps {
   thumbs: IMAGE_INTERFACE[];
   isZoom?: Boolean;
   swiperGap?: String;
+  HoverImage?: React.Dispatch<SetStateAction<string|null>>
 }
 
-const Thumbnail: React.FC<ThumbProps> = ({ thumbs, isZoom, swiperGap }) => {
+const Thumbnail: React.FC<ThumbProps> = ({ thumbs, isZoom,swiperGap,HoverImage }) => {
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
   const [hoveredImage, setHoveredImage] = useState<string | null>(null);
   const [backgroundPosition, setBackgroundPosition] = useState<string>('0% 0%');
@@ -47,10 +48,13 @@ const Thumbnail: React.FC<ThumbProps> = ({ thumbs, isZoom, swiperGap }) => {
     const timer = setTimeout(() => setLoading(false), 2000); 
     return () => clearTimeout(timer);
   }, []); 
+console.log(thumbs, "thumbs")
+  const handleMouseEnter = (imageUrl: string, public_id:sting, e: React.MouseEvent) => {
+    HoverImage && HoverImage(public_id)
 
-  const handleMouseEnter = (imageUrl: string, e: React.MouseEvent) => {
     if (zoomEnabled) {
       setHoveredImage(imageUrl);
+      HoverImage && HoverImage(imageUrl)
       setCursorVisible(true);
       setCursorPosition({ x: e.clientX, y: e.clientY });
     }
@@ -72,7 +76,9 @@ const Thumbnail: React.FC<ThumbProps> = ({ thumbs, isZoom, swiperGap }) => {
     setCursorVisible(false);
   };
 
-  const handleClick = (imageUrl: string, e: React.MouseEvent) => {
+  const handleClick = (imageUrl: string,public_id:sting, e: React.MouseEvent) => {
+    HoverImage && HoverImage(public_id)
+    
     setZoomEnabled((prev) => !prev);
     setCursorPosition({ x: e.clientX, y: e.clientY });
     if (!zoomEnabled) {
@@ -174,9 +180,9 @@ const Thumbnail: React.FC<ThumbProps> = ({ thumbs, isZoom, swiperGap }) => {
                     <div
                       className={`relative w-full h-full p-1 ${zoomEnabled ? 'cursor-none' : 'cursor-zoom-in'}`}
                       onClick={(e) =>
-                        handleClick(thumb.imageUrl || '', e)}
+                        handleClick(thumb.imageUrl || '',thumb.public_id || "" , e)}
                       onMouseEnter={(e) =>
-                        handleMouseEnter(thumb.imageUrl || '', e)
+                        handleMouseEnter(thumb.imageUrl || '',thumb.public_id || "", e)
                       }
                       onMouseMove={handleMouseMove}
                       onMouseLeave={handleMouseLeave}

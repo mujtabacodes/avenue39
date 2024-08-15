@@ -61,11 +61,11 @@ const ProductDetail = ({
   swiperGap?: String;
   detailsWidth?: String;
 }) => {
+  const [hoveredImage, setHoveredImage] = useState<string | null>(null);
   const cartItems = useSelector((state: State) => state.cart.items);
   const [count, setCount] = useState(1);
   const dispatch = useDispatch<Dispatch>();
   const slug = String(params.name);
-  console.log(slug);
   const {
     data: products = [],
     error,
@@ -74,9 +74,16 @@ const ProductDetail = ({
     queryKey: ['products'],
     queryFn: fetchProducts,
   });
+
+
+
+console.log(slug, "slug")
   const product = products.find((product) => product.name === slug);
   const Navigate = useRouter();
   console.log(cartItems);
+
+
+
   const renderStars = () => {
     const stars = [];
     for (let i = 1; i <= 5; i++) {
@@ -92,6 +99,7 @@ const ProductDetail = ({
     return <div>Product not found</div>;
   }
 
+
   const onDecrement = () => {
     setCount((prevCount) => Math.max(prevCount - 1, 1));
   };
@@ -104,6 +112,8 @@ const ProductDetail = ({
     quantity: count,
   };
 
+
+
   const handleAddToCard = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
     dispatch(addItem(itemToAdd));
@@ -115,6 +125,12 @@ const ProductDetail = ({
     dispatch(addItem(itemToAdd));
     Navigate.push('/checkout');
   };
+
+ const TryatHomehandler =(ImageUrl: string)=>{
+  localStorage.setItem('atHome_Image_url', ImageUrl)
+ }
+
+
   return (
     <div
       className={`flex flex-col md:flex-row w-full justify-between overflow-hidden ${gap} my-6 relative`}
@@ -124,6 +140,7 @@ const ProductDetail = ({
           thumbs={product?.productImages}
           isZoom={isZoom}
           swiperGap={swiperGap}
+          HoverImage={setHoveredImage}
         />
       </div>
 
@@ -245,7 +262,7 @@ const ProductDetail = ({
 
 <Dialog>
   <DialogTrigger asChild>
-    <Button className="bg-warning w-1/2 text-white flex gap-3 h-12 rounded-2xl">
+    <Button className="bg-warning w-1/2 text-white flex gap-3 h-12 rounded-2xl" onClick={()=>{TryatHomehandler(hoveredImage ? hoveredImage : product?.productImages[0].imageUrl)}}>
       TRY AT HOME
     </Button>
   </DialogTrigger>
@@ -258,7 +275,7 @@ const ProductDetail = ({
       </DialogTitle>
  
     </DialogHeader>
-          <QRScanner url="asdfaksdfjlksadf"/>
+          <QRScanner hoveredImage={hoveredImage ? hoveredImage : product?.productImages[0].imageUrl} url={slug}/>
   </DialogContent>
 </Dialog>
 

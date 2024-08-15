@@ -76,3 +76,6 @@ export const generateSlug = (text: string) => {
 
   return formatedSlug;
 };
+
+
+

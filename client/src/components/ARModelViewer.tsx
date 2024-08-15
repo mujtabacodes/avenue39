@@ -4,8 +4,11 @@ import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import { ARButton } from 'three/examples/jsm/webxr/ARButton.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+interface ARExperienceProps{
+  ImageUrl:string | undefined
+}
 
-const ARExperience: React.FC = () => {
+const ARExperience: React.FC<ARExperienceProps> = ({ImageUrl}) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const sceneRef = useRef<THREE.Scene | null>(null);
   const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
@@ -33,7 +36,8 @@ const ARExperience: React.FC = () => {
       });
 
       const textureLoader = new THREE.TextureLoader();
-      const texture = textureLoader.load('/images/dummy-avatar.jpg');
+    if(!ImageUrl) return 
+      const texture = textureLoader.load(ImageUrl);
       const geometry = new THREE.PlaneGeometry(2, 2); 
       const material = new THREE.MeshBasicMaterial({ map: texture });
       const plane = new THREE.Mesh(geometry, material);
@@ -62,7 +66,7 @@ const ARExperience: React.FC = () => {
       return () => {
         window.removeEventListener('resize', onWindowResize);
         containerRef.current?.removeChild(renderer.domElement);
-        document.body.removeChild(ARButton.createButton(renderer));
+        // document.body.removeChild(ARButton.createButton(renderer));
       };
     }
   }, []);
@@ -71,3 +75,5 @@ const ARExperience: React.FC = () => {
 };
 
 export default ARExperience;
+
+
