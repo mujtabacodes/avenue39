@@ -1,4 +1,4 @@
-"use client"
+'use client';
 import React, { useRef } from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
@@ -24,7 +24,7 @@ const settings = {
   autoplay: true,
   autoplaySpeed: 2000,
   pauseOnHover: true,
-    responsive: [
+  responsive: [
     {
       breakpoint: 1024, // Tablets and small desktops
       settings: {
@@ -74,33 +74,32 @@ const FeatureSlider: React.FC = () => {
 
   return (
     <div className="slider-container">
-        <div className='text-end mb-3 px-4'>
-        <button className="button" onClick={previous} style={{ marginRight: "10px" }}>
-        <IoIosArrowBack size={30} />
+      <div className="text-end mb-3 px-4">
+        <button
+          className="button"
+          onClick={previous}
+          style={{ marginRight: '10px' }}
+        >
+          <IoIosArrowBack size={30} />
         </button>
         <button className="button" onClick={next}>
-        <IoIosArrowForward size={30} />
-
+          <IoIosArrowForward size={30} />
         </button>
       </div>
       <Slider
-        ref={slider => {
+        ref={(slider) => {
           sliderRef.current = slider;
         }}
         {...settings}
       >
-           {products.map((card) => (
-            <div key={card.id}>
-              <FeatureCard card={card} />
-            </div>
-          ))}
-         
-
+        {products.map((card) => (
+          <div key={card.id}>
+            <FeatureCard card={card} isLoading={isProductsLoading} />
+          </div>
+        ))}
       </Slider>
-  
     </div>
-
   );
-}
+};
 
 export default FeatureSlider;

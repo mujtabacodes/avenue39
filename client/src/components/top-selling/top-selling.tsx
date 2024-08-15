@@ -29,10 +29,10 @@ const TopSelling = () => {
           View More
         </Button>
       </div>
-      <div className="w-full md:w-[73%] pt-4">
+      <div className="w-full md:w-[73%]">
         <div className="my-12">
           {/* <SliderComponent cards={cards} /> */}
-          <SliderComponent cards={products} cardHeight='xl:[420px]' sliderArrow={false} />
+          <SliderComponent cards={products} cardHeight='xl:[420px]' sliderArrow={false} silderName='top-selling' />
         </div>
       </div>
     </div>

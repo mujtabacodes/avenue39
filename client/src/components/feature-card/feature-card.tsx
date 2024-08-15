@@ -19,24 +19,32 @@ import {
   DialogTrigger,
 } from '../ui/dialog';
 import { Skeleton } from '@/components/ui/skeleton'; // Adjust the path as necessary
-import { IProduct } from '@/types/types';
+import { IProduct, IReview } from '@/types/types';
+import { useQuery } from '@tanstack/react-query';
+import { fetchReviews } from '@/config/fetch';
+import {
+  calculateRatingsPercentage,
+  generateSlug,
+  renderStars,
+} from '@/config';
 
 interface CardProps {
   card: IProduct;
   isModel?: boolean;
+  isLoading?: boolean;
 }
 
-const FeatureCard: React.FC<CardProps> = ({ card, isModel }) => {
+const FeatureCard: React.FC<CardProps> = ({ card, isModel, isLoading }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 2000); // Simulate a loading time
-    return () => clearTimeout(timer);
-  }, []);
+    if (isLoading == false) {
+      setLoading(false);
+    }
+  }, [isLoading]);
 
   const Navigate = useRouter();
   const dispatch = useDispatch<Dispatch>();
-  const cartItems = useSelector((state: State) => state.cart.items);
 
   const itemToAdd: CartItem = {
     ...card,
@@ -49,26 +57,27 @@ const FeatureCard: React.FC<CardProps> = ({ card, isModel }) => {
     dispatch(openDrawer());
   };
 
-  const renderStars = () => {
-    const stars = [];
-    for (let i = 1; i <= 5; i++) {
-      if (i <= /*card.reviews*/ (4 || 0)) {
-        stars.push(<MdStar key={i} size={20} className="text-warning" />);
-      } else {
-        stars.push(<MdStarBorder key={i} size={20} className="text-warning" />);
-      }
-    }
-    return stars;
-  };
+  const {
+    data: reviews = [],
+    error,
+    isLoading: reviewLoading,
+  } = useQuery<IReview[], Error>({
+    queryKey: ['reviews'],
+    queryFn: fetchReviews,
+  });
+  const productId = card?.id;
+  const filteredReviews = reviews.filter(
+    (review) => review.productId === productId,
+  );
+  const { averageRating } = calculateRatingsPercentage(filteredReviews);
 
   const handleNavigation = (e: any) => {
-    Navigate.push(`/product/${card.id}`); // assuming card has an id
+    Navigate.push(`/product/${generateSlug(card.name)}`);
   };
 
   return (
     <div className="space-y-3 px-4 relative ">
       {loading ? (
-        // Skeleton Loader
         <div className="space-y-3 px-4 relative ">
           <Skeleton className="w-full h-64" />
           <Skeleton className="h-5 w-3/4" />
@@ -115,14 +124,14 @@ const FeatureCard: React.FC<CardProps> = ({ card, isModel }) => {
           </div>
           <div className="flex justify-between px-1 mt-3">
             <p className="text-15">{card.name}</p>
-            <div className="flex">{renderStars()}</div>
+            <div className="flex"> {renderStars({ star: averageRating })}</div>
           </div>
           <div className="border-t flex gap-5 pt-3 px-1">
             <p className="text-12">
-              Dhs.<span>{card.discountPrice}</span>.00
+              AED<span>{card.discountPrice}</span>.00
             </p>
             <p className="text-12 line-through text-[#A5A5A5] font-semibold">
-              Dhs.<span>{card.price}</span>.00
+              AED<span>{card.price}</span>.00
             </p>
           </div>
         </div>

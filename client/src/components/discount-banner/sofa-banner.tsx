@@ -10,16 +10,7 @@ import { Skeleton } from '@/components/ui/skeleton'; // Adjust the path as neces
 
 const SofaBanner: React.FC = () => {
   const router = useRouter();
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    // Simulate loading for 4 seconds
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 4000);
-
-    return () => clearTimeout(timer); // Cleanup timer on component unmount
-  }, []);
+  const [loading, setLoading] = useState(false);
 
   const handleBuyNowClick = () => {
     router.push('/checkout');
@@ -42,7 +33,9 @@ const SofaBanner: React.FC = () => {
                   Get Discount Up to 80%
                 </p>
                 <h3 className="font-semibold text-xl sm:text-2xl mt-1">
-                  White Minimalist<br />Combo Sofa
+                  White Minimalist
+                  <br />
+                  Combo Sofa
                 </h3>
                 <div className="lg:pt-6">
                   <Link

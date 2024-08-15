@@ -5,6 +5,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { MdStar, MdStarBorder } from 'react-icons/md';
 import { Skeleton } from '@/components/ui/skeleton'; // Adjust the path as necessary
+import { generateSlug } from '@/config';
 
 interface Product {
     link: string;
@@ -41,7 +42,6 @@ const SideCard: React.FC<SideCardProps> = ({ data }) => {
     return stars;
   };
 
-  const productId = 5;
 
   return (
     <div className='mt-7 flex flex-col lg:gap-7 sm:gap-12'>
@@ -61,16 +61,16 @@ const SideCard: React.FC<SideCardProps> = ({ data }) => {
         ))
       ) : (
         data.map((item, index) => (
-          <Link href={`/product/${productId}`} key={index} className='flex gap-4 items-center'>
+          <Link href={`/product/${generateSlug(item.name)}`} key={index} className='flex gap-4 items-center'>
             <div className='w-1/2 min-w-32'>
               <Image src={item.image} alt={item.name} className='w-44 h-44' />
             </div>
             <div className='flex flex-col gap-3 w-1/2'>
               <p className='text-[13px] font-semibold'>{item.name}</p>
               <hr/>
-              <p className='text-[12px] font-semibold'>Dhs. {item.price.toFixed(2)}</p>
+              <p className='text-[12px] font-semibold'>AED{item.price.toFixed(2)}</p>
               {item.originalPrice && (
-                <p className='text-9 font-semibold line-through text-[#A5A5A5]'>Dhs. {item.originalPrice.toFixed(2)}</p>
+                <p className='text-9 font-semibold line-through text-[#A5A5A5]'>AED{item.originalPrice.toFixed(2)}</p>
               )}
               {item.discount && (
                 <div className='bg-[#FF0000] w-10 h-5 text-[8px] rounded-3xl text-white flex justify-center items-center'>

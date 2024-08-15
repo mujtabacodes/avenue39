@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import Thumbnail from '../carousel/thumbnail';
 // import { products } from '@/data/products';
-import { IProduct, IProductDetail } from '@/types/types';
+import { IProduct, IProductDetail, IReview } from '@/types/types';
 import { MdLocalFireDepartment, MdStar, MdStarBorder } from 'react-icons/md';
 import { NormalText, ProductName, ProductPrice } from '@/styles/typo';
 import { Button } from '../ui/button';
@@ -44,7 +44,11 @@ import { openDrawer } from '@/redux/slices/drawer';
 import { CartItem } from '@/redux/slices/cart/types';
 import { useRouter } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
-import { fetchProducts } from '@/config/fetch';
+import { fetchProducts, fetchReviews } from '@/config/fetch';
+import { QRCode } from 'antd';
+import QRScanner from '../QR-reader/QR';
+import { calculateRatingsPercentage, renderStars } from '@/config';
+import Loader from '../Loader/Loader';
 
 const ProductDetail = ({
   params,
@@ -59,11 +63,11 @@ const ProductDetail = ({
   swiperGap?: String;
   detailsWidth?: String;
 }) => {
+  const [hoveredImage, setHoveredImage] = useState<string | null>(null);
   const cartItems = useSelector((state: State) => state.cart.items);
   const [count, setCount] = useState(1);
   const dispatch = useDispatch<Dispatch>();
   const slug = String(params.name);
-  console.log(slug);
   const {
     data: products = [],
     error,
@@ -72,23 +76,33 @@ const ProductDetail = ({
     queryKey: ['products'],
     queryFn: fetchProducts,
   });
+
+
+
+console.log(slug, "slug")
   const product = products.find((product) => product.name === slug);
   const Navigate = useRouter();
+
+  const {
+    data: reviews = [],
+    error: reviewError,
+    isLoading: reviewLoading,
+  } = useQuery<IReview[], Error>({
+    queryKey: ['reviews'],
+    queryFn: fetchReviews,
+  });
+  const productId = product?.id;
+  const filteredReviews = reviews.filter(
+    (review) => review.productId === productId,
+  );
+  const { averageRating, productReviews } =
+    calculateRatingsPercentage(filteredReviews);
   console.log(cartItems);
-  const renderStars = () => {
-    const stars = [];
-    for (let i = 1; i <= 5; i++) {
-      if (i <= 4 || i <= 0) {
-        stars.push(<MdStar key={i} size={15} className="text-warning" />);
-      } else {
-        stars.push(<MdStarBorder key={i} size={15} className="text-warning" />);
-      }
-    }
-    return stars;
-  };
+
   if (!product) {
-    return <div>Product not found</div>;
+    return <Loader />;
   }
+
 
   const onDecrement = () => {
     setCount((prevCount) => Math.max(prevCount - 1, 1));
@@ -102,6 +116,8 @@ const ProductDetail = ({
     quantity: count,
   };
 
+
+
   const handleAddToCard = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
     dispatch(addItem(itemToAdd));
@@ -113,19 +129,27 @@ const ProductDetail = ({
     dispatch(addItem(itemToAdd));
     Navigate.push('/checkout');
   };
+
+ const TryatHomehandler =(ImageUrl: string)=>{
+  localStorage.setItem('atHome_Image_url', ImageUrl)
+ }
+
+
   return (
     <div
-      className={`flex flex-col md:flex-row w-full justify-between ${gap} my-6`}
+      className={`flex flex-col md:flex-row w-full justify-between overflow-hidden ${gap} my-6 relative`}
     >
       <div className="flex-grow w-full md:w-1/2">
         <Thumbnail
           thumbs={product?.productImages}
           isZoom={isZoom}
           swiperGap={swiperGap}
+          HoverImage={setHoveredImage}
+          isLoading={isLoading}
         />
       </div>
 
-      <div className={`${detailsWidth} flex flex-col gap-2`}>
+      <div className={`${detailsWidth} flex flex-col gap-2 pt-2`}>
         <div className="flex gap-2">
           <div className="bg-[#00AEEF] p-2 rounded-sm text-white text-xs">
             New
@@ -141,9 +165,12 @@ const ProductDetail = ({
 
         <div className="flex gap-2 items-center justify-between">
           <div className="flex gap-2 items-center">
-            <span className="flex items-center">{renderStars()}</span>
+            <span className="flex items-center">
+              {' '}
+              {renderStars({ star: averageRating })}
+            </span>
             <span className="text-[#999999] text-11 font-medium text-nowrap">
-              20 reviews
+              {productReviews.length} reviews
             </span>
           </div>
           <h3 className="text-red-500 flex items-center font-medium text-sm">
@@ -209,7 +236,7 @@ const ProductDetail = ({
           className="bg-primary text-white flex gap-3 justify-center sm:w-1/2 items-center lg:w-full h-12 rounded-2xl mb-3 font-light"
           onClick={(e) => handleBuyNow(e)}
         >
-          <IoBagOutline  size={20} /> BUY IT NOW
+          <IoBagOutline size={20} /> BUY IT NOW
         </Button>
 
         <div className="flex gap-2 mb-4">
@@ -220,9 +247,47 @@ const ProductDetail = ({
           >
             Add to cart
           </Button>
+
+          {/* <Dialog>
+
+          <DialogTrigger asChild>
           <Button className="bg-warning w-1/2 text-white flex gap-3 h-12 rounded-2xl">
             TRY AT HOME
           </Button>
+                </DialogTrigger>
+      
+                <DialogOverlay className="bg-white/80" />
+                <DialogContent className="sm:max-w-[80%] lg:max-w-[60%] bg-white px-0 sm:rounded-none border border-gray shadow-sm gap-0 pb-0">
+                  <DialogHeader>
+                    <DialogTitle className="text-xl xs:text-xl sm:text-2xl md:text-3xl font-bold tracking-wide border-b-2 pb-3 sm:ps-5 md:ps-10 pe-10">
+                   SCAN QR
+                    </DialogTitle>
+                  </DialogHeader>
+                 SCAN qr
+                </DialogContent>
+          </Dialog> */}
+
+
+<Dialog>
+  <DialogTrigger asChild>
+    <Button className="bg-warning w-1/2 text-white flex gap-3 h-12 rounded-2xl" onClick={()=>{TryatHomehandler(hoveredImage ? hoveredImage : product?.productImages[0].imageUrl)}}>
+      TRY AT HOME
+    </Button>
+  </DialogTrigger>
+
+  <DialogOverlay className="bg-white/80" />
+  <DialogContent  className="sm:max-w-[80%] lg:max-w-[30%] bg-white px-0 pt-0 sm:rounded-none border border-gray shadow-sm gap-0 pb-0">
+    <DialogHeader  className="flex items-start px-5 pt-0 py-5 border-b-2">
+      <DialogTitle className="text-xl xs:text-xl sm:text-2xl md:text-3xl font-bold tracking-wide">
+        SCAN QR
+      </DialogTitle>
+ 
+    </DialogHeader>
+          <QRScanner hoveredImage={hoveredImage ? hoveredImage : product?.productImages[0].imageUrl} url={slug}/>
+  </DialogContent>
+</Dialog>
+
+
         </div>
 
         <div className="flex items-center justify-center relative mb-2">
@@ -240,12 +305,15 @@ const ProductDetail = ({
             </span>
             <p className="text-12">
               Pay 4 interest-free payments of AED 396.25.{' '}
+
+
               <Dialog>
                 <DialogTrigger asChild>
                   <span className="text-red-600 underline cursor-pointer">
                     Learn more
                   </span>
                 </DialogTrigger>
+
                 <DialogOverlay className="bg-white/80" />
                 <DialogContent className="sm:max-w-[80%] lg:max-w-[60%] bg-white px-0 sm:rounded-none border border-black shadow-none gap-0 pb-0">
                   <DialogHeader>
@@ -297,6 +365,8 @@ const ProductDetail = ({
                   </div>
                 </DialogContent>
               </Dialog>
+
+
             </p>
           </div>
           <div className="relative w-1/2 border-4 border-[#D47C84] p-4 rounded-lg shadow">
@@ -311,6 +381,8 @@ const ProductDetail = ({
                     Learn more
                   </span>
                 </DialogTrigger>
+
+
                 <DialogOverlay className="bg-white/80" />
                 <DialogContent className="sm:max-w-[80%] lg:max-w-[60%] bg-white px-0 sm:rounded-none border border-black shadow-none gap-0 pb-0">
                   <DialogHeader>
@@ -375,6 +447,7 @@ const ProductDetail = ({
                   </div>
                 </DialogContent>
               </Dialog>
+
             </p>
           </div>
         </div>

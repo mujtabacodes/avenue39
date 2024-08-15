@@ -23,7 +23,7 @@ export const fetchReviews = async (): Promise<IReview[]> => {
   return response.data;
 };
 
-// const fetchProducts = async (): Promise<IProduct[]> => {
+// export const fetchProducts = async (): Promise<IProduct[]> => {
 //   return new Promise<IProduct[]>((resolve, reject) => {
 //     setTimeout(async () => {
 //       try {
@@ -34,6 +34,6 @@ export const fetchReviews = async (): Promise<IReview[]> => {
 //       } catch (error) {
 //         reject(error);
 //       }
-//     }, 2000); // Simulate a 2-second delay
+//     }, 10000);
 //   });
 // };

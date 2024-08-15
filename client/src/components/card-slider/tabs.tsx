@@ -1,15 +1,16 @@
 'use client';
 import React, { useState } from 'react';
-import SliderComponent from './card-slider'; 
+import SliderComponent from './card-slider';
 import { ISliderData } from '@/types/types';
 import { useSelector } from 'react-redux';
 import { State } from '@/redux/store';
 
 interface TabsProps {
   slidersData: ISliderData[];
+  isLoading: boolean;
 }
 
-const Tabs: React.FC<TabsProps> = ({ slidersData }) => {
+const Tabs: React.FC<TabsProps> = ({ slidersData, isLoading }) => {
   const [activeTab, setActiveTab] = useState(0);
 
   return (
@@ -33,9 +34,20 @@ const Tabs: React.FC<TabsProps> = ({ slidersData }) => {
           ))}
         </div>
       </div>
-      <div className="mt-4 sliderTabes">
-        <SliderComponent cards={slidersData[activeTab].cards} />
-      </div>
+
+      {isLoading ? (
+        <SliderComponent
+          // cards={slidersData[activeTab].cards}
+          isLoading={isLoading}
+          sliderArrow={true}
+        />
+      ) : (
+        <SliderComponent
+          cards={slidersData[activeTab].cards}
+          isLoading={isLoading}
+          sliderArrow={true}
+        />
+      )}
     </div>
   );
 };

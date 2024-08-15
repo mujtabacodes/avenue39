@@ -10,12 +10,13 @@ import { LiaEdit } from "react-icons/lia";
 import { CategoriesType } from "@/types/interfaces";
 import { useAppSelector } from "@components/Others/HelperRedux";
 import useColorMode from "@/hooks/useColorMode";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface Product {
   _id: string;
   name: string;
   category: string;
-  posterImageUrl: { imageUrl: string };
+  posterImageUrl: string;
   createdAt: string;
 }
 
@@ -42,7 +43,7 @@ const TableTwo = ({ setMenuType, seteditCategory, editCategory }: CategoryProps)
     const CategoryHandler = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/getAllcategories`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/category/get-all`);
         const Categories = await response.json();
         setCategory(Categories);
         setLoading(false);
@@ -96,7 +97,16 @@ const TableTwo = ({ setMenuType, seteditCategory, editCategory }: CategoryProps)
       dataIndex: 'posterImageUrl',
       key: 'posterImageUrl',
       render: (text: any, record: any) => (
-        <Image src={record.posterImageUrl.imageUrl} alt={`Image of ${record.name}`} width={50} height={50} />
+        record.posterImageUrl ? (
+          <Image
+            src={record.posterImageUrl || ""} 
+            alt={`Image of ${record.name}`}
+            width={50}
+            height={50}
+          />
+        ) : (
+          <div>No Image Available</div>
+        )
       ),
     },
     {
@@ -161,40 +171,49 @@ const TableTwo = ({ setMenuType, seteditCategory, editCategory }: CategoryProps)
 
   return (
     <div className={colorMode === 'dark' ? 'dark' : ''}>
-      {loading ? (
-        <div className="flex justify-center mt-10">
-          <Loader />
-        </div>
-      ) : (
-        <>
-          <div className="flex justify-between mb-4 items-center text-dark dark:text-white">
-            <p>Categories</p>
-            <div>
-              <p
-                className={`${canAddCategory && "cursor-pointer"
-                  } lg:p-2 md:p-2 ${canAddCategory && "dark:border-strokedark dark:bg-slate-500 bg-black text-white rounded-md border hover:bg-transparent hover:border-black hover:text-black"
-                  } flex justify-center ${!canAddCategory && "cursor-not-allowed "
-                  }`}
-                onClick={() => {
-                  seteditCategory && seteditCategory(null);
-                  if (canAddCategory) {
-                    setMenuType('Add Category');
-                  }
-                }} 
-              >
-                Add Category
-              </p>
-            </div>
+    {loading ? (
+      <div className="space-y-4">
+        {Array(5).fill("").map((_, index) => (
+          <div key={index} className="flex justify-between items-center">
+            <Skeleton className="w-12 h-12 rounded-full" />
+            <Skeleton className="w-32 h-6" />
+            <Skeleton className="w-32 h-6" />
+            <Skeleton className="w-20 h-6" />
+            <Skeleton className="w-10 h-6" />
           </div>
-          {category.length > 0 ? (
-            <Table className="overflow-x-scroll lg:overflow-auto" dataSource={category} columns={columns} pagination={false} rowKey="_id" />
-          ) : (
-            'No Categories found'
-          )}
-        </>
-      )}
-    </div>
-  );
+        ))}
+      </div>
+    ) : (
+      <>
+        <div className="flex justify-between mb-4 items-center text-dark dark:text-white">
+          <p>Categories</p>
+          <div>
+            <p
+              className={`${canAddCategory && "cursor-pointer"
+                } lg:p-2 md:p-2 ${canAddCategory && "dark:border-strokedark dark:bg-slate-500 bg-black text-white rounded-md border hover:bg-transparent hover:border-black hover:text-black"
+                } flex justify-center ${!canAddCategory && "cursor-not-allowed "
+                }`}
+              onClick={() => {
+                seteditCategory && seteditCategory(null);
+                if (canAddCategory) {
+                  setMenuType('Add Category');
+                }
+              }}
+            >
+              Add Category
+            </p>
+          </div>
+        </div>
+
+        {category.length > 0 ? (
+          <Table className="overflow-x-scroll lg:overflow-auto" dataSource={category} columns={columns} pagination={false} rowKey="_id" />
+        ) : (
+          'No Categories found'
+        )}
+      </>
+    )}
+  </div>
+);
 };
 
 export default TableTwo;

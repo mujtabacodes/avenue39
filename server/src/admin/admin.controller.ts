@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  Headers,
   HttpStatus,
   Param,
   Post,
@@ -33,6 +34,7 @@ export class AdminController {
   ) {
     return this.adminService.superAdminLogin(loginData, res);
   }
+
   @Post('/create-admin')
   adminSignup(@Body() signupUserDto: createAdminDto) {
     return this.adminService.adminSignup(signupUserDto);
@@ -51,5 +53,13 @@ export class AdminController {
     }
 
     return this.adminService.removeAdmin(id);
+  }
+  @Get('getAdminHandler')
+  async adminHandler(@Headers('authorization') authToken: string) {
+    return this.adminService.adminHandler(authToken);
+  }
+  @Get('getSuperAdminHandler')
+  async superAdminHandler(@Headers('authorization') authToken: string) {
+    return this.adminService.superAdminHandler(authToken);
   }
 }
