@@ -10,8 +10,13 @@ import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
 import showToast from '../Toaster/Toaster';
 import Loader from '../Loader/Loader';
+import { useRouter } from 'next/navigation';
+import { useDispatch } from 'react-redux';
+import { loggedInUserAction } from '@/redux/slices/user/userSlice';
 
 export function LoginForm() {
+  const Navigate = useRouter();
+  const dispatch = useDispatch();
   const sigupInitialValues = {
     name: '',
     email: '',
@@ -58,6 +63,8 @@ export function LoginForm() {
       } else {
         Signin.resetForm();
         showToast('success', `${res.data.message}🎉`);
+        dispatch(loggedInUserAction(res.data.user));
+        Navigate.push('/');
       }
     },
     onError: (error: any) => {
