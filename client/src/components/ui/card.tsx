@@ -23,7 +23,7 @@ import { useQuery } from '@tanstack/react-query';
 import { fetchReviews } from '@/config/fetch';
 import CardSkeleton from '../cardSkelton';
 interface CardProps {
-  card: IProduct;
+  card?: IProduct;
   isModel?: boolean;
   className?: string;
   skeletonHeight?: string;
@@ -50,7 +50,7 @@ const Card: React.FC<CardProps> = ({
   const handleEventProbation = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
   };
-
+  //@ts-ignore
   const itemToAdd: CartItem = {
     ...card,
     quantity: 1,
@@ -74,13 +74,13 @@ const Card: React.FC<CardProps> = ({
     (review) => review.productId === productId,
   );
   const { averageRating } = calculateRatingsPercentage(filteredReviews);
-
   const handleNavigation = (e: any) => {
+    //@ts-ignore
     Navigate.push(`/product/${generateSlug(card.name)}`);
   };
 
-  if (isLoading) {
-    return <CardSkeleton />;
+  if (!card) {
+    return <CardSkeleton skeletonHeight={skeletonHeight} />;
   }
   return (
     <div

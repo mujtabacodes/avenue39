@@ -31,6 +31,8 @@ export class UsersService {
       const existingUser = await this.prisma.user.findFirst({
         where: { email },
       });
+      console.log('User to already hai bhai');
+      console.log(existingUser);
       const hashedPassword = await hashPassword(password, this.configService);
       if (!existingUser) {
         const user = await this.prisma.user.create({
@@ -56,8 +58,7 @@ export class UsersService {
     }
   }
 
-  async login(loginData: LoginDto) {
-    //TODO: send token in cookies package 'cookie-parser'
+  async login(loginData: LoginDto, res) {
     const { email, password } = loginData;
     try {
       const existingUser = await this.prisma.user.findFirst({
@@ -71,18 +72,28 @@ export class UsersService {
           this.configService,
         );
         if (!isPasswordValid) {
-          throw new UnauthorizedException('Invalid username or password');
+          return {
+            message: 'Invalid Password',
+            status: HttpStatus.FORBIDDEN,
+          };
         }
 
         const token = jwt.sign({ email: email }, process.env.TOKEN_SECRET, {
           expiresIn: '24h',
         });
         const { password: _, ...userWithoutPassword } = existingUser;
+        res.cookie('authToken', token, {
+          // httpOnly: true,
+          // secure: process.env.NODE_ENV === 'production',
+          secure: false, // Set to false for localhost
+          sameSite: 'Lax', // Adjust based on your needs
+          maxAge: 24 * 60 * 60 * 1000,
+        });
 
         return {
           message: 'Login successful',
           user: userWithoutPassword,
-          token,
+          // token,
         };
       } else {
         return {

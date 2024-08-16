@@ -71,16 +71,27 @@ const HotProductSlider: React.FC = () => {
           Hot Newest Products
         </h2>
         <Slider {...settings} className="mx-4 xs:mx-0 hot-products mb-2">
-          {products.map((card) => (
-            <div key={card.id}>
-              <Card
-                className="w-full"
-                skeletonHeight="h-[300px] md:h-[250px] lg:h-[400px] xl:h-[672px]"
-                isLoading={isProductsLoading}
-                card={card}
-              />
-            </div>
-          ))}
+          {!isProductsLoading
+            ? products.map((card) => (
+                <div key={card.id}>
+                  <Card
+                    className="w-full"
+                    skeletonHeight="h-[300px] md:h-[250px] lg:h-[400px] xl:h-[672px]"
+                    isLoading={isProductsLoading}
+                    card={card}
+                  />
+                </div>
+              ))
+            : [...Array(3)].map((_, index) => (
+                <span key={index} className="">
+                  <Card
+                    isLoading={true}
+                    className="w-full"
+                    // card={card}
+                    skeletonHeight="h-[300px] md:h-[250px] lg:h-[400px] xl:h-[672px]"
+                  />
+                </span>
+              ))}
         </Slider>
       </Container>
     </section>
