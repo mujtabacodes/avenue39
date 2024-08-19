@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   Res,
+  Headers,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import {
@@ -51,5 +52,9 @@ export class UsersController {
   @Post('forget-password')
   forget(@Body() PasswordData: ForgetPasswordDto) {
     return this.usersService.forgetPassword(PasswordData);
+  }
+  @Get('getuserHandler')
+  async userHandler(@Headers('authorization') authToken: string) {
+    return this.usersService.userHandler(authToken);
   }
 }

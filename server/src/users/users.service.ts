@@ -82,7 +82,7 @@ export class UsersService {
           expiresIn: '24h',
         });
         const { password: _, ...userWithoutPassword } = existingUser;
-        res.cookie('authToken', token, {
+        res.cookie('user_token', token, {
           // httpOnly: true,
           // secure: process.env.NODE_ENV === 'production',
           secure: false, // Set to false for localhost
@@ -159,6 +159,38 @@ export class UsersService {
       };
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+  async userHandler(authToken: string) {
+    try {
+      if (!authToken) {
+        throw new HttpException('No token provided', HttpStatus.UNAUTHORIZED);
+      }
+
+      const token = authToken.startsWith('Bearer ')
+        ? authToken.substring(7)
+        : authToken;
+      console.log(authToken);
+      console.log(token);
+      const decoded = jwt.verify(token, process.env.TOKEN_SECRET) as {
+        email: string;
+      };
+      const email = decoded.email;
+
+      if (!email) {
+        throw new HttpException('Invalid token', HttpStatus.UNAUTHORIZED);
+      }
+
+      const existingUser = await this.prisma.user.findFirst({
+        where: { email },
+      });
+      const { password: _, ...userWithoutPassword } = existingUser;
+      return {
+        message: 'User details are here 🎉',
+        user: userWithoutPassword,
+      };
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.UNAUTHORIZED);
     }
   }
 }
