@@ -40,9 +40,10 @@ model Products {
   productImages         Json[]
   additionalInformation Json[]
 
-  reviews      Reviews[]
-  Categories   Categories? @relation(fields: [categoriesId], references: [id])
-  categoriesId Int?
+  reviews Reviews[]
+
+  categories    Categories[]    @relation("ProductCategories")
+  subcategories SubCategories[] @relation("ProductSubCategories")
 }
 
 model Categories {
@@ -53,7 +54,21 @@ model Categories {
   posterImageUrl      String?
   posterImagePublicId String?
 
-  products Products[]
+  products      Products[]      @relation("ProductCategories")
+  subcategories SubCategories[]
+}
+
+model SubCategories {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  createdAt DateTime @default(now())
+
+  posterImageUrl      String?
+  posterImagePublicId String?
+
+  products     Products[]  @relation("ProductSubCategories")
+  Categories   Categories? @relation(fields: [categoriesId], references: [id])
+  categoriesId Int
 }
 
 model Reviews {
