@@ -36,20 +36,20 @@ function UserprotectedRoute(WrappedComponent: any) {
       }
     };
 
-    useEffect(() => {
-      const token = Cookies.get('user_token');
-      console.log('Token is here');
-      console.log(token);
+    // useEffect(() => {
+    //   const token = Cookies.get('user_token');
+    //   console.log('Token is here');
+    //   console.log(token);
 
-      if (!token) {
-        router.push('/login');
-        setTimeout(() => {
-          setLoading(false);
-        }, 1000);
-      } else {
-        AddminProfileTriggerHandler(token);
-      }
-    }, [router]);
+    //   if (!token) {
+    //     router.push('/login');
+    //     setTimeout(() => {
+    //       setLoading(false);
+    //     }, 1000);
+    //   } else {
+    //     AddminProfileTriggerHandler(token);
+    //   }
+    // }, [router]);
     console.log(loading, 'loading');
     if (loading) {
       return (

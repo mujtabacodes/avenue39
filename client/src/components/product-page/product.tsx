@@ -56,7 +56,7 @@ const ProductPage = ({
   // const productsDB = useSelector((state: State) => state.products);
   const [loading, setLoading] = useState<boolean>(true); // Add loading state
   const [category, setCategory] = useState<any[]>([]); // State for fetched data
-  
+
   useEffect(() => {
     // Fetch menu data from API
     const fetchMenuData = async () => {
@@ -70,7 +70,7 @@ const ProductPage = ({
         const data = await response.json();
         setCategory(data); // Set fetched data
         setLoading(false); // Set loading to false when data is ready
-      } catch (error:any) {
+      } catch (error: any) {
         setLoading(false); // Set loading to false in case of error
       }
     };
@@ -114,7 +114,7 @@ const ProductPage = ({
   };
 
   const filteredCards = products;
-          // const filteredCards1 = products
+  // const filteredCards1 = products
   //   .filter((card) => {
   //     const inCategory =
   //       selectedCategories.length > 0
@@ -172,7 +172,6 @@ const ProductPage = ({
                         onPriceChange={handlePriceChange}
                         sideBanner={sideBanner}
                         category={category}
-
                       />
                     </div>
                     <div className="h-16 w-4/5 sm:max-w-sm border-t-2 fixed bottom-0 right-0 bg-white flex items-center justify-center gap-4 transition-all">
@@ -224,15 +223,30 @@ const ProductPage = ({
           <div
             className={`grid gap-4 md:gap-8 mt-4 ${layout === 'grid' ? 'grid-cols-1 sm:grid-cols-2 xl:grid-cols-3' : 'grid-cols-1'}`}
           >
-            {filteredCards.map((card) => (
-              <div key={card.id}>
-                {layout === 'grid' ? (
-                  <Card className='lg:w-[384.24px]' skeletonHeight='h-[380px] xs:h-[488px] sm:h-[380px] 2xl:h-[488px]' card={card} />
-                ) : (
-                  <LandscapeCard card={card} />
-                )}
-              </div>
-            ))}
+            {!isLoading
+              ? filteredCards.map((card) => (
+                  <div key={card.id}>
+                    {layout === 'grid' ? (
+                      <Card
+                        className="lg:w-[384.24px]"
+                        skeletonHeight="h-[380px] xs:h-[488px] sm:h-[380px] 2xl:h-[488px]"
+                        card={card}
+                        isLoading={false}
+                      />
+                    ) : (
+                      <LandscapeCard card={card} />
+                    )}
+                  </div>
+                ))
+              : [...Array(6)].map((_, index) => (
+                  <span key={index} className="">
+                    <Card
+                      className="lg:w-[384.24px]"
+                      skeletonHeight="h-[380px] xs:h-[488px] sm:h-[380px] 2xl:h-[488px]"
+                      isLoading={isLoading}
+                    />
+                  </span>
+                ))}
           </div>
         </div>
       </Container>
