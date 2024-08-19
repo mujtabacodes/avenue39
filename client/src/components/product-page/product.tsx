@@ -53,12 +53,10 @@ const ProductPage = ({
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 500]);
   const [sortOption, setSortOption] = useState<string>('default');
-  // const productsDB = useSelector((state: State) => state.products);
-  const [loading, setLoading] = useState<boolean>(true); // Add loading state
-  const [category, setCategory] = useState<any[]>([]); // State for fetched data
+  const [loading, setLoading] = useState<boolean>(true); 
+  const [category, setCategory] = useState<any[]>([]);
 
   useEffect(() => {
-    // Fetch menu data from API
     const fetchMenuData = async () => {
       try {
         const response = await fetch(
@@ -87,10 +85,6 @@ const ProductPage = ({
     queryFn: fetchProducts,
   });
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
   if (error) {
     return <div>Error fetching products: {error.message}</div>;
   }
@@ -98,6 +92,7 @@ const ProductPage = ({
   const handleCategoryChange = (category: string, isChecked: boolean) => {
     if (isChecked) {
       setSelectedCategories([...selectedCategories, category]);
+      console.log(category, "categories")
     } else {
       setSelectedCategories(
         selectedCategories.filter((cat) => cat !== category),
