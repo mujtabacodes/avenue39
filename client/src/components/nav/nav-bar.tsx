@@ -1,7 +1,8 @@
+'use client';
 import { INav } from '@/types/types';
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { FaRegUser } from 'react-icons/fa';
 import logo from '@icons/logo.png';
 import { IoSearchSharp } from 'react-icons/io5';
@@ -21,9 +22,23 @@ import { IoIosClose, IoIosSearch } from 'react-icons/io';
 import CartItems from '../cart/items';
 import { Avatar, Popover } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
+import userSlice from '@/redux/slices/user/userSlice';
+import { useSelector } from 'react-redux';
+import { State } from '@/redux/store';
 
 const Navbar = (props: INav) => {
   const [open, setOpen] = useState(false);
+  // const user=useSelector(state=>state.
+  const userDetails = useSelector(
+    (state: State) => state.usrSlice.loggedInUser,
+  );
+  console.log('User details ');
+  console.log(userDetails);
+
+  useEffect(() => {
+    console.log('User details ');
+    console.log(userDetails);
+  }, []);
 
   const hide = () => {
     setOpen(false);
@@ -55,7 +70,10 @@ const Navbar = (props: INav) => {
             />
             <Drawer>
               <DrawerTrigger asChild>
-                <button type='submit' className="absolute inset-y-0 end-0 flex items-center z-20 pe-4 cursor-pointer">
+                <button
+                  type="submit"
+                  className="absolute inset-y-0 end-0 flex items-center z-20 pe-4 cursor-pointer"
+                >
                   <IoSearchSharp className="cursor-pointer" size={30} />
                 </button>
               </DrawerTrigger>
@@ -105,40 +123,55 @@ const Navbar = (props: INav) => {
             <CartItems />
           </div>
           <div className="hidden md:flex gap-5 items-center">
-            <Link
-              className="gap-2 flex items-center text-14 font-semibold hover:underline text-black dark:text-black"
-              href={'/login'}
-            >
-              <FaRegUser size={25} />
-              <span>Login/Register</span>
-            </Link>
-            {/* <Popover
-              content={
-                <>
-                  <div className="flex flex-col gap-2 w-auto px-5 ">
-                    <Link className='text-black hover:text-primary' href="/profile" onClick={hide}>
-                      Profile
-                    </Link>
-                    <Link className='text-black hover:text-primary' href="/order-history" onClick={hide}>
-                      Order History
-                    </Link>
-                    <Link className='text-black hover:text-primary' href="/login" onClick={hide}>
-                      Logout
-                    </Link>
-                  </div>
-                </>
-              }
-              title=""
-              placement='bottomRight'
-              trigger="click"
-              open={open}
-              onOpenChange={handleOpenChange}
-            >
-              <div className="flex gap-2 items-center whitespace-nowrap cursor-pointer">
-                <Avatar icon={<UserOutlined />} />
-                <span>M.Ahmad</span>
-              </div>
-            </Popover> */}
+            {!userDetails ? (
+              <Link
+                className="gap-2 flex items-center text-14 font-semibold hover:underline text-black dark:text-black"
+                href={'/login'}
+              >
+                <FaRegUser size={25} />
+                <span>Login/Register</span>
+              </Link>
+            ) : (
+              <Popover
+                content={
+                  <>
+                    <div className="flex flex-col gap-2 w-auto px-5 ">
+                      <Link
+                        className="text-black hover:text-primary"
+                        href="/profile"
+                        onClick={hide}
+                      >
+                        Profile
+                      </Link>
+                      <Link
+                        className="text-black hover:text-primary"
+                        href="/order-history"
+                        onClick={hide}
+                      >
+                        Order History
+                      </Link>
+                      <Link
+                        className="text-black hover:text-primary"
+                        href="/login"
+                        onClick={hide}
+                      >
+                        Logout
+                      </Link>
+                    </div>
+                  </>
+                }
+                title=""
+                placement="bottomRight"
+                trigger="click"
+                open={open}
+                onOpenChange={handleOpenChange}
+              >
+                <div className="flex gap-2 items-center whitespace-nowrap cursor-pointer">
+                  <Avatar icon={<UserOutlined />} />
+                  <span>{userDetails.name}</span>
+                </div>
+              </Popover>
+            )}
           </div>
 
           <div className="md:hidden flex gap-2 items-center">

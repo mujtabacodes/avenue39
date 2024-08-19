@@ -22,7 +22,7 @@ const Tabs: React.FC<TabsProps> = ({ slidersData, isLoading }) => {
           </h3>
         </div>
 
-        <div className="flex flex-nowrap gap-4 max-w-[450px] overflow-x-auto">
+        <div className="flex flex-nowrap gap-4 max-w-[450px] overflow-x-auto mb-2">
           {slidersData.map((slider: any, index: any) => (
             <button
               key={index}
@@ -36,11 +36,7 @@ const Tabs: React.FC<TabsProps> = ({ slidersData, isLoading }) => {
       </div>
 
       {isLoading ? (
-        <SliderComponent
-          // cards={slidersData[activeTab].cards}
-          isLoading={isLoading}
-          sliderArrow={true}
-        />
+        <SliderComponent isLoading={isLoading} sliderArrow={true} />
       ) : (
         <SliderComponent
           cards={slidersData[activeTab].cards}

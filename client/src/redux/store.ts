@@ -29,7 +29,7 @@ const rootReducer = combineReducers({
   cart: cartReducer,
   drawer: drawerReducer,
   products: productReducer,
-
+  usrSlice: usrSlice,
   usersSlice: usersSlice,
 });
 
