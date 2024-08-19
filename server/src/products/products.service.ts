@@ -10,70 +10,60 @@ export class ProductsService {
 
   getProducts() {
     try {
-      return this.prisma.products.findMany({});
+      console.log(this.prisma.products.findMany({}));
+      return this.prisma.products.findMany({
+        include: {
+          categories: true,
+          subcategories: true,
+        },
+      });
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.NOT_FOUND);
     }
   }
 
   async addProduct(productData: AddProductDto) {
-    console.log('Reach add product');
-    // try {
-    //   const { name } = productData;
-    //   const existingProduct = await this.prisma.products.findFirst({
-    //     where: { name },
-    //   });
-    //   if (!existingProduct) {
-    //     await this.prisma.products.create({
-    //       data: {
-    //         name: productData.name,
-    //         price: productData.price,
-    //         description: productData.description,
-    //         stock: productData.stock,
-    //         discountPrice: productData.discountPrice ?? null,
-    //         posterImageUrl: productData.posterImageUrl,
-    //         posterImagePublicId: productData.posterImagePublicId,
-    //         hoverImageUrl: productData.hoverImageUrl ?? null,
-    //         hoverImagePublicId: productData.hoverImagePublicId ?? null,
-    //         productImages: productData.productImages ?? [],
-    //         additionalInformation: productData.additionalInformation ?? [],
-    //         categoriesId: productData.categoriesId ?? null, // Handle optional field
-    //       },
-    //     });
-    //     return {
-    //       message: 'Product created successfully',
-    //       status: HttpStatus.OK,
-    //     };
-    //   } else {
-    //     await this.prisma.products.update({
-    //       where: { id: existingProduct.id },
-    //       data: {
-    //         name: productData.name,
-    //         price: productData.price,
-    //         description: productData.description,
-    //         stock: productData.stock,
-    //         discountPrice: productData.discountPrice ?? null,
-    //         posterImageUrl: productData.posterImageUrl,
-    //         posterImagePublicId: productData.posterImagePublicId,
-    //         hoverImageUrl: productData.hoverImageUrl ?? null,
-    //         hoverImagePublicId: productData.hoverImagePublicId ?? null,
-    //         productImages:
-    //           productData.productImages ?? existingProduct.productImages,
-    //         additionalInformation:
-    //           productData.additionalInformation ??
-    //           existingProduct.additionalInformation,
-    //         categoriesId:
-    //           productData.categoriesId ?? existingProduct.categoriesId,
-    //       },
-    //     });
-    //     return {
-    //       message: 'Product updated successfully',
-    //       status: HttpStatus.OK,
-    //     };
-    //   }
-    // } catch (error) {
-    //   customHttpException(error.message, 'BAD_REQUEST');
-    // }
+    try {
+      const existingProduct = await this.prisma.products.findFirst({
+        where: { name: productData.name },
+      });
+
+      if (existingProduct) {
+        return {
+          message: 'Product with this name already exists!',
+          status: HttpStatus.FORBIDDEN,
+        };
+      }
+
+      await this.prisma.products.create({
+        data: {
+          name: productData.name,
+          price: productData.price,
+          description: productData.description,
+          stock: productData.stock,
+          discountPrice: productData.discountPrice ?? null,
+          posterImageUrl: productData.posterImageUrl,
+          posterImagePublicId: productData.posterImagePublicId,
+          hoverImageUrl: productData.hoverImageUrl ?? null,
+          hoverImagePublicId: productData.hoverImagePublicId ?? null,
+          productImages: productData.productImages ?? [],
+          additionalInformation: productData.additionalInformation ?? [],
+          categories: {
+            connect: productData.categories.map((id) => ({ id })),
+          },
+          subcategories: {
+            connect: productData.subcategories.map((id) => ({ id })),
+          },
+        },
+      });
+
+      return {
+        message: 'Product created successfully 🎉',
+        status: HttpStatus.OK,
+      };
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+    }
   }
 
   async removeProduct(id: number) {

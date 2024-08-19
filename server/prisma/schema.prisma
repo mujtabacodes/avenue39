@@ -26,6 +26,8 @@ model Products {
   stock         Int
   discountPrice Int?
 
+  color String[] @default([])
+
   createdAt    DateTime @default(now())
   updatedAt    DateTime @default(now())
   sale         String?  @default("0")
@@ -42,8 +44,9 @@ model Products {
 
   reviews Reviews[]
 
-  categories    Categories[]    @relation("ProductCategories")
-  subcategories SubCategories[] @relation("ProductSubCategories")
+  categories    Categories[]            @relation("ProductCategories")
+  subcategories SubCategories[]         @relation("ProductSubCategories")
+  salesRecords  sales_record_products[]
 }
 
 model Categories {
@@ -55,7 +58,7 @@ model Categories {
   posterImagePublicId String?
 
   products      Products[]      @relation("ProductCategories")
-  subcategories SubCategories[]
+  subcategories SubCategories[] @relation("CategorySubCategories")
 }
 
 model SubCategories {
@@ -66,9 +69,8 @@ model SubCategories {
   posterImageUrl      String?
   posterImagePublicId String?
 
-  products     Products[]  @relation("ProductSubCategories")
-  Categories   Categories? @relation(fields: [categoriesId], references: [id])
-  categoriesId Int
+  products   Products[]   @relation("ProductSubCategories")
+  categories Categories[] @relation("CategorySubCategories")
 }
 
 model Reviews {
@@ -108,4 +110,20 @@ model Admins {
   posterImagePublicId String?
 
   role String @default("Admin")
+}
+
+model sales_record {
+  id         Int                     @id @default(autoincrement())
+  user_email String                  @unique
+  createdAt  DateTime                @default(now())
+  products   sales_record_products[]
+}
+
+model sales_record_products {
+  id            Int          @id @default(autoincrement())
+  quantity      Int
+  productData   Json
+  salesRecord   sales_record @relation(fields: [salesRecordId], references: [id])
+  salesRecordId Int
+  Products      Products[]
 }
