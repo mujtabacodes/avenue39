@@ -47,6 +47,7 @@ model Categories {
   createdAt           DateTime        @default(now())
   posterImageUrl      String?
   posterImagePublicId String?
+  description         String?
   subcategories       SubCategories[] @relation("CategorySubCategories")
   products            Products[]      @relation("ProductCategories")
 }

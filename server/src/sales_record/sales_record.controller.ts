@@ -11,6 +11,10 @@ export class SalesRecordController {
   create(@Body() createSalesRecordDto: CreateSalesRecordDto) {
     return this.salesRecordService.Add_sales_record(createSalesRecordDto);
   }
+@Get("get_total_sales")
+getSales_record(){
+  return this.salesRecordService.get_total_sales()
+}
 
   
   @Get()
