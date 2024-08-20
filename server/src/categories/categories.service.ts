@@ -9,7 +9,11 @@ export class CategoriesService {
 
   getCategories() {
     try {
-      return this.prisma.categories.findMany({});
+      return this.prisma.categories.findMany({
+        include: {
+          subcategories: true,
+        },
+      });
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.NOT_FOUND);
     }

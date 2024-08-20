@@ -18,23 +18,29 @@ model User {
 }
 
 model Products {
-  id                    Int                     @id @default(autoincrement())
-  name                  String                  @unique
-  price                 Int
-  description           String
-  stock                 Int
-  discountPrice         Int?
-  posterImageUrl        String
-  posterImagePublicId   String
-  hoverImageUrl         String
-  hoverImagePublicId    String
+  id Int @id @default(autoincrement())
+
+  name          String @unique
+  price         Int
+  description   String
+  stock         Int
+  discountPrice Int?
+
+  color String[] @default([])
+
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @default(now())
+  sale         String?  @default("0")
+  saleDuration DateTime @default(now())
+
+  posterImageUrl      String
+  posterImagePublicId String
+
+  hoverImageUrl      String
+  hoverImagePublicId String
+
   productImages         Json[]
   additionalInformation Json[]
-  createdAt             DateTime                @default(now())
-  sale                  String?                 @default("0")
-  updatedAt             DateTime                @default(now())
-  saleDuration          DateTime                @default(now())
-  color                 String[]                @default([])
   reviews               Reviews[]
   categories            Categories[]            @relation("ProductCategories")
   subcategories         SubCategories[]         @relation("ProductSubCategories")
@@ -58,8 +64,9 @@ model SubCategories {
   createdAt           DateTime     @default(now())
   posterImageUrl      String?
   posterImagePublicId String?
-  categories          Categories[] @relation("CategorySubCategories")
-  products            Products[]   @relation("ProductSubCategories")
+
+  products   Products[]   @relation("ProductSubCategories")
+  categories Categories[] @relation("CategorySubCategories")
 }
 
 model Reviews {

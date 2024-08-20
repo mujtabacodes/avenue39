@@ -85,9 +85,13 @@ const ProductPage = ({
     queryFn: fetchProducts,
   });
 
-  if (error) {
-    return <div>Error fetching products: {error.message}</div>;
-  }
+  // if (isLoading) {
+  //   return <div>Loading...</div>;
+  // }
+
+  // if (error) {
+  //   return <div>Error fetching products: {error.message}</div>;
+  // }
 
   const handleCategoryChange = (category: string, isChecked: boolean) => {
     if (isChecked) {
