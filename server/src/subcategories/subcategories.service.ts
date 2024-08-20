@@ -9,13 +9,18 @@ export class SubcategoriesService {
 
   getSubCategories() {
     try {
-      return this.prisma.subCategories.findMany({});
+      return this.prisma.subCategories.findMany({
+        include: {
+          categories: true,
+        },
+      });
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.NOT_FOUND);
     }
   }
 
   async addSubCategory(categoryData: AddSubCategoryDto) {
+    console.log('Add sub category triggered!');
     try {
       const { name, categoriesId } = categoryData;
 

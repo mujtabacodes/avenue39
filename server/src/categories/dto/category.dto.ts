@@ -1,3 +1,4 @@
+import { Type } from 'class-transformer';
 import {
   IsString,
   IsEmail,
@@ -6,9 +7,25 @@ import {
   IsOptional,
   IsArray,
   IsInt,
+  ValidateNested,
 } from 'class-validator';
+class ImageDto {
+  @IsOptional()
+  @IsString()
+  imageUrl?: string;
+
+  @IsOptional()
+  @IsString()
+  public_id?: string;
+}
+
 export class AddCategoryDto {
   @IsNotEmpty()
   @IsString()
   name: string;
+
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => ImageDto)
+  posterImageUrl?: ImageDto;
 }

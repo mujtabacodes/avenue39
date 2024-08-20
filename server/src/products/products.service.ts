@@ -23,47 +23,49 @@ export class ProductsService {
   }
 
   async addProduct(productData: AddProductDto) {
-    try {
-      const existingProduct = await this.prisma.products.findFirst({
-        where: { name: productData.name },
-      });
+    console.log('Add product triggered');
+    console.log(productData);
+    // try {
+    //   const existingProduct = await this.prisma.products.findFirst({
+    //     where: { name: productData.name },
+    //   });
 
-      if (existingProduct) {
-        return {
-          message: 'Product with this name already exists!',
-          status: HttpStatus.FORBIDDEN,
-        };
-      }
+    //   if (existingProduct) {
+    //     return {
+    //       message: 'Product with this name already exists!',
+    //       status: HttpStatus.FORBIDDEN,
+    //     };
+    //   }
 
-      await this.prisma.products.create({
-        data: {
-          name: productData.name,
-          price: productData.price,
-          description: productData.description,
-          stock: productData.stock,
-          discountPrice: productData.discountPrice ?? null,
-          posterImageUrl: productData.posterImageUrl,
-          posterImagePublicId: productData.posterImagePublicId,
-          hoverImageUrl: productData.hoverImageUrl ?? null,
-          hoverImagePublicId: productData.hoverImagePublicId ?? null,
-          productImages: productData.productImages ?? [],
-          additionalInformation: productData.additionalInformation ?? [],
-          categories: {
-            connect: productData.categories.map((id) => ({ id })),
-          },
-          subcategories: {
-            connect: productData.subcategories.map((id) => ({ id })),
-          },
-        },
-      });
+    //   await this.prisma.products.create({
+    //     data: {
+    //       name: productData.name,
+    //       price: productData.price,
+    //       description: productData.description,
+    //       stock: productData.stock,
+    //       discountPrice: productData.discountPrice ?? null,
+    //       posterImageUrl: productData.posterImageUrl,
+    //       posterImagePublicId: productData.posterImagePublicId,
+    //       hoverImageUrl: productData.hoverImageUrl ?? null,
+    //       hoverImagePublicId: productData.hoverImagePublicId ?? null,
+    //       productImages: productData.productImages ?? [],
+    //       additionalInformation: productData.additionalInformation ?? [],
+    //       categories: {
+    //         connect: productData.categories.map((id) => ({ id })),
+    //       },
+    //       subcategories: {
+    //         connect: productData.subcategories.map((id) => ({ id })),
+    //       },
+    //     },
+    //   });
 
-      return {
-        message: 'Product created successfully 🎉',
-        status: HttpStatus.OK,
-      };
-    } catch (error) {
-      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
-    }
+    //   return {
+    //     message: 'Product created successfully 🎉',
+    //     status: HttpStatus.OK,
+    //   };
+    // } catch (error) {
+    //   throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+    // }
   }
 
   async removeProduct(id: number) {

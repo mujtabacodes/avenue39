@@ -20,34 +20,32 @@ export class CategoriesService {
   }
 
   async addCategory(categoryData: AddCategoryDto) {
+    console.log(categoryData);
     try {
       const { name } = categoryData;
       const existingCategory = await this.prisma.categories.findFirst({
         where: { name },
       });
 
-      if (!existingCategory) {
-        await this.prisma.categories.create({
-          data: {
-            ...categoryData,
-          },
-        });
-
+      if (existingCategory) {
         return {
-          message: 'Category Created successfully',
-          status: HttpStatus.OK,
-        };
-      } else {
-        await this.prisma.categories.update({
-          where: { id: existingCategory.id },
-          data: { ...categoryData },
-        });
-
-        return {
-          message: 'Product updated successfully',
-          status: HttpStatus.OK,
+          message: 'Already exist!',
+          status: HttpStatus.FORBIDDEN,
         };
       }
+
+      await this.prisma.categories.create({
+        data: {
+          ...categoryData,
+          posterImageUrl: categoryData.posterImageUrl.imageUrl ?? null,
+          posterImagePublicId: categoryData.posterImageUrl.public_id ?? null,
+        },
+      });
+
+      return {
+        message: 'Category Created successfully🎉',
+        status: HttpStatus.OK,
+      };
     } catch (error) {
       customHttpException(error.message, 'BAD_REQUEST');
     }
