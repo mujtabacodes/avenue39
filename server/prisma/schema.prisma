@@ -26,6 +26,8 @@ model Products {
   stock         Int
   discountPrice Int?
 
+  color String[] @default([])
+
   createdAt    DateTime @default(now())
   updatedAt    DateTime @default(now())
   sale         String?  @default("0")
@@ -39,41 +41,50 @@ model Products {
 
   productImages         Json[]
   additionalInformation Json[]
-
-  reviews      Reviews[]
-  Categories   Categories? @relation(fields: [categoriesId], references: [id])
-  categoriesId Int?
+  reviews               Reviews[]
+  categories            Categories[]            @relation("ProductCategories")
+  subcategories         SubCategories[]         @relation("ProductSubCategories")
+  salesRecords          sales_record_products[] @relation("ProductsTosales_record_products")
 }
 
 model Categories {
-  id        Int      @id @default(autoincrement())
-  name      String   @unique
-  createdAt DateTime @default(now())
+  id                  Int             @id @default(autoincrement())
+  name                String          @unique
+  createdAt           DateTime        @default(now())
+  posterImageUrl      String?
+  posterImagePublicId String?
+  description         String?
+  subcategories       SubCategories[] @relation("CategorySubCategories")
+  products            Products[]      @relation("ProductCategories")
+}
 
+model SubCategories {
+  id                  Int          @id @default(autoincrement())
+  name                String       @unique
+  createdAt           DateTime     @default(now())
   posterImageUrl      String?
   posterImagePublicId String?
 
-  products Products[]
+  products   Products[]   @relation("ProductSubCategories")
+  categories Categories[] @relation("CategorySubCategories")
 }
 
 model Reviews {
-  id        Int      @unique @default(autoincrement())
-  name      String
-  email     String
+  id        Int       @unique @default(autoincrement())
   review    String
   star      Int
-  createdAt DateTime @default(now())
-
-  Products  Products? @relation(fields: [productId], references: [id])
   productId Int?
+  email     String
+  name      String
+  createdAt DateTime  @default(now())
+  Products  Products? @relation(fields: [productId], references: [id])
 }
 
 model Admins {
-  id       Int    @id @default(autoincrement())
-  name     String
-  email    String @unique
-  password String
-
+  id                     Int     @id @default(autoincrement())
+  name                   String
+  email                  String  @unique
+  password               String
   canAddProduct          Boolean @default(false)
   canEditProduct         Boolean @default(false)
   canDeleteProduct       Boolean @default(false)
@@ -88,9 +99,23 @@ model Admins {
   canViewAdmins          Boolean @default(false)
   canViewTotalProducts   Boolean @default(false)
   canViewTotalCategories Boolean @default(false)
+  posterImageUrl         String?
+  posterImagePublicId    String?
+  role                   String  @default("Admin")
+}
 
-  posterImageUrl      String?
-  posterImagePublicId String?
+model sales_record {
+  id         Int                     @id @default(autoincrement())
+  user_email String                  @unique
+  createdAt  DateTime                @default(now())
+  products   sales_record_products[]
+}
 
-  role String @default("Admin")
+model sales_record_products {
+  id            Int          @id @default(autoincrement())
+  quantity      Int
+  productData   Json
+  salesRecordId Int
+  salesRecord   sales_record @relation(fields: [salesRecordId], references: [id])
+  Products      Products[]   @relation("ProductsTosales_record_products")
 }

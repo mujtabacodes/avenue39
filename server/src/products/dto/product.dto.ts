@@ -6,6 +6,7 @@ import {
   IsOptional,
   IsArray,
   IsInt,
+  ArrayNotEmpty,
 } from 'class-validator';
 export class AddProductDto {
   @IsNotEmpty()
@@ -53,6 +54,14 @@ export class AddProductDto {
   additionalInformation: { colors?: string[]; dimension?: string[] }[];
 
   @IsNotEmpty()
-  @IsInt()
-  categoriesId: number;
+  @IsArray()
+  @ArrayNotEmpty()
+  @IsInt({ each: true })
+  categories: number[];
+
+  @IsNotEmpty()
+  @IsArray()
+  @ArrayNotEmpty()
+  @IsInt({ each: true })
+  subcategories: number[];
 }

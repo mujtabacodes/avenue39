@@ -10,7 +10,7 @@ import { useRouter } from 'next/navigation';
 import { FaRegEye } from 'react-icons/fa';
 import { LiaEdit } from 'react-icons/lia';
 import { useAppSelector } from '@components/Others/HelperRedux';
-import { generateSlug } from '@/data/data';
+import { generateSlug } from '@/config';
 
 interface Product {
   _id: string;

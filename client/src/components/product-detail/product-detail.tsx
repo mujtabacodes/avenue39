@@ -97,8 +97,6 @@ console.log(slug, "slug")
   );
   const { averageRating, productReviews } =
     calculateRatingsPercentage(filteredReviews);
-  console.log(cartItems);
-
   if (!product) {
     return <Loader />;
   }
@@ -130,9 +128,6 @@ console.log(slug, "slug")
     Navigate.push('/checkout');
   };
 
- const TryatHomehandler =(ImageUrl: string)=>{
-  localStorage.setItem('atHome_Image_url', ImageUrl)
- }
 
 
   return (
@@ -270,7 +265,7 @@ console.log(slug, "slug")
 
 <Dialog>
   <DialogTrigger asChild>
-    <Button className="bg-warning w-1/2 text-white flex gap-3 h-12 rounded-2xl" onClick={()=>{TryatHomehandler(hoveredImage ? hoveredImage : product?.productImages[0].imageUrl)}}>
+    <Button className="bg-warning w-1/2 text-white flex gap-3 h-12 rounded-2xl">
       TRY AT HOME
     </Button>
   </DialogTrigger>
@@ -283,7 +278,7 @@ console.log(slug, "slug")
       </DialogTitle>
  
     </DialogHeader>
-          <QRScanner hoveredImage={hoveredImage ? hoveredImage : product?.productImages[0].imageUrl} url={slug}/>
+          <QRScanner hoveredImage={hoveredImage ? hoveredImage : product?.productImages[0].imageUrl?  product?.productImages[0].imageUrl : 'not found'} url={slug}/>
   </DialogContent>
 </Dialog>
 

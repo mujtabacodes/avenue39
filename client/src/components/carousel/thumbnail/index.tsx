@@ -15,7 +15,7 @@ import {
 } from 'swiper/modules';
 import Image from 'next/image';
 import { FaSortDown } from 'react-icons/fa';
-import { Skeleton } from '@/components/ui/skeleton'; // Adjust the path as necessary
+import { Skeleton } from '@/components/ui/skeleton';
 import { CiZoomIn } from 'react-icons/ci';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 
@@ -218,7 +218,7 @@ const Thumbnail: React.FC<ThumbProps> = ({thumbs,isZoom,swiperGap,HoverImage,isL
                         alt={thumb.name || 'Main Image'}
                         onClick={(e) => isZoom? handleClick(thumb.imageUrl || '', e) : ''}
                         onMouseEnter={(e) =>
-                          handleMouseEnter(thumb.imageUrl || '', e)
+                          handleMouseEnter(thumb.imageUrl || '',thumb.public_id || "", e)
                         }
                         onMouseMove={handleMouseMove}
                         onMouseLeave={handleMouseLeave}
@@ -250,7 +250,7 @@ const Thumbnail: React.FC<ThumbProps> = ({thumbs,isZoom,swiperGap,HoverImage,isL
           </div>
         </div>
 
-        {/* Hover Zoom Feature */}
+        
         {cursorVisible && zoomEnabled && (
           <div className="absolute -right-1/2 translate-x-[40%] top-1 hidden md:flex pt-24 z-40 h-[90vh] w-3/4 bg-white/70">
             <div
@@ -268,7 +268,7 @@ const Thumbnail: React.FC<ThumbProps> = ({thumbs,isZoom,swiperGap,HoverImage,isL
           </div>
         )}
 
-        {/* Custom Cursor */}
+        
         {cursorVisible && zoomEnabled && (
           <div
             className="fixed z-50 pointer-events-none"

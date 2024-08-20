@@ -63,30 +63,30 @@ const SliderComponent: React.FC<SliderProps> = ({
 
   return (
     <>
-      {cards ? (
-        <Slider {...sliderSettings}>
-          {cards?.map((card) => (
-            <div key={card.id}>
-              <Card
-                isLoading={isLoading}
-                className="w-full"
-                card={card}
-                isModel={isModel}
-                skeletonHeight={`h-[400px] md:h-[250px] lg:h-[400px] ${cardHeight ? cardHeight : 'xl:h-[672px]'}`}
-              />
-            </div>
-          ))}
-        </Slider>
-      ) : (
-        <CardSkeleton />
-        // <Card
-        //   isLoading={isLoading}
-        //   // className="w-full"
-        //   // card={card}
-        //   isModel={isModel}
-        //   skeletonHeight={`h-[400px] md:h-[250px] lg:h-[400px] ${cardHeight ? cardHeight : 'xl:h-[672px]'}`}
-        // />
-      )}
+      <Slider {...sliderSettings}>
+        {cards
+          ? cards?.map((card) => (
+              <div key={card.id}>
+                <Card
+                  isLoading={isLoading}
+                  className="w-full"
+                  card={card}
+                  isModel={isModel}
+                  skeletonHeight={`h-[400px] md:h-[250px] lg:h-[400px] ${cardHeight ? cardHeight : 'xl:h-[672px]'}`}
+                />
+              </div>
+            ))
+          : [...Array(3)].map((_, index) => (
+              <span key={index} className="">
+                <Card
+                  isLoading={isLoading}
+                  className="w-full"
+                  isModel={isModel}
+                  skeletonHeight={`h-[400px] md:h-[250px] lg:h-[400px] ${cardHeight ? cardHeight : 'xl:h-[672px]'}`}
+                />
+              </span>
+            ))}
+      </Slider>
     </>
   );
 };
