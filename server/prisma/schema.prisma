@@ -18,33 +18,30 @@ model User {
 }
 
 model Products {
-  id Int @id @default(autoincrement())
-
-  name          String @unique
-  price         Int
-  description   String
-  stock         Int
-  discountPrice Int?
-
-  color String[] @default([])
-
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @default(now())
-  sale         String?  @default("0")
-  saleDuration DateTime @default(now())
-
+  id                  Int    @id @default(autoincrement())
+  name                String @unique
+  price               Int
+  description         String
+  stock               Int
+  discountPrice       Int?
   posterImageUrl      String
   posterImagePublicId String
-
-  hoverImageUrl      String
-  hoverImagePublicId String
+  hoverImageUrl       String
+  hoverImagePublicId  String
 
   productImages         Json[]
   additionalInformation Json[]
-  reviews               Reviews[]
-  categories            Categories[]            @relation("ProductCategories")
-  subcategories         SubCategories[]         @relation("ProductSubCategories")
-  salesRecords          sales_record_products[] @relation("ProductsTosales_record_products")
+  colors                String[] @default([])
+  spacification         String[] @default([])
+
+  createdAt     DateTime                @default(now())
+  sale          String?                 @default("0")
+  updatedAt     DateTime                @default(now())
+  saleDuration  DateTime                @default(now())
+  reviews       Reviews[]
+  categories    Categories[]            @relation("ProductCategories")
+  subcategories SubCategories[]         @relation("ProductSubCategories")
+  salesRecords  sales_record_products[] @relation("ProductsTosales_record_products")
 }
 
 model Categories {
@@ -64,9 +61,8 @@ model SubCategories {
   createdAt           DateTime     @default(now())
   posterImageUrl      String?
   posterImagePublicId String?
-
-  products   Products[]   @relation("ProductSubCategories")
-  categories Categories[] @relation("CategorySubCategories")
+  categories          Categories[] @relation("CategorySubCategories")
+  products            Products[]   @relation("ProductSubCategories")
 }
 
 model Reviews {
@@ -116,6 +112,7 @@ model sales_record_products {
   quantity      Int
   productData   Json
   salesRecordId Int
+  createdAt  DateTime                @default(now())
   salesRecord   sales_record @relation(fields: [salesRecordId], references: [id])
   Products      Products[]   @relation("ProductsTosales_record_products")
 }

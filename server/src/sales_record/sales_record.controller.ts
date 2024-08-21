@@ -1,7 +1,6 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { SalesRecordService } from './sales_record.service';
 import { CreateSalesRecordDto } from './dto/create-sales_record.dto';
-import { get } from 'https';
 
 @Controller('sales-record')
 export class SalesRecordController {
@@ -16,10 +15,25 @@ getSales_record(){
   return this.salesRecordService.get_total_sales()
 }
 
+
+@Get("get_all_records")
+get_total_records(){
+  return this.salesRecordService.get_all_records()
+}
+  
+@Get("getMonthlySales")
+getMonthlySales(){
+  return this.salesRecordService.getMonthlySales()
+}
+  
+@Get("getWeeklySales_record")
+getWeeklySales_record(){
+  return this.salesRecordService.getWeeklySales_record()
+}
   
   @Get()
   api_Tester(){
-    return this.api_Tester()
+    return this.salesRecordService.apiTester()
   }
 
 
