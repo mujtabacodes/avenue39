@@ -13,7 +13,7 @@ import { useAppSelector } from '@components/Others/HelperRedux';
 import { generateSlug } from '@/config';
 
 interface Product {
-  _id: string;
+  id: string;
   name: string;
   category: string;
   posterImageUrl: { imageUrl: string };
@@ -46,12 +46,14 @@ const ViewProduct: React.FC<CategoryProps> = ({
 
   // const canAddProduct=loggedInUser && (loggedInUser.role =='Admin' ?   loggedInUser.canAddProduct : true )
   const canAddProduct = true;
-  const canDeleteProduct =
-    loggedInUser &&
-    (loggedInUser.role == 'Admin' ? loggedInUser.canDeleteProduct : true);
-  const canEditproduct =
-    loggedInUser &&
-    (loggedInUser.role == 'Admin' ? loggedInUser.canEditproduct : true);
+  // const canDeleteProduct =
+  //   loggedInUser &&
+  //   (loggedInUser.role == 'Admin' ? loggedInUser.canDeleteProduct : true);
+  const canDeleteProduct = true;
+  // const canEditproduct =
+  //   loggedInUser &&
+  //   (loggedInUser.role == 'Admin' ? loggedInUser.canEditproduct : true);
+  const canEditproduct = true;
 
   console.log(canDeleteProduct, 'canAddProduct');
 
@@ -71,11 +73,18 @@ const ViewProduct: React.FC<CategoryProps> = ({
   };
 
   const handleDelete = async (key: string) => {
+    // alert(key);
     try {
       const response = await axios.delete(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/deleteProduct/${key}`,
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/product/delete-product`,
+        {
+          headers: {
+            productId: key,
+          },
+        },
       );
-      setCategory((prev: Product[]) => prev.filter((item) => item._id !== key));
+      console.log(response);
+      setCategory((prev: Product[]) => prev.filter((item) => item.id !== key));
       notification.success({
         message: 'Product Deleted',
         description: 'The product has been successfully deleted.',
@@ -177,8 +186,9 @@ const ViewProduct: React.FC<CategoryProps> = ({
           }`}
           size={20}
           onClick={() => {
+            console.log(record);
             if (canDeleteProduct) {
-              confirmDelete(record._id);
+              confirmDelete(record.id);
             }
           }}
         />
@@ -228,7 +238,7 @@ const ViewProduct: React.FC<CategoryProps> = ({
               className="lg:overflow-hidden overflow-x-scroll !dark:border-strokedark !dark:bg-boxdark !bg-transparent"
               dataSource={filteredProducts}
               columns={columns}
-              rowKey="_id"
+              rowKey="id"
               pagination={false}
             />
           ) : (

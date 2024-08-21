@@ -140,14 +140,14 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
         'success',
         updateFlag
           ? 'Product has been sucessufully Updated !'
-          : 'Product has been sucessufully Created !',
+          : response.data.message,
       );
       setProductInitialValue(AddproductsinitialValues);
       // resetForm();
-      setloading(false);
-      sethoverImage(null);
-      setposterimageUrl(null);
-      setImagesUrl([]);
+      // setloading(false);
+      // sethoverImage(null);
+      // setposterimageUrl(null);
+      // setImagesUrl([]);
       updateFlag ? setEditProduct && setEditProduct(undefined) : null;
     } catch (err: any) {
       if (err.response && err.response.data && err.response.data.error) {
@@ -218,9 +218,6 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
     });
   };
 
-  if (isLoading) {
-    return <div>loading....</div>;
-  }
   return (
     <>
       <p
@@ -458,39 +455,45 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                           <label className="mb-3 block py-4 px-2 text-sm font-medium text-black dark:text-white">
                             Select Parent Category (at least one)
                           </label>
-                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            {categoriesList.map((category) => (
-                              <div
-                                key={category.id}
-                                className="flex items-center space-x-2"
-                              >
-                                <Checkbox
-                                  checked={selectedCategoryIds.includes(
-                                    category.id,
-                                  )}
-                                  onChange={(e) => {
-                                    const checked = e.target.checked;
-                                    setSelectedCategoryIds((prev) => {
-                                      if (checked) {
-                                        return [...prev, category.id];
-                                      } else {
-                                        return prev.filter(
-                                          (id) => id !== category.id,
-                                        );
-                                      }
-                                    });
-                                  }}
-                                  id={`category-${category.id}`}
-                                />
-                                <label
-                                  htmlFor={`category-${category.id}`}
-                                  className="ml-2 text-black dark:text-white"
+                          {isLoading ? (
+                            <div>
+                              <Loader />
+                            </div>
+                          ) : (
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                              {categoriesList.map((category) => (
+                                <div
+                                  key={category.id}
+                                  className="flex items-center space-x-2"
                                 >
-                                  {category.name}
-                                </label>
-                              </div>
-                            ))}
-                          </div>
+                                  <Checkbox
+                                    checked={selectedCategoryIds.includes(
+                                      category.id,
+                                    )}
+                                    onChange={(e) => {
+                                      const checked = e.target.checked;
+                                      setSelectedCategoryIds((prev) => {
+                                        if (checked) {
+                                          return [...prev, category.id];
+                                        } else {
+                                          return prev.filter(
+                                            (id) => id !== category.id,
+                                          );
+                                        }
+                                      });
+                                    }}
+                                    id={`category-${category.id}`}
+                                  />
+                                  <label
+                                    htmlFor={`category-${category.id}`}
+                                    className="ml-2 text-black dark:text-white"
+                                  >
+                                    {category.name}
+                                  </label>
+                                </div>
+                              ))}
+                            </div>
+                          )}
                         </div>
 
                         <div className="mt-4">
@@ -672,67 +675,76 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                       <FieldArray name="additionalInformation">
                         {({ push, remove }) => (
                           <div className="flex flex-col gap-2">
-                            {formik.values.additionalInformation.map(
-                              (model: any, index: any) => (
-                                <div key={index} className="flex items-center">
-                                  <input
-                                    type="text"
-                                    name={`additionalInformation[${index}].name`}
-                                    onChange={formik.handleChange}
-                                    onBlur={formik.handleBlur}
-                                    value={
-                                      formik.values.additionalInformation[index]
-                                        .name
-                                    }
-                                    placeholder="Model Name"
-                                    className={`w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${
-                                      formik.touched.additionalInformation?.[
-                                        index
-                                      ]?.name &&
-                                      (
-                                        formik.errors
-                                          .additionalInformation as FormikErrors<
-                                          FormValues['additionalInformation']
-                                        >
-                                      )?.[index]?.name
-                                        ? 'border-red-500'
-                                        : ''
-                                    }`}
-                                  />
-                                  <input
-                                    type="text"
-                                    name={`additionalInformation[${index}].detail`}
-                                    onChange={formik.handleChange}
-                                    onBlur={formik.handleBlur}
-                                    value={
-                                      formik.values.additionalInformation[index]
-                                        .detail
-                                    }
-                                    placeholder="Model Detail"
-                                    className={`w-full rounded-lg ml-2 border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${
-                                      formik.touched.additionalInformation?.[
-                                        index
-                                      ]?.detail &&
-                                      (
-                                        formik.errors
-                                          .additionalInformation as FormikErrors<
-                                          FormValues['additionalInformation']
-                                        >
-                                      )?.[index]?.detail
-                                        ? 'border-red-500'
-                                        : ''
-                                    }`}
-                                  />
-                                  <button
-                                    type="button"
-                                    onClick={() => remove(index)}
-                                    className="ml-2 text-red "
+                            {formik.values.additionalInformation &&
+                              formik.values.additionalInformation.map(
+                                (model: any, index: any) => (
+                                  <div
+                                    key={index}
+                                    className="flex items-center"
                                   >
-                                    <RxCross2 className="text-red" size={25} />
-                                  </button>
-                                </div>
-                              ),
-                            )}
+                                    <input
+                                      type="text"
+                                      name={`additionalInformation[${index}].name`}
+                                      onChange={formik.handleChange}
+                                      onBlur={formik.handleBlur}
+                                      value={
+                                        formik.values.additionalInformation[
+                                          index
+                                        ].name
+                                      }
+                                      placeholder="Model Name"
+                                      className={`w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${
+                                        formik.touched.additionalInformation?.[
+                                          index
+                                        ]?.name &&
+                                        (
+                                          formik.errors
+                                            .additionalInformation as FormikErrors<
+                                            FormValues['additionalInformation']
+                                          >
+                                        )?.[index]?.name
+                                          ? 'border-red-500'
+                                          : ''
+                                      }`}
+                                    />
+                                    <input
+                                      type="text"
+                                      name={`additionalInformation[${index}].detail`}
+                                      onChange={formik.handleChange}
+                                      onBlur={formik.handleBlur}
+                                      value={
+                                        formik.values.additionalInformation[
+                                          index
+                                        ].detail
+                                      }
+                                      placeholder="Model Detail"
+                                      className={`w-full rounded-lg ml-2 border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${
+                                        formik.touched.additionalInformation?.[
+                                          index
+                                        ]?.detail &&
+                                        (
+                                          formik.errors
+                                            .additionalInformation as FormikErrors<
+                                            FormValues['additionalInformation']
+                                          >
+                                        )?.[index]?.detail
+                                          ? 'border-red-500'
+                                          : ''
+                                      }`}
+                                    />
+                                    <button
+                                      type="button"
+                                      onClick={() => remove(index)}
+                                      className="ml-2 text-red "
+                                    >
+                                      <RxCross2
+                                        className="text-red"
+                                        size={25}
+                                      />
+                                    </button>
+                                  </div>
+                                ),
+                              )}
                             <button
                               type="button"
                               onClick={() => push({ name: '', detail: '' })}

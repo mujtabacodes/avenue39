@@ -52,14 +52,15 @@ const FormLayout = ({
       let newValue = { ...values, posterImageUrl };
 
       let updateFlag = editCategoryName ? true : false;
-      let addProductUrl = updateFlag
-        ? `/api/updateCategory/${editCategory._id} `
-        : null;
+      let addProductUrl = updateFlag ? `/api/category/update-category` : null;
       let url = `${process.env.NEXT_PUBLIC_BASE_URL}${
         updateFlag ? addProductUrl : '/api/category/add-category'
       }`;
+      const response = await axios.post(
+        url,
+        updateFlag ? { ...newValue, id: editCategory.id } : newValue,
+      );
 
-      const response = await axios.post(url, newValue);
       console.log(response, 'response');
       setloading(false);
       Toaster(

@@ -2,7 +2,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { PrismaService } from '../prisma/prisma.service';
 import { customHttpException } from '../utils/helper';
-import { AddProductDto } from './dto/product.dto';
+import { AddProductDto, UpdateProductDto } from './dto/product.dto';
 
 @Injectable()
 export class ProductsService {
@@ -25,47 +25,124 @@ export class ProductsService {
   async addProduct(productData: AddProductDto) {
     console.log('Add product triggered');
     console.log(productData);
-    // try {
-    //   const existingProduct = await this.prisma.products.findFirst({
-    //     where: { name: productData.name },
-    //   });
+    try {
+      const existingProduct = await this.prisma.products.findFirst({
+        where: { name: productData.name },
+      });
 
-    //   if (existingProduct) {
-    //     return {
-    //       message: 'Product with this name already exists!',
-    //       status: HttpStatus.FORBIDDEN,
-    //     };
-    //   }
+      if (existingProduct) {
+        return {
+          message: 'Product with this name already exists!',
+          status: HttpStatus.FORBIDDEN,
+        };
+      }
+      const spacification = productData.spacification.map(
+        //@ts-ignore
+        (spec) => spec.specsDetails,
+      );
+      //@ts-ignore
+      const colors = productData.colors.map((color) => color.colorName);
 
-    //   await this.prisma.products.create({
-    //     data: {
-    //       name: productData.name,
-    //       price: productData.price,
-    //       description: productData.description,
-    //       stock: productData.stock,
-    //       discountPrice: productData.discountPrice ?? null,
-    //       posterImageUrl: productData.posterImageUrl,
-    //       posterImagePublicId: productData.posterImagePublicId,
-    //       hoverImageUrl: productData.hoverImageUrl ?? null,
-    //       hoverImagePublicId: productData.hoverImagePublicId ?? null,
-    //       productImages: productData.productImages ?? [],
-    //       additionalInformation: productData.additionalInformation ?? [],
-    //       categories: {
-    //         connect: productData.categories.map((id) => ({ id })),
-    //       },
-    //       subcategories: {
-    //         connect: productData.subcategories.map((id) => ({ id })),
-    //       },
-    //     },
-    //   });
+      await this.prisma.products.create({
+        data: {
+          name: productData.name,
+          price: productData.price,
+          description: productData.description,
+          stock: productData.stock,
+          discountPrice: productData.discountPrice ?? null,
+          posterImageUrl: productData.posterImageUrl,
+          posterImagePublicId: productData.posterImagePublicId,
+          hoverImageUrl: productData.hoverImageUrl ?? null,
+          hoverImagePublicId: productData.hoverImagePublicId ?? null,
+          productImages: productData.productImages ?? [],
+          additionalInformation: productData.additionalInformation ?? [],
+          colors: productData.colors ?? [],
+          spacification: productData.spacification ?? [],
+          categories: {
+            connect: productData.categories.map((id) => ({ id })),
+          },
+          subcategories: {
+            connect: productData.subcategories.map((id) => ({ id })),
+          },
+        },
+      });
 
-    //   return {
-    //     message: 'Product created successfully 🎉',
-    //     status: HttpStatus.OK,
-    //   };
-    // } catch (error) {
-    //   throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
-    // }
+      return {
+        message: 'Product created successfully 🎉',
+        status: HttpStatus.OK,
+      };
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+    }
+  }
+  async updateProduct(productData: UpdateProductDto) {
+    console.log('Update product triggered');
+    console.log(productData);
+    try {
+      const existingProduct = await this.prisma.products.findFirst({
+        where: { id: productData.id },
+      });
+
+      if (!existingProduct) {
+        return {
+          message: 'Product not found☹',
+          status: HttpStatus.FORBIDDEN,
+        };
+      }
+
+      const spacification =
+        productData.spacification?.map(
+          //@ts-ignore
+          (spec) => spec.specsDetails,
+        ) ?? [];
+
+      //@ts-ignore
+      const colors = productData.colors?.map((color) => color.colorName) ?? [];
+
+      await this.prisma.products.update({
+        where: { id: productData.id },
+        data: {
+          name: productData.name ?? existingProduct.name,
+          price: productData.price ?? existingProduct.price,
+          description: productData.description ?? existingProduct.description,
+          stock: productData.stock ?? existingProduct.stock,
+          discountPrice:
+            productData.discountPrice ?? existingProduct.discountPrice ?? null,
+          posterImageUrl:
+            productData.posterImageUrl ?? existingProduct.posterImageUrl,
+          posterImagePublicId:
+            productData.posterImagePublicId ??
+            existingProduct.posterImagePublicId,
+          hoverImageUrl:
+            productData.hoverImageUrl ?? existingProduct.hoverImageUrl ?? null,
+          hoverImagePublicId:
+            productData.hoverImagePublicId ??
+            existingProduct.hoverImagePublicId ??
+            null,
+          productImages:
+            productData.productImages ?? existingProduct.productImages ?? [],
+          additionalInformation:
+            productData.additionalInformation ??
+            existingProduct.additionalInformation ??
+            [],
+          colors: colors ?? existingProduct.colors ?? [],
+          spacification: spacification ?? existingProduct.spacification ?? [],
+          categories: {
+            set: productData.categories?.map((id) => ({ id })) ?? [], // use set for many-to-many relations
+          },
+          subcategories: {
+            set: productData.subcategories?.map((id) => ({ id })) ?? [],
+          },
+        },
+      });
+
+      return {
+        message: 'Product updated successfully 🎉',
+        status: HttpStatus.OK,
+      };
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+    }
   }
 
   async removeProduct(id: number) {

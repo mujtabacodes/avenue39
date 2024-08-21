@@ -13,7 +13,7 @@ import useColorMode from '@/hooks/useColorMode';
 import { Skeleton } from '@/components/ui/skeleton';
 
 interface Product {
-  _id: string;
+  id: string;
   name: string;
   category: string;
   posterImageUrl: string;
@@ -39,15 +39,17 @@ const ViewSubcategries = ({
 
   const { loggedInUser }: any = useAppSelector((state) => state.usersSlice);
 
-  const canDeleteCategory =
-    loggedInUser &&
-    (loggedInUser.role == 'Admin' ? loggedInUser.canDeleteCategory : true);
+  const canDeleteCategory = true;
+  // const canDeleteCategory =
+  //   loggedInUser &&
+  //   (loggedInUser.role == 'Admin' ? loggedInUser.canDeleteCategory : true);
   // const canAddCategory = loggedInUser && (loggedInUser.role == 'Admin' ? loggedInUser.canAddCategory : true)
   const canAddCategory = true;
 
-  const canEditCategory =
-    loggedInUser &&
-    (loggedInUser.role == 'Admin' ? loggedInUser.canEditCategory : true);
+  const canEditCategory = true;
+  // const canEditCategory =
+  //   loggedInUser &&
+  //   (loggedInUser.role == 'Admin' ? loggedInUser.canEditCategory : true);
 
   useLayoutEffect(() => {
     const CategoryHandler = async () => {
@@ -83,9 +85,14 @@ const ViewSubcategries = ({
   const handleDelete = async (key: any) => {
     try {
       const response = await axios.delete(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/deleteCategory/${key}`,
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/subcategories/delete-subcategory`,
+        {
+          headers: {
+            subcategoryId: key,
+          },
+        },
       );
-      setCategory((prev: any) => prev.filter((item: any) => item._id != key));
+      setCategory((prev: any) => prev.filter((item: any) => item.id != key));
       notification.success({
         message: 'Category Deleted',
         description: 'The category has been successfully deleted.',
@@ -176,7 +183,7 @@ const ViewSubcategries = ({
           size={20}
           onClick={() => {
             if (canDeleteCategory) {
-              confirmDelete(record._id);
+              confirmDelete(record.id);
             }
           }}
         />
@@ -232,7 +239,7 @@ const ViewSubcategries = ({
               dataSource={category}
               columns={columns}
               pagination={false}
-              rowKey="_id"
+              rowKey="id"
             />
           ) : (
             'No Sub Categories found'

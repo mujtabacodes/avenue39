@@ -73,14 +73,17 @@ const FormLayout = ({
       console.log('dubuge 2');
       let updateFlag = editCategoryName ? true : false;
       let addProductUrl = updateFlag
-        ? `/api/updateCategory/${editCategory._id}`
+        ? `/api/subcategories/update-subcategory`
         : null;
       let url = `${process.env.NEXT_PUBLIC_BASE_URL}${
         updateFlag ? addProductUrl : '/api/subcategories/add-subcategory'
       }`;
 
       console.log('dubuge 3');
-      const response = await axios.post(url, newValue);
+      const response = await axios.post(
+        url,
+        updateFlag ? { ...newValue, id: editCategory.id } : newValue,
+      );
       console.log(response, 'response');
       setloading(false);
       showToast(

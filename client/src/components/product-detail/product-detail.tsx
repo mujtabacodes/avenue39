@@ -77,9 +77,7 @@ const ProductDetail = ({
     queryFn: fetchProducts,
   });
 
-
-
-console.log(slug, "slug")
+  console.log(slug, 'slug');
   const product = products.find((product) => product.name === slug);
   const Navigate = useRouter();
 
@@ -101,7 +99,6 @@ console.log(slug, "slug")
     return <Loader />;
   }
 
-
   const onDecrement = () => {
     setCount((prevCount) => Math.max(prevCount - 1, 1));
   };
@@ -114,8 +111,6 @@ console.log(slug, "slug")
     quantity: count,
   };
 
-
-
   const handleAddToCard = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
     dispatch(addItem(itemToAdd));
@@ -127,8 +122,6 @@ console.log(slug, "slug")
     dispatch(addItem(itemToAdd));
     Navigate.push('/checkout');
   };
-
-
 
   return (
     <div
@@ -262,27 +255,32 @@ console.log(slug, "slug")
                 </DialogContent>
           </Dialog> */}
 
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button className="bg-warning w-1/2 text-white flex gap-3 h-12 rounded-2xl">
+                TRY AT HOME
+              </Button>
+            </DialogTrigger>
 
-<Dialog>
-  <DialogTrigger asChild>
-    <Button className="bg-warning w-1/2 text-white flex gap-3 h-12 rounded-2xl">
-      TRY AT HOME
-    </Button>
-  </DialogTrigger>
-
-  <DialogOverlay className="bg-white/80" />
-  <DialogContent  className="sm:max-w-[80%] lg:max-w-[30%] bg-white px-0 pt-0 sm:rounded-none border border-gray shadow-sm gap-0 pb-0">
-    <DialogHeader  className="flex items-start px-5 pt-0 py-5 border-b-2">
-      <DialogTitle className="text-xl xs:text-xl sm:text-2xl md:text-3xl font-bold tracking-wide">
-        SCAN QR
-      </DialogTitle>
- 
-    </DialogHeader>
-          <QRScanner hoveredImage={hoveredImage ? hoveredImage : product?.productImages[0].imageUrl?  product?.productImages[0].imageUrl : 'not found'} url={slug}/>
-  </DialogContent>
-</Dialog>
-
-
+            <DialogOverlay className="bg-white/80" />
+            <DialogContent className="sm:max-w-[80%] lg:max-w-[30%] bg-white px-0 pt-0 sm:rounded-none border border-gray shadow-sm gap-0 pb-0">
+              <DialogHeader className="flex items-start px-5 pt-0 py-5 border-b-2">
+                <DialogTitle className="text-xl xs:text-xl sm:text-2xl md:text-3xl font-bold tracking-wide">
+                  SCAN QR
+                </DialogTitle>
+              </DialogHeader>
+              <QRScanner
+                hoveredImage={
+                  hoveredImage
+                    ? hoveredImage
+                    : product?.productImages[0].imageUrl
+                      ? product?.productImages[0].imageUrl
+                      : 'not found'
+                }
+                url={slug}
+              />
+            </DialogContent>
+          </Dialog>
         </div>
 
         <div className="flex items-center justify-center relative mb-2">
@@ -300,8 +298,6 @@ console.log(slug, "slug")
             </span>
             <p className="text-12">
               Pay 4 interest-free payments of AED 396.25.{' '}
-
-
               <Dialog>
                 <DialogTrigger asChild>
                   <span className="text-red-600 underline cursor-pointer">
@@ -360,8 +356,6 @@ console.log(slug, "slug")
                   </div>
                 </DialogContent>
               </Dialog>
-
-
             </p>
           </div>
           <div className="relative w-1/2 border-4 border-[#D47C84] p-4 rounded-lg shadow">
@@ -376,7 +370,6 @@ console.log(slug, "slug")
                     Learn more
                   </span>
                 </DialogTrigger>
-
 
                 <DialogOverlay className="bg-white/80" />
                 <DialogContent className="sm:max-w-[80%] lg:max-w-[60%] bg-white px-0 sm:rounded-none border border-black shadow-none gap-0 pb-0">
@@ -442,7 +435,6 @@ console.log(slug, "slug")
                   </div>
                 </DialogContent>
               </Dialog>
-
             </p>
           </div>
         </div>
