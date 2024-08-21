@@ -116,3 +116,5 @@ model sales_record_products {
   salesRecord   sales_record @relation(fields: [salesRecordId], references: [id])
   Products      Products[]   @relation("ProductsTosales_record_products")
 }
+
+
