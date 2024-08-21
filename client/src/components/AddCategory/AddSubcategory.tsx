@@ -4,20 +4,28 @@ import Imageupload from '@components/ImageUpload/Imageupload';
 import { RxCross2 } from 'react-icons/rx';
 import Image from 'next/image';
 import { ImageRemoveHandler } from '@/utils/helperFunctions';
-
 import Toaster from '@components/Toaster/Toaster';
 import axios from 'axios';
 import { Formik, Form } from 'formik';
-import { Category } from '@/types/interfaces';
+import { Category, SubCategory } from '@/types/interfaces';
 import { IoMdArrowRoundBack } from 'react-icons/io';
-
-import { categoryInitialValues, categoryValidationSchema } from '@/data/data';
+import {
+  categoryInitialValues,
+  categoryValidationSchema,
+  subcategoryInitialValues,
+} from '@/data/data';
 import ProtectedRoute from '@/hooks/AuthHookAdmin';
 import Loader from '@components/Loader/Loader';
+import { ICategory } from '@/types/types';
+import { useQuery } from '@tanstack/react-query';
+import { fetchCategories } from '@/config/fetch';
+import { Checkbox } from '../ui/checkbox';
+import showToast from '@components/Toaster/Toaster';
 
 interface editCategoryNameType {
   name: string;
   description: string;
+  categoriesId: number[]; // Ensure this is a number array
 }
 
 interface editCategoryProps {
@@ -33,7 +41,11 @@ const FormLayout = ({
 }: editCategoryProps) => {
   let CategoryName =
     editCategory && editCategory.name
-      ? { name: editCategory.name, description: editCategory.description }
+      ? {
+          name: editCategory.name,
+          description: editCategory.description,
+          categoriesId: editCategory.categoriesId || [],
+        }
       : null;
   let CategorImageUrl = editCategory && editCategory.posterImageUrl;
   const [posterimageUrl, setposterimageUrl] = useState<
@@ -44,29 +56,38 @@ const FormLayout = ({
     editCategoryNameType | null | undefined
   >(CategoryName);
 
-  const onSubmit = async (values: Category, { resetForm }: any) => {
+  const onSubmit = async (values: SubCategory, { resetForm }: any) => {
+    console.log('dubuge 1');
+    if (values.categoriesId.length === 0) {
+      return showToast('warn', 'Select parent category!!');
+    }
     try {
       setloading(true);
       let posterImageUrl = posterimageUrl && posterimageUrl[0];
-      if (!posterImageUrl) throw new Error('Please select relevant Images');
+      if (!posterImageUrl) {
+        setloading(false);
+        return showToast('warn', 'Select parent category!!');
+      }
       let newValue = { ...values, posterImageUrl };
-
+      console.log(newValue);
+      console.log('dubuge 2');
       let updateFlag = editCategoryName ? true : false;
       let addProductUrl = updateFlag
-        ? `/api/updateCategory/${editCategory._id} `
+        ? `/api/updateCategory/${editCategory._id}`
         : null;
       let url = `${process.env.NEXT_PUBLIC_BASE_URL}${
-        updateFlag ? addProductUrl : '/api/category/add-category'
+        updateFlag ? addProductUrl : '/api/subcategories/add-subcategory'
       }`;
 
+      console.log('dubuge 3');
       const response = await axios.post(url, newValue);
       console.log(response, 'response');
       setloading(false);
-      Toaster(
+      showToast(
         'success',
         updateFlag
-          ? 'Category has been sucessufully updated !'
-          : 'Category has been sucessufully Created !',
+          ? 'Sub Category has been sucessufully updated!'
+          : 'Sub Category has been sucessufully Created!',
       );
       updateFlag ? seteditCategory(null) : null;
       setposterimageUrl(null);
@@ -78,6 +99,21 @@ const FormLayout = ({
     }
   };
 
+  const {
+    data: categoriesList = [],
+    error,
+    isLoading,
+  } = useQuery<ICategory[], Error>({
+    queryKey: ['products'],
+    queryFn: fetchCategories,
+  });
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+  console.log('Categories List here...');
+  console.log(categoriesList);
+
   return (
     <>
       <p
@@ -88,10 +124,9 @@ const FormLayout = ({
       >
         <IoMdArrowRoundBack /> Back
       </p>
-
       <Formik
         initialValues={
-          editCategoryName ? editCategoryName : categoryInitialValues
+          editCategoryName ? editCategoryName : subcategoryInitialValues
         }
         validationSchema={categoryValidationSchema}
         onSubmit={onSubmit}
@@ -105,7 +140,7 @@ const FormLayout = ({
                     <div className="rounded-sm border border-stroke bg-white  dark:border-strokedark dark:bg-boxdark">
                       <div className="border-b border-stroke py-4 px-2 dark:bg-boxdark dark:bg-black dark:text-white dark:bg-boxdark dark:border-white">
                         <h3 className="font-medium text-black dark:text-white">
-                          Add Category Images
+                          Add Sub Category Images
                         </h3>
                       </div>
                       {posterimageUrl && posterimageUrl.length > 0 ? (
@@ -148,7 +183,7 @@ const FormLayout = ({
                     <div className="flex flex-col gap-5.5 p-6.5">
                       <div>
                         <label className="mb-3 block py-4 px-2 text-sm font-medium text-black dark:text-white">
-                          Category Title
+                          Sub Category Name
                         </label>
                         <input
                           type="text"
@@ -189,6 +224,48 @@ const FormLayout = ({
                             {formik.errors.name}
                           </div>
                         ) : null}
+                      </div>
+
+                      <div>
+                        <label className="mb-3 block py-4 px-2 text-sm font-medium text-black dark:text-white">
+                          Select Parent Category (atleat one)
+                        </label>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                          {categoriesList.map((category) => (
+                            <div
+                              key={category.id}
+                              className="flex items-center space-x-2"
+                            >
+                              <Checkbox
+                                checked={formik.values.categoriesId.includes(
+                                  category.id,
+                                )}
+                                onCheckedChange={(checked) => {
+                                  if (checked) {
+                                    formik.setFieldValue('categoriesId', [
+                                      ...formik.values.categoriesId,
+                                      category.id,
+                                    ]);
+                                  } else {
+                                    formik.setFieldValue(
+                                      'categoriesId',
+                                      formik.values.categoriesId.filter(
+                                        (id) => id !== category.id,
+                                      ),
+                                    );
+                                  }
+                                }}
+                                id={`category-${category.id}`}
+                              />
+                              <label
+                                htmlFor={`category-${category.id}`}
+                                className="ml-2 text-black dark:text-white"
+                              >
+                                {category.name}
+                              </label>
+                            </div>
+                          ))}
+                        </div>
                       </div>
                     </div>
                   </div>

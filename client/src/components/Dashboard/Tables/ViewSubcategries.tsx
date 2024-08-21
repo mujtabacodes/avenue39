@@ -28,7 +28,7 @@ interface CategoryProps {
   editCategory?: CategoriesType | undefined | null;
 }
 
-const TableTwo = ({
+const ViewSubcategries = ({
   setMenuType,
   seteditCategory,
   editCategory,
@@ -54,9 +54,11 @@ const TableTwo = ({
       try {
         setLoading(true);
         const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/api/category/get-all`,
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/subcategories/get-all`,
         );
         const Categories = await response.json();
+        console.log('Sub categories are here....');
+        console.log(Categories);
         setCategory(Categories);
         setLoading(false);
       } catch (err) {
@@ -219,7 +221,7 @@ const TableTwo = ({
                   }
                 }}
               >
-                Add Category
+                Add Sub Category
               </p>
             </div>
           </div>
@@ -233,7 +235,7 @@ const TableTwo = ({
               rowKey="_id"
             />
           ) : (
-            'No Categories found'
+            'No Sub Categories found'
           )}
         </>
       )}
@@ -241,4 +243,4 @@ const TableTwo = ({
   );
 };
 
-export default TableTwo;
+export default ViewSubcategries;

@@ -31,8 +31,8 @@ model Products {
 
   productImages         Json[]
   additionalInformation Json[]
-  colors                Json[]
-  spacification         Json[]
+  colors                String[] @default([])
+  spacification         String[] @default([])
 
   createdAt     DateTime                @default(now())
   sale          String?                 @default("0")
