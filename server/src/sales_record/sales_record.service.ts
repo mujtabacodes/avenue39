@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreateSalesRecordDto } from './dto/create-sales_record.dto';
 import { PrismaService } from '../prisma/prisma.service';
-import { customHttpException } from 'src/utils/helper';
+import { customHttpException } from '../utils/helper';
 
 
 @Injectable()

@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/prisma/prisma.service';
-import { customHttpException } from 'src/utils/helper';
+import { PrismaService } from '../prisma/prisma.service';
+import { customHttpException } from '../utils/helper';
 import { AddSubCategoryDto } from './dto/subcategory.dto';
 
 @Injectable()
