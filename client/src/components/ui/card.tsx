@@ -28,6 +28,7 @@ interface CardProps {
   className?: string;
   skeletonHeight?: string;
   isLoading?: boolean;
+  category?: boolean
 }
 
 const Card: React.FC<CardProps> = ({
@@ -36,6 +37,7 @@ const Card: React.FC<CardProps> = ({
   className,
   skeletonHeight,
   isLoading,
+  category
 }) => {
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch<Dispatch>();
@@ -81,6 +83,10 @@ const Card: React.FC<CardProps> = ({
 
   if (!card) {
     return <CardSkeleton skeletonHeight={skeletonHeight} />;
+  }
+
+  if(category){
+    console.log(card)
   }
   return (
     <div

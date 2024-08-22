@@ -1,33 +1,70 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import CategoryFilter from './category-filter';
 import { saleitems } from '@/data';
 import { Slider, SliderPrimitive } from '@/components/ui/slider';
 import Salecard from '../ui/sale-card';
 import Image, { StaticImageData } from 'next/image';
+import { IProductCategories } from '@/types/types';
 
 interface SidebarFilterProps {
-  onCategoryChange: (category: string, isChecked: boolean) => void;
+  onCategoryChange: (category: string, isChecked: boolean , isSubCategory: boolean) => void;
   onPriceChange: (range: [number, number]) => void;
   sideBanner: StaticImageData;
-  category: any; // Add category filter here
+  category: any;
 }
 
-const SidebarFilter = ({ onCategoryChange, onPriceChange , sideBanner,category }: SidebarFilterProps) => {
+const SidebarFilter = ({
+  onCategoryChange,
+  onPriceChange,
+  sideBanner,
+  category,
+}: SidebarFilterProps) => {
   const [range, setRange] = useState<[number, number]>([0, 500]);
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [subcategories, setSubcategories] = useState<IProductCategories[]>([]);
 
   const handleValueChange = ([start, end]: [number, number]) => {
     setRange([start, end]);
     onPriceChange([start, end]);
   };
 
+  const handleCategoryChange = (name: string, isChecked: boolean, isSubCategory = false) => {
+    onCategoryChange(name, isChecked, isSubCategory);
+    if (!isSubCategory) {
+      setSelectedCategories((prev) =>
+        isChecked ? [...prev, name] : prev.filter((cat) => cat !== name),
+      );
+    }
+  };
+
+  useEffect(() => {
+    const selectedSubcategories = selectedCategories.flatMap((catName) => {
+      const categoryObj = category.find((cat: any) => cat.name === catName);
+      return categoryObj ? categoryObj.subcategories : [];
+    });
+    setSubcategories(selectedSubcategories);
+  }, [selectedCategories, category]);
+
   return (
     <div>
       <div className="w-full">
         <h3 className="py-5 text-xl font-medium">Filter</h3>
         <div className="border-t-2 py-6">
-          <CategoryFilter items={category} onCategoryChange={onCategoryChange} />
+          <CategoryFilter
+            items={category}
+            onCategoryChange={handleCategoryChange}
+          />
         </div>
-        <div className="border-t-2 py-6            ">
+        {subcategories.length > 0 && (
+          <div className="border-t-2 py-6">
+            <CategoryFilter
+              items={subcategories}
+              onCategoryChange={handleCategoryChange}
+              isSubcategory={true}
+            />
+          </div>
+        )}
+        <div className="border-t-2 py-6">
           <h4 className="text-xl font-medium mb-5">Prices</h4>
           <div>
             <Slider
@@ -42,7 +79,7 @@ const SidebarFilter = ({ onCategoryChange, onPriceChange , sideBanner,category }
             <div className="flex justify-between mt-2">
               {range.map((item, index) => (
                 <span className="text-14 font-medium" key={index}>
-                  Dhs {item}
+                  AED {item}
                 </span>
               ))}
             </div>

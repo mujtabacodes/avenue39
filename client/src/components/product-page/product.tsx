@@ -1,6 +1,5 @@
 import TopHero from '@/components/top-hero';
 import Container from '@/components/ui/Container';
-// import { cards } from '@/data';
 import { productsbredcrumbs } from '@/data/data';
 import { ImList } from 'react-icons/im';
 import { MdWindow } from 'react-icons/md';
@@ -31,8 +30,6 @@ import SidebarFilter from '@/components/filters/sidebar-filter';
 import { ReactNode, useEffect, useState } from 'react';
 import { StaticImageData } from 'next/image';
 import { IoIosClose } from 'react-icons/io';
-import { useSelector } from 'react-redux';
-import { State } from '@/redux/store';
 import { useQuery } from '@tanstack/react-query';
 import { IProduct } from '@/types/types';
 import { fetchProducts } from '@/config/fetch';
@@ -51,9 +48,13 @@ const ProductPage = ({
   Setlayout,
 }: ProductPageProps) => {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [selectedSubCategories, setSelectedSubCategories] = useState<string[]>(
+    [],
+  );
+
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 500]);
   const [sortOption, setSortOption] = useState<string>('default');
-  const [loading, setLoading] = useState<boolean>(true); 
+  const [loading, setLoading] = useState<boolean>(true);
   const [category, setCategory] = useState<any[]>([]);
 
   useEffect(() => {
@@ -76,30 +77,27 @@ const ProductPage = ({
     fetchMenuData();
   }, []);
 
-  const {
-    data: products = [],
-    error,
-    isLoading,
-  } = useQuery<IProduct[], Error>({
+  const { data: products = [], isLoading } = useQuery<IProduct[], Error>({
     queryKey: ['products'],
     queryFn: fetchProducts,
   });
 
-  // if (isLoading) {
-  //   return <div>Loading...</div>;
-  // }
-
-  // if (error) {
-  //   return <div>Error fetching products: {error.message}</div>;
-  // }
-
-  const handleCategoryChange = (category: string, isChecked: boolean) => {
-    if (isChecked) {
-      setSelectedCategories([...selectedCategories, category]);
-      console.log(category, "categories")
+  const handleCategoryChange = (
+    categoryOrSubCategory: string,
+    isChecked: boolean,
+    isSubCategory: boolean = false,
+  ) => {
+    if (isSubCategory) {
+      setSelectedSubCategories((prev) =>
+        isChecked
+          ? [...prev, categoryOrSubCategory]
+          : prev.filter((subCat) => subCat !== categoryOrSubCategory),
+      );
     } else {
-      setSelectedCategories(
-        selectedCategories.filter((cat) => cat !== category),
+      setSelectedCategories((prev) =>
+        isChecked
+          ? [...prev, categoryOrSubCategory]
+          : prev.filter((cat) => cat !== categoryOrSubCategory),
       );
     }
   };
@@ -112,29 +110,28 @@ const ProductPage = ({
     setSortOption(sort);
   };
 
-  const filteredCards = products;
-  // const filteredCards1 = products
-  //   .filter((card) => {
-  //     const inCategory =
-  //       selectedCategories.length > 0
-  //         ? selectedCategories.includes(card.productType || '')
-  //         : true;
-  //     const inPriceRange =
-  //       card.price >= priceRange[0] && card.price <= priceRange[1];
-  //     return inCategory && inPriceRange;
-  //   })
-  //   .sort((a, b) => {
-  //     if (sortOption === 'name') {
-  //       return a.name.localeCompare(b.name);
-  //     } else if (sortOption === 'max') {
-  //       return b.price - a.price;
-  //     } else if (sortOption === 'min') {
-  //       return a.price - b.price;
-  //     } else if (sortOption === 'review') {
-  //       return b.reviews - a.reviews;
-  //     }
-  //     return 0;
-  //   });
+  const filteredCards = products
+  .filter((card) => {
+    if (selectedSubCategories.length > 0) {
+      return card.subcategories && card.subcategories.some(subCategory => selectedSubCategories.includes(subCategory.name));
+    } else if (selectedCategories.length > 0) {
+      return card.categories && card.categories.some(category => selectedCategories.includes(category.name));
+    }
+    return true;
+  })
+  .filter(card => card.price >= priceRange[0] && card.price <= priceRange[1])
+  .sort((a, b) => {
+    if (sortOption === 'name') {
+      return a.name.localeCompare(b.name);
+    } else if (sortOption === 'max') {
+      return b.price - a.price;
+    } else if (sortOption === 'min') {
+      return a.price - b.price;
+    }
+    return 0;
+  });
+
+
 
   return (
     <>
@@ -187,7 +184,7 @@ const ProductPage = ({
                 </Sheet>
               </div>
               <p className="md:text-16 text-primary-foreground hidden md:block">
-                {/* Showing {filteredCards.length} results */}
+                Showing {filteredCards.length} results
               </p>
               <div className="flex items-center gap-2">
                 <MdWindow
@@ -209,7 +206,7 @@ const ProductPage = ({
                       <SelectLabel>Sort Options</SelectLabel>
                       <SelectItem value="default">Default</SelectItem>
                       <SelectItem value="name">Name</SelectItem>
-                      <SelectItem value="review">Rating</SelectItem>
+                      {/* <SelectItem value="review">Rating</SelectItem> */}
                       <SelectItem value="max">Price Max</SelectItem>
                       <SelectItem value="min">Price Min</SelectItem>
                       <SelectSeparator />
@@ -220,7 +217,11 @@ const ProductPage = ({
             </div>
           </div>
           <div
-            className={`grid gap-4 md:gap-8 mt-4 ${layout === 'grid' ? 'grid-cols-1 sm:grid-cols-2 xl:grid-cols-3' : 'grid-cols-1'}`}
+            className={`grid gap-4 md:gap-8 mt-4 ${
+              layout === 'grid'
+                ? 'grid-cols-1 sm:grid-cols-2 xl:grid-cols-3'
+                : 'grid-cols-1'
+            }`}
           >
             {!isLoading
               ? filteredCards.map((card) => (
@@ -231,6 +232,7 @@ const ProductPage = ({
                         skeletonHeight="h-[380px] xs:h-[488px] sm:h-[380px] 2xl:h-[488px]"
                         card={card}
                         isLoading={false}
+                        category={true}
                       />
                     ) : (
                       <LandscapeCard card={card} />
