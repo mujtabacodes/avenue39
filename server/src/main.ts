@@ -6,19 +6,19 @@ import cookieParser from 'cookie-parser';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  // app.enableCors({
-  //   origin: [
-  //     'http://localhost:3000',
-  //     'https://avenue39.vercel.app',
-  //     'https://avenue39-git-dev-interior-films-projects.vercel.app',
-  //     "https://avenue39-73ck3f2xg-interior-films-projects.vercel.app",
-  //     'https://avenue39-git-faad-dev-interior-films-projects.vercel.app'
-  //   ],
-  //   credentials: true,
-  // });
   app.enableCors({
-    origin: ['*'],
+    origin: [
+      'http://localhost:3000',
+      'https://avenue39.vercel.app',
+      'https://avenue39-git-dev-interior-films-projects.vercel.app',
+      'https://avenue39-73ck3f2xg-interior-films-projects.vercel.app',
+      'https://avenue39-git-faad-dev-interior-films-projects.vercel.app',
+    ],
+    credentials: true,
   });
+  // app.enableCors({
+  //   origin: ['*'],
+  // });
   app.setGlobalPrefix('api');
   app.useGlobalPipes(new ValidationPipe());
   app.use(cookieParser());

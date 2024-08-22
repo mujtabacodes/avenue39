@@ -91,7 +91,7 @@ const MenuBar = () => {
           <Container className="flex gap-4">
             <div className="w-8/12 space-y-4">
               <p className="text-19 font-bold w-96">
-                {activeMenu.charAt(0).toUpperCase() + activeMenu.slice(1)}
+                {activeMenu.charAt(0).toUpperCase() + activeMenu.slice(1)}llm
               </p>
               <div className="border-b-4 w-14 border-red-600" />
               <div className="grid grid-cols-3 space-y-3">
