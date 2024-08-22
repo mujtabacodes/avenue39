@@ -87,6 +87,7 @@ export class AdminService {
       const existingUser = await this.prisma.admins.findFirst({
         where: { email },
       });
+      
       if (existingUser.role !== 'Super-Admin') {
         return {
           message: 'Super Admin credentials is correct😴',

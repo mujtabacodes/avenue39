@@ -29,12 +29,8 @@ interface RECORDS {
 const ECommerce: React.FC = () => {
   const [loading, setloading] = useState(false);
   const [records, setRecords] = useState<RECORDS | undefined>();
-  // const { loggedInUser }: any = useAppSelector((state) => state.usersSlice);
-let loggedInUser:any= {
-  role: "SuperAdmin"
-}
-
-
+  const { loggedInUser }: any = useAppSelector((state) => state.usersSlice);
+  
   const canCheckProfit =
     loggedInUser &&
     (loggedInUser.role == "Admin" ? loggedInUser.canCheckProfit : true);
