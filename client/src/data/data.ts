@@ -42,8 +42,8 @@ export const TShippingPolicybredcrumbs = [
 ];
 
 import * as Yup from 'yup';
-import { Product, Category, FormValues } from '@/types/interfaces';
-import { IProduct, IProductWithoutId } from '@/types/types';
+import { Product, Category, FormValues, SubCategory } from '@/types/interfaces';
+import { IProduct, IProductAdd, IProductWithoutId } from '@/types/types';
 
 export const validateForm = (formData: {
   fullName: string;
@@ -128,6 +128,11 @@ export const categoryInitialValues: Category = {
   name: '',
   description: '',
 };
+export const subcategoryInitialValues: SubCategory = {
+  name: '',
+  description: '',
+  categoriesId: [],
+};
 
 export const loginInitialValue = {
   name: '',
@@ -150,16 +155,16 @@ export const AddProductvalidationSchema = Yup.object().shape({
       colorName: Yup.string().nullable(),
     }),
   ),
-  additionalInformation: Yup.array().of(
-    Yup.object().shape({
-      name: Yup.string().nullable(),
-      detail: Yup.string().nullable(),
-    }),
-  ),
-  categoriesId: Yup.number().required('Category is required'),
+  // additionalInformation: Yup.array().of(
+  //   Yup.object().shape({
+  //     name: Yup.string().nullable(),
+  //     detail: Yup.string().nullable(),
+  //   }),
+  // ),
+  // categoriesId: Yup.number().required('Category is required'),
 });
 
-export const AddproductsinitialValues: IProductWithoutId = {
+export const AddproductsinitialValues: IProductAdd = {
   name: '',
   price: 0,
   description: '',
@@ -170,8 +175,11 @@ export const AddproductsinitialValues: IProductWithoutId = {
   hoverImageUrl: '',
   hoverImagePublicId: '',
   productImages: [],
+  spacification: [],
+  colors: [],
   additionalInformation: [],
-  categoriesId: 0,
+  categories: [],
+  subcategories: [],
 };
 
 export const options = [
