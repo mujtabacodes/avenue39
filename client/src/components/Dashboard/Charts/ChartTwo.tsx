@@ -1,12 +1,13 @@
 'use client'
 
 import { ApexOptions } from "apexcharts";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import ReactApexChart from "react-apexcharts";
 import Cookies from 'js-cookie';
 import { useAppSelector } from "@/components/Others/HelperRedux";
 import { Skeleton } from 'antd';
+import { report } from "process";
 
 let baseColorArray =  ["#80CAEE", "#3C50E0",]
 
@@ -92,41 +93,27 @@ const ChartTwo: React.FC = () => {
       const superAdmintoken = Cookies.get('superAdminToken');
       let finaltoken = token ? token : superAdmintoken;
 
-      let response: any = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/admins/getWeeklySales`, {
+      let response: AxiosResponse = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/sales-record/getWeeklySales_record`, {
         headers: {
           "token": finaltoken
         }
       });
+console.log(response.data, "data")
+      let reports = response.data;
+      console.log(reports, "reports")
 
-      let reports = response.data.WeeklyRecord;
-
-      const keys = ["Revenue", "Sales"];
-      let chartColors = [...baseColorArray];
-
-      if (AdminType) {
-        keys.unshift("Profit");
-        chartColors.unshift("#336699");
-      }
-
-      let defaultArray = reports.map((item: any) => {
-        let nameFlag = item.name === 'Sales' ? "totalProductCount" : item.name === 'Profit' ? "totalProfit" : "totalRevenue";
-
-        // Only include "Profit" if AdminType is true
   
-        if (item.name === 'Profit' && !AdminType) {
-          return null;
-        } else {
-          return {
-            name: item.name,
-            data: item.data.map((count: any) => count[nameFlag])
-          };
-        }
-      });
-
-      // Filter out null entries if AdminType is false (to exclude "Profit")
-      defaultArray = defaultArray.filter((item: any) => item !== null);
-
-      options.colors = chartColors;
+let defaultArray = [
+  {
+  name: "Revenue",
+  data: reports.map((item:any)=>item.revenue)
+},
+{
+  name: "Sold Products",
+  data: reports.map((item:any)=>item.total_sold_product)
+},
+]
+      
       setState({ series: defaultArray });
       setLoading(false);
       
@@ -135,6 +122,8 @@ const ChartTwo: React.FC = () => {
       setLoading(false);
     }
   };
+
+  console.log(state, "setState")
 
   useLayoutEffect(() => {
     getWeeklySales();
