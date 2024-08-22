@@ -31,8 +31,8 @@ model Products {
 
   productImages         Json[]
   additionalInformation Json[]
-  colors                String[] @default([])
-  spacification         String[] @default([])
+  colors                Json[] @default([])
+  spacification         Json[] @default([])
 
   createdAt     DateTime                @default(now())
   sale          String?                 @default("0")
@@ -112,9 +112,7 @@ model sales_record_products {
   quantity      Int
   productData   Json
   salesRecordId Int
-  createdAt  DateTime                @default(now())
+  createdAt     DateTime     @default(now())
   salesRecord   sales_record @relation(fields: [salesRecordId], references: [id])
   Products      Products[]   @relation("ProductsTosales_record_products")
 }
-
-

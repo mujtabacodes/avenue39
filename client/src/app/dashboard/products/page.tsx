@@ -49,7 +49,9 @@ const Products = () => {
     reviews: editProduct && editProduct.starRating,
     code: editProduct && editProduct.code,
     salePrice: editProduct && editProduct.salePrice,
+
     purchasePrice: editProduct && editProduct.purchasePrice,
+    additionalInformation: editProduct && editProduct.additionalInformation,
   };
 
   let productFlag: boolean = selecteMenu === 'Add All Products' ? true : false;

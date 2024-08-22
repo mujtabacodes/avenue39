@@ -11,7 +11,7 @@ export interface IHome {}
 export interface INav {}
 
 export interface ITypo {
-  children: any; 
+  children: any;
   className?: string;
   onClick?: () => void;
 }
@@ -126,21 +126,23 @@ export interface IProduct {
   additionalInformation: AdditionalInformation[];
   categoriesId: number;
 }
-// export interface IProduct {
-//   id: number;
-//   name: string;
-//   price: number;
-//   description: string;
-//   stock: number;
-//   discountPrice: number;
-//   posterImageUrl: string;
-//   posterImagePublicId: string;
-//   hoverImageUrl: string;
-//   hoverImagePublicId: string;
-//   productImages: ProductImage[];
-//   additionalInformation: AdditionalInformation[];
-//   categoriesId: number;
-// }
+export interface IProductAdd {
+  name: string;
+  price: number;
+  description: string;
+  stock: number;
+  discountPrice: number;
+  posterImageUrl: string;
+  posterImagePublicId: string;
+  hoverImageUrl: string;
+  hoverImagePublicId: string;
+  productImages: ProductImage[];
+  spacification: string[];
+  colors?: string[];
+  additionalInformation: AdditionalInformation[];
+  categories: number[];
+  subcategories: number[];
+}
 export interface ITestimonialCard {
   id: number;
   profile: StaticImageData;

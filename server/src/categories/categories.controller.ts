@@ -8,7 +8,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { CategoriesService } from './categories.service';
-import { AddCategoryDto } from './dto/category.dto';
+import { AddCategoryDto, UpdateCategoryDto } from './dto/category.dto';
 
 @Controller('category')
 export class CategoriesController {
@@ -22,6 +22,10 @@ export class CategoriesController {
   @Post('add-category')
   addCategory(@Body() addCategoryData: AddCategoryDto) {
     return this.categoriesService.addCategory(addCategoryData);
+  }
+  @Post('update-category')
+  updateCategory(@Body() addCategoryData: UpdateCategoryDto) {
+    return this.categoriesService.updateCategory(addCategoryData);
   }
 
   @Delete('delete-category')

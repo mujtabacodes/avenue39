@@ -52,6 +52,12 @@ export class AddProductDto {
   @IsOptional()
   @IsArray()
   additionalInformation: { colors?: string[]; dimension?: string[] }[];
+  @IsOptional()
+  @IsArray()
+  colors: [];
+  @IsOptional()
+  @IsArray()
+  spacification: [];
 
   @IsNotEmpty()
   @IsArray()
@@ -64,4 +70,10 @@ export class AddProductDto {
   @ArrayNotEmpty()
   @IsInt({ each: true })
   subcategories: number[];
+}
+
+export class UpdateProductDto extends AddProductDto {
+  @IsNumber()
+  @IsNotEmpty()
+  id: number;
 }
