@@ -19,7 +19,7 @@ const Cart = () => {
           <CartItems isCartPage={true} />
           <div className="flex flex-wrap lg:flex-nowrap gap-5 justify-between items-center">
             <div className="">
-              <Coupan />
+              {/* <Coupan /> */}
             </div>
             <div className="">
               <Link

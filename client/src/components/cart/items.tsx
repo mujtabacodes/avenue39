@@ -127,7 +127,7 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                       <div className="flex justify-between gap-5">
                         <span> Qty {item.quantity}</span>
                         <ProductPrice className="flex gap-2 mb-4 !text-[15px]">
-                          AED {item?.discountPrice * item.quantity}
+                          AED {item?.discountPrice * item.quantity}kk
                           <NormalText className="text-slate-400 line-through  !text-[15px]">
                             {item?.price * item.quantity}
                           </NormalText>
@@ -178,7 +178,7 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
               className="shadow rounded-md w-full p-2 mt-3 flex flex-wrap md:flex-nowrap justify-between items-center bg-white "
               key={item.id}
             >
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-4 w-full">
                 <Image
                   width={isCheckoutPage ? 50 : 100}
                   height={isCheckoutPage ? 50 : 100}
@@ -188,11 +188,11 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                   }
                   alt={item.name}
                 />
-                <div className="">
+                <div className="w-full">
                   <p className="text-16 xl:text-18">{item.name}</p>
                   <div className="flex flex-wrap md:flex-nowrap lg:hidden justify-between items-center gap-2 md:gap-6 pr-4">
                     <p className="text-[18px] font-bold">
-                      Dhs.<span>{item?.discount * item.quantity}</span>
+                      Dhs.<span>{item?.discountPrice * item.quantity}</span>
                     </p>
                     <p className="text-14 font-normal line-through text-[#A5A5A5]">
                       Dhs.<span> {item?.price * item.quantity}</span>
@@ -219,6 +219,8 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                 </div>
               </div>
 
+              
+              <div className="hidden lg:flex items-center gap-2 xl:gap-6 pr-4">
               <div className="hidden lg:block">
                 {!isCheckoutPage && (
                   <Counter
@@ -232,9 +234,9 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                   />
                 )}
               </div>
-              <div className="hidden lg:flex items-center gap-6 pr-4">
+              <div className='w-40 xl:w-60 flex gap-2 xl:gap-4 items-center justify-end'>
                 <p className="text-16 xl:text-[22px] font-bold">
-                  AED.<span>{item?.discount * item.quantity}</span>
+                  AED.<span>{item?.discountPrice * item.quantity}</span>
                 </p>
                 <p className="text-12 xl:text-16 font-normal line-through text-[#A5A5A5]">
                   AED.<span>{item?.price * item.quantity}</span>
@@ -244,6 +246,7 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                   size={25}
                   onClick={() => removeProductFromCart(item.id)}
                 />
+              </div>
               </div>
             </div>
           ))}
