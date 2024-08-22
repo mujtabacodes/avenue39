@@ -3,10 +3,20 @@ import { AppModule } from './app.module';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
 import cookieParser from 'cookie-parser';
+import { CorsOptions } from '@nestjs/common/interfaces/external/cors-options.interface';
 
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  const corsOptions: CorsOptions = {
+    origin: '*', // Allow all origins
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // Allowed methods
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
+  };
+
+  app.enableCors(corsOptions);
+
   // app.enableCors({
   //   origin: [
   //     'http://localhost:3000',
