@@ -7,25 +7,25 @@ import { CorsOptions } from '@nestjs/common/interfaces/external/cors-options.int
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  const corsOptions: CorsOptions = {
-    origin: '*', 
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', 
-    preflightContinue: false,
-    optionsSuccessStatus: 204,
-  };
+  // const corsOptions: CorsOptions = {
+  //   origin: '*', 
+  //   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', 
+  //   preflightContinue: false,
+  //   optionsSuccessStatus: 204,
+  // };
 
-  app.enableCors(corsOptions);
+  // app.enableCors(corsOptions);
 
-  // app.enableCors({
-  //   origin: [
-  //     'http://localhost:3000',
-  //     'https://avenue39.vercel.app',
-  //     'https://avenue39-git-dev-interior-films-projects.vercel.app',
-  //     "https://avenue39-73ck3f2xg-interior-films-projects.vercel.app",
-  //     'https://avenue39-git-faad-dev-interior-films-projects.vercel.app'
-  //   ],
-  //   credentials: true,
-  // });
+  app.enableCors({
+    origin: [
+      'http://localhost:3000',
+      'https://avenue39.vercel.app',
+      'https://avenue39-git-dev-interior-films-projects.vercel.app',
+      "https://avenue39-73ck3f2xg-interior-films-projects.vercel.app",
+      'https://avenue39-git-faad-dev-interior-films-projects.vercel.app'
+    ],
+    credentials: true,
+  });
   app.enableCors({
     origin: ['*'],
   });
