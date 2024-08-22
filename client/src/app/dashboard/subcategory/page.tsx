@@ -5,8 +5,9 @@ import TableTwo from '@components/Dashboard/Tables/TableTwo';
 import DefaultLayout from '@components/Dashboard/Layouts/DefaultLayout';
 import ProtectedRoute from '@/hooks/AuthHookAdmin';
 import { useState } from 'react';
-import Addcategory from '@components/AddCategory/Addcategory';
+import AddSubcategory from '@components/AddCategory/AddSubcategory';
 import { CategoriesType } from '@/types/interfaces';
+import ViewSubcategries from '@/components/Dashboard/Tables/ViewSubcategries';
 
 const AddCategory = () => {
   const [menuType, setMenuType] = useState<string>('Categories');
@@ -19,14 +20,14 @@ const AddCategory = () => {
       <Breadcrumb pageName={menuType} />
       {menuType === 'Categories' ? (
         <div className="flex flex-col gap-10">
-          <TableTwo
+          <ViewSubcategries
             setMenuType={setMenuType}
             seteditCategory={seteditCategory}
             editCategory={editCategory}
           />
         </div>
       ) : (
-        <Addcategory
+        <AddSubcategory
           setMenuType={setMenuType}
           seteditCategory={seteditCategory}
           editCategory={editCategory}

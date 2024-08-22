@@ -28,7 +28,7 @@ interface CategoryProps {
   editCategory?: CategoriesType | undefined | null;
 }
 
-const TableTwo = ({
+const ViewSubcategries = ({
   setMenuType,
   seteditCategory,
   editCategory,
@@ -46,19 +46,21 @@ const TableTwo = ({
   // const canAddCategory = loggedInUser && (loggedInUser.role == 'Admin' ? loggedInUser.canAddCategory : true)
   const canAddCategory = true;
 
+  const canEditCategory = true;
   // const canEditCategory =
   //   loggedInUser &&
   //   (loggedInUser.role == 'Admin' ? loggedInUser.canEditCategory : true);
-  const canEditCategory = true;
 
   useLayoutEffect(() => {
     const CategoryHandler = async () => {
       try {
         setLoading(true);
         const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/api/category/get-all`,
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/subcategories/get-all`,
         );
         const Categories = await response.json();
+        console.log('Sub categories are here....');
+        console.log(Categories);
         setCategory(Categories);
         setLoading(false);
       } catch (err) {
@@ -83,10 +85,10 @@ const TableTwo = ({
   const handleDelete = async (key: any) => {
     try {
       const response = await axios.delete(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/category/delete-category`,
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/subcategories/delete-subcategory`,
         {
           headers: {
-            categoryId: key,
+            subcategoryId: key,
           },
         },
       );
@@ -226,7 +228,7 @@ const TableTwo = ({
                   }
                 }}
               >
-                Add Category
+                Add Sub Category
               </p>
             </div>
           </div>
@@ -240,7 +242,7 @@ const TableTwo = ({
               rowKey="id"
             />
           ) : (
-            'No Categories found'
+            'No Sub Categories found'
           )}
         </>
       )}
@@ -248,4 +250,4 @@ const TableTwo = ({
   );
 };
 
-export default TableTwo;
+export default ViewSubcategries;

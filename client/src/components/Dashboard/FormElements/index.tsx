@@ -1,4 +1,4 @@
-//@ts-nocheck
+// @ts-nocheck
 'use client';
 import React, { useState, useEffect, useLayoutEffect } from 'react';
 import {
@@ -25,6 +25,11 @@ import {
   AddProductvalidationSchema,
   withoutVariation,
 } from '@/data/data';
+import { Checkbox } from 'antd';
+import { useQuery } from '@tanstack/react-query';
+import { ICategory } from '@/types/types';
+import { fetchCategories, fetchSubCategories } from '@/config/fetch';
+import showToast from '@components/Toaster/Toaster';
 
 const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
   EditInitialValues,
@@ -47,6 +52,10 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
   const [Categories, setCategories] = useState<any[]>();
   const [VariationOption, setVariationOption] =
     useState<string>('withoutVariation');
+  const [selectedCategories, setSelectedCategories] = useState<number[]>([]);
+  const [selectedSubcategories, setSelectedSubcategories] = useState<number[]>(
+    [],
+  );
 
   const handleOptionChange = (e: any) => {
     console.log(e);
@@ -81,57 +90,64 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
 
     CategoryHandler();
   }, []);
-
   const onSubmit = async (values: any, { resetForm }: any) => {
-    console.log(values, 'values');
-    const selectedCat = Categories.filter(
-      (cat) => cat.name === values.category,
-    );
-    const selectedCat_Id = selectedCat[0].id;
-
+    values.categories = selectedCategoryIds;
+    values.subcategories = selectedSubcategoryIds;
+    // console.log(values, 'values');
+    console.log('debuge 1');
+    // const selectedCat = Categories.filter(
+    //   (cat) => cat.name === values.category,
+    // );
+    // const selectedCat_Id = selectedCat[0].id;
+    console.log('debuge 2');
     try {
       setError(null);
       let posterImageUrl = posterimageUrl && posterimageUrl[0];
       let hoverImageUrl = hoverImage && hoverImage[0];
       let createdAt = Date.now();
       if (!posterImageUrl || !(imagesUrl.length > 0)) {
-        throw new Error('Please select relevant Images');
+        return showToast('warn', 'Please select relevant Images');
+        // throw new Error('Please select relevant Images');
       }
-      let { category, ...newValue } = {
+      console.log(values, 'values');
+      console.log('debuge 3');
+      let newValues = {
         ...values,
-        categoriesId: selectedCat_Id,
         posterImageUrl: posterImageUrl.imageUrl,
         posterImagePublicId: posterImageUrl.public_id,
         hoverImageUrl: hoverImageUrl.imageUrl,
         hoverImagePublicId: hoverImageUrl.public_id,
         productImages: imagesUrl,
-        createdAt,
       };
+      console.log(newValues, 'updatedValues');
+      console.log('debuge 4');
       setloading(true);
 
       let updateFlag = EditProductValue && EditInitialValues ? true : false;
       let addProductUrl = updateFlag
         ? `/api/updateProduct/${EditInitialValues._id} `
         : null;
+      console.log('debuge 5');
       let url = `${process.env.NEXT_PUBLIC_BASE_URL}${
         updateFlag ? addProductUrl : '/api/product/add-product'
       }`;
+      console.log('debuge 6');
 
-      console.log(newValue);
-      const response = await axios.post(url, newValue);
+      console.log(newValues);
+      const response = await axios.post(url, newValues);
       console.log(response, 'response');
       Toaster(
         'success',
         updateFlag
           ? 'Product has been sucessufully Updated !'
-          : 'Product has been sucessufully Created !',
+          : response.data.message,
       );
       setProductInitialValue(AddproductsinitialValues);
-      resetForm();
-      setloading(false);
-      sethoverImage(null);
-      setposterimageUrl(null);
-      setImagesUrl([]);
+      // resetForm();
+      // setloading(false);
+      // sethoverImage(null);
+      // setposterimageUrl(null);
+      // setImagesUrl([]);
       updateFlag ? setEditProduct && setEditProduct(undefined) : null;
     } catch (err: any) {
       if (err.response && err.response.data && err.response.data.error) {
@@ -164,6 +180,43 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
 
     CategoryHandler();
   }, []);
+  const {
+    data: categoriesList = [],
+    error,
+    isLoading,
+  } = useQuery<ICategory[], Error>({
+    queryKey: ['categories'],
+    queryFn: fetchCategories,
+  });
+
+  const [selectedCategoryIds, setSelectedCategoryIds] = useState<number[]>([]);
+  const [selectedSubcategoryIds, setSelectedSubcategoryIds] = useState<
+    number[]
+  >([]);
+  const [filteredSubcategories, setFilteredSubcategories] = useState<
+    ISubcategory[]
+  >([]);
+
+  useEffect(() => {
+    const selectedCategories = categoriesList.filter((category) =>
+      selectedCategoryIds.includes(category.id),
+    );
+    const subcategories = selectedCategories.flatMap(
+      (category) => category.subcategories,
+    );
+    setFilteredSubcategories(subcategories);
+  }, [selectedCategoryIds, categoriesList]);
+
+  // Handle subcategory selection
+  const handleSubcategoryChange = (subcategoryId: number, checked: boolean) => {
+    setSelectedSubcategoryIds((prev) => {
+      if (checked) {
+        return [...prev, subcategoryId];
+      } else {
+        return prev.filter((id) => id !== subcategoryId);
+      }
+    });
+  };
 
   return (
     <>
@@ -375,7 +428,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                         </div>
                       </div>
 
-                      <div className="flex gap-4">
+                      <div className="flex gap-4 flex-col">
                         {/* <div className="w-2/4">
                           <label className="mb-3 block text-sm font-medium text-black dark:text-white">
                             Product Code
@@ -398,7 +451,83 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                             </div>
                           ) : null}
                         </div> */}
-                        <div className="w-2/4">
+                        <div className="w-full">
+                          <label className="mb-3 block py-4 px-2 text-sm font-medium text-black dark:text-white">
+                            Select Parent Category (at least one)
+                          </label>
+                          {isLoading ? (
+                            <div>
+                              <Loader />
+                            </div>
+                          ) : (
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                              {categoriesList.map((category) => (
+                                <div
+                                  key={category.id}
+                                  className="flex items-center space-x-2"
+                                >
+                                  <Checkbox
+                                    checked={selectedCategoryIds.includes(
+                                      category.id,
+                                    )}
+                                    onChange={(e) => {
+                                      const checked = e.target.checked;
+                                      setSelectedCategoryIds((prev) => {
+                                        if (checked) {
+                                          return [...prev, category.id];
+                                        } else {
+                                          return prev.filter(
+                                            (id) => id !== category.id,
+                                          );
+                                        }
+                                      });
+                                    }}
+                                    id={`category-${category.id}`}
+                                  />
+                                  <label
+                                    htmlFor={`category-${category.id}`}
+                                    className="ml-2 text-black dark:text-white"
+                                  >
+                                    {category.name}
+                                  </label>
+                                </div>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+
+                        <div className="mt-4">
+                          <h2 className="text-lg font-medium">Subcategories</h2>
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            {filteredSubcategories.map((subcategory) => (
+                              <div
+                                key={subcategory.id}
+                                className="flex items-center space-x-2 p-2 border rounded"
+                              >
+                                <Checkbox
+                                  checked={selectedSubcategoryIds.includes(
+                                    subcategory.id,
+                                  )}
+                                  onChange={(e) =>
+                                    handleSubcategoryChange(
+                                      subcategory.id,
+                                      e.target.checked,
+                                    )
+                                  }
+                                  id={`subcategory-${subcategory.id}`}
+                                />
+                                <label
+                                  htmlFor={`subcategory-${subcategory.id}`}
+                                  className="ml-2 text-black dark:text-white"
+                                >
+                                  {subcategory.name}
+                                </label>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* <div className="w-2/4">
                           <SelectGroupTwo
                             name="category"
                             changeHandler={formik.handleChange}
@@ -415,7 +544,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                             component="div"
                             className="text-red"
                           />
-                        </div>
+                        </div> */}
                       </div>
                     </div>
                   </div>
@@ -546,67 +675,76 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                       <FieldArray name="additionalInformation">
                         {({ push, remove }) => (
                           <div className="flex flex-col gap-2">
-                            {formik.values.additionalInformation.map(
-                              (model: any, index: any) => (
-                                <div key={index} className="flex items-center">
-                                  <input
-                                    type="text"
-                                    name={`additionalInformation[${index}].name`}
-                                    onChange={formik.handleChange}
-                                    onBlur={formik.handleBlur}
-                                    value={
-                                      formik.values.additionalInformation[index]
-                                        .name
-                                    }
-                                    placeholder="Model Name"
-                                    className={`w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${
-                                      formik.touched.additionalInformation?.[
-                                        index
-                                      ]?.name &&
-                                      (
-                                        formik.errors
-                                          .additionalInformation as FormikErrors<
-                                          FormValues['additionalInformation']
-                                        >
-                                      )?.[index]?.name
-                                        ? 'border-red-500'
-                                        : ''
-                                    }`}
-                                  />
-                                  <input
-                                    type="text"
-                                    name={`additionalInformation[${index}].detail`}
-                                    onChange={formik.handleChange}
-                                    onBlur={formik.handleBlur}
-                                    value={
-                                      formik.values.additionalInformation[index]
-                                        .detail
-                                    }
-                                    placeholder="Model Detail"
-                                    className={`w-full rounded-lg ml-2 border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${
-                                      formik.touched.additionalInformation?.[
-                                        index
-                                      ]?.detail &&
-                                      (
-                                        formik.errors
-                                          .additionalInformation as FormikErrors<
-                                          FormValues['additionalInformation']
-                                        >
-                                      )?.[index]?.detail
-                                        ? 'border-red-500'
-                                        : ''
-                                    }`}
-                                  />
-                                  <button
-                                    type="button"
-                                    onClick={() => remove(index)}
-                                    className="ml-2 text-red "
+                            {formik.values.additionalInformation &&
+                              formik.values.additionalInformation.map(
+                                (model: any, index: any) => (
+                                  <div
+                                    key={index}
+                                    className="flex items-center"
                                   >
-                                    <RxCross2 className="text-red" size={25} />
-                                  </button>
-                                </div>
-                              ),
-                            )}
+                                    <input
+                                      type="text"
+                                      name={`additionalInformation[${index}].name`}
+                                      onChange={formik.handleChange}
+                                      onBlur={formik.handleBlur}
+                                      value={
+                                        formik.values.additionalInformation[
+                                          index
+                                        ].name
+                                      }
+                                      placeholder="Model Name"
+                                      className={`w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${
+                                        formik.touched.additionalInformation?.[
+                                          index
+                                        ]?.name &&
+                                        (
+                                          formik.errors
+                                            .additionalInformation as FormikErrors<
+                                            FormValues['additionalInformation']
+                                          >
+                                        )?.[index]?.name
+                                          ? 'border-red-500'
+                                          : ''
+                                      }`}
+                                    />
+                                    <input
+                                      type="text"
+                                      name={`additionalInformation[${index}].detail`}
+                                      onChange={formik.handleChange}
+                                      onBlur={formik.handleBlur}
+                                      value={
+                                        formik.values.additionalInformation[
+                                          index
+                                        ].detail
+                                      }
+                                      placeholder="Model Detail"
+                                      className={`w-full rounded-lg ml-2 border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${
+                                        formik.touched.additionalInformation?.[
+                                          index
+                                        ]?.detail &&
+                                        (
+                                          formik.errors
+                                            .additionalInformation as FormikErrors<
+                                            FormValues['additionalInformation']
+                                          >
+                                        )?.[index]?.detail
+                                          ? 'border-red-500'
+                                          : ''
+                                      }`}
+                                    />
+                                    <button
+                                      type="button"
+                                      onClick={() => remove(index)}
+                                      className="ml-2 text-red "
+                                    >
+                                      <RxCross2
+                                        className="text-red"
+                                        size={25}
+                                      />
+                                    </button>
+                                  </div>
+                                ),
+                              )}
                             <button
                               type="button"
                               onClick={() => push({ name: '', detail: '' })}
@@ -620,7 +758,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                     </div>
                   </div>
 
-                  {/* <div className="rounded-sm border border-stroke bg-white dark:border-strokedark dark:bg-boxdark">
+                  <div className="rounded-sm border border-stroke bg-white dark:border-strokedark dark:bg-boxdark">
                     <div className="border-b border-stroke py-4 px-4 dark:border-strokedark">
                       <h3 className="font-medium text-black dark:text-white">
                         Specification
@@ -677,7 +815,64 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                         )}
                       </FieldArray>
                     </div>
-                  </div> */}
+                  </div>
+                  <div className="rounded-sm border border-stroke bg-white dark:border-strokedark dark:bg-boxdark">
+                    <div className="border-b border-stroke py-4 px-4 dark:border-strokedark">
+                      <h3 className="font-medium text-black dark:text-white">
+                        Colors
+                      </h3>
+                    </div>
+                    <div className="flex flex-col gap-4 p-4">
+                      <FieldArray name="colors">
+                        {({ push, remove }) => (
+                          <div className="flex flex-col gap-2">
+                            {formik.values.colors.map(
+                              (spec: any, index: any) => (
+                                <div key={index} className="flex items-center">
+                                  <input
+                                    type="text"
+                                    name={`colors[${index}].colorName`}
+                                    onChange={formik.handleChange}
+                                    onBlur={formik.handleBlur}
+                                    value={
+                                      formik.values.colors[index].colorName
+                                    }
+                                    placeholder="color name"
+                                    // className={`w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${
+                                    //   formik.touched.spacification?.[index]
+                                    //     ?.colorName &&
+                                    //   (
+                                    //     formik.errors
+                                    //       .spacification as FormikErrors<
+                                    //       FormValues['spacification']
+                                    //     >
+                                    //   )?.[index]?.specsDetails
+                                    //     ? 'border-red-500'
+                                    //     : ''
+                                    // }`}
+                                  />
+                                  <button
+                                    type="button"
+                                    onClick={() => remove(index)}
+                                    className="ml-2 text-red"
+                                  >
+                                    <RxCross2 className="text-red" size={25} />
+                                  </button>
+                                </div>
+                              ),
+                            )}
+                            <button
+                              type="button"
+                              onClick={() => push({ colorName: '' })}
+                              className="px-4 py-2 bg-black text-white rounded-md shadow-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-black w-fit"
+                            >
+                              Add color
+                            </button>
+                          </div>
+                        )}
+                      </FieldArray>
+                    </div>
+                  </div>
 
                   {/* <div className="rounded-sm border border-stroke bg-white dark:border-strokedark dark:bg-boxdark">
                     <div className="border-b border-stroke py-4 px-4 dark:border-strokedark">
