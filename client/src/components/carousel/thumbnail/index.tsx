@@ -29,11 +29,17 @@ interface ThumbProps {
   thumbs: IMAGE_INTERFACE[];
   isZoom?: Boolean;
   swiperGap?: String;
-  HoverImage?: React.Dispatch<SetStateAction<string|null>>
+  HoverImage?: React.Dispatch<SetStateAction<string | null>>;
   isLoading: boolean;
 }
 
-const Thumbnail: React.FC<ThumbProps> = ({thumbs,isZoom,swiperGap,HoverImage,isLoading}) => {
+const Thumbnail: React.FC<ThumbProps> = ({
+  thumbs,
+  isZoom,
+  swiperGap,
+  HoverImage,
+  isLoading,
+}) => {
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
   const [imageThumbsSwiper, setImageThumbsSwiper] = useState<SwiperType | null>(
     null,
@@ -51,24 +57,10 @@ const Thumbnail: React.FC<ThumbProps> = ({thumbs,isZoom,swiperGap,HoverImage,isL
   const swiperImageRef = useRef<SwiperType | null>(null);
 
   useEffect(() => {
-    if (isLoading == false) {
+    if (isLoading === false) {
       setLoading(false);
     }
   }, [isLoading]);
-
-
-
-
-  const handleMouseEnter = (imageUrl: string, public_id:sting, e: React.MouseEvent) => {
-    HoverImage && HoverImage(public_id)
-
-    if (zoomEnabled) {
-      setHoveredImage(imageUrl);
-      HoverImage && HoverImage(imageUrl)
-      setCursorVisible(true);
-      setCursorPosition({ x: e.clientX, y: e.clientY });
-    }
-  };
 
   const handleMouseMove = (e: React.MouseEvent) => {
     if (zoomEnabled) {
@@ -82,18 +74,37 @@ const Thumbnail: React.FC<ThumbProps> = ({thumbs,isZoom,swiperGap,HoverImage,isL
   };
 
   const handleMouseLeave = () => {
-    setHoveredImage(null);
+    // setHoveredImage(null);
     setCursorVisible(false);
+    // setZoomEnabled(false);
   };
-
-  const handleClick = (imageUrl: string,public_id:sting, e: React.MouseEvent) => {
-    HoverImage && HoverImage(public_id)
-    
-    setZoomEnabled((prev) => !prev);
-    setCursorPosition({ x: e.clientX, y: e.clientY });
-    if (!zoomEnabled) {
+  const handleMouseEnter = (
+    imageUrl: string,
+    public_id: string,
+    e: React.MouseEvent,
+  ) => {
+    if (zoomEnabled) {
+      // setZoomEnabled(true);
       setHoveredImage(imageUrl);
       setCursorVisible(true);
+      setCursorPosition({ x: e.clientX, y: e.clientY });
+    }
+  };
+
+  const handleClick = (
+    imageUrl: string,
+    public_id: string,
+    e: React.MouseEvent,
+  ) => {
+    HoverImage && HoverImage(public_id);
+    if (zoomEnabled) {
+      setZoomEnabled(false);
+      setCursorVisible(false);
+    } else {
+      setZoomEnabled(true);
+      setHoveredImage(imageUrl);
+      setCursorVisible(true);
+      setCursorPosition({ x: e.clientX, y: e.clientY });
     }
   };
 
@@ -106,6 +117,7 @@ const Thumbnail: React.FC<ThumbProps> = ({thumbs,isZoom,swiperGap,HoverImage,isL
       }
     }
   };
+
   const HoverImgToSlide = (direction: 'up' | 'down') => {
     if (swiperImageRef.current) {
       if (direction === 'up') {
@@ -169,7 +181,9 @@ const Thumbnail: React.FC<ThumbProps> = ({thumbs,isZoom,swiperGap,HoverImage,isL
             </div>
           </div>
 
-          <div className="w-4/5 md:flex-grow relative border-2 border-gray-100 shadow">
+          <div
+            className={`w-4/5 md:flex-grow relative border-2 h-full border-gray-100 shadow rounded-lg `}
+          >
             {loading ? (
               <Skeleton className="h-[700px] w-full" />
             ) : (
@@ -201,74 +215,84 @@ const Thumbnail: React.FC<ThumbProps> = ({thumbs,isZoom,swiperGap,HoverImage,isL
                 {thumbs.map((thumb, index) => (
                   <SwiperSlide key={index}>
                     <div
-                      className={`relative w-full h-full p-1 ${zoomEnabled ? 'cursor-none' : 'cursor-zoom-in'}`}
+                      className={`relative w-full h-full ${zoomEnabled ? 'cursor-none' : 'cursor-zoom-in'}`}
                       onClick={(e) =>
-                        handleClick(thumb.imageUrl || '',thumb.public_id || "" , e)}
-                      onMouseEnter={(e) =>
-                        handleMouseEnter(thumb.imageUrl || '',thumb.public_id || "", e)
+                        handleClick(
+                          thumb.imageUrl || '',
+                          thumb.public_id || '',
+                          e,
+                        )
                       }
                       onMouseMove={handleMouseMove}
                       onMouseLeave={handleMouseLeave}
+                      onMouseEnter={(e) =>
+                        handleMouseEnter(
+                          thumb.imageUrl || '',
+                          thumb.public_id || '',
+                          e,
+                        )
+                      }
                     >
                       <Image
-                        className={`rounded-lg h-full w-full max-h-[690px] pointer-events-none md:pointer-events-auto  ${zoomEnabled ? 'cursor-none' : ''} ${isZoom? 'cursor-default': ''} ${!zoomEnabled && isZoom ? 'cursor-zoom-in': ''}`}
+                        className={`rounded-lg h-full w-full max-h-[600px] pointer-events-none md:pointer-events-auto  ${zoomEnabled ? 'cursor-none' : ''} ${isZoom ? 'cursor-default' : ''} ${!zoomEnabled && isZoom ? 'cursor-zoom-in' : ''}`}
                         src={thumb.imageUrl || '/default-image.jpg'}
-                        width={550}
-                        height={550}
+                        width={690}
+                        height={690}
                         alt={thumb.name || 'Main Image'}
-                        onClick={(e) => isZoom? handleClick(thumb.imageUrl || '', e) : ''}
-                        onMouseEnter={(e) =>
-                          handleMouseEnter(thumb.imageUrl || '',thumb.public_id || "", e)
+                        onClick={(e) =>
+                          isZoom
+                            ? handleClick(
+                                thumb.imageUrl || '',
+                                thumb.public_id || '',
+                                e,
+                              )
+                            : undefined
                         }
                         onMouseMove={handleMouseMove}
-                        onMouseLeave={handleMouseLeave}
+                        // onMouseLeave={handleMouseLeave}
                       />
                     </div>
                   </SwiperSlide>
                 ))}
-
-                {zoomEnabled && (
-                  <div className="relative w-full h-8 my-2">
-                    <div className="flex gap-2 items-center justify-end absolute top-0 right-2">
-                      <span
-                        className="w-8 h-8 flex justify-center items-center cursor-pointer bg-[#F6F6F6] shadow"
-                        onClick={() => HoverImgToSlide('up')}
-                      >
-                        <IoIosArrowBack size={20} />
-                      </span>
-                      <span
-                        className="w-8 h-8 flex justify-center items-center cursor-pointer bg-[#F6F6F6] shadow"
-                        onClick={() => HoverImgToSlide('down')}
-                      >
-                        <IoIosArrowForward size={20} />
-                      </span>
-                    </div>
-                  </div>
-                )}
               </Swiper>
+            )}
+            {zoomEnabled && (
+              <div className="relative w-full h-8 my-2">
+                <div className="flex gap-2 items-center justify-end absolute top-0 right-2">
+                  <span
+                    className="w-8 h-8 flex justify-center items-center cursor-pointer bg-[#F6F6F6] shadow"
+                    onClick={() => HoverImgToSlide('up')}
+                  >
+                    <IoIosArrowBack size={20} />
+                  </span>
+                  <span
+                    className="w-8 h-8 flex justify-center items-center cursor-pointer bg-[#F6F6F6] shadow"
+                    onClick={() => HoverImgToSlide('down')}
+                  >
+                    <IoIosArrowForward size={20} />
+                  </span>
+                </div>
+              </div>
             )}
           </div>
         </div>
-
-        
         {cursorVisible && zoomEnabled && (
           <div className="absolute -right-1/2 translate-x-[40%] top-1 hidden md:flex pt-24 z-40 h-[90vh] w-3/4 bg-white/70">
             <div
-              className="magnified-image absolute left-50 top-50 z-50"
+              className="magnified-image absolute left-50 top-0 z-50"
               style={{
                 backgroundImage: `url(${hoveredImage})`,
+
                 backgroundPosition: backgroundPosition,
                 border: '1px solid #707070',
                 backgroundRepeat: 'no-repeat',
-                backgroundSize: '300%',
+                backgroundSize: '500%',
                 width: '500px',
                 height: '500px',
               }}
             />
           </div>
         )}
-
-        
         {cursorVisible && zoomEnabled && (
           <div
             className="fixed z-50 pointer-events-none"
@@ -276,8 +300,8 @@ const Thumbnail: React.FC<ThumbProps> = ({thumbs,isZoom,swiperGap,HoverImage,isL
               left: cursorPosition.x,
               top: cursorPosition.y,
               transform: 'translate(-50%, -50%)',
-              width: '150px',
-              height: '150px',
+              width: '100px',
+              height: '100px',
               background: 'rgba(255, 255, 255, 0.7)',
               border: '1px solid #707070',
               display: 'flex',
@@ -292,4 +316,5 @@ const Thumbnail: React.FC<ThumbProps> = ({thumbs,isZoom,swiperGap,HoverImage,isL
     </div>
   );
 };
+
 export default Thumbnail;
