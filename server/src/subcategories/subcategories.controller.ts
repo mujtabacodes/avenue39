@@ -3,12 +3,14 @@ import {
   Controller,
   Delete,
   Get,
+  Header,
+  Headers,
   HttpStatus,
   Post,
   Query,
 } from '@nestjs/common';
 import { SubcategoriesService } from './subcategories.service';
-import { AddSubCategoryDto } from './dto/subcategory.dto';
+import { AddSubCategoryDto, UpdateSubCategoryDto } from './dto/subcategory.dto';
 
 @Controller('subcategories')
 export class SubcategoriesController {
@@ -23,9 +25,13 @@ export class SubcategoriesController {
   addSubCategory(@Body() addCategoryData: AddSubCategoryDto) {
     return this.subcategoriesService.addSubCategory(addCategoryData);
   }
+  @Post('update-subcategory')
+  updateSubCategory(@Body() addCategoryData: UpdateSubCategoryDto) {
+    return this.subcategoriesService.updateSubCategory(addCategoryData);
+  }
 
   @Delete('delete-subcategory')
-  async removeSubCategory(@Query('subcategoryId') categoryId: string) {
+  async removeSubCategory(@Headers('subcategoryId') categoryId: string) {
     const id = parseInt(categoryId, 10);
 
     if (isNaN(id)) {

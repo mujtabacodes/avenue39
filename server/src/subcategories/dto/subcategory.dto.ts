@@ -19,3 +19,8 @@ export class AddSubCategoryDto {
   @IsInt({ each: true })
   categoriesId: number[];
 }
+export class UpdateSubCategoryDto extends AddSubCategoryDto {
+  @IsNotEmpty()
+  @IsNumber()
+  id: number;
+}

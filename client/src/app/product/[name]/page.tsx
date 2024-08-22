@@ -35,6 +35,8 @@ import TopHero from '@/components/top-hero';
 import FeatureSlider from '@/components/card-slider/feature-slider';
 import { Table } from 'antd';
 import Loader from '@/components/Loader/Loader';
+import { Skeleton } from '@/components/ui/skeleton';
+import { ProductDetailSkeleton } from '@/components/product-detail/skelton';
 
 const ProductPage = ({ params }: { params: IProductDetail }) => {
   const slug = params.name;
@@ -90,9 +92,9 @@ const ProductPage = ({ params }: { params: IProductDetail }) => {
   });
   const reviewsToDisplay = sortedReviews.slice(0, visibleCount);
 
-  if (!product) {
-    return <Loader />;
-  }
+  // if (!product) {
+  //   return <Loader />;
+  // }
 
   const { productReviews, averageRating } =
     calculateRatingsPercentage(filteredReviews);
@@ -110,7 +112,7 @@ const ProductPage = ({ params }: { params: IProductDetail }) => {
     },
   ];
 
-  const dataSource = product.additionalInformation.map((info, index) => ({
+  const dataSource = product?.additionalInformation.map((info, index) => ({
     key: index,
     ...info,
   }));
@@ -122,7 +124,12 @@ const ProductPage = ({ params }: { params: IProductDetail }) => {
         <div className="p-2 flex flex-col md:flex-row gap-6 md:gap-10">
           <div className="w-full md:w-3/5">
             <p className="text-slate-400 text-17 font-normal leading-7">
-              {product.description}
+              <Skeleton className="textz-slate-400 text-17 font-normal leading-7" />
+              {product?.description ? (
+                product.description
+              ) : (
+                <Skeleton className="textz-slate-400 text-17 font-normal leading-7" />
+              )}
             </p>
           </div>
           <div className="w-full md:w-2/5 border-t-2 md:border-t-0 border-s-0 md:border-s-2 py-4 md:pb-10">
@@ -263,13 +270,17 @@ const ProductPage = ({ params }: { params: IProductDetail }) => {
     <div>
       <TopHero breadcrumbs={cartpageBreadcrumbs} />
       <Container>
-        <ProductDetail
-          params={product}
-          isZoom={true}
-          gap="gap-10 md:gap-40"
-          swiperGap="justify-between gap-2 xs:gap-6 md:gap-14"
-          detailsWidth="w-full md:w-1/2 lg:w-1/4"
-        />
+        {!product ? (
+          <ProductDetailSkeleton />
+        ) : (
+          <ProductDetail
+            params={product}
+            isZoom={true}
+            gap="gap-10 md:gap-40"
+            swiperGap="justify-between gap-2 xs:gap-6 md:gap-14"
+            detailsWidth="w-full md:w-1/2 lg:w-1/4"
+          />
+        )}
       </Container>
       <div>
         <DetailTabs tabs={tabs} />

@@ -18,36 +18,38 @@ export interface USRPROPS {
   adminType?: string | undefined;
 }
 
-  export interface PRODUCTCARDPROPS {
-    ImgUrl: string,
-    title: string,
-    strikThroughPrice: string,
-    price: string
-    width?: any; 
+export interface PRODUCTCARDPROPS {
+  ImgUrl: string;
+  title: string;
+  strikThroughPrice: string;
+  price: string;
+  width?: any;
   height?: any;
-  }
-  
-  
-  
-  export interface Product {
-    name: string;
-    description: string;
-    price: string;
-    category: string;
-    colors: { colorName: string }[];
-    totalStockQuantity: number;
-    variantStockQuantities: { variant: string; quantity: number }[]; 
-    modelDetails: { name: string; detail: string }[]; 
-    spacification: { specsDetails: string }[];
-    discountPrice: string;
-    category: string
-  }
-  
-  export interface Category {
-    name: string;
-    description: string
-  
-  }
+}
+
+export interface Product {
+  name: string;
+  description: string;
+  price: string;
+  category: string;
+  colors: { colorName: string }[];
+  totalStockQuantity: number;
+  variantStockQuantities: { variant: string; quantity: number }[];
+  modelDetails: { name: string; detail: string }[];
+  spacification: { specsDetails: string }[];
+  discountPrice: string;
+  category: string;
+}
+
+export interface Category {
+  name: string;
+  description: string;
+}
+export interface SubCategory {
+  name: string;
+  description: string;
+  categoriesId: number[];
+}
 
 interface CategoriesType {
   posterImageUrl: IMAGE_INTERFACE;
@@ -178,8 +180,6 @@ export interface product {
   __v: number;
   code: string;
 }
-
-
 
 declare module 'react-qr-scanner' {
   import { Component } from 'react';

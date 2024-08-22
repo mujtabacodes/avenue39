@@ -25,12 +25,16 @@ const CardsTabes: React.FC = () => {
     queryKey: ['categories'],
     queryFn: fetchCategories,
   });
-
   const slidersData2 = categories.map((category) => ({
     tabTitle: category.name,
-    cards: products.filter((product) => product.categoriesId === category.id),
+    cards: products.filter((product) =>
+      // @ts-ignore
+      product.categories.some(
+        // @ts-ignore
+        (prodCategory) => prodCategory.id === category.id,
+      ),
+    ),
   }));
-
   return (
     <Container>
       {productsError || categoriesError ? null : (
