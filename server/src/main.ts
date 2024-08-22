@@ -7,16 +7,8 @@ import { CorsOptions } from '@nestjs/common/interfaces/external/cors-options.int
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  // const corsOptions: CorsOptions = {
-  //   origin: '*', 
-  //   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', 
-  //   preflightContinue: false,
-  //   optionsSuccessStatus: 204,
-  // };
-
-  // app.enableCors(corsOptions);
-
-  app.enableCors({
+ 
+ app.enableCors({
     origin: [
       'http://localhost:3000',
       'https://avenue39.vercel.app',
@@ -26,9 +18,7 @@ async function bootstrap() {
     ],
     credentials: true,
   });
-  app.enableCors({
-    origin: ['*'],
-  });
+
   app.setGlobalPrefix('api');
   app.useGlobalPipes(new ValidationPipe());
   app.use(cookieParser());
