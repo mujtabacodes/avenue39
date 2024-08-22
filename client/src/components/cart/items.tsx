@@ -192,7 +192,7 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                   <p className="text-16 xl:text-18">{item.name}</p>
                   <div className="flex flex-wrap md:flex-nowrap lg:hidden justify-between items-center gap-2 md:gap-6 pr-4">
                     <p className="text-[18px] font-bold">
-                      Dhs.<span>{item?.discount * item.quantity}</span>
+                      Dhs.<span>{item?.discountPrice * item.quantity}</span>
                     </p>
                     <p className="text-14 font-normal line-through text-[#A5A5A5]">
                       Dhs.<span> {item?.price * item.quantity}</span>

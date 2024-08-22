@@ -117,7 +117,8 @@ export interface IProduct {
   stock: number;
   discountPrice: number;
   sale?: string;
-
+  colors?: [];
+  spacification?: [];
   posterImageUrl: string | StaticImageData;
   posterImagePublicId: string;
   hoverImageUrl: string;
