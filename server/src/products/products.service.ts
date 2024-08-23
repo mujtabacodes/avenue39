@@ -13,7 +13,11 @@ export class ProductsService {
       console.log(this.prisma.products.findMany({}));
       return this.prisma.products.findMany({
         include: {
-          categories: true,
+          categories: {
+            include: {
+              subcategories: true,
+            },
+          },
           subcategories: true,
         },
       });

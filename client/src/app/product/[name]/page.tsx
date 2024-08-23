@@ -99,24 +99,41 @@ const ProductPage = ({ params }: { params: IProductDetail }) => {
   const { productReviews, averageRating } =
     calculateRatingsPercentage(filteredReviews);
 
-  const columns = [
-    {
-      title: 'Keys',
-      dataIndex: 'key',
-      key: 'key',
-    },
-    {
-      title: 'Value',
-      dataIndex: 'value',
-      key: 'value',
-    },
-  ];
-
   const dataSource = product?.additionalInformation.map((info, index) => ({
     key: index,
     ...info,
   }));
+  // const dataSource2 = [
+  //   {
+  //     key: '1',
+  //     name: 'Mike',
+  //     age: 32,
+  //     address: '10 Downing Street',
+  //   },
+  //   {
+  //     key: '2',
+  //     name: 'John',
+  //     age: 42,
+  //     address: '10 Downing Street',
+  //   },
+  // ];
 
+  const columns = [
+    {
+      title: 'Name',
+      dataIndex: 'name',
+      key: 'name',
+    },
+    {
+      title: 'Detail',
+      dataIndex: 'detail',
+      key: 'detail',
+    },
+  ];
+
+  console.log('Hello from details page');
+  console.log(product);
+  console.log(dataSource);
   const tabs = [
     {
       label: 'Description',
@@ -133,10 +150,13 @@ const ProductPage = ({ params }: { params: IProductDetail }) => {
             </p>
           </div>
           <div className="w-full md:w-2/5 border-t-2 md:border-t-0 border-s-0 md:border-s-2 py-4 md:pb-10">
-            <h5 className="px-0 md:ps-12 font-bold text-15">DIMENSIONS</h5>
+            <h5 className="px-0 md:ps-12 font-bold text-15 uppercase">
+              specification
+            </h5>
             <ul className="list-disc text-slate-400 text-14 px-4 md:ps-16 mt-4">
-              <li>coffee table-0.800*0.800*0.320</li>
-              <li>side table-0.600*0.600*0.517</li>
+              {product?.spacification?.map(({ specsDetails }, index) => (
+                <li key={index}>{specsDetails}</li>
+              ))}
             </ul>
           </div>
         </div>
@@ -253,8 +273,8 @@ const ProductPage = ({ params }: { params: IProductDetail }) => {
           dataSource={dataSource}
           pagination={false}
           bordered
-          rowKey="key"
-          className="custom-table"
+          rowKey="name"
+          className="detail"
         />
       ),
     },
