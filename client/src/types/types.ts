@@ -126,6 +126,8 @@ export interface IProduct {
   productImages: ProductImage[];
   additionalInformation: AdditionalInformation[];
   categoriesId: number;
+  categories?: ICategory[];
+  subcategories?: ICategory[];
 }
 export interface IProductAdd {
   name: string;
@@ -226,9 +228,9 @@ export interface Feature {
 }
 
 export interface IProductCategories {
-  id: number;
+  id: string;
   name: string;
-  totalItems?: number;
+  totalItems?: number; 
 }
 
 export interface IProductDetail {
