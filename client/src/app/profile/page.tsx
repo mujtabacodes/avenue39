@@ -19,13 +19,21 @@ import {
 import Container from '@/components/ui/Container';
 import { Button } from '@/components/ui/button';
 import dummyProfile from '@images/profile/Ellipse 6.png';
+import { useAppSelector } from '@/Others/HelperRedux';
+import { useSelector } from 'react-redux';
+import { State } from '@/redux/store';
 
 export default function Profile() {
-  // const { loggedInUser }: any = useAppSelector((state:any) => state.userSlice);
-  const router = useRouter();
-  // const dispatch = useAppDispatch();
-  const initialFormData = { fullName: 'name' };
+  // const { loggedInUser }: any = useAppSelector((state: any) => state.userSlice);
+  console.log('I am on profile page');
+  const { loggedInUser } = useSelector((state: State) => state.usrSlice);
+  console.log(loggedInUser?.name);
 
+  const router = useRouter();
+
+  const initialFormData = {
+    fullName: loggedInUser.name,
+  };
   const [formData, setFormData] = useState(initialFormData);
   const [profilePhoto, setProfilePhoto] = useState<any[]>([]);
   const token = Cookies.get('user_token');

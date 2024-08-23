@@ -84,39 +84,21 @@ const CreateAdmin = ({
       // let token = Cookies.get('superAdminToken');
       // if (!token) return null;
       console.log('Debuge 1');
+
       if (!formData.fullname || !formData.email || !formData.password)
         throw new Error('Full name is required');
 
       setLoading(true);
       console.log('Debuge 2');
-
-      const name = formData.fullname;
-      const {
-        fullname,
-        canVeiwAdmins,
-        canVeiwTotalproducts,
-        canVeiwTotalCategories,
-        ...updatedValues
-      } = formData;
       let adminURL = updateFlag ? `/admin/edit-admin` : '/admin/create-admin';
       console.log('Debuge 22');
-      let requestData = {
-        name,
-        ...updatedValues,
-        canViewAdmins: formData.canVeiwAdmins,
-        canViewTotalProducts: formData.canVeiwTotalproducts,
-        canViewTotalCategories: formData.canVeiwTotalCategories,
-      };
 
       console.log('Debuge 3');
+      console.log(formData);
       let response: any = await axios.post(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api${adminURL}`,
         {
-          name,
-          ...updatedValues,
-          canViewAdmins: formData.canVeiwAdmins,
-          canViewTotalProducts: formData.canVeiwTotalproducts,
-          canViewTotalCategories: formData.canVeiwTotalCategories,
+          formData,
         },
       );
       console.log('Debuge 4');
@@ -178,23 +160,23 @@ const CreateAdmin = ({
   ];
 
   const handleClearAllPermissions = () => {
-    // setFormData({
-    //   ...formData,
-    //   canAddProduct: false,
-    //   canEditProduct: false,
-    //   canDeleteProduct: false,
-    //   canAddCategory: false,
-    //   canDeleteCategory: false,
-    //   canEditCategory: false,
-    //   canCheckProfit: false,
-    //   canCheckRevenue: false,
-    //   canCheckVisitors: false,
-    //   canViewUsers: false,
-    //   canViewSales: false,
-    //   canVeiwAdmins: false,
-    //   canVeiwTotalproducts: false,
-    //   canVeiwTotalCategories: false,
-    // });
+    setFormData({
+      ...formData,
+      canAddProduct: false,
+      canEditProduct: false,
+      canDeleteProduct: false,
+      canAddCategory: false,
+      canDeleteCategory: false,
+      canEditCategory: false,
+      canCheckProfit: false,
+      canCheckRevenue: false,
+      canCheckVisitors: false,
+      canViewUsers: false,
+      canViewSales: false,
+      canVeiwAdmins: false,
+      canVeiwTotalproducts: false,
+      canVeiwTotalCategories: false,
+    });
   };
 
   return (
@@ -235,7 +217,7 @@ const CreateAdmin = ({
                 type="text"
                 name="fullname"
                 placeholder="Full Name"
-                value={formData?.fullname}
+                value={formData.fullname}
                 onChange={handleInputChange}
               />
             </Form.Item>

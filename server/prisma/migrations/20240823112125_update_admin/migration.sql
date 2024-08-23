@@ -25,13 +25,12 @@ CREATE TABLE "Products" (
     "hoverImagePublicId" TEXT NOT NULL,
     "productImages" JSONB[],
     "additionalInformation" JSONB[],
-    "colors" TEXT[] DEFAULT ARRAY[]::TEXT[],
-    "spacification" TEXT[] DEFAULT ARRAY[]::TEXT[],
+    "colors" JSONB[] DEFAULT ARRAY[]::JSONB[],
+    "spacification" JSONB[] DEFAULT ARRAY[]::JSONB[],
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "sale" TEXT DEFAULT '0',
     "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "saleDuration" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "color" TEXT[] DEFAULT ARRAY[]::TEXT[],
 
     CONSTRAINT "Products_pkey" PRIMARY KEY ("id")
 );
@@ -73,7 +72,7 @@ CREATE TABLE "Reviews" (
 -- CreateTable
 CREATE TABLE "Admins" (
     "id" SERIAL NOT NULL,
-    "name" TEXT NOT NULL,
+    "fullname" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "password" TEXT NOT NULL,
     "canAddProduct" BOOLEAN NOT NULL DEFAULT false,
@@ -87,9 +86,9 @@ CREATE TABLE "Admins" (
     "canCheckVisitors" BOOLEAN NOT NULL DEFAULT false,
     "canViewUsers" BOOLEAN NOT NULL DEFAULT false,
     "canViewSales" BOOLEAN NOT NULL DEFAULT false,
-    "canViewAdmins" BOOLEAN NOT NULL DEFAULT false,
-    "canViewTotalProducts" BOOLEAN NOT NULL DEFAULT false,
-    "canViewTotalCategories" BOOLEAN NOT NULL DEFAULT false,
+    "canVeiwAdmins" BOOLEAN NOT NULL DEFAULT false,
+    "canVeiwTotalproducts" BOOLEAN NOT NULL DEFAULT false,
+    "canVeiwTotalCategories" BOOLEAN NOT NULL DEFAULT false,
     "posterImageUrl" TEXT,
     "posterImagePublicId" TEXT,
     "role" TEXT NOT NULL DEFAULT 'Admin',
@@ -112,6 +111,7 @@ CREATE TABLE "sales_record_products" (
     "quantity" INTEGER NOT NULL,
     "productData" JSONB NOT NULL,
     "salesRecordId" INTEGER NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "sales_record_products_pkey" PRIMARY KEY ("id")
 );
