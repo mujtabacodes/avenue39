@@ -111,7 +111,6 @@ export class SalesRecordService {
   }
 
 
-
   async get_all_records() {
     try {
       let total_products = await this.prisma.products.count({})
@@ -119,13 +118,28 @@ export class SalesRecordService {
       let total_sub_categories = await this.prisma.subCategories.count({})
       let total_user = await this.prisma.user.count({})
       let total_Admins = await this.prisma.admins.count({})
+      let sales = await this.prisma.sales_record_products.findMany()
+
+      let Total_sales = sales.reduce(function (accumulator: any, currentValue: any) {
+        return accumulator + Number(currentValue.quantity);
+      }, 0);
+
+      let total_revenue = sales.reduce((accumulator: any, currentValue: any) => {
+        let price = (currentValue.productData.discountPrice || Number(currentValue.productData.discountPrice) > 0) ? currentValue.productData.discountPrice : currentValue.productData.price
+
+        let finalPrice = Number(currentValue.quantity) * Number(price)
+
+        return accumulator + finalPrice
+      }, 0)
 
       return {
-        total_products,
-        total_categories,
         total_sub_categories,
-        total_user,
-        total_Admins
+        totalProducts: total_products,
+        totalCategories: total_categories,
+        totalAdmins: total_Admins,
+        totalRevenue: total_revenue,
+        totalSales: Total_sales,
+        totalUsers:total_user
       }
 
     } catch (error) {
@@ -200,7 +214,7 @@ export class SalesRecordService {
     console.log(completeMonthlyData, "completeMonthlyData")
 
     result.forEach(sale => {
-      const monthIndex = sale.month - 1; 
+      const monthIndex = sale.month - 1;
       completeMonthlyData[monthIndex] = {
         month: `${monthNames[monthIndex]} ${sale.year}`,
         Revenue: sale.totalRevenue,
@@ -218,7 +232,7 @@ export class SalesRecordService {
       const startOfToday = new Date();
       const PreviousWeek = new Date(today);
       PreviousWeek.setDate(today.getDate() - 7);
-  
+
       const sales = await this.prisma.sales_record_products.findMany({
         where: {
           createdAt: {
@@ -227,7 +241,7 @@ export class SalesRecordService {
           },
         },
       });
-  
+
       const salesData = sales.reduce(
         (acc: Record<string, any>, product: any) => {
           let date = new Date(product.createdAt);
@@ -235,9 +249,9 @@ export class SalesRecordService {
           let sales_date = date.getDate();
           let year = date.getFullYear();
           let month = date.getMonth() + 1;
-  
+
           const key = `${day}-${sales_date}-${month}-${year}`;
-  
+
           if (!acc[key]) {
             acc[key] = {
               day,
@@ -248,35 +262,35 @@ export class SalesRecordService {
               total_sold_product: 0,
             };
           }
-  
+
           const price = Number(
             product.productData.discountPrice ?? product.productData.price
           );
-  
+
           let revenue = Number(product.quantity) * price;
           acc[key].revenue += revenue;
           acc[key].total_sold_product += Number(product.quantity);
-  
+
           return acc;
         },
         {}
       );
-  
+
       const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-  
+
       // Initialize the array for the week
       const completeWeeklyData = days.map((day, index) => ({
         day,
         revenue: 0,
         total_sold_product: 0,
       }));
-  
+
       // Populate the data based on `salesData`
       Object.values(salesData).forEach((item: any) => {
         completeWeeklyData[item.day].revenue += item.revenue;
         completeWeeklyData[item.day].total_sold_product += item.total_sold_product;
       });
-  
+
       console.log("completeWeeklyData", completeWeeklyData);
       return completeWeeklyData;
     } catch (error) {
@@ -284,7 +298,7 @@ export class SalesRecordService {
       customHttpException(error.message, "INTERNAL_SERVER_ERROR");
     }
   }
-  
+
 
   apiTester() {
     return "api is working"

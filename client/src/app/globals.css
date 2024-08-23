@@ -57,6 +57,12 @@ html {
   border-color:black !important;
 }
 
+.slider_container::-webkit-scrollbar-thumb{
+width: 1px !important;
+}
+
+
+
 .linkactive{
   position: relative;
 
