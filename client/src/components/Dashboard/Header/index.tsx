@@ -71,7 +71,7 @@ const Header = (props: {
           </form>
         </div>
 
-        <div className="flex items-center gap-3 2xsm:gap-7">
+        <div className="flex items-center gap-3 2xsm:gap-7 z-40">
           <ul className="flex items-center gap-2 2xsm:gap-4 text-black dark:text-white">
             {/* <!-- Dark Mode Toggler --> */}
             <DarkModeSwitcher />

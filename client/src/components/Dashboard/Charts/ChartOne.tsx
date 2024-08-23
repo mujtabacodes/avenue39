@@ -128,7 +128,7 @@ const ChartOne: React.FC = () => {
 
   let AdminType = loggedInUser && loggedInUser.role === "super-Admin";
   const [state, setState] = useState<ChartOneState | undefined>();
-  const [loading, setLoading] = useState(true); // Added loading state
+  const [loading, setLoading] = useState(true)
 
   const getMonthlyRecord = async () => {
     try {
@@ -136,7 +136,7 @@ const ChartOne: React.FC = () => {
       const superAdmintoken = Cookies.get('superAdminToken');
       const finalToken = token ? token : superAdmintoken;
 
-      const response = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/admins/getMonthlySales`, {
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/sales-record/getMonthlySales`, {
         headers: {
           "token": finalToken
         }
@@ -145,7 +145,6 @@ const ChartOne: React.FC = () => {
       const reports = response.data;
 
       let chartColors = [...baseColorArray];
-      console.log(reports);
 
       const keys = ["Revenue", "Sales"];
       if (AdminType) {
@@ -175,7 +174,7 @@ const ChartOne: React.FC = () => {
   }, []);
 
   return (
-    <div className="col-span-12 rounded-sm border border-stroke bg-white px-5 pb-5 pt-7 shadow-default sm:px-7 xl:col-span-8 dark:bg-black dark:text-white dark:bg-boxdark dark:drop-shadow-none dark:border-blue-50">
+    <div className="col-span-12 rounded-sm border border-stroke bg-white px-5 pb-5 pt-7 shadow-default sm:px-7 xl:col-span-8 dark:bg-black dark:text-white dark:bg-boxdark dark:drop-shadow-none dark:border-blue-50">      
       <div className="flex flex-wrap items-start justify-between gap-3 sm:flex-nowrap dark:bg-black dark:text-white dark:bg-boxdark dark:drop-shadow-none dark:border-blue-50">
         <div className="flex w-full flex-wrap gap-3 sm:gap-5">
           <div className="flex min-w-47.5">

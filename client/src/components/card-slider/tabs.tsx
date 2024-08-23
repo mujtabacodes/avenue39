@@ -22,12 +22,12 @@ const Tabs: React.FC<TabsProps> = ({ slidersData, isLoading }) => {
           </h3>
         </div>
 
-        <div className="flex flex-nowrap gap-4 max-w-[450px] overflow-x-auto mb-2">
+        <div className="flex flex-nowrap gap-4 max-w-[450px] w-fit overflow-auto mb-2 slider_container">
           {slidersData.map((slider: any, index: any) => (
             <button
               key={index}
               onClick={() => setActiveTab(index)}
-              className={`font-medium px-4 py-2 rounded-full transition-colors duration-300 ${index === activeTab ? 'bg-primary text-secondary' : 'bg-white text-primary'}`}
+              className={`font-medium px-4 py-2 whitespace-nowrap rounded-full transition-colors w-fit duration-300 ${index === activeTab ? 'bg-primary text-secondary' : 'bg-white text-primary'}`}
             >
               {slider.tabTitle}
             </button>

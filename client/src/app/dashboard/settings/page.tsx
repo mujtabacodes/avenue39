@@ -15,7 +15,12 @@ import { ImageRemoveHandler } from '@/utils/helperFunctions';
 import { Input } from "@/components/ui/input";
 import { LabelInput } from "@/components/ui/label-input";
 import { AiOutlineUpload } from "react-icons/ai";
+import { string } from "yup";
+interface ImageType {
+  posterImagePublicId: string | any,
+  posterImageUrl: string
 
+}
 
 
 const Settings = () => {
@@ -25,7 +30,7 @@ const Settings = () => {
   let AdminType = loggedInUser && loggedInUser.role == "super-Admin"
 
   const initialFormData = {
-    fullname: loggedInUser ? `${loggedInUser.fullname}` : "",
+    fullname: loggedInUser ? `${loggedInUser.name}` : "",
 
   };
   const initialValue = {
@@ -33,15 +38,20 @@ const Settings = () => {
   };
   const [formData, setFormData] = useState(initialFormData);
 
-  const [profilePhoto, setProfilePhoto] = useState<IMAGE_INTERFACE[]>([]);
-  console.log(loggedInUser, "loggedInUser")
+  const [profilePhoto, setProfilePhoto] = useState<ImageType>();
 
   const handlePhotoChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log('function trigerd')
     const file = event.target.files?.[0];
+
     if (file) {
       let imageUrl: any = await uploadPhotosToBackend([file])
-
-      imageUrl ? setProfilePhoto(imageUrl) : null
+      console.log(imageUrl, "imageUrl")
+      let Images:ImageType= {
+        posterImageUrl:imageUrl.imageUrl        ,
+        posterImagePublicId:imageUrl.public_id
+      }
+      imageUrl ? setProfilePhoto(Images) : null
 
     }
   };
@@ -51,18 +61,21 @@ const Settings = () => {
     try {
       let initialFormData = {
         email: loggedInUser.email,
-        fullname: formData.fullname,
-        profilePhoto: profilePhoto[0],
+        name: formData.fullname,
+        posterImageUrl: loggedInUser.posterImageUrl,
+        posterImagePublicId: loggedInUser.posterImagePublicId
       };
 
       if (loggedInUser) {
-        let { fullname, profilePhoto, ...extractedData } = loggedInUser;
+        let { name, posterImageUrl, posterImagePublicId, ...extractedData } = loggedInUser;
         console.log(extractedData, "extractedData");
 
-        if (profilePhoto.length > 0) {
+        if (profilePhoto) {
           initialFormData = {
             ...initialFormData,
-            profilePhoto: profilePhoto[0]
+            posterImageUrl: profilePhoto.posterImageUrl,
+            posterImagePublicId: profilePhoto.posterImagePublicId
+
           }
         }
 
@@ -73,10 +86,10 @@ const Settings = () => {
 
 
 
-        let response: any = await axios.put(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/api/admins/editAdmin/${loggedInUser._id}`, combinedData, {
+        let response: any = await axios.post(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/edit-admin`, combinedData, {
           headers: {
-            "token": token
+            Authorization: `Bearer ${token}`,
           }
         }
         );
@@ -91,6 +104,8 @@ const Settings = () => {
       console.error("Error updating admin:", error);
     }
   };
+
+  
 
 
   useEffect(() => {
@@ -110,7 +125,7 @@ const Settings = () => {
 
   const AddminProfileTriggerHandler = async () => {
     try {
-      let user: any = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/admins/getAdminHandler`, {
+      let user: any = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/getAdminHandler`, {
         headers: {
           "token": token
         }
@@ -130,12 +145,19 @@ const Settings = () => {
   }
 
   useEffect(() => {
-    if (loggedInUser && loggedInUser.profilePhoto) {
-      console.log(loggedInUser.profilePhoto, "loggedInUser.profilePhoto")
-      Object.keys(loggedInUser.profilePhoto).length > 0 ? setProfilePhoto([loggedInUser.profilePhoto]) : null
-    }
+      let Images:ImageType= {
+        posterImageUrl:'',
+        posterImagePublicId:''
+      }
+if(loggedInUser){
+  Images.posterImageUrl = loggedInUser.posterImageUrl
+  Images.posterImagePublicId = loggedInUser.posterImagePublicId
+  setProfilePhoto(Images)
+}
+      
+    
   }, [loggedInUser]);
-
+console.log(profilePhoto, "profilePhoto")
 
   return (
     <DefaultLayout>
@@ -153,87 +175,56 @@ const Settings = () => {
                 <div>
                   <div className="mb-4 flex items-center gap-3">
 
-                    {
-                      profilePhoto.map((profilePhoto) => {
-                        return (
-                          <>
-
-                            <div className="h-14 w-14 rounded-full overflow-hidden">
-                              <Image
-                                src={(profilePhoto && profilePhoto.imageUrl) ? profilePhoto.imageUrl : '/images/dummy-avatar.jpg'}
-                                width={55}
-                                height={55}
-                                alt="User"
-                              />
-                            </div>
 
 
-                            <div>
-                              <span className="mb-1.5 text-primary dark:text-black">
-                                Edit your photo
-                              </span>
-                              <span className="flex gap-2.5">
-                                <button className="text-sm hover:text-primary text-primary dark:text-black" type="button" onClick={() => ImageRemoveHandler(profilePhoto?.public_id ? profilePhoto?.public_id : '', setProfilePhoto)}>
-                                  Delete
-                                </button>
-                                <button className="text-sm hover:text-primary text-primary dark:text-black" type="button" >
-                                  Update
-                                </button>
-                              </span>
-                            </div>
+                    <>
 
-                          </>
-
-                        )
-
-                      })
-
-                    }
+                      <div className="h-14 w-14 rounded-full overflow-hidden">
+                        <Image
+                          src={(profilePhoto && profilePhoto.posterImageUrl) ? profilePhoto.posterImageUrl : '/images/dummy-avatar.jpg'}
+                          width={55}
+                          height={55}
+                          alt="User"
+                        />
+                      </div>
 
 
+                      <div>
+                        <span className="mb-1.5 text-primary dark:text-black">
+                          Edit your photo
+                        </span>
+                        <span className="flex gap-2.5">
+                          <button className="text-sm hover:text-primary text-primary dark:text-black" type="button" onClick={() => ImageRemoveHandler(profilePhoto?.posterImagePublicId ? profilePhoto?.posterImagePublicId : '', setProfilePhoto)}>
+                            Delete
+                          </button>
+                          <button className="text-sm hover:text-primary text-primary dark:text-black" type="button" >
+                            Update
+                          </button>
+                        </span>
+                      </div>
 
-                    {/* <div className="h-14 w-14 rounded-full overflow-hidden">
-                      <Image
-                        src={profilePhoto ? profilePhoto.imageUrl : '/images/dummy-avatar.jpg'}
-                        width={55}
-                        height={55}
-                        alt="User"
-                      />
-                    </div>
-                    <div>
-                      <span className="mb-1.5 text-black dark:text-white">
-                        Edit your photo
-                      </span>
-                      <span className="flex gap-2.5">
-                        <button className="text-sm hover:text-primary text-black dark:text-white" type="button" disabled={AdminType}>
-                          Delete
-                        </button>
-                        <button className="text-sm hover:text-primary text-black dark:text-white" type="button" disabled={AdminType}>
-                          Update
-                        </button>
-                      </span>
-                    </div> */}
+                    </>
 
                   </div>
                   <div className="relative mb-4 rounded-md border-dashed bg-primary py-4 text-white dark:bg-black">
-      <input
-        disabled={AdminType}
-        type="file"
-        accept="image/*"
-        onChange={handlePhotoChange}
-        className="absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer"
-      />
-      <div className="flex flex-col items-center justify-center">
-        <span className="my-2 inline-block rounded-full bg-white border-primary border p-2">
-          <AiOutlineUpload className="w-8 h-8 text-primary dark:text-black" />
-        </span>
-        <p className="text-white dark:text-white text-sm">
-          <span className="text-white dark:text-white text-sm">Click to upload</span> or drag and drop
-        </p>
-        <p className="mt-1.5 text-white dark:text-white text-sm">SVG, PNG, JPG or GIF</p>
-        <p className="text-white dark:text-white text-sm">(max, 800 X 800px)</p>
-      </div>
-    </div>
+                    <input
+                      disabled={AdminType}
+                      type="file"
+                      accept="image/*"
+                      onChange={handlePhotoChange}
+                      className="absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer"
+                    />
+                    <div className="flex flex-col items-center justify-center">
+                      <span className="my-2 inline-block rounded-full bg-white border-primary border p-2">
+                        <AiOutlineUpload className="w-8 h-8 text-primary dark:text-black" />
+                      </span>
+                      <p className="text-white dark:text-white text-sm">
+                        <span className="text-white dark:text-white text-sm">Click to upload</span> or drag and drop
+                      </p>
+                      <p className="mt-1.5 text-white dark:text-white text-sm">SVG, PNG, JPG or GIF</p>
+                      <p className="text-white dark:text-white text-sm">(max, 800 X 800px)</p>
+                    </div>
+                  </div>
 
                 </div>
 
@@ -260,24 +251,24 @@ const Settings = () => {
                   </div>
 
                   <LabelInput
-                      label="Full Name"
-                      disabled={AdminType}
-                      type="text"
-                      name="fullname"
-                      id="fullname"
-                      placeholder="Full Name"
-                      value={formData.fullname}
-                      onChange={handleChange}
-                    />
-                    <LabelInput
-                      label="Email Address"
-                      type="email"
-                        name="emailAddress"
-                        id="emailAddress"
-                        placeholder="Email Address"
-                        value={initialValue.name}
-                        disabled={true}
-                    />
+                    label="Full Name"
+                    disabled={AdminType}
+                    type="text"
+                    name="fullname"
+                    id="fullname"
+                    placeholder="Full Name"
+                    value={formData.fullname}
+                    onChange={handleChange}
+                  />
+                  <LabelInput
+                    label="Email Address"
+                    type="email"
+                    name="emailAddress"
+                    id="emailAddress"
+                    placeholder="Email Address"
+                    value={initialValue.name}
+                    disabled={true}
+                  />
 
                   <div className="flex justify-end gap-4.5">
 

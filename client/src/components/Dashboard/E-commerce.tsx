@@ -11,6 +11,9 @@ import { FiShoppingCart } from "react-icons/fi";
 import { PiUsersThreeFill } from "react-icons/pi";
 import { IoBagOutline } from "react-icons/io5";
 import { Skeleton } from "antd";
+import SuperAdmin from "@/app/dashboard/super-admin/page";
+import { BiCategory } from "react-icons/bi";
+import { GrDocumentPerformance } from "react-icons/gr";
 
 interface RECORDS {
   totalAdmins: string;
@@ -20,13 +23,14 @@ interface RECORDS {
   totalProfit: string;
   totalSales: string;
   totalRevenue: string;
+  total_sub_categories:string
 }
 
 const ECommerce: React.FC = () => {
   const [loading, setloading] = useState(false);
   const [records, setRecords] = useState<RECORDS | undefined>();
   const { loggedInUser }: any = useAppSelector((state) => state.usersSlice);
-
+  
   const canCheckProfit =
     loggedInUser &&
     (loggedInUser.role == "Admin" ? loggedInUser.canCheckProfit : true);
@@ -49,23 +53,22 @@ const ECommerce: React.FC = () => {
     loggedInUser &&
     (loggedInUser.role == "Admin" ? loggedInUser.canVeiwTotalCategories : true);
 
-  const getAllAdmins = async () => {
+  const get_all_records = async () => {
     try {
-      setloading(true);
-      const token = Cookies.get("2guysAdminToken");
-      const superAdminToken = Cookies.get("superAdminToken");
-      let finalToken = token ? token : superAdminToken;
+      // const token = Cookies.get("2guysAdminToken");
+      // const superAdminToken = Cookies.get("superAdminToken");
+      // let finalToken = token ? token : superAdminToken;
 
-      if (!finalToken) {
-        return;
-      }
+      // if (!finalToken) {
+      //   return;
+      // }
 
       const headers = {
-        token: finalToken,
+        token: "finalToken",
       };
 
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/admins/geRecords`,
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/sales-record/get_all_records`,
         {
           method: "GET",
           headers: headers,
@@ -73,6 +76,7 @@ const ECommerce: React.FC = () => {
       );
 
       const record = await response.json();
+      console.log(record, "record")
       setRecords(record);
 
       setloading(false);
@@ -82,94 +86,93 @@ const ECommerce: React.FC = () => {
     }
   };
   useLayoutEffect(() => {
-    getAllAdmins();
+    get_all_records();
   }, []);
   return (
     <>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5 dark:bg-black dark:text-white dark:bg-boxdark dark:border-blue-50 dark:border-strokedark dark:bg-boxdark">
-
-      {loading ? (
+        {loading ? (
           <>
-            <Skeleton avatar active   />
-            <Skeleton avatar active  />
-            <Skeleton avatar active  />
-            <Skeleton avatar active  />
-            <Skeleton avatar active  />
-            <Skeleton avatar active  />
-            <Skeleton avatar active  />
+            <Skeleton avatar active />
+            <Skeleton avatar active />
+            <Skeleton avatar active />
+            <Skeleton avatar active />
+            <Skeleton avatar active />
+            <Skeleton avatar active />
+            <Skeleton avatar active />
           </>
         ) : (
           <>
-        {!canVeiwAdmins ? null : (
-          <CardDataStats
-            title="Admins"
-            total={records?.totalAdmins ? records?.totalAdmins : ""}
-          >
-            <IoMdEye size={25} className="fill-primary dark:fill-white" />
-          </CardDataStats>
-        )}
-
-        {!canCheckProfit ? null : (
-          <CardDataStats
-            title="Total Profit"
-            total={records?.totalProfit ? records?.totalProfit : ""}
-          >
-            <FiShoppingCart size={25} className="text-primary dark:text-white" />
-          </CardDataStats>
-        )}
-
-        {!CanCheckRevnue ? null : (
-          <CardDataStats
-            title="Total Revenue"
-            total={records?.totalRevenue ? records?.totalRevenue : ""}
-          >
-            <FiShoppingCart size={25} className="text-primary dark:text-white" />
-          </CardDataStats>
-        )}
-
-        {!canViewSales ? null : (
-          <CardDataStats
-            title="Total Sales"
-            total={records?.totalSales ? records?.totalSales : ""}
-          >
-            <PiUsersThreeFill size={25} className="fill-primary dark:fill-white" />
-          </CardDataStats>
-        )}
-
-        {!canVeiwTotalproducts ? null : (
-          <CardDataStats
-            title="Total Product"
-            total={records?.totalProducts ? records?.totalProducts : ""}
-          >
-            <IoBagOutline size={25} className="text-primary dark:text-white" />
-          </CardDataStats>
-        )}
-
-        {!canVeiwTotalCategories ? null : (
-          <CardDataStats
-            title="Total Categories"
-            total={records?.totalCategories ? records?.totalCategories : ""}
-          >
-            <IoBagOutline size={25} className="text-primary dark:text-white" />
-          </CardDataStats>
-        )}
-
-        {!canViewUsers ? null : (
-          <CardDataStats
-            title="Total Users"
-            total={records?.totalUsers ? records?.totalUsers : ""}
-          >
-            <PiUsersThreeFill size={25} className="fill-primary dark:fill-white" />
-          </CardDataStats>
+            {!canVeiwAdmins ? null : (
+              <CardDataStats
+                title="Admins"
+                total={records?.totalAdmins ? records?.totalAdmins : "0"}
+              >
+                <IoMdEye size={25} className="fill-primary dark:fill-white" />
+              </CardDataStats>
             )}
-            </>
-          )}
-        </div>
+
+            {!canCheckProfit ? null : (
+              <CardDataStats
+                title="Total Sub Categories"
+                total={records?.total_sub_categories ? records?.total_sub_categories : ""}
+              >
+                <BiCategory size={25} className="text-primary dark:text-white" />
+              </CardDataStats>
+            )}
+
+            {!CanCheckRevnue ? null : (
+              <CardDataStats
+                title="Total Revenue"
+                total={records?.totalRevenue ? records?.totalRevenue : ""}
+              >
+                <FiShoppingCart size={25} className="text-primary dark:text-white" />
+              </CardDataStats>
+            )}
+
+            {!canViewSales ? null : (
+              <CardDataStats
+                title="Total Sales"
+                total={records?.totalSales ? records?.totalSales : ""}
+              >
+                <GrDocumentPerformance size={25} className="fill-primary dark:fill-white" />
+              </CardDataStats>
+            )}
+
+            {!canVeiwTotalproducts ? null : (
+              <CardDataStats
+                title="Total Product"
+                total={records?.totalProducts ? records?.totalProducts : ""}
+              >
+                <IoBagOutline size={25} className="text-primary dark:text-white" />
+              </CardDataStats>
+            )}
+
+            {!canVeiwTotalCategories ? null : (
+              <CardDataStats
+                title="Total Categories"
+                total={records?.totalCategories ? records?.totalCategories : ""}
+              >
+                <IoBagOutline size={25} className="text-primary dark:text-white" />
+              </CardDataStats>
+            )}
+
+            {!canViewUsers ? null : (
+              <CardDataStats
+                title="Total Users"
+                total={records?.totalUsers ? records?.totalUsers : ""}
+              >
+                <PiUsersThreeFill size={25} className="fill-primary dark:fill-white" />
+              </CardDataStats>
+            )}
+          </>
+        )}
+      </div>
 
       <div className="mt-4 grid grid-cols-12 gap-4 md:mt-6 md:gap-6 2xl:mt-7.5 2xl:gap-7.5">
         <ChartOne />
         <ChartTwo />
-        <ChartThree />
+        {/* <ChartThree /> */}
       </div>
     </>
   );
