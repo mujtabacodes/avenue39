@@ -45,29 +45,20 @@ const DashboardLogin = () => {
     try {
       setloading(true);
       let url =
-        adminType == 'Admin'
-          ? '/api/admin/login'
-          : '/api/admin/superadmin-login';
+        adminType == 'Admin'? '/api/admin/login' : '/api/admin/superadmin-login';
 
-      let user: any = await axios.post(
-        process.env.NEXT_PUBLIC_BASE_URL + url,
-        formData,
-        { withCredentials: true },
+      let user: any = await axios.post(process.env.NEXT_PUBLIC_BASE_URL + url,formData,{ withCredentials: true },
       );
-      // console.log(user.data, 'user token');
-      // const ISSERVER = typeof window === 'undefined';
-      // !ISSERVER
-      //   ? Cookies.set(
-      //       adminType == 'Admin' ? '2guysAdminToken' : 'superAdminToken',
-      //       user.data.token,
-      //       { expires: 1 },
-      //     )
-      //   : null;
+//    if(user.status ! ==200){
+//     Toaster('error', user.message);
+// return
+//    }
       console.log(user.data, 'user');
       setloading(false);
       dispatch(loggedInAdminAction(user.data.user));
       setFormData(intialvalue);
       Toaster('success', 'You have sucessfully login');
+
       setTimeout(() => {
         router.push('/dashboard');
       }, 1000);

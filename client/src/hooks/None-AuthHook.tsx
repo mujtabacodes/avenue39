@@ -16,7 +16,9 @@ function ProtectedRoute(WrappedComponent:any) {
       const token = Cookies.get('2guysAdminToken');
       const superAdmintoken  = Cookies.get('superAdminToken');
       let Finaltoken = superAdmintoken ? superAdmintoken : token
-
+      const allCookies = Cookies.get();
+      console.log('All Cookies:', allCookies);
+console.log(token, "token")
       if (Finaltoken) {
         router.push("/dashboard");
       } else {
