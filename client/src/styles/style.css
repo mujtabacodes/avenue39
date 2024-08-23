@@ -229,7 +229,20 @@
   background: transparent; /* You can change the color as per your design */
   border-radius: 1px;
 }
+.tab-scrollbar::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
 
+.tab-scrollbar::-webkit-scrollbar-thumb {
+  background-color: black; /* You can change the color as per your design */
+  border-radius: 3px;
+}
+
+.tab-scrollbar::-webkit-scrollbar-track {
+  background: grey; /* You can change the color as per your design */
+  border-radius: 5px;
+}
 .column-swipper .swiper-wrapper {
   flex-direction: column !important;
   gap: 26px;
