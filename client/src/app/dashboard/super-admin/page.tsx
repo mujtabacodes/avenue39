@@ -1,27 +1,83 @@
-"use client"
+'use client';
 import Breadcrumb from '@components/Dashboard/Breadcrumbs/Breadcrumb';
 import DefaultLayout from '@components/Dashboard/Layouts/DefaultLayout';
 import AllAdmin from '@components/SuperAdmin/AllAdmin/AllAdmin';
 import CreateAdmin from '@components/SuperAdmin/CreateAdmin/CreateAdmin';
-import React, { useState } from 'react'
-
+import { useRouter } from 'next/navigation';
+import React, { useEffect, useState } from 'react';
+import Cookies from 'js-cookie';
 const SuperAdmin = () => {
-    const [selecteMenu, setselecteMenu] = useState<string | null | undefined>('AllAdmin');
+  const [editAdmin, setEditAdmin] = useState<any | undefined>();
+  const [selecteMenu, setselecteMenu] = useState<string | null | undefined>(
+    'AllAdmin',
+  );
+  const Navigate = useRouter();
+  const superAdminToken = Cookies.get('superAdminToken');
+
+  console.log('toke super admin' + superAdminToken);
+  useEffect(() => {
+    const superAdminToken = Cookies.get('superAdminToken');
+    console.log('toke super admin' + superAdminToken);
+
+    // if (!admintoken) {
+    //   Navigate.push('/dashboard/Admin-login');
+    // }
+  }, [Navigate]);
+
+  useEffect(() => {
+    console.log('Edit admin triggered');
+    console.log(editAdmin);
+  }, [editAdmin]);
+
+  const EditInitialValues: any = {
+    fullname: editAdmin?.name,
+    email: editAdmin?.email,
+    canAddCategory: editAdmin?.canAddCategory,
+    canAddProduct: editAdmin?.canAddProduct,
+    canCheckProfit: editAdmin?.canCheckProfit,
+    canCheckRevenue: editAdmin?.canCheckRevenue,
+    canCheckVisitors: editAdmin?.canCheckVisitors,
+    canDeleteCategory: editAdmin?.canDeleteCategory,
+    canDeleteProduct: editAdmin?.canDeleteProduct,
+    canEditCategory: editAdmin?.canEditCategory,
+    canEditProduct: editAdmin?.canEditProduct,
+    canVeiwAdmins: editAdmin?.canViewAdmins,
+    canViewSales: editAdmin?.canViewSales,
+    canVeiwTotalCategories: editAdmin?.canViewTotalCategories,
+    canVeiwTotalproducts: editAdmin?.canViewTotalProducts,
+    canViewUsers: editAdmin?.canViewUsers,
+  };
+
+  console.log('Initial values');
+  console.log(EditInitialValues);
   return (
     <>
-    <DefaultLayout>
-    <Breadcrumb pageName="Super Admin" />
-    <div className='mt-10'>
-        {selecteMenu == "AllAdmin" ?
-        <AllAdmin setselecteMenu={setselecteMenu}/>
-        :
-        <CreateAdmin setselecteMenu={setselecteMenu}/>
-        
-        }
-    </div>
-    </DefaultLayout>
-      </>
-  )
-}
+      <DefaultLayout>
+        <Breadcrumb pageName="Super Admin" />
+        <div className="mt-10">
+          {selecteMenu == 'AllAdmin' ? (
+            <AllAdmin
+              setselecteMenu={setselecteMenu}
+              setEditAdmin={setEditAdmin}
+            />
+          ) : (
+            <CreateAdmin
+              setselecteMenu={setselecteMenu}
+              EditInitialValues={editAdmin}
+              setEditProduct={setEditAdmin}
+              EditAdminValue={
+                EditInitialValues &&
+                (EditInitialValues.name !== undefined ||
+                  EditInitialValues.email !== undefined)
+                  ? EditInitialValues
+                  : undefined
+              }
+            />
+          )}
+        </div>
+      </DefaultLayout>
+    </>
+  );
+};
 
-export default SuperAdmin
+export default SuperAdmin;

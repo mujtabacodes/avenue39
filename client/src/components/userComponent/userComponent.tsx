@@ -1,15 +1,15 @@
-"use client";
-import React, { useState } from "react";
-import Image from "next/image";
-import Link from "next/link";
-import Loader from "@components/Loader/Loader";
-import { IoArrowBackSharp } from "react-icons/io5";
-import { usePathname, useRouter } from "next/navigation";
-import { Select } from "antd";
-import Container from "../ui/Container";
-import { Input } from "../ui/input";
-import { Button } from "../ui/button";
-import { USRPROPS } from "@/types/types";
+'use client';
+import React, { useState } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import Loader from '@components/Loader/Loader';
+import { IoArrowBackSharp } from 'react-icons/io5';
+import { usePathname, useRouter } from 'next/navigation';
+import { Select } from 'antd';
+import Container from '../ui/Container';
+import { Input } from '../ui/input';
+import { Button } from '../ui/button';
+import { USRPROPS } from '@/types/types';
 
 const { Option } = Select;
 
@@ -27,25 +27,24 @@ export default function UserComponent({
   navigationTxt,
   SelectComonent,
   setadminType,
-  adminType
+  adminType,
 }: USRPROPS) {
-
-
-
   const router = useRouter();
-  const pathname = usePathname()
+  const pathname = usePathname();
 
-  let adminFlag = pathname === "/dashboard/Admin-login";
+  let adminFlag = pathname === '/dashboard/Admin-login';
 
   const selecthandleChange = (value: string) => {
-    setadminType && setadminType(value)
+    alert(value);
+    setadminType && setadminType(value);
   };
 
   return (
     <>
       {SelectComonent ? <SelectComonent /> : null}
       <div className="lg:flex flex-wrap md:flex-nowrap md:gap-4 lg:px-0 px-5 w-full gap-0">
-        <div style={{ backgroundImage: "url('/images/login.png')" }}
+        <div
+          style={{ backgroundImage: "url('/images/login.png')" }}
           className="lg:w-[60%] bg-cover bg-center h-screen lg:block hidden"
         ></div>
         <div className="lg:w-[40%] ">
@@ -53,7 +52,7 @@ export default function UserComponent({
             <div className="flex justify-end mt-10 absolute ">
               <p
                 className="rounded-full text-[#3A393C] text-sm cursor-pointer flex gap-2 items-center"
-                onClick={() => router.push("/")}
+                onClick={() => router.push('/')}
               >
                 <span className="rounded-full text-white p-1 bg-primary">
                   <IoArrowBackSharp className="rounded-full text-white" />
@@ -64,31 +63,27 @@ export default function UserComponent({
             <div className="h-screen flex justify-center items-center flex-col ">
               <div className="lg:w-3/5">
                 <div className="flex flex-col items-center lg:mb-20 mb-10">
-                  <h2 className="text-xl text-[#3A393C] lg:text-4xl">{adminFlag ? `Sign in as ${adminType}` : title && title}</h2>
+                  <h2 className="text-xl text-[#3A393C] lg:text-4xl">
+                    {adminFlag ? `Sign in as ${adminType}` : title && title}
+                  </h2>
                   <p className="text-sm text-[#9096B2] mt-3 text-center">
                     {descrition && descrition}
                   </p>
                 </div>
-                {
-                  adminFlag ?
-                    <div className=" mb-4 flex gap-3 items-center">
-                      <p className="w-full">Sign in As </p>
-                      <Select className="w-full"
-                        defaultValue='Admin'
-                        onChange={selecthandleChange}
-                        options={[
-                          { value: 'Admin', label: 'Admin' },
-                          { value: 'Super-Admin', label: 'Super-Admin' },
-
-                        ]}
-                      />
-
-                    </div>
-
-                    : null
-                }
-
-
+                {adminFlag ? (
+                  <div className=" mb-4 flex gap-3 items-center">
+                    <p className="w-full">Sign in As </p>
+                    <Select
+                      className="w-full"
+                      defaultValue="Admin"
+                      onChange={selecthandleChange}
+                      options={[
+                        { value: 'Admin', label: 'Admin' },
+                        { value: 'Super-Admin', label: 'Super-Admin' },
+                      ]}
+                    />
+                  </div>
+                ) : null}
 
                 <div className="inputs_container w-full">
                   <form className="space-y-4" onSubmit={handleSubmit}>
@@ -130,18 +125,19 @@ export default function UserComponent({
                     </Button>
                     <div className="flex justify-end space-y-3 w-full">
                       <p className="text-[#9096B2] text-sm">
-                        {InstructionText && InstructionText}{" "}
-                        {
-                          routingText &&
+                        {InstructionText && InstructionText}{' '}
+                        {routingText && (
                           <Link
                             className="underline text-sm text-primary"
                             href={
-                              title && title === "Sign In" ? "/register" : "/login"
+                              title && title === 'Sign In'
+                                ? '/register'
+                                : '/login'
                             }
                           >
                             {routingText}
                           </Link>
-                        }
+                        )}
                       </p>
                     </div>
                   </form>

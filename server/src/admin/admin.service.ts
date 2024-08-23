@@ -131,9 +131,10 @@ export class AdminService {
   }
 
   async adminSignup(signupUserDto: createAdminDto) {
+    console.log(signupUserDto);
     try {
       const { email, password } = signupUserDto;
-      const existingUser = await this.prisma.admins.findFirst({
+      const existingUser = await this.prisma.admins.findUnique({
         where: { email },
       });
       const hashedPassword = await hashPassword(password, this.configService);
@@ -146,7 +147,7 @@ export class AdminService {
         });
         const { password, ...userWithoutPassword } = user;
         return {
-          message: 'Congrats🎉 Account created successfully',
+          message: 'Congrats🎉 admin created successfully',
           user: userWithoutPassword,
           status: HttpStatus.OK,
         };
