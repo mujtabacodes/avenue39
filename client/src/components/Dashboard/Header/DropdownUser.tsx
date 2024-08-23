@@ -12,7 +12,8 @@ import { RiLogoutBoxLine } from 'react-icons/ri';
 
 const DropdownUser = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const { loggedInUser }: any = useAppSelector((state) => state.usersSlice);
+  const { loggedInUser }: any = useAppSelector(state => state.usersSlice);
+
   const router = useRouter();
 
   const trigger = useRef<any>(null);
@@ -34,6 +35,7 @@ const DropdownUser = () => {
     return () => document.removeEventListener('click', clickHandler);
   });
 
+
   // close if the esc key is pressed
   useEffect(() => {
     const keyHandler = ({ keyCode }: KeyboardEvent) => {
@@ -53,6 +55,7 @@ const DropdownUser = () => {
       console.log(err);
     }
   };
+
   return (
     <div className="relative z-99">
       <div
@@ -61,11 +64,11 @@ const DropdownUser = () => {
         className="flex items-center py-3 gap-4 text-black cursor-pointer "
       >
       <div>
-      <span className="hidden text-right lg:block">
-          <span className="block text-sm font-medium text-black ">
-            {loggedInUser ? loggedInUser.fullname : null}
+      <span className="text-right lg:block">
+          <span className="block text-sm font-medium text-white ">
+            { loggedInUser ?loggedInUser?.name: "stsgskdfslkdf"}
           </span>
-          <span className="block text-xs text-black ">
+          <span className="block text-xs text-white ">
             {loggedInUser?.role}
           </span>
         </span>
@@ -74,8 +77,8 @@ const DropdownUser = () => {
           <div className="h-12 w-12 rounded-full overflow-hidden">
             <Image
               src={
-                loggedInUser && loggedInUser.profilePhoto
-                  ? loggedInUser.profilePhoto.imageUrl
+                loggedInUser && loggedInUser.posterImageUrl
+                  ? loggedInUser.posterImageUrl
                   : '/images/dummy-avatar.jpg'
               }
               width={55}
