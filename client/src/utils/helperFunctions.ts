@@ -17,8 +17,7 @@ export const uploadPhotosToBackend = async (files: File[]): Promise<any[]> => {
       formData.append('file', file);
     }
 
-    const response: AxiosResponse<any> = await axios.post(
-      `${process.env.NEXT_PUBLIC_PRODUCT_IMAGE}/api/file-upload`,
+    const response: AxiosResponse<any> = await axios.post(`${process.env.NEXT_PUBLIC_PRODUCT_IMAGE}/api/file-upload`,
       formData,
       {
         headers: {
@@ -26,8 +25,7 @@ export const uploadPhotosToBackend = async (files: File[]): Promise<any[]> => {
         },
       },
     );
-    console.log('React to response of image');
-    // Handle the response from the backend
+ 
     console.log(response);
     return response.data;
   } catch (error) {

@@ -34,19 +34,26 @@ export class AdminService {
     }
   }
   async adminLogin(loginData: AdminLoginDto, res) {
-    console.log('React');
+
     const { email, password } = loginData;
     try {
       const existingUser = await this.prisma.admins.findFirst({
         where: { email },
       });
-      if (existingUser.role !== 'Admin') {
-        return {
-          message: 'Admin credentials is incorrect😴',
-          status: HttpStatus.FORBIDDEN,
-        };
+      if (!existingUser) {
+      return  customHttpException('No User found😴',"FORBIDDEN")
       }
-      if (existingUser) {
+      
+      
+
+  
+        if (existingUser.role !== 'Admin') {
+          return {
+            message: 'Admin credentials is correct😴',
+            status: HttpStatus.FORBIDDEN,
+          };
+        }
+    
         const isPasswordValid = await verifyPassword(
           password,
           existingUser.password,
@@ -60,9 +67,10 @@ export class AdminService {
           expiresIn: '24h',
         });
         const { password: _, ...userWithoutPassword } = existingUser;
-        res.cookie('adminToken', token, {
-          httpOnly: true,
-          secure: process.env.NODE_ENV === 'production',
+        res.cookie('2guysAdminToken', token, {
+          // httpOnly: true,
+          // secure: process.env.NODE_ENV === 'production',
+          secure: false,
           maxAge: 24 * 60 * 60 * 1000,
         });
 
@@ -71,12 +79,7 @@ export class AdminService {
           user: userWithoutPassword,
           // token,
         };
-      } else {
-        return {
-          message: 'User not found',
-          status: HttpStatus.FORBIDDEN,
-        };
-      }
+      
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -87,6 +90,8 @@ export class AdminService {
       const existingUser = await this.prisma.admins.findFirst({
         where: { email },
       });
+if(!existingUser) return customHttpException("User Not found",'NOT_FOUND' )
+
       
       if (existingUser.role !== 'Super-Admin') {
         return {
@@ -118,7 +123,6 @@ export class AdminService {
         return {
           message: 'Login successfull 🎉',
           user: userWithoutPassword,
-          //   token,
         };
       } else {
         return {

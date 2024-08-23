@@ -81,6 +81,9 @@ export class editAdminDto extends createAdminDto {
   @IsNotEmpty()
   @IsNumber()
   id: number;
+
+  @IsOptional()
+  password: string;
 }
 
 export class adminHandlerDto {
