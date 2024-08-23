@@ -96,12 +96,12 @@ export default function UserComponent({
                         placeholder={field.placeholder}
                         value={field.value}
                         onChange={field.onChange}
-                        // Icons={field.Icon}
-                        // iconClassName={field.iconClassName}
+                      // Icons={field.Icon}
+                      // iconClassName={field.iconClassName}
                       />
                     ))}
                     {error ? (
-                      <div className="flex justify-center text-red">
+                      <div className="flex justify-center text-red-500">
                         {error}
                       </div>
                     ) : null}

@@ -21,6 +21,7 @@ const OrderHistory = () => {
 
   useEffect(() => {
     const token = Cookies.get('user_token');
+    console.log(token, "user token")
     if (!token) {
       router.push('/login');
     }
