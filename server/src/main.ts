@@ -8,9 +8,15 @@ import cookieParser from 'cookie-parser';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
  
- app.enableCors();
+ app.enableCors({
+  origin: [
+    'http://localhost:3000',
+    'https://avenue39.vercel.app', // Make sure this is the correct HTTPS origin
+  ],
+  preflightContinue: false,
+ });
 
- 
+
   app.setGlobalPrefix('api');
 
   app.useGlobalPipes(new ValidationPipe());
