@@ -45,7 +45,7 @@ export class AdminController {
   }
 
   @Delete('delete-admin')
-  async removeAdmin(@Query('adminId') adminId: string) {
+  async removeAdmin(@Headers('adminId') adminId: string) {
     const id = parseInt(adminId, 10);
 
     if (isNaN(id)) {
