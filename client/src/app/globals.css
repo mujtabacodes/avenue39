@@ -106,3 +106,6 @@ width: 1px !important;
   transform: scaleX(1);
   transform-origin: bottom left;
 }
+.ant-select-selector{
+  border-color: #121A25 !important;
+}

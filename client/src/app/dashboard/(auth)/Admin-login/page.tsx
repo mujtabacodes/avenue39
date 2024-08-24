@@ -112,6 +112,7 @@ const DashboardLogin = () => {
           setadminType={setadminType}
           adminType={adminType}
         />
+        
       </div>
     </>
   );
