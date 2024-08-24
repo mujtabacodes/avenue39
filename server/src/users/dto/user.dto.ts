@@ -25,7 +25,27 @@ export class SignupDto {
   phone?: string;
 }
 
-export class UpdateUserDto extends PartialType(SignupDto) {}
+export class UpdateUserDto {
+  @IsNotEmpty()
+  @IsNumber()
+  id: number;
+
+  @IsOptional()
+  @IsString()
+  name: string;
+
+  @IsOptional()
+  @IsString()
+  @IsEmail()
+  email: string;
+
+  @IsOptional()
+  @IsString()
+  password: string;
+
+  @IsOptional()
+  phone?: string;
+}
 
 export class LoginDto {
   @IsString()

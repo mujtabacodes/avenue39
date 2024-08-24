@@ -34,52 +34,47 @@ export class AdminService {
     }
   }
   async adminLogin(loginData: AdminLoginDto, res) {
-
     const { email, password } = loginData;
     try {
       const existingUser = await this.prisma.admins.findFirst({
         where: { email },
       });
       if (!existingUser) {
-      return  customHttpException('No User found😴',"FORBIDDEN")
+        return customHttpException('No User found😴', 'FORBIDDEN');
       }
-      
-      
 
-  
-        if (existingUser.role !== 'Admin') {
-          return {
-            message: 'Admin credentials is correct😴',
-            status: HttpStatus.FORBIDDEN,
-          };
-        }
-    
-        const isPasswordValid = await verifyPassword(
-          password,
-          existingUser.password,
-          this.configService,
-        );
-        if (!isPasswordValid) {
-          throw new UnauthorizedException('Invalid username or password');
-        }
-
-        const token = jwt.sign({ email: email }, process.env.TOKEN_SECRET, {
-          expiresIn: '24h',
-        });
-        const { password: _, ...userWithoutPassword } = existingUser;
-        res.cookie('2guysAdminToken', token, {
-          // httpOnly: true,
-          // secure: process.env.NODE_ENV === 'production',
-          secure: false,
-          maxAge: 24 * 60 * 60 * 1000,
-        });
-
+      if (existingUser.role !== 'Admin') {
         return {
-          message: 'Login successfull 🎉',
-          user: userWithoutPassword,
-          // token,
+          message: 'Admin credentials is in-correct😴',
+          status: HttpStatus.FORBIDDEN,
         };
-      
+      }
+
+      const isPasswordValid = await verifyPassword(
+        password,
+        existingUser.password,
+        this.configService,
+      );
+      if (!isPasswordValid) {
+        throw new UnauthorizedException('Invalid username or password');
+      }
+
+      const token = jwt.sign({ email: email }, process.env.TOKEN_SECRET, {
+        expiresIn: '24h',
+      });
+      const { password: _, ...userWithoutPassword } = existingUser;
+      res.cookie('2guysAdminToken', token, {
+        // httpOnly: true,
+        // secure: process.env.NODE_ENV === 'production',
+        secure: false,
+        maxAge: 24 * 60 * 60 * 1000,
+      });
+
+      return {
+        message: 'Login successfull 🎉',
+        user: userWithoutPassword,
+        // token,
+      };
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -90,9 +85,9 @@ export class AdminService {
       const existingUser = await this.prisma.admins.findFirst({
         where: { email },
       });
-if(!existingUser) return customHttpException("User Not found",'NOT_FOUND' )
+      if (!existingUser)
+        return customHttpException('User Not found', 'NOT_FOUND');
 
-      
       if (existingUser.role !== 'Super-Admin') {
         return {
           message: 'Super Admin credentials is correct😴',

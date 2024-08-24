@@ -40,6 +40,10 @@ export class UsersController {
   create(@Body() signupUserDto: SignupDto) {
     return this.usersService.signup(signupUserDto);
   }
+  @Post('/edit-user')
+  editUser(@Body() signupUserDto: UpdateUserDto) {
+    return this.usersService.editUser(signupUserDto);
+  }
 
   @Post('/login')
   login(
