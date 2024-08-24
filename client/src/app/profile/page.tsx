@@ -32,7 +32,7 @@ export default function Profile() {
   const router = useRouter();
 
   const initialFormData = {
-    fullName: loggedInUser.name,
+    fullName: loggedInUser?.name,
   };
   const [formData, setFormData] = useState(initialFormData);
   const [profilePhoto, setProfilePhoto] = useState<any[]>([]);
