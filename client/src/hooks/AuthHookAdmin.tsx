@@ -38,34 +38,34 @@ function ProtectedRoute(WrappedComponent: any) {
       let Finaltoken = superAdmintoken ? superAdmintoken : token
       if (!Finaltoken) {
         // eslint-disable-next-line react-hooks/exhaustive-deps
-        // router.push("/dashboard/Admin-login");
+        router.push("/dashboard/Admin-login");
       } else {
         AddminProfileTriggerHandler( Finaltoken, superAdmintoken ? true : false)
         setLoading(false);
       }
     }, [router]);
 
-    // if (loading) {
-    //   return (
-    //     <div
-    //       style={{
-    //         background: "#FFF",
-    //         zIndex: 1111,
-    //         alignItems: "center",
-    //         display: "flex",
-    //         height: "100vh",
-    //         width: "-webkit-fill-available",
-    //         justifyContent: "center",
-    //       }}
-    //     >
-    //       <Loader />
-    //     </div>
-    //   );
-    // } else {
+    if (loading) {
+      return (
+        <div
+          style={{
+            background: "#FFF",
+            zIndex: 1111,
+            alignItems: "center",
+            display: "flex",
+            height: "100vh",
+            width: "-webkit-fill-available",
+            justifyContent: "center",
+          }}
+        >
+          <Loader />
+        </div>
+      );
+    } else {
 
 
       
-    // }
+    }
    return <WrappedComponent {...props} />;
   };
 
