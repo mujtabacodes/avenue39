@@ -20,7 +20,9 @@ async function bootstrap() {
     methods: 'GET,HEAD,PUT,PATCH,Post,DELETE,OPTIONS',
     credentials: true,
     preflightContinue: false,
-    optionsSuccessStatus: 204
+    optionsSuccessStatus: 204,
+    allowedHeaders: 'Content-Type, Authorization',
+
   });
 
   app.setGlobalPrefix('api');
