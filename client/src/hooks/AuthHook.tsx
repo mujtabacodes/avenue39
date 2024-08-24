@@ -41,14 +41,14 @@ function UserprotectedRoute(WrappedComponent: any) {
 
       console.log(token);
 
-      if (!token) {
-        router.push('/login');
-        setTimeout(() => {
-          setLoading(false);
-        }, 1000);
-      } else {
+      // if (!token) {
+      //   router.push('/login');
+      //   setTimeout(() => {
+      //     setLoading(false);
+      //   }, 1000);
+      // } else {
         AddminProfileTriggerHandler(token);
-      }
+      // }
     }, [router]);
     console.log(loading, 'loading');
     if (loading) {
