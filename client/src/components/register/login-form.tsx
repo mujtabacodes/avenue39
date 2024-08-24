@@ -33,6 +33,7 @@ export function LoginForm() {
       return axios.post(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/signup`,
         formData,
+        { withCredentials: true },
       );
     },
     onSuccess: (res) => {
