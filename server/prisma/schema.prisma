@@ -78,7 +78,7 @@ model Reviews {
 
 model Admins {
   id                     Int     @id @default(autoincrement())
-  name                   String
+  fullname               String
   email                  String  @unique
   password               String
   canAddProduct          Boolean @default(false)
@@ -92,9 +92,9 @@ model Admins {
   canCheckVisitors       Boolean @default(false)
   canViewUsers           Boolean @default(false)
   canViewSales           Boolean @default(false)
-  canViewAdmins          Boolean @default(false)
-  canViewTotalProducts   Boolean @default(false)
-  canViewTotalCategories Boolean @default(false)
+  canVeiwAdmins          Boolean @default(false)
+  canVeiwTotalproducts   Boolean @default(false)
+  canVeiwTotalCategories Boolean @default(false)
   posterImageUrl         String?
   posterImagePublicId    String?
   role                   String  @default("Admin")

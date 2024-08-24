@@ -8,12 +8,12 @@ import megamenu from '@icons/megamenu.png';
 import { menuData } from '@/data/menu';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useRouter, usePathname } from 'next/navigation';
-import { generateSlug } from '@/config';
 
 const MenuBar = () => {
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const [isSticky, setIsSticky] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
+  const [hoveringMenu, setHoveringMenu] = useState<boolean>(false);
   const Navigate = useRouter();
   const pathname = usePathname();
 
@@ -47,14 +47,20 @@ const MenuBar = () => {
     Navigate.push('/products');
   };
 
-  const handleNavigation = (name: string) => {
-    Navigate.push(`/products/${name}`);
+  const handleMouseEnter = (menu: string) => {
+    setActiveMenu(menu);
+  };
+
+  const handleMouseLeave = () => {
+    if (!hoveringMenu) {
+      setActiveMenu(null);
+    }
   };
 
   return (
     <div className={`${isSticky ? 'sticky top-0 z-50' : 'relative md:pb-12'}`}>
       <div
-        className={`bg-white shadow-md mb-1 pt-3 pb-2 hidden md:block z-50 ${isSticky ? '' : 'absolute w-full top-0'}`}
+        className={`bg-white shadow-md mb-1 pt-3 hidden md:block z-50 ${isSticky ? '' : 'absolute w-full top-0'}`}
       >
         <Container className="flex flex-wrap items-center justify-between">
           {loading ? (
@@ -68,7 +74,7 @@ const MenuBar = () => {
               menu === 'megaSale' ? (
                 <button
                   key={menu}
-                  className={`menu-item text-12 lg:text-14 xl:text-17 font-semibold uppercase whitespace-nowrap text-red-600 dark:text-red-600 flex flex-row gap-2 items-center cursor-pointer ${pathname === '/products' ? 'linkactive' : 'link-underline'}`}
+                  className={`menu-item text-12 pb-2 lg:text-14 xl:text-17 font-semibold uppercase whitespace-nowrap text-red-600 dark:text-red-600 flex flex-row gap-2 items-center cursor-pointer ${pathname === '/products' ? 'linkactive' : 'link-underline'}`}
                   onClick={handleMegaSaleClick}
                 >
                   MEGA SALE
@@ -76,10 +82,9 @@ const MenuBar = () => {
               ) : (
                 <div
                   key={menu}
-                  className={`menu-item text-12 lg:text-14 xl:text-17 font-semibold uppercase whitespace-nowrap text-black dark:text-black flex flex-row gap-2 items-center cursor-pointer ${pathname === `/products/${menu}`? 'linkactive' : 'link-underline'}`}
-                  onMouseEnter={() => setActiveMenu(menu)}
-                  onMouseLeave={() => setActiveMenu(null)}
-                  onClick={() => handleNavigation(menu)}
+                  className={`menu-item text-12 pb-2 lg:text-14 xl:text-17 font-semibold uppercase whitespace-nowrap text-black dark:text-black flex flex-row gap-2 items-center cursor-pointer ${activeMenu === menu ? 'linkactive' : 'link-underline'}`}
+                  onMouseEnter={() => handleMouseEnter(menu)}
+                  onMouseLeave={handleMouseLeave}
                 >
                   {menu.replace(/([A-Z])/g, ' $1').toUpperCase()}{' '}
                   <MdOutlineKeyboardArrowDown size={25} />
@@ -90,7 +95,14 @@ const MenuBar = () => {
         </Container>
       </div>
       {activeMenu && !loading && (
-        <div className="megamenu-container w-full bg-white shadow-lg p-10 z-50 absolute top-[50px]">
+        <div
+          className="megamenu-container w-full bg-white shadow-lg p-10 z-50 absolute top-[46px]"
+          onMouseEnter={() => setHoveringMenu(true)}
+          onMouseLeave={() => {
+            setHoveringMenu(false);
+            setActiveMenu(null);
+          }}
+        >
           <Container className="flex gap-4">
             <div className="w-8/12 space-y-4">
               <p className="text-19 font-bold w-96">

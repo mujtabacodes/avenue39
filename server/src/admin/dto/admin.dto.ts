@@ -23,7 +23,7 @@ export class AdminLoginDto {
 export class createAdminDto {
   @IsString()
   @IsNotEmpty()
-  name: string;
+  fullname: string;
 
   @IsString()
   @IsNotEmpty()
@@ -60,13 +60,13 @@ export class createAdminDto {
   canViewUsers: boolean;
   @IsBoolean()
   @IsOptional()
-  canViewAdmins: boolean;
+  canVeiwAdmins: boolean;
   @IsBoolean()
   @IsOptional()
-  canViewTotalProducts: boolean;
+  canVeiwTotalproducts: boolean;
   @IsBoolean()
   @IsOptional()
-  canViewTotalCategories: boolean;
+  canVeiwTotalCategories: boolean;
 
   @IsString()
   @IsOptional()

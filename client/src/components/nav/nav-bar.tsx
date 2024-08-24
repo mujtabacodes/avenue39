@@ -21,6 +21,7 @@ import { fetchProducts } from '@/config/fetch';
 import { useRouter } from 'next/navigation';
 import { generateSlug } from '@/config';
 import RenderStars from '../ui/renderstars';
+import { Skeleton } from '../ui/skeleton';
 
 const Navbar = (props: INav) => {
   const [open, setOpen] = useState(false);
@@ -53,7 +54,6 @@ const Navbar = (props: INav) => {
 
   const filteredProducts = products.filter((product: IProduct) =>
     product.name.toLowerCase().includes(searchText.toLowerCase()),
-    
   );
   return (
     <div className="bg-white dark:text-black">
@@ -109,7 +109,18 @@ const Navbar = (props: INav) => {
                       <IoSearchSharp className="cursor-pointer" size={30} />
                     </button>
                   </div>
-                  {isLoading && <div>Loading...</div>}
+                  {isLoading && (
+                    <div className="border p-2">
+                      <div className="flex border p-2 rounded-md bg-white hover:shadow-md transition duration-300 gap-2 mt-2 items-center">
+                        <Skeleton className="w-[100px] h-[100px]"></Skeleton>
+                        <div className='pt-1 flex flex-col gap-3'>
+                          <Skeleton className="w-32 h-6 rounded-none"></Skeleton>
+                          <Skeleton className="w-32 h-4 rounded-none"></Skeleton>
+                          <Skeleton className="w-32 h-4 rounded-none"></Skeleton>
+                        </div>
+                      </div>
+                    </div>
+                  )}
                   {error && <div>Error fetching products: {error.message}</div>}
                   {!isLoading && !error && filteredProducts.length > 0 && (
                     <div className="border p-2 max-h-[600px] overflow-y-auto custom-scrollbar">
@@ -124,7 +135,7 @@ const Navbar = (props: INav) => {
                               height={100}
                               src={product.posterImageUrl}
                               alt={product.name}
-                              className='min-h-[100px] min-w-[100px]'
+                              className="min-h-[100px] min-w-[100px]"
                             />
                             <div className="pt-1 flex flex-col gap-2">
                               <p className="text-21 font-normal capitalize">
@@ -139,7 +150,7 @@ const Navbar = (props: INav) => {
                                 </p>
                               </div>
                               <div>
-                                  <RenderStars card={product} />
+                                <RenderStars card={product} />
                               </div>
                             </div>
                           </div>
@@ -209,7 +220,7 @@ const Navbar = (props: INav) => {
             )}
           </div>
           <div className="md:hidden flex gap-2 items-center">
-            <form  onSubmit={(e) => e.preventDefault()}>
+            <form onSubmit={(e) => e.preventDefault()}>
               <Drawer onOpenChange={setIsDrawerOpen}>
                 <DrawerTrigger asChild>
                   <button
@@ -221,10 +232,7 @@ const Navbar = (props: INav) => {
                 </DrawerTrigger>
                 <DrawerContent>
                   <div className="max-w-screen-lg w-full mx-auto mt-10 space-y-5 p-2">
-                    <div
-                      className="relative rounded-md w-full"
-                     
-                    >
+                    <div className="relative rounded-md w-full">
                       <input
                         type="text"
                         value={searchText}
@@ -239,7 +247,18 @@ const Navbar = (props: INav) => {
                         <IoSearchSharp className="cursor-pointer" size={30} />
                       </button>
                     </div>
-                    {isLoading && <div>Loading...</div>}
+                    {!isLoading && (
+                    <div className="border p-2">
+                      <div className="flex border p-2 rounded-md bg-white hover:shadow-md transition duration-300 gap-2 mt-2 items-center">
+                        <Skeleton className="w-[100px] h-[100px]"></Skeleton>
+                        <div className='pt-1 flex flex-col gap-3'>
+                          <Skeleton className="w-40 h-6 rounded-none"></Skeleton>
+                          <Skeleton className="w-40 h-4 rounded-none"></Skeleton>
+                          <Skeleton className="w-40 h-4 rounded-none"></Skeleton>
+                        </div>
+                      </div>
+                    </div>
+                  )}
                     {error && (
                       <div>Error fetching products: {error.message}</div>
                     )}
@@ -256,7 +275,7 @@ const Navbar = (props: INav) => {
                                 height={100}
                                 src={product.posterImageUrl}
                                 alt={product.name}
-                                className='min-h-[100px] min-w-[100px]'
+                                className="min-h-[100px] min-w-[100px]"
                               />
                               <div className="flex flex-col gap-2">
                                 <p className="text-21 font-normal capitalize">
@@ -272,7 +291,7 @@ const Navbar = (props: INav) => {
                                 </div>
                                 <div>
                                   <RenderStars card={product} />
-                              </div>
+                                </div>
                               </div>
                             </div>
                           </DrawerTrigger>
