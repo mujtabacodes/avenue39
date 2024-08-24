@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { Table, Button } from 'antd';
+import { Table } from 'antd';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import axios from 'axios';
 import Loader from '@components/Loader/Loader';
 import Cookies from 'js-cookie';
 import { FaEdit } from 'react-icons/fa';
+import { Button } from '@/components/ui/button';
 
 const superAdmintoken = Cookies.get('superAdminToken');
 
-function Admins({ setselecteMenu }: any) {
+function Admins({ setselecteMenu, setEditAdmin }: any) {
   const [admins, setAdmins] = useState([]);
   const [loading, setloading] = useState<boolean>(false);
   const [delLoading, setDelLoading] = useState<string | null>(null);
@@ -18,18 +19,18 @@ function Admins({ setselecteMenu }: any) {
   useEffect(() => {
     const getAllAdmins = async () => {
       try {
-        setloading(true);
-        const token = Cookies.get('superAdminToken');
-        if (!token) {
-          return;
-        }
+        // setloading(true);
+        // const token = Cookies.get('superAdminToken');
+        // if (!token) {
+        //   return;
+        // }
 
         const headers = {
-          token: token,
+          token: 'token',
         };
 
         const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/api/admins/getAllAdmins`,
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/get-all`,
           {
             method: 'GET',
             headers: headers,
@@ -51,22 +52,22 @@ function Admins({ setselecteMenu }: any) {
 
   const handleDelete = async (id: string) => {
     try {
-      const token = localStorage.getItem('superAdminToken');
-      if (!token) {
-        // Handle case where token is not available
-        return;
-      }
-      setDelLoading(id); // Set loading state for the specific admin being deleted
+      // const token = localStorage.getItem('superAdminToken');
+      // if (!token) {
+      //   return;
+      // }
+      setDelLoading(id);
       await axios.delete(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/admins/deletAdmin/${id}`,
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/delete-admin`,
         {
           headers: {
-            token: token,
+            // token: token,
+            adminId: id,
           },
         },
       );
       setAdmins((prevAdmins) =>
-        prevAdmins.filter((admin: any) => admin._id !== id),
+        prevAdmins.filter((admin: any) => admin.id !== id),
       );
     } catch (error) {
       console.error('Error deleting admin:', error);
@@ -136,32 +137,34 @@ function Admins({ setselecteMenu }: any) {
       ),
     },
 
-    // {
-    //   title: "Edit",
-    //   key: "edit",
-    //   render: (text: any, record: any) =>
-    //     editLoading === record._id ? (
-    //       <Loader />
-    //     ) : (
-    //       <FaEdit
-    //         className="cursor-pointer text-red-500"
-    //         size={20}
-    //         onClick={() => handleEdit(record._id)}
-    //       />
-    //     ),
-
-    // },
+    {
+      title: 'Edit',
+      key: 'edit',
+      render: (text: any, record: any) =>
+        editLoading === record.id ? (
+          <Loader />
+        ) : (
+          <FaEdit
+            className="cursor-pointer text-slate-500"
+            size={20}
+            onClick={() => {
+              setEditAdmin(record);
+              setselecteMenu('');
+            }}
+          />
+        ),
+    },
     {
       title: 'Actions',
       key: 'actions',
       render: (text: any, record: any) =>
-        delLoading === record._id ? ( // Check if loading state matches current admin ID
+        delLoading === record.id ? ( // Check if loading state matches current admin ID
           <Loader />
         ) : (
           <RiDeleteBin6Line
             className="cursor-pointer text-red-500"
             size={20}
-            onClick={() => handleDelete(record._id)}
+            onClick={() => handleDelete(record.id)}
           />
         ),
     },
@@ -169,7 +172,6 @@ function Admins({ setselecteMenu }: any) {
 
   return (
     <div>
-      {/* Admins Table */}
       {loading ? (
         <div className="flex justify-center mt-10">
           <Loader />
@@ -180,9 +182,9 @@ function Admins({ setselecteMenu }: any) {
             <p>Admins</p>
             <div>
               <Button
-                type="primary"
+                variant={'login'}
                 onClick={() => setselecteMenu('Add Admin')}
-                className="cursor-pointer p-2 text-black dark:text-white bg-inherit hover:bg-slate-300 flex justify-center"
+                className="hover:bg-slate-800"
               >
                 Add new Admin
               </Button>
@@ -194,7 +196,7 @@ function Admins({ setselecteMenu }: any) {
               dataSource={admins}
               columns={columns}
               pagination={false}
-              rowKey="_id"
+              rowKey="id"
             />
           ) : (
             <div className="flex justify-center"> No Admin found</div>
