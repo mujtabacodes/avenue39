@@ -28,6 +28,8 @@ function ProtectedRoute(WrappedComponent: any) {
         })
         console.log(user.data, "data")
         dispatch(loggedInAdminAction(user.data.user))
+               router.push("/dashboard");
+
       } catch (err: any) {
         console.log(err, "err")
       }
@@ -40,7 +42,7 @@ function ProtectedRoute(WrappedComponent: any) {
 
       if (!Finaltoken) {
         // eslint-disable-next-line react-hooks/exhaustive-deps
-        router.push("/dashboard/Admin-login");
+        // router.push("/dashboard/Admin-login");
       } else {
         console.log(Finaltoken, "Finaltoken")
         AddminProfileTriggerHandler( Finaltoken, superAdmintoken ? true : false)

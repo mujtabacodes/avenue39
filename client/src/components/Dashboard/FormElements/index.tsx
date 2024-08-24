@@ -289,7 +289,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                       )}
                     </div>
 
-                    <div className="flex flex-col gap-5.5 p-6.5">
+                    <div className="flex flex-col gap-5 p-4">
                       <div>
                         <label className="mb-3 block text-sm font-medium text-black dark:text-white ">
                           Product Title
@@ -343,7 +343,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                       </div>
 
                       <div className="flex full gap-4">
-                        <div className="w-[33%]">
+                        <div className="w-1/2 xs:w-1/3">
                           <label className="mb-3 block text-sm font-medium text-black dark:text-white">
                             Price
                           </label>
@@ -401,7 +401,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                             </div>
                           ) : null}
                         </div> */}
-                        <div className="w-[33%]">
+                        <div className="w-1/2 xs:w-1/3">
                           <label className="mb-3 block text-sm font-medium text-black dark:text-white">
                             Discount Price
                           </label>
@@ -551,7 +551,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                 </div>
 
                 <div className="flex flex-col gap-5">
-                  <div className="py-4 px-6.5 rounded-sm border border-stroke">
+                  <div className="py-4 px-4 rounded-sm border border-stroke">
                     <div className="mb-4  bg-white dark:border-strokedark dark:bg-boxdark  text-black dark:text-white">
                       <label className="block text-sm font-medium text-gray-700 mb-2">
                         Add Stock Quantity
@@ -666,12 +666,12 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                   </div>
 
                   <div className="rounded-sm border border-stroke bg-white dark:border-strokedark dark:bg-boxdark">
-                    <div className="border-b border-stroke py-4 px-6.5 dark:border-strokedark">
+                    <div className="border-b border-stroke py-4 px-4 dark:border-strokedark">
                       <h3 className="font-medium text-black dark:text-white">
                         Additional information
                       </h3>
                     </div>
-                    <div className="flex flex-col gap-5.5 p-6.5">
+                    <div className="flex flex-col gap-5 p-4">
                       <FieldArray name="additionalInformation">
                         {({ push, remove }) => (
                           <div className="flex flex-col gap-2">
@@ -1028,7 +1028,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
 
               <button
                 type="submit"
-                className="px-10 py-2 bg-black text-white rounded-md shadow-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-black"
+                className="px-10 py-2 mt-2 bg-black text-white rounded-md shadow-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-black"
               >
                 {loading ? <Loader /> : 'Submit'}
               </button>
