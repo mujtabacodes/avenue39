@@ -14,7 +14,6 @@ async function bootstrap() {
       'https://*vercel.app',
       'https://avenue39.vercel.app',
     ],
-    methods: 'GET,HEAD,PUT,PATCH,Post,DELETE,OPTIONS',
   });
 
   app.setGlobalPrefix('api');
