@@ -58,6 +58,7 @@ export function LoginForm() {
       return axios.post(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/login`,
         formData,
+        { withCredentials: false } 
       );
     },
     onSuccess: (res) => {
@@ -72,7 +73,7 @@ export function LoginForm() {
       }
     },
     onError: (error: any) => {
-      showToast('error', 'Make sure email and password is correct.');
+      showToast('error', error.message);
       console.log(error);
     },
   });

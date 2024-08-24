@@ -52,6 +52,7 @@ const DashboardLogin = () => {
       console.log(user.data, 'user');
       setloading(false);
       dispatch(loggedInAdminAction(user.data.user));
+      
       Cookies.set('2guysAdminToken', user.data.token,{ expires: 24 * 60 * 60 * 1000 })
 
       setFormData(intialvalue);
