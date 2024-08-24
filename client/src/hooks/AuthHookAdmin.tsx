@@ -45,6 +45,9 @@ function ProtectedRoute(WrappedComponent: any) {
       }
     }, [router]);
 
+
+    
+
     if (loading) {
       return (
         <div
