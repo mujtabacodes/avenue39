@@ -3,7 +3,7 @@ import { AppModule } from './app.module';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
 import cookieParser from 'cookie-parser';
-import { CorsOptions } from '@nestjs/common/interfaces/external/cors-options.interface';
+
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -11,13 +11,10 @@ async function bootstrap() {
  app.enableCors({
     origin: [
       'http://localhost:3000',
+      'https://*vercel.app',
       'https://avenue39.vercel.app',
-      'https://avenue39-git-dev-interior-films-projects.vercel.app',
-      "https://avenue39-73ck3f2xg-interior-films-projects.vercel.app",
-      'https://avenue39-git-faad-dev-interior-films-projects.vercel.app',
-      "https://avenue39-git-mujtaba-dev-interior-films-projects.vercel.app"
     ],
-    credentials: true,
+    methods: 'GET,HEAD,PUT,PATCH,Post,DELETE,OPTIONS',
   });
 
   app.setGlobalPrefix('api');
@@ -32,6 +29,6 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, document);
 
-  await app.listen(3300);
+  await app.listen(process.env.port || 3300);
 }
 bootstrap();
