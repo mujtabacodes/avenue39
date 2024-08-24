@@ -67,17 +67,17 @@ export class AdminService {
           expiresIn: '24h',
         });
         const { password: _, ...userWithoutPassword } = existingUser;
-        res.cookie('2guysAdminToken', token, {
-          // httpOnly: true,
-          // secure: process.env.NODE_ENV === 'production',
-          secure: false,
-          maxAge: 24 * 60 * 60 * 1000,
-        });
+        // res.cookie('2guysAdminToken', token, {
+        //   // httpOnly: true,
+        //   // secure: process.env.NODE_ENV === 'production',
+        //   secure: false,
+        //   maxAge: 24 * 60 * 60 * 1000,
+        // });
 
         return {
           message: 'Login successfull 🎉',
           user: userWithoutPassword,
-          // token,
+          token,
         };
       
     } catch (error) {

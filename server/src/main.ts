@@ -11,14 +11,10 @@ async function bootstrap() {
  app.enableCors({
     origin: [
       'http://localhost:3000',
+      'https://*vercel.app',
       'https://avenue39.vercel.app',
-      'https://avenue39-git-dev-interior-films-projects.vercel.app',
-      'https://avenue39-73ck3f2xg-interior-films-projects.vercel.app',
-      'https://avenue39-git-faad-dev-interior-films-projects.vercel.app',
-      'https://avenue39-git-mujtaba-dev-interior-films-projects.vercel.app'
     ],
     methods: 'GET,HEAD,PUT,PATCH,Post,DELETE,OPTIONS',
-    credentials: false
   });
 
   app.setGlobalPrefix('api');
