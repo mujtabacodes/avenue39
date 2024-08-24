@@ -81,7 +81,7 @@ function Admins({ setselecteMenu, setEditAdmin }: any) {
       title: 'Name',
       dataIndex: 'name',
       key: 'name',
-      render: (text: any, record: any) => `${record.name}`,
+      render: (text: any, record: any) => `${record.fullname}`,
     },
     {
       title: 'Email',
