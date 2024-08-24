@@ -18,11 +18,7 @@ async function bootstrap() {
       "https://avenue39-git-mujtaba-dev-interior-films-projects.vercel.app"
     ],
     methods: 'GET,HEAD,PUT,PATCH,Post,DELETE,OPTIONS',
-    // credentials: true,
-    preflightContinue: false,
-    optionsSuccessStatus: 204,
-    allowedHeaders: 'Content-Type, Authorization',
-
+    credentials: true
   });
 
   app.setGlobalPrefix('api');
