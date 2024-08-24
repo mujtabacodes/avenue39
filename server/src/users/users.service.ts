@@ -83,10 +83,10 @@ export class UsersService {
         });
         const { password: _, ...userWithoutPassword } = existingUser;
         res.cookie('user_token', token, {
-          // httpOnly: true,
+          httpOnly: false,
           // secure: process.env.NODE_ENV === 'production',
           secure: false, // Set to false for localhost
-          sameSite: 'Lax', // Adjust based on your needs
+          sameSite: 'none',
           maxAge: 24 * 60 * 60 * 1000,
         });
 

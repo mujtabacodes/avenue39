@@ -9,13 +9,12 @@ async function bootstrap() {
  
  app.enableCors({
     origin: [
-      'https://*.vercel.app',
       'http://localhost:3000',
       'https://avenue39.vercel.app',
       'https://avenue39-git-dev-interior-films-projects.vercel.app',
-      "https://avenue39-73ck3f2xg-interior-films-projects.vercel.app",
+      'https://avenue39-73ck3f2xg-interior-films-projects.vercel.app',
       'https://avenue39-git-faad-dev-interior-films-projects.vercel.app',
-      "https://avenue39-git-mujtaba-dev-interior-films-projects.vercel.app"
+      'https://avenue39-git-mujtaba-dev-interior-films-projects.vercel.app'
     ],
     methods: 'GET,HEAD,PUT,PATCH,Post,DELETE,OPTIONS',
     credentials: true
@@ -33,6 +32,6 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, document);
 
-  await app.listen(3300);
+  await app.listen(process.env.port || 3300);
 }
 bootstrap();
