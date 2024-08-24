@@ -7,7 +7,8 @@ import { CorsOptions } from '@nestjs/common/interfaces/external/cors-options.int
 
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  // const app = await NestFactory.create(AppModule);
+
  
   const corsOptions: CorsOptions = {
     origin: [
@@ -19,8 +20,7 @@ async function bootstrap() {
 
     preflightContinue: false,
     };
- app.enableCors(corsOptions);
-
+    const app = await NestFactory.create(AppModule, { cors: corsOptions });
 
   app.setGlobalPrefix('api');
 
