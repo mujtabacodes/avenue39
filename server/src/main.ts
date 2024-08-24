@@ -16,6 +16,9 @@ async function bootstrap() {
       'https://avenue39-git-faad-dev-interior-films-projects.vercel.app',
       "https://avenue39-git-mujtaba-dev-interior-films-projects.vercel.app"
     ],
+
+
+    
     credentials: true,
   });
 
