@@ -9,7 +9,6 @@ import { ReviewsModule } from './reviews/reviews.module';
 import { AdminModule } from './admin/admin.module';
 import { SalesRecordModule } from './sales_record/sales_record.module';
 import { SubcategoriesModule } from './subcategories/subcategories.module';
-import { CorsMiddleware } from './cors.middleware';
 
 
 @Module({
@@ -17,9 +16,5 @@ import { CorsMiddleware } from './cors.middleware';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule implements NestModule {
-  configure(consumer: MiddlewareConsumer) {
-    consumer.apply(CorsMiddleware).forRoutes('*');
-  }
-}
-// export class AppModule {}
+
+export class AppModule {}

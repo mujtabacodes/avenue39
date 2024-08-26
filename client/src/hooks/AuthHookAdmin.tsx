@@ -19,12 +19,12 @@ function ProtectedRoute(WrappedComponent: any) {
     const AddminProfileTriggerHandler = async (token: string, adminFlag:boolean) => {
       try {
 
-        let apiEndpoint = adminFlag ?  "getSuperAdminHandler" : "getAdminHandler"
-        let user: any = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/admins/${apiEndpoint}`, {
-          headers: {
-            "token": token
-          }
-        })
+            let apiEndpoint = adminFlag ? "getSuperAdminHandler" : "getAdminHandler"
+            let user: any = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/${apiEndpoint}`, {
+              headers: {
+                "Authorization": `Bearer ${token}`
+              }
+            })
         dispatch(loggedInAdminAction(user.data.user))
       } catch (err: any) {
         console.log(err, "err")
@@ -44,6 +44,9 @@ function ProtectedRoute(WrappedComponent: any) {
         setLoading(false);
       }
     }, [router]);
+
+
+    
 
     if (loading) {
       return (

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
@@ -17,6 +17,8 @@ import Cookies from 'js-cookie';
 const DashboardLogin = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
+
+
   const intialvalue = {
     email: '',
     password: '',
@@ -31,6 +33,7 @@ const DashboardLogin = () => {
   };
 
   const [formData, setFormData] = useState(intialvalue);
+  const [test, settest] = useState<number>(0);
 
   const [error, setError] = useState<string | null | undefined>();
   const [loading, setloading] = useState<boolean | null | undefined>(false);
@@ -52,6 +55,7 @@ const DashboardLogin = () => {
       console.log(user.data, 'user');
       setloading(false);
       dispatch(loggedInAdminAction(user.data.user));
+      
       Cookies.set('2guysAdminToken', user.data.token,{ expires: 24 * 60 * 60 * 1000 })
 
       setFormData(intialvalue);
@@ -73,6 +77,7 @@ const DashboardLogin = () => {
       setloading(false);
     }
   };
+
 
   const inputFields = [
     {
