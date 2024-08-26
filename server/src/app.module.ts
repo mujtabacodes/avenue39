@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
@@ -10,9 +10,11 @@ import { AdminModule } from './admin/admin.module';
 import { SalesRecordModule } from './sales_record/sales_record.module';
 import { SubcategoriesModule } from './subcategories/subcategories.module';
 
+
 @Module({
   imports: [UsersModule, PrismaModule, ProductsModule, CategoriesModule, ReviewsModule, AdminModule, SalesRecordModule, SubcategoriesModule],
   controllers: [AppController],
   providers: [AppService],
 })
+
 export class AppModule {}

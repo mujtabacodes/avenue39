@@ -7,46 +7,48 @@ import { useAppDispatch } from "@components/Others/HelperRedux";
 import { loggedInAdminAction } from '@/redux/slices/Admin/AdminsSlice';
 import axios from 'axios'
 import Cookies from 'js-cookie';
-
 import { useAppSelector } from "@components/Others/HelperRedux";
 
 
 function ProtectedRoute(WrappedComponent: any) {
   const Wrapper = (props: any) => {
     const router = useRouter();
-    const [loading, setLoading] = useState<boolean>(false);
+    const [loading, setLoading] = useState<boolean>(true);
     const dispatch = useAppDispatch();
 
     const AddminProfileTriggerHandler = async (token: string, adminFlag:boolean) => {
       try {
 
-        let apiEndpoint = adminFlag ?  "getSuperAdminHandler" : "getAdminHandler"
-        let user: any = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/${apiEndpoint}`, {
-          headers: {
-            "Authorization": `Bearer ${token}`
-          }
-        })
-        console.log(user.data, "data")
+            let apiEndpoint = adminFlag ? "getSuperAdminHandler" : "getAdminHandler"
+            let user: any = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/${apiEndpoint}`, {
+              headers: {
+                "Authorization": `Bearer ${token}`
+              }
+            })
         dispatch(loggedInAdminAction(user.data.user))
       } catch (err: any) {
         console.log(err, "err")
+      }finally{
+        setLoading(false);
       }
     }
+
     
     useEffect(() => {
       const token = Cookies.get('2guysAdminToken');
       const superAdmintoken  = Cookies.get('superAdminToken');
       let Finaltoken = superAdmintoken ? superAdmintoken : token
-
       if (!Finaltoken) {
         // eslint-disable-next-line react-hooks/exhaustive-deps
         router.push("/dashboard/Admin-login");
       } else {
-        console.log(Finaltoken, "Finaltoken")
         AddminProfileTriggerHandler( Finaltoken, superAdmintoken ? true : false)
-        setLoading(false);
+
       }
     }, [router]);
+
+
+    
 
     if (loading) {
       return (

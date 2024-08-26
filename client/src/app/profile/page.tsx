@@ -16,16 +16,20 @@ import Container from '@/components/ui/Container';
 import { Button } from '@/components/ui/button';
 import dummyProfile from '@images/profile/Ellipse 6.png';
 import { useAppSelector } from '@/Others/HelperRedux';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { State } from '@/redux/store';
 import showToast from '@/components/Toaster/Toaster';
-import { uploadPhotosToBackend } from '@/utils/helperFunctions';
+import {
+  ImageRemoveHandler,
+  uploadPhotosToBackend,
+} from '@/utils/helperFunctions';
 
 export default function Profile() {
   // const { loggedInUser }: any = useAppSelector((state: any) => state.userSlice);
   console.log('I am on profile page');
   const { loggedInUser } = useSelector((state: State) => state.usrSlice);
-  console.log(loggedInUser?.name);
+  const dispatch = useDispatch();
+  console.log(loggedInUser);
 
   const router = useRouter();
 
@@ -33,10 +37,11 @@ export default function Profile() {
     fullName: loggedInUser?.name,
   };
   const [formData, setFormData] = useState(initialFormData);
-  const [profilePhoto, setProfilePhoto] = useState<any[]>([]);
+  const [profilePhoto, setProfilePhoto] = useState<any>([]);
   const token = Cookies.get('user_token');
-
-  console.log(token, 'token');
+  if (loggedInUser?.userImageUrl) {
+    profilePhoto.imageUrl = loggedInUser.userImageUrl;
+  }
   useEffect(() => {
     const token = Cookies.get('user_token');
     if (!token) {
@@ -124,17 +129,31 @@ export default function Profile() {
   };
 
   const handleSubmit = async (event: any) => {
+    event.preventDefault();
     console.log('Form details');
-    console.log(formData);
-    const { fullName, ...userDetails } = {
+    console.log('Form details 11');
+    console.log(profilePhoto);
+    console.log('Form details 1');
+
+    let { fullName, ...userDetails }: any = {
       id: loggedInUser.id,
       name: formData.fullName,
       ...formData,
     };
+
     console.log(userDetails);
 
-    event.preventDefault();
+    if (profilePhoto?.imageUrl) {
+      userDetails = {
+        ...userDetails,
+        userImageUrl: profilePhoto?.imageUrl,
+        userImagePublicId: profilePhoto?.public_id, // Assuming the correct key is `publicId`
+      };
 
+      console.log(userDetails);
+    }
+    console.log('Final UserDetails');
+    console.log(userDetails);
     try {
       const res = await axios.post(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/edit-user`,
@@ -147,8 +166,8 @@ export default function Profile() {
     }
 
     try {
-      // await adminUpdateHandler();
-      // await AddminProfileTriggerHandler();
+      await adminUpdateHandler();
+      await AddminProfileTriggerHandler();
     } catch (err) {
       console.log(err, 'err');
     }
@@ -169,7 +188,12 @@ export default function Profile() {
   //     Object.keys(loggedInUser.ProfilePhoto).length > 0 ? setProfilePhoto([loggedInUser.ProfilePhoto]) : null
   //   }
   // }, [loggedInUser]);
-
+  const handleDelete = () => {
+    ImageRemoveHandler(loggedInUser.userImagePublicId, profilePhoto);
+    setProfilePhoto([]);
+    showToast('success', 'Image removed successfully🎉');
+    console.log(profilePhoto);
+  };
   return (
     <Fragment>
       <TopHero breadcrumbs={profilebreadcrumbs} />
@@ -226,6 +250,7 @@ export default function Profile() {
                     <Button
                       variant={'underline'}
                       className="w-fit h-fit py-0 px-0"
+                      onClick={handleDelete}
                     >
                       Delete
                     </Button>

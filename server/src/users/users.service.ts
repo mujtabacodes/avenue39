@@ -112,18 +112,18 @@ export class UsersService {
           expiresIn: '24h',
         });
         const { password: _, ...userWithoutPassword } = existingUser;
-        res.cookie('user_token', token, {
-          // httpOnly: true,
-          // secure: process.env.NODE_ENV === 'production',
-          secure: false, // Set to false for localhost
-          sameSite: 'Lax', // Adjust based on your needs
-          maxAge: 24 * 60 * 60 * 1000,
-        });
+        // res.cookie('user_token', token, {
+        //   httpOnly: false,
+        //   // secure: process.env.NODE_ENV === 'production',
+        //   secure: false, // Set to false for localhost
+        //   sameSite: 'none',
+        //   maxAge: 24 * 60 * 60 * 1000,
+        // });
 
         return {
           message: 'Login successful',
           user: userWithoutPassword,
-          // token,
+          token,
         };
       } else {
         return {

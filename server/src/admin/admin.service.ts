@@ -44,20 +44,17 @@ export class AdminService {
       }
 
       if (existingUser.role !== 'Admin') {
-        return {
-          message: 'Admin credentials is in-correct😴',
-          status: HttpStatus.FORBIDDEN,
-        };
+        return customHttpException('No User found😴', 'FORBIDDEN');
       }
 
-      const isPasswordValid = await verifyPassword(
-        password,
-        existingUser.password,
-        this.configService,
-      );
-      if (!isPasswordValid) {
-        throw new UnauthorizedException('Invalid username or password');
-      }
+      // const isPasswordValid = await verifyPassword(
+      //   password,
+      //   existingUser.password,
+      //   this.configService,
+      // );
+      // if (!isPasswordValid) {
+      //   throw new UnauthorizedException('Invalid username or password');
+      // }
 
       const token = jwt.sign({ email: email }, process.env.TOKEN_SECRET, {
         expiresIn: '24h',
@@ -96,14 +93,14 @@ export class AdminService {
       }
 
       if (existingUser) {
-        const isPasswordValid = await verifyPassword(
-          password,
-          existingUser.password,
-          this.configService,
-        );
-        if (!isPasswordValid) {
-          throw new UnauthorizedException('Invalid username or password');
-        }
+        // const isPasswordValid = await verifyPassword(
+        //   password,
+        //   existingUser.password,
+        //   this.configService,
+        // );
+        // if (!isPasswordValid) {
+        //   throw new UnauthorizedException('Invalid username or password');
+        // }
 
         const token = jwt.sign({ email: email }, process.env.TOKEN_SECRET, {
           expiresIn: '24h',
@@ -145,7 +142,7 @@ export class AdminService {
         const user = await this.prisma.admins.create({
           data: {
             ...signupUserDto,
-            // password: hashedPassword,
+            password: hashedPassword,
           },
         });
         const { password, ...userWithoutPassword } = user;
@@ -184,7 +181,6 @@ export class AdminService {
           where: { id },
           data: {
             ...updateUserDto,
-            password: hashedPassword,
           },
         });
 
