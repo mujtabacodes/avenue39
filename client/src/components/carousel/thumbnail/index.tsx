@@ -96,15 +96,17 @@ const Thumbnail: React.FC<ThumbProps> = ({
     public_id: string,
     e: React.MouseEvent,
   ) => {
-    HoverImage && HoverImage(public_id);
-    if (zoomEnabled) {
-      setZoomEnabled(false);
-      setCursorVisible(false);
-    } else {
-      setZoomEnabled(true);
-      setHoveredImage(imageUrl);
-      setCursorVisible(true);
-      setCursorPosition({ x: e.clientX, y: e.clientY });
+    if (isZoom) {
+      HoverImage && HoverImage(public_id);
+      if (zoomEnabled) {
+        setZoomEnabled(false);
+        setCursorVisible(false);
+      } else {
+        setZoomEnabled(true);
+        setHoveredImage(imageUrl);
+        setCursorVisible(true);
+        setCursorPosition({ x: e.clientX, y: e.clientY });
+      }
     }
   };
 
@@ -215,7 +217,7 @@ const Thumbnail: React.FC<ThumbProps> = ({
                 {thumbs.map((thumb, index) => (
                   <SwiperSlide key={index}>
                     <div
-                      className={`relative w-full h-full ${zoomEnabled ? 'cursor-none' : 'cursor-zoom-in'}`}
+                      className={`relative w-full h-full ${isZoom ? zoomEnabled ? 'cursor-none' : 'cursor-zoom-in' : 'cursor-default'}`}
                       onClick={(e) =>
                         handleClick(
                           thumb.imageUrl || '',
@@ -234,10 +236,10 @@ const Thumbnail: React.FC<ThumbProps> = ({
                       }
                     >
                       <Image
-                        className={`rounded-lg h-full w-full max-h-[600px] pointer-events-none md:pointer-events-auto  ${zoomEnabled ? 'cursor-none' : ''} ${isZoom ? 'cursor-default' : ''} ${!zoomEnabled && isZoom ? 'cursor-zoom-in' : ''}`}
+                        className={`rounded-lg h-full w-full ${isZoom ? 'min-h-[700px]' : 'min-h-[450px]'}  pointer-events-none md:pointer-events-auto  ${zoomEnabled ? 'cursor-none' : ''} ${isZoom ? 'cursor-default' : ''} ${!zoomEnabled && isZoom ? 'cursor-zoom-in' : ''}`}
                         src={thumb.imageUrl || '/default-image.jpg'}
-                        width={690}
-                        height={690}
+                        width={700}
+                        height={700}
                         alt={thumb.name || 'Main Image'}
                         onClick={(e) =>
                           isZoom

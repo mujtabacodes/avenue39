@@ -204,9 +204,9 @@ const ViewProduct: React.FC<CategoryProps> = ({
         </div>
       ) : (
         <>
-          <div className="flex justify-between mb-4 items-center flex-wrap text-black dark:text-white">
+          <div className="flex justify-between gap-2 mb-4 items-center flex-nowrap text-black dark:text-white">
             <input
-              className="peer lg:p-3 p-2 block outline-none border rounded-md border-gray-200 dark:bg-boxdark dark:bg-transparent dark:border-white text-sm dark:focus:border-primary focus:border-dark focus:ring-dark-500 disabled:opacity-50 disabled:pointer-events-none dark:text-black"
+              className="peer lg:p-3 p-2 block outline-none border rounded-md border-gray-200 dark:bg-boxdark dark:bg-transparent dark:border-white text-11 xs:text-sm dark:focus:border-primary focus:border-dark focus:ring-dark-500 disabled:opacity-50 disabled:pointer-events-none dark:text-black"
               type="search"
               placeholder="Search Product"
               value={searchTerm}
@@ -215,7 +215,7 @@ const ViewProduct: React.FC<CategoryProps> = ({
             <div>
               <p
                 className={`${
-                  canAddProduct && 'cursor-pointer rounded-md'
+                  canAddProduct && 'cursor-pointer rounded-md text-nowrap text-12 xs:text-base'
                 } p-2 ${
                   canAddProduct && 'bg-primary text-white rounded-md border'
                 } dark:border-strokedark  flex justify-center dark:bg-black ${

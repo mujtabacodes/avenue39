@@ -11,6 +11,11 @@ import thankyou from '@icons/thankyou.png';
 import Image from 'next/image';
 import { products } from '@/data/products';
 import Link from 'next/link';
+import { useQuery } from '@tanstack/react-query';
+import { IProduct } from '@/types/types';
+import { fetchProducts } from '@/config/fetch';
+import FeatureSlider from '@/components/card-slider/feature-slider';
+import BestSellingSlider from '@/components/card-slider/best-selling';
 
 const ThankYouPage = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -22,6 +27,14 @@ const ThankYouPage = () => {
 
     return () => clearTimeout(timer);
   }, []);
+  const {
+    data: products = [],
+    error: productsError,
+    isLoading: isProductsLoading,
+  } = useQuery<IProduct[], Error>({
+    queryKey: ['products'],
+    queryFn: fetchProducts,
+  });
 
   return (
     <>
@@ -42,7 +55,7 @@ const ThankYouPage = () => {
         <h3 className="font-medium text-2xl xs:text-3xl sm:text-4xl md:text-5xl text-center mt-16 mb-8">
           Your Recently Viewed Products
         </h3>
-        <SliderComponent cards={products} isModel={true} />
+        <FeatureSlider />
       </Container>
       <Services />
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
@@ -61,7 +74,7 @@ const ThankYouPage = () => {
             </div>
             <div className="mt-16 mb-4">
               {/* <SliderComponent cards={tankyousildercards} isModel={true} /> */}
-              <SliderComponent cards={products} isModel={true} />
+              <BestSellingSlider />
             </div>
           </div>
         </DialogContent>

@@ -343,7 +343,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                       </div>
 
                       <div className="flex full gap-4">
-                        <div className="w-[33%]">
+                        <div className="w-1/2 xs:w-1/3">
                           <label className="mb-3 block text-sm font-medium text-black dark:text-white">
                             Price
                           </label>
@@ -401,7 +401,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                             </div>
                           ) : null}
                         </div> */}
-                        <div className="w-[33%]">
+                        <div className="w-1/2 xs:w-1/3">
                           <label className="mb-3 block text-sm font-medium text-black dark:text-white">
                             Discount Price
                           </label>
@@ -1029,7 +1029,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
 
               <button
                 type="submit"
-                className="px-10 py-2 bg-black text-white rounded-md shadow-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-black"
+                className="px-10 py-2 mt-2 bg-black text-white rounded-md shadow-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-black"
               >
                 {loading ? <Loader /> : 'Submit'}
               </button>

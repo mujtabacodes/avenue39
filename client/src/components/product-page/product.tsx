@@ -33,6 +33,7 @@ import { IoIosClose } from 'react-icons/io';
 import { useQuery } from '@tanstack/react-query';
 import { IProduct } from '@/types/types';
 import { fetchProducts } from '@/config/fetch';
+import NoProduct from '../ui/no-product';
 
 interface ProductPageProps {
   sideBanner: StaticImageData;
@@ -216,39 +217,43 @@ const ProductPage = ({
               </div>
             </div>
           </div>
-          <div
-            className={`grid gap-4 md:gap-8 mt-4 ${
-              layout === 'grid'
-                ? 'grid-cols-1 sm:grid-cols-2 xl:grid-cols-3'
-                : 'grid-cols-1'
-            }`}
-          >
-            {!isLoading
-              ? filteredCards.map((card) => (
-                  <div key={card.id}>
-                    {layout === 'grid' ? (
+
+          {
+              filteredCards.length > 0 ? <div
+              className={`grid gap-4 md:gap-8 mt-4 ${
+                layout === 'grid'
+                  ? 'grid-cols-1 sm:grid-cols-2 xl:grid-cols-3'
+                  : 'grid-cols-1'
+              }`}
+            >
+              {!isLoading
+                ? filteredCards.map((card) => (
+                    <div key={card.id}>
+                      {layout === 'grid' ? (
+                        <Card
+                          className="lg:w-[384.24px]"
+                          skeletonHeight="h-[380px] xs:h-[488px] sm:h-[380px] 2xl:h-[488px]"
+                          card={card}
+                          isLoading={false}
+                          category={true}
+                        />
+                      ) : (
+                        <LandscapeCard card={card} />
+                      )}
+                    </div>
+                  ))
+                : [...Array(6)].map((_, index) => (
+                    <span key={index} className="">
                       <Card
                         className="lg:w-[384.24px]"
                         skeletonHeight="h-[380px] xs:h-[488px] sm:h-[380px] 2xl:h-[488px]"
-                        card={card}
-                        isLoading={false}
-                        category={true}
+                        isLoading={isLoading}
                       />
-                    ) : (
-                      <LandscapeCard card={card} />
-                    )}
-                  </div>
-                ))
-              : [...Array(6)].map((_, index) => (
-                  <span key={index} className="">
-                    <Card
-                      className="lg:w-[384.24px]"
-                      skeletonHeight="h-[380px] xs:h-[488px] sm:h-[380px] 2xl:h-[488px]"
-                      isLoading={isLoading}
-                    />
-                  </span>
-                ))}
-          </div>
+                    </span>
+                  ))}
+            </div> : <NoProduct cardHeight='2xl:h-[488px]' iconSize={40} title='No Product Found' titleClass='font-medium text-2xl md:text-3xl' />
+            }
+          
         </div>
       </Container>
       <div className="my-14 px-2 sm:px-4 md:px-0 relative">
