@@ -12,16 +12,14 @@ import Cookies from 'js-cookie';
 // import { useAppDispatch } from "components/Others/HelperRedux";
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import {
-  ImageRemoveHandler,
-  uploadPhotosToBackend,
-} from '../../lib/helperFunctions';
 import Container from '@/components/ui/Container';
 import { Button } from '@/components/ui/button';
 import dummyProfile from '@images/profile/Ellipse 6.png';
 import { useAppSelector } from '@/Others/HelperRedux';
 import { useSelector } from 'react-redux';
 import { State } from '@/redux/store';
+import showToast from '@/components/Toaster/Toaster';
+import { uploadPhotosToBackend } from '@/utils/helperFunctions';
 
 export default function Profile() {
   // const { loggedInUser }: any = useAppSelector((state: any) => state.userSlice);
@@ -55,8 +53,10 @@ export default function Profile() {
   ) => {
     const file = event.target.files?.[0];
     if (file) {
+      console.log(file);
       let imageUrl: any = await uploadPhotosToBackend([file]);
-
+      console.log('response from image updload');
+      console.log(imageUrl);
       imageUrl ? setProfilePhoto(imageUrl) : null;
     }
   };
@@ -124,10 +124,31 @@ export default function Profile() {
   };
 
   const handleSubmit = async (event: any) => {
+    console.log('Form details');
+    console.log(formData);
+    const { fullName, ...userDetails } = {
+      id: loggedInUser.id,
+      name: formData.fullName,
+      ...formData,
+    };
+    console.log(userDetails);
+
     event.preventDefault();
+
     try {
-      await adminUpdateHandler();
-      await AddminProfileTriggerHandler();
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/edit-user`,
+        userDetails,
+      );
+
+      showToast('success', res.data.message);
+    } catch (error) {
+      showToast('error', 'Their is something wrong!');
+    }
+
+    try {
+      // await adminUpdateHandler();
+      // await AddminProfileTriggerHandler();
     } catch (err) {
       console.log(err, 'err');
     }
@@ -186,8 +207,11 @@ export default function Profile() {
 
                 <div className="h-14 w-14 rounded-full overflow-hidden">
                   <Image
-                    src={dummyProfile}
-                    // src={(profilePhoto && profilePhoto.imageUrl) ? profilePhoto.imageUrl : '/images/dummy-avatar.jpg'}
+                    src={
+                      profilePhoto && profilePhoto.imageUrl
+                        ? profilePhoto.imageUrl
+                        : '/images/dummy-avatar.jpg'
+                    }
                     width={55}
                     height={55}
                     alt="User"
@@ -336,6 +360,7 @@ export default function Profile() {
                         Cancel
                       </Button>
                       <Button
+                        type="submit"
                         variant={'default'}
                         className="w-32 font-light shadow"
                       >

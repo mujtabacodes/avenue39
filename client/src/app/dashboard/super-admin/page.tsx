@@ -30,8 +30,9 @@ const SuperAdmin = () => {
   }, [editAdmin]);
 
   const EditInitialValues: any = {
-    fullname: editAdmin?.name,
+    fullname: editAdmin?.fullname,
     email: editAdmin?.email,
+    password: editAdmin?.password,
     canAddCategory: editAdmin?.canAddCategory,
     canAddProduct: editAdmin?.canAddProduct,
     canCheckProfit: editAdmin?.canCheckProfit,
@@ -41,10 +42,10 @@ const SuperAdmin = () => {
     canDeleteProduct: editAdmin?.canDeleteProduct,
     canEditCategory: editAdmin?.canEditCategory,
     canEditProduct: editAdmin?.canEditProduct,
-    canVeiwAdmins: editAdmin?.canViewAdmins,
+    canVeiwAdmins: editAdmin?.canVeiwAdmins,
     canViewSales: editAdmin?.canViewSales,
-    canVeiwTotalCategories: editAdmin?.canViewTotalCategories,
-    canVeiwTotalproducts: editAdmin?.canViewTotalProducts,
+    canVeiwTotalCategories: editAdmin?.canVeiwTotalproducts,
+    canVeiwTotalproducts: editAdmin?.canVeiwTotalproducts,
     canViewUsers: editAdmin?.canViewUsers,
   };
 
