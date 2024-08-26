@@ -120,7 +120,7 @@ const FeatureCard: React.FC<CardProps> = ({ card, isModel, isLoading , cardHeigh
           </div>
           <div className="flex justify-between px-1 mt-3">
             <p className="text-15">{card.name}</p>
-            <div className="flex"> {renderStars({ star: averageRating })}</div>
+            <div className="flex"> {averageRating > 0 && renderStars({ star: averageRating })}</div>
           </div>
           <div className="border-t flex gap-5 pt-3 px-1">
             <p className="text-12">
