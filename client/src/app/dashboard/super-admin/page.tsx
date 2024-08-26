@@ -19,15 +19,7 @@ const SuperAdmin = () => {
     const superAdminToken = Cookies.get('superAdminToken');
     console.log('toke super admin' + superAdminToken);
 
-    // if (!admintoken) {
-    //   Navigate.push('/dashboard/Admin-login');
-    // }
   }, [Navigate]);
-
-  useEffect(() => {
-    console.log('Edit admin triggered');
-    console.log(editAdmin);
-  }, [editAdmin]);
 
   const EditInitialValues: any = {
     fullname: editAdmin?.name,
@@ -48,8 +40,6 @@ const SuperAdmin = () => {
     canViewUsers: editAdmin?.canViewUsers,
   };
 
-  console.log('Initial values');
-  console.log(EditInitialValues);
   return (
     <>
       <DefaultLayout>

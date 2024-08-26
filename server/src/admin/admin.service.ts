@@ -44,16 +44,14 @@ export class AdminService {
       return  customHttpException('No User found😴',"FORBIDDEN")
       }
       
-      
-
-  
-        if (existingUser.role !== 'Admin') {
-          return {
-            message: 'Admin credentials is correct😴',
-            status: HttpStatus.FORBIDDEN,
-          };
+      if (existingUser.role !== 'Admin') {
+      return  customHttpException('No User found😴',"FORBIDDEN")
         }
     
+
+
+
+        
         const isPasswordValid = await verifyPassword(
           password,
           existingUser.password,
@@ -63,21 +61,19 @@ export class AdminService {
           throw new UnauthorizedException('Invalid username or password');
         }
 
-        const token = jwt.sign({ email: email }, process.env.TOKEN_SECRET, {
-          expiresIn: '24h',
-        });
+        const token = jwt.sign({ email: email }, process.env.TOKEN_SECRET, {expiresIn: '24h',});
         const { password: _, ...userWithoutPassword } = existingUser;
-        res.cookie('2guysAdminToken', token, {
-          // httpOnly: true,
-          // secure: process.env.NODE_ENV === 'production',
-          secure: false,
-          maxAge: 24 * 60 * 60 * 1000,
-        });
+        // res.cookie('2guysAdminToken', token, {
+        //   // httpOnly: true,
+        //   // secure: process.env.NODE_ENV === 'production',
+        //   secure: false,
+        //   maxAge: 24 * 60 * 60 * 1000,
+        // });
 
         return {
           message: 'Login successfull 🎉',
           user: userWithoutPassword,
-          // token,
+          token,
         };
       
     } catch (error) {

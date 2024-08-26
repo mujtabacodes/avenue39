@@ -3,8 +3,23 @@ import { Button } from '../ui/button';
 import SliderComponent from '../card-slider/card-slider';
 import { cards } from '@/data';
 import { products } from '@/data/products';
+import { IProduct } from '@/types/types';
+import { useQuery } from '@tanstack/react-query';
+import { fetchProducts } from '@/config/fetch';
+interface SliderProps {
+  cards: IProduct[];
+  isModel?: boolean;
+}
 
-const TopSelling = () => {
+const TopSelling: React.FC = () => {
+  const {
+    data: products = [],
+    error: productsError,
+    isLoading: isProductsLoading,
+  } = useQuery<IProduct[], Error>({
+    queryKey: ['products'],
+    queryFn: fetchProducts,
+  });
   return (
     <div className="flex flex-col md:flex-row gap-8 items-center">
       <div className="w-full md:w-1/4 text-center md:text-start">
@@ -32,7 +47,7 @@ const TopSelling = () => {
       <div className="w-full md:w-[73%]">
         <div className="my-12">
           {/* <SliderComponent cards={cards} /> */}
-          <SliderComponent cards={products} cardHeight='xl:[420px]' sliderArrow={false} silderName='top-selling' />
+          <SliderComponent cards={products} cardHeight='xl:[420px]' sliderArrow={false} silderName='top-selling' isLoading={isProductsLoading} />
         </div>
       </div>
     </div>
