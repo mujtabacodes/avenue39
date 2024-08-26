@@ -138,8 +138,8 @@ let defaultArray = [
           </h4>
         </div>
         <div>
-          <div className="relative z-20 inline-block">
-            <p className="inline-flex appearance-none bg-transparent py-1 pl-3 pr-8 text-sm font-medium outline-none dark:text-white"> Previous Week</p>
+          <div className="relative inline-block">
+            <p className="inline-flex appearance-none bg-transparent py-1 pl-3 pr-8 text-sm font-medium outline-none dark:text-white"> Current Week</p>
           </div>
         </div>
       </div>

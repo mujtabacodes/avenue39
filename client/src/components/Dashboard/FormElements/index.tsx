@@ -224,7 +224,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
   return (
     <>
       <p
-        className="text-lg font-black mb-4 flex items-center justify-center gap-2 hover:bg-gray-200 w-fit p-2 cursor-pointer text-black dark:text-white"
+        className="text-lg font-black mb-4 flex items-center justify-center gap-2 hover:bg-gray-200 w-fit p-2 cursor-pointer text-black dark:bg-black dark:text-white"
         onClick={() => {
           setselecteMenu('Add All Products');
         }}
@@ -242,12 +242,12 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
       >
         {(formik) => {
           return (
-            <Form onSubmit={formik.handleSubmit}>
+            <Form onSubmit={formik.handleSubmit} >
               <div className="grid grid-cols-1 gap-9 sm:grid-cols-2">
-                <div className="flex flex-col gap-9 dark:border-strokedark dark:bg-boxdark">
-                  <div className="rounded-sm border border-stroke bg-white dark:border-strokedark dark:bg-boxdark ">
-                    <div className="rounded-sm border border-stroke bg-white dark:border-strokedark dark:bg-boxdark">
-                      <div className="border-b border-stroke py-4 px-4 dark:border-strokedark">
+                <div className="flex flex-col gap-9 ">
+                  <div className="rounded-sm border border-stroke bg-white dark:bg-black py-4 px-6">
+                    <div className="rounded-sm border border-stroke bg-white dark:bg-black">
+                      <div className="border-b border-stroke py-4 px-4 ">
                         <h3 className="font-medium text-black dark:text-white">
                           Add Product Images
                         </h3>
@@ -258,10 +258,10 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                           {posterimageUrl.map((item: any, index) => {
                             return (
                               <div
-                                className="relative group rounded-lg overflow-hidden shadow-md bg-white transform transition-transform duration-300 hover:scale-105"
+                                className="relative group rounded-lg overflow-hidden shadow-md bg-white dark:bg-black transform transition-transform duration-300 hover:scale-105"
                                 key={index}
                               >
-                                <div className="absolute top-1 right-1 invisible group-hover:visible text-red bg-white rounded-full">
+                                <div className="absolute top-1 right-1 invisible group-hover:visible text-red bg-white dark:bg-black rounded-full">
                                   <RxCross2
                                     className="cursor-pointer text-red-500 hover:text-red-700"
                                     size={17}
@@ -292,7 +292,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                       )}
                     </div>
 
-                    <div className="flex flex-col gap-5.5 p-6.5">
+                    <div className="flex flex-col ">
                       <div>
                         <label className="mb-3 block text-sm font-medium text-black dark:text-white ">
                           Product Title
@@ -545,7 +545,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                           <ErrorMessage
                             name="category"
                             component="div"
-                            className="text-red"
+                            className="text-red dark:text-white"
                           />
                         </div> */}
                       </div>
@@ -554,8 +554,8 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                 </div>
 
                 <div className="flex flex-col gap-5">
-                  <div className="py-4 px-6.5 rounded-sm border border-stroke">
-                    <div className="mb-4  bg-white dark:border-strokedark dark:bg-boxdark  text-black dark:text-white">
+                  <div className="py-4 px-6 rounded-sm border border-stroke">
+                    <div className="mb-4  bg-white  dark:bg-black  text-black dark:text-white">
                       <label className="block text-sm font-medium text-gray-700 mb-2">
                         Add Stock Quantity
                       </label>
@@ -656,7 +656,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                                 <button
                                   type="button"
                                   onClick={() => push({ name: '', detail: '' })}
-                                  className="px-4 py-2 bg-black text-white rounded-md shadow-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-black"
+                                  className="px-4 py-2 bg-black text-white dark:bg-gray-800 rounded-md shadow-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-black"
                                 >
                                   Add Variation
                                 </button>
@@ -668,13 +668,13 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                     )} */}
                   </div>
 
-                  <div className="rounded-sm border border-stroke bg-white dark:border-strokedark dark:bg-boxdark">
-                    <div className="border-b border-stroke py-4 px-6.5 dark:border-strokedark">
+                  <div className="rounded-sm border border-stroke bg-white  dark:bg-black">
+                    <div className="border-b border-stroke py-4 px-6 dark:border-strokedark">
                       <h3 className="font-medium text-black dark:text-white">
                         Additional information
                       </h3>
                     </div>
-                    <div className="flex flex-col gap-5.5 p-6.5">
+                    <div className="flex flex-col py-4 px-6">
                       <FieldArray name="additionalInformation">
                         {({ push, remove }) => (
                           <div className="flex flex-col gap-2">
@@ -706,7 +706,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                                             FormValues['additionalInformation']
                                           >
                                         )?.[index]?.name
-                                          ? 'border-red-500'
+                                          ? 'border-red-500 dark:border-white'
                                           : ''
                                       }`}
                                     />
@@ -731,7 +731,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                                             FormValues['additionalInformation']
                                           >
                                         )?.[index]?.detail
-                                          ? 'border-red-500'
+                                          ? 'border-red-500 dark:border-white'
                                           : ''
                                       }`}
                                     />
@@ -741,7 +741,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                                       className="ml-2 text-red "
                                     >
                                       <RxCross2
-                                        className="text-red"
+                                        className="text-red dark:text-white"
                                         size={25}
                                       />
                                     </button>
@@ -751,7 +751,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                             <button
                               type="button"
                               onClick={() => push({ name: '', detail: '' })}
-                              className="px-4 py-2 bg-black text-white rounded-md shadow-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-black w-fit"
+                              className="px-4 py-2 bg-black text-white dark:bg-gray-800  rounded-md shadow-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-black w-fit"
                             >
                               Add Model
                             </button>
@@ -761,13 +761,13 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                     </div>
                   </div>
 
-                  <div className="rounded-sm border border-stroke bg-white dark:border-strokedark dark:bg-boxdark">
+                  <div className="rounded-sm border border-stroke bg-white  dark:bg-black ">
                     <div className="border-b border-stroke py-4 px-4 dark:border-strokedark">
                       <h3 className="font-medium text-black dark:text-white">
                         Specification
                       </h3>
                     </div>
-                    <div className="flex flex-col gap-4 p-4">
+                    <div className="flex flex-col py-4 px-6">
                       <FieldArray name="spacification">
                         {({ push, remove }) => (
                           <div className="flex flex-col gap-2">
@@ -802,7 +802,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                                     onClick={() => remove(index)}
                                     className="ml-2 text-red"
                                   >
-                                    <RxCross2 className="text-red" size={25} />
+                                    <RxCross2 className="text-red dark:text-white" size={25} />
                                   </button>
                                 </div>
                               ),
@@ -810,7 +810,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                             <button
                               type="button"
                               onClick={() => push({ specsDetails: '' })}
-                              className="px-4 py-2 bg-black text-white rounded-md shadow-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-black w-fit"
+                              className="px-4 py-2 bg-black text-white dark:bg-gray-800  rounded-md shadow-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-black w-fit"
                             >
                               Add Specification
                             </button>
@@ -819,13 +819,13 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                       </FieldArray>
                     </div>
                   </div>
-                  <div className="rounded-sm border border-stroke bg-white dark:border-strokedark dark:bg-boxdark">
+                  <div className="rounded-sm border border-stroke bg-white  dark:bg-black">
                     <div className="border-b border-stroke py-4 px-4 dark:border-strokedark">
                       <h3 className="font-medium text-black dark:text-white">
                         Colors
                       </h3>
                     </div>
-                    <div className="flex flex-col gap-4 p-4">
+                    <div className="flex flex-col py-4 px-6">
                       <FieldArray name="colors">
                         {({ push, remove }) => (
                           <div className="flex flex-col gap-2">
@@ -841,6 +841,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                                       formik.values.colors[index].colorName
                                     }
                                     placeholder="color name"
+                                    className='w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary'
                                     // className={`w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${
                                     //   formik.touched.spacification?.[index]
                                     //     ?.colorName &&
@@ -859,7 +860,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                                     onClick={() => remove(index)}
                                     className="ml-2 text-red"
                                   >
-                                    <RxCross2 className="text-red" size={25} />
+                                    <RxCross2 className="text-red dark:text-white" size={25} />
                                   </button>
                                 </div>
                               ),
@@ -867,7 +868,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                             <button
                               type="button"
                               onClick={() => push({ colorName: '' })}
-                              className="px-4 py-2 bg-black text-white rounded-md shadow-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-black w-fit"
+                              className="px-4 py-2 bg-black text-white dark:bg-gray-800  rounded-md shadow-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-black w-fit"
                             >
                               Add color
                             </button>
@@ -877,7 +878,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                     </div>
                   </div>
 
-                  {/* <div className="rounded-sm border border-stroke bg-white dark:border-strokedark dark:bg-boxdark">
+                  {/* <div className="rounded-sm border border-stroke bg-white  dark:bg-black">
                     <div className="border-b border-stroke py-4 px-4 dark:border-strokedark">
                       <h3 className="font-medium text-black dark:text-white">
                         Add Sizes in Length
@@ -914,7 +915,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                                     onClick={() => remove(index)}
                                     className="ml-2 text-red"
                                   >
-                                    <RxCross2 className="text-red" size={25} />
+                                    <RxCross2 className="text-red dark:text-white" size={25} />
                                   </button>
                                 </div>
                               ),
@@ -922,7 +923,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                             <button
                               type="button"
                               onClick={() => push({ sizesDetails: '' })}
-                              className="px-4 py-2 bg-black text-white rounded-md shadow-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-black w-fit"
+                              className="px-4 py-2 bg-black text-white dark:bg-gray-800 rounded-md shadow-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-black w-fit"
                             >
                               Add Sizes
                             </button>
@@ -932,7 +933,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                     </div>
                   </div> */}
 
-                  <div className="rounded-sm border border-stroke bg-white dark:border-strokedark dark:bg-boxdark">
+                  <div className="rounded-sm border border-stroke bg-white  dark:bg-black">
                     <div className="border-b border-stroke py-4 px-4 dark:border-strokedark">
                       <h3 className="font-medium text-black dark:text-white">
                         Add Hover Image
@@ -976,7 +977,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                     )}
                   </div>
 
-                  <div className="rounded-sm border border-stroke bg-white dark:border-strokedark dark:bg-boxdark">
+                  <div className="rounded-sm border border-stroke bg-white  dark:bg-black">
                     <div className="border-b border-stroke py-4 px-4 dark:border-strokedark">
                       <h3 className="font-medium text-black dark:text-white">
                         Add Product Images
