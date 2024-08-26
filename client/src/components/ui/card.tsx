@@ -136,11 +136,9 @@ const Card: React.FC<CardProps> = ({
               AED{card.price}
             </span>
           </p>
-          {averageRating > 0 && (
-            <div className="flex gap-1 items-center justify-center mt-1">
-              {renderStars({ star: averageRating })}
-            </div>
-          )}
+          <div className="flex gap-1 items-center justify-center mt-1 h-5">
+          {averageRating > 0 && renderStars({ star: averageRating })}
+          </div>
         </>
       )}
       {loading ? (
