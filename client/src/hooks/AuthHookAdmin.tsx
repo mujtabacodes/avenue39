@@ -28,6 +28,8 @@ function ProtectedRoute(WrappedComponent: any) {
         dispatch(loggedInAdminAction(user.data.user))
       } catch (err: any) {
         console.log(err, "err")
+      }finally{
+        setLoading(false);
       }
     }
 
@@ -41,7 +43,7 @@ function ProtectedRoute(WrappedComponent: any) {
         router.push("/dashboard/Admin-login");
       } else {
         AddminProfileTriggerHandler( Finaltoken, superAdmintoken ? true : false)
-        setLoading(false);
+
       }
     }, [router]);
 
