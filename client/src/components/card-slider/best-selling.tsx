@@ -25,14 +25,14 @@ const settings = {
   pauseOnHover: true,
   responsive: [
     {
-      breakpoint: 1024,
+      breakpoint: 1300,
       settings: {
         slidesToShow: 2,
         slidesToScroll: 1,
       },
     },
     {
-      breakpoint: 768,
+      breakpoint: 850,
       settings: {
         slidesToShow: 1,
         slidesToScroll: 1,
@@ -88,7 +88,7 @@ const BestSellingSlider: React.FC = () => {
       >
         {products.map((card) => (
           <div key={card.id}>
-            <FeatureCard isLoading={isProductsLoading} card={card} />
+            <FeatureCard isLoading={isProductsLoading} card={card} cardHeight='w-full h-[400px]' />
           </div>
         ))}
       </Slider></>
