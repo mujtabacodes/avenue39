@@ -372,6 +372,11 @@
   background-color: #24303f !important;
   color: white !important;
 }
+.dark .ant-dropdown-trigger.ant-table-filter-trigger,
+.dark textarea {
+  background-color: #24303f !important;
+  color: white !important;
+}
 .dark .ant-table-filter-dropdown {
   border: 1px solid white;
   background-color: #24303f !important;

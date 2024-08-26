@@ -76,7 +76,7 @@ const UploadFile = ({
 
   return (
     <div
-      className={`m-4 cursor-pointer ${isDraggableArea ? 'border border-sky-500' : 'border border-stroke'}`}
+      className={`m-2 cursor-pointer ${isDraggableArea ? 'border =' : 'border '}`}
       onDrop={handleDrop}
       onDragOver={(e) => {
         e.preventDefault();
@@ -90,7 +90,7 @@ const UploadFile = ({
       }}
       onClick={handleDivClick}
     >
-      <div className="p-4 text-center text-black dark:text-white">
+      <div className="p-4 text-center text-black dark:bg-black dark:text-white">
         <input
           type="file"
           accept="image/*"
