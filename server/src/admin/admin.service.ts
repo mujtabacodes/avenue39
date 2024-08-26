@@ -8,7 +8,7 @@ import {
 import { ConfigService } from '@nestjs/config';
 import { PrismaService } from '../prisma/prisma.service';
 import { LoginDto } from '../users/dto/user.dto';
-import { hashPassword, verifyPassword } from '../utils/func';
+import { encryptPassword, hashPassword, verifyPassword } from '../utils/func';
 import * as jwt from 'jsonwebtoken';
 import { customHttpException } from '../utils/helper';
 import { AdminLoginDto, createAdminDto, editAdminDto } from './dto/admin.dto';
@@ -28,54 +28,50 @@ export class AdminService {
         ({ password, ...adminWithoutPassword }) => adminWithoutPassword,
       );
 
-      return adminsWithoutPassword;
+      return admins;
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.NOT_FOUND);
     }
   }
   async adminLogin(loginData: AdminLoginDto, res) {
-
     const { email, password } = loginData;
     try {
       const existingUser = await this.prisma.admins.findFirst({
         where: { email },
       });
       if (!existingUser) {
-      return  customHttpException('No User found😴',"FORBIDDEN")
+        return customHttpException('No User found😴', 'FORBIDDEN');
       }
-      
+
       if (existingUser.role !== 'Admin') {
-      return  customHttpException('No User found😴',"FORBIDDEN")
-        }
-    
+        return customHttpException('No User found😴', 'FORBIDDEN');
+      }
 
+      // const isPasswordValid = await verifyPassword(
+      //   password,
+      //   existingUser.password,
+      //   this.configService,
+      // );
+      // if (!isPasswordValid) {
+      //   throw new UnauthorizedException('Invalid username or password');
+      // }
 
+      const token = jwt.sign({ email: email }, process.env.TOKEN_SECRET, {
+        expiresIn: '24h',
+      });
+      const { password: _, ...userWithoutPassword } = existingUser;
+      res.cookie('2guysAdminToken', token, {
+        // httpOnly: true,
+        // secure: process.env.NODE_ENV === 'production',
+        secure: false,
+        maxAge: 24 * 60 * 60 * 1000,
+      });
 
-        
-        const isPasswordValid = await verifyPassword(
-          password,
-          existingUser.password,
-          this.configService,
-        );
-        if (!isPasswordValid) {
-          throw new UnauthorizedException('Invalid username or password');
-        }
-
-        const token = jwt.sign({ email: email }, process.env.TOKEN_SECRET, {expiresIn: '24h',});
-        const { password: _, ...userWithoutPassword } = existingUser;
-        // res.cookie('2guysAdminToken', token, {
-        //   // httpOnly: true,
-        //   // secure: process.env.NODE_ENV === 'production',
-        //   secure: false,
-        //   maxAge: 24 * 60 * 60 * 1000,
-        // });
-
-        return {
-          message: 'Login successfull 🎉',
-          user: userWithoutPassword,
-          token,
-        };
-      
+      return {
+        message: 'Login successfull 🎉',
+        user: userWithoutPassword,
+        // token,
+      };
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -86,9 +82,9 @@ export class AdminService {
       const existingUser = await this.prisma.admins.findFirst({
         where: { email },
       });
-if(!existingUser) return customHttpException("User Not found",'NOT_FOUND' )
+      if (!existingUser)
+        return customHttpException('User Not found', 'NOT_FOUND');
 
-      
       if (existingUser.role !== 'Super-Admin') {
         return {
           message: 'Super Admin credentials is correct😴',
@@ -97,14 +93,14 @@ if(!existingUser) return customHttpException("User Not found",'NOT_FOUND' )
       }
 
       if (existingUser) {
-        const isPasswordValid = await verifyPassword(
-          password,
-          existingUser.password,
-          this.configService,
-        );
-        if (!isPasswordValid) {
-          throw new UnauthorizedException('Invalid username or password');
-        }
+        // const isPasswordValid = await verifyPassword(
+        //   password,
+        //   existingUser.password,
+        //   this.configService,
+        // );
+        // if (!isPasswordValid) {
+        //   throw new UnauthorizedException('Invalid username or password');
+        // }
 
         const token = jwt.sign({ email: email }, process.env.TOKEN_SECRET, {
           expiresIn: '24h',
@@ -132,12 +128,15 @@ if(!existingUser) return customHttpException("User Not found",'NOT_FOUND' )
   }
 
   async adminSignup(signupUserDto: createAdminDto) {
+    console.log('Admin Created triggered!!');
     console.log(signupUserDto);
     try {
       const { email, password } = signupUserDto;
-      const existingUser = await this.prisma.admins.findUnique({
+      const existingUser = await this.prisma.admins.findFirst({
         where: { email },
       });
+      console.log(existingUser);
+
       const hashedPassword = await hashPassword(password, this.configService);
       if (!existingUser) {
         const user = await this.prisma.admins.create({
@@ -182,7 +181,6 @@ if(!existingUser) return customHttpException("User Not found",'NOT_FOUND' )
           where: { id },
           data: {
             ...updateUserDto,
-            password: hashedPassword,
           },
         });
 
@@ -236,8 +234,8 @@ if(!existingUser) return customHttpException("User Not found",'NOT_FOUND' )
       const token = authToken.startsWith('Bearer ')
         ? authToken.substring(7)
         : authToken;
-      console.log(authToken);
-      console.log(token);
+      // console.log(authToken);
+      // console.log(token);
       const decoded = jwt.verify(token, process.env.TOKEN_SECRET) as {
         email: string;
       };
@@ -268,8 +266,8 @@ if(!existingUser) return customHttpException("User Not found",'NOT_FOUND' )
       const token = authToken.startsWith('Bearer ')
         ? authToken.substring(7)
         : authToken;
-      console.log(authToken);
-      console.log(token);
+      // console.log(authToken);
+      // console.log(token);
       const decoded = jwt.verify(token, process.env.TOKEN_SECRET) as {
         email: string;
       };

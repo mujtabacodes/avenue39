@@ -143,11 +143,14 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
           : response.data.message,
       );
       setProductInitialValue(AddproductsinitialValues);
-      // resetForm();
-      // setloading(false);
-      // sethoverImage(null);
-      // setposterimageUrl(null);
-      // setImagesUrl([]);
+      resetForm();
+      setloading(false);
+      sethoverImage(null);
+      setposterimageUrl(null);
+      setImagesUrl([]);
+      setSelectedCategories([]);
+      setSelectedSubcategoriesCategories([]);
+
       updateFlag ? setEditProduct && setEditProduct(undefined) : null;
     } catch (err: any) {
       if (err.response && err.response.data && err.response.data.error) {
