@@ -59,12 +59,11 @@ export class UsersService {
   }
   async editUser(updateUserDto: UpdateUserDto) {
     try {
-      const { email, password, id } = updateUserDto;
+      const { id, ...updatedData } = updateUserDto;
 
       const existingUser = await this.prisma.user.findFirst({
         where: { id },
       });
-      console.log(existingUser);
 
       if (!existingUser) {
         return {
@@ -72,13 +71,6 @@ export class UsersService {
           status: HttpStatus.NOT_FOUND,
         };
       }
-
-      let updatedData = { ...updateUserDto };
-      if (password) {
-        const hashedPassword = await hashPassword(password, this.configService);
-        updatedData.password = hashedPassword;
-      }
-
       const updatedUser = await this.prisma.user.update({
         where: { id },
         data: updatedData,

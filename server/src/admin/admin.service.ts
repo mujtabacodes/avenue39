@@ -8,7 +8,7 @@ import {
 import { ConfigService } from '@nestjs/config';
 import { PrismaService } from '../prisma/prisma.service';
 import { LoginDto } from '../users/dto/user.dto';
-import { hashPassword, verifyPassword } from '../utils/func';
+import { encryptPassword, hashPassword, verifyPassword } from '../utils/func';
 import * as jwt from 'jsonwebtoken';
 import { customHttpException } from '../utils/helper';
 import { AdminLoginDto, createAdminDto, editAdminDto } from './dto/admin.dto';
@@ -28,7 +28,7 @@ export class AdminService {
         ({ password, ...adminWithoutPassword }) => adminWithoutPassword,
       );
 
-      return adminsWithoutPassword;
+      return admins;
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.NOT_FOUND);
     }
@@ -131,18 +131,21 @@ export class AdminService {
   }
 
   async adminSignup(signupUserDto: createAdminDto) {
+    console.log('Admin Created triggered!!');
     console.log(signupUserDto);
     try {
       const { email, password } = signupUserDto;
-      const existingUser = await this.prisma.admins.findUnique({
+      const existingUser = await this.prisma.admins.findFirst({
         where: { email },
       });
+      console.log(existingUser);
+
       const hashedPassword = await hashPassword(password, this.configService);
       if (!existingUser) {
         const user = await this.prisma.admins.create({
           data: {
             ...signupUserDto,
-            password: hashedPassword,
+            // password: hashedPassword,
           },
         });
         const { password, ...userWithoutPassword } = user;
@@ -235,8 +238,8 @@ export class AdminService {
       const token = authToken.startsWith('Bearer ')
         ? authToken.substring(7)
         : authToken;
-      console.log(authToken);
-      console.log(token);
+      // console.log(authToken);
+      // console.log(token);
       const decoded = jwt.verify(token, process.env.TOKEN_SECRET) as {
         email: string;
       };
@@ -267,8 +270,8 @@ export class AdminService {
       const token = authToken.startsWith('Bearer ')
         ? authToken.substring(7)
         : authToken;
-      console.log(authToken);
-      console.log(token);
+      // console.log(authToken);
+      // console.log(token);
       const decoded = jwt.verify(token, process.env.TOKEN_SECRET) as {
         email: string;
       };
