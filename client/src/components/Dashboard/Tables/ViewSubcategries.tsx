@@ -215,7 +215,7 @@ const ViewSubcategries = ({
               <p
                 className={`${
                   canAddCategory && 'cursor-pointer'
-                } lg:p-2 md:p-2 ${
+                } p-2 ${
                   canAddCategory &&
                   'dark:border-strokedark dark:bg-slate-500 bg-black text-white rounded-md border hover:bg-transparent hover:border-black hover:text-black'
                 } flex justify-center ${

@@ -32,9 +32,10 @@ interface CardProps {
   card: IProduct;
   isModel?: boolean;
   isLoading?: boolean;
+  cardHeight?: string;
 }
 
-const FeatureCard: React.FC<CardProps> = ({ card, isModel, isLoading }) => {
+const FeatureCard: React.FC<CardProps> = ({ card, isModel, isLoading , cardHeight }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -78,12 +79,7 @@ const FeatureCard: React.FC<CardProps> = ({ card, isModel, isLoading }) => {
   return (
     <div className="space-y-3 px-4 relative ">
       {loading ? (
-        <div className="space-y-3 px-4 relative ">
-          <Skeleton className="w-full h-64" />
-          <Skeleton className="h-5 w-3/4" />
-          <Skeleton className="h-5 w-1/2" />
-          <Skeleton className="h-5 w-1/4" />
-        </div>
+          <Skeleton className={cardHeight} />
       ) : (
         <div className="relative group">
           {!isModel && (
@@ -119,7 +115,7 @@ const FeatureCard: React.FC<CardProps> = ({ card, isModel, isLoading }) => {
               height={400}
               src={card.posterImageUrl}
               alt={card.name}
-              className="z-10"
+              className={`z-10 rounded-2xl ${cardHeight}`}
             />
           </div>
           <div className="flex justify-between px-1 mt-3">

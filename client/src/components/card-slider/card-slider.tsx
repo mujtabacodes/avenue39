@@ -8,6 +8,8 @@ import { IProduct } from '@/types/types';
 import CustomNextArrow from './custom-next-arrow';
 import CustomPrevArrow from './custom-prev-arrow';
 import CardSkeleton from '../cardSkelton';
+import { ImNotification } from 'react-icons/im';
+import NoProduct from '../ui/no-product';
 
 interface SliderProps {
   cards?: IProduct[];
@@ -29,10 +31,10 @@ const SliderComponent: React.FC<SliderProps> = ({
   const sliderSettings = {
     dots: !sliderArrow ? true : false,
     arrows: sliderArrow ? true : false,
-    className: silderName ? silderName : '',
+    className: cards && cards.length > 1 && silderName ? silderName : '',
     infinite: true,
     speed: 500,
-    slidesToShow: 3,
+    slidesToShow: cards && cards.length > 3 ? 3 : cards?.length,
     slidesToScroll: 1,
     prevArrow: <CustomPrevArrow />,
     nextArrow: <CustomNextArrow />,
@@ -40,31 +42,30 @@ const SliderComponent: React.FC<SliderProps> = ({
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: 3,
+          slidesToShow: cards && cards.length > 3 ? 3 : cards?.length,
           slidesToScroll: 1,
         },
       },
       {
         breakpoint: 768,
         settings: {
-          slidesToShow: 2,
+          slidesToShow: cards && cards.length > 2 ? 2 : cards?.length,
           slidesToScroll: 1,
         },
       },
       {
         breakpoint: 480,
         settings: {
-          slidesToShow: 1,
+          slidesToShow: cards && cards.length > 1 ? 1 : cards?.length,
           slidesToScroll: 1,
         },
       },
     ],
   };
-
   return (
     <>
-      <Slider {...sliderSettings}>
-        {cards
+      { cards && cards.length > 0 ? <Slider {...sliderSettings}>
+        {!isLoading
           ? cards?.map((card) => (
               <div key={card.id}>
                 <Card
@@ -87,6 +88,10 @@ const SliderComponent: React.FC<SliderProps> = ({
               </span>
             ))}
       </Slider>
+      : (
+        <NoProduct cardHeight={cardHeight} iconSize={40} title='No Product Found' titleClass='font-medium text-2xl md:text-3xl' />
+      ) }
+      
     </>
   );
 };

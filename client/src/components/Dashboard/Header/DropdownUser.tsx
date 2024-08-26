@@ -57,24 +57,24 @@ const DropdownUser = () => {
   };
 
   return (
-    <div className="relative z-99">
+    <div className="relative">
       <div
         ref={trigger}
         onClick={() => setDropdownOpen(!dropdownOpen)}
-        className="flex items-center py-3 gap-4 text-black cursor-pointer "
+        className="flex items-center py-3 gap-2 xs:gap-4 text-black cursor-pointer "
       >
       <div>
       <span className="text-right lg:block">
-          <span className="block text-sm font-medium text-white ">
+          <span className="block text-11 xs:text-sm font-medium text-white ">
             { loggedInUser ?loggedInUser?.name: "stsgskdfslkdf"}
           </span>
-          <span className="block text-xs text-white ">
+          <span className="block text-11 xs:text-sm text-white ">
             {loggedInUser?.role}
           </span>
         </span>
       </div>
-        <div className=" flex items-center gap-3">
-          <div className="h-12 w-12 rounded-full overflow-hidden">
+        <div className=" flex items-center gap-1 xs:gap-3">
+          <div className="h-6 xs:h-12 w-6 xs:w-12 rounded-full overflow-hidden">
             <Image
               src={
                 loggedInUser && loggedInUser.posterImageUrl

@@ -37,6 +37,7 @@ import { Table } from 'antd';
 import Loader from '@/components/Loader/Loader';
 import { Skeleton } from '@/components/ui/skeleton';
 import { ProductDetailSkeleton } from '@/components/product-detail/skelton';
+import NoProduct from '@/components/ui/no-product';
 
 const ProductPage = ({ params }: { params: IProductDetail }) => {
   const slug = params.name;
@@ -290,9 +291,10 @@ const ProductPage = ({ params }: { params: IProductDetail }) => {
     <div>
       <TopHero breadcrumbs={cartpageBreadcrumbs} />
       <Container>
-        {!product ? (
-          <ProductDetailSkeleton />
-        ) : (
+
+        {!product ? 
+          !productIsLoading ? <NoProduct cardHeight='2xl:h-[488px]' iconSize={40} title='No Product Found' titleClass='font-medium text-2xl md:text-3xl' /> : <ProductDetailSkeleton />
+          : (
           <ProductDetail
             params={product}
             isZoom={true}
@@ -302,9 +304,10 @@ const ProductPage = ({ params }: { params: IProductDetail }) => {
           />
         )}
       </Container>
-      <div>
+      {product && (<div>
         <DetailTabs tabs={tabs} />
-      </div>
+      </div>)}
+      
       <div className="mt-10 pt-10 mb-20 border-t-2">
         <Container>
           <p className="text-3xl sm:text-4xl md:text-[51px] font-medium text-center mb-4 sm:mb-0">

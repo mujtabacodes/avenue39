@@ -8,7 +8,7 @@ const DarkModeSwitcher = () => {
   return (
     <li>
       <label
-        className={`relative m-0 block h-7 w-14 rounded-full border ${
+        className={`relative m-0 block h-5 xs:h-7 w-9 xs:w-14 rounded-full border ${
           colorMode === "dark" ? "bg-primary" : "bg-stroke"
         }`}
       >
@@ -19,17 +19,18 @@ const DarkModeSwitcher = () => {
           className="absolute top-0 z-50 h-full w-full cursor-pointer opacity-0"
         />
         <span
-          className={`absolute top-1/2 left-[3px] flex h-6 w-6 -translate-y-1/2 translate-x-0 items-center justify-center rounded-full bg-white shadow-switcher duration-200 ease-in-out ${
+          className={`absolute top-1/2 left-[3px] flex h-4 xs:h-6 w-4 xs:w-6 -translate-y-1/2 translate-x-0 items-center justify-center rounded-full bg-white shadow-switcher duration-200 ease-in-out ${
             colorMode === "dark" ? "!right-[3px] !translate-x-full" : ""
           }`}
         >
           <span className="hidden dark:block">
             <svg
-              width="16"
-              height="16"
+              // width="16"
+              // height="16"
               viewBox="0 0 16 16"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
+              className="w-3 xs:w-4 h-3 xs:h-4"
             >
               <path
                 d="M7.99992 12.6666C10.5772 12.6666 12.6666 10.5772 12.6666 7.99992C12.6666 5.42259 10.5772 3.33325 7.99992 3.33325C5.42259 3.33325 3.33325 5.42259 3.33325 7.99992C3.33325 10.5772 5.42259 12.6666 7.99992 12.6666Z"
@@ -44,11 +45,12 @@ const DarkModeSwitcher = () => {
 
           <span className="block dark:hidden">
             <svg
-              width="17"
-              height="17"
-              viewBox="0 0 17 17"
+              // width="17"
+              // height="17"
+              viewBox="0 0 16 16"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
+              className="w-3 xs:w-4 h-3 xs:h-4"
             >
               <path
                 d="M8.50002 12.4166C10.8134 12.4166 12.7084 10.5216 12.7084 8.20825C12.7084 5.89491 10.8134 4.00001 8.50002 4.00001C6.18668 4.00001 4.29169 5.89491 4.29169 8.20825C4.29169 10.5216 6.18668 12.4166 8.50002 12.4166Z"
