@@ -9,13 +9,7 @@
   "rewrites": [
     {
       "source": "/(.*)",
-      "destination": "/src/main.ts",
-      "has": [
-        {
-          "type": "method",
-          "value": "(GET|POST|PUT|DELETE)"
-        }
-      ]
+      "destination": "/src/main.ts"
     }
   ],
   "headers": [
