@@ -28,7 +28,7 @@ interface CardProps {
   className?: string;
   skeletonHeight?: string;
   isLoading?: boolean;
-  category?: boolean
+  category?: boolean;
 }
 
 const Card: React.FC<CardProps> = ({
@@ -37,7 +37,7 @@ const Card: React.FC<CardProps> = ({
   className,
   skeletonHeight,
   isLoading,
-  category
+  category,
 }) => {
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch<Dispatch>();
@@ -85,8 +85,8 @@ const Card: React.FC<CardProps> = ({
     return <CardSkeleton skeletonHeight={skeletonHeight} />;
   }
 
-  if(category){
-    console.log(card)
+  if (category) {
+    console.log(card);
   }
   return (
     <div
@@ -136,9 +136,11 @@ const Card: React.FC<CardProps> = ({
               AED{card.price}
             </span>
           </p>
-          <div className="flex gap-1 items-center justify-center mt-1">
-            {renderStars({ star: averageRating })}
-          </div>
+          {averageRating > 0 && (
+            <div className="flex gap-1 items-center justify-center mt-1">
+              {renderStars({ star: averageRating })}
+            </div>
+          )}
         </>
       )}
       {loading ? (
