@@ -14,7 +14,7 @@ const Header = (props: {
   const { loggedInUser }: any = useAppSelector(state => state.usersSlice);
 
   return (
-    <header className="sticky top-0 z-10 flex w-full bg-primary dark:bg-black text-white drop-shadow-1 dark:bg-boxdark dark:drop-shadow-none border dark:border-blue-50 border-t-0 border-l-0">
+    <header className="sticky top-0 z-40 flex w-full bg-primary dark:bg-black text-white drop-shadow-1 dark:bg-boxdark dark:drop-shadow-none border dark:border-blue-50 border-t-0 border-l-0">
       <div className="flex flex-grow items-center justify-between px-4 py-1 shadow-2 md:px-6 2xl:px-11">
         <div className="flex items-center gap-1 xs:gap-2 sm:gap-4 lg:hidden text-black dark:text-white">
 
@@ -71,8 +71,8 @@ const Header = (props: {
           </form>
         </div>
 
-        <div className="flex items-center gap-2 xs:gap-7 z-40">
-          <ul className="flex items-center gap-2 xs:gap-4 text-black dark:text-white">
+        <div className="flex items-center gap-3">
+          <ul className="flex items-center gap-2  text-black dark:text-white">
             {/* <!-- Dark Mode Toggler --> */}
             <DarkModeSwitcher />
             {/* <!-- Dark Mode Toggler --> */}

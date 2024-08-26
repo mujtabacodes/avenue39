@@ -108,7 +108,7 @@ const ECommerce: React.FC = () => {
                 title="Admins"
                 total={records?.totalAdmins ? records?.totalAdmins : "0"}
               >
-                <IoMdEye size={25} className="fill-primary dark:fill-white" />
+                <IoMdEye size={25} className="fill-white dark:fill-black" />
               </CardDataStats>
             )}
 
@@ -117,7 +117,7 @@ const ECommerce: React.FC = () => {
                 title="Total Sub Categories"
                 total={records?.total_sub_categories ? records?.total_sub_categories : ""}
               >
-                <BiCategory size={25} className="text-primary dark:text-white" />
+                <BiCategory size={25} className="text-white dark:text-black" />
               </CardDataStats>
             )}
 
@@ -126,7 +126,7 @@ const ECommerce: React.FC = () => {
                 title="Total Revenue"
                 total={records?.totalRevenue ? records?.totalRevenue : ""}
               >
-                <FiShoppingCart size={25} className="text-primary dark:text-white" />
+                <FiShoppingCart size={25} className="text-white dark:text-black" />
               </CardDataStats>
             )}
 
@@ -135,7 +135,7 @@ const ECommerce: React.FC = () => {
                 title="Total Sales"
                 total={records?.totalSales ? records?.totalSales : ""}
               >
-                <GrDocumentPerformance size={25} className="fill-primary dark:fill-white" />
+                <GrDocumentPerformance size={25} className="text-white dark:text-black" />
               </CardDataStats>
             )}
 
@@ -144,7 +144,7 @@ const ECommerce: React.FC = () => {
                 title="Total Product"
                 total={records?.totalProducts ? records?.totalProducts : ""}
               >
-                <IoBagOutline size={25} className="text-primary dark:text-white" />
+                <IoBagOutline size={25} className="text-white dark:text-black" />
               </CardDataStats>
             )}
 
@@ -153,7 +153,7 @@ const ECommerce: React.FC = () => {
                 title="Total Categories"
                 total={records?.totalCategories ? records?.totalCategories : ""}
               >
-                <IoBagOutline size={25} className="text-primary dark:text-white" />
+                <IoBagOutline size={25} className="text-white dark:text-black" />
               </CardDataStats>
             )}
 
@@ -162,7 +162,7 @@ const ECommerce: React.FC = () => {
                 title="Total Users"
                 total={records?.totalUsers ? records?.totalUsers : ""}
               >
-                <PiUsersThreeFill size={25} className="fill-primary dark:fill-white" />
+                <PiUsersThreeFill size={25} className="fill-white dark:fill-black" />
               </CardDataStats>
             )}
           </>
