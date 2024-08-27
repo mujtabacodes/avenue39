@@ -35,7 +35,12 @@ interface CardProps {
   cardHeight?: string;
 }
 
-const FeatureCard: React.FC<CardProps> = ({ card, isModel, isLoading , cardHeight }) => {
+const FeatureCard: React.FC<CardProps> = ({
+  card,
+  isModel,
+  isLoading,
+  cardHeight,
+}) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -79,7 +84,7 @@ const FeatureCard: React.FC<CardProps> = ({ card, isModel, isLoading , cardHeigh
   return (
     <div className="space-y-3 px-4 relative ">
       {loading ? (
-          <Skeleton className={cardHeight} />
+        <Skeleton className={cardHeight} />
       ) : (
         <div className="relative group">
           {!isModel && (
@@ -103,12 +108,15 @@ const FeatureCard: React.FC<CardProps> = ({ card, isModel, isLoading , cardHeigh
               </DialogContent>
             </Dialog>
           )}
-          <div className="bg-[#FF0000] h-auto py-2 px-4 rounded-3xl absolute top-8 left-2 flex justify-center items-center cursor-pointer">
-            <p className="text-15 text-white">
-              {card.sale}
-              <span>%</span>
-            </p>
-          </div>
+          {card.sale !== '0' && (
+            <div className="bg-[#FF0000] h-auto py-2 px-4 rounded-3xl absolute top-8 left-2 flex justify-center items-center cursor-pointer">
+              <p className="text-15 text-white">
+                {card.sale}
+                <span>%</span>
+              </p>
+            </div>
+          )}
+
           <div onClick={(e) => handleNavigation(e)} className="cursor-pointer">
             <Image
               width={400}
@@ -120,7 +128,10 @@ const FeatureCard: React.FC<CardProps> = ({ card, isModel, isLoading , cardHeigh
           </div>
           <div className="flex justify-between px-1 mt-3">
             <p className="text-15">{card.name}</p>
-            <div className="flex"> {averageRating > 0 && renderStars({ star: averageRating })}</div>
+            <div className="flex">
+              {' '}
+              {averageRating > 0 && renderStars({ star: averageRating })}
+            </div>
           </div>
           <div className="border-t flex gap-5 pt-3 px-1">
             <p className="text-12">

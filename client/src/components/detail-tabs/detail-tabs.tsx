@@ -56,7 +56,7 @@ const DetailTabs: FC<DetailTabsProps> = ({ tabs }) => {
             <h2 className="text-2xl font-medium mb-5">
               Match With
             </h2>
-            <SideCard data={productData} />
+            <SideCard isSlice={true} />
           </div>
         </Container>
       </div>
