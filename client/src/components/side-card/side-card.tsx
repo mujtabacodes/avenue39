@@ -1,53 +1,42 @@
 "use client";
 
 import Image from 'next/image';
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Link from 'next/link';
 import { MdStar, MdStarBorder } from 'react-icons/md';
-import { Skeleton } from '@/components/ui/skeleton'; // Adjust the path as necessary
-import { generateSlug } from '@/config';
+import { Skeleton } from '@/components/ui/skeleton';
+import { calculateRatingsPercentage, generateSlug, renderStars } from '@/config';
+import { useQuery } from '@tanstack/react-query';
+import { IProduct, IReview } from '@/types/types';
+import { fetchProducts, fetchReviews } from '@/config/fetch';
 
-interface Product {
-    link: string;
-    image: any;
-    name: string;
-    price: number;
-    originalPrice?: number;
-    discount?: string;
-    rating: number;
+interface sideCardProps {
+  isSlice?: boolean;
 }
 
-interface SideCardProps {
-    data: Product[];
-}
+const SideCard: React.FC<sideCardProps> = ({isSlice}) => {
+  const {
+    data: products = [],
+    error: productsError,
+    isLoading: isProductsLoading,
+  } = useQuery<IProduct[], Error>({
+    queryKey: ['products'],
+    queryFn: fetchProducts,
+  });
 
-const SideCard: React.FC<SideCardProps> = ({ data }) => {
-  const [loading, setLoading] = useState(true);
+  const {
+    data: reviews = [],
+    error: reviewsError,
+    isLoading: isReviewsLoading,
+  } = useQuery<IReview[], Error>({
+    queryKey: ['reviews'],
+    queryFn: fetchReviews,
+  });
 
-  useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 2000); // Simulate a loading time
-    return () => clearTimeout(timer);
-  }, []);
-
-  const renderStars = ({ star = 0 }: { star?: number }) => {
-    const stars = [];
-    const maxStars = 5;
-    for (let i = 1; i <= maxStars; i++) {
-      if (i <= star) {
-        stars.push(<MdStar key={i} size={15} className="text-warning" />);
-      } else {
-        stars.push(<MdStarBorder key={i} size={15} className="text-warning" />);
-      }
-    }
-    return stars;
-  };
-
-
-  return (
-    <div className='mt-7 flex flex-col lg:gap-7 sm:gap-12'>
-      {loading ? (
-        // Render skeletons while loading
-        Array(3).fill(0).map((_, index) => (
+  if (isProductsLoading || isReviewsLoading) {
+    return (
+      <div className='mt-7 flex flex-col lg:gap-7 sm:gap-12'>
+        {Array(3).fill(0).map((_, index) => (
           <div key={index} className='flex gap-4 items-center'>
             <Skeleton className='w-44 h-44' />
             <div className='flex flex-col gap-3 w-1/2'>
@@ -58,34 +47,50 @@ const SideCard: React.FC<SideCardProps> = ({ data }) => {
               <Skeleton className='h-4 w-2/4' />
             </div>
           </div>
-        ))
-      ) : (
-        data.map((item, index) => (
+        ))}
+      </div>
+    );
+  }
+
+  if (productsError || reviewsError) {
+    return <div>Error loading data</div>;
+  }
+
+  return (
+    <div className='mt-7 flex flex-col lg:gap-7 sm:gap-12'>
+      {products.slice(-3).map((item, index) => {
+        const filteredReviews = reviews.filter(
+          (review) => review.productId === item.id
+        );
+        const { averageRating } = calculateRatingsPercentage(filteredReviews);
+
+        return (
           <Link href={`/product/${generateSlug(item.name)}`} key={index} className='flex gap-4 items-center'>
             <div className='w-1/2 min-w-32'>
-              <Image src={item.image} alt={item.name} className='w-44 h-44' />
+              <Image src={item.posterImageUrl} width={180} height={180} alt={item.name} className='w-44 h-44 rounded-2xl' />
             </div>
             <div className='flex flex-col gap-3 w-1/2'>
               <p className='text-[13px] font-semibold'>{item.name}</p>
-              <hr/>
-              <p className='text-[12px] font-semibold'>AED{item.price.toFixed(2)}</p>
-              {item.originalPrice && (
-                <p className='text-9 font-semibold line-through text-[#A5A5A5]'>AED{item.originalPrice.toFixed(2)}</p>
-              )}
-              {item.discount && (
-                <div className='bg-[#FF0000] w-10 h-5 text-[8px] rounded-3xl text-white flex justify-center items-center'>
-                  {item.discount}
-                </div>
+              <hr />
+              <p className='text-[12px] font-semibold'>AED{item.discountPrice.toFixed(2)}</p>
+              {item.price && (
+                <>
+                  <p className='text-9 font-semibold line-through text-[#A5A5A5]'>AED{item.price.toFixed(2)}</p>
+                  
+                 {item.sale && item.sale !== '0' && <div className='bg-[#FF0000] w-10 h-5 text-[8px] rounded-3xl text-white flex justify-center items-center'>
+                    {item.sale}
+                  </div>}
+                </>
               )}
               <div className='flex'>
-                {renderStars({ star: item.rating })}
+                {averageRating > 0 && renderStars({ star: averageRating })}
               </div>
             </div>
           </Link>
-        ))
-      )}
+        );
+      })}
     </div>
-  )
+  );
 }
 
 export default SideCard;

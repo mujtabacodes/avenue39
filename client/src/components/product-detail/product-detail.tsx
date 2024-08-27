@@ -153,13 +153,17 @@ const ProductDetail = ({
 
         <div className="flex gap-2 items-center justify-between">
           <div className="flex gap-2 items-center">
-            <span className="flex items-center">
-              {' '}
-              {renderStars({ star: averageRating })}
-            </span>
-            <span className="text-[#999999] text-11 font-medium text-nowrap">
-              {productReviews.length} reviews
-            </span>
+            {averageRating > 0 && (
+              <>
+                <span className="flex items-center">
+                  {' '}
+                  {renderStars({ star: averageRating })}
+                </span>
+                <span className="text-[#999999] text-11 font-medium text-nowrap">
+                  {productReviews.length} reviews
+                </span>
+              </>
+            )}
           </div>
           <h3 className="text-red-500 flex items-center font-medium text-sm">
             <MdLocalFireDepartment className="text-lg mr-1" /> 12 sold in last
