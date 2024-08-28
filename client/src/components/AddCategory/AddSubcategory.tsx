@@ -138,7 +138,7 @@ const FormLayout = ({
           return (
             <Form onSubmit={formik.handleSubmit}>
               <div className="flex justify-center dark:bg-boxdark dark:bg-black dark:text-white dark:bg-boxdark dark:border-white">
-                <div className="flex flex-col gap-9 w-2/5 dark:bg-boxdark dark:bg-black dark:text-white dark:bg-boxdark dark:border-white">
+                <div className="flex flex-col gap-5 md:gap-9 w-full lg:w-4/5 xl:w-2/5 dark:bg-boxdark dark:bg-black dark:text-white dark:bg-boxdark dark:border-white">
                   <div className="rounded-sm border border-stroke bg-white  dark:bg-boxdark dark:bg-black dark:text-white dark:bg-boxdark dark:border-white p-3">
                     <div className="rounded-sm border border-stroke bg-white  dark:border-strokedark dark:bg-boxdark">
                       <div className="border-b border-stroke py-4 px-2 dark:bg-boxdark dark:bg-black dark:text-white dark:bg-boxdark dark:border-white">
@@ -156,7 +156,7 @@ const FormLayout = ({
                               >
                                 <div className="absolute top-1 right-1 invisible group-hover:visible text-red bg-white rounded-full ">
                                   <RxCross2
-                                    className="cursor-pointer text-red-500 hover:text-red-700"
+                                    className="cursor-pointer text-red-500 dark:text-red-700"
                                     size={17}
                                     onClick={() => {
                                       ImageRemoveHandler(
@@ -168,7 +168,7 @@ const FormLayout = ({
                                 </div>
                                 <Image
                                   key={index}
-                                  className="object-cover w-full h-full"
+                                  className="object-cover w-full h-full dark:bg-black dark:shadow-lg"
                                   width={300}
                                   height={200}
                                   src={item.imageUrl}
@@ -258,7 +258,7 @@ const FormLayout = ({
                                     );
                                   }
                                 }}
-                                id={`category-${category.id}`}
+                                // id={`category-${category.id}`}
                               />
                               <label
                                 htmlFor={`category-${category.id}`}

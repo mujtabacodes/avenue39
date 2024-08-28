@@ -153,26 +153,35 @@ const ProductDetail = ({
 
         <div className="flex gap-2 items-center justify-between">
           <div className="flex gap-2 items-center">
-            <span className="flex items-center">
-              {' '}
-              {renderStars({ star: averageRating })}
-            </span>
-            <span className="text-[#999999] text-11 font-medium text-nowrap">
-              {productReviews.length} reviews
-            </span>
+            {averageRating > 0 && (
+              <>
+                <span className="flex items-center">
+                  {' '}
+                  {renderStars({ star: averageRating })}
+                </span>
+                <span className="text-[#999999] text-11 font-medium text-nowrap">
+                  {productReviews.length} reviews
+                </span>
+              </>
+            )}
           </div>
           <h3 className="text-red-500 flex items-center font-medium text-sm">
             <MdLocalFireDepartment className="text-lg mr-1" /> 12 sold in last
             19 hours
           </h3>
         </div>
-
-        <ProductPrice className="flex items-center gap-2">
-          AED{product?.discountPrice}
-          <NormalText className="font-normal text-base text-slate-400 line-through">
-            AED{product?.price}
-          </NormalText>
-        </ProductPrice>
+        {product?.discountPrice > 0 ? (
+          <ProductPrice className="flex items-center gap-2">
+            AED {product?.discountPrice}
+            <NormalText className="font-normal text-base text-slate-400 line-through">
+              AED{product?.price}
+            </NormalText>
+          </ProductPrice>
+        ) : (
+          <ProductPrice className="flex items-center gap-2">
+            AED {product?.price}
+          </ProductPrice>
+        )}
         <div className="flex gap-3 font-semibold">
           <span>AVAILABLE:</span>
           <span className="text-[#56B400]">PRE-ORDER ONLY WHATSAPP</span>

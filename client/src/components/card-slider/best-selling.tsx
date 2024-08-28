@@ -8,6 +8,7 @@ import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import { IProduct } from '@/types/types';
 import { useQuery } from '@tanstack/react-query';
 import { fetchProducts } from '@/config/fetch';
+import NoProduct from '../ui/no-product';
 
 interface SliderProps {
   cards: IProduct[];
@@ -24,14 +25,14 @@ const settings = {
   pauseOnHover: true,
   responsive: [
     {
-      breakpoint: 1024,
+      breakpoint: 1300,
       settings: {
         slidesToShow: 2,
         slidesToScroll: 1,
       },
     },
     {
-      breakpoint: 768,
+      breakpoint: 850,
       settings: {
         slidesToShow: 1,
         slidesToScroll: 1,
@@ -65,7 +66,9 @@ const BestSellingSlider: React.FC = () => {
 
   return (
     <div className="slider-container">
-      <div className="text-end mb-3 px-4">
+      {
+        products.length > 0 ? <>
+        <div className="text-end mb-3 px-4">
         <button
           className="button"
           onClick={previous}
@@ -85,10 +88,18 @@ const BestSellingSlider: React.FC = () => {
       >
         {products.map((card) => (
           <div key={card.id}>
-            <FeatureCard isLoading={isProductsLoading} card={card} />
+            <FeatureCard isLoading={isProductsLoading} card={card} cardHeight='w-full h-[400px]' />
           </div>
         ))}
-      </Slider>
+      </Slider></>
+      : <NoProduct
+      cardHeight="2xl:h-[400px]"
+      iconSize={40}
+      title="No Product Found"
+      titleClass="font-medium text-2xl md:text-3xl"
+    />
+      }
+      
     </div>
   );
 };

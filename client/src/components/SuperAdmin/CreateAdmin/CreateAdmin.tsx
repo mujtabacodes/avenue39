@@ -62,7 +62,8 @@ const CreateAdmin = ({
   const [formData, setFormData] = useState<formDataTypes>(
     !updateFlag ? intitalValues : EditAdminValue,
   );
-
+  console.log('FOrm Data');
+  console.log(formData);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | undefined | null>();
 
@@ -83,31 +84,29 @@ const CreateAdmin = ({
     try {
       // let token = Cookies.get('superAdminToken');
       // if (!token) return null;
-      console.log('Debuge 1');
 
-      if (!formData.fullname || !formData.email || !formData.password)
-        throw new Error('Full name is required');
+      if (!formData.fullname || !formData.email || !formData.password) {
+        showToast('warn', 'Name, email and password is required');
+      }
 
       setLoading(true);
-      console.log('Debuge 2');
-      let adminURL = updateFlag ? `/admin/edit-admin` : '/admin/create-admin';
-      console.log('Debuge 22');
+      let adminURL = updateFlag ? `/edit-admin` : '/create-admin';
 
-      console.log('Debuge 3');
-      console.log(formData);
+      let uploadData = updateFlag
+        ? { id: EditInitialValues.id, ...formData }
+        : formData;
+
       let response: any = await axios.post(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api${adminURL}`,
-        {
-          formData,
-        },
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin${adminURL}`,
+        uploadData,
       );
-      console.log('Debuge 4');
       console.log(response, 'response');
       if (response.data.status === 409) {
         return showToast('error', response.data.message + '!');
       }
 
-      setFormData(updateFlag ? EditInitialValues : EditInitialValues);
+      setFormData(intitalValues);
+      // setEditProduct(intitalValues);
       return showToast('success', response.data.message);
     } catch (err: any) {
       if (err.response && err.response.data && err.response.data.message) {

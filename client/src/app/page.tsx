@@ -31,10 +31,7 @@ export default function Home() {
     <Fragment>
       <SimpleSlider />
       <Services />
-      <section className="px-4 pb-2 my-4 overflow-x-auto discount-product-wrapper custom-scroll">
-        <DiscountCard productItems={discountProducts} showSkeleton={false} />
-      </section>
-
+      <DiscountCard productItems={discountProducts} showSkeleton={false} />
       <SofaBanner />
       <SaleBanner />
       <CardsTabes />

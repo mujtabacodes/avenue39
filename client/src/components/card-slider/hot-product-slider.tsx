@@ -11,49 +11,8 @@ import HotProductPrevArrow from './hot-product-prev-arrow';
 import { IProduct } from '@/types/types';
 import { useQuery } from '@tanstack/react-query';
 import { fetchProducts } from '@/config/fetch';
+import NoProduct from '../ui/no-product';
 
-const settings = {
-  arrows: true,
-  infinite: true,
-  slidesToShow: 3,
-  slidesToScroll: 3,
-  speed: 500,
-  rows: 2,
-  slidesPerRow: 1,
-  prevArrow: <HotProductPrevArrow />,
-  nextArrow: <HotProductNextArrow />,
-  responsive: [
-    {
-      breakpoint: 1025,
-      settings: {
-        slidesToShow: 3,
-        slidesToScroll: 3,
-        rows: 2,
-        slidesPerRow: 1,
-        infinite: true,
-        dots: true,
-      },
-    },
-    {
-      breakpoint: 600,
-      settings: {
-        slidesToShow: 2,
-        slidesToScroll: 2,
-        rows: 1,
-        slidesPerRow: 1,
-      },
-    },
-    {
-      breakpoint: 480,
-      settings: {
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        rows: 1,
-        slidesPerRow: 1,
-      },
-    },
-  ],
-};
 
 const HotProductSlider: React.FC = () => {
   const {
@@ -64,35 +23,84 @@ const HotProductSlider: React.FC = () => {
     queryKey: ['products'],
     queryFn: fetchProducts,
   });
+
+  const settings = {
+    arrows: true,
+    infinite: true,
+    slidesToShow: 3,
+    slidesToScroll: 3,
+    speed: 500,
+    rows: products.length > 6 ? 2 : 1,
+    slidesPerRow: 1,
+    prevArrow: <HotProductPrevArrow />,
+    nextArrow: <HotProductNextArrow />,
+    responsive: [
+      {
+        breakpoint: 1025,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          rows: products.length > 6 ? 2 : 1,
+          slidesPerRow: 1,
+          infinite: true,
+          dots: true,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          rows: 1,
+          slidesPerRow: 1,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          rows: 1,
+          slidesPerRow: 1,
+        },
+      },
+    ],
+  };
+
   return (
     <section className="mt-10">
       <Container className="slider-container w-full">
         <h2 className="text-xl xs:text-2xl sm:text-4xl mb-10 font-semibold">
           Hot Newest Products
         </h2>
-        <Slider {...settings} className="mx-4 xs:mx-0 hot-products mb-2">
-          {!isProductsLoading
-            ? products.map((card) => (
-                <div key={card.id}>
-                  <Card
-                    className="w-full"
-                    skeletonHeight="h-[300px] md:h-[250px] lg:h-[400px] xl:h-[672px]"
-                    isLoading={isProductsLoading}
-                    card={card}
-                  />
-                </div>
-              ))
-            : [...Array(3)].map((_, index) => (
-                <span key={index} className="">
-                  <Card
-                    isLoading={true}
-                    className="w-full"
-                    // card={card}
-                    skeletonHeight="h-[300px] md:h-[250px] lg:h-[400px] xl:h-[672px]"
-                  />
-                </span>
-              ))}
-        </Slider>
+        {products.length > 0 ? (
+          <Slider {...settings} className="mx-4 xs:mx-0 hot-products mb-2">
+            {!isProductsLoading
+              ? products.map((card) => (
+                  <div key={card.id}>
+                    <Card
+                      className="w-full"
+                      skeletonHeight="h-[300px] md:h-[250px] lg:h-[400px] xl:h-[672px]"
+                      isLoading={isProductsLoading}
+                      card={card}
+                    />
+                  </div>
+                ))
+              : [...Array(3)].map((_, index) => (
+                  <span key={index} className="">
+                    <Card
+                      isLoading={true}
+                      className="w-full"
+                      // card={card}
+                      skeletonHeight="h-[300px] md:h-[250px] lg:h-[400px] xl:h-[672px]"
+                    />
+                  </span>
+                ))}
+          </Slider>
+        ):
+        <NoProduct  iconSize={40} title='No Product Found' titleClass='font-medium text-2xl md:text-3xl' />
+      
+      }
       </Container>
     </section>
   );

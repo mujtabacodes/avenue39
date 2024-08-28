@@ -12,13 +12,13 @@ const TopNav = () => {
       <Container className="flex  w-full justify-between items-center gap-4">
         <div className="flex items-center gap-4">
           <TextIcon
-            link="tel:+001-234-567-890"
-            Title="+001-234-567-890"
+            link="tel:+971 50 597 4495"
+            Title="+971 50 597 4495"
             Icon={<IoPhonePortraitOutline className="text-[18px] lg:text-xl" />}
           />
           <TextIcon
-            link="mailto:Your.shopmail@gmail.com"
-            Title="Your.shopmail@gmail.com"
+            link="mailto:cs@avenue.com"
+            Title="cs@avenue.com"
             Icon={<IoMailOutline className="text-[18px]  lg:text-xl" />}
           />
         </div>

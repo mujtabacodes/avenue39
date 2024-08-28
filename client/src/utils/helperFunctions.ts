@@ -19,7 +19,8 @@ export const uploadPhotosToBackend = async (files: File[]): Promise<any[]> => {
       formData.append('file', file);
     }
 
-    const response: AxiosResponse<any> = await axios.post(`${process.env.NEXT_PUBLIC_PRODUCT_IMAGE}/api/file-upload`,
+    const response: AxiosResponse<any> = await axios.post(
+      `${process.env.NEXT_PUBLIC_PRODUCT_IMAGE}/api/file-upload`,
       formData,
       {
         headers: {
@@ -27,7 +28,7 @@ export const uploadPhotosToBackend = async (files: File[]): Promise<any[]> => {
         },
       },
     );
- 
+
     console.log(response);
     return response.data;
   } catch (error) {
@@ -44,10 +45,10 @@ export const ImageRemoveHandler = async (
     data: { imageUrl: imagePublicId },
   };
   console.log('function called');
+  console.log(imagePublicId);
   try {
     const response = await axios.delete(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/removeProductImage`,
-      requestConfig,
+      `${process.env.NEXT_PUBLIC_PRODUCT_IMAGE}/api/file-upload/DelImage/${imagePublicId}`,
     );
     console.log('Image removed successfully:', response.data);
     setterFunction((prev: any) =>

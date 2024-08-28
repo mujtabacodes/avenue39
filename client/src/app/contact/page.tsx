@@ -20,7 +20,7 @@ const Contact = () => {
         </div>
       </Container>
 
-      <Container className="flex flex-wrap md:flex-nowrap items-center md:gap-10 mt-10 mb-10">
+      <Container className="flex flex-wrap md:flex-nowrap md:gap-10 mt-10 mb-10">
         <div className="w-full md:w-9/12">
           <iframe
             className="w-full h-[734px]"
@@ -30,7 +30,7 @@ const Contact = () => {
         </div>
         <div className="w-full md:w-3/12">
           <h2 className="text-[28px] font-medium mb-5">Your Recently Viewed</h2>
-          <SideCard data={productData} />
+          <SideCard />
         </div>
       </Container>
     </>

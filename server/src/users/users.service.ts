@@ -57,6 +57,36 @@ export class UsersService {
       customHttpException(error.message, 'BAD_REQUEST');
     }
   }
+  async editUser(updateUserDto: UpdateUserDto) {
+    try {
+      const { id, ...updatedData } = updateUserDto;
+
+      const existingUser = await this.prisma.user.findFirst({
+        where: { id },
+      });
+
+      if (!existingUser) {
+        return {
+          message: 'User does not exist',
+          status: HttpStatus.NOT_FOUND,
+        };
+      }
+      const updatedUser = await this.prisma.user.update({
+        where: { id },
+        data: updatedData,
+      });
+
+      const { password: _, ...userWithoutPassword } = updatedUser;
+
+      return {
+        message: 'User updated successfully 🎉',
+        user: userWithoutPassword,
+        status: HttpStatus.OK,
+      };
+    } catch (error) {
+      customHttpException(error.message, 'BAD_REQUEST');
+    }
+  }
 
   async login(loginData: LoginDto, res) {
     const { email, password } = loginData;

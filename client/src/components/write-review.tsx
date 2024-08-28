@@ -40,6 +40,10 @@ const WriteReview = ({ productId }: IWriteReview) => {
 
   const handleReviewSubmit = (event: React.FormEvent) => {
     event.preventDefault();
+
+    if(formData.star===0){
+      return showToast('warn', 'Ensure all fields are correctly filled.');
+    }
     // @ts-expect-error
     mutation.mutate(formData);
   };

@@ -13,12 +13,7 @@ import { useRouter } from 'next/navigation';
 
 function Home() {
   const Navigate = useRouter();
-  useEffect(() => {
-    const admintoken = Cookies.get('2guysAdminToken');
-    if (!admintoken) {
-      Navigate.push('/dashboard/Admin-login');
-    }
-  }, [Navigate]);
+
   return (
     <>
       <DefaultLayout>

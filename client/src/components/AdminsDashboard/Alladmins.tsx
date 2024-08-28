@@ -122,7 +122,7 @@ function Admins({setselecteMenu}:any) {
         delLoading === record._id ? // Check if loading state matches current admin ID
           <Loader /> :
           <RiDeleteBin6Line 
-            className="cursor-pointer text-red-500"
+            className="cursor-pointer text-red-500 dark:text-red-700"
             size={20}
             onClick={() => handleDelete(record._id)}
           />

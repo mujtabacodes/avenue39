@@ -101,16 +101,16 @@ const FormLayout = ({
           return (
             <Form onSubmit={formik.handleSubmit}>
               <div className="flex justify-center dark:bg-boxdark dark:bg-black dark:text-white dark:bg-boxdark dark:border-white">
-                <div className="flex flex-col gap-9 w-2/5 dark:bg-boxdark dark:bg-black dark:text-white dark:bg-boxdark dark:border-white">
+                <div className="flex flex-col gap-5 md:gap-9 w-full lg:w-4/5 xl:w-2/5 dark:bg-boxdark dark:bg-black dark:text-white dark:bg-boxdark dark:border-white">
                   <div className="rounded-sm border border-stroke bg-white  dark:bg-boxdark dark:bg-black dark:text-white dark:bg-boxdark dark:border-white p-3">
-                    <div className="rounded-sm border border-stroke bg-white  dark:border-strokedark dark:bg-boxdark">
+                    <div className="rounded-sm border border-stroke bg-white  dark:border-strokedark dark:bg-boxdark dark:bg-black">
                       <div className="border-b border-stroke py-4 px-2 dark:bg-boxdark dark:bg-black dark:text-white dark:bg-boxdark dark:border-white">
                         <h3 className="font-medium text-black dark:text-white">
                           Add Category Images
                         </h3>
                       </div>
                       {posterimageUrl && posterimageUrl.length > 0 ? (
-                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4 dark:bg-boxdark dark:bg-black dark:text-white dark:bg-boxdark dark:border-white">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4  dark:border-white dark:bg-black">
                           {posterimageUrl.map((item: any, index) => {
                             return (
                               <div
@@ -119,7 +119,7 @@ const FormLayout = ({
                               >
                                 <div className="absolute top-1 right-1 invisible group-hover:visible text-red bg-white rounded-full ">
                                   <RxCross2
-                                    className="cursor-pointer text-red-500 hover:text-red-700"
+                                    className="cursor-pointer text-red-500 dark:text-red-700"
                                     size={17}
                                     onClick={() => {
                                       ImageRemoveHandler(
@@ -131,7 +131,7 @@ const FormLayout = ({
                                 </div>
                                 <Image
                                   key={index}
-                                  className="object-cover w-full h-full"
+                                  className="object-cover w-full h-full dark:bg-black dark:shadow-lg"
                                   width={300}
                                   height={200}
                                   src={item.imageUrl}
@@ -146,7 +146,7 @@ const FormLayout = ({
                       )}
                     </div>
 
-                    <div className="flex flex-col gap-5.5 p-6.5">
+                    <div className="flex flex-col">
                       <div>
                         <label className="mb-3 block py-4 px-2 text-sm font-medium text-black dark:text-white">
                           Category Title
@@ -157,7 +157,7 @@ const FormLayout = ({
                           onChange={formik.handleChange}
                           value={formik.values.name}
                           placeholder="Title"
-                          className={`w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${
+                          className={`w-full rounded-lg border-[1.5px]  px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whitebg-black dark:text-white ${
                             formik.touched.name && formik.errors.name
                               ? 'border-red-500'
                               : ''
@@ -179,7 +179,7 @@ const FormLayout = ({
                           onChange={formik.handleChange}
                           value={formik.values.description}
                           placeholder="Description"
-                          className={`w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${
+                          className={`w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter  dark:text-white dark:focus:border-primary ${
                             formik.touched.name && formik.errors.name
                               ? 'border-red-500'
                               : ''
@@ -200,7 +200,7 @@ const FormLayout = ({
                   type="submit"
                   className="mt-4 px-8 py-2 bg-primary text-white rounded"
                 >
-                  {loading ? <Loader /> : 'Submit v2'}
+                  {loading ? <Loader /> : 'Submit'}
                 </button>
               </div>
             </Form>
