@@ -156,7 +156,7 @@ const FormLayout = ({
                               >
                                 <div className="absolute top-1 right-1 invisible group-hover:visible text-red bg-white rounded-full ">
                                   <RxCross2
-                                    className="cursor-pointer text-red-500 hover:text-red-700"
+                                    className="cursor-pointer text-red-500 dark:text-red-700"
                                     size={17}
                                     onClick={() => {
                                       ImageRemoveHandler(
@@ -168,7 +168,7 @@ const FormLayout = ({
                                 </div>
                                 <Image
                                   key={index}
-                                  className="object-cover w-full h-full"
+                                  className="object-cover w-full h-full dark:bg-black dark:shadow-lg"
                                   width={300}
                                   height={200}
                                   src={item.imageUrl}
@@ -258,7 +258,7 @@ const FormLayout = ({
                                     );
                                   }
                                 }}
-                                id={`category-${category.id}`}
+                                // id={`category-${category.id}`}
                               />
                               <label
                                 htmlFor={`category-${category.id}`}

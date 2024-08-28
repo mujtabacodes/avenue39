@@ -372,6 +372,12 @@
   background-color: #24303f !important;
   color: white !important;
 }
+.dark .apexcharts-legend-text{
+  color: white !important;
+}
+.dark g text {
+  fill: white !important;
+}
 .dark .ant-dropdown-trigger.ant-table-filter-trigger,
 .dark textarea {
   background-color: #24303f !important;

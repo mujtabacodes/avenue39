@@ -16,9 +16,9 @@ function ProtectedRoute(WrappedComponent: any) {
     const [loading, setLoading] = useState<boolean>(true);
     const dispatch = useAppDispatch();
 
-    const AddminProfileTriggerHandler = async (token: string, adminFlag:boolean) => {
+    const AddminProfileTriggerHandler = async (token: string | undefined, adminFlag:boolean) => {
       try {
-
+        if(!token) return
             let apiEndpoint = adminFlag ? "getSuperAdminHandler" : "getAdminHandler"
             let user: any = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/${apiEndpoint}`, {
               headers: {
@@ -39,14 +39,10 @@ function ProtectedRoute(WrappedComponent: any) {
     useEffect(() => {
       const token = Cookies.get('2guysAdminToken');
       const superAdmintoken  = Cookies.get('superAdminToken');
-      let Finaltoken = superAdmintoken ? superAdmintoken : token
-      if (!Finaltoken) {
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        // router.push("/dashboard/Admin-login");
-      } else {
+      let Finaltoken = superAdmintoken ? superAdmintoken : token 
+ 
         AddminProfileTriggerHandler( Finaltoken, superAdmintoken ? true : false)
 
-      }
     }, [router]);
 
 

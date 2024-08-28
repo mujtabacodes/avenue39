@@ -16,6 +16,8 @@ import { Avatar, Popover } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { CgLogIn } from 'react-icons/cg';
 import { BsShop } from 'react-icons/bs';
+import { useSelector } from 'react-redux';
+import { State } from '@/redux/store';
 
 interface AccordionItemType {
   title: string;
@@ -77,6 +79,9 @@ const menuData: MenuData[] = [
 
 const BottomBar: React.FC = () => {
   const [open, setOpen] = useState(false);
+  const userDetails = useSelector(
+    (state: State) => state.usrSlice.loggedInUser,
+  );
 
   const hide = () => {
     setOpen(false);
@@ -91,7 +96,7 @@ const BottomBar: React.FC = () => {
         <AiOutlineHome size={25} />
       </Link>
       <Link href={'/products'}>
-        <BsShop size={25} />
+        <BsShop size={22} />
       </Link>
       {/* <Link href={"/"}><FaRegHeart size={25} /></Link> */}
 
@@ -156,45 +161,50 @@ const BottomBar: React.FC = () => {
       <Link href={'/'}>
         <IoBagOutline size={25} />
       </Link>
-      {/* <Link href={"/login"}><BiLogInCircle size={25} /></Link> */}
-      <Popover
-        content={
-          <>
-            <div className="flex flex-col gap-2 w-auto px-5 ">
-              <Link
-                className="text-black hover:text-primary"
-                href="/profile"
-                onClick={hide}
-              >
-                Profile
-              </Link>
-              <Link
-                className="text-black hover:text-primary"
-                href="/order-history"
-                onClick={hide}
-              >
-                Order History
-              </Link>
-              <Link
-                className="text-black hover:text-primary"
-                href="/login"
-                onClick={hide}
-              >
-                Logout
-              </Link>
-            </div>
-          </>
-        }
-        title=""
-        placement="bottomRight"
-        trigger="click"
-        open={open}
-        onOpenChange={handleOpenChange}
-      >
-        <div className="flex gap-2 items-center whitespace-nowrap cursor-pointer">
-          <Avatar icon={<UserOutlined />} />
-        </div>
-      </Popover>
+      {!userDetails ? (
+        <Link href={'/login'}>
+          <BiLogInCircle size={25} />
+        </Link>
+      ) : (
+        <Popover
+          content={
+            <>
+              <div className="flex flex-col gap-2 w-auto px-5 ">
+                <Link
+                  className="text-black hover:text-primary"
+                  href="/profile"
+                  onClick={hide}
+                >
+                  Profile
+                </Link>
+                <Link
+                  className="text-black hover:text-primary"
+                  href="/order-history"
+                  onClick={hide}
+                >
+                  Order History
+                </Link>
+                <Link
+                  className="text-black hover:text-primary"
+                  href="/login"
+                  onClick={hide}
+                >
+                  Logout
+                </Link>
+              </div>
+            </>
+          }
+          title=""
+          placement="bottomRight"
+          trigger="click"
+          open={open}
+          onOpenChange={handleOpenChange}
+        >
+          <div className="flex gap-2 items-center whitespace-nowrap cursor-pointer">
+            <Avatar icon={<UserOutlined />} />
+          </div>
+        </Popover>
+      )}
     </div>
   );
 };
