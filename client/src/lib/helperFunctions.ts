@@ -17,8 +17,7 @@ export const uploadPhotosToBackend = async (files: File[]): Promise<any[]> => {
         formData.append("image", file);
       }
 
-      const response: AxiosResponse<any> = await axios.post(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/addProductImage`,
+      const response: AxiosResponse<any> = await axios.post(`${process.env.NEXT_PUBLIC_PRODUCT_IMAGE}/api/file-upload`,
         formData,
         {
           headers: {
