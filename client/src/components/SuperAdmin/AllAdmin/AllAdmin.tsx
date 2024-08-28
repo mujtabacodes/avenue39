@@ -162,7 +162,7 @@ function Admins({ setselecteMenu, setEditAdmin }: any) {
           <Loader />
         ) : (
           <RiDeleteBin6Line
-            className="cursor-pointer text-red-500"
+            className="cursor-pointer text-red-500 dark:text-red-700"
             size={20}
             onClick={() => handleDelete(record.id)}
           />

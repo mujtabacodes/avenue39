@@ -174,7 +174,7 @@ const TableTwo = ({
       key: 'action',
       render: (text: any, record: any) => (
         <RiDeleteBin6Line
-          className={`cursor-pointer ${canDeleteCategory && 'text-red'} ${
+          className={`cursor-pointer ${canDeleteCategory && 'text-red-500 dark:text-red-700'} ${
             !canDeleteCategory && 'cursor-not-allowed text-slate-300'
           }`}
           // className="cursor-pointer text-red-500"
@@ -215,7 +215,7 @@ const TableTwo = ({
                   canAddCategory && 'cursor-pointer'
                 } lg:p-2 md:p-2 ${
                   canAddCategory &&
-                  'dark:border-strokedark dark:bg-slate-500 bg-black text-white rounded-md border hover:bg-transparent hover:border-black hover:text-black'
+                  'dark:border-strokedark dark:border-white bg-black text-white rounded-md border   '
                 } flex justify-center ${
                   !canAddCategory && 'cursor-not-allowed '
                 }`}

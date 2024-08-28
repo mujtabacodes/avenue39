@@ -273,7 +273,7 @@ console.log(profilePhoto, "profilePhoto")
                   <div className="flex justify-end gap-4.5">
 
                     <button
-                      className="flex justify-center rounded bg-primary dark:bg-black px-6 py-2 font-medium text-white hover:bg-opacity-90"
+                      className="flex justify-center rounded bg-primary dark:bg-gray-900 px-6 py-2 font-medium text-white hover:bg-opacity-90 "
                       type="submit"
                     >
                       Save

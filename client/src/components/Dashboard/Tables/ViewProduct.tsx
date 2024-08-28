@@ -181,7 +181,7 @@ const ViewProduct: React.FC<CategoryProps> = ({
       key: 'action',
       render: (text: any, record: Product) => (
         <RiDeleteBin6Line
-          className={`${canDeleteProduct ? 'text-red cursor-pointer' : ''} ${
+          className={`${canDeleteProduct ? 'text-red-600 cursor-pointer' : ''} ${
             !canDeleteProduct ? 'cursor-not-allowed text-slate-200' : ''
           }`}
           size={20}
