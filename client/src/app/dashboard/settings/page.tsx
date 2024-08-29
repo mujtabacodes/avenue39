@@ -30,7 +30,7 @@ const Settings = () => {
   let AdminType = loggedInUser && loggedInUser.role == "super-Admin"
 
   const initialFormData = {
-    fullname: loggedInUser ? `${loggedInUser.name}` : "",
+    fullname: loggedInUser ? `${loggedInUser.fullname}` : "",
 
   };
   const initialValue = {
@@ -106,8 +106,6 @@ const Settings = () => {
   };
 
   
-
-
   useEffect(() => {
     setFormData(initialFormData)
   }, [loggedInUser])
