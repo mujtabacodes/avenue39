@@ -18,7 +18,7 @@ export class AdminService {
   constructor(
     private prisma: PrismaService,
     private configService: ConfigService,
-  ) {}
+  ) { }
 
   async getAdmins() {
     try {
@@ -76,39 +76,35 @@ export class AdminService {
       throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
+
+
   async superAdminLogin(loginData: AdminLoginDto, res) {
     const { email, password } = loginData;
     try {
       const existingUser = await this.prisma.admins.findFirst({
         where: { email },
       });
+
+
       if (!existingUser)
         return customHttpException('User Not found', 'NOT_FOUND');
 
-      if (existingUser.role !== 'Super-Admin') {
-        return {
-          message: 'Super Admin credentials is correct😴',
-          status: HttpStatus.FORBIDDEN,
-        };
-      }
+      if (existingUser.role !== 'Super-Admin') return customHttpException('Super Admin credentials is correct😴', 'FORBIDDEN');
 
       if (existingUser) {
-        // const isPasswordValid = await verifyPassword(
-        //   password,
-        //   existingUser.password,
-        //   this.configService,
-        // );
-        // if (!isPasswordValid) {
-        //   throw new UnauthorizedException('Invalid username or password');
-        // }
+        const isPasswordValid = await verifyPassword(password, existingUser.password, this.configService)
+
+        if (!isPasswordValid) throw new UnauthorizedException('Invalid username or password');
+
 
         const token = jwt.sign({ email: email }, process.env.TOKEN_SECRET, {
           expiresIn: '24h',
         });
         const { password: _, ...userWithoutPassword } = existingUser;
+
         res.cookie('superAdminToken', token, {
-          httpOnly: true,
-          secure: process.env.NODE_ENV === 'production',
+          // httpOnly: true,
+          // secure: process.env.NODE_ENV === 'production',
           maxAge: 24 * 60 * 60 * 1000,
         });
 
@@ -116,12 +112,8 @@ export class AdminService {
           message: 'Login successfull 🎉',
           user: userWithoutPassword,
         };
-      } else {
-        return {
-          message: 'User not found',
-          status: HttpStatus.FORBIDDEN,
-        };
       }
+
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -132,44 +124,43 @@ export class AdminService {
     console.log(signupUserDto);
     try {
       const { email, password } = signupUserDto;
-      const existingUser = await this.prisma.admins.findFirst({
-        where: { email },
-      });
-      console.log(existingUser);
 
+      const existingUser = await this.prisma.admins.findFirst({ where: { email } });
+
+      if (existingUser) return customHttpException('Already user exists😴', 'CONFLICT');
+      
       const hashedPassword = await hashPassword(password, this.configService);
-      if (!existingUser) {
-        const user = await this.prisma.admins.create({
-          data: {
-            ...signupUserDto,
-            password: hashedPassword,
-          },
-        });
-        const { password, ...userWithoutPassword } = user;
-        return {
-          message: 'Congrats🎉 admin created successfully',
-          user: userWithoutPassword,
-          status: HttpStatus.OK,
-        };
-      } else {
-        return {
-          message: 'Already user exists',
-          status: HttpStatus.CONFLICT,
-        };
-      }
+      const user = await this.prisma.admins.create({
+        data: {
+          ...signupUserDto,
+          password: hashedPassword,
+        },
+      });
+
+
+      const { password: newpassword, ...userWithoutPassword } = user;
+      return {
+        message: 'Congrats🎉 admin created successfully',
+        user: userWithoutPassword,
+        status: HttpStatus.OK,
+      };
+
+
+
     } catch (error) {
-      customHttpException(error.message, 'BAD_REQUEST');
+       customHttpException(error.message, 'BAD_REQUEST');
     }
   }
+
+
+
   async editAdmin(updateUserDto: editAdminDto) {
     try {
-      const { id, password } = updateUserDto;
+      const { id, password, ...withOutPassword } = updateUserDto;
       const existingUser = await this.prisma.admins.findFirst({
         where: { id },
       });
-      const hashedPassword = password
-        ? await hashPassword(password, this.configService)
-        : existingUser.password;
+      const Newpassword = password ? await hashPassword(password, this.configService) : existingUser.password;
 
       if (!existingUser) {
         return {
@@ -177,10 +168,12 @@ export class AdminService {
           status: HttpStatus.BAD_REQUEST,
         };
       } else {
+        
         const updatedUser = await this.prisma.admins.update({
           where: { id },
           data: {
-            ...updateUserDto,
+            ...withOutPassword,
+            password: Newpassword
           },
         });
 
