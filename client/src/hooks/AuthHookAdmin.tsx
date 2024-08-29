@@ -7,7 +7,6 @@ import { useAppDispatch } from "@components/Others/HelperRedux";
 import { loggedInAdminAction } from '@/redux/slices/Admin/AdminsSlice';
 import axios from 'axios'
 import Cookies from 'js-cookie';
-import { useAppSelector } from "@components/Others/HelperRedux";
 
 
 function ProtectedRoute(WrappedComponent: any) {
@@ -18,7 +17,7 @@ function ProtectedRoute(WrappedComponent: any) {
 
     const AddminProfileTriggerHandler = async (token: string | undefined, adminFlag:boolean) => {
       try {
-        if(!token) return
+        if(!token) return router.push('/dashboard/Admin-login')
             let apiEndpoint = adminFlag ? "getSuperAdminHandler" : "getAdminHandler"
             let user: any = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/${apiEndpoint}`, {
               headers: {
@@ -31,7 +30,10 @@ function ProtectedRoute(WrappedComponent: any) {
       } catch (err: any) {
         console.log(err, "err")
       }finally{
-        setLoading(false);
+        setTimeout(() => {
+          setLoading(false);
+          
+        }, 1000);
       }
     }
 
@@ -40,13 +42,11 @@ function ProtectedRoute(WrappedComponent: any) {
       const token = Cookies.get('2guysAdminToken');
       const superAdmintoken  = Cookies.get('superAdminToken');
       let Finaltoken = superAdmintoken ? superAdmintoken : token 
+    
  
         AddminProfileTriggerHandler( Finaltoken, superAdmintoken ? true : false)
 
     }, [router]);
-
-
-    
 
     if (loading) {
       return (

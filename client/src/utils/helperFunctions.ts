@@ -11,6 +11,8 @@ export const uploadPhotosToBackend = async (files: File[]): Promise<any[]> => {
 
   if (files.length === 0) throw new Error('No files found');
 
+
+  
   try {
     for (const file of files) {
       console.log('hello from files');
