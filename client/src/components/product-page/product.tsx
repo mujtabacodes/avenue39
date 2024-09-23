@@ -40,6 +40,7 @@ interface ProductPageProps {
   productBanner: ReactNode;
   layout: string;
   Setlayout: (layout: string) => void;
+  fullUrl?:string
 }
 
 const ProductPage = ({
@@ -47,11 +48,14 @@ const ProductPage = ({
   productBanner,
   layout,
   Setlayout,
+  fullUrl
 }: ProductPageProps) => {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [selectedSubCategories, setSelectedSubCategories] = useState<string[]>(
     [],
   );
+console.log(fullUrl, "fullUrl"
+)
 
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 500]);
   const [sortOption, setSortOption] = useState<string>('default');

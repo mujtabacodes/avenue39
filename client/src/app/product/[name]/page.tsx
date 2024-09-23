@@ -119,6 +119,7 @@ const ProductPage = ({ params }: { params: IProductDetail }) => {
   //   },
   // ];
 
+  
   const columns = [
     {
       title: 'Name',

@@ -50,19 +50,7 @@ import QRScanner from '../QR-reader/QR';
 import { calculateRatingsPercentage, renderStars } from '@/config';
 import Loader from '../Loader/Loader';
 
-const ProductDetail = ({
-  params,
-  isZoom,
-  gap,
-  swiperGap,
-  detailsWidth,
-}: {
-  params: IProductDetail;
-  isZoom?: Boolean;
-  gap?: String;
-  swiperGap?: String;
-  detailsWidth?: String;
-}) => {
+const ProductDetail = ({params,isZoom,gap,swiperGap,detailsWidth,}: {params: IProductDetail;isZoom?: Boolean;gap?: String;swiperGap?: String;detailsWidth?: String;}) => {
   const [hoveredImage, setHoveredImage] = useState<string | null>(null);
   const cartItems = useSelector((state: State) => state.cart.items);
   const [count, setCount] = useState(1);
@@ -279,13 +267,7 @@ const ProductDetail = ({
                 </DialogTitle>
               </DialogHeader>
               <QRScanner
-                hoveredImage={
-                  hoveredImage
-                    ? hoveredImage
-                    : product?.productImages[0].imageUrl
-                      ? product?.productImages[0].imageUrl
-                      : 'not found'
-                }
+                hoveredImage={ hoveredImage? hoveredImage: product?.productImages[0].imageUrl? product?.productImages[0].imageUrl: 'not found'}
                 url={slug}
               />
             </DialogContent>

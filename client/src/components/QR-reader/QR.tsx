@@ -9,7 +9,7 @@ interface QRPROPS{
 
 const QRExample = ({url,hoveredImage}:QRPROPS) => {
     console.log(hoveredImage, "hoveredImage")
-let newUrl = `${window.location.origin}/AR/${generateSlug(url)}?Image_id=${generateSlug(hoveredImage)}`
+let newUrl = `${window.location.origin}/AR/${url}?Image_id=${hoveredImage}`
 console.log(newUrl, "newUrl")
   return (
 
