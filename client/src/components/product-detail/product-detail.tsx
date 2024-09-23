@@ -288,7 +288,7 @@ const ProductDetail = ({params,isZoom,gap,swiperGap,detailsWidth,}: {params: IPr
               tabby
             </span>
             <p className="text-12">
-              Pay 4 interest-free payments of AED 396.25.{' '}
+              Pay 4 interest-free payments of AED {Math.round(product?.price/4) }{' '}
               <Dialog>
                 <DialogTrigger asChild>
                   <span className="text-red-600 underline cursor-pointer">
@@ -354,7 +354,7 @@ const ProductDetail = ({params,isZoom,gap,swiperGap,detailsWidth,}: {params: IPr
               tamara
             </span>
             <p className="text-12">
-              Pay 4 interest-free payments of AED 396.25.{' '}
+              Pay 4 interest-free payments of AED {Math.round(product?.price/4) }. {" "}
               <Dialog>
                 <DialogTrigger asChild>
                   <span className="text-red-600 underline cursor-pointer">
