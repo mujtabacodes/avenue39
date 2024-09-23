@@ -7,6 +7,7 @@ import { Skeleton } from "./skeleton";
 interface DiscountCardProps {
   productItems: Array<{ id: number; imageUrl: string | StaticImageData; title: string }>;
   showSkeleton?: boolean
+  
 }
 
 const DiscountCard: React.FC<DiscountCardProps> = ({ productItems, showSkeleton }) => {
@@ -14,7 +15,7 @@ const DiscountCard: React.FC<DiscountCardProps> = ({ productItems, showSkeleton 
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
-  const [clickPrevented, setClickPrevented] = useState(false); // New state to detect drag vs click
+  const [clickPrevented, setClickPrevented] = useState(false);
 
   const tabMenuRef = useRef<HTMLDivElement | null>(null);
   const skeletonCount = 5;

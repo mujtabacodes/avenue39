@@ -20,6 +20,7 @@ import CardsTabes from '@/components/card-tabs/card-slider';
 import TimerSlider from '@/components/timer-slider/TimerSlider';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Home() {
   const router = useRouter();
@@ -37,7 +38,19 @@ export default function Home() {
       <CardsTabes />
       <TimerSlider />
       <Container className="mt-4 flex justify-center">
-        <DiscountCard productItems={chairProducts} showSkeleton={false} />
+  <div className='grid grid-cols-1 md:grid-cols-2 gap-10 '>
+{    chairProducts.map((item) => (
+      <Link href="/products" key={item.id} >
+        <Image src={item.imageUrl} alt="product image" className="w-full" />
+        <div className='text-16 lg:text-[25px] font-bold mt-3 pb-1 border-b-2 w-max border-black'>{item.title}</div>
+      </Link>
+    ))}
+    
+  </div>
+
+        
+
+
       </Container>
       <HotProductSlider />
       <div

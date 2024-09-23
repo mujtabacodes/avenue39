@@ -66,7 +66,7 @@ const Footer: React.FC = () => {
       </Container>
       <div className='bg-black mt-10 py-3 px-4'>
               <Container className='flex flex-wrap justify-center sm:justify-between items-center gap-x-8 gap-y-4 pb-16 md:pb-0'>
-                <p className='text-white text-17 font-light text-center'>Copyright © 2024 avenue39. All rights reserved.</p>
+                <p className='text-white text-17 font-light text-center'>Copyright © 2024 avenue39 All rights reserved.</p>
                 <div className="flex items-center gap-4">
                 <SiVisa className='text-white' size={40} />
                 <FaPaypal className='text-white' size={20} />

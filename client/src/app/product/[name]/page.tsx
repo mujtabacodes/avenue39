@@ -119,7 +119,7 @@ const ProductPage = ({ params }: { params: IProductDetail }) => {
   //   },
   // ];
 
-  
+
   const columns = [
     {
       title: 'Name',
@@ -133,7 +133,6 @@ const ProductPage = ({ params }: { params: IProductDetail }) => {
     },
   ];
 
-  console.log('Hello from details page');
   console.log(product);
   console.log(dataSource);
   const tabs = [
