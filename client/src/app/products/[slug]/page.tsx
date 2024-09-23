@@ -1,3 +1,5 @@
+"use client"
+
 import ProductPage from "@/components/product-page/product";
 import { Fragment, useState } from "react";
 import banner7 from '@images/banners/banner7.png'
