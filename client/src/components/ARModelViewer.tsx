@@ -79,7 +79,6 @@
 
 
 
-
 'use client';
 
 import React, { useEffect, useRef } from 'react';
@@ -104,6 +103,7 @@ const ARExperience: React.FC<ARExperienceProps> = ({ ImageUrl }) => {
       sceneRef.current = scene;
 
       const camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.01, 20);
+      camera.position.set(0, 1.6, 0); // Simulate head height in AR
       cameraRef.current = camera;
 
       const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
@@ -123,10 +123,12 @@ const ARExperience: React.FC<ARExperienceProps> = ({ ImageUrl }) => {
       if (!ImageUrl) return;
       const texture = textureLoader.load(ImageUrl);
 
-      const geometry = new THREE.PlaneGeometry(2, 2);
+      // Adjust the plane geometry to be 200x200 (as requested)
+      const geometry = new THREE.PlaneGeometry(0.2, 0.2); // Size in meters (0.2m = 200mm)
       const material = new THREE.MeshBasicMaterial({ map: texture });
       const plane = new THREE.Mesh(geometry, material);
-      planeRef.current = plane; // Store reference to the plane
+      plane.position.set(0, 0, -0.5); // Set 0.5m in front of the camera
+      planeRef.current = plane;
       scene.add(plane);
 
       const onWindowResize = () => {
@@ -143,12 +145,11 @@ const ARExperience: React.FC<ARExperienceProps> = ({ ImageUrl }) => {
       const animate = () => {
         renderer.setAnimationLoop(() => {
           if (cameraRef.current && planeRef.current) {
-            // Make the object follow the camera
             const cameraPosition = cameraRef.current.position;
             const cameraRotation = cameraRef.current.rotation;
 
-            // Set the plane's position relative to the camera
-            planeRef.current.position.set(cameraPosition.x, cameraPosition.y, cameraPosition.z - 1); // Adjust Z for distance from the camera
+            // Keep the plane in front of the camera at a fixed distance
+            planeRef.current.position.set(cameraPosition.x, cameraPosition.y, cameraPosition.z - 0.5); // Adjust Z for proper distance
             planeRef.current.rotation.copy(cameraRotation); // Align the plane's rotation with the camera
           }
 
@@ -169,3 +170,4 @@ const ARExperience: React.FC<ARExperienceProps> = ({ ImageUrl }) => {
 };
 
 export default ARExperience;
+

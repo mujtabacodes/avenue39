@@ -14,7 +14,6 @@ console.log(Image_id, "Image_id")
 {
 !Image_id ? 'Unexpected error':
 <>
-<div>My Post: {Image_id}</div>
 <ARExperience ImageUrl={Image_id}/>
 </>
 
