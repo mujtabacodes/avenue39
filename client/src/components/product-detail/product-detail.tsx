@@ -50,19 +50,7 @@ import QRScanner from '../QR-reader/QR';
 import { calculateRatingsPercentage, renderStars } from '@/config';
 import Loader from '../Loader/Loader';
 
-const ProductDetail = ({
-  params,
-  isZoom,
-  gap,
-  swiperGap,
-  detailsWidth,
-}: {
-  params: IProductDetail;
-  isZoom?: Boolean;
-  gap?: String;
-  swiperGap?: String;
-  detailsWidth?: String;
-}) => {
+const ProductDetail = ({params,isZoom,gap,swiperGap,detailsWidth,}: {params: IProductDetail;isZoom?: Boolean;gap?: String;swiperGap?: String;detailsWidth?: String;}) => {
   const [hoveredImage, setHoveredImage] = useState<string | null>(null);
   const cartItems = useSelector((state: State) => state.cart.items);
   const [count, setCount] = useState(1);
@@ -279,13 +267,7 @@ const ProductDetail = ({
                 </DialogTitle>
               </DialogHeader>
               <QRScanner
-                hoveredImage={
-                  hoveredImage
-                    ? hoveredImage
-                    : product?.productImages[0].imageUrl
-                      ? product?.productImages[0].imageUrl
-                      : 'not found'
-                }
+                hoveredImage={ hoveredImage? hoveredImage: product?.productImages[0].imageUrl? product?.productImages[0].imageUrl: 'not found'}
                 url={slug}
               />
             </DialogContent>
@@ -306,7 +288,7 @@ const ProductDetail = ({
               tabby
             </span>
             <p className="text-12">
-              Pay 4 interest-free payments of AED 396.25.{' '}
+              Pay 4 interest-free payments of AED {Math.round(product?.price/4) }{' '}
               <Dialog>
                 <DialogTrigger asChild>
                   <span className="text-red-600 underline cursor-pointer">
@@ -372,7 +354,7 @@ const ProductDetail = ({
               tamara
             </span>
             <p className="text-12">
-              Pay 4 interest-free payments of AED 396.25.{' '}
+              Pay 4 interest-free payments of AED {Math.round(product?.price/4) }. {" "}
               <Dialog>
                 <DialogTrigger asChild>
                   <span className="text-red-600 underline cursor-pointer">

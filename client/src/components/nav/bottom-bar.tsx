@@ -5,7 +5,7 @@ import { BiLogInCircle, BiSolidToTop } from 'react-icons/bi';
 import { FaRegHeart } from 'react-icons/fa';
 import { IoBagOutline } from 'react-icons/io5';
 import { MdCategory } from 'react-icons/md';
-import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet';
+import { Sheet, SheetClose, SheetContent, SheetTrigger } from '../ui/sheet';
 import {
   Accordion,
   AccordionContent,
@@ -18,70 +18,16 @@ import { CgLogIn } from 'react-icons/cg';
 import { BsShop } from 'react-icons/bs';
 import { useSelector } from 'react-redux';
 import { State } from '@/redux/store';
-
-interface AccordionItemType {
-  title: string;
-  subItems: string[];
-}
-
-interface MenuDataLink {
-  type: 'link';
-  title: string;
-  href: string;
-}
-
-interface MenuDataAccordion {
-  type: 'accordion';
-  title: string;
-  items: AccordionItemType[];
-}
-
-type MenuData = MenuDataLink | MenuDataAccordion;
-
-// Example data
-const menuData: MenuData[] = [
-  {
-    type: 'link',
-    title: 'DINING',
-    href: '/',
-  },
-  {
-    type: 'accordion',
-    title: 'LIVING',
-    items: [
-      {
-        title: 'LIVING',
-        subItems: [
-          'Living Storage',
-          'Sofa',
-          'Armchairs',
-          'Accent Chairs',
-          'Coffee Tables',
-        ],
-      },
-      {
-        title: 'DINING',
-        subItems: [
-          'Armchairs',
-          'Accent Chairs',
-          'Coffee Tables,Living Storage',
-          'Sofa',
-        ],
-      },
-    ],
-  },
-  {
-    type: 'link',
-    title: 'BEDROOM',
-    href: '/',
-  },
-];
+import { menuData } from '@/data/menu';
+import { generateSlug } from '@/config';
+import { useRouter } from 'next/navigation';
 
 const BottomBar: React.FC = () => {
   const [open, setOpen] = useState(false);
   const userDetails = useSelector(
     (state: State) => state.usrSlice.loggedInUser,
   );
+  const route = useRouter();
 
   const hide = () => {
     setOpen(false);
@@ -90,6 +36,10 @@ const BottomBar: React.FC = () => {
   const handleOpenChange = (newOpen: boolean) => {
     setOpen(newOpen);
   };
+  const handleLinkClick = () => {
+    setOpen(false); // Optional: If you want the Sheet to close after clicking
+  };
+
   return (
     <div className="flex justify-between items-center px-4 md:hidden py-3 border-t w-full fixed bottom-0 bg-white z-50">
       <Link href={'/'}>
@@ -109,56 +59,66 @@ const BottomBar: React.FC = () => {
           </div>
         </SheetTrigger>
         <SheetContent className="pb-5">
-          <div className="pt-10 space-y-1">
-            {menuData.map((item, index) => {
-              if (item.type === 'link') {
+          <div className="pt-10 space-y-2">
+            {Object.keys(menuData).map((menu, menuIndex) => {
+              if (
+                menu === 'tvCabinets' ||
+                menu === 'clearance' ||
+                menu === 'megaSale'
+              ) {
+                const isMegaSale = menu === 'megaSale';
+
                 return (
-                  <Link
-                    key={index}
-                    href={item.href}
-                    className="block font-bold hover:underline"
-                  >
-                    {item.title}
-                  </Link>
-                );
-              } else if (item.type === 'accordion') {
-                return (
-                  <Accordion
-                    key={index}
-                    type="single"
-                    collapsible
-                    className="w-full space-y-1"
-                  >
-                    {item.items.map((accordionItem, accIndex) => (
-                      <AccordionItem key={accIndex} value={`item-${accIndex}`}>
-                        <AccordionTrigger className="font-bold">
-                          {accordionItem.title}
-                        </AccordionTrigger>
-                        <AccordionContent>
-                          <div className="grid space-y-2 font-semibold px-4">
-                            {accordionItem.subItems.map((subItem, subIndex) => (
-                              <Link
-                                key={subIndex}
-                                className="hover:underline font-semibold text-15 flex ga-2 items-center"
-                                href={'/'}
-                              >
-                                {subItem}
-                              </Link>
-                            ))}
-                          </div>
-                        </AccordionContent>
-                      </AccordionItem>
-                    ))}
-                  </Accordion>
+                  <SheetClose asChild>
+
+                  <div
+                    key={menuIndex}
+                    onClick={()=>{route.push(`/products/${generateSlug(menuData[menu][0]?.title || '')}`)}}
+                    
+                    className={`block font-bold hover:underline ${isMegaSale ? 'text-red-600' : ''}`}
+                    >
+                    {menu.replace(/([A-Z])/g, ' $1').toUpperCase()}
+                  </div>
+                    </SheetClose>
                 );
               }
-              return null;
+
+              return (
+                <Accordion
+                  key={menuIndex}
+                  type="single"
+                  collapsible
+                  className="w-full "
+                >
+                  <AccordionItem value={`item-${menuIndex}`}>
+                    <AccordionTrigger className="font-bold">
+                      {menu.replace(/([A-Z])/g, ' $1').toUpperCase()}
+                    </AccordionTrigger>
+                    <AccordionContent>
+                      <SheetClose asChild>
+                        <div className="grid font-semibold space-y-2 px-4">
+                          {menuData[menu].map((subItem, subIndex) => (
+                            <div
+                              key={subIndex}
+                              onClick={()=>{route.push(`/products/${generateSlug(subItem.title || '')}`)}}
+                             
+                              className="hover:underline font-semibold text-15 flex gap-2 items-center"
+                            >
+                              {subItem.title}
+                            </div>
+                          ))}
+                        </div>
+                      </SheetClose>
+                    </AccordionContent>
+                  </AccordionItem>
+                </Accordion>
+              );
             })}
           </div>
         </SheetContent>
       </Sheet>
 
-      <Link href={'/'}>
+      <Link href={'/cart'}>
         <IoBagOutline size={25} />
       </Link>
       {!userDetails ? (

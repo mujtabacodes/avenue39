@@ -63,16 +63,16 @@ const DropdownUser = () => {
         onClick={() => setDropdownOpen(!dropdownOpen)}
         className="flex items-center py-3 gap-2 xs:gap-4 text-black cursor-pointer "
       >
-      <div>
-      <span className="text-right lg:block">
-          <span className="block text-11 xs:text-sm font-medium text-white ">
-            { loggedInUser ?loggedInUser?.name: "stsgskdfslkdf"}
+        <div>
+          <span className="text-right lg:block">
+            <span className="block text-11 xs:text-sm font-medium text-white ">
+              {loggedInUser ? loggedInUser?.fullname : null}
+            </span>
+            <span className="block text-11 xs:text-sm text-white ">
+              {loggedInUser?.role}
+            </span>
           </span>
-          <span className="block text-11 xs:text-sm text-white ">
-            {loggedInUser?.role}
-          </span>
-        </span>
-      </div>
+        </div>
         <div className=" flex items-center gap-1 xs:gap-3">
           <div className="h-6 xs:h-12 w-6 xs:w-12 rounded-full overflow-hidden">
             <Image
@@ -93,9 +93,8 @@ const DropdownUser = () => {
         ref={dropdown}
         onFocus={() => setDropdownOpen(true)}
         onBlur={() => setDropdownOpen(false)}
-        className={`absolute right-0 mt-1 flex w-62 flex-col rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark dark:bg-black dark:text-white dark:bg-boxdark dark:border-blue-50 ${
-          dropdownOpen === true ? 'block' : 'hidden'
-        }`}
+        className={`absolute right-0 mt-1 flex w-62 flex-col rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark dark:bg-black dark:text-white dark:bg-boxdark dark:border-blue-50 ${dropdownOpen === true ? 'block' : 'hidden'
+          }`}
       >
         <ul className="flex flex-col w-44 space-y-6 border-b border-stroke px-6 py-3 dark:border-strokedark">
           <li>
@@ -103,7 +102,7 @@ const DropdownUser = () => {
               href="/dashboard/settings"
               className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base text-black dark:text-white "
             >
-              <FaRegUser  size={20} />
+              <FaRegUser size={20} />
               My Profile
             </Link>
           </li>
@@ -112,7 +111,7 @@ const DropdownUser = () => {
           className="flex items-center gap-3.5 px-6 py-4 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base text-black dark:text-white "
           onClick={logoutHhandler}
         >
-          <RiLogoutBoxLine  size={20} />
+          <RiLogoutBoxLine size={20} />
           Log Out
         </button>
       </div>
