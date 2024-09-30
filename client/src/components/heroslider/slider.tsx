@@ -100,7 +100,7 @@ const SimpleSlider: React.FC = () => {
             <br />
             <span className="font-bold">SALE</span>
           </h2>
-          <h2 className="text-red-500 text-6xl md:text-7xl 2xl:text-[120px] font-extrabold relative">
+          <h2 className="text-[#FF0000] text-6xl md:text-7xl 2xl:text-[120px] font-extrabold relative">
             50%
             <span className="absolute -top-1 lg:top-0 right-2 lg:right-5 text-xs font-medium text-black">
               UPTO
@@ -109,7 +109,7 @@ const SimpleSlider: React.FC = () => {
         </div>
         <Link
           href="/products"
-          className="bg-none text-base lg:mt-3  font-semibold h-5 tracking-widest border-black border-b-2 mx-auto"
+          className="bg-none text-16 lg:mt-3  font-bold h-5 tracking-widest border-black border-b-2 mx-auto"
         >
           SHOP NOW
         </Link>

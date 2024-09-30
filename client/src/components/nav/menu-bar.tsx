@@ -8,13 +8,15 @@ import megamenu from '@icons/megamenu.png';
 import { menuData } from '@/data/menu';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useRouter, usePathname } from 'next/navigation';
+import { generateSlug } from '@/config';
+import Link from 'next/link';
 
 const MenuBar = () => {
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const [isSticky, setIsSticky] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [hoveringMenu, setHoveringMenu] = useState<boolean>(false);
-  const Navigate = useRouter();
+  const route = useRouter();
   const pathname = usePathname();
 
   useEffect(() => {
@@ -44,7 +46,7 @@ const MenuBar = () => {
   }, []);
 
   const handleMegaSaleClick = () => {
-    Navigate.push('/products');
+    route.push('/products');
   };
 
   const handleMouseEnter = (menu: string) => {
@@ -79,6 +81,13 @@ const MenuBar = () => {
                 >
                   MEGA SALE
                 </button>
+              ) : menu === 'tvCabinets' || menu === 'clearance' ? (
+                <Link href={`/products/${generateSlug(menuData[menu][0]?.title || '')}`}
+                key={menu}
+                className={`menu-item text-12 pb-2 lg:text-14 xl:text-17 font-semibold uppercase whitespace-nowrap text-black dark:text-black flex flex-row gap-2 items-center cursor-pointer link-underline`}
+              >
+                {menu.replace(/([A-Z])/g, ' $1').toUpperCase()}
+              </Link>
               ) : (
                 <div
                   key={menu}
@@ -87,14 +96,14 @@ const MenuBar = () => {
                   onMouseLeave={handleMouseLeave}
                 >
                   {menu.replace(/([A-Z])/g, ' $1').toUpperCase()}{' '}
-                  <MdOutlineKeyboardArrowDown size={25} />
+                  {/* <MdOutlineKeyboardArrowDown size={25} /> */}
                 </div>
-              ),
+              )
             )
           )}
         </Container>
       </div>
-      {activeMenu && !loading && (
+      {activeMenu && !loading && activeMenu !== 'tvCabinets' && activeMenu !== 'clearance' && (
         <div
           className="megamenu-container w-full bg-white shadow-lg p-10 z-50 absolute top-[46px]"
           onMouseEnter={() => setHoveringMenu(true)}
@@ -120,7 +129,7 @@ const MenuBar = () => {
             {(activeMenu === 'bedroom' || activeMenu === 'megaSale') && (
               <div className="w-full md:w-4/12">
                 <Image
-                  className="object-contain"
+                  className="object-contain p-2"
                   width={500}
                   height={500}
                   src={megamenu}
