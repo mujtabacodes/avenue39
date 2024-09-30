@@ -39,12 +39,13 @@ const MenuLink: React.FC<MenuLinkProps> = ({
               key={index}
               onClick={onLinkClick}
             >
-              <div className="rounded-md h-20 w-20 border">
+              <div className="rounded-md h-20 w-20 p-2 border flex justify-center items-center">
                 <Image
                   src={item.icon}
                   alt={item.title}
                   width={80}
                   height={80}
+                  className='h-[54px] w-[62px]'
                 />
               </div>
               <span className="text-17 font-semibold">{item.title}</span>

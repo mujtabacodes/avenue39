@@ -27,6 +27,7 @@
     "@reduxjs/toolkit": "^2.2.7",
     "@tanstack/react-query": "^5.51.21",
     "antd": "^5.20.0",
+    "aos": "^2.3.4",
     "apexcharts": "^3.52.0",
     "axios": "^1.7.3",
     "class-variance-authority": "^0.7.0",
@@ -60,6 +61,7 @@
     "yup": "^1.4.0"
   },
   "devDependencies": {
+    "@types/aos": "^3.0.7",
     "@types/js-cookie": "^3.0.6",
     "@types/node": "20.14.11",
     "@types/react": "18.3.3",

@@ -50,10 +50,11 @@ const SofaBanner: React.FC = () => {
           </div>
         </div>
         <div className="w-1/2 xs:w-2/3 relative">
+        
           {loading ? (
             <Skeleton className="w-full h-full rounded-md" />
           ) : (
-            <Image src={sofa1} alt="sofa image" className="w-full h-full" />
+            <Image src={sofa1} width={900} height={500} alt="sofa image" className="w-full h-full" />
           )}
         </div>
       </div>
