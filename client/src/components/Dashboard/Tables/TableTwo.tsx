@@ -11,6 +11,7 @@ import { CategoriesType } from '@/types/interfaces';
 import { useAppSelector } from '@components/Others/HelperRedux';
 import useColorMode from '@/hooks/useColorMode';
 import { Skeleton } from '@/components/ui/skeleton';
+import showToast from '@/components/Toaster/Toaster';
 
 interface Product {
   id: string;
@@ -81,11 +82,12 @@ const TableTwo = ({
   };
 
   const handleDelete = async (key: any) => {
+    alert(key);
     try {
       const response = await axios.delete(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/category/delete-category`,
         {
-          headers: {
+          params: {
             categoryId: key,
           },
         },
@@ -126,7 +128,7 @@ const TableTwo = ({
             height={50}
           />
         ) : (
-          <div>No Image Available</div>
+          <div>No Image Available </div>
         ),
     },
     {

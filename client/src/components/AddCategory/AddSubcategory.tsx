@@ -279,7 +279,7 @@ const FormLayout = ({
                   type="submit"
                   className="mt-4 px-8 py-2 bg-primary text-white rounded"
                 >
-                  {loading ? <Loader /> : 'Submit v2'}
+                  {loading ? <Loader /> : 'Submit'}
                 </button>
               </div>
             </Form>

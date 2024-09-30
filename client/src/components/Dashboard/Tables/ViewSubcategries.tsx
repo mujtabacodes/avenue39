@@ -120,7 +120,7 @@ const ViewSubcategries = ({
       dataIndex: 'posterImageUrl',
       key: 'posterImageUrl',
       render: (text: any, record: any) =>
-        record.posterImageUrl ? (
+        record.posterImageUrl !== null ? (
           <Image
             src={record.posterImageUrl || ''}
             alt={`Image of ${record.name}`}
@@ -128,7 +128,7 @@ const ViewSubcategries = ({
             height={50}
           />
         ) : (
-          <div>No Image Available</div>
+          <div>No Image Available 2</div>
         ),
     },
     {
@@ -213,9 +213,7 @@ const ViewSubcategries = ({
             <p>Categories</p>
             <div>
               <p
-                className={`${
-                  canAddCategory && 'cursor-pointer'
-                } p-2 ${
+                className={`${canAddCategory && 'cursor-pointer'} p-2 ${
                   canAddCategory &&
                   'dark:border-strokedark dark:bg-slate-500 bg-black text-white rounded-md border hover:bg-transparent hover:border-black hover:text-black'
                 } flex justify-center ${
