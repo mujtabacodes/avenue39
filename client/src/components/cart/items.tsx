@@ -78,13 +78,17 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
         <Sheet open={drawerState}>
           <SheetTrigger asChild>
             <div
-              className="bg-red-500 lg:w-14 w-12 h-10 rounded-3xl relative flex justify-center items-center text-white cursor-pointer"
+              className={`lg:w-14 w-12 h-10 rounded-3xl relative flex justify-center items-center  cursor-pointer ${cartItems.length>0 ? "text-[#E14343]" :"text-black"}`}
               onClick={() => navigate.push('/cart')}
             >
               <IoBagOutline size={25} />
-              <div className="w-4 h-4 rounded-full bg-black flex justify-center items-center absolute top-2 right-2 text-10">
+              {
+                cartItems.length > 0 && (
+              <div className="w-4 h-4 rounded-full bg-black text-white flex justify-center items-center absolute top-2 right-2 text-10">
                 <TotalProducts />
               </div>
+                )
+              }
             </div>
           </SheetTrigger>
           <SheetOverlay

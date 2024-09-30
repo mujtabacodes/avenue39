@@ -84,7 +84,7 @@ const Tabs: React.FC<TabsProps> = ({ slidersData, isLoading }) => {
   }, [slidersData]);
 
   return (
-    <div className="">
+    <div className="space-y-4 md:space-y-8">
       <div className="flex flex-row flex-wrap justify-center lg:justify-between gap-6 items-center mt-8">
         <div>
           <h3 className="text-3xl font-semibold mb-4 md:mb-0 text-nowrap">

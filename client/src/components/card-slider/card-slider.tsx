@@ -35,7 +35,8 @@ const SliderComponent: React.FC<SliderProps> = ({
     infinite: true,
     speed: 500,
     slidesToShow: cards && cards.length > 3 ? 3 : cards?.length,
-    slidesToScroll: 1,
+    swipeToSlide: true,
+
     prevArrow: <CustomPrevArrow />,
     nextArrow: <CustomNextArrow />,
     responsive: [
@@ -43,21 +44,24 @@ const SliderComponent: React.FC<SliderProps> = ({
         breakpoint: 1024,
         settings: {
           slidesToShow: cards && cards.length > 3 ? 3 : cards?.length,
-          slidesToScroll: 1,
+          swipeToSlide: true,
+
         },
       },
       {
         breakpoint: 768,
         settings: {
           slidesToShow: cards && cards.length > 2 ? 2 : cards?.length,
-          slidesToScroll: 1,
+          swipeToSlide: true,
+
         },
       },
       {
-        breakpoint: 480,
+        breakpoint: 580,
         settings: {
           slidesToShow: cards && cards.length > 1 ? 1 : cards?.length,
-          slidesToScroll: 1,
+          swipeToSlide: true,
+
         },
       },
     ],
