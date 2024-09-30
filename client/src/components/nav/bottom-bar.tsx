@@ -69,10 +69,10 @@ const BottomBar: React.FC = () => {
                 const isMegaSale = menu === 'megaSale';
 
                 return (
-                  <SheetClose asChild>
+                  <SheetClose asChild key={menuIndex}>
 
                   <div
-                    key={menuIndex}
+                    
                     onClick={()=>{route.push(`/products/${generateSlug(menuData[menu][0]?.title || '')}`)}}
                     
                     className={`block font-bold hover:underline ${isMegaSale ? 'text-red-600' : ''}`}
