@@ -18,6 +18,8 @@ export class AddSubCategoryDto {
   @ArrayNotEmpty()
   @IsInt({ each: true })
   categoriesId: number[];
+
+  posterImageUrl;
 }
 export class UpdateSubCategoryDto extends AddSubCategoryDto {
   @IsNotEmpty()

@@ -5,66 +5,49 @@ import { MenuData } from '@/types/types';
 
 export const menuData: MenuData = {
   dining: [
-    { link: '/products', title: 'Dining Set 1', icon: icon3 },
-    { link: '/products', title: 'Dining Set 2', icon: icon2 },
-    { link: '/products', title: 'Bedroom Set 2', icon: icon2 },
-    { link: '/products', title: 'Bedroom Set 1', icon: icon3 },
-    { link: '/products', title: 'Bedroom Set 2', icon: icon2 },
+    { link: '/products', title: 'Dining Table', icon: icon3 },
+    { link: '/products', title: 'Dining Chairs', icon: icon2 },
+    { link: '/products', title: 'Side Cabinets', icon: icon2 },
     // Add more items as needed
   ],
   living: [
-    { link: '/products', title: 'Living Room Set 1', icon: icon3 },
-    { link: '/products', title: 'Bedroom Set 2', icon: icon2 },
-    { link: '/products', title: 'Bedroom Set 1', icon: icon3 },
-    { link: '/products', title: 'Bedroom Set 2', icon: icon2 },
-    { link: '/products', title: 'Living Room Set 2', icon: icon2 },
+    { link: '/products', title: 'Living Storage', icon: icon3 },
+    { link: '/products', title: 'Sofas', icon: icon2 },
+    { link: '/products', title: 'Armchairs', icon: icon3 },
+    { link: '/products', title: 'Accent Chairs', icon: icon2 },
+    { link: '/products', title: 'Cofee Tables', icon: icon2 },
+    { link: '/products', title: 'TV Cabinets', icon: icon2 },
+    { link: '/products', title: 'Side Table', icon: icon2 },
     // Add more items as needed
   ],
   bedroom: [
-    { link: '/products', title: 'Bedroom Set 1', icon: icon3 },
-    { link: '/products', title: 'Bedroom Set 2', icon: icon2 },
-    { link: '/products', title: 'Bedroom Set 1', icon: icon3 },
-    { link: '/products', title: 'Bedroom Set 2', icon: icon2 },
-    { link: '/products', title: 'Bedroom Set 1', icon: icon3 },
-    { link: '/products', title: 'Bedroom Set 2', icon: icon2 },
-    { link: '/products', title: 'Bedroom Set 1', icon: icon3 },
+    { link: '/products', title: 'Beds', icon: icon3 },
+    { link: '/products', title: 'Chest of Draws', icon: icon2 },
+    { link: '/products', title: 'Wardrobe', icon: icon3 },
   ],
   chairs: [
-    { link: '/products', title: 'Chair Model 1', icon: icon5 },
-    { link: '/products', title: 'Chair Model 2', icon: icon3 },
+    { link: '/products', title: 'Leisure Chair', icon: icon2 },
+    { link: '/products', title: 'Armchairs', icon: icon3 },
+    { link: '/products', title: 'Accent Chairs', icon: icon2 },
+    { link: '/products', title: 'Sofas', icon: icon5 },
     // Add more items as needed
   ],
   tables: [
-    { link: '/products', title: 'Table Model 1', icon: icon5 },
-    { link: '/products', title: 'Bedroom Set 2', icon: icon2 },
-    { link: '/products', title: 'Bedroom Set 1', icon: icon3 },
-    { link: '/products', title: 'Bedroom Set 2', icon: icon2 },
-    { link: '/products', title: 'Table Model 2', icon: icon2 },
-    // Add more items as needed
+    { link: '/products', title: 'Coffee Tables', icon: icon5 },
+    { link: '/products', title: 'Dining Tables', icon: icon2 },
+    { link: '/products', title: 'Office Tables', icon: icon3 },
+    { link: '/products', title: 'Side Tables', icon: icon2 },
+
   ],
   homeOffice: [
-    { link: '/products', title: 'Office Desk 1', icon: icon2 },
-    { link: '/products', title: 'Bedroom Set 2', icon: icon2 },
-    { link: '/products', title: 'Bedroom Set 1', icon: icon3 },
-    { link: '/products', title: 'Bedroom Set 2', icon: icon2 },
-    { link: '/products', title: 'Office Desk 2', icon: icon5 },
-    // Add more items as needed
+    { link: '/products', title: 'Desks', icon: icon2 },
   ],
-  tvCabinets: [
-    { link: '/products', title: 'TV Cabinet 1', icon: icon2 },
-    { link: '/products', title: 'TV Cabinet 2', icon: icon3 },
-    { link: '/products', title: 'Bedroom Set 2', icon: icon2 },
-    { link: '/products', title: 'Bedroom Set 1', icon: icon3 },
-    { link: '/products', title: 'Bedroom Set 2', icon: icon2 },
-    // Add more items as needed
+  
+  Lighting: [
+    { link: '/products', title: 'Floor Lamps', icon: icon2 },
+    { link: '/products', title: 'Table Lamps', icon: icon2 },
   ],
-  clearance: [
-    { link: '/products', title: 'Clearance Item 1', icon: icon3 },
-    { link: '/products', title: 'Bedroom Set 2', icon: icon2 },
-    { link: '/products', title: 'Bedroom Set 1', icon: icon3 },
-    { link: '/products', title: 'Bedroom Set 2', icon: icon2 },
-    { link: '/products', title: 'Clearance Item 2', icon: icon2 },
-    // Add more items as needed
-  ],
-  megaSale: [{ link: '/products', title: 'Bedroom Set 1', icon: icon3 }],
+  tvCabinets: [{ link: '/products', title: 'TV Cabinets', icon: icon3 }],
+  clearance: [{ link: '/products', title: 'Clearance', icon: icon3 }],
+  megaSale: [{ link: '/products', title: '', icon: icon3 }],
 };

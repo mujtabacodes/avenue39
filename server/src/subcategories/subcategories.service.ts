@@ -21,10 +21,10 @@ export class SubcategoriesService {
 
   async addSubCategory(categoryData: AddSubCategoryDto) {
     console.log('Add sub category triggered!');
+    console.log(categoryData);
     try {
-      const { name, categoriesId } = categoryData;
+      const { name, categoriesId, posterImageUrl } = categoryData;
 
-      // Check if the subcategory already exists
       const existingSubCategory = await this.prisma.subCategories.findFirst({
         where: { name },
       });
@@ -36,7 +36,6 @@ export class SubcategoriesService {
         };
       }
 
-      // Validate categoriesId
       if (!Array.isArray(categoriesId) || categoriesId.length === 0) {
         return {
           message: 'You must provide at least one category ID!',
@@ -44,7 +43,6 @@ export class SubcategoriesService {
         };
       }
 
-      // Validate each category ID
       for (const categoryId of categoriesId) {
         const existingCategory = await this.prisma.categories.findUnique({
           where: { id: categoryId },
@@ -58,10 +56,11 @@ export class SubcategoriesService {
         }
       }
 
-      // Create the subcategory and link it to the first category
       const newSubCategory = await this.prisma.subCategories.create({
         data: {
           name,
+          posterImageUrl: posterImageUrl.imageUrl,
+          posterImagePublicId: posterImageUrl.public_id,
           categories: {
             connect: { id: categoriesId[0] },
           },
@@ -88,13 +87,11 @@ export class SubcategoriesService {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }
   }
-  // async updateSubCategory(categoryData: UpdateSubCategory) {
   async updateSubCategory(subCategoryData: UpdateSubCategoryDto) {
     console.log('Update subcategory triggered!');
     try {
-      const { id, name, categoriesId } = subCategoryData;
+      const { id, name, categoriesId, posterImageUrl } = subCategoryData;
 
-      // Find the existing subcategory by ID
       const existingSubCategory = await this.prisma.subCategories.findUnique({
         where: { id },
       });
@@ -106,7 +103,6 @@ export class SubcategoriesService {
         };
       }
 
-      // Check if the new name is already taken by another subcategory
       const existingSubCategoryByName =
         await this.prisma.subCategories.findFirst({
           where: {
@@ -122,7 +118,6 @@ export class SubcategoriesService {
         };
       }
 
-      // Validate categoriesId
       if (!Array.isArray(categoriesId) || categoriesId.length === 0) {
         return {
           message: 'You must provide at least one category ID!',
@@ -130,7 +125,6 @@ export class SubcategoriesService {
         };
       }
 
-      // Validate each category ID
       for (const categoryId of categoriesId) {
         const existingCategory = await this.prisma.categories.findUnique({
           where: { id: categoryId },
@@ -144,11 +138,12 @@ export class SubcategoriesService {
         }
       }
 
-      // Update the subcategory with new data
       await this.prisma.subCategories.update({
         where: { id },
         data: {
           name,
+          posterImageUrl: posterImageUrl.imageUrl,
+          posterImagePublicId: posterImageUrl.public_id,
           categories: {
             set: categoriesId.map((categoryId) => ({ id: categoryId })),
           },

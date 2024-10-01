@@ -59,7 +59,8 @@ const Navbar = (props: INav) => {
     <div className="bg-white dark:text-black">
       <Container className="flex items-center justify-between p-2 md:p-4 gap-4 dark:bg-white">
         <div className="w-3/12 min-w-32">
-          <Link className="relative" href={'/'}>
+         <div className='w-fit'>
+         <Link className="relative" href={'/'}>
             <Image
               className="object-contain"
               width={180}
@@ -68,6 +69,7 @@ const Navbar = (props: INav) => {
               alt="Logo"
             />
           </Link>
+         </div>
         </div>
         <div className="w-6/12">
           <form
