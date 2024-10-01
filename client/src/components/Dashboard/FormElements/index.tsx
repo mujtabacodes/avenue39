@@ -41,11 +41,29 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
 }) => {
   const [selectedOption, setSelectedOption] = useState<string>('');
   const [isOptionSelected, setIsOptionSelected] = useState<boolean>(false);
-  const [imagesUrl, setImagesUrl] = useState<any[]>([]);
-  const [posterimageUrl, setposterimageUrl] = useState<any[] | null>(
-    EditInitialValues ? [EditInitialValues.posterImageUrl] : [],
+  const [imagesUrl, setImagesUrl] = useState<any[]>(
+    EditInitialValues ? EditInitialValues.productImages : [],
   );
-  const [hoverImage, sethoverImage] = useState<any[] | null | undefined>();
+  const [posterimageUrl, setposterimageUrl] = useState<any[] | null>(
+    EditInitialValues
+      ? [
+          {
+            imageUrl: EditInitialValues.posterImageUrl,
+            public_id: EditInitialValues.posterImagePublicId,
+          },
+        ]
+      : [],
+  );
+  const [hoverImage, sethoverImage] = useState<any[] | null | undefined>(
+    EditInitialValues
+      ? [
+          {
+            imageUrl: EditInitialValues.hoverImageUrl,
+            public_id: EditInitialValues.hoverImagePublicId,
+          },
+        ]
+      : [],
+  );
   const [loading, setloading] = useState<boolean>(false);
   const [productInitialValue, setProductInitialValue] = useState<
     any | null | undefined
@@ -83,8 +101,17 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
           __v,
           ...EditInitialProductValues
         } = EditInitialValues as any;
-        imageUrl ? setImagesUrl(imageUrl) : null;
-        posterImageUrl ? setposterimageUrl([posterImageUrl]) : null;
+
+        const categoryIds =
+          EditInitialValues.categories?.map((category: any) => category.id) ||
+          [];
+        setSelectedCategoryIds(categoryIds);
+
+        const subcategoryIds =
+          EditInitialValues.subcategories?.map(
+            (subcategory: any) => subcategory.id,
+          ) || [];
+        setSelectedSubcategoryIds(subcategoryIds);
       } catch (err) {
         console.log(err, 'err');
       }
@@ -93,6 +120,11 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
     CategoryHandler();
   }, []);
   const onSubmit = async (values: any, { resetForm }: any) => {
+    console.log('New console');
+    console.log(posterimageUrl);
+    console.log(imagesUrl);
+    console.log(hoverImage);
+
     values.categories = selectedCategoryIds;
     values.subcategories = selectedSubcategoryIds;
     // console.log(values, 'values');
@@ -126,9 +158,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
       setloading(true);
 
       let updateFlag = EditProductValue && EditInitialValues ? true : false;
-      let addProductUrl = updateFlag
-        ? `/api/updateProduct/${EditInitialValues._id} `
-        : null;
+      let addProductUrl = updateFlag ? `/api/product/update-product` : null;
       console.log('debuge 5');
       let url = `${process.env.NEXT_PUBLIC_BASE_URL}${
         updateFlag ? addProductUrl : '/api/product/add-product'
@@ -136,6 +166,9 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
       console.log('debuge 6');
 
       console.log(newValues);
+      if (updateFlag && EditInitialValues?.id) {
+        newValues = { id: EditInitialValues.id, ...newValues };
+      }
       const response = await axios.post(url, newValues);
       console.log(response, 'response');
       Toaster(
@@ -172,7 +205,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
 
   const validationSchema = Yup.object().shape({
     price: Yup.number()
-      .min(0, 'Price cannot be negative') 
+      .min(0, 'Price cannot be negative')
       .required('Price is required'),
   });
   const formik = useFormik({
@@ -244,6 +277,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
         className="text-lg font-black mb-4 flex items-center justify-center gap-2 hover:bg-gray-200 w-fit p-2 cursor-pointer text-black dark:bg-black dark:text-white"
         onClick={() => {
           setselecteMenu('Add All Products');
+          setEditProduct(undefined);
         }}
       >
         <IoMdArrowRoundBack /> Back
@@ -259,7 +293,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
       >
         {(formik) => {
           return (
-            <Form onSubmit={formik.handleSubmit} >
+            <Form onSubmit={formik.handleSubmit}>
               <div className="grid grid-cols-1 gap-9 sm:grid-cols-2">
                 <div className="flex flex-col gap-9 ">
                   <div className="rounded-sm border border-stroke bg-white dark:bg-black py-4 px-6">
@@ -519,7 +553,9 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                         </div>
 
                         <div className="mt-4">
-                          <h2 className="text-lg font-medium mb-3">Subcategories</h2>
+                          <h2 className="text-lg font-medium mb-3">
+                            Subcategories
+                          </h2>
                           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             {filteredSubcategories.map((subcategory) => (
                               <div
@@ -822,7 +858,10 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                                     onClick={() => remove(index)}
                                     className="ml-2 text-red"
                                   >
-                                    <RxCross2 className="text-red-500 dark:text-white" size={25} />
+                                    <RxCross2
+                                      className="text-red-500 dark:text-white"
+                                      size={25}
+                                    />
                                   </button>
                                 </div>
                               ),
@@ -861,7 +900,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                                       formik.values.colors[index].colorName
                                     }
                                     placeholder="color name"
-                                    className='w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary'
+                                    className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                                     // className={`w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${
                                     //   formik.touched.spacification?.[index]
                                     //     ?.colorName &&
@@ -880,7 +919,10 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                                     onClick={() => remove(index)}
                                     className="ml-2 text-red-500"
                                   >
-                                    <RxCross2 className="text-red-500 dark:text-white" size={25} />
+                                    <RxCross2
+                                      className="text-red-500 dark:text-white"
+                                      size={25}
+                                    />
                                   </button>
                                 </div>
                               ),

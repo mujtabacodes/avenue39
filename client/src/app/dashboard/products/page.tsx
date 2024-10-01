@@ -48,8 +48,11 @@ const Products = () => {
     starRating: editProduct && editProduct.starRating,
     reviews: editProduct && editProduct.starRating,
     code: editProduct && editProduct.code,
+    stock: editProduct && editProduct.stock,
     salePrice: editProduct && editProduct.salePrice,
-
+    posterImageUrl: editProduct && editProduct.posterImageUrl,
+    hoverImageUrl: editProduct && editProduct.hoverImageUrl,
+    imagesUrl: editProduct && editProduct.productImages,
     purchasePrice: editProduct && editProduct.purchasePrice,
     additionalInformation: editProduct && editProduct.additionalInformation,
   };
