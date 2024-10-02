@@ -50,7 +50,19 @@ import QRScanner from '../QR-reader/QR';
 import { calculateRatingsPercentage, renderStars } from '@/config';
 import Loader from '../Loader/Loader';
 
-const ProductDetail = ({params,isZoom,gap,swiperGap,detailsWidth,}: {params: IProductDetail;isZoom?: Boolean;gap?: String;swiperGap?: String;detailsWidth?: String;}) => {
+const ProductDetail = ({
+  params,
+  isZoom,
+  gap,
+  swiperGap,
+  detailsWidth,
+}: {
+  params: IProductDetail;
+  isZoom?: Boolean;
+  gap?: String;
+  swiperGap?: String;
+  detailsWidth?: String;
+}) => {
   const [hoveredImage, setHoveredImage] = useState<string | null>(null);
   const cartItems = useSelector((state: State) => state.cart.items);
   const [count, setCount] = useState(1);
@@ -78,9 +90,12 @@ const ProductDetail = ({params,isZoom,gap,swiperGap,detailsWidth,}: {params: IPr
     queryFn: fetchReviews,
   });
   const productId = product?.id;
-  const filteredReviews = reviews.filter(
-    (review) => review.productId === productId,
-  );
+  // const filteredReviews = reviews.filter(
+  //   (review) => review.productId === productId,
+  // );
+  const filteredReviews = Array.isArray(reviews)
+    ? reviews.filter((review) => review.productId === productId)
+    : [];
   const { averageRating, productReviews } =
     calculateRatingsPercentage(filteredReviews);
   if (!product) {
@@ -267,7 +282,13 @@ const ProductDetail = ({params,isZoom,gap,swiperGap,detailsWidth,}: {params: IPr
                 </DialogTitle>
               </DialogHeader>
               <QRScanner
-                hoveredImage={ hoveredImage? hoveredImage: product?.productImages[0].imageUrl? product?.productImages[0].imageUrl: 'not found'}
+                hoveredImage={
+                  hoveredImage
+                    ? hoveredImage
+                    : product?.productImages[0].imageUrl
+                      ? product?.productImages[0].imageUrl
+                      : 'not found'
+                }
                 url={slug}
               />
             </DialogContent>
@@ -288,7 +309,8 @@ const ProductDetail = ({params,isZoom,gap,swiperGap,detailsWidth,}: {params: IPr
               tabby
             </span>
             <p className="text-12">
-              Pay 4 interest-free payments of AED {Math.round(product?.price/4) }{' '}
+              Pay 4 interest-free payments of AED{' '}
+              {Math.round(product?.price / 4)}{' '}
               <Dialog>
                 <DialogTrigger asChild>
                   <span className="text-red-600 underline cursor-pointer">
@@ -354,7 +376,8 @@ const ProductDetail = ({params,isZoom,gap,swiperGap,detailsWidth,}: {params: IPr
               tamara
             </span>
             <p className="text-12">
-              Pay 4 interest-free payments of AED {Math.round(product?.price/4) }. {" "}
+              Pay 4 interest-free payments of AED{' '}
+              {Math.round(product?.price / 4)}.{' '}
               <Dialog>
                 <DialogTrigger asChild>
                   <span className="text-red-600 underline cursor-pointer">
