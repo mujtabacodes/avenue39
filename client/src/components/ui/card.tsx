@@ -130,14 +130,21 @@ const Card: React.FC<CardProps> = ({
       ) : (
         <>
           <h3 className="text-lg font-semibold mt-2">{card.name}</h3>
-          <p className="text-xs font-semibold mt-1">
-            AED{card.discountPrice}
-            <span className="line-through text-secondary-foreground ms-2">
-              AED{card.price}
+          {card.discountPrice > 0 ? (
+            <p className="text-xs font-semibold mt-1">
+              AED {card.discountPrice}
+              <span className="line-through text-secondary-foreground ms-2">
+                AED {card.price}
+              </span>
+            </p>
+          ) : (
+            <span className="text-xs text-black font-semibold">
+              AED {card.price}
             </span>
-          </p>
+          )}
+
           <div className="flex gap-1 items-center justify-center mt-1 h-5">
-          {averageRating > 0 && renderStars({ star: averageRating })}
+            {averageRating > 0 && renderStars({ star: averageRating })}
           </div>
         </>
       )}

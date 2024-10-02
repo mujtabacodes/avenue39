@@ -10,7 +10,7 @@ import React from 'react';
 const Contact = () => {
   return (
     <>
-      <TopHero title="Contact Us" breadcrumbs={breadcrumbs} />
+      <TopHero breadcrumbs={breadcrumbs} />
       <Container className="flex flex-wrap md:flex-nowrap items-start md:gap-20 ">
         <div className="w-full md:w-9/12">
           <ContactForm />

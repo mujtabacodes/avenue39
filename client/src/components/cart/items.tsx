@@ -131,7 +131,7 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                       <div className="flex justify-between gap-5">
                         <span> Qty {item.quantity}</span>
                         <ProductPrice className="flex gap-2 mb-4 !text-[15px]">
-                          AED {item?.discountPrice * item.quantity}kk
+                          AED {item?.discountPrice * item.quantity}
                           <NormalText className="text-slate-400 line-through  !text-[15px]">
                             {item?.price * item.quantity}
                           </NormalText>

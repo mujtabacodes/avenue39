@@ -25,7 +25,7 @@ const settings = {
     arrows: true,
     infinite: true,
     slidesToShow: 4,
-    slidesToScroll: 1,
+    slidesToScroll: 4,
     speed: 500,
     prevArrow: <TestimonialPrevArrow />,
     nextArrow: <TestimonialNextArrow />,
@@ -34,14 +34,14 @@ const settings = {
         breakpoint: 1350,
         settings: {
           slidesToShow: 3,
-          slidesToScroll: 1,
+          slidesToScroll: 3,
         },
       },
       {
         breakpoint: 1050,
         settings: {
           slidesToShow: 2,
-          slidesToScroll: 1,
+          slidesToScroll: 2,
         },
       },
       {

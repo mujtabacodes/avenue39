@@ -72,12 +72,21 @@ const LandscapeCard: React.FC<CardProps> = ({ card }) => {
             <p className="mt-2 font-normal text-sm max-h-10 text-ellipsis line-clamp-2">
               {card.description}
             </p>
-            <p className="text-md font-semibold mt-2">
-              AED{card.discountPrice}
-              <span className="line-through text-secondary-foreground ms-2">
-                AED{card.price}
-              </span>
-            </p>
+            {
+              card.discountPrice > 0 ?(
+                <p className="text-md font-semibold mt-2">
+                AED{card.discountPrice}
+                <span className="line-through text-secondary-foreground ms-2">
+                  AED{card.price}
+                </span>
+              </p>
+              ):(
+                <p className="text-md font-semibold  pt-2">
+                  AED{card.price}
+                </p>
+              )
+            }
+           
           </>
         )}
         <div className="flex gap-1 mt-2 items-center justify-center sm:justify-start h-8">

@@ -83,7 +83,7 @@ const SliderComponent: React.FC<SliderProps> = ({
        {isLoading ? <CardSkaleton /> : 
 
             cards && cards.map((card) => (
-              <SwiperSlide key={card.id}>
+              <SwiperSlide key={card.id} className='mb-5'>
                 <Card
                   isLoading={isLoading}
                   className="w-full"

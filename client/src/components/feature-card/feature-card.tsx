@@ -133,14 +133,23 @@ const FeatureCard: React.FC<CardProps> = ({
               {averageRating > 0 && renderStars({ star: averageRating })}
             </div>
           </div>
-          <div className="border-t flex gap-5 pt-3 px-1">
-            <p className="text-12">
-              AED<span>{card.discountPrice}</span>.00
-            </p>
-            <p className="text-12 line-through text-[#A5A5A5] font-semibold">
-              AED<span>{card.price}</span>.00
-            </p>
-          </div>
+
+          {card.discountPrice > 0 ? (
+            <div className="border-t flex gap-5 pt-3 px-1">
+              <p className="text-12">
+                AED<span>{card.discountPrice}</span>.00
+              </p>
+              <p className="text-12 line-through text-[#A5A5A5] font-semibold">
+                AED<span>{card.price}</span>.00
+              </p>
+            </div>
+          ) : (
+            <div className="border-t flex gap-5 pt-3 px-1">
+              <p className="text-12 font-semibold">
+                AED<span>{card.price}</span>.00
+              </p>
+            </div>
+          )}
         </div>
       )}
     </div>
