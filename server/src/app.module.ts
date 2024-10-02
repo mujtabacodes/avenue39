@@ -9,10 +9,11 @@ import { ReviewsModule } from './reviews/reviews.module';
 import { AdminModule } from './admin/admin.module';
 import { SalesRecordModule } from './sales_record/sales_record.module';
 import { SubcategoriesModule } from './subcategories/subcategories.module';
+import { PaymobModule } from './paymob/paymob.module';
 
 
 @Module({
-  imports: [UsersModule, PrismaModule, ProductsModule, CategoriesModule, ReviewsModule, AdminModule, SalesRecordModule, SubcategoriesModule],
+  imports: [UsersModule, PrismaModule, ProductsModule, CategoriesModule, ReviewsModule, AdminModule, SalesRecordModule, SubcategoriesModule, PaymobModule],
   controllers: [AppController],
   providers: [AppService],
 })
