@@ -61,6 +61,9 @@ export class PaymobService {
   }
 
   async generatePaymentKey(data: any): Promise<{ paymentKey: string }> {
+    console.log('aylo from payment key');
+    console.log(data);
+
     const {
       token,
       orderId,
@@ -70,13 +73,37 @@ export class PaymobService {
       shipmentFee,
     } = data;
 
-    const existingPayment = await this.prisma.payment.findUnique({
-      where: { orderId },
-    });
+    const { firstName, lastName, phone, ...otherDetails } = billingData;
 
-    if (existingPayment) {
-      throw new HttpException('Order ID already exists', 400);
-    }
+    const billingDetails = {
+      first_name: firstName || '-',
+      last_name: lastName || '-',
+      phone_number: phone || '',
+      street: '-',
+      building: '-',
+      floor: '-',
+      apartment: '-',
+      city: 'Dubai',
+      country: 'United Arab Emirates',
+      address: '-',
+      ...otherDetails,
+    };
+    // const existingPayment = await this.prisma.payment.findUnique({
+    //   where: { orderId },
+    // });
+
+    // if (existingPayment) {
+    //   throw new HttpException('Order ID already exists', 400);
+    // }
+    console.log('Request payload:', {
+      auth_token: token,
+      amount_cents: amount * 100,
+      expiration: 3600,
+      order_id: orderId,
+      billing_data: billingDetails,
+      currency: process.env.PAYMOD_CURRENCY,
+      integration_id: process.env.PAYMOB_INTEGRATION_ID,
+    });
 
     const paymentKeyResponse = await this.httpService
       .post(`${process.env.PAYMOD_BASE_URL}/acceptance/payment_keys`, {
@@ -84,24 +111,24 @@ export class PaymobService {
         amount_cents: amount * 100,
         expiration: 3600,
         order_id: orderId,
-        billing_data: billingData,
+        billing_data: billingDetails,
         currency: process.env.PAYMOD_CURRENCY,
         integration_id: process.env.PAYMOB_INTEGRATION_ID,
       })
       .toPromise();
 
-    await this.prisma.payment.create({
-      data: {
-        ...billingData,
-        orderId,
-        checkout: true,
-        paymentStatus: false,
-        shipmentFee,
-        orderedProductDetails: {
-          create: orderedProductDetails,
-        },
-      },
-    });
+    // await this.prisma.payment.create({
+    //   data: {
+    //     ...billingData,
+    //     orderId,
+    //     checkout: true,
+    //     paymentStatus: false,
+    //     shipmentFee,
+    //     orderedProductDetails: {
+    //       create: orderedProductDetails,
+    //     },
+    //   },
+    // });
 
     return { paymentKey: paymentKeyResponse.data.token };
   }
