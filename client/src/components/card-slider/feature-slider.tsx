@@ -1,23 +1,19 @@
 'use client';
 import React, { useRef } from 'react';
-import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-import FeatureCard from '../feature-card/feature-card';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
-import { Feature, IProduct } from '@/types/types';
-import { cards, features, products } from '@/data';
 import { useQuery } from '@tanstack/react-query';
 import { fetchProducts } from '@/config/fetch';
 import NoProduct from '../ui/no-product';
-
-interface SliderProps {
-  cards: IProduct[];
-  isModel?: boolean;
-}
+import FeatureCard from '../feature-card/feature-card';
+import { IProduct } from '@/types/types';
+import { Navigation, Autoplay, Pagination } from 'swiper/modules';
+import CardSkaleton from '../Skaleton/productscard';
 
 const FeatureSlider: React.FC = () => {
-
   const {
     data: products = [],
     error: productsError,
@@ -26,52 +22,19 @@ const FeatureSlider: React.FC = () => {
     queryKey: ['products'],
     queryFn: fetchProducts,
   });
-  const sliderRef = useRef<Slider | null>(null);
+
+  const swiperRef = useRef<any>(null);
 
   const next = () => {
-    if (sliderRef.current) {
-      sliderRef.current.slickNext();
+    if (swiperRef.current && swiperRef.current.swiper) {
+      swiperRef.current.swiper.slideNext();
     }
   };
 
   const previous = () => {
-    if (sliderRef.current) {
-      sliderRef.current.slickPrev();
+    if (swiperRef.current && swiperRef.current.swiper) {
+      swiperRef.current.swiper.slidePrev();
     }
-  };
-
-  const settings = {
-    arrows: false,
-    infinite: true,
-    speed: 500,
-    slidesToShow: products.length > 4 ? 4 : products.length,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 2000,
-    pauseOnHover: true,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: products && products.length > 3 ? 3 : products.length,
-          slidesToScroll: 1,
-        },
-      },
-      {
-        breakpoint: 768,
-        settings: {
-          slidesToShow: products && products.length > 2 ? 2 : products.length,
-          slidesToScroll: 1,
-        },
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: products && products.length > 1 ? 1 : products.length,
-          slidesToScroll: 1,
-        },
-      },
-    ],
   };
 
   return (
@@ -90,30 +53,53 @@ const FeatureSlider: React.FC = () => {
               <IoIosArrowForward size={30} />
             </button>
           </div>
-          <Slider
-            ref={(slider) => {
-              sliderRef.current = slider;
+          <Swiper
+            ref={swiperRef}
+            slidesPerView={1}
+            spaceBetween={30}
+            loop={true}
+            autoplay={{
+              delay: 2500,
+              disableOnInteraction: false,
             }}
-            {...settings}
+            pagination={{
+              clickable: true,
+              dynamicBullets: true,
+            }}
+            navigation={{
+              nextEl: '.button-next',
+              prevEl: '.button-prev',
+            }}
+            breakpoints={{
+              1280: {
+                slidesPerView: 4,
+              },
+              1024: {
+                slidesPerView: 3,
+              },
+              768: {
+                slidesPerView: 2,
+              },
+              480: {
+                slidesPerView: 1.5,
+              },
+            }}
+            modules={[Navigation, Autoplay, Pagination]}
+            className="mySwiper"
           >
             {products.map((card) => (
-              <div key={card.id}>
+              <SwiperSlide className='mb-10' key={card.id}>
                 <FeatureCard
                   card={card}
                   isLoading={isProductsLoading}
                   cardHeight="w-96 h-[400px]"
                 />
-              </div>
+              </SwiperSlide>
             ))}
-          </Slider>
+          </Swiper>
         </>
       ) : (
-        <NoProduct
-          cardHeight="2xl:h-[400px]"
-          iconSize={40}
-          title="No Product Found"
-          titleClass="font-medium text-2xl md:text-3xl"
-        />
+        <CardSkaleton/>
       )}
     </div>
   );

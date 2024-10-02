@@ -150,6 +150,8 @@ const ProductPage = ({ params }: { params: IProductDetail }) => {
               )}
             </p>
           </div>
+          {product?.spacification && product?.spacification.length > 0  && 
+
           <div className="w-full md:w-2/5 border-t-2 md:border-t-0 border-s-0 md:border-s-2 py-4 md:pb-10">
             <h5 className="px-0 md:ps-12 font-bold text-15 uppercase">
               specification
@@ -159,7 +161,8 @@ const ProductPage = ({ params }: { params: IProductDetail }) => {
                 <li key={index}>{specsDetails}</li>
               ))}
             </ul>
-          </div>
+          </div>    
+          }
         </div>
       ),
     },
