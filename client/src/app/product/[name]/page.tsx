@@ -73,9 +73,12 @@ const ProductPage = ({ params }: { params: IProductDetail }) => {
     queryFn: fetchReviews,
   });
   const productId = product?.id;
-  const filteredReviews = reviews.filter(
-    (review) => review.productId === productId,
-  );
+  // const filteredReviews = reviews.filter(
+  //   (review) => review.productId === productId,
+  // );
+  const filteredReviews = Array.isArray(reviews)
+    ? reviews.filter((review) => review.productId === productId)
+    : [];
 
   const sortedReviews = [...filteredReviews].sort((a, b) => {
     switch (sortOption) {
@@ -118,7 +121,6 @@ const ProductPage = ({ params }: { params: IProductDetail }) => {
   //     address: '10 Downing Street',
   //   },
   // ];
-
 
   const columns = [
     {
