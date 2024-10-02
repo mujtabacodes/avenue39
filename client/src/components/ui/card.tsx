@@ -72,9 +72,12 @@ const Card: React.FC<CardProps> = ({
     queryFn: fetchReviews,
   });
   const productId = card?.id;
-  const filteredReviews = reviews.filter(
-    (review) => review.productId === productId,
-  );
+  const filteredReviews = Array.isArray(reviews)
+    ? reviews.filter((review) => review.productId === productId)
+    : [];
+  // const filteredReviews = reviews.filter(
+  //   (review) => review.productId === productId,
+  // );
   const { averageRating } = calculateRatingsPercentage(filteredReviews);
   const handleNavigation = (e: any) => {
     //@ts-ignore
@@ -137,7 +140,7 @@ const Card: React.FC<CardProps> = ({
             </span>
           </p>
           <div className="flex gap-1 items-center justify-center mt-1 h-5">
-          {averageRating > 0 && renderStars({ star: averageRating })}
+            {averageRating > 0 && renderStars({ star: averageRating })}
           </div>
         </>
       )}
