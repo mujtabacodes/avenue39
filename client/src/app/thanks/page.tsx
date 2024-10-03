@@ -1,15 +1,11 @@
 'use client';
 import { useState, useEffect, Fragment } from 'react';
 import { Dialog, DialogContent, DialogOverlay } from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
-import SliderComponent from '@/components/card-slider/card-slider';
-import { cards, tankyousildercards } from '@/data';
+
 import Container from '@/components/ui/Container';
 import Services from '@/components/services/services';
-import { LiaCheckCircle } from 'react-icons/lia';
 import thankyou from '@icons/thankyou.png';
 import Image from 'next/image';
-import { products } from '@/data/products';
 import Link from 'next/link';
 import { useQuery } from '@tanstack/react-query';
 import { IProduct } from '@/types/types';
@@ -17,6 +13,7 @@ import { fetchProducts } from '@/config/fetch';
 import FeatureSlider from '@/components/card-slider/feature-slider';
 import BestSellingSlider from '@/components/card-slider/best-selling';
 import { useSearchParams } from 'next/navigation';
+import Confetti from '@/components/confetti/confetti';
 
 const ThankYouPage = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -55,6 +52,7 @@ const ThankYouPage = () => {
     <Fragment>
       {successFlag ? (
         <>
+          <Confetti />
           <Container className="py-16">
             <Image src={thankyou} alt="thank you icon" className="mx-auto" />
             <h2 className="font-medium text-3xl xs:text-4xl sm:text-5xl md:text-6xl mt-14 text-center">
