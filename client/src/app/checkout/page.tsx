@@ -37,10 +37,12 @@ const Checkout = () => {
   const totalPrice = useSelector((state: State) =>
     selectTotalPrice(state.cart),
   );
+  const [iframeSrc, setIframeSrc] = useState<string | null>(null);
   const [cartproduct, setCartProduct] = useState<any[]>([]);
   const [paymentProcess, setPaymentProcess] = useState(false);
   const [loading, setloading] = useState<boolean>(false);
   const [shipmentFee, setShipmentFee] = useState<number | string>(0);
+  const [paymentkey, setPaymentKey] = useState('');
   const initialValues = {
     firstName: '',
     lastName: '',
@@ -141,12 +143,15 @@ const Checkout = () => {
         );
         console.log('=============== authResponse ===============');
         console.log(authResponse);
-        const paymentKey = paymentKeyResponse.data.paymentKey;
+        const paymentKey = await paymentKeyResponse.data.paymentKey;
+        console.log('Payment Key:' + paymentKey);
+        setPaymentKey(paymentKey);
         setPaymentProcess(true);
-        //@ts-expect-error
-        document.getElementById('paymobIframe').src =
-          `${process.env.NEXT_PUBLIC_PAYMOD_BASE_URL}/iframes/${process.env.NEXT_PUBLIC_PAYMOB_IFRAME_ID}?payment_token=${paymentKey}`;
-
+        if (paymentKey) {
+          setIframeSrc(
+            `${process.env.NEXT_PUBLIC_PAYMOD_BASE_URL}/iframes/${process.env.NEXT_PUBLIC_PAYMOB_IFRAME_ID}?payment_token=${paymentKey}`,
+          );
+        }
         // window.location.href = `${process.env.NEXT_PUBLIC_PAYMOD_BASE_URL}/iframes/${process.env.NEXT_PUBLIC_PAYMOB_IFRAME_ID}?payment_token=${paymentKey}`;
       } catch (error) {
         showToast(
@@ -166,10 +171,23 @@ const Checkout = () => {
       <TopHero breadcrumbs={checkout} />
 
       {paymentProcess ? (
-        <iframe
-          id="paymobIframe"
-          style={{ width: '100%', height: '500px' }}
-        ></iframe>
+        <div className="h-full">
+          <iframe
+            id="paymobIframe"
+            style={{
+              width: '100%',
+              height: '700px',
+              display: paymentProcess ? 'block' : 'none',
+              overflow: 'hidden', // Disable scrolling through CSS
+            }}
+            scrolling="no"
+            src={
+              paymentProcess
+                ? `${process.env.NEXT_PUBLIC_PAYMOD_BASE_URL}/iframes/${process.env.NEXT_PUBLIC_PAYMOB_IFRAME_ID}?payment_token=${paymentkey}`
+                : ''
+            }
+          ></iframe>
+        </div>
       ) : (
         <Container>
           <form
@@ -185,6 +203,7 @@ const Checkout = () => {
                     id="firstName"
                     name="firstName"
                     type="text"
+                    required
                     onChange={formik.handleChange}
                     value={formik.values.firstName}
                   />
@@ -193,6 +212,7 @@ const Checkout = () => {
                     id="lastName"
                     name="lastName"
                     type="text"
+                    required
                     onChange={formik.handleChange}
                     value={formik.values.lastName}
                   />
@@ -202,6 +222,7 @@ const Checkout = () => {
                   id="email"
                   name="email"
                   type="text"
+                  required
                   onChange={formik.handleChange}
                   value={formik.values.email}
                 />
@@ -212,6 +233,7 @@ const Checkout = () => {
                     id="phone"
                     name="phone"
                     type="number"
+                    required
                     onChange={formik.handleChange}
                     value={formik.values.phone}
                   />
@@ -220,6 +242,7 @@ const Checkout = () => {
                     id="address"
                     name="address"
                     type="text"
+                    required
                     onChange={formik.handleChange}
                     value={formik.values.address}
                   />
@@ -236,6 +259,7 @@ const Checkout = () => {
                       onValueChange={(value: any) =>
                         formik.setFieldValue('country', value)
                       }
+                      required
                     >
                       <SelectTrigger className="flex-grow h-full mt-3 rounded-full border-0 bg-[#F6F6F6] pl-8 pr-12 py-2  focus-visible:outline-none focus-visible:ring-0 text-15 font-medium outline-none focus-visible:ring-ring focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-50 ">
                         <SelectValue
@@ -268,6 +292,7 @@ const Checkout = () => {
                         formik.setFieldValue('state', value);
                         setSelectedState(value);
                       }}
+                      required
                     >
                       <SelectTrigger className="flex-grow h-full mt-3 rounded-full border-0 bg-[#F6F6F6] pl-8 pr-10 py-2   focus-visible:outline-none focus-visible:ring-0 text-15 font-medium outline-none focus-visible:ring-ring focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-50 ">
                         <SelectValue placeholder="Select your state" />
