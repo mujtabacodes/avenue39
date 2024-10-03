@@ -121,7 +121,7 @@ const Checkout = () => {
                 value={formik.values.phone}
               />
               <LabelInput
-                label="Street Address *"
+                label="Street Address"
                 id="address"
                 name="address"
                 type="text"

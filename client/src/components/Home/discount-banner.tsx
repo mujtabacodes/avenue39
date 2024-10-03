@@ -19,7 +19,7 @@ const DiscountBanner = () => {
   return (
     <div data-aos="fade-right" data-aos-duration="600" className=" mt-4">
         <div
-          className="w-full h-screen flex justify-center items-center "
+          className="w-full h-full md:h-screen flex justify-center items-center py-6 md:py-0 "
           style={{
             backgroundImage: `url(${banner4.src})`,
             backgroundSize: 'cover',
@@ -51,7 +51,7 @@ const DiscountBanner = () => {
             <div className="pt-10" data-aos="flip-left" data-aos-duration="700">
               <Link
                 href="/products"
-                className="bg-white text-black font-semibold text-base py-5 px-24 md:text-[25px] rounded-[30px] hover:bg-black hover:text-white"
+                className="bg-white text-black font-semibold text-base px-4 py-2 md:py-5 md:px-24 md:text-[25px] rounded-[30px] hover:bg-black hover:text-white"
               >
                 Buy Now
               </Link>

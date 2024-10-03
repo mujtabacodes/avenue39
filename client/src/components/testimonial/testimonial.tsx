@@ -64,12 +64,12 @@ const settings = {
   
     return (
       <section className='bg-lightforeground overflow-hidden' id='testimonial-section'>
-        <Container className='pt-28 pb-20 text-center'>
-          <p className='text-20 font-normal'>Testimonial</p>
-          <h2 className='font-medium text-2xl xs:text-3xl md:text-4xl w-5/6 xs:w-3/4 lg:w-5/12 mx-auto tracking-wide leading-relaxed md:leading-relaxed mt-3 px-4'>
+        <Container className='py-5 md:py-20 text-center'>
+          <p className='text-20 font-medium md:font-normal'>Testimonial</p>
+          <h2 className='font-medium text-16 xs:text-3xl md:text-4xl w-5/6 xs:w-3/4 lg:w-5/12 mx-auto tracking-wide leading-relaxed md:leading-relaxed mt-3 px-4'>
             We Care About Our Customer’s Experience Too
           </h2>
-          <div className="testimonial-card-wrapper mt-16 ">
+          <div className="testimonial-card-wrapper mt-5 md:mt-16 ">
             {loading ? (
               <Slider {...settings} className='mx-2 testimonial-slider ml-2 mr-2 pb-20 '>
                 {Array.from({ length: 4 }).map((_, index) => (

@@ -18,7 +18,7 @@ const SaleBanner: React.FC = () => {
     <section className="bg-lightbackground mt-4">
       <Container className="flex flex-wrap-reverse justify-center md:justify-between gap-4 md:gap-0 items-center ">
         <div className="flex items-center justify-center md:justify-start gap-3 w-full md:w-1/2 pb-6 md:pb-0">
-          <h3 className="text-[#FF0000] text-6xl xs:text-8xl">40%</h3>
+          <h3 className="text-main text-6xl xs:text-8xl">40%</h3>
           <div className="space-y-0">
             <p className="text-primary-foreground text-16 xs:text-2xl">Discount</p>
             <h4 className="text-lg xs:text-2xl xl:text-3xl 2xl:text-4xl font-semibold">Florence TV Cabinet</h4>

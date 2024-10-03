@@ -22,6 +22,7 @@ import {
 import { useQuery } from '@tanstack/react-query';
 import { fetchReviews } from '@/config/fetch';
 import CardSkeleton from '../cardSkelton';
+import { IoIosHeartEmpty } from 'react-icons/io';
 interface CardProps {
   card?: IProduct;
   isModel?: boolean;
@@ -91,7 +92,7 @@ const Card: React.FC<CardProps> = ({
   return (
     <div
       className="rounded-3xl text-center relative product-card mx-4 group hover:cursor-pointer mb-2"
-      onClick={(e) => handleNavigation(e)}
+      
     >
       <div className="relative w-full">
         {loading ? (
@@ -103,9 +104,13 @@ const Card: React.FC<CardProps> = ({
                 - {card.sale}%
               </span>
             )}
+            <div className=" w-10 h-12 absolute right-2 top-2 rounded-xl  flex justify-center items-center border bg-white hover:border-main hover:bg-main hover:text-white  cursor-pointer">
+              <IoIosHeartEmpty size={25} />
+            </div>
             <Image
               src={card.posterImageUrl}
               alt={card.name}
+              onClick={(e) => handleNavigation(e)}
               width={600}
               height={600}
               className={cn(
@@ -128,7 +133,7 @@ const Card: React.FC<CardProps> = ({
           </div>
         </>
       ) : (
-        <>
+        <div onClick={(e) => handleNavigation(e)}>
           <h3 className="text-lg font-semibold mt-2">{card.name}</h3>
           {card.discountPrice > 0 ? (
             <p className="text-xs font-semibold mt-1">
@@ -146,7 +151,7 @@ const Card: React.FC<CardProps> = ({
           <div className="flex gap-1 items-center justify-center mt-1 h-5">
             {averageRating > 0 && renderStars({ star: averageRating })}
           </div>
-        </>
+        </div>
       )}
       {loading ? (
         <div className="flex gap-3 justify-center mt-3">

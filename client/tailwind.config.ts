@@ -9,6 +9,7 @@ const config = {
     './src/**/*.{ts,tsx}',
   ],
   prefix: '',
+
   theme: {
     container: {
       center: true,
@@ -38,6 +39,7 @@ const config = {
         21: '21px',
       },
       colors: {
+        main: 'var(--main)',
         light: '#F6F6F6',
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
