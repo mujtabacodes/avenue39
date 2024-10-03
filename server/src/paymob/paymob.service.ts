@@ -20,14 +20,11 @@ export class PaymobService {
         );
       }
 
-      const response = await this.httpService
-        .post(`${process.env.PAYMOD_BASE_URL}/auth/tokens`, {
-          api_key: apiKey,
-        })
-        .toPromise();
+      const response = await this.httpService.post(`${process.env.PAYMOD_BASE_URL}/auth/tokens`, {api_key: apiKey,}).toPromise();
 
       return response.data.token;
     } catch (error) {
+      console.log(error, "erro")
       throw new HttpException(error.message || 'Token generation failed.', 500);
     }
   }
