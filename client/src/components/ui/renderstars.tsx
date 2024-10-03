@@ -17,11 +17,16 @@ const RenderStars: React.FC<starProps> = ({ card }) => {
     queryFn: fetchReviews,
   });
   const productId = card?.id;
-  const filteredReviews = reviews.filter(
-    (review) => review.productId === productId,
-  );
+  // const filteredReviews = reviews.filter(
+  //   (review) => review.productId === productId,
+  // );
+  const filteredReviews = Array.isArray(reviews)
+    ? reviews.filter((review) => review.productId === productId)
+    : [];
   const { averageRating } = calculateRatingsPercentage(filteredReviews);
-  return <div className='flex gap-1'>{renderStars({ star: averageRating })}</div>;
+  return (
+    <div className="flex gap-1">{renderStars({ star: averageRating })}</div>
+  );
 };
 
 export default RenderStars;

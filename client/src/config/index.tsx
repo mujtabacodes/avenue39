@@ -43,11 +43,21 @@ export const calculateRatingsPercentage = (reviews: IReview[]) => {
   }
 
   const ratingCounts: any = {
-    5: reviews.filter((review) => review.star === 5).length,
-    4: reviews.filter((review) => review.star === 4).length,
-    3: reviews.filter((review) => review.star === 3).length,
-    2: reviews.filter((review) => review.star === 2).length,
-    1: reviews.filter((review) => review.star === 1).length,
+    5: Array.isArray(reviews)
+      ? reviews.filter((review) => review.star === 5).length
+      : 0,
+    4: Array.isArray(reviews)
+      ? reviews.filter((review) => review.star === 4).length
+      : 0,
+    3: Array.isArray(reviews)
+      ? reviews.filter((review) => review.star === 3).length
+      : 0,
+    2: Array.isArray(reviews)
+      ? reviews.filter((review) => review.star === 2).length
+      : 0,
+    1: Array.isArray(reviews)
+      ? reviews.filter((review) => review.star === 1).length
+      : 0,
   };
 
   const totalStars = reviews.reduce((sum, review) => sum + review.star, 0);

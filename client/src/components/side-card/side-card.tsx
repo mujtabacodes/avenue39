@@ -65,9 +65,9 @@ const SideCard: React.FC<sideCardProps> = ({ isSlice }) => {
   return (
     <div className="mt-7 flex flex-col lg:gap-7 sm:gap-12">
       {products.slice(-3).map((item, index) => {
-        const filteredReviews = reviews.filter(
-          (review) => review.productId === item.id,
-        );
+        const filteredReviews = Array.isArray(reviews)
+          ? reviews.filter((review) => review.productId === item.id)
+          : [];
         const { averageRating } = calculateRatingsPercentage(filteredReviews);
 
         return (
@@ -82,26 +82,28 @@ const SideCard: React.FC<sideCardProps> = ({ isSlice }) => {
                 width={180}
                 height={180}
                 alt={item.name}
-                className="w-44 h-44 rounded-2xl" 
+                className="w-44 h-44 rounded-2xl"
               />
             </div>
             <div className="flex flex-col gap-3 w-1/2">
               <p className="text-[13px] font-semibold">{item.name}</p>
               <hr />
-              {item.discountPrice > 0 ? (
+              <p className="text-[12px] font-semibold">
+                AED{item.discountPrice.toFixed(2)}
+              </p>
+              {item.price && (
                 <>
-                  <p className="text-[12px] font-semibold">
-                    AED{item.discountPrice}
-                  </p>
-
                   <p className="text-9 font-semibold line-through text-[#A5A5A5]">
-                    AED{item.price}
+                    AED{item.price.toFixed(2)}
                   </p>
-                </>
-              ) : (
-                <p className="text-[12px] font-semibold">AED{item.price}</p>
-              )}
 
+                  {item.sale && item.sale !== '0' && (
+                    <div className="bg-[#FF0000] w-10 h-5 text-[8px] rounded-3xl text-white flex justify-center items-center">
+                      {item.sale}
+                    </div>
+                  )}
+                </>
+              )}
               <div className="flex">
                 {averageRating > 0 && renderStars({ star: averageRating })}
               </div>

@@ -118,3 +118,30 @@ model sales_record_products {
   salesRecord   sales_record @relation(fields: [salesRecordId], references: [id])
   Products      Products[]   @relation("ProductsTosales_record_products")
 }
+
+model Payment {
+  id              String    @id @default(cuid())
+  firstName       String
+  lastName        String
+  email           String
+  phoneNumber     String
+  state           String
+  country         String
+  address         String?
+  orderId         String    @unique
+  checkout        Boolean   @default(false)
+  paymentStatus   Boolean   @default(false)
+  isRefund        Boolean   @default(false)
+  currency        String?
+  transactionId   String?
+  integrationId   String?
+  amountCents     String?
+  success         Boolean   @default(false)
+  pending         Boolean   @default(false)
+  is3DSecure      Boolean?
+  createdAt       DateTime  @default(now())
+  transactionDate DateTime?
+  shipmentFee     String?
+
+  deliveryStatus Boolean @default(false)
+}
