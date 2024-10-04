@@ -91,18 +91,6 @@ const Wishlist = () => {
     message.success('Product added to Cart successfully!');
   };
   
-  console.log("++++++++++++++++ QWHI");
-  console.log(wishlist)
-  console.log(cartItems)
- 
-  //  const itemToAdd: CartItem = {
-  //   ...cartItems,
-  //   quantity: 1,
-  // };
-  // const handleAddToCard = () => {
-  //   dispatch(addItem(itemToAdd));
-  //   dispatch(openDrawer());
-  // };
   
   return (
     <>
