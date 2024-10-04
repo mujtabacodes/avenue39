@@ -78,17 +78,15 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
         <Sheet open={drawerState}>
           <SheetTrigger asChild>
             <div
-              className={`lg:w-14 w-12 h-10 rounded-3xl relative flex justify-center items-center hover:bg-main border hover:border-main hover:text-white  cursor-pointer ${cartItems.length>0 ? "text-white bg-main" :"text-black  border-black"}`}
+              className={`lg:w-14 w-12 h-10 rounded-3xl relative flex justify-center items-center hover:bg-main border hover:border-main hover:text-white  cursor-pointer ${cartItems.length > 0 ? 'text-white bg-main' : 'text-black  border-black'}`}
               onClick={() => navigate.push('/cart')}
             >
               <IoBagOutline size={25} />
-              {
-                cartItems.length > 0 && (
-              <div className="w-4 h-4 rounded-full bg-black text-white flex justify-center items-center absolute top-2 right-2 text-10">
-                <TotalProducts />
-              </div>
-                )
-              }
+              {cartItems.length > 0 && (
+                <div className="w-4 h-4 rounded-full bg-black text-white flex justify-center items-center absolute top-2 right-2 text-10">
+                  <TotalProducts />
+                </div>
+              )}
             </div>
           </SheetTrigger>
           <SheetOverlay
@@ -186,21 +184,27 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                 <Image
                   width={isCheckoutPage ? 50 : 100}
                   height={isCheckoutPage ? 50 : 100}
-                  // src={item.posterImageUrl}
-                  src={
-                    'https://furniturezone.pk/wp-content/uploads/2024/03/4-Seater-Interchangeable-L-Shape-Sofa-Set3.jpg'
-                  }
+                  src={item.posterImageUrl}
                   alt={item.name}
                 />
                 <div className="w-full">
                   <p className="text-16 xl:text-18">{item.name}</p>
                   <div className="flex flex-wrap md:flex-nowrap lg:hidden justify-between items-center gap-2 md:gap-6 pr-4">
-                    <p className="text-[18px] font-bold">
-                      Dhs.<span>{item?.discountPrice * item.quantity}</span>
-                    </p>
-                    <p className="text-14 font-normal line-through text-[#A5A5A5]">
-                      Dhs.<span> {item?.price * item.quantity}</span>
-                    </p>
+                    {item.discountPrice > 0 ? (
+                      <>
+                        <p className="text-[18px] font-bold">
+                          Dhs.<span>{item?.discountPrice * item.quantity}</span>
+                        </p>
+                        <p className="text-14 font-normal line-through text-[#A5A5A5]">
+                          Dhs.<span> {item?.price * item.quantity}</span>
+                        </p>
+                      </>
+                    ) : (
+                      <p className="text-[18px] font-bold">
+                        Dhs.<span> {item?.price * item.quantity}</span>
+                      </p>
+                    )}
+
                     <IoCloseSharp
                       className="cursor-pointer"
                       size={20}
@@ -223,34 +227,41 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                 </div>
               </div>
 
-              
               <div className="hidden lg:flex items-center gap-2 xl:gap-6 pr-4">
-              <div className="hidden lg:block">
-                {!isCheckoutPage && (
-                  <Counter
-                    count={item.quantity}
-                    onIncrement={() =>
-                      updateProductQuantity(item.id, item.quantity + 1)
-                    }
-                    onDecrement={() =>
-                      updateProductQuantity(item.id, item.quantity - 1)
-                    }
+                <div className="hidden lg:block">
+                  {!isCheckoutPage && (
+                    <Counter
+                      count={item.quantity}
+                      onIncrement={() =>
+                        updateProductQuantity(item.id, item.quantity + 1)
+                      }
+                      onDecrement={() =>
+                        updateProductQuantity(item.id, item.quantity - 1)
+                      }
+                    />
+                  )}
+                </div>
+                <div className="w-40 xl:w-60 flex gap-2 xl:gap-4 items-center justify-end">
+                  {item.discountPrice > 0 ? (
+                      <>
+                        <p className="text-16 xl:text-[22px] font-bold">
+                          Dhs.<span>{item?.discountPrice * item.quantity}</span>
+                        </p>
+                        <p className="text-12 xl:text-16 font-normal line-through text-[#A5A5A5]">
+                          Dhs.<span> {item?.price * item.quantity}</span>
+                        </p>
+                      </>
+                    ) : (
+                      <p className="text-16 xl:text-[22px] font-bold">
+                        Dhs.<span> {item?.price * item.quantity}</span>
+                      </p>
+                    )}
+                  <IoCloseSharp
+                    className="cursor-pointer"
+                    size={25}
+                    onClick={() => removeProductFromCart(item.id)}
                   />
-                )}
-              </div>
-              <div className='w-40 xl:w-60 flex gap-2 xl:gap-4 items-center justify-end'>
-                <p className="text-16 xl:text-[22px] font-bold">
-                  AED.<span>{item?.discountPrice * item.quantity}</span>
-                </p>
-                <p className="text-12 xl:text-16 font-normal line-through text-[#A5A5A5]">
-                  AED.<span>{item?.price * item.quantity}</span>
-                </p>
-                <IoCloseSharp
-                  className="cursor-pointer"
-                  size={25}
-                  onClick={() => removeProductFromCart(item.id)}
-                />
-              </div>
+                </div>
               </div>
             </div>
           ))}
