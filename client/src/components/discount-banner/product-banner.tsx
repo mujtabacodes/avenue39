@@ -15,7 +15,7 @@ const ProductBanner = () => {
       }}
     >
       <div>
-        <Image src={offerIcon} alt='limited offer' className='w-32' />
+        <Image src={offerIcon} alt="limited offer" className="w-32" />
         <p className="text-white text-20 font-light tracking-widest mt-4">
           Get Discount Up to 50%
         </p>
@@ -34,7 +34,7 @@ const ProductBanner = () => {
         </p>
         <button className="my-4 px-4 py-3 text-black bg-white border border-white  rounded-full flex items-center justify-center gap-2 hover:bg-primary hover:text-white">
           <HiOutlineShoppingBag />
-          <span className="mr-2 text-xs">Add to card</span>
+          <span className="mr-2 text-xs">Add to card 2</span>
         </button>
       </div>
     </div>
