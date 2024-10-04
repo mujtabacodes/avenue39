@@ -8,7 +8,7 @@ import Link from 'next/link';
 
 const TopNav = () => {
   return (
-    <div className="bg-black text-secondary p-2 hidden md:block ">
+    <div className="bg-main text-secondary p-2 hidden md:block ">
       <Container className="flex  w-full justify-between items-center gap-4">
         <div className="flex items-center gap-4">
           <TextIcon

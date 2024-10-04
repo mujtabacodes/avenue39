@@ -81,7 +81,7 @@ const TimerSlider: React.FC = () => {
                       <h3 className="text-black text-18 font-bold tracking-[6px] lg:mb-3">
                         {slide.discountText}
                       </h3>
-                      <h3 className="lg:text-6xl text-2xl lg:font-bold mb-6 text-[#FF0000] ml-[-5px]">
+                      <h3 className="lg:text-6xl text-2xl lg:font-bold mb-6 text-main ml-[-5px]">
                         {slide.dealText}
                       </h3>
                       <h3 className="lg:text-5xl text-2xl lg:font-bold lg:mt-20 mt-6">
@@ -140,16 +140,14 @@ const TimerSlider: React.FC = () => {
                         </div>
                       </div>
                       <Button
-                        className="w-fit lg:px-12 lg:mt-8 tracking-widest text-17 font-bold"
+                        className=" lg:px-12 rounded-full lg:mt-8 tracking-widest text-17 font-bold md:w-[312px] md:h-[66px]"
                         variant={'link'}
                         onClick={() => handleButtonClick(slide.productId)}
                       >
                         {slide.buttonText}
                       </Button>
                     </div>
-                    {/* <Link href="/cart" className='w-fit lg:px-12 lg:mt-8 tracking-widest text-17 font-bold' >
-                      {slide.buttonText}
-                    </Link> */}
+                   
                   </div>
                   <div className="w-full lg:order-2 order-1 lg:p-16">
                     <Image

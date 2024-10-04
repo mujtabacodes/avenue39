@@ -6,12 +6,14 @@ import { products } from '@/data/products';
 import { IProduct } from '@/types/types';
 import { useQuery } from '@tanstack/react-query';
 import { fetchProducts } from '@/config/fetch';
+import { useRouter } from 'next/navigation';
 interface SliderProps {
   cards: IProduct[];
   isModel?: boolean;
 }
 
 const TopSelling: React.FC = () => {
+  const route = useRouter();
   const {
     data: products = [],
     error: productsError,
@@ -38,6 +40,7 @@ const TopSelling: React.FC = () => {
           </span>
         </h4>
         <Button
+        onClick={()=>{route.push("/products")}}
           variant={'default'}
           className="text-white text-2xl font-light mt-10 rounded-3xl w-56 h-16"
         >
@@ -46,7 +49,6 @@ const TopSelling: React.FC = () => {
       </div>
       <div className="w-full md:w-[73%]">
         <div className="my-12">
-          {/* <SliderComponent cards={cards} /> */}
           <SliderComponent cards={products} cardHeight='xl:[420px]' sliderArrow={false} silderName='top-selling' isLoading={isProductsLoading} />
         </div>
       </div>

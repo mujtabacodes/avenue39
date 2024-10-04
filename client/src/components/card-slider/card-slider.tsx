@@ -1,15 +1,15 @@
+
 'use client';
 import React from 'react';
-import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Card from '../ui/card';
 import { IProduct } from '@/types/types';
-import CustomNextArrow from './custom-next-arrow';
-import CustomPrevArrow from './custom-prev-arrow';
-import CardSkeleton from '../cardSkelton';
-import { ImNotification } from 'react-icons/im';
-import NoProduct from '../ui/no-product';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import {Autoplay, Pagination } from 'swiper/modules';
+import CardSkaleton from '../Skaleton/productscard';
 
 interface SliderProps {
   cards?: IProduct[];
@@ -24,80 +24,81 @@ const SliderComponent: React.FC<SliderProps> = ({
   cards,
   isModel,
   cardHeight,
-  sliderArrow,
-  silderName,
   isLoading,
 }) => {
-  const sliderSettings = {
-    dots: !sliderArrow ? true : false,
-    arrows: sliderArrow ? true : false,
-    className: cards && cards.length > 1 && silderName ? silderName : '',
-    infinite: true,
-    speed: 500,
-    slidesToShow: cards && cards.length > 3 ? 3 : cards?.length,
-    swipeToSlide: true,
-
-    prevArrow: <CustomPrevArrow />,
-    nextArrow: <CustomNextArrow />,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: cards && cards.length > 3 ? 3 : cards?.length,
-          swipeToSlide: true,
-
-        },
-      },
-      {
-        breakpoint: 768,
-        settings: {
-          slidesToShow: cards && cards.length > 2 ? 2 : cards?.length,
-          swipeToSlide: true,
-
-        },
-      },
-      {
-        breakpoint: 580,
-        settings: {
-          slidesToShow: cards && cards.length > 1 ? 1 : cards?.length,
-          swipeToSlide: true,
-
-        },
-      },
-    ],
-  };
   return (
     <>
-      { cards && cards.length > 0 ? <Slider {...sliderSettings}>
-        {!isLoading
-          ? cards?.map((card) => (
-              <div key={card.id}>
+      <Swiper
+       slidesPerView={3}
+       spaceBetween={30}
+       loop={true}
+       autoplay={{
+        delay: 2500,
+        disableOnInteraction: false,
+      }}
+        pagination={{
+          clickable:true,
+          dynamicBullets: true,
+        }}
+        modules={[Autoplay,Pagination]}
+        className="mySwiper"
+        breakpoints={{
+          1280: {
+            slidesPerView: 3,
+            slidesPerGroup: 1,
+            
+          },
+          1024: {
+            slidesPerView: 2,
+            slidesPerGroup: 2,
+            
+          },
+          895: {
+            slidesPerView: 1.8,
+            slidesPerGroup: 1,
+            
+          },
+          771: {
+            slidesPerView: 2,
+            slidesPerGroup: 1,
+            
+          },
+          580: {
+            slidesPerView: 1.5,
+            slidesPerGroup: 1,
+            
+          },
+          420: {
+            slidesPerView: 1.3,
+            slidesPerGroup: 1,
+            
+          },
+          200: {
+            slidesPerView: 1,
+            slidesPerGroup: 1,
+            
+          },
+        }}
+      >
+       {isLoading ? <CardSkaleton /> : 
+
+            cards && cards.map((card) => (
+              <SwiperSlide key={card.id} className='mb-5'>
                 <Card
                   isLoading={isLoading}
                   className="w-full"
                   card={card}
                   isModel={isModel}
-                  skeletonHeight={`h-[400px] md:h-[250px] lg:h-[400px] ${cardHeight ? cardHeight : 'xl:h-[672px]'}`}
+                  skeletonHeight={`h-[400px] md:h-[250px] lg:h-[400px] ${
+                    cardHeight ? cardHeight : 'xl:h-[672px]'
+                  }`}
                 />
-              </div>
-            ))
-          : [...Array(3)].map((_, index) => (
-              <span key={index} className="">
-                <Card
-                  isLoading={isLoading}
-                  className="w-full"
-                  isModel={isModel}
-                  skeletonHeight={`h-[400px] md:h-[250px] lg:h-[400px] ${cardHeight ? cardHeight : 'xl:h-[672px]'}`}
-                />
-              </span>
+              </SwiperSlide>
             ))}
-      </Slider>
-      : (
-        <NoProduct cardHeight={cardHeight} iconSize={40} title='No Product Found' titleClass='font-medium text-2xl md:text-3xl' />
-      ) }
-      
+      </Swiper>
     </>
   );
 };
 
 export default SliderComponent;
+

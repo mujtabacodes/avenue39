@@ -130,7 +130,7 @@ const ProductDetail = ({
     <div
       className={`flex flex-col md:flex-row w-full justify-between overflow-hidden ${gap} my-6 relative`}
     >
-      <div className="flex-grow w-full md:w-1/2">
+      <div className="flex-grow  w-full md:w-1/2">
         <Thumbnail
           thumbs={product?.productImages}
           isZoom={isZoom}
