@@ -60,7 +60,7 @@ const MenuBar = () => {
   };
 
   return (
-    <div className={`${isSticky ? 'sticky top-0 z-50' : 'relative md:pb-12'}`}>
+    <div className={`${isSticky ? 'sticky top-24 z-50' : 'relative md:pb-12'}`}>
       <div
         className={`bg-white shadow-md mb-1 pt-3 hidden md:block z-50 ${isSticky ? '' : 'absolute w-full top-0'}`}
       >
@@ -117,7 +117,7 @@ const MenuBar = () => {
               <p className="text-19 font-bold w-96">
                 {activeMenu.charAt(0).toUpperCase() + activeMenu.slice(1)}
               </p>
-              <div className="border-b-4 w-14 border-red-600" />
+              <div className="border-b-4 w-14 border-main" />
               <div className="grid grid-cols-3 space-y-3">
                 <MenuLink
                   menudata={menuData[activeMenu]}

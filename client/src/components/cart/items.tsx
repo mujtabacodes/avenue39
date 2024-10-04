@@ -78,7 +78,7 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
         <Sheet open={drawerState}>
           <SheetTrigger asChild>
             <div
-              className={`lg:w-14 w-12 h-10 rounded-3xl relative flex justify-center items-center  cursor-pointer ${cartItems.length>0 ? "text-[#E14343]" :"text-black"}`}
+              className={`lg:w-14 w-12 h-10 rounded-3xl relative flex justify-center items-center hover:bg-main border hover:border-main hover:text-white  cursor-pointer ${cartItems.length>0 ? "text-white bg-main" :"text-black  border-black"}`}
               onClick={() => navigate.push('/cart')}
             >
               <IoBagOutline size={25} />
@@ -131,7 +131,7 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                       <div className="flex justify-between gap-5">
                         <span> Qty {item.quantity}</span>
                         <ProductPrice className="flex gap-2 mb-4 !text-[15px]">
-                          AED {item?.discountPrice * item.quantity}kk
+                          AED {item?.discountPrice * item.quantity}
                           <NormalText className="text-slate-400 line-through  !text-[15px]">
                             {item?.price * item.quantity}
                           </NormalText>

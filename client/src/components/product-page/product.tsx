@@ -33,7 +33,7 @@ import { IoIosClose } from 'react-icons/io';
 import { useQuery } from '@tanstack/react-query';
 import { IProduct } from '@/types/types';
 import { fetchProducts } from '@/config/fetch';
-import NoProduct from '../ui/no-product';
+import CardSkaleton from '../Skaleton/productscard';
 
 interface ProductPageProps {
   sideBanner: StaticImageData;
@@ -255,7 +255,9 @@ console.log(fullUrl, "fullUrl"
                       />
                     </span>
                   ))}
-            </div> : <NoProduct cardHeight='2xl:h-[488px]' iconSize={40} title='No Product Found' titleClass='font-medium text-2xl md:text-3xl' />
+            </div> : 
+               <CardSkaleton />
+           
             }
           
         </div>

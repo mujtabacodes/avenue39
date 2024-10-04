@@ -24,6 +24,7 @@ const HotProductSlider: React.FC = () => {
     queryFn: fetchProducts,
   });
 
+
   const settings = {
     arrows: true,
     infinite: true,

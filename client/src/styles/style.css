@@ -247,7 +247,6 @@
   flex-direction: column !important;
   gap: 26px;
   overflow: hidden !important;
-  padding-left: 2px;
   padding-bottom: 2px;
 }
 .swiper-container.product-img .swiper-wrapper{

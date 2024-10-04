@@ -72,6 +72,11 @@ const Thumbnail: React.FC<ThumbProps> = ({
       setCursorPosition({ x: e.clientX, y: e.clientY });
     }
   };
+  const scrollToNextImage = () => {
+    if (swiperImageRef.current) {
+      swiperImageRef.current.slideNext(); // Move to the next slide
+    }
+  };
 
   const handleMouseLeave = () => {
     // setHoveredImage(null);
@@ -133,8 +138,8 @@ const Thumbnail: React.FC<ThumbProps> = ({
   return (
     <div>
       <div className="relative w-full">
-        <div className={`w-full flex ${swiperGap} max-h-[750px]`}>
-          <div className="max-w-1/5 md:flex-shrink-0 relative h-fit">
+        <div className={`w-full flex gap-3 ${swiperGap} `}>
+          <div className="w-3/12 2xl:w-2/12  relative h-fit">
             {loading ? (
               <div className="flex flex-col space-y-4 pb-2">
                 <Skeleton className="h-36 w-36" />
@@ -144,6 +149,7 @@ const Thumbnail: React.FC<ThumbProps> = ({
               </div>
             ) : (
               <Swiper
+            
                 onSwiper={(swiper) => {
                   setThumbsSwiper(swiper);
                   swiperRef.current = swiper;
@@ -154,7 +160,7 @@ const Thumbnail: React.FC<ThumbProps> = ({
                 freeMode={true}
                 watchSlidesProgress={true}
                 modules={[FreeMode, Navigation, Thumbs]}
-                className="max-h-full column-swipper swiper-container product-swiper w-fit mx-0"
+                className=" column-swipper swiper-container product-swiper px-3"
               >
                 {thumbs.map((thumb, index) => (
                   <SwiperSlide
@@ -174,7 +180,8 @@ const Thumbnail: React.FC<ThumbProps> = ({
             )}
             <div
               className="absolute -bottom-5 right-1/3 z-10 cursor-pointer bg-[#F6F6F6] w-12 h-12 flex justify-center items-center"
-              onClick={() => scrollToSlide('up')}
+              // onClick={() => scrollToSlide('up')}
+              onClick={scrollToNextImage}
             >
               <FaSortDown
                 size={25}
@@ -184,7 +191,7 @@ const Thumbnail: React.FC<ThumbProps> = ({
           </div>
 
           <div
-            className={`w-4/5 md:flex-grow relative border-2 h-full border-gray-100 shadow rounded-lg `}
+            className={`w-9/12 2xl:w-10/12 md:flex-grow relative border-2 h-full border-gray-100 shadow rounded-lg `}
           >
             {loading ? (
               <Skeleton className="h-[700px] w-full" />
@@ -236,7 +243,7 @@ const Thumbnail: React.FC<ThumbProps> = ({
                       }
                     >
                       <Image
-                        className={`rounded-lg h-full w-full ${isZoom ? 'min-h-[700px]' : 'min-h-[450px]'}  pointer-events-none md:pointer-events-auto  ${zoomEnabled ? 'cursor-none' : ''} ${isZoom ? 'cursor-default' : ''} ${!zoomEnabled && isZoom ? 'cursor-zoom-in' : ''}`}
+                        className={`rounded-lg h-full object-cover w-full ${isZoom ? ' md:min-h-[700px]' : 'md:min-h-[450px]'}  pointer-events-none md:pointer-events-auto  ${zoomEnabled ? 'cursor-none' : ''} ${isZoom ? 'cursor-default' : ''} ${!zoomEnabled && isZoom ? 'cursor-zoom-in' : ''}`}
                         src={thumb.imageUrl || '/default-image.jpg'}
                         width={700}
                         height={700}

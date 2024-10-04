@@ -16,7 +16,7 @@ const Counter: React.FC<CounterProps> = ({
   return (
     <div className="flex items-center border border-gray-300 rounded py-1 md:p-2 md:py-3">
       <button
-        // onClick={onDecrement}
+        onClick={onDecrement}
         className="px-2 text-gray-600"
         disabled={count <= 1}
       >

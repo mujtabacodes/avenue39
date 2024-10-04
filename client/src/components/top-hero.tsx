@@ -23,7 +23,7 @@ interface TopHeroProps {
 
 const TopHero: React.FC<TopHeroProps> = ({ title, breadcrumbs, category }) => {
   return (
-    <div className="bg-light">
+    <div className="bg-[#F6F6F6]">
       <Container className="text-center min-h-14 flex justify-center pt-1 flex-col">
         {title && <p className="text-[36px] font-medium">{title}</p>}
         <Breadcrumb
