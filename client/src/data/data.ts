@@ -24,6 +24,10 @@ export const cartbredcrumbs = [
   { label: 'Home', href: '/' },
   { label: 'checkout' },
 ];
+export const wishbredcrumbs = [
+  { label: 'Home', href: '/' },
+  { label: 'Wishlist' },
+];
 export const Tersmandcondition = [
   { label: 'Home', href: '/' },
   { label: 'Terms-Condition' },

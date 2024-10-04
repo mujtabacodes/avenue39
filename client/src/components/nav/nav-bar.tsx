@@ -2,7 +2,7 @@
 import { INav, IProduct } from '@/types/types';
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaRegUser } from 'react-icons/fa';
 import logo from '@icons/logo.png';
 import { IoSearchSharp } from 'react-icons/io5';
@@ -22,16 +22,28 @@ import { useRouter } from 'next/navigation';
 import { generateSlug } from '@/config';
 import RenderStars from '../ui/renderstars';
 import { Skeleton } from '../ui/skeleton';
+import { BiHeart } from 'react-icons/bi';
+import Wishlist from '../wishlist/wishlist';
 
 const Navbar = (props: INav) => {
   const [open, setOpen] = useState(false);
   const [searchText, setSearchText] = useState('');
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const Navigate = useRouter();
+  const [isSticky, setIsSticky] = useState<boolean>(false);
   const userDetails = useSelector(
     (state: State) => state.usrSlice.loggedInUser,
   );
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsSticky(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
   const {
     data: productsData,
     error,
@@ -56,7 +68,7 @@ const Navbar = (props: INav) => {
     product.name.toLowerCase().includes(searchText.toLowerCase()),
   );
   return (
-    <div className="bg-white dark:text-black">
+    <div className={`bg-white dark:text-black ${isSticky ? 'sticky top-0 z-50' : ''}`}>
       <Container className="flex items-center justify-between p-2 md:p-4 gap-4 dark:bg-white">
         <div className="w-3/12 min-w-32">
          <div className='w-fit'>
@@ -169,7 +181,9 @@ const Navbar = (props: INav) => {
           </form>
         </div>
         <div className="gap-2 flex justify-end items-center w-3/12 space-x-8">
-          <div className="hidden md:flex justify-center">
+
+          <div className="hidden md:flex justify-between gap-5 items-center">
+          <Wishlist/>
             <CartItems />
           </div>
           <div className="hidden md:flex gap-5 items-center">

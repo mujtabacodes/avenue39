@@ -78,17 +78,16 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
         <Sheet open={drawerState}>
           <SheetTrigger asChild>
             <div
-              className={`lg:w-14 w-12 h-10 rounded-3xl relative flex justify-center items-center  cursor-pointer ${cartItems.length>0 ? "text-[#E14343]" :"text-black"}`}
+
+              className={`lg:w-14 w-12 h-10 rounded-3xl relative flex justify-center items-center hover:bg-main border hover:border-main hover:text-white  cursor-pointer ${cartItems.length>0 ? "text-white bg-main" :"text-black  border-black"}`}
               onClick={() => navigate.push('/cart')}
             >
               <IoBagOutline size={25} />
-              {
-                cartItems.length > 0 && (
-              <div className="w-4 h-4 rounded-full bg-black text-white flex justify-center items-center absolute top-2 right-2 text-10">
-                <TotalProducts />
-              </div>
-                )
-              }
+              {cartItems.length > 0 && (
+                <div className="w-4 h-4 rounded-full bg-black text-white flex justify-center items-center absolute top-2 right-2 text-10">
+                  <TotalProducts />
+                </div>
+              )}
             </div>
           </SheetTrigger>
           <SheetOverlay
@@ -131,7 +130,7 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                       <div className="flex justify-between gap-5">
                         <span> Qty {item.quantity}</span>
                         <ProductPrice className="flex gap-2 mb-4 !text-[15px]">
-                          AED {item?.discountPrice * item.quantity}kk
+                          AED {item?.discountPrice * item.quantity}
                           <NormalText className="text-slate-400 line-through  !text-[15px]">
                             {item?.price * item.quantity}
                           </NormalText>
@@ -168,7 +167,9 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                     className="flex gap-4 items-center"
                     onClick={() => navigate.push('/checkout')}
                   >
-                    <CustomButtom variant="dark">Check out</CustomButtom>
+                    <CustomButtom variant="dark" className="hover:text-white">
+                      Check out
+                    </CustomButtom>
                   </SheetClose>
                 </div>
               </div>
@@ -223,34 +224,33 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                 </div>
               </div>
 
-              
               <div className="hidden lg:flex items-center gap-2 xl:gap-6 pr-4">
-              <div className="hidden lg:block">
-                {!isCheckoutPage && (
-                  <Counter
-                    count={item.quantity}
-                    onIncrement={() =>
-                      updateProductQuantity(item.id, item.quantity + 1)
-                    }
-                    onDecrement={() =>
-                      updateProductQuantity(item.id, item.quantity - 1)
-                    }
+                <div className="hidden lg:block">
+                  {!isCheckoutPage && (
+                    <Counter
+                      count={item.quantity}
+                      onIncrement={() =>
+                        updateProductQuantity(item.id, item.quantity + 1)
+                      }
+                      onDecrement={() =>
+                        updateProductQuantity(item.id, item.quantity - 1)
+                      }
+                    />
+                  )}
+                </div>
+                <div className="w-40 xl:w-60 flex gap-2 xl:gap-4 items-center justify-end">
+                  <p className="text-16 xl:text-[22px] font-bold">
+                    AED.<span>{item?.discountPrice * item.quantity}</span>
+                  </p>
+                  <p className="text-12 xl:text-16 font-normal line-through text-[#A5A5A5]">
+                    AED.<span>{item?.price * item.quantity}</span>
+                  </p>
+                  <IoCloseSharp
+                    className="cursor-pointer"
+                    size={25}
+                    onClick={() => removeProductFromCart(item.id)}
                   />
-                )}
-              </div>
-              <div className='w-40 xl:w-60 flex gap-2 xl:gap-4 items-center justify-end'>
-                <p className="text-16 xl:text-[22px] font-bold">
-                  AED.<span>{item?.discountPrice * item.quantity}</span>
-                </p>
-                <p className="text-12 xl:text-16 font-normal line-through text-[#A5A5A5]">
-                  AED.<span>{item?.price * item.quantity}</span>
-                </p>
-                <IoCloseSharp
-                  className="cursor-pointer"
-                  size={25}
-                  onClick={() => removeProductFromCart(item.id)}
-                />
-              </div>
+                </div>
               </div>
             </div>
           ))}

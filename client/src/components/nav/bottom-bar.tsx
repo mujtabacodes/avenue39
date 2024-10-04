@@ -21,6 +21,7 @@ import { State } from '@/redux/store';
 import { menuData } from '@/data/menu';
 import { generateSlug } from '@/config';
 import { useRouter } from 'next/navigation';
+import { IoIosHeartEmpty } from 'react-icons/io';
 
 const BottomBar: React.FC = () => {
   const [open, setOpen] = useState(false);
@@ -45,8 +46,8 @@ const BottomBar: React.FC = () => {
       <Link href={'/'}>
         <AiOutlineHome size={25} />
       </Link>
-      <Link href={'/products'}>
-        <BsShop size={22} />
+      <Link href={'/wishlist'}>
+        <IoIosHeartEmpty size={25} />
       </Link>
       {/* <Link href={"/"}><FaRegHeart size={25} /></Link> */}
 

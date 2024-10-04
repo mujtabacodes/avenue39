@@ -104,7 +104,7 @@ const Tabs: React.FC<TabsProps> = ({ slidersData, isLoading }) => {
               <button
                 key={index}
                 onClick={() => handleTabClick(index)}
-                className={`font-medium px-4 py-2 rounded-full transition-colors duration-300 ${index === activeTab ? 'bg-primary text-secondary' : 'bg-white text-primary'}`}
+                className={`font-medium px-4 py-2 rounded-full transition-colors duration-300 ${index === activeTab ? 'bg-main text-white' : 'bg-white text-black'}`}
               >
                 {slider.tabTitle}
               </button>
