@@ -1,18 +1,18 @@
 'use client';
-import React from 'react';
-import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
+import React, { useRef } from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Grid, Navigation } from 'swiper/modules'; // Import Navigation module
+import 'swiper/css';
+import 'swiper/css/grid';
+import 'swiper/css/navigation'; // Import navigation styles
 import Card from '../ui/card';
-import { StaticImageData } from 'next/image';
 import Container from '../ui/Container';
-import HotProductNextArrow from './hot-product-next-arrow';
-import HotProductPrevArrow from './hot-product-prev-arrow';
 import { IProduct } from '@/types/types';
 import { useQuery } from '@tanstack/react-query';
 import { fetchProducts } from '@/config/fetch';
 import NoProduct from '../ui/no-product';
-
+import { NavigationOptions } from 'swiper/types';
+import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md';
 
 const HotProductSlider: React.FC = () => {
   const {
@@ -24,84 +24,113 @@ const HotProductSlider: React.FC = () => {
     queryFn: fetchProducts,
   });
 
-
-  const settings = {
-    arrows: true,
-    infinite: true,
-    slidesToShow: 3,
-    slidesToScroll: 3,
-    speed: 500,
-    rows: products.length > 6 ? 2 : 1,
-    slidesPerRow: 1,
-    prevArrow: <HotProductPrevArrow />,
-    nextArrow: <HotProductNextArrow />,
-    responsive: [
-      {
-        breakpoint: 1025,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
-          rows: products.length > 6 ? 2 : 1,
-          slidesPerRow: 1,
-          infinite: true,
-          dots: true,
-        },
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-          rows: 1,
-          slidesPerRow: 1,
-        },
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          rows: 1,
-          slidesPerRow: 1,
-        },
-      },
-    ],
-  };
+  // Refs for the custom navigation buttons
+  const prevButtonRef = useRef<HTMLButtonElement>(null);
+  const nextButtonRef = useRef<HTMLButtonElement>(null);
 
   return (
     <section className="mt-10">
       <Container className="slider-container w-full">
+        <div className='flex justify-between items-center px-2 md:px-4'>
         <h2 className="text-xl xs:text-2xl sm:text-4xl mb-10 font-semibold">
           Hot Newest Products
         </h2>
+        {
+          products.length > 0 &&
+          <div className="flex justify-between items-center gap-4 mb-4">
+          <button
+            ref={prevButtonRef}
+            className="prev-btn  "
+          >
+            <MdKeyboardArrowLeft  size={30}/>
+
+          </button>
+          <button
+            ref={nextButtonRef}
+            className="next-btn  "
+          >
+            <MdKeyboardArrowRight size={30} />
+          </button>
+        </div>
+        }
+       
+        </div>
+  
         {products.length > 0 ? (
-          <Slider {...settings} className="mx-4 xs:mx-0 hot-products mb-2">
-            {!isProductsLoading
-              ? products.map((card) => (
-                  <div key={card.id}>
-                    <Card
-                      className="w-full"
-                      skeletonHeight="h-[300px] md:h-[250px] lg:h-[400px] xl:h-[672px]"
-                      isLoading={isProductsLoading}
-                      card={card}
-                    />
-                  </div>
-                ))
-              : [...Array(3)].map((_, index) => (
-                  <span key={index} className="">
-                    <Card
-                      isLoading={true}
-                      className="w-full"
-                      // card={card}
-                      skeletonHeight="h-[300px] md:h-[250px] lg:h-[400px] xl:h-[672px]"
-                    />
-                  </span>
-                ))}
-          </Slider>
-        ):
-        <NoProduct  iconSize={40} title='No Product Found' titleClass='font-medium text-2xl md:text-3xl' />
-      
-      }
+          <>
+            {/* Custom Navigation Buttons */}
+            
+
+            <Swiper
+              modules={[Grid, Navigation]} // Add Navigation module
+              spaceBetween={30}
+              pagination={{ clickable: true }}
+              navigation={{
+                prevEl: prevButtonRef.current, // Link custom button
+                nextEl: nextButtonRef.current, // Link custom button
+              } as NavigationOptions} 
+              onBeforeInit={(swiper) => {
+                const navParams = swiper.params.navigation as NavigationOptions;
+                if (navParams) {
+                  navParams.prevEl = prevButtonRef.current;
+                  navParams.nextEl = nextButtonRef.current;
+                }
+                swiper.navigation.init();
+                swiper.navigation.update();
+              }}
+              breakpoints={{
+                1025: {
+                  slidesPerView: 3,
+                  grid: {
+                    rows: products.length > 6 ? 2 : 1,
+                    fill: 'row',
+                  },
+                },
+                600: {
+                  slidesPerView: 2,
+                  grid: {
+                    rows: 2,
+                    fill: 'row',
+                  },
+                },
+                480: {
+                  slidesPerView: 2,
+                  grid: {
+                    rows: 2,
+                    fill: 'row',
+                  },
+                },
+              }}
+            >
+              {!isProductsLoading
+                ? products.map((card) => (
+                    <SwiperSlide key={card.id}>
+                      <Card
+                        className="w-full"
+                        skeletonHeight="h-[300px] md:h-[250px] lg:h-[400px] xl:h-[672px]"
+                        isLoading={isProductsLoading}
+                        card={card}
+                      />
+                    </SwiperSlide>
+                  ))
+                : [...Array(3)].map((_, index) => (
+                    <SwiperSlide key={index}>
+                      <Card
+                        isLoading={true}
+                        className="w-full"
+                        skeletonHeight="h-[300px] md:h-[250px] lg:h-[400px] xl:h-[672px]"
+                      />
+                    </SwiperSlide>
+                  ))}
+            </Swiper>
+          </>
+        ) : (
+          <NoProduct
+            iconSize={40}
+            title="No Product Found"
+            titleClass="font-medium text-2xl md:text-3xl"
+          />
+        )}
       </Container>
     </section>
   );
