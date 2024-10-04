@@ -9,7 +9,12 @@ async function bootstrap() {
 
   
   app.enableCors({
-    origin: ['http://localhost:3000','http://localhost:3001', 'https://avenue39.vercel.app'],
+    origin: [
+      'http://localhost:3000',
+      'http://localhost:3001',
+      'https://avenue39.vercel.app',
+      'http://192.168.1.18:3000',
+    ],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     preflightContinue: false,
   });

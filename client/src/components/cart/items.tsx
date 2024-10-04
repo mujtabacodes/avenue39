@@ -166,7 +166,9 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                     className="flex gap-4 items-center"
                     onClick={() => navigate.push('/checkout')}
                   >
-                    <CustomButtom variant="dark">Check out</CustomButtom>
+                    <CustomButtom variant="dark" className="hover:text-white">
+                      Check out
+                    </CustomButtom>
                   </SheetClose>
                 </div>
               </div>

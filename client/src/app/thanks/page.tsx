@@ -1,15 +1,11 @@
 'use client';
 import { useState, useEffect, Fragment } from 'react';
 import { Dialog, DialogContent, DialogOverlay } from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
-import SliderComponent from '@/components/card-slider/card-slider';
-import { cards, tankyousildercards } from '@/data';
+
 import Container from '@/components/ui/Container';
 import Services from '@/components/services/services';
-import { LiaCheckCircle } from 'react-icons/lia';
 import thankyou from '@icons/thankyou.png';
 import Image from 'next/image';
-import { products } from '@/data/products';
 import Link from 'next/link';
 import { useQuery } from '@tanstack/react-query';
 import { IProduct } from '@/types/types';
@@ -17,7 +13,8 @@ import { fetchProducts } from '@/config/fetch';
 import FeatureSlider from '@/components/card-slider/feature-slider';
 import BestSellingSlider from '@/components/card-slider/best-selling';
 import { useSearchParams } from 'next/navigation';
-
+import Confetti from '@/components/confetti/confetti';
+import RedCross from '@assets/icons/remove.png';
 const ThankYouPage = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const searchParams = useSearchParams();
@@ -50,11 +47,14 @@ const ThankYouPage = () => {
   const is_3d_secure = searchParams.get('is_3d_secure');
 
   let successFlag: boolean = success ? success.toLowerCase() === 'true' : false;
-
+  if (successFlag) {
+    localStorage.removeItem('cart');
+  }
   return (
     <Fragment>
       {successFlag ? (
         <>
+          <Confetti />
           <Container className="py-16">
             <Image src={thankyou} alt="thank you icon" className="mx-auto" />
             <h2 className="font-medium text-3xl xs:text-4xl sm:text-5xl md:text-6xl mt-14 text-center">
@@ -101,13 +101,13 @@ const ThankYouPage = () => {
         <div className="flex justify-center my-20 '">
           <div className="w-full max-w-md">
             <div className="border-b-4 border-red shadow-lg p-12 text-center flex flex-col items-center">
-              {/* <Image
+              <Image
                 className="flex justify-center"
-                src="/images/remove.png"
+                src={RedCross}
                 alt="remove image"
                 height={50}
                 width={50}
-              /> */}
+              />
               <h2 className="text-4xl font-bold mt-2 mb-3">
                 Payment Unsuccessful
               </h2>
