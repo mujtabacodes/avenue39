@@ -10,12 +10,22 @@ import { AdminModule } from './admin/admin.module';
 import { SalesRecordModule } from './sales_record/sales_record.module';
 import { SubcategoriesModule } from './subcategories/subcategories.module';
 import { PaymobModule } from './paymob/paymob.module';
-
+import { SketchfabModule } from './sketchfab/sketchfab.module';
 
 @Module({
-  imports: [UsersModule, PrismaModule, ProductsModule, CategoriesModule, ReviewsModule, AdminModule, SalesRecordModule, SubcategoriesModule, PaymobModule],
+  imports: [
+    UsersModule,
+    PrismaModule,
+    ProductsModule,
+    CategoriesModule,
+    ReviewsModule,
+    AdminModule,
+    SalesRecordModule,
+    SubcategoriesModule,
+    PaymobModule,
+    SketchfabModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
-
 export class AppModule {}
