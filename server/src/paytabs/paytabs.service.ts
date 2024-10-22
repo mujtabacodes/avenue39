@@ -4,10 +4,8 @@ import { CreatePaymentDto } from './dto/paytabs.dto';
 
 @Injectable()
 export class PaytabsService {
-  private readonly PAYTABS_API_URL =
-    'https://secure-global.paytabs.com/payment/request';
-  private readonly PAYTABS_QUERY_URL =
-    'https://secure-global.paytabs.com/payment/query';
+  private readonly PAYTABS_API_URL = process.env.PAYTABS_API_URL;
+  private readonly PAYTABS_QUERY_URL = process.env.PAYTABS_QUERY_URL;
   private readonly SERVER_KEY = process.env.PAYTABS_SERVER_KEY;
   private readonly PROFILE_ID = process.env.PAYTABS_PROFILE_ID;
 
@@ -31,11 +29,11 @@ export class PaytabsService {
         name: `${firstName} ${lastName}`,
         email,
         phone: phoneNumber,
-        street1: 'Street Address', // Add relevant address
-        city: 'City', // Add relevant city
+        street1: 'Street Address',
+        city: 'City',
         state,
         country,
-        ip: '127.0.0.1', // You can get the actual IP address if necessary
+        ip: '127.0.0.1',
       },
     };
 
@@ -55,7 +53,7 @@ export class PaytabsService {
 
   async checkPaymentStatus(transactionRef: string): Promise<any> {
     const headers = {
-      Authorization: this.SERVER_KEY, // Use the server key for authorization
+      Authorization: this.SERVER_KEY,
       'Content-Type': 'application/json',
     };
 
