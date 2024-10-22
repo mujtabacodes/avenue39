@@ -24,7 +24,7 @@ export class PaytabsService {
       cart_currency: 'PKR',
       cart_amount: amount / 100,
       callback: 'http://localhost:3000/thanks',
-      return: 'https://avenue39.vercel.app//thanks',
+      return: 'https://avenue39.vercel.app/thanks',
       customer_details: {
         name: `${firstName} ${lastName}`,
         email,
