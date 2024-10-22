@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { PaytabsService } from './paytabs.service';
 import { PaytabsController } from './paytabs.controller';
 import { HttpModule } from '@nestjs/axios';
-import { PrismaModule } from 'src/prisma/prisma.module';
+import { PrismaModule } from '../prisma/prisma.module';
 import { ConfigModule } from '@nestjs/config';
 
 @Module({
