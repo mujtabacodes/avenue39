@@ -28,6 +28,7 @@ import {
   renderStars,
 } from '@/config';
 import { IoIosHeartEmpty } from 'react-icons/io';
+import { message } from 'antd';
 
 interface CardProps {
   card: IProduct;
@@ -86,6 +87,47 @@ const FeatureCard: React.FC<CardProps> = ({
     Navigate.push(`/product/${generateSlug(card.name)}`);
   };
 
+  const handleAddToWishlist = (product: IProduct) => {
+    // Create a new wishlist item
+    const newWishlistItem = {
+        id: product.id, // Ensure you have the correct property here
+        name: product.name,
+        price: product.price,
+        posterImageUrl: product.posterImageUrl,
+        discountPrice: product.discountPrice,
+        count: 1, // Initialize count to 1 for a new item
+        totalPrice: product.discountPrice ? product.discountPrice : product.price,
+    };
+
+    // Retrieve existing wishlist from local storage
+    let existingWishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+
+    // Check if the product is already in the wishlist
+    const existingItemIndex = existingWishlist.findIndex((item: any) => item.id === newWishlistItem.id); // Use newWishlistItem.id here
+
+    if (existingItemIndex !== -1) {
+        // If it exists, increment the count and update the total price
+        existingWishlist[existingItemIndex].count += 1;
+        existingWishlist[existingItemIndex].totalPrice =
+            existingWishlist[existingItemIndex].count * (existingWishlist[existingItemIndex].discountPrice || existingWishlist[existingItemIndex].price);
+    } else {
+        // If it doesn't exist, add the new item to the wishlist
+        existingWishlist.push(newWishlistItem);
+    }
+
+    // Save updated wishlist back to local storage
+    localStorage.setItem('wishlist', JSON.stringify(existingWishlist));
+    
+    // Show success message
+    message.success('Product added to Wishlist successfully!');
+
+    // Dispatch custom event to update the count in the navbar
+    window.dispatchEvent(new Event('WishlistChanged'));
+
+    // Debugging: log the current state of the wishlist
+    console.log(existingWishlist, "existingWishlist");
+};
+
   return (
     <div className="space-y-3 px-4 relative ">
       {loading ? (
@@ -114,7 +156,7 @@ const FeatureCard: React.FC<CardProps> = ({
             </Dialog>
           )}
 
-          <div className=" w-10 h-12 absolute right-2 top-8 rounded-xl  flex justify-center items-center border bg-white hover:border-main hover:bg-main hover:text-white  cursor-pointer">
+          <div onClick={() => handleAddToWishlist(card)} className=" w-10 h-12 absolute right-2 top-8 rounded-xl  flex justify-center items-center border bg-white hover:border-main hover:bg-main hover:text-white  cursor-pointer">
             <IoIosHeartEmpty size={25} />
           </div>
           {card.sale !== '0' && (
