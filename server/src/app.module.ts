@@ -11,6 +11,7 @@ import { SalesRecordModule } from './sales_record/sales_record.module';
 import { SubcategoriesModule } from './subcategories/subcategories.module';
 import { PaymobModule } from './paymob/paymob.module';
 import { SketchfabModule } from './sketchfab/sketchfab.module';
+import { PaytabsModule } from './paytabs/paytabs.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { SketchfabModule } from './sketchfab/sketchfab.module';
     SubcategoriesModule,
     PaymobModule,
     SketchfabModule,
+    PaytabsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

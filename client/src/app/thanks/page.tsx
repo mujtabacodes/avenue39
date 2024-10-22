@@ -52,7 +52,8 @@ const ThankYouPage = () => {
   }
   return (
     <Fragment>
-      {successFlag ? (
+      {/* {successFlag ? ( */}
+      {true ? (
         <>
           <Confetti />
           <Container className="py-16">
