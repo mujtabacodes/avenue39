@@ -43,6 +43,7 @@ const Checkout = () => {
   const [loading, setloading] = useState<boolean>(false);
   const [shipmentFee, setShipmentFee] = useState<number | string>(0);
   const [paymentkey, setPaymentKey] = useState('');
+  const cartItems = useSelector((state: State) => state.cart.items);
   const initialValues = {
     firstName: '',
     lastName: '',
@@ -95,63 +96,42 @@ const Checkout = () => {
       let chargesConversion =
         shipmentFee == 'Free' || !shipmentFee ? null : Number(shipmentFee);
       let totalPayment = totalPrice + shippingfee;
-      // Step 1: Authenticate and get the token
-      setloading(true);
-      const authResponse = await axios.post(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/payment/authenticate`,
-      );
-      const token = authResponse.data.token;
-      console.log('=============== authResponse ===============');
-      console.log(authResponse);
-      // Step 2: Create the order
-      const orderResponse = await axios.post(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/payment/order`,
-        { token, amount: totalPayment },
-      );
-      console.log('=============== orderResponse ===============');
-      console.log(orderResponse);
 
-      const orderId = orderResponse.data.orderId;
-      let orderedProductDetails: any = [];
-      if (cartproduct.length > 0) {
-        cartproduct.forEach((item) =>
-          orderedProductDetails.push({
-            name: item.name,
-            color: item.color,
-            Count: item.count,
-            Product_price: item.price,
-            id: item.id,
-            totalPrice: item.totalPrice,
-            posterImageUrl: item.imageUrl.find(
-              (Images: any) => Images.colorCode == item.color,
-            ),
-          }),
-        );
-      }
+      setloading(true);
+
+      console.log('======= AYLO PAYMENTS ========');
+      console.log('billingData');
+      console.log(values);
+      console.log('cartItems');
+      console.log(cartItems);
+      console.log(shipmentFee + ' :shipmentFee');
+      console.log(totalPayment + ' :totalPayment');
 
       try {
         const paymentKeyResponse = await axios.post(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/api/payment/payment-key`,
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/paytabs/create-payment`,
           {
-            token,
-            orderId,
+            ...values,
             amount: totalPayment,
-            billingData: values,
-            orderedProductDetails,
+            // billingData: values,
+            orderedProductDetails: cartItems,
             shippment_Fee: shipmentFee,
           },
         );
-        console.log('=============== authResponse ===============');
-        console.log(authResponse);
-        const paymentKey = await paymentKeyResponse.data.paymentKey;
-        console.log('Payment Key:' + paymentKey);
-        setPaymentKey(paymentKey);
-        setPaymentProcess(true);
-        if (paymentKey) {
-          setIframeSrc(
-            `${process.env.NEXT_PUBLIC_PAYMOD_BASE_URL}/iframes/${process.env.NEXT_PUBLIC_PAYMOB_IFRAME_ID}?payment_token=${paymentKey}`,
-          );
+        if (paymentKeyResponse.status === 201) {
+          window.location.href = paymentKeyResponse.data.redirect_url;
         }
+        // console.log('=============== authResponse ===============');
+        // console.log(authResponse);
+        // const paymentKey = await paymentKeyResponse.data.paymentKey;
+        // console.log('Payment Key:' + paymentKey);
+        // setPaymentKey(paymentKey);
+        // setPaymentProcess(true);
+        // if (paymentKey) {
+        //   setIframeSrc(
+        //     `${process.env.NEXT_PUBLIC_PAYMOD_BASE_URL}/iframes/${process.env.NEXT_PUBLIC_PAYMOB_IFRAME_ID}?payment_token=${paymentKey}`,
+        //   );
+        // }
         // window.location.href = `${process.env.NEXT_PUBLIC_PAYMOD_BASE_URL}/iframes/${process.env.NEXT_PUBLIC_PAYMOB_IFRAME_ID}?payment_token=${paymentKey}`;
       } catch (error) {
         showToast(

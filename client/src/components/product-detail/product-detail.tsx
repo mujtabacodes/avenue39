@@ -49,6 +49,8 @@ import { QRCode } from 'antd';
 import QRScanner from '../QR-reader/QR';
 import { calculateRatingsPercentage, renderStars } from '@/config';
 import Loader from '../Loader/Loader';
+import { TbCube3dSphere } from 'react-icons/tb';
+import Product3D from '../3DView/Product3D';
 
 const ProductDetail = ({
   params,
@@ -124,6 +126,9 @@ const ProductDetail = ({
     e.stopPropagation();
     dispatch(addItem(itemToAdd));
     Navigate.push('/checkout');
+  };
+  const handle3D = (e: React.MouseEvent<HTMLElement>) => {
+    e.stopPropagation();
   };
 
   return (
@@ -294,6 +299,28 @@ const ProductDetail = ({
             </DialogContent>
           </Dialog>
         </div>
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button
+              className="bg-[#afa183] text-white flex gap-3 justify-center sm:w-1/2 items-center lg:w-full h-12 rounded-2xl mb-3 font-light"
+              onClick={(e) => handle3D(e)}
+            >
+              <TbCube3dSphere size={20} /> View 3D
+            </Button>
+          </DialogTrigger>
+
+          <DialogOverlay className="bg-white/80" />
+          <DialogContent className="sm:max-w-[80%] lg:max-w-[50%] bg-white px-0 pt-0 sm:rounded-none border border-gray shadow-sm gap-0 pb-0">
+            <DialogHeader className="flex items-start px-5 pt-0 py-5 border-b-2">
+              <DialogTitle className="text-xl xs:text-xl sm:text-2xl md:text-3xl font-bold tracking-wide">
+                3D View
+              </DialogTitle>
+            </DialogHeader>
+            <div className="w-full h-[600px]">
+              <Product3D modelUrl="/3dmodel/model.glb" />
+            </div>
+          </DialogContent>
+        </Dialog>
 
         <div className="flex items-center justify-center relative mb-2">
           <span className="absolute left-0 w-1/6 border-t border-gray-300"></span>
