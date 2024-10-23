@@ -263,7 +263,7 @@ const Navbar = (props: INav) => {
                         <IoSearchSharp className="cursor-pointer" size={30} />
                       </button>
                     </div>
-                    {!isLoading && (
+                    {isLoading && (
                     <div className="border p-2">
                       <div className="flex border p-2 rounded-md bg-white hover:shadow-md transition duration-300 gap-2 mt-2 items-center">
                         <Skeleton className="w-[100px] h-[100px]"></Skeleton>
@@ -321,19 +321,6 @@ const Navbar = (props: INav) => {
                 </DrawerContent>
               </Drawer>
             </form>
-            <Drawer>
-              <DrawerTrigger asChild>
-                <HiOutlineBars3BottomRight
-                  className="cursor-pointer block md:hidden"
-                  size={30}
-                />
-              </DrawerTrigger>
-              <DrawerContent>
-                <div className="p-4">
-                  <SocialLink />
-                </div>
-              </DrawerContent>
-            </Drawer>
           </div>
         </div>
       </Container>

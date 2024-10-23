@@ -60,7 +60,7 @@ const MenuBar = () => {
   };
 
   return (
-    <div className={`${isSticky ? 'sticky top-24 z-50' : 'relative md:pb-12'}`}>
+    <div className={`${isSticky ? 'sticky top-20 z-50' : 'relative md:pb-12'}`}>
       <div
         className={`bg-white shadow-md mb-1 pt-3 hidden md:block z-50 ${isSticky ? '' : 'absolute w-full top-0'}`}
       >
