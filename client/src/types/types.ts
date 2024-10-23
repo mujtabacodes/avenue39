@@ -108,6 +108,7 @@ export interface ICard {
 interface ProductImage {
   imageUrl: string;
   public_id: string;
+  altText?: string;
 }
 export interface IProduct {
   id: number;
@@ -309,6 +310,7 @@ export type IProductWithoutId = Omit<IProduct, 'id'>;
 interface ProductImage {
   imageUrl: string;
   public_id: string;
+  altText?: string;
 }
 
 export interface AdditionalInformation {

@@ -172,7 +172,7 @@ const Thumbnail: React.FC<ThumbProps> = ({
                       src={thumb.imageUrl || '/default-image.jpg'}
                       width={150}
                       height={150}
-                      alt={thumb.name || 'Thumbnail'}
+                      alt={thumb.altText || 'Thumbnail'}
                     />
                   </SwiperSlide>
                 ))}
@@ -247,7 +247,7 @@ const Thumbnail: React.FC<ThumbProps> = ({
                         src={thumb.imageUrl || '/default-image.jpg'}
                         width={700}
                         height={700}
-                        alt={thumb.name || 'Main Image'}
+                        alt={thumb.altText || 'Main Image'}
                         onClick={(e) =>
                           isZoom
                             ? handleClick(
