@@ -50,6 +50,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
           {
             imageUrl: EditInitialValues.posterImageUrl,
             public_id: EditInitialValues.posterImagePublicId,
+            altText: EditInitialValues.posterImageAltText
           },
         ]
       : [],
@@ -60,6 +61,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
           {
             imageUrl: EditInitialValues.hoverImageUrl,
             public_id: EditInitialValues.hoverImagePublicId,
+            altText: EditInitialValues.hoverImageAltText
           },
         ]
       : [],
@@ -149,9 +151,12 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
         ...values,
         posterImageUrl: posterImageUrl.imageUrl,
         posterImagePublicId: posterImageUrl.public_id,
+        posterImageAltText: posterImageUrl.altText,
         hoverImageUrl: hoverImageUrl.imageUrl,
         hoverImagePublicId: hoverImageUrl.public_id,
+        hoverImageAltText: posterImageUrl.altText,
         productImages: imagesUrl,
+
       };
       console.log(newValues, 'updatedValues');
       console.log('debuge 4');
@@ -271,6 +276,33 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
     });
   };
 
+  const handleImageIndex = (index: number, newImageIndex: number) => {
+    const updatedImagesUrl = imagesUrl.map((item, i) =>
+      i === index ? { ...item, imageIndex: newImageIndex } : item
+    );
+    setImagesUrl(updatedImagesUrl);
+  };
+  const handlealtText = (index: number, newaltText: string) => {
+    const updatedImagesUrl = imagesUrl.map((item, i) =>
+      i === index ? { ...item, altText: newaltText } : item
+    );
+    setImagesUrl(updatedImagesUrl);
+  };
+  const handlealtTextHover = (index: number, newaltText: string) => {
+    //@ts-expect-error
+    const updatedImagesUrl = hoverImage.map((item, i) =>
+      i === index ? { ...item, altText: newaltText } : item
+    );
+    sethoverImage(updatedImagesUrl);
+  };
+  const handlealtTextposterimageUrl = (index: number, newaltText: string) => {
+    //@ts-expect-error
+    const updatedImagesUrl = posterimageUrl.map((item, i) =>
+      i === index ? { ...item, altText: newaltText } : item
+    );
+    setposterimageUrl(updatedImagesUrl);
+  };
+
   return (
     <>
       <p
@@ -308,6 +340,9 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 p-4">
                           {posterimageUrl.map((item: any, index) => {
                             return (
+                              <div>
+
+                              
                               <div
                                 className="relative group rounded-lg overflow-hidden shadow-md bg-white dark:bg-black transform transition-transform duration-300 hover:scale-105"
                                 key={index}
@@ -332,6 +367,10 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                                   src={item?.imageUrl}
                                   alt={`productImage-${index}`}
                                 />
+                              </div>
+                              <input className="border mt-2 w-full rounded-md border-stroke px-2 text-14 py-2 focus:border-primary active:border-primary outline-none" placeholder="altText" type="text" name="altText" value={item.altText} onChange={(e) =>
+                                    handlealtTextposterimageUrl(index, String(e.target.value))
+                                  }/>
                               </div>
                             );
                           })}
@@ -483,7 +522,122 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                           ) : null}
                         </div>
                       </div>
+<div className='mt-4 space-y-4'>
+<div className="flex gap-4">
+                        <div className="w-2/4">
+                          <label className="mb-3 block text-sm font-medium text-black dark:text-white">
+                            Meta Title
+                          </label>
+                          <input
+                            type="text"
+                            name="Meta_Title"
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            value={formik.values.Meta_Title}
+                            placeholder="Meta Title"
+                            className={`w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${formik.touched.name && formik.errors.name
+                              ? "border-red-500"
+                              : ""
+                              }`}
+                          />
+                          {formik.touched.Meta_Title && formik.errors.Meta_Title ? (
+                            <div className="text-red text-sm">
+                              {formik.errors.code as String}
+                            </div>
+                          ) : null}
 
+
+
+                        </div>
+                        <div className="w-2/4">
+                          <label className="mb-3 block text-sm font-medium text-black dark:text-white">
+                            Canonical Tag
+
+                          </label>
+                          <input
+                            onBlur={formik.handleBlur}
+
+                            type="text"
+                            name="Canonical_Tag"
+                            onChange={formik.handleChange}
+                            value={formik.values.Canonical_Tag}
+                            placeholder="Canonical Tag"
+                            className={`w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${formik.touched.name && formik.errors.name
+                              ? "border-red-500"
+                              : ""
+                              }`}
+
+
+                          />
+
+                          {formik.touched.Canonical_Tag && formik.errors.Canonical_Tag ? (
+                            <div className="text-red text-sm">
+                              {formik.errors.code as String}
+                            </div>
+                          ) : null}
+                        </div>
+
+
+                      </div>
+                      <div>
+                        <label className="mb-3 block text-sm font-medium text-black dark:text-white">
+                          Meta Description
+
+                        </label>
+                        <textarea
+                          name="Meta_Description"
+                          onChange={formik.handleChange}
+                          value={formik.values.Meta_Description}
+                          placeholder="Meta Description"
+                          className={`w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${formik.touched.description &&
+                            formik.errors.description
+                            ? "border-red-500"
+                            : ""
+                            }`}
+                        />
+                        {formik.touched.Meta_Description && formik.errors.Meta_Description ? (
+                          <div className="text-red text-sm">
+                            {formik.errors.code as String}
+                          </div>
+                        ) : null}
+                      </div>
+
+
+                      <div className="flex gap-4">
+                        <div className="w-full">
+                          <label className="mb-3 block text-sm font-medium text-black dark:text-white">
+                            Images Alt Text
+
+                          </label>
+                          <input
+                            type="text"
+                            name="Images_Alt_Text"
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+
+                            value={formik.values.Images_Alt_Text}
+                            placeholder="Images Alt Text"
+                            className={`w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${formik.touched.name && formik.errors.name
+                              ? "border-red-500"
+                              : ""
+                              }`}
+                          />
+                          {formik.touched.Images_Alt_Text && formik.errors.Images_Alt_Text ? (
+                            <div className="text-red text-sm">
+                              {formik.errors.code as String}
+                            </div>
+                          ) : null}
+
+
+
+                        </div>
+
+
+
+
+                      </div>
+
+</div>
                       <div className="flex gap-4 flex-col">
                         {/* <div className="w-2/4">
                           <label className="mb-3 block text-sm font-medium text-black dark:text-white">
@@ -1006,6 +1160,9 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4">
                         {hoverImage.map((item: any, index) => {
                           return (
+                            <div>
+
+                            
                             <div
                               className="relative group rounded-lg overflow-hidden shadow-md bg-white transform transition-transform duration-300 hover:scale-105"
                               key={index}
@@ -1031,6 +1188,10 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                                 alt={`productImage-${index}`}
                               />
                             </div>
+                            <input className="border mt-2 w-full rounded-md border-stroke px-2 text-14 py-2 focus:border-primary active:border-primary outline-none" placeholder="altText" type="text" name="altText" value={item.altText} onChange={(e) =>
+                                    handlealtTextHover(index, String(e.target.value))
+                                  }/>
+                            </div>
                           );
                         })}
                       </div>
@@ -1050,8 +1211,12 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
 
                     {imagesUrl && imagesUrl.length > 0 ? (
                       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4">
+                  
+                        
                         {imagesUrl.map((item: any, index) => {
                           return (
+                            <div>
+                            
                             <div
                               className="relative group rounded-lg overflow-hidden shadow-md bg-white transform transition-transform duration-300 hover:scale-105"
                               key={index}
@@ -1077,6 +1242,19 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                                 src={item.imageUrl}
                                 alt={`productImage-${index}`}
                               />
+                                <input
+                                  type="number"
+                                  placeholder="Add Image Index"
+                                  className=" rounded-b-md p-2 text-sm focus:outline-none w-full "
+                                  value={item.imageIndex}
+                                  onChange={(e) =>
+                                    handleImageIndex(index, Number(e.target.value))
+                                  }
+                                  />
+                            </div>
+                            <input className="border mt-2 w-full rounded-md border-stroke px-2 text-14 py-2 focus:border-primary active:border-primary outline-none" placeholder="altText" type="text" name="altText" value={item.altText} onChange={(e) =>
+                                    handlealtText(index, String(e.target.value))
+                                  }/>
                             </div>
                           );
                         })}
