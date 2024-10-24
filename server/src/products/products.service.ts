@@ -49,6 +49,7 @@ export class ProductsService {
 
       await this.prisma.products.create({
         data: {
+          ...productData,
           name: productData.name,
           price: productData.price,
           description: productData.description,
@@ -107,7 +108,19 @@ export class ProductsService {
         where: { id: productData.id },
         data: {
           name: productData.name ?? existingProduct.name,
-          price: productData.price ?? existingProduct.price,
+          hoverImageAltText:
+            productData.hoverImageAltText ?? existingProduct.hoverImageAltText,
+          Images_Alt_Text:
+            productData.Images_Alt_Text ?? existingProduct.Images_Alt_Text,
+          posterImageAltText:
+            productData.posterImageAltText ??
+            existingProduct.posterImageAltText,
+          Meta_Title: productData.Meta_Title ?? existingProduct.Meta_Title,
+          Meta_Description:
+            productData.Meta_Description ?? existingProduct.Meta_Description,
+          Og_title: productData.Og_title ?? existingProduct.Og_title,
+          Og_Image: productData.Og_Image ?? existingProduct.Og_Image,
+          Og_Url: productData.Og_Url ?? existingProduct.Og_Url,
           description: productData.description ?? existingProduct.description,
           stock: productData.stock ?? existingProduct.stock,
           discountPrice:
@@ -132,7 +145,7 @@ export class ProductsService {
           colors: colors ?? existingProduct.colors ?? [],
           spacification: spacification ?? existingProduct.spacification ?? [],
           categories: {
-            set: productData.categories?.map((id) => ({ id })) ?? [], // use set for many-to-many relations
+            set: productData.categories?.map((id) => ({ id })) ?? [],
           },
           subcategories: {
             set: productData.subcategories?.map((id) => ({ id })) ?? [],

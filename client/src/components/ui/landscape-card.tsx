@@ -16,14 +16,14 @@ import {
   generateSlug,
   renderStars,
 } from '@/config';
-import { Dialog, DialogContent, DialogOverlay, DialogTrigger } from './dialog';
+import { Dialog, DialogContent, DialogOverlay, DialogTitle, DialogTrigger } from './dialog';
 import ProductDetail from '../product-detail/product-detail';
 import { CartItem } from '@/redux/slices/cart/types';
 import { addItem } from '@/redux/slices/cart';
 import { openDrawer } from '@/redux/slices/drawer';
 import { IoIosHeartEmpty } from 'react-icons/io';
 import { message } from 'antd';
-
+import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 interface CardProps {
   card: IProduct;
   isLoading?: boolean;
@@ -128,8 +128,8 @@ const LandscapeCard: React.FC<CardProps> = ({ card, isLoading }) => {
           <CiHeart size={18} className="cursor-pointer" />
         </div> */}
         <div onClick={() => handleAddToWishlist(card)} className=" w-10 h-12 absolute right-2 top-2 rounded-xl  flex justify-center items-center border bg-white hover:border-main hover:bg-main hover:text-white  cursor-pointer">
-              <IoIosHeartEmpty size={25} />
-            </div>
+          <IoIosHeartEmpty size={25} />
+        </div>
         {loading ? (
           <Skeleton className="rounded-t-lg mx-auto w-full h-[250px] sm:h-[300px] xl:h-[400px]" />
         ) : (
@@ -202,6 +202,9 @@ const LandscapeCard: React.FC<CardProps> = ({ card, isLoading }) => {
                 </DialogTrigger>
                 <DialogOverlay />
                 <DialogContent className="max-w-[1400px] w-11/12 bg-white px-0 sm:rounded-3xl border border-black shadow-none gap-0 pb-0">
+                  <VisuallyHidden>
+                    <DialogTitle>Product detail</DialogTitle>
+                  </VisuallyHidden>
                   <div className="pb-6 px-5 xs:px-10 me-4 xs:me-7 mt-6 max-h-[80vh] overflow-y-auto custom-scroll">
                     <ProductDetail
                       params={card}
