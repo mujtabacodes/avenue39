@@ -340,12 +340,12 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 p-4">
                           {posterimageUrl.map((item: any, index) => {
                             return (
-                              <div>
+                              <div key={index}>
 
                               
                               <div
                                 className="relative group rounded-lg overflow-hidden shadow-md bg-white dark:bg-black transform transition-transform duration-300 hover:scale-105"
-                                key={index}
+                                
                               >
                                 <div className="absolute top-1 right-1 invisible group-hover:visible text-red bg-white dark:bg-black rounded-full">
                                   <RxCross2
@@ -1160,12 +1160,12 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4">
                         {hoverImage.map((item: any, index) => {
                           return (
-                            <div>
+                            <div key={index}>
 
                             
                             <div
                               className="relative group rounded-lg overflow-hidden shadow-md bg-white transform transition-transform duration-300 hover:scale-105"
-                              key={index}
+                              
                             >
                               <div className="absolute top-1 right-1 invisible group-hover:visible text-red bg-white rounded-full">
                                 <RxCross2
@@ -1215,11 +1215,11 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                         
                         {imagesUrl.map((item: any, index) => {
                           return (
-                            <div>
+                            <div   key={index}>
                             
                             <div
                               className="relative group rounded-lg overflow-hidden shadow-md bg-white transform transition-transform duration-300 hover:scale-105"
-                              key={index}
+                            
                             >
                               <div className="absolute top-1 right-1 invisible group-hover:visible text-red bg-white rounded-full">
                                 <RxCross2
