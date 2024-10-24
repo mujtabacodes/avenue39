@@ -57,6 +57,7 @@ const Products = () => {
     imagesUrl: editProduct && editProduct.productImages,
     purchasePrice: editProduct && editProduct.purchasePrice,
     additionalInformation: editProduct && editProduct.additionalInformation,
+    Images_Alt_Text:editProduct && editProduct?.Images_Alt_Text,
     Meta_Title:editProduct && editProduct?.Meta_Title,
     Meta_Description:editProduct && editProduct?.Meta_Title,
     Canonical_Tag:editProduct && editProduct?.Meta_Title,
