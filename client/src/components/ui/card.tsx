@@ -10,7 +10,7 @@ import { addItem } from '@cartSlice/index';
 import { CartItem } from '@cartSlice/types';
 import { openDrawer } from '@/redux/slices/drawer';
 import { useRouter } from 'next/navigation';
-import { Dialog, DialogContent, DialogOverlay, DialogTrigger } from './dialog';
+import { Dialog, DialogContent, DialogOverlay, DialogTitle, DialogTrigger } from './dialog';
 import ProductDetail from '../product-detail/product-detail';
 import { cn } from '@/lib/utils';
 import { Skeleton } from './skeleton';
@@ -24,6 +24,7 @@ import { fetchReviews } from '@/config/fetch';
 import CardSkeleton from '../cardSkelton';
 import { IoIosHeartEmpty } from 'react-icons/io';
 import { message } from 'antd';
+import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 interface CardProps {
   card?: IProduct;
   isModel?: boolean;
@@ -223,6 +224,9 @@ const Card: React.FC<CardProps> = ({
             </DialogTrigger>
             <DialogOverlay />
             <DialogContent className="max-w-[1400px] w-11/12 bg-white px-0 sm:rounded-3xl border border-black shadow-none gap-0 pb-0">
+            <VisuallyHidden>
+          <DialogTitle>Product Detail</DialogTitle>
+        </VisuallyHidden>
               <div className="pb-6 px-5 xs:px-10 me-4 xs:me-7 mt-6 max-h-[80vh] overflow-y-auto custom-scroll">
                 <ProductDetail
                   params={card}

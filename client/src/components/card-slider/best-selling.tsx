@@ -70,18 +70,21 @@ const BestSellingSlider: React.FC = () => {
               dynamicBullets: true,
             }}
             breakpoints={{
-              1280: {
+              2000: {
+                slidesPerView: 4,
+              },
+              1500: {
                 slidesPerView: 3,
               },
+              1200: {
+                slidesPerView: 2,
+              },
               1024: {
-                slidesPerView: 2.3,
-              },
-              768: {
-                slidesPerView: 1.8,
-              },
-              480: {
                 slidesPerView: 1.5,
               },
+              680: {
+                slidesPerView: 2,
+              }
             }}
             modules={[Navigation, Pagination]}
             className="mySwiper "
@@ -91,7 +94,7 @@ const BestSellingSlider: React.FC = () => {
                 <FeatureCard
                   isLoading={isProductsLoading}
                   card={card}
-                  cardHeight="w-full h-[400px]"
+                  cardHeight="w-full h-[350px]"
                 />
               </SwiperSlide>
             ))}
