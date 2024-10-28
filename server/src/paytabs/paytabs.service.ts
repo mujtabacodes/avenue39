@@ -29,6 +29,7 @@ export class PaytabsService {
       framed_return_parent: true,
       callback: 'http://avenue39.vercel.app/thanks',
       return: 'http://avenue39.vercel.app/thanks',
+      // return: 'http://localhost:3000/thanks',
       customer_details: {
         name: `${firstName} ${lastName}`,
         email,
