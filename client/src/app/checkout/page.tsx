@@ -119,7 +119,9 @@ const Checkout = () => {
           },
         );
         if (paymentKeyResponse.status === 201) {
-          window.location.href = paymentKeyResponse.data.redirect_url;
+          // window.location.href = paymentKeyResponse.data.redirect_url;
+          setPaymentKey(paymentKeyResponse.data.redirect_url);
+          setPaymentProcess(true);
         }
         // console.log('=============== authResponse ===============');
         // console.log(authResponse);
@@ -158,14 +160,15 @@ const Checkout = () => {
               width: '100%',
               height: '700px',
               display: paymentProcess ? 'block' : 'none',
-              overflow: 'hidden', // Disable scrolling through CSS
+              overflow: 'hidden',
             }}
             scrolling="no"
-            src={
-              paymentProcess
-                ? `${process.env.NEXT_PUBLIC_PAYMOD_BASE_URL}/iframes/${process.env.NEXT_PUBLIC_PAYMOB_IFRAME_ID}?payment_token=${paymentkey}`
-                : ''
-            }
+            // src={
+            //   paymentProcess
+            //     ? `${process.env.NEXT_PUBLIC_PAYMOD_BASE_URL}/iframes/${process.env.NEXT_PUBLIC_PAYMOB_IFRAME_ID}?payment_token=${paymentkey}`
+            //     : ''
+            // }
+            src={paymentProcess ? `${paymentkey}` : ''}
           ></iframe>
         </div>
       ) : (
