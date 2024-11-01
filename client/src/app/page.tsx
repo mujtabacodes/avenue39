@@ -15,19 +15,18 @@ import Image from 'next/image';
 import DiscountBanner from '@/components/Home/discount-banner';
 import HeroVideo from '@/components/Home/hero-video';
 export default function Home() {
-
   return (
     <>
-    <HeroVideo/>
+      <HeroVideo />
       {/* <SimpleSlider />
       <Services /> */}
-      <DiscountCard productItems={discountProducts}  />
+      <DiscountCard productItems={discountProducts} />
       <SofaBanner />
       <SaleBanner />
       <CardsTabes />
       <TimerSlider />
       <HotProductSlider />
-      <DiscountBanner/>
+      <DiscountBanner />
       <Testimonial testimonialitems={testimonialcards} />
     </>
   );

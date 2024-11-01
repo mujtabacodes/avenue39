@@ -24,8 +24,12 @@ export class PaytabsService {
       cart_description: `Order for ${firstName} ${lastName}`,
       cart_currency: 'AED',
       cart_amount: amount,
+      framed: true,
+      framed_return_top: true,
+      framed_return_parent: true,
       callback: 'http://avenue39.vercel.app/thanks',
       return: 'http://avenue39.vercel.app/thanks',
+      // return: 'http://localhost:3000/thanks',
       customer_details: {
         name: `${firstName} ${lastName}`,
         email,
