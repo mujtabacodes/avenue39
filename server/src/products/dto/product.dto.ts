@@ -17,9 +17,40 @@ export class AddProductDto {
   @IsInt()
   price: number;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
   description: string;
+
+  @IsOptional()
+  @IsString()
+  hoverImageAltText: string;
+
+  @IsOptional()
+  @IsString()
+  Images_Alt_Text: string;
+
+  @IsOptional()
+  @IsString()
+  posterImageAltText: string;
+
+  @IsOptional()
+  @IsString()
+  Meta_Title: string;
+  @IsOptional()
+  @IsString()
+  Meta_Description: string;
+  @IsOptional()
+  @IsString()
+  Canonical_Tag: string;
+  @IsOptional()
+  @IsString()
+  Og_title: string;
+  @IsOptional()
+  @IsString()
+  Og_Image: string;
+  @IsOptional()
+  @IsString()
+  Og_Url: string;
 
   @IsNotEmpty()
   @IsInt()
@@ -55,6 +86,7 @@ export class AddProductDto {
   @IsOptional()
   @IsArray()
   colors: [];
+
   @IsOptional()
   @IsArray()
   spacification: [];

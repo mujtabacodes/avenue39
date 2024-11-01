@@ -5,7 +5,7 @@ import DefaultLayout from '@components/Dashboard/Layouts/DefaultLayout';
 import ViewProduct from '@components/Dashboard/Tables/ViewProduct';
 import ProtectedRoute from '@/hooks/AuthHookAdmin';
 import { useEffect, useState } from 'react';
-// import { product} from "@types/interfaces";
+import { product } from '@/types/interfaces';
 import FormElements from '@components/Dashboard/FormElements';
 
 const Products = () => {
@@ -51,10 +51,20 @@ const Products = () => {
     stock: editProduct && editProduct.stock,
     salePrice: editProduct && editProduct.salePrice,
     posterImageUrl: editProduct && editProduct.posterImageUrl,
+    posterImageAltText: editProduct && editProduct.posterImageAltText,
     hoverImageUrl: editProduct && editProduct.hoverImageUrl,
+    hoverImageAltText: editProduct && editProduct.hoverImageAltText,
     imagesUrl: editProduct && editProduct.productImages,
     purchasePrice: editProduct && editProduct.purchasePrice,
     additionalInformation: editProduct && editProduct.additionalInformation,
+    Images_Alt_Text:editProduct && editProduct?.Images_Alt_Text,
+    Meta_Title:editProduct && editProduct?.Meta_Title,
+    Meta_Description:editProduct && editProduct?.Meta_Title,
+    Canonical_Tag:editProduct && editProduct?.Meta_Title,
+    // Images_Alt_Text:editProduct && editProduct?.Meta_Title,
+    Og_title:editProduct && editProduct?.Meta_Title,
+    Og_Image:editProduct && editProduct?.Meta_Title,
+    OgUrl:editProduct && editProduct?.Meta_Title,
   };
 
   let productFlag: boolean = selecteMenu === 'Add All Products' ? true : false;

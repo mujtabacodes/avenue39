@@ -31,6 +31,16 @@ model Products {
   hoverImageUrl       String
   hoverImagePublicId  String
 
+  hoverImageAltText  String?
+  posterImageAltText String?
+  Meta_Title         String?
+  Meta_Description   String?
+  Canonical_Tag      String?
+  Og_title           String?
+  Og_Image           String?
+  Og_Url             String?
+  Images_Alt_Text    String?
+
   productImages         Json[]
   additionalInformation Json[]
   colors                Json[] @default([])

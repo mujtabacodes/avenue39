@@ -1,6 +1,11 @@
 'use client';
 import { useState, useEffect, Fragment } from 'react';
-import { Dialog, DialogContent, DialogOverlay } from '@/components/ui/dialog';
+import {
+  Dialog,
+  DialogContent,
+  DialogOverlay,
+  DialogTitle,
+} from '@/components/ui/dialog';
 
 import Container from '@/components/ui/Container';
 import Services from '@/components/services/services';
@@ -15,6 +20,7 @@ import BestSellingSlider from '@/components/card-slider/best-selling';
 import { useSearchParams } from 'next/navigation';
 import Confetti from '@/components/confetti/confetti';
 import RedCross from '@assets/icons/remove.png';
+import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 const ThankYouPage = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const searchParams = useSearchParams();
@@ -52,7 +58,8 @@ const ThankYouPage = () => {
   }
   return (
     <Fragment>
-      {successFlag ? (
+      {/* {successFlag ? ( */}
+      {true ? (
         <>
           <Confetti />
           <Container className="py-16">
@@ -69,19 +76,24 @@ const ThankYouPage = () => {
             >
               Continue Shopping
             </Link>
-            <h3 className="font-medium text-2xl xs:text-3xl sm:text-4xl md:text-5xl text-center mt-16 mb-8">
+            {/* <h3 className="font-medium text-2xl xs:text-3xl sm:text-4xl md:text-5xl text-center mt-16 mb-8">
               Your Recently Viewed Products
-            </h3>
-            <FeatureSlider />
+            </h3> */}
+            {/* <FeatureSlider /> */}
           </Container>
-          <Services />
+          {/* <Services /> */}
           <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
             <DialogOverlay className="bg-white/80" />
             <DialogContent className="sm:max-w-[80%] lg:max-w-[60%] bg-white px-0 sm:rounded-none border border-black shadow-none gap-0 pb-0">
+              <VisuallyHidden>
+                <DialogTitle>Thank You</DialogTitle>
+              </VisuallyHidden>
               <div className="pb-4 px-5 xs:px-10 md:px-20 me-4 xs:me-7 mt-6 max-h-[80vh] overflow-y-auto custom-scroll">
-                <h2 className="text-center font-bold text-5xl">Get 10% Off</h2>
-                <p className="mt-10 text-center">Your Next Purchase/</p>
-                <div className="mt-16 flex justify-center">
+                <h2 className="text-center font-bold text-4xl xs:text-5xl">
+                  Get 10% Off
+                </h2>
+                <p className="mt-5 xs:mt-10 text-center">Your Next Purchase/</p>
+                <div className="mt-10 xs:mt-16 flex justify-center">
                   <Link
                     href={'/'}
                     className="w-60 h-16 bg-black text-white hover:text-black hover:bg-white text-sm rounded-md border-2 border-black flex justify-center items-center"
