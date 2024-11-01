@@ -206,19 +206,19 @@ const Card: React.FC<CardProps> = ({
         </div>
       ) : isModel ? null : (
         <div
-          className="text-center flex flex-none justify-center gap-3 "
+          className="text-center flex flex-wrap justify-center md:gap-3 space-y-2 md:space-y-0 "
           onClick={(e) => handleEventProbation(e)}
         >
           <button
-            className="my-4 w-32 h-8 text-primary border border-primary rounded-full flex items-center justify-center gap-2 hover:bg-primary hover:text-white"
+            className="md:my-4 w-full md:w-32 h-8 text-primary border border-primary rounded-full flex items-center justify-center gap-2 hover:bg-primary hover:text-white"
             onClick={(e) => handleAddToCard(e)}
           >
             <HiOutlineShoppingBag />
             <span className="text-10 font-medium">Add to Cart</span>
           </button>
-          <Dialog>
+          <Dialog >
             <DialogTrigger>
-              <button className="my-4 w-32 h-8 text-secondary border border-primary bg-primary rounded-full flex items-center justify-center gap-2 hover:bg-secondary hover:text-primary">
+              <button className="md:my-4 w-60 md:w-32 h-8 text-secondary border border-primary bg-primary rounded-full flex items-center justify-center gap-2 hover:bg-secondary hover:text-primary">
                 <span className="text-10 font-medium">Quick View</span>
               </button>
             </DialogTrigger>
