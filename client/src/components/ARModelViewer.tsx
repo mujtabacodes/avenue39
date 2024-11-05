@@ -15,10 +15,9 @@ const ARExperience: React.FC<ARExperienceProps> = ({ ImageUrl }) => {
   const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
   const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
   const planeRef = useRef<THREE.Mesh | null>(null); // Reference to the plane
+  const raycaster = useRef(new THREE.Raycaster());
+  const touchStartPos = useRef<{ x: number; y: number } | null>(null);
   const [isDragging, setIsDragging] = useState(false);
-  const [prevTouchPosition, setPrevTouchPosition] = useState<{ x: number; y: number } | null>(null);
-  const [scale, setScale] = useState(1); // Track scale for zoom
-  const [rotationAngle, setRotationAngle] = useState(0); // Track rotation
 
   useEffect(() => {
     if (containerRef.current) {
@@ -37,16 +36,17 @@ const ARExperience: React.FC<ARExperienceProps> = ({ ImageUrl }) => {
 
       document.body.appendChild(ARButton.createButton(renderer));
 
+      // Load GLTF model for testing (if needed)
       const loader = new GLTFLoader();
       loader.load('/models/example.glb', (gltf) => {
         scene.add(gltf.scene);
       });
 
+      // Load and create the image plane
       const textureLoader = new THREE.TextureLoader();
       if (!ImageUrl) return;
       const texture = textureLoader.load(ImageUrl);
 
-      // Create the plane with texture and add to the scene
       const geometry = new THREE.PlaneGeometry(0.2, 0.2); // Size in meters (0.2m = 200mm)
       const material = new THREE.MeshBasicMaterial({ map: texture });
       const plane = new THREE.Mesh(geometry, material);
@@ -71,11 +71,9 @@ const ARExperience: React.FC<ARExperienceProps> = ({ ImageUrl }) => {
             const cameraPosition = cameraRef.current.position;
             const cameraRotation = cameraRef.current.rotation;
 
-            // Update plane position and scale
+            // Keep the plane in front of the camera at a fixed distance
             planeRef.current.position.set(cameraPosition.x, cameraPosition.y, cameraPosition.z - 0.5);
             planeRef.current.rotation.copy(cameraRotation);
-            planeRef.current.scale.set(scale, scale, scale); // Apply zoom (scale)
-            planeRef.current.rotation.z = rotationAngle; // Apply rotation
           }
 
           renderer.render(scene, camera);
@@ -84,75 +82,59 @@ const ARExperience: React.FC<ARExperienceProps> = ({ ImageUrl }) => {
 
       animate();
 
-      // Touch Events for Mobile Dragging and Interactions
+      // Touch event handlers for drag functionality
       const onTouchStart = (event: TouchEvent) => {
-        if (event.touches.length === 1) {
-          // Single touch for dragging
+        if (!planeRef.current || !cameraRef.current) return;
+
+        // Convert touch coordinates to normalized device coordinates (NDC)
+        const touchX = (event.touches[0].clientX / window.innerWidth) * 2 - 1;
+        const touchY = -(event.touches[0].clientY / window.innerHeight) * 2 + 1;
+
+        // Set raycaster and check if the touch intersects with the plane
+        raycaster.current.setFromCamera(new THREE.Vector2(touchX, touchY), cameraRef.current);
+        const intersects = raycaster.current.intersectObject(planeRef.current);
+
+        // Start dragging if plane is touched
+        if (intersects.length > 0) {
           setIsDragging(true);
-          setPrevTouchPosition({ x: event.touches[0].clientX, y: event.touches[0].clientY });
-        } else if (event.touches.length === 2) {
-          // Pinch to zoom
-          setPrevTouchPosition(null); // Reset previous position to prevent drag
+          touchStartPos.current = { x: event.touches[0].clientX, y: event.touches[0].clientY };
         }
       };
 
       const onTouchMove = (event: TouchEvent) => {
-        if (isDragging && planeRef.current && prevTouchPosition) {
-          const deltaX = (event.touches[0].clientX - prevTouchPosition.x) / window.innerWidth;
-          const deltaY = (event.touches[0].clientY - prevTouchPosition.y) / window.innerHeight;
-          planeRef.current.position.x += deltaX * 0.5; // Adjust sensitivity as needed
-          planeRef.current.position.y -= deltaY * 0.5;
-          setPrevTouchPosition({ x: event.touches[0].clientX, y: event.touches[0].clientY });
-        } else if (event.touches.length === 2 && planeRef.current) {
-          // Pinch gesture to zoom
-          const touch1 = event.touches[0];
-          const touch2 = event.touches[1];
-          const distance = Math.sqrt(
-            Math.pow(touch2.clientX - touch1.clientX, 2) + Math.pow(touch2.clientY - touch1.clientY, 2)
-          );
+        if (isDragging && planeRef.current && touchStartPos.current) {
+          // Calculate the movement delta
+          const deltaX = (event.touches[0].clientX - touchStartPos.current.x) / window.innerWidth;
+          const deltaY = (event.touches[0].clientY - touchStartPos.current.y) / window.innerHeight;
 
-          if (prevTouchPosition) {
-            const prevDistance = Math.sqrt(
-              Math.pow(prevTouchPosition.x - touch1.clientX, 2) + Math.pow(prevTouchPosition.y - touch1.clientY, 2)
-            );
-            const zoomFactor = distance / prevDistance;
-            setScale(Math.max(0.5, Math.min(scale * zoomFactor, 3))); // Clamp between 0.5 and 3
-          }
-          setPrevTouchPosition({ x: touch1.clientX, y: touch1.clientY });
+          // Update plane position based on the delta
+          planeRef.current.position.x += deltaX * 0.5; // Adjust for sensitivity
+          planeRef.current.position.y -= deltaY * 0.5;
+
+          // Update start position to the current touch position
+          touchStartPos.current = { x: event.touches[0].clientX, y: event.touches[0].clientY };
         }
       };
 
       const onTouchEnd = () => {
         setIsDragging(false);
-        setPrevTouchPosition(null);
-      };
-
-      // Double-tap to rotate
-      let lastTap = 0;
-      const onDoubleTap = () => {
-        const now = Date.now();
-        if (now - lastTap < 300) { // Detect double-tap within 300ms
-          setRotationAngle(rotationAngle + Math.PI / 2); // Rotate by 90 degrees
-        }
-        lastTap = now;
+        touchStartPos.current = null;
       };
 
       // Event listeners for touch events
       containerRef.current.addEventListener('touchstart', onTouchStart);
       containerRef.current.addEventListener('touchmove', onTouchMove);
       containerRef.current.addEventListener('touchend', onTouchEnd);
-      containerRef.current.addEventListener('dblclick', onDoubleTap);
 
       return () => {
         window.removeEventListener('resize', onWindowResize);
         containerRef.current?.removeEventListener('touchstart', onTouchStart);
         containerRef.current?.removeEventListener('touchmove', onTouchMove);
         containerRef.current?.removeEventListener('touchend', onTouchEnd);
-        containerRef.current?.removeEventListener('dblclick', onDoubleTap);
         containerRef.current?.removeChild(renderer.domElement);
       };
     }
-  }, [ImageUrl, isDragging, rotationAngle, scale]);
+  }, [ImageUrl, isDragging]);
 
   return <div ref={containerRef} style={{ width: '100%', height: '100%' }} />;
 };
