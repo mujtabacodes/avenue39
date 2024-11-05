@@ -9,6 +9,7 @@ interface QRPROPS {
 
 const QRExample = ({ url, hoveredImage }: QRPROPS) => {
   const [showDraggableImage, setShowDraggableImage] = useState(false);
+
   const newUrl = `${window.location.origin}/AR/${url}?Image_id=${hoveredImage}`;
   console.log(hoveredImage, "hoveredImage");
   console.log(newUrl, "newUrl");
@@ -25,8 +26,8 @@ const QRExample = ({ url, hoveredImage }: QRPROPS) => {
         Show Draggable Image
       </button>
       {showDraggableImage && (
-        <Draggable>
-          <div className="absolute">
+        <Draggable defaultPosition={{ x: 0, y: 0 }}>
+          <div className="fixed inset-0 flex items-center justify-center pointer-events-none">
             <img
               src={hoveredImage}
               alt="Scanned"
@@ -34,6 +35,7 @@ const QRExample = ({ url, hoveredImage }: QRPROPS) => {
                 width: '200px',
                 height: '200px',
                 cursor: 'move',
+                pointerEvents: 'auto', 
               }}
             />
           </div>
