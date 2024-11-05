@@ -3,6 +3,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { ARButton } from 'three/examples/jsm/webxr/ARButton.js';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
 interface ARExperienceProps {
   ImageUrl: string | undefined;
@@ -15,13 +16,13 @@ const ARExperience: React.FC<ARExperienceProps> = ({ ImageUrl }) => {
   const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
   const planeRef = useRef<THREE.Mesh | null>(null);
 
+  // States for dragging and rotation
   const [isDragging, setIsDragging] = useState(false);
-  const [initialDistance, setInitialDistance] = useState<number | null>(null);
-  const [initialRotation, setInitialRotation] = useState<number>(0);
+  const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
+  const [rotationStart, setRotationStart] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
     if (containerRef.current) {
-      // Scene and Camera
       const scene = new THREE.Scene();
       sceneRef.current = scene;
 
@@ -29,21 +30,23 @@ const ARExperience: React.FC<ARExperienceProps> = ({ ImageUrl }) => {
       camera.position.set(0, 1.6, 0);
       cameraRef.current = camera;
 
-      // Renderer
       const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
       renderer.setSize(window.innerWidth, window.innerHeight);
       renderer.xr.enabled = true;
       containerRef.current.appendChild(renderer.domElement);
       rendererRef.current = renderer;
 
-      // AR Button
       document.body.appendChild(ARButton.createButton(renderer));
 
-      // Load Image Texture
-      const textureLoader = new THREE.TextureLoader();
-      const texture = textureLoader.load(ImageUrl ?? "");
+      const loader = new GLTFLoader();
+      loader.load('/models/example.glb', (gltf) => {
+        scene.add(gltf.scene);
+      });
 
-      // Create a Plane with the Texture
+      const textureLoader = new THREE.TextureLoader();
+      if (!ImageUrl) return;
+      const texture = textureLoader.load(ImageUrl);
+
       const geometry = new THREE.PlaneGeometry(0.2, 0.2);
       const material = new THREE.MeshBasicMaterial({ map: texture });
       const plane = new THREE.Mesh(geometry, material);
@@ -51,7 +54,6 @@ const ARExperience: React.FC<ARExperienceProps> = ({ ImageUrl }) => {
       planeRef.current = plane;
       scene.add(plane);
 
-      // Resize Handler
       const onWindowResize = () => {
         if (cameraRef.current && rendererRef.current) {
           const { innerWidth, innerHeight } = window;
@@ -60,103 +62,61 @@ const ARExperience: React.FC<ARExperienceProps> = ({ ImageUrl }) => {
           rendererRef.current.setSize(innerWidth, innerHeight);
         }
       };
+
       window.addEventListener('resize', onWindowResize);
 
-      // AR Render Loop
+      // Interaction handlers
+      const onPointerDown = (event: PointerEvent) => {
+        setIsDragging(true);
+        setDragStart({ x: event.clientX, y: event.clientY });
+        if (planeRef.current) {
+          setRotationStart({
+            x: planeRef.current.rotation.x,
+            y: planeRef.current.rotation.y,
+          });
+        }
+      };
+
+      const onPointerMove = (event: PointerEvent) => {
+        if (isDragging && planeRef.current) {
+          const deltaX = event.clientX - dragStart.x;
+          const deltaY = event.clientY - dragStart.y;
+
+          // Update rotation based on pointer movement
+          planeRef.current.rotation.x = rotationStart.x + deltaY * 0.01;
+          planeRef.current.rotation.y = rotationStart.y + deltaX * 0.01;
+        }
+      };
+
+      const onPointerUp = () => {
+        setIsDragging(false);
+      };
+
+      // Attach event listeners to renderer DOM
+      renderer.domElement.addEventListener('pointerdown', onPointerDown);
+      renderer.domElement.addEventListener('pointermove', onPointerMove);
+      renderer.domElement.addEventListener('pointerup', onPointerUp);
+
       const animate = () => {
         renderer.setAnimationLoop(() => {
-          renderer.render(scene, camera);
+          if (cameraRef.current && planeRef.current) {
+            // Render scene
+            renderer.render(scene, camera);
+          }
         });
       };
+
       animate();
 
-      // Cleanup
       return () => {
         window.removeEventListener('resize', onWindowResize);
+        renderer.domElement.removeEventListener('pointerdown', onPointerDown);
+        renderer.domElement.removeEventListener('pointermove', onPointerMove);
+        renderer.domElement.removeEventListener('pointerup', onPointerUp);
         containerRef.current?.removeChild(renderer.domElement);
       };
     }
   }, [ImageUrl]);
-
-  // Gesture Handlers
-  const onTouchStart = (event: TouchEvent) => {
-    if (event.touches.length === 1) {
-      setIsDragging(true);
-    } else if (event.touches.length === 2) {
-      // Pinch Start: Calculate initial distance for zooming
-      const distance = getTouchDistance(event);
-      setInitialDistance(distance);
-    }
-  };
-
-  const onTouchMove = (event: TouchEvent) => {
-    if (isDragging && event.touches.length === 1 && planeRef.current) {
-      const deltaX = event.changedTouches[0].clientX - event.touches[0].clientX;
-      const deltaY = event.changedTouches[0].clientY - event.touches[0].clientY;
-
-      // Update plane position based on movement
-      planeRef.current.position.x += deltaX / window.innerWidth * 0.5;
-      planeRef.current.position.y -= deltaY / window.innerHeight * 0.5;
-    } else if (event.touches.length === 2 && initialDistance !== null && planeRef.current) {
-      // Zooming: Adjust plane scale based on pinch movement
-      const distance = getTouchDistance(event);
-      const scaleChange = distance / initialDistance;
-      planeRef.current.scale.set(scaleChange, scaleChange, scaleChange);
-    }
-  };
-
-
-  const onTouchEnd = (event: TouchEvent) => {
-    if (event.touches.length < 2) {
-      setInitialDistance(null);
-    }
-    setIsDragging(false);
-  };
-
-  // Two-finger Tap Handler for Rotation
-  const onDoubleTap = (event: TouchEvent) => {
-    if (event.touches.length === 2 && planeRef.current) {
-      // Toggle Rotation
-      const newRotation = initialRotation + Math.PI / 2;
-      setInitialRotation(newRotation);
-      planeRef.current.rotation.z = newRotation;
-    }
-  };
-
-  // Helper to calculate distance between two touch points
-  const getTouchDistance = (event: TouchEvent) => {
-    const dx = event.touches[0].pageX - event.touches[1].pageX;
-    const dy = event.touches[0].pageY - event.touches[1].pageY;
-    return Math.sqrt(dx * dx + dy * dy);
-  };
-
-  // Attach event listeners to the container
-  useEffect(() => {
-    const container = containerRef.current;
-    if (container) {
-      container.addEventListener('touchstart', onTouchStart);
-      container.addEventListener('touchmove', onTouchMove);
-      container.addEventListener('touchend', onTouchEnd);
-      container.addEventListener('dblclick', (event: Event) => {
-        if (event instanceof TouchEvent) {
-          onDoubleTap(event);
-        }
-      });
-    }
-
-    return () => {
-      if (container) {
-        container.removeEventListener('touchstart', onTouchStart);
-        container.removeEventListener('touchmove', onTouchMove);
-        container.removeEventListener('touchend', onTouchEnd);
-        container.addEventListener('dblclick', (event: Event) => {
-          if (event instanceof TouchEvent) {
-            onDoubleTap(event);
-          }
-        });
-      }
-    };
-  }, [initialDistance, isDragging, initialRotation]);
 
   return <div ref={containerRef} style={{ width: '100%', height: '100%' }} />;
 };
