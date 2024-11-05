@@ -15,7 +15,7 @@ const ARExperience: React.FC<ARExperienceProps> = ({ ImageUrl }) => {
     const rendererRef = useRef<THREE.WebGLRenderer | null>(null);   
     const planeRef = useRef<THREE.Mesh | null>(null);  
     const [isDragging, setIsDragging] = useState(false);  
-    const [prevMousePosition, setPrevMousePosition] = useState<{ x: number; y: number } | null>(null);  
+    const [prevTouchPosition, setPrevTouchPosition] = useState<{ x: number; y: number } | null>(null);  
 
     useEffect(() => {     
         if (containerRef.current) {       
@@ -24,25 +24,47 @@ const ARExperience: React.FC<ARExperienceProps> = ({ ImageUrl }) => {
             const camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.01, 20);       
             camera.position.set(0, 1.6, 0); // Simulate head height in AR       
             cameraRef.current = camera;        
+            
             const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });       
             renderer.setSize(window.innerWidth, window.innerHeight);       
             renderer.xr.enabled = true;       
             containerRef.current.appendChild(renderer.domElement);       
             rendererRef.current = renderer;        
+
             document.body.appendChild(ARButton.createButton(renderer));        
+
             const loader = new GLTFLoader();       
             loader.load('/models/example.glb', (gltf) => {         
                 scene.add(gltf.scene);       
-            });        
+            }, undefined, (error) => {
+                console.error("Error loading GLTF model:", error);
+            });
+
             const textureLoader = new THREE.TextureLoader();       
-            if (!ImageUrl) return;       
-            const texture = textureLoader.load(ImageUrl);        
-            const geometry = new THREE.PlaneGeometry(0.2, 0.2); // Size in meters (0.2m = 200mm)       
-            const material = new THREE.MeshBasicMaterial({ map: texture });       
-            const plane = new THREE.Mesh(geometry, material);       
-            plane.position.set(0, 0, -0.5); // Set 0.5m in front of the camera       
-            planeRef.current = plane;       
-            scene.add(plane);        
+            if (!ImageUrl) {
+                console.warn("No image URL provided.");
+                return;
+            } 
+
+            // Delay showing the image by 3 seconds
+            setTimeout(() => {
+                textureLoader.load(
+                    ImageUrl,
+                    (texture) => {  // On load success
+                        const geometry = new THREE.PlaneGeometry(0.2, 0.2); // Size in meters (0.2m = 200mm)       
+                        const material = new THREE.MeshBasicMaterial({ map: texture });       
+                        const plane = new THREE.Mesh(geometry, material);       
+                        plane.position.set(0, 0, -0.5); // Place 0.5m in front of the camera       
+                        planeRef.current = plane;       
+                        scene.add(plane);   
+                        console.log("Texture loaded and plane added to scene.");    
+                    },
+                    undefined,
+                    (error) => {  // On load error
+                        console.error("Error loading texture:", error);
+                    }
+                );
+            }, 3000); // 3-second delay
 
             const onWindowResize = () => {         
                 if (cameraRef.current && rendererRef.current) {           
@@ -60,49 +82,48 @@ const ARExperience: React.FC<ARExperienceProps> = ({ ImageUrl }) => {
                     if (cameraRef.current && planeRef.current) {             
                         const cameraPosition = cameraRef.current.position;             
                         const cameraRotation = cameraRef.current.rotation;              
+                        
                         // Keep the plane in front of the camera at a fixed distance             
-                        planeRef.current.position.set(cameraPosition.x, cameraPosition.y, cameraPosition.z - 0.5); // Adjust Z for proper distance             
-                        planeRef.current.rotation.copy(cameraRotation); // Align the plane's rotation with the camera                      
-
-                        // Update position if dragging
-                        if (isDragging && prevMousePosition) {             
-                            const deltaX = (prevMousePosition.x - window.innerWidth / 2) / window.innerWidth;             
-                            const deltaY = (prevMousePosition.y - window.innerHeight / 2) / window.innerHeight;             
-                            planeRef.current.position.x += deltaX * 0.5; // Adjust the multiplier for sensitivity             
-                            planeRef.current.position.y -= deltaY * 0.5; // Adjust the multiplier for sensitivity
-                        }           
+                        planeRef.current.position.set(cameraPosition.x, cameraPosition.y, cameraPosition.z - 0.5);             
+                        planeRef.current.rotation.copy(cameraRotation); // Align plane rotation with camera
                     }            
                     renderer.render(scene, camera);         
                 });       
             };        
 
-            const onMouseDown = (event: MouseEvent) => {         
+            const onTouchStart = (event: TouchEvent) => {         
                 setIsDragging(true);         
-                setPrevMousePosition({ x: event.clientX, y: event.clientY });         
+                const touch = event.touches[0];         
+                setPrevTouchPosition({ x: touch.clientX, y: touch.clientY });         
             };        
 
-            const onMouseMove = (event: MouseEvent) => {         
-                if (isDragging) {             
-                    setPrevMousePosition({ x: event.clientX, y: event.clientY });         
+            const onTouchMove = (event: TouchEvent) => {         
+                if (isDragging && planeRef.current && prevTouchPosition) {             
+                    const touch = event.touches[0];             
+                    const deltaX = (touch.clientX - prevTouchPosition.x) / window.innerWidth;             
+                    const deltaY = (touch.clientY - prevTouchPosition.y) / window.innerHeight;             
+                    planeRef.current.position.x += deltaX * 0.5; // Adjust for sensitivity             
+                    planeRef.current.position.y -= deltaY * 0.5;             
+                    setPrevTouchPosition({ x: touch.clientX, y: touch.clientY });         
                 }       
             };        
 
-            const onMouseUp = () => {         
+            const onTouchEnd = () => {         
                 setIsDragging(false);         
-                setPrevMousePosition(null);       
+                setPrevTouchPosition(null);       
             };        
 
-            window.addEventListener('mousedown', onMouseDown);        
-            window.addEventListener('mousemove', onMouseMove);        
-            window.addEventListener('mouseup', onMouseUp);        
+            window.addEventListener('touchstart', onTouchStart);        
+            window.addEventListener('touchmove', onTouchMove);        
+            window.addEventListener('touchend', onTouchEnd);        
 
             animate();        
 
             return () => {         
                 window.removeEventListener('resize', onWindowResize);         
-                window.removeEventListener('mousedown', onMouseDown);         
-                window.removeEventListener('mousemove', onMouseMove);         
-                window.removeEventListener('mouseup', onMouseUp);         
+                window.removeEventListener('touchstart', onTouchStart);         
+                window.removeEventListener('touchmove', onTouchMove);         
+                window.removeEventListener('touchend', onTouchEnd);         
                 containerRef.current?.removeChild(renderer.domElement);       
             };     
         }   
