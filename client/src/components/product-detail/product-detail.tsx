@@ -230,6 +230,8 @@ const ProductDetail = ({
 
           <Link
             href="https://wa.me/971505974495"
+            target='_blank'
+            rel='noreferrer'
             className="w-fit ps-5 pe-10 h-12 text-white bg-[#64B161] rounded-full flex justify-center items-center gap-2 hover:bg-[#56B400]"
           >
             <BsWhatsapp size={35} />
