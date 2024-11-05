@@ -16,10 +16,10 @@ const ARExperience: React.FC<ARExperienceProps> = ({ ImageUrl }) => {
   const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
   const planeRef = useRef<THREE.Mesh | null>(null);
 
-  // States for dragging and rotation
+  // States for dragging and position
   const [isDragging, setIsDragging] = useState(false);
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
-  const [rotationStart, setRotationStart] = useState({ x: 0, y: 0 });
+  const [initialPlanePosition, setInitialPlanePosition] = useState(new THREE.Vector3());
 
   useEffect(() => {
     if (containerRef.current) {
@@ -65,15 +65,24 @@ const ARExperience: React.FC<ARExperienceProps> = ({ ImageUrl }) => {
 
       window.addEventListener('resize', onWindowResize);
 
-      // Interaction handlers
+      // Raycaster for detecting clicks on the plane
+      const raycaster = new THREE.Raycaster();
+      const mouse = new THREE.Vector2();
+
       const onPointerDown = (event: PointerEvent) => {
-        setIsDragging(true);
-        setDragStart({ x: event.clientX, y: event.clientY });
-        if (planeRef.current) {
-          setRotationStart({
-            x: planeRef.current.rotation.x,
-            y: planeRef.current.rotation.y,
-          });
+        mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+        mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+        raycaster.setFromCamera(mouse, camera);
+
+        const intersects = raycaster.intersectObject(planeRef.current as THREE.Mesh);
+
+        if (intersects.length > 0) {
+          setIsDragging(true);
+          setDragStart({ x: event.clientX, y: event.clientY });
+          if (planeRef.current) {
+            setInitialPlanePosition(planeRef.current.position.clone());
+          }
         }
       };
 
@@ -82,9 +91,15 @@ const ARExperience: React.FC<ARExperienceProps> = ({ ImageUrl }) => {
           const deltaX = event.clientX - dragStart.x;
           const deltaY = event.clientY - dragStart.y;
 
-          // Update rotation based on pointer movement
-          planeRef.current.rotation.x = rotationStart.x + deltaY * 0.01;
-          planeRef.current.rotation.y = rotationStart.y + deltaX * 0.01;
+          // Update plane position based on pointer movement
+          const moveX = deltaX * 0.001; // Adjust the sensitivity
+          const moveY = -deltaY * 0.001; // Invert Y direction for natural movement
+
+          planeRef.current.position.set(
+            initialPlanePosition.x + moveX,
+            initialPlanePosition.y + moveY,
+            initialPlanePosition.z
+          );
         }
       };
 
@@ -100,7 +115,6 @@ const ARExperience: React.FC<ARExperienceProps> = ({ ImageUrl }) => {
       const animate = () => {
         renderer.setAnimationLoop(() => {
           if (cameraRef.current && planeRef.current) {
-            // Render scene
             renderer.render(scene, camera);
           }
         });
