@@ -1,95 +1,114 @@
-'use client';
+'use client';  
+import React, { useEffect, useRef, useState } from 'react';  
+import * as THREE from 'three';  
+import { ARButton } from 'three/examples/jsm/webxr/ARButton.js';  
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';  
 
-import React, { useEffect, useRef } from 'react';
-import * as THREE from 'three';
-import { ARButton } from 'three/examples/jsm/webxr/ARButton.js';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+interface ARExperienceProps {   
+    ImageUrl: string | undefined; 
+}  
 
-interface ARExperienceProps {
-  ImageUrl: string | undefined;
-}
+const ARExperience: React.FC<ARExperienceProps> = ({ ImageUrl }) => {   
+    const containerRef = useRef<HTMLDivElement | null>(null);   
+    const sceneRef = useRef<THREE.Scene | null>(null);   
+    const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);   
+    const rendererRef = useRef<THREE.WebGLRenderer | null>(null);   
+    const planeRef = useRef<THREE.Mesh | null>(null);  
+    const [isDragging, setIsDragging] = useState(false);  
+    const [prevMousePosition, setPrevMousePosition] = useState<{ x: number; y: number } | null>(null);  
 
-const ARExperience: React.FC<ARExperienceProps> = ({ ImageUrl }) => {
-  const containerRef = useRef<HTMLDivElement | null>(null);
-  const sceneRef = useRef<THREE.Scene | null>(null);
-  const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
-  const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
+    useEffect(() => {     
+        if (containerRef.current) {       
+            const scene = new THREE.Scene();       
+            sceneRef.current = scene;        
+            const camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.01, 20);       
+            camera.position.set(0, 1.6, 0); // Simulate head height in AR       
+            cameraRef.current = camera;        
+            const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });       
+            renderer.setSize(window.innerWidth, window.innerHeight);       
+            renderer.xr.enabled = true;       
+            containerRef.current.appendChild(renderer.domElement);       
+            rendererRef.current = renderer;        
+            document.body.appendChild(ARButton.createButton(renderer));        
+            const loader = new GLTFLoader();       
+            loader.load('/models/example.glb', (gltf) => {         
+                scene.add(gltf.scene);       
+            });        
+            const textureLoader = new THREE.TextureLoader();       
+            if (!ImageUrl) return;       
+            const texture = textureLoader.load(ImageUrl);        
+            const geometry = new THREE.PlaneGeometry(0.2, 0.2); // Size in meters (0.2m = 200mm)       
+            const material = new THREE.MeshBasicMaterial({ map: texture });       
+            const plane = new THREE.Mesh(geometry, material);       
+            plane.position.set(0, 0, -0.5); // Set 0.5m in front of the camera       
+            planeRef.current = plane;       
+            scene.add(plane);        
 
-  useEffect(() => {
-    if (containerRef.current && ImageUrl) {
-      // Initialize Three.js elements
-      const scene = new THREE.Scene();
-      sceneRef.current = scene;
+            const onWindowResize = () => {         
+                if (cameraRef.current && rendererRef.current) {           
+                    const { innerWidth, innerHeight } = window;           
+                    cameraRef.current.aspect = innerWidth / innerHeight;           
+                    cameraRef.current.updateProjectionMatrix();           
+                    rendererRef.current.setSize(innerWidth, innerHeight);         
+                }       
+            };        
 
-      const camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.01, 20);
-      camera.position.set(0, 1.6, 0); // Approximate head height
-      cameraRef.current = camera;
+            window.addEventListener('resize', onWindowResize);        
 
-      const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-      renderer.setSize(window.innerWidth, window.innerHeight);
-      renderer.xr.enabled = true;
-      containerRef.current.appendChild(renderer.domElement);
-      rendererRef.current = renderer;
+            const animate = () => {         
+                renderer.setAnimationLoop(() => {           
+                    if (cameraRef.current && planeRef.current) {             
+                        const cameraPosition = cameraRef.current.position;             
+                        const cameraRotation = cameraRef.current.rotation;              
+                        // Keep the plane in front of the camera at a fixed distance             
+                        planeRef.current.position.set(cameraPosition.x, cameraPosition.y, cameraPosition.z - 0.5); // Adjust Z for proper distance             
+                        planeRef.current.rotation.copy(cameraRotation); // Align the plane's rotation with the camera                      
 
-      // Add AR Button for WebXR functionality
-      document.body.appendChild(ARButton.createButton(renderer));
+                        // Update position if dragging
+                        if (isDragging && prevMousePosition) {             
+                            const deltaX = (prevMousePosition.x - window.innerWidth / 2) / window.innerWidth;             
+                            const deltaY = (prevMousePosition.y - window.innerHeight / 2) / window.innerHeight;             
+                            planeRef.current.position.x += deltaX * 0.5; // Adjust the multiplier for sensitivity             
+                            planeRef.current.position.y -= deltaY * 0.5; // Adjust the multiplier for sensitivity
+                        }           
+                    }            
+                    renderer.render(scene, camera);         
+                });       
+            };        
 
-      // Load the 3D model (for testing, you can replace this with any .glb file URL)
-      const loader = new GLTFLoader();
-      loader.load('/models/example.glb', (gltf) => {
-        const model = gltf.scene;
-        model.position.set(0, 0, -0.5); // Adjust model to appear in front of user
-        model.scale.set(0.1, 0.1, 0.1); // Scale the model down for a realistic appearance
-        scene.add(model);
-      });
+            const onMouseDown = (event: MouseEvent) => {         
+                setIsDragging(true);         
+                setPrevMousePosition({ x: event.clientX, y: event.clientY });         
+            };        
 
-      // Load texture and add a plane with image overlay
-      const textureLoader = new THREE.TextureLoader();
-      const texture = textureLoader.load(ImageUrl);
+            const onMouseMove = (event: MouseEvent) => {         
+                if (isDragging) {             
+                    setPrevMousePosition({ x: event.clientX, y: event.clientY });         
+                }       
+            };        
 
-      const geometry = new THREE.PlaneGeometry(0.2, 0.2); // 20cm x 20cm plane
-      const material = new THREE.MeshBasicMaterial({ map: texture, transparent: true });
-      const plane = new THREE.Mesh(geometry, material);
-      plane.position.set(0, 0, -0.6); // Set in front of the user
-      plane.rotation.x = -Math.PI / 2; // Tilt to appear on ground
-      scene.add(plane);
+            const onMouseUp = () => {         
+                setIsDragging(false);         
+                setPrevMousePosition(null);       
+            };        
 
-      // Lighting for better visual quality
-      const light = new THREE.DirectionalLight(0xffffff, 0.8);
-      light.position.set(1, 2, 1);
-      scene.add(light);
+            window.addEventListener('mousedown', onMouseDown);        
+            window.addEventListener('mousemove', onMouseMove);        
+            window.addEventListener('mouseup', onMouseUp);        
 
-      const ambientLight = new THREE.AmbientLight(0x404040, 1.5); // soft light
-      scene.add(ambientLight);
+            animate();        
 
-      // Resize handling
-      const onWindowResize = () => {
-        if (cameraRef.current && rendererRef.current) {
-          const { innerWidth, innerHeight } = window;
-          camera.aspect = innerWidth / innerHeight;
-          camera.updateProjectionMatrix();
-          renderer.setSize(innerWidth, innerHeight);
-        }
-      };
-      window.addEventListener('resize', onWindowResize);
+            return () => {         
+                window.removeEventListener('resize', onWindowResize);         
+                window.removeEventListener('mousedown', onMouseDown);         
+                window.removeEventListener('mousemove', onMouseMove);         
+                window.removeEventListener('mouseup', onMouseUp);         
+                containerRef.current?.removeChild(renderer.domElement);       
+            };     
+        }   
+    }, [ImageUrl, isDragging]);   
 
-      // Render loop
-      const animate = () => {
-        renderer.setAnimationLoop(() => {
-          renderer.render(scene, camera);
-        });
-      };
-      animate();
-
-      // Cleanup on unmount
-      return () => {
-        window.removeEventListener('resize', onWindowResize);
-        containerRef.current?.removeChild(renderer.domElement);
-      };
-    }
-  }, [ImageUrl]);
-
-  return <div ref={containerRef} style={{ width: '100%', height: '100%', position: 'relative' }} />;
-};
+    return <div ref={containerRef} style={{ width: '100%', height: '100%' }} />; 
+};  
 
 export default ARExperience;
