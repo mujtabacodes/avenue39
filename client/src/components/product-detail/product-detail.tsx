@@ -275,7 +275,7 @@ const ProductDetail = ({
                 </DialogContent>
           </Dialog> */}
 
-          {/* <Dialog>
+          <Dialog>
             <DialogTrigger asChild>
               <Button className="bg-warning w-1/2 text-white flex gap-3 h-12 rounded-2xl">
                 TRY AT HOME
@@ -300,7 +300,7 @@ const ProductDetail = ({
                 url={slug}
               />
             </DialogContent>
-          </Dialog> */}
+          </Dialog>
         </div>
         <Dialog>
           <DialogTrigger asChild>
