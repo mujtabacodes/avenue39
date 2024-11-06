@@ -174,7 +174,7 @@ const LandscapeCard: React.FC<CardProps> = ({ card, isLoading }) => {
           </>
         )}
         <div className="flex gap-1 mt-2 items-center justify-center sm:justify-start h-8">
-          {averageRating > 0 && renderStars({ star: averageRating })}
+          {averageRating > 1 && renderStars({ star: averageRating })}
         </div>
         <div
           className="text-center flex flex-none justify-center sm:justify-start gap-3"

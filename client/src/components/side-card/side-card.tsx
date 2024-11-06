@@ -105,7 +105,7 @@ const SideCard: React.FC<sideCardProps> = ({ isSlice }) => {
                 </>
               )}
               <div className="flex">
-                {averageRating > 0 && renderStars({ star: averageRating })}
+                {averageRating > 1 && renderStars({ star: averageRating })}
               </div>
             </div>
           </Link>
