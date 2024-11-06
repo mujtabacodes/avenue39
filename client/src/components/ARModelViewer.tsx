@@ -4,7 +4,7 @@ interface ARExperienceProps {
   ImageUrl?: string | undefined; // The URL of your hosted .glb file
 }
 
-const ARExperience: React.FC<ARExperienceProps> = ({ ImageUrl = "/3dmodel/sofa.glb" }) => {
+const ARExperience: React.FC<ARExperienceProps> = ({ ImageUrl }) => {
   if (!ImageUrl) {
     return <p>No AR content available</p>;
   }

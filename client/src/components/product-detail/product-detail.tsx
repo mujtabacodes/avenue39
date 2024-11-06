@@ -325,8 +325,9 @@ const ProductDetail = ({
           </DialogContent>
         </Dialog>
                 <div>
-                  ArVR
-                  <ARExperience/>
+                  <ARExperience ImageUrl={"/3dmodel/test.glb"}/>
+                  <ARExperience ImageUrl={"/3dmodel/carpet.glb"}/>
+                  <ARExperience ImageUrl={"/3dmodel/model.glb"}/>
                 </div>
         <div className="flex items-center justify-center relative mb-2">
           <span className="absolute left-0 w-1/6 border-t border-gray-300"></span>
