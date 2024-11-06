@@ -1,15 +1,15 @@
 import React from "react";
 
 interface ARExperienceProps {
-  ImageUrl: string | undefined;
+  ImageUrl?: string | undefined; // The URL of your hosted .glb file
 }
 
-const ARExperience: React.FC<ARExperienceProps> = ({ ImageUrl }) => {
+const ARExperience: React.FC<ARExperienceProps> = ({ ImageUrl="/3dmodel/carpet.glb" }) => {
   if (!ImageUrl) {
     return <p>No AR content available</p>;
   }
 
-  // Construct the Google Scene Viewer URL
+  // Construct the Google Scene Viewer URL with the .glb file URL
   const sceneViewerUrl = `https://arvr.google.com/scene-viewer/1.0?file=${encodeURIComponent(
     ImageUrl
   )}&mode=ar_only`;
@@ -25,11 +25,4 @@ const ARExperience: React.FC<ARExperienceProps> = ({ ImageUrl }) => {
   );
 };
 
-const ARExperiencePage = () => {
-  // The URL of your .glb model hosted in the public directory
-  const modelUrl = "/3dmodel/carpet.glb";
-
-  return <ARExperience ImageUrl={modelUrl} />;
-};
-
-export default ARExperiencePage;
+export default ARExperience;
