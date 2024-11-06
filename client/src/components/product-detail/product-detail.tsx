@@ -275,7 +275,7 @@ const ProductDetail = ({
                 </DialogContent>
           </Dialog> */}
 
-          {/* <Dialog>
+          <Dialog>
             <DialogTrigger asChild>
               <Button className="bg-warning w-1/2 text-white flex gap-3 h-12 rounded-2xl">
                 TRY AT HOME
@@ -300,7 +300,7 @@ const ProductDetail = ({
                 url={slug}
               />
             </DialogContent>
-          </Dialog> */}
+          </Dialog>
         </div>
         <Dialog>
           <DialogTrigger asChild>
@@ -326,7 +326,13 @@ const ProductDetail = ({
         </Dialog>
                 <div>
                   ArVR
-                  <ARExperience/>
+                  <ARExperience ImageUrl={
+                  hoveredImage
+                    ? hoveredImage
+                    : product?.productImages[0].imageUrl
+                      ? product?.productImages[0].imageUrl
+                      : 'not found'
+                }/>
                 </div>
         <div className="flex items-center justify-center relative mb-2">
           <span className="absolute left-0 w-1/6 border-t border-gray-300"></span>
