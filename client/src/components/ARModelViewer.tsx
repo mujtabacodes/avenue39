@@ -16,10 +16,9 @@ const ARExperience: React.FC<ARExperienceProps> = ({ ImageUrl }) => {
   const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
   const planeRef = useRef<THREE.Mesh | null>(null);
 
-  // States for dragging and position
   const [isDragging, setIsDragging] = useState(false);
-  const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
-  const [initialPlanePosition, setInitialPlanePosition] = useState(new THREE.Vector3());
+  const raycaster = useRef(new THREE.Raycaster());
+  const pointer = useRef(new THREE.Vector2());
 
   useEffect(() => {
     if (containerRef.current) {
@@ -37,11 +36,6 @@ const ARExperience: React.FC<ARExperienceProps> = ({ ImageUrl }) => {
       rendererRef.current = renderer;
 
       document.body.appendChild(ARButton.createButton(renderer));
-
-      const loader = new GLTFLoader();
-      loader.load('/models/example.glb', (gltf) => {
-        scene.add(gltf.scene);
-      });
 
       const textureLoader = new THREE.TextureLoader();
       if (!ImageUrl) return;
@@ -65,56 +59,49 @@ const ARExperience: React.FC<ARExperienceProps> = ({ ImageUrl }) => {
 
       window.addEventListener('resize', onWindowResize);
 
-      // Raycaster for detecting clicks on the plane
-      const raycaster = new THREE.Raycaster();
-      const mouse = new THREE.Vector2();
+      const handlePointerDown = (event: PointerEvent) => {
+        if (!rendererRef.current || !planeRef.current || !cameraRef.current) return;
 
-      const onPointerDown = (event: PointerEvent) => {
-        mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-        mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+        // Convert pointer position to normalized device coordinates
+        pointer.current.x = (event.clientX / window.innerWidth) * 2 - 1;
+        pointer.current.y = -(event.clientY / window.innerHeight) * 2 + 1;
 
-        raycaster.setFromCamera(mouse, camera);
-
-        const intersects = raycaster.intersectObject(planeRef.current as THREE.Mesh);
+        // Use raycasting to detect if the plane was clicked
+        raycaster.current.setFromCamera(pointer.current, cameraRef.current);
+        const intersects = raycaster.current.intersectObject(planeRef.current);
 
         if (intersects.length > 0) {
-          setIsDragging(true);
-          setDragStart({ x: event.clientX, y: event.clientY });
-          if (planeRef.current) {
-            setInitialPlanePosition(planeRef.current.position.clone());
-          }
+          setIsDragging(true); // Enable dragging
         }
       };
 
-      const onPointerMove = (event: PointerEvent) => {
-        if (isDragging && planeRef.current) {
-          const deltaX = event.clientX - dragStart.x;
-          const deltaY = event.clientY - dragStart.y;
+      const handlePointerMove = (event: PointerEvent) => {
+        if (isDragging && planeRef.current && cameraRef.current) {
+          // Calculate normalized device coordinates
+          pointer.current.x = (event.clientX / window.innerWidth) * 2 - 1;
+          pointer.current.y = -(event.clientY / window.innerHeight) * 2 + 1;
 
-          // Update plane position based on pointer movement
-          const moveX = deltaX * 0.001; // Adjust the sensitivity
-          const moveY = -deltaY * 0.001; // Invert Y direction for natural movement
+          // Adjust the plane's position relative to the camera's direction
+          const newPosition = new THREE.Vector3();
+          raycaster.current.setFromCamera(pointer.current, cameraRef.current);
+          raycaster.current.ray.at(0.5, newPosition); // Set distance in front of camera
 
-          planeRef.current.position.set(
-            initialPlanePosition.x + moveX,
-            initialPlanePosition.y + moveY,
-            initialPlanePosition.z
-          );
+          planeRef.current.position.copy(newPosition);
         }
       };
 
-      const onPointerUp = () => {
-        setIsDragging(false);
+      const handlePointerUp = () => {
+        setIsDragging(false); // Stop dragging when pointer is lifted
       };
 
-      // Attach event listeners to renderer DOM
-      renderer.domElement.addEventListener('pointerdown', onPointerDown);
-      renderer.domElement.addEventListener('pointermove', onPointerMove);
-      renderer.domElement.addEventListener('pointerup', onPointerUp);
+      // Add event listeners for pointer events
+      containerRef.current.addEventListener('pointerdown', handlePointerDown);
+      containerRef.current.addEventListener('pointermove', handlePointerMove);
+      containerRef.current.addEventListener('pointerup', handlePointerUp);
 
       const animate = () => {
         renderer.setAnimationLoop(() => {
-          if (cameraRef.current && planeRef.current) {
+          if (cameraRef.current) {
             renderer.render(scene, camera);
           }
         });
@@ -124,13 +111,15 @@ const ARExperience: React.FC<ARExperienceProps> = ({ ImageUrl }) => {
 
       return () => {
         window.removeEventListener('resize', onWindowResize);
-        renderer.domElement.removeEventListener('pointerdown', onPointerDown);
-        renderer.domElement.removeEventListener('pointermove', onPointerMove);
-        renderer.domElement.removeEventListener('pointerup', onPointerUp);
         containerRef.current?.removeChild(renderer.domElement);
+
+        // Remove event listeners
+        containerRef.current?.removeEventListener('pointerdown', handlePointerDown);
+        containerRef.current?.removeEventListener('pointermove', handlePointerMove);
+        containerRef.current?.removeEventListener('pointerup', handlePointerUp);
       };
     }
-  }, [ImageUrl]);
+  }, [ImageUrl, isDragging]);
 
   return <div ref={containerRef} style={{ width: '100%', height: '100%' }} />;
 };
