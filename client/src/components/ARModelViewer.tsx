@@ -18,12 +18,12 @@ const ARExperience: React.FC<ARExperienceProps> = ({ ImageUrl }) => {
 
   useEffect(() => {
     if (containerRef.current) {
-      // Setup the scene, camera, and renderer
+      // Set up the scene, camera, and renderer
       const scene = new THREE.Scene();
       sceneRef.current = scene;
 
       const camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.01, 20);
-      camera.position.set(0, 1.6, 0); // Head height simulation in AR
+      camera.position.set(0, 1.6, 0); // Simulate head height in AR
       cameraRef.current = camera;
 
       const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
@@ -32,29 +32,26 @@ const ARExperience: React.FC<ARExperienceProps> = ({ ImageUrl }) => {
       containerRef.current.appendChild(renderer.domElement);
       rendererRef.current = renderer;
 
-      // Add AR Button to enable AR functionality
+      // Add AR button for enabling AR mode
       document.body.appendChild(ARButton.createButton(renderer));
 
-      // Load a 3D model (optional; example model)
-      const loader = new GLTFLoader();
-      loader.load('/models/example.glb', (gltf) => {
-        scene.add(gltf.scene);
-      });
+      // Load texture from ImageUrl for the plane
+      if (ImageUrl) {
+        const textureLoader = new THREE.TextureLoader();
+        const texture = textureLoader.load(ImageUrl);
 
-      // Load texture from the provided ImageUrl
-      if (!ImageUrl) return;
-      const textureLoader = new THREE.TextureLoader();
-      const texture = textureLoader.load(ImageUrl);
+        // Create the plane geometry for the image
+        const geometry = new THREE.PlaneGeometry(0.2, 0.2); // Plane size in meters
+        const material = new THREE.MeshBasicMaterial({ map: texture });
+        const plane = new THREE.Mesh(geometry, material);
 
-      // Create a plane to display the image
-      const geometry = new THREE.PlaneGeometry(0.2, 0.2); // Size in meters (0.2m = 200mm)
-      const material = new THREE.MeshBasicMaterial({ map: texture });
-      const plane = new THREE.Mesh(geometry, material);
-      plane.position.set(0, 0, -0.5); // Set 0.5m in front of the camera
-      planeRef.current = plane;
-      scene.add(plane);
+        // Position the plane in front of the camera's initial position
+        plane.position.set(0, 1.6, -0.5); // 0.5 meters in front of the starting camera position
+        planeRef.current = plane;
+        scene.add(plane);
+      }
 
-      // Window resize handler to keep aspect ratio
+      // Adjust the scene and renderer on window resize
       const onWindowResize = () => {
         if (cameraRef.current && rendererRef.current) {
           const { innerWidth, innerHeight } = window;
@@ -66,18 +63,9 @@ const ARExperience: React.FC<ARExperienceProps> = ({ ImageUrl }) => {
 
       window.addEventListener('resize', onWindowResize);
 
-      // Animation loop to keep the plane in front of the camera
+      // Render loop without updating the plane's position, so it stays fixed in world space
       const animate = () => {
         renderer.setAnimationLoop(() => {
-          if (cameraRef.current && planeRef.current) {
-            const cameraPosition = cameraRef.current.position;
-            const cameraRotation = cameraRef.current.rotation;
-
-            // Keep the plane in front of the camera at a fixed distance
-            planeRef.current.position.set(cameraPosition.x, cameraPosition.y, cameraPosition.z - 0.5);
-            planeRef.current.rotation.copy(cameraRotation); // Align plane's rotation with the camera
-          }
-
           renderer.render(scene, camera);
         });
       };
