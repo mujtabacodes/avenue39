@@ -326,13 +326,7 @@ const ProductDetail = ({
         </Dialog>
                 <div>
                   ArVR
-                  <ARExperience ImageUrl={
-                  hoveredImage
-                    ? hoveredImage
-                    : product?.productImages[0].imageUrl
-                      ? product?.productImages[0].imageUrl
-                      : 'not found'
-                }/>
+                  <ARExperience/>
                 </div>
         <div className="flex items-center justify-center relative mb-2">
           <span className="absolute left-0 w-1/6 border-t border-gray-300"></span>
