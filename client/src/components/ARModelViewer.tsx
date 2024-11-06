@@ -1,7 +1,7 @@
-import Link from "next/link";
+import React from "react";
 
 interface ARExperienceProps {
-  ImageUrl: string | undefined; // The URL of your hosted .glb file
+  ImageUrl: string | undefined;
 }
 
 const ARExperience: React.FC<ARExperienceProps> = ({ ImageUrl }) => {
@@ -16,13 +16,20 @@ const ARExperience: React.FC<ARExperienceProps> = ({ ImageUrl }) => {
 
   return (
     <div>
-      <Link href={sceneViewerUrl} rel="ar" target="_blank">
+      <a href={sceneViewerUrl} target="_blank" rel="noopener noreferrer">
         <button style={{ padding: '10px', fontSize: '16px' }}>
           View in AR
         </button>
-      </Link>
+      </a>
     </div>
   );
 };
 
-export default ARExperience;
+const ARExperiencePage = () => {
+  // The URL of your .glb model hosted in the public directory
+  const modelUrl = "/3dmodel/carpet.glb";
+
+  return <ARExperience ImageUrl={modelUrl} />;
+};
+
+export default ARExperiencePage;

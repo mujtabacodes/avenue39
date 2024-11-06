@@ -51,6 +51,7 @@ import { calculateRatingsPercentage, renderStars } from '@/config';
 import Loader from '../Loader/Loader';
 import { TbCube3dSphere } from 'react-icons/tb';
 import Product3D from '../3DView/Product3D';
+import ARExperience from '../ARModelViewer';
 
 const ProductDetail = ({
   params,
@@ -274,13 +275,13 @@ const ProductDetail = ({
                 </DialogContent>
           </Dialog> */}
 
-          <Dialog>
+          {/* <Dialog>
             <DialogTrigger asChild>
               <Button className="bg-warning w-1/2 text-white flex gap-3 h-12 rounded-2xl">
                 TRY AT HOME
               </Button>
             </DialogTrigger>
-
+            
             <DialogOverlay className="bg-white/80" />
             <DialogContent className="sm:max-w-[80%] lg:max-w-[30%] bg-white px-0 pt-0 sm:rounded-none border border-gray shadow-sm gap-0 pb-0">
               <DialogHeader className="flex items-start px-5 pt-0 py-5 border-b-2">
@@ -299,7 +300,7 @@ const ProductDetail = ({
                 url={slug}
               />
             </DialogContent>
-          </Dialog>
+          </Dialog> */}
         </div>
         <Dialog>
           <DialogTrigger asChild>
@@ -323,7 +324,10 @@ const ProductDetail = ({
             </div>
           </DialogContent>
         </Dialog>
-
+                <div>
+                  ArVR
+                  <ARExperience/>
+                </div>
         <div className="flex items-center justify-center relative mb-2">
           <span className="absolute left-0 w-1/6 border-t border-gray-300"></span>
           <p className="text-center px-3 w-4/6 whitespace-nowrap font-semibold text-sm xs:text-base lg:text-xs xl:text-base">
