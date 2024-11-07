@@ -173,7 +173,7 @@ const ProductPage = ({ params }: { params: IProductDetail }) => {
       content: (
         <div>
           <div className="px-2 py-6 flex flex-col lg:flex-row items-center gap-6 md:gap-10 w-full max-w-full lg:max-w-[750px]">
-            {averageRating > 0 && (
+            {averageRating > 1 && (
               <div className="w-full xs:w-fit flex flex-col gap-4">
                 {productReviews.map((item, index) => (
                   <div className="flex items-center gap-3" key={index}>
@@ -188,7 +188,7 @@ const ProductPage = ({ params }: { params: IProductDetail }) => {
               </div>
             )}
             <div className="flex flex-col gap-4 w-60 sm:w-48 md:w-60">
-              {averageRating > 0 && (
+              {averageRating > 1 && (
                 <div className="w-60 sm:w-48 md:w-60 h-36 border-2 rounded-sm flex flex-col justify-center items-center gap-2">
                   <span className="text-14 text-lightdark">
                     {filteredReviews.length} Reviews

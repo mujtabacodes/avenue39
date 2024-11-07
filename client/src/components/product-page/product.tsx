@@ -34,17 +34,20 @@ import { useQuery } from '@tanstack/react-query';
 import { IProduct } from '@/types/types';
 import { fetchProducts } from '@/config/fetch';
 import CardSkaleton from '../Skaleton/productscard';
+import { usePathname } from 'next/navigation';
 
 interface ProductPageProps {
   sideBanner: StaticImageData;
+  sideBannerProduct?: string;
   productBanner: ReactNode;
   layout: string;
   Setlayout: (layout: string) => void;
-  fullUrl?:string
+  fullUrl?: string
 }
 
 const ProductPage = ({
   sideBanner,
+  sideBannerProduct,
   productBanner,
   layout,
   Setlayout,
@@ -54,13 +57,14 @@ const ProductPage = ({
   const [selectedSubCategories, setSelectedSubCategories] = useState<string[]>(
     [],
   );
-console.log(fullUrl, "fullUrl"
-)
+  console.log(fullUrl, "fullUrl"
+  )
 
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 500]);
   const [sortOption, setSortOption] = useState<string>('default');
   const [loading, setLoading] = useState<boolean>(true);
   const [category, setCategory] = useState<any[]>([]);
+  const pathname = usePathname();
 
   useEffect(() => {
     const fetchMenuData = async () => {
@@ -86,6 +90,16 @@ console.log(fullUrl, "fullUrl"
     queryKey: ['products'],
     queryFn: fetchProducts,
   });
+
+  useEffect(() => {
+    if (category && category.length > 0) {
+      const currentCategory = pathname.split('/').pop()?.toUpperCase().replace("-", " ");
+      if (currentCategory && currentCategory?.length > 0) {
+        // setSelectedSubCategories([currentCategory])
+        handleCategoryChange(currentCategory, true, false);
+      }
+    }
+  }, [pathname, category]);
 
   const handleCategoryChange = (
     categoryOrSubCategory: string,
@@ -116,25 +130,25 @@ console.log(fullUrl, "fullUrl"
   };
 
   const filteredCards = products
-  .filter((card) => {
-    if (selectedSubCategories.length > 0) {
-      return card.subcategories && card.subcategories.some(subCategory => selectedSubCategories.includes(subCategory.name));
-    } else if (selectedCategories.length > 0) {
-      return card.categories && card.categories.some(category => selectedCategories.includes(category.name));
-    }
-    return true;
-  })
-  .filter(card => card.price >= priceRange[0] && card.price <= priceRange[1])
-  .sort((a, b) => {
-    if (sortOption === 'name') {
-      return a.name.localeCompare(b.name);
-    } else if (sortOption === 'max') {
-      return b.price - a.price;
-    } else if (sortOption === 'min') {
-      return a.price - b.price;
-    }
-    return 0;
-  });
+    .filter((card) => {
+      if (selectedSubCategories.length > 0) {
+        return card.subcategories && card.subcategories.some(subCategory => selectedSubCategories.includes(subCategory.name));
+      } else if (selectedCategories.length > 0) {
+        return card.categories && card.categories.some(category => selectedCategories.includes(category.name));
+      }
+      return true;
+    })
+    .filter(card => card.price >= priceRange[0] && card.price <= priceRange[1])
+    .sort((a, b) => {
+      if (sortOption === 'name') {
+        return a.name.localeCompare(b.name);
+      } else if (sortOption === 'max') {
+        return b.price - a.price;
+      } else if (sortOption === 'min') {
+        return a.price - b.price;
+      }
+      return 0;
+    });
 
 
 
@@ -148,6 +162,7 @@ console.log(fullUrl, "fullUrl"
             onPriceChange={handlePriceChange}
             sideBanner={sideBanner}
             category={category}
+            sideBannerProduct={sideBannerProduct}
           />
         </div>
         <div className="w-full md:w-4/6 lg:w-9/12">
@@ -223,15 +238,12 @@ console.log(fullUrl, "fullUrl"
           </div>
 
           {
-              filteredCards.length > 0 ? <div
-              className={`grid gap-4 md:gap-8 mt-4 ${
-                layout === 'grid'
-                  ? 'grid-cols-1 sm:grid-cols-2 xl:grid-cols-3'
-                  : 'grid-cols-1'
-              }`}
-            >
-              {!isLoading
-                ? filteredCards.map((card) => (
+            !isLoading ? (
+              <div
+                className={`grid gap-4 md:gap-8 mt-4 ${layout === 'grid' ? 'grid-cols-1 sm:grid-cols-2 xl:grid-cols-3' : 'grid-cols-1'}`}
+              >
+                {filteredCards.length > 0 ? (
+                  filteredCards.map((card) => (
                     <div key={card.id}>
                       {layout === 'grid' ? (
                         <Card
@@ -246,20 +258,16 @@ console.log(fullUrl, "fullUrl"
                       )}
                     </div>
                   ))
-                : [...Array(6)].map((_, index) => (
-                    <span key={index} className="">
-                      <Card
-                        className="lg:w-[384.24px]"
-                        skeletonHeight="h-[380px] xs:h-[488px] sm:h-[380px] 2xl:h-[488px]"
-                        isLoading={isLoading}
-                      />
-                    </span>
-                  ))}
-            </div> : 
-               <CardSkaleton />
-           
-            }
-          
+                ) : (
+                  <p className="px-2">No Product Found</p>
+                )}
+              </div>
+            ) : (
+              <CardSkaleton />
+            )
+          }
+
+
         </div>
       </Container>
       <div className="my-14 px-2 sm:px-4 md:px-0 relative">

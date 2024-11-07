@@ -1,27 +1,32 @@
 import { useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';  
 import CategoryFilter from './category-filter';
 import { saleitems } from '@/data';
 import { Slider, SliderPrimitive } from '@/components/ui/slider';
 import Salecard from '../ui/sale-card';
 import Image, { StaticImageData } from 'next/image';
 import { IProductCategories } from '@/types/types';
+import Link from 'next/link';
 
 interface SidebarFilterProps {
-  onCategoryChange: (category: string, isChecked: boolean , isSubCategory: boolean) => void;
+  onCategoryChange: (category: string, isChecked: boolean, isSubCategory: boolean) => void;
   onPriceChange: (range: [number, number]) => void;
   sideBanner: StaticImageData;
   category: any;
+  sideBannerProduct?: string;
 }
 
 const SidebarFilter = ({
   onCategoryChange,
   onPriceChange,
   sideBanner,
+  sideBannerProduct,
   category,
 }: SidebarFilterProps) => {
   const [range, setRange] = useState<[number, number]>([0, 500]);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [subcategories, setSubcategories] = useState<IProductCategories[]>([]);
+  const pathname = usePathname();
 
   const handleValueChange = ([start, end]: [number, number]) => {
     setRange([start, end]);
@@ -38,11 +43,28 @@ const SidebarFilter = ({
   };
 
   useEffect(() => {
-    const selectedSubcategories = selectedCategories.flatMap((catName) => {
-      const categoryObj = category.find((cat: any) => cat.name === catName);
-      return categoryObj ? categoryObj.subcategories : [];
-    });
-    setSubcategories(selectedSubcategories);
+    if (category && category.length > 0) {
+      const currentCategory = pathname.split('/').pop()?.toUpperCase().replace("-"," "); 
+      
+      if (currentCategory) {
+        setSelectedCategories((prev) => {
+          if (!prev.includes(currentCategory)) {
+            return [...prev, currentCategory];
+          }
+          return prev;
+        });
+      }
+    }
+  }, [pathname, category]);
+
+  useEffect(() => {
+    if (selectedCategories.length > 0 && category.length > 0) {
+      const selectedSubcategories = selectedCategories.flatMap((catName) => {
+        const categoryObj = category.find((cat: any) => cat.name === catName);
+        return categoryObj ? categoryObj.subcategories : [];
+      });
+      setSubcategories(selectedSubcategories);
+    }
   }, [selectedCategories, category]);
 
   return (
@@ -53,6 +75,7 @@ const SidebarFilter = ({
           <CategoryFilter
             items={category}
             onCategoryChange={handleCategoryChange}
+            selectedCategories={selectedCategories}
           />
         </div>
         {subcategories.length > 0 && (
@@ -93,7 +116,9 @@ const SidebarFilter = ({
             ))}
           </div>
           <div className="mt-10">
-            <Image src={sideBanner} alt="sale banner" className="mx-auto" />
+            <Link href={sideBannerProduct ? `/product/${sideBannerProduct}` : '/products'}>
+              <Image src={sideBanner} alt="sale banner" className="mx-auto" />
+            </Link>
           </div>
         </div>
       </div>

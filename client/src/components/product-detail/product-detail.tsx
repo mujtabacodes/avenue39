@@ -51,6 +51,7 @@ import { calculateRatingsPercentage, renderStars } from '@/config';
 import Loader from '../Loader/Loader';
 import { TbCube3dSphere } from 'react-icons/tb';
 import Product3D from '../3DView/Product3D';
+import ARExperience from '../ARModelViewer';
 
 const ProductDetail = ({
   params,
@@ -161,7 +162,7 @@ const ProductDetail = ({
 
         <div className="flex gap-2 items-center justify-between">
           <div className="flex gap-2 items-center">
-            {averageRating > 0 && (
+            {averageRating > 1 && (
               <>
                 <span className="flex items-center">
                   {' '}
@@ -230,6 +231,8 @@ const ProductDetail = ({
 
           <Link
             href="https://wa.me/971505974495"
+            target='_blank'
+            rel='noreferrer'
             className="w-fit ps-5 pe-10 h-12 text-white bg-[#64B161] rounded-full flex justify-center items-center gap-2 hover:bg-[#56B400]"
           >
             <BsWhatsapp size={35} />
@@ -278,7 +281,7 @@ const ProductDetail = ({
                 TRY AT HOME
               </Button>
             </DialogTrigger>
-
+            
             <DialogOverlay className="bg-white/80" />
             <DialogContent className="sm:max-w-[80%] lg:max-w-[30%] bg-white px-0 pt-0 sm:rounded-none border border-gray shadow-sm gap-0 pb-0">
               <DialogHeader className="flex items-start px-5 pt-0 py-5 border-b-2">
@@ -321,7 +324,11 @@ const ProductDetail = ({
             </div>
           </DialogContent>
         </Dialog>
-
+                <div>
+                  <ARExperience ImageUrl={"/3dmodel/test.glb"}/>
+                  <ARExperience ImageUrl={"/3dmodel/carpet.glb"}/>
+                  <ARExperience ImageUrl={"/3dmodel/model.glb"}/>
+                </div>
         <div className="flex items-center justify-center relative mb-2">
           <span className="absolute left-0 w-1/6 border-t border-gray-300"></span>
           <p className="text-center px-3 w-4/6 whitespace-nowrap font-semibold text-sm xs:text-base lg:text-xs xl:text-base">
