@@ -978,7 +978,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                       </h3>
                     </div>
                     <div className="flex flex-col py-4 px-6">
-                      <FieldArray name="spacification">
+                    <FieldArray name="spacification">
                         {({ push, remove }) => (
                           <div className="flex flex-col gap-2">
                             {formik.values.spacification.map(
@@ -1032,7 +1032,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                       </FieldArray>
                     </div>
                   </div>
-                  <div className="rounded-sm border border-stroke bg-white  dark:bg-black">
+                  {/* <div className="rounded-sm border border-stroke bg-white  dark:bg-black">
                     <div className="border-b border-stroke py-4 px-4 dark:border-strokedark">
                       <h3 className="font-medium text-black dark:text-white">
                         Colors
@@ -1047,26 +1047,26 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                                 <div key={index} className="flex items-center">
                                   <input
                                     type="text"
-                                    name={`colors[${index}].colorName`}
+                                    name={`colors[${index}]`}
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
                                     value={
-                                      formik.values.colors[index].colorName
+                                      formik.values.colors[index]
                                     }
                                     placeholder="color name"
-                                    className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                                    // className={`w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${
-                                    //   formik.touched.spacification?.[index]
-                                    //     ?.colorName &&
-                                    //   (
-                                    //     formik.errors
-                                    //       .spacification as FormikErrors<
-                                    //       FormValues['spacification']
-                                    //     >
-                                    //   )?.[index]?.specsDetails
-                                    //     ? 'border-red-500'
-                                    //     : ''
-                                    // }`}
+                                    className={`w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${
+                                      formik.touched.colors?.[index]
+                                         &&
+                                      (
+                                        formik.errors
+                                          .colors as FormikErrors<
+                                          FormValues['colors']
+                                        >
+                                      )?.[index]
+                                        ? 'border-red-500'
+                                        : ''
+                                    }`}
+                                  
                                   />
                                   <button
                                     type="button"
@@ -1079,11 +1079,11 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                                     />
                                   </button>
                                 </div>
-                              ),
+                              ), 
                             )}
                             <button
                               type="button"
-                              onClick={() => push({ colorName: '' })}
+                              onClick={() => push("")}
                               className="px-4 py-2 bg-black text-white dark:bg-gray-800  rounded-md shadow-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-black w-fit"
                             >
                               Add color
@@ -1092,7 +1092,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                         )}
                       </FieldArray>
                     </div>
-                  </div>
+                  </div> */}
 
                   {/* <div className="rounded-sm border border-stroke bg-white  dark:bg-black">
                     <div className="border-b border-stroke py-4 px-4 dark:border-strokedark">
@@ -1181,7 +1181,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                               </div>
                               <Image
                                 key={index}
-                                className="object-cover w-full h-full dark:bg-black dark:shadow-lg"
+                                className="object-cover w-full h-full md:h-32 dark:bg-black dark:shadow-lg"
                                 width={100}
                                 height={100}
                                 src={item?.imageUrl ? item?.imageUrl : ''}
@@ -1236,7 +1236,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                               </div>
                               <Image
                                 key={index}
-                                className="object-cover w-full h-full dark:bg-black dark:shadow-lg"
+                                className="object-cover w-full h-full md:h-32 dark:bg-black dark:shadow-lg"
                                 width={300}
                                 height={200}
                                 src={item.imageUrl}
@@ -1266,7 +1266,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
 
               {imgError ? (
                 <div className="flex justify-center">
-                  <div className="text-red pt-2 pb-2">{imgError}</div>
+                  <div className="text-red-500 pt-2 pb-2">{imgError}</div>
                 </div>
               ) : null}
 
@@ -1274,7 +1274,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                 type="submit"
                 className="px-10 py-2 mt-2 bg-black text-white rounded-md shadow-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-black dark:bg-gray-700"
               >
-                {loading ? <Loader /> : 'Submit'}
+                {loading ? <Loader color='white' /> : 'Submit'}
               </button>
             </Form>
           );

@@ -108,8 +108,9 @@ const ViewProduct: React.FC<CategoryProps> = ({
         <Image
           src={`${record?.posterImageUrl}`}
           alt={`Image of ${record.name}`}
-          width={50}
-          height={50}
+          width={200}
+          className='w-[80px] h-[80px] rounded-md object-cover'
+          height={200}
         />
       ),
     },

@@ -275,7 +275,11 @@ const ProductDetail = ({
                 </DialogContent>
           </Dialog> */}
 
-          <Dialog>
+            <div className='w-2/4'>
+
+                  <ARExperience ImageUrl={"/3dmodel/carpet.glb"}/>
+            </div>
+          {/* <Dialog>
             <DialogTrigger asChild>
               <Button className="bg-warning w-1/2 text-white flex gap-3 h-12 rounded-2xl">
                 TRY AT HOME
@@ -300,7 +304,7 @@ const ProductDetail = ({
                 url={slug}
               />
             </DialogContent>
-          </Dialog>
+          </Dialog> */}
         </div>
         <Dialog>
           <DialogTrigger asChild>
@@ -324,11 +328,6 @@ const ProductDetail = ({
             </div>
           </DialogContent>
         </Dialog>
-                <div>
-                  <ARExperience ImageUrl={"/3dmodel/test.glb"}/>
-                  <ARExperience ImageUrl={"/3dmodel/carpet.glb"}/>
-                  <ARExperience ImageUrl={"/3dmodel/model.glb"}/>
-                </div>
         <div className="flex items-center justify-center relative mb-2">
           <span className="absolute left-0 w-1/6 border-t border-gray-300"></span>
           <p className="text-center px-3 w-4/6 whitespace-nowrap font-semibold text-sm xs:text-base lg:text-xs xl:text-base">
