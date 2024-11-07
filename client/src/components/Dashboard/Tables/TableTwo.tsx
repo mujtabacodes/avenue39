@@ -247,7 +247,7 @@ const TableTwo = ({
                   canAddCategory && 'cursor-pointer'
                 } lg:p-2 md:p-2 ${
                   canAddCategory &&
-                  'dark:border-strokedark dark:border-white bg-black text-white rounded-md border   '
+                  'bg-black dark:bg-main dark:border-0 text-white rounded-md border   '
                 } flex justify-center ${
                   !canAddCategory && 'cursor-not-allowed '
                 }`}
