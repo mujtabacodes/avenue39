@@ -24,7 +24,7 @@ const ViewNewsletter: React.FC<CategoryProps> = ({
   setselecteMenu,
   loading,
 }) => {
-  const [searchTerm, setSearchTerm] = useState<string>(''); 
+  const [searchTerm, setSearchTerm] = useState<string>('');
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -32,8 +32,10 @@ const ViewNewsletter: React.FC<CategoryProps> = ({
   };
 
   const filteredProducts: Product[] =
-    Categories?.filter((product) =>
-      product.email && product.email.toLowerCase().includes(searchTerm.toLowerCase())
+    Categories?.filter(
+      (product) =>
+        product.email &&
+        product.email.toLowerCase().includes(searchTerm.toLowerCase()),
     ) || [];
 
   const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
@@ -41,10 +43,11 @@ const ViewNewsletter: React.FC<CategoryProps> = ({
   };
 
   const handleDelete = async (key: string) => {
+    alert(key);
     try {
-      await axios.delete(`${process.env.NEXT_PUBLIC_BASE_URL}/api/product/delete-product`, {
-        headers: { productId: key },
-      });
+      await axios.delete(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/newsletters/del-user/${key}`,
+      );
       setCategory((prev) => prev.filter((item) => item.id !== key));
       notification.success({
         message: 'Email Deleted',
