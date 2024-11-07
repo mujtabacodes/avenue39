@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { IoEyeOutline } from 'react-icons/io5';
+import { IoBagOutline, IoEyeOutline } from 'react-icons/io5';
 import { MdStar, MdStarBorder } from 'react-icons/md';
 import { useRouter } from 'next/navigation';
 import { useDispatch, useSelector } from 'react-redux';
@@ -136,10 +136,17 @@ const FeatureCard: React.FC<CardProps> = ({
         <Skeleton className={cardHeight} />
       ) : (
         <div className="relative group">
+          <div onClick={handleAddToCard} className=" w-10 h-12 absolute right-4 top-4 rounded-xl  flex justify-center items-center border bg-white hover:border-main hover:bg-main hover:text-white  cursor-pointer">
+            <IoBagOutline size={25} />
+          </div>
+          <div className='flex flex-col gap-4 opacity-0 group-hover:opacity-100 duration-300 transition-all absolute top-20 right-4'>
+          <div onClick={() => handleAddToWishlist(card)} className=" w-10 h-12 rounded-xl  flex justify-center items-center border bg-white hover:border-main hover:bg-main hover:text-white  cursor-pointer opacity-0 group-hover:opacity-100 duration-300 transition-all">
+            <IoIosHeartEmpty size={25} />
+          </div>
           {!isModel && (
             <Dialog>
               <DialogTrigger>
-                <div className="bg-white h-auto py-3 z-20 absolute top-24 right-2 w-10 rounded-3xl flex justify-center items-center cursor-pointer opacity-0 group-hover:opacity-100 duration-300 transition-all">
+                <div className="h-auto py-3 z-20 w-10 rounded-xl flex justify-center items-center border bg-white hover:border-main hover:bg-main hover:text-white cursor-pointer opacity-0 group-hover:opacity-100 duration-300 transition-all">
                   <IoEyeOutline size={25} />
                 </div>
               </DialogTrigger>
@@ -160,9 +167,6 @@ const FeatureCard: React.FC<CardProps> = ({
               </DialogContent>
             </Dialog>
           )}
-
-          <div onClick={() => handleAddToWishlist(card)} className=" w-10 h-12 absolute right-2 top-8 rounded-xl  flex justify-center items-center border bg-white hover:border-main hover:bg-main hover:text-white  cursor-pointer">
-            <IoIosHeartEmpty size={25} />
           </div>
           {card.sale !== '0' && (
             <div className="bg-[#FF0000] h-auto py-2 px-4 rounded-3xl absolute top-8 left-2 flex justify-center items-center cursor-pointer">
@@ -186,7 +190,7 @@ const FeatureCard: React.FC<CardProps> = ({
             <p className="text-15">{card.name}</p>
             <div className="flex">
               {' '}
-              {averageRating > 0 && renderStars({ star: averageRating })}
+              {averageRating > 1 && renderStars({ star: averageRating })}
             </div>
           </div>
 

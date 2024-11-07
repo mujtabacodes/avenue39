@@ -680,6 +680,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                                     checked={selectedCategoryIds.includes(
                                       category.id,
                                     )}
+                                    className='custom-checkbox'
                                     onChange={(e) => {
                                       const checked = e.target.checked;
                                       setSelectedCategoryIds((prev) => {
@@ -720,6 +721,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                                   checked={selectedSubcategoryIds.includes(
                                     subcategory.id,
                                   )}
+                                  className='custom-checkbox'
                                   onChange={(e) =>
                                     handleSubcategoryChange(
                                       subcategory.id,

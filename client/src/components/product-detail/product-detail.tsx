@@ -162,7 +162,7 @@ const ProductDetail = ({
 
         <div className="flex gap-2 items-center justify-between">
           <div className="flex gap-2 items-center">
-            {averageRating > 0 && (
+            {averageRating > 1 && (
               <>
                 <span className="flex items-center">
                   {' '}
