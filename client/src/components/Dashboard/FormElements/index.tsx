@@ -935,7 +935,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                             <button
                               type="button"
                               onClick={() => push({ name: '', detail: '' })}
-                              className="px-4 py-2 bg-black text-white dark:bg-gray-800  rounded-md shadow-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-black w-fit"
+                              className="px-4 py-2 bg-black text-white dark:bg-main dark:border-0  rounded-md shadow-md w-fit"
                             >
                               Add Model
                             </button>
@@ -997,7 +997,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                             <button
                               type="button"
                               onClick={() => push({ specsDetails: '' })}
-                              className="px-4 py-2 bg-black text-white dark:bg-gray-800  rounded-md shadow-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-black w-fit"
+                              className="px-4 py-2 bg-black text-white dark:bg-main dark:border-0 rounded-md shadow-md w-fit"
                             >
                               Add Specification
                             </button>
@@ -1246,7 +1246,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
 
               <button
                 type="submit"
-                className="px-10 py-2 mt-2 bg-black text-white rounded-md shadow-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-black dark:bg-gray-700"
+                className="px-10 py-2 mt-2 bg-black text-white rounded-md shadow-md dark:bg-main dark:border-0"
               >
                 {loading ? <Loader color='white' /> : 'Submit'}
               </button>

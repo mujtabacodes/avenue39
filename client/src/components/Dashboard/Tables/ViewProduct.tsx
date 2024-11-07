@@ -229,7 +229,7 @@ const ViewProduct: React.FC<CategoryProps> = ({
               <p
                 className={`${canAddProduct && 'cursor-pointer rounded-md text-nowrap text-12 xs:text-base'
                   } p-2 ${canAddProduct && 'bg-primary text-white rounded-md border'
-                  } dark:border-strokedark  flex justify-center dark:bg-black ${!canAddProduct &&
+                  } flex justify-center dark:bg-main dark:border-0 ${!canAddProduct &&
                   'cursor-not-allowed bg-gray-500 text-white rounded-md'
                   }`}
                 onClick={() => {

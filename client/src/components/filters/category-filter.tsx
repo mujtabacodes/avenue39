@@ -1,5 +1,5 @@
 import { IProductCategories } from '@/types/types';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Checkbox } from 'antd';
 import { CheckboxChangeEvent } from 'antd/es/checkbox';
 
@@ -11,21 +11,28 @@ interface ICategoryFilter {
     isSubCategory?: boolean,
   ) => void;
   isSubcategory?: boolean;
-  selectedCategories?: string[]; 
+  selectedCategories?: string[];
 }
 
 const CategoryFilter = ({
   items,
   onCategoryChange,
-  isSubcategory = false,
-  selectedCategories = [], 
+  isSubcategory,
+  selectedCategories = [],
 }: ICategoryFilter) => {
   const handleCheckboxChange = (e: CheckboxChangeEvent, itemName: string) => {
-    const { checked } = e.target;
-    onCategoryChange(itemName, checked, isSubcategory);
-    console.log(checked, "checked");
-  };
+    if (isSubcategory) {
+      const { checked } = e.target;
+      onCategoryChange(itemName.toUpperCase(), checked, isSubcategory);
+      // console.log(checked, 'checked', isSubcategory, itemName.toUpperCase());
+    }
+    else {
+      const { checked } = e.target;
+      onCategoryChange(itemName.toUpperCase(), checked, isSubcategory);
+      // console.log(checked, 'checked', isSubcategory, itemName.toUpperCase());
+    }
 
+  };
 
   return (
     <>
@@ -40,7 +47,7 @@ const CategoryFilter = ({
                 id={`${isSubcategory ? 'Subcategory' : 'Category'}${item.id}`}
                 className="custom-checkbox hover:border-black"
                 onChange={(e) => handleCheckboxChange(e, item.name)}
-                checked={selectedCategories.includes(item.name)} 
+                checked={isSubcategory ? selectedCategories.includes(item.name.toUpperCase()) : selectedCategories.includes(item.name.toUpperCase())}
               >
                 <span className="text-16 uppercase">{item.name}</span>
               </Checkbox>
