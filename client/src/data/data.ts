@@ -184,6 +184,10 @@ export const AddproductsinitialValues: IProductAdd = {
   additionalInformation: [],
   categories: [],
   subcategories: [],
+  Meta_Title:'',
+  Canonical_Tag:'',
+  Meta_Description:'',
+  Images_Alt_Text:'',
 };
 
 export const options = [

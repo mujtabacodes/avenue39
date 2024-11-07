@@ -150,6 +150,10 @@ export interface IProductAdd {
   additionalInformation: AdditionalInformation[];
   categories: number[];
   subcategories: number[];
+  Meta_Title:string;
+  Canonical_Tag:string;
+  Meta_Description:string;
+  Images_Alt_Text:string;
   
 }
 export interface ITestimonialCard {

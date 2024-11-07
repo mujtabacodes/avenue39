@@ -80,7 +80,6 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
   );
 
   const handleOptionChange = (e: any) => {
-    console.log(e);
     setVariationOption(e.target.value);
   };
 
@@ -88,7 +87,6 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
     setIsOptionSelected(true);
   };
 
-  // console.log('posterimageUrl', posterimageUrl);
 
   useLayoutEffect(() => {
     const CategoryHandler = async () => {
@@ -122,20 +120,11 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
     CategoryHandler();
   }, []);
   const onSubmit = async (values: any, { resetForm }: any) => {
-    console.log('New console');
-    console.log(posterimageUrl);
-    console.log(imagesUrl);
-    console.log(hoverImage);
+
 
     values.categories = selectedCategoryIds;
     values.subcategories = selectedSubcategoryIds;
-    // console.log(values, 'values');
-    console.log('debuge 1');
-    // const selectedCat = Categories.filter(
-    //   (cat) => cat.name === values.category,
-    // );
-    // const selectedCat_Id = selectedCat[0].id;
-    console.log('debuge 2');
+
     try {
       setError(null);
       let posterImageUrl = posterimageUrl && posterimageUrl[0];
@@ -143,10 +132,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
       let createdAt = Date.now();
       if (!posterImageUrl || !(imagesUrl.length > 0)) {
         return showToast('warn', 'Please select relevant Images');
-        // throw new Error('Please select relevant Images');
       }
-      console.log(values, 'values');
-      console.log('debuge 3');
       let newValues = {
         ...values,
         posterImageUrl: posterImageUrl.imageUrl,
@@ -158,29 +144,19 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
         productImages: imagesUrl,
 
       };
-      console.log(newValues, 'updatedValues');
-      console.log('debuge 4');
+
       setloading(true);
 
       let updateFlag = EditProductValue && EditInitialValues ? true : false;
       let addProductUrl = updateFlag ? `/api/product/update-product` : null;
-      console.log('debuge 5');
-      let url = `${process.env.NEXT_PUBLIC_BASE_URL}${
-        updateFlag ? addProductUrl : '/api/product/add-product'
-      }`;
-      console.log('debuge 6');
-
-      console.log(newValues);
+  
+      let url = `${process.env.NEXT_PUBLIC_BASE_URL}${ updateFlag ? addProductUrl : '/api/product/add-product'}`;
+  
       if (updateFlag && EditInitialValues?.id) {
         newValues = { id: EditInitialValues.id, ...newValues };
       }
       const response = await axios.post(url, newValues);
-      console.log(response, 'response');
-      Toaster(
-        'success',
-        updateFlag
-          ? 'Product has been sucessufully Updated !'
-          : response.data.message,
+      Toaster('success', updateFlag? 'Product has been sucessufully Updated !': response.data.message,
       );
       setProductInitialValue(AddproductsinitialValues);
       resetForm();
@@ -189,13 +165,13 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
       setposterimageUrl(null);
       setImagesUrl([]);
       setSelectedCategories([]);
-      setSelectedSubcategoriesCategories([]);
+      setSelectedSubcategoryIds([]);
+      setSelectedCategoryIds([]);
 
       updateFlag ? setEditProduct && setEditProduct(undefined) : null;
     } catch (err: any) {
       if (err.response && err.response.data && err.response.data.error) {
         setError(err.response.data.error);
-        console.log(err.response.data.error, 'err.response.data.message');
       } else {
         if (err instanceof Error) {
           setError(err.message);
@@ -248,12 +224,8 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
   });
 
   const [selectedCategoryIds, setSelectedCategoryIds] = useState<number[]>([]);
-  const [selectedSubcategoryIds, setSelectedSubcategoryIds] = useState<
-    number[]
-  >([]);
-  const [filteredSubcategories, setFilteredSubcategories] = useState<
-    ISubcategory[]
-  >([]);
+  const [selectedSubcategoryIds, setSelectedSubcategoryIds] = useState<number[]>([]);
+  const [filteredSubcategories, setFilteredSubcategories] = useState<ISubcategory[]>([]);
 
   useEffect(() => {
     const selectedCategories = categoriesList.filter((category) =>
@@ -542,7 +514,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                           />
                           {formik.touched.Meta_Title && formik.errors.Meta_Title ? (
                             <div className="text-red text-sm">
-                              {formik.errors.code as String}
+                              {formik.errors.Meta_Title as String}
                             </div>
                           ) : null}
 
@@ -572,7 +544,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
 
                           {formik.touched.Canonical_Tag && formik.errors.Canonical_Tag ? (
                             <div className="text-red text-sm">
-                              {formik.errors.code as String}
+                              {formik.errors.Canonical_Tag as String}
                             </div>
                           ) : null}
                         </div>
@@ -597,7 +569,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                         />
                         {formik.touched.Meta_Description && formik.errors.Meta_Description ? (
                           <div className="text-red text-sm">
-                            {formik.errors.code as String}
+                            {formik.errors.Meta_Description as String}
                           </div>
                         ) : null}
                       </div>
@@ -624,7 +596,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                           />
                           {formik.touched.Images_Alt_Text && formik.errors.Images_Alt_Text ? (
                             <div className="text-red text-sm">
-                              {formik.errors.code as String}
+                              {formik.errors.Images_Alt_Text as String}
                             </div>
                           ) : null}
 
@@ -1228,7 +1200,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                                   className="cursor-pointer text-red-500 dark:text-red-700"
                                   size={17}
                                   onClick={() => {
-                                    console.log('funciton called');
+                                   
                                     ImageRemoveHandler(
                                       item.public_id,
                                       setImagesUrl,
