@@ -191,20 +191,26 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                 />
                 <div className="w-full">
                   <p className="text-16 xl:text-18">{item.name}</p>
-                  <div className="flex flex-wrap md:flex-nowrap lg:hidden justify-between items-center gap-2 md:gap-6 pr-4">
+                  <div className="flex flex-wrap md:flex-nowrap lg:hidden justify-between items-center gap-2 md:gap-3 pr-4">
                     {item.discountPrice > 0 ? (
                       <>
-                        <p className="text-[18px] font-bold">
-                          Dhs.<span>{item?.discountPrice * item.quantity}</span>
+                        <p className="text-[18px] font-bold ">
+                          AED.<span>{item?.discountPrice * item.quantity}</span>
                         </p>
-                        <p className="text-14 font-normal line-through text-[#A5A5A5]">
-                          Dhs.<span> {item?.price * item.quantity}</span>
+                        <p className="text-14 font-normal text-nowrap line-through text-[#A5A5A5] w-16">
+                          AED.<span>{item?.price * item.quantity}</span>
                         </p>
                       </>
                     ) : (
-                      <p className="text-[18px] font-bold">
-                        Dhs.<span> {item?.price * item.quantity}</span>
-                      </p>
+                      <>
+
+                        <p className="text-[18px] font-bold">
+                          AED.<span>{item?.price * item.quantity}</span>
+                        </p>
+                        <p className="text-[18px] font-bold w-16">
+
+                        </p>
+                      </>
                     )}
 
                     <IoCloseSharp
@@ -245,19 +251,19 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                 </div>
                 <div className="w-40 xl:w-60 flex gap-2 xl:gap-4 items-center justify-end">
                   {item.discountPrice > 0 ? (
-                      <>
-                        <p className="text-16 xl:text-[22px] font-bold">
-                          Dhs.<span>{item?.discountPrice * item.quantity}</span>
-                        </p>
-                        <p className="text-12 xl:text-16 font-normal line-through text-[#A5A5A5]">
-                          Dhs.<span> {item?.price * item.quantity}</span>
-                        </p>
-                      </>
-                    ) : (
+                    <>
                       <p className="text-16 xl:text-[22px] font-bold">
-                        Dhs.<span> {item?.price * item.quantity}</span>
+                        AED.<span>{item?.discountPrice * item.quantity}</span>
                       </p>
-                    )}
+                      <p className="text-12 xl:text-16 text-nowrap font-normal line-through text-[#A5A5A5]">
+                        AED.<span>{item?.price * item.quantity}</span>
+                      </p>
+                    </>
+                  ) : (
+                    <p className="text-16 xl:text-[22px] font-bold">
+                      AED.<span>{item?.price * item.quantity}</span>
+                    </p>
+                  )}
                   <IoCloseSharp
                     className="cursor-pointer"
                     size={25}
