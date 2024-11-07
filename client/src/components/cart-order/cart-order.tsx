@@ -53,7 +53,6 @@ const CartOrder: React.FC = () => {
           <span>
             <SubTotal />
           </span>
-          .00
         </p>
       </div>
       {/* <div className="flex flex-wrap md:flex-nowrap justify-between border-t-2 pt-4">
@@ -114,7 +113,6 @@ const CartOrder: React.FC = () => {
           <span>
             <SubTotal />
           </span>
-          .00
         </p>
       </div>
       <div className="border-t-2">
