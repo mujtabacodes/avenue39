@@ -59,9 +59,13 @@ const DashboardLogin = () => {
       setloading(false);
       dispatch(loggedInAdminAction(user.data.user));
 
-      Cookies.set('2guysAdminToken', user.data.token, {
-        expires: 24 * 60 * 60 * 1000,
-      });
+      Cookies.set(
+        adminType == 'Admin' ? '2guysAdminToken' : 'superAdminToken',
+        user.data.token,
+        {
+          expires: 24 * 60 * 60 * 1000,
+        },
+      );
 
       setFormData(intialvalue);
       Toaster('success', 'You have sucessfully login');
