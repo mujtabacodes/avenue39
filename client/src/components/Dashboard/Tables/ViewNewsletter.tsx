@@ -43,12 +43,10 @@ const ViewNewsletter: React.FC<CategoryProps> = ({
   };
 
   const handleDelete = async (key: string) => {
+    alert(key);
     try {
       await axios.delete(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/product/delete-product`,
-        {
-          headers: { productId: key },
-        },
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/newsletters/del-user/${key}`,
       );
       setCategory((prev) => prev.filter((item) => item.id !== key));
       notification.success({
