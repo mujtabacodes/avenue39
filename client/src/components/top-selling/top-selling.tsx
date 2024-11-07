@@ -34,9 +34,9 @@ const TopSelling: React.FC = () => {
         </p>
         <p className="mt-8 text-17 text-[#A8A8A8]">Start From</p>
         <h4 className="text-3xl">
-          Dhs25.00{' '}
+          AED 25.00{' '}
           <span className="text-2xl text-secondary-foreground ms-2 line-through">
-            Dhs30.00
+            AED 30.00
           </span>
         </h4>
         <Button

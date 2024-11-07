@@ -49,6 +49,16 @@ const MenuBar = () => {
     route.push('/products');
   };
 
+  const handleCategoryMenuClick = (menu: string) => {
+    if (menu === 'homeOffice') {
+      route.push(`/products/home-office`);
+    }
+    else {
+      route.push(`/products/${generateSlug(menu)}`);
+
+    }
+  }
+
   const handleMouseEnter = (menu: string) => {
     setActiveMenu(menu);
   };
@@ -83,17 +93,18 @@ const MenuBar = () => {
                 </button>
               ) : menu === 'tvCabinets' || menu === 'clearance' ? (
                 <Link href={`/products/${generateSlug(menuData[menu][0]?.title || '')}`}
-                key={menu}
-                className={`menu-item text-12 pb-2 lg:text-14 xl:text-17 font-semibold uppercase whitespace-nowrap text-black dark:text-black flex flex-row gap-2 items-center cursor-pointer link-underline`}
-              >
-                {menu.replace(/([A-Z])/g, ' $1').toUpperCase()}
-              </Link>
+                  key={menu}
+                  className={`menu-item text-12 pb-2 lg:text-14 xl:text-17 font-semibold uppercase whitespace-nowrap text-black dark:text-black flex flex-row gap-2 items-center cursor-pointer link-underline`}
+                >
+                  {menu.replace(/([A-Z])/g, ' $1').toUpperCase()}
+                </Link>
               ) : (
                 <div
                   key={menu}
                   className={`menu-item text-12 pb-2 lg:text-14 xl:text-17 font-semibold uppercase whitespace-nowrap text-black dark:text-black flex flex-row gap-2 items-center cursor-pointer ${activeMenu === menu ? 'linkactive' : 'link-underline'}`}
                   onMouseEnter={() => handleMouseEnter(menu)}
                   onMouseLeave={handleMouseLeave}
+                  onClick={() => handleCategoryMenuClick(menu)}
                 >
                   {menu.replace(/([A-Z])/g, ' $1').toUpperCase()}{' '}
                   {/* <MdOutlineKeyboardArrowDown size={25} /> */}

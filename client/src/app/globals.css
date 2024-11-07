@@ -130,3 +130,14 @@ width: 1px !important;
 .swiper-pagination-bullet-active{
   background-color: black !important;
 }
+
+.anticon.anticon-exclamation-circle {
+  color: black !important;
+}
+.custom-checkbox:hover .ant-checkbox-inner{
+  border-color: black !important;
+}
+.custom-checkbox .ant-checkbox-checked .ant-checkbox-inner {
+  background-color: black !important;
+  border-color: black !important;;
+}

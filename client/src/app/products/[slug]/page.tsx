@@ -12,7 +12,7 @@ const SingleProduct = () => {
 
   return (
 
-      <ProductPage sideBanner={banner7} productBanner={<ProductBanner />}  layout={layout} Setlayout={Setlayout} />
+      <ProductPage sideBanner={banner7} sideBannerProduct='ashton-dining-chair' productBanner={<ProductBanner />}  layout={layout} Setlayout={Setlayout} />
   );
   };
   
