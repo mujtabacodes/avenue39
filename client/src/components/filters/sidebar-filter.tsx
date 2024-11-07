@@ -34,25 +34,68 @@ const SidebarFilter = ({
   };
 
   const handleCategoryChange = (name: string, isChecked: boolean, isSubCategory = false) => {
-    onCategoryChange(name, isChecked, isSubCategory);
+    onCategoryChange(name.toUpperCase(), isChecked, isSubCategory);
+  
     if (!isSubCategory) {
-      setSelectedCategories((prev) =>
-        isChecked ? [...prev, name] : prev.filter((cat) => cat !== name),
-      );
+      // Main category handling
+      setSelectedCategories((prev) => {
+        if (isChecked) {
+          return [...prev, name];  // Add category if checked
+        } else {
+          return prev.filter((cat) => cat.toUpperCase() !== name);  // Remove category if unchecked
+        }
+      });
+    } else {
+      // Subcategory handling
+      setSelectedCategories((prev) => {
+        const updatedCategories = [...prev];
+        const categoryIndex = updatedCategories.findIndex((cat) => cat.toUpperCase() === name);
+        console.log(updatedCategories, 'updatedCategories')
+        if (isChecked && categoryIndex === -1) {
+          updatedCategories.push(name.toUpperCase()); // Add subcategory if checked
+        } else if (!isChecked && categoryIndex !== -1) {
+          updatedCategories.splice(categoryIndex, 1); // Remove subcategory if unchecked
+        }
+        return updatedCategories;
+      });
     }
   };
 
   useEffect(() => {
     if (category && category.length > 0) {
-      const currentCategory = pathname.split('/').pop()?.toUpperCase().replace("-"," "); 
-      
+      const currentCategory = pathname.split('/').pop()?.toUpperCase().replace("-", " "); 
+      console.log("aCTUAL", currentCategory)
+
       if (currentCategory) {
-        setSelectedCategories((prev) => {
-          if (!prev.includes(currentCategory)) {
-            return [...prev, currentCategory];
-          }
-          return prev;
-        });
+        // Check if currentCategory matches any main category name
+        const mainCategoryMatch = category.find((cat: any) => cat.name.toUpperCase() === currentCategory);
+        console.log("mainCategoryMatch", mainCategoryMatch)
+
+        if (mainCategoryMatch) {
+          // If it matches a main category, check it
+          setSelectedCategories((prev) => {
+            if (!prev.includes(currentCategory)) {
+              return [...prev, currentCategory];
+            }
+            return prev;
+          });
+          console.log("Selected categories: ", selectedCategories)
+        } else {
+          // If it doesn't match a main category, check if it's a subcategory
+          category.forEach((cat: any) => {
+            const subCategoryMatch = cat.subcategories?.find((subcat: any) => subcat.name.toUpperCase() === currentCategory);
+            if (subCategoryMatch) {
+              // Check both the main category and subcategory
+              setSelectedCategories((prev) => {
+                if (!prev.includes(cat.name)) {
+                  return [...prev, cat.name, currentCategory];
+                }
+                return prev.includes(currentCategory) ? prev : [...prev, currentCategory];
+              });
+              console.log("Selected categories: ", selectedCategories)
+            }
+          });
+        }
       }
     }
   }, [pathname, category]);
@@ -63,7 +106,11 @@ const SidebarFilter = ({
         const categoryObj = category.find((cat: any) => cat.name === catName);
         return categoryObj ? categoryObj.subcategories : [];
       });
+      
       setSubcategories(selectedSubcategories);
+    }
+    else{
+      setSubcategories([]);
     }
   }, [selectedCategories, category]);
 
@@ -76,6 +123,7 @@ const SidebarFilter = ({
             items={category}
             onCategoryChange={handleCategoryChange}
             selectedCategories={selectedCategories}
+            isSubcategory={false}
           />
         </div>
         {subcategories.length > 0 && (
@@ -83,6 +131,7 @@ const SidebarFilter = ({
             <CategoryFilter
               items={subcategories}
               onCategoryChange={handleCategoryChange}
+              selectedCategories={selectedCategories}
               isSubcategory={true}
             />
           </div>

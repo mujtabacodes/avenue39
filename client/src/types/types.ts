@@ -319,3 +319,9 @@ export interface AdditionalInformation {
   colors?: string[];
   dimension?: string[];
 }
+
+export interface IProductCategories {
+  id: string;
+  name: string;
+  subcategories?: ICategory[];
+}
