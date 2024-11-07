@@ -198,7 +198,7 @@ const FormLayout = ({
               <div className="flex justify-center">
                 <button
                   type="submit"
-                  className="mt-4 px-8 py-2 bg-primary text-white rounded"
+                  className="mt-4 px-8 py-2 bg-primary dark:bg-main dark:border-0 text-white rounded"
                 >
                   {loading ? <Loader /> : 'Submit'}
                 </button>

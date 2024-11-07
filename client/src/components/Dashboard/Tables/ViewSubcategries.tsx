@@ -234,7 +234,7 @@ const ViewSubcategries = ({
           <input
               className="peer lg:p-3 p-2 block outline-none border rounded-md border-gray-200 dark:bg-boxdark dark:bg-transparent dark:border-white text-11 xs:text-sm dark:focus:border-primary focus:border-dark focus:ring-dark-500 disabled:opacity-50 disabled:pointer-events-none dark:text-black"
               type="search"
-              placeholder="Search Category"
+              placeholder="Search Sub Categories"
               value={searchTerm}
               onChange={handleSearchChange}
             />
@@ -242,14 +242,14 @@ const ViewSubcategries = ({
               <p
                 className={`${canAddCategory && 'cursor-pointer'} p-2 ${
                   canAddCategory &&
-                  'dark:border-strokedark dark:bg-slate-500 bg-black text-white rounded-md border hover:bg-transparent hover:border-black hover:text-black'
+                  'dark:bg-main dark:border-0 bg-black text-white rounded-md border'
                 } flex justify-center ${
                   !canAddCategory && 'cursor-not-allowed '
                 }`}
                 onClick={() => {
                   seteditCategory && seteditCategory(null);
                   if (canAddCategory) {
-                    setMenuType('Add Category');
+                    setMenuType('Add Sub Categories');
                   }
                 }}
               >
