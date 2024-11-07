@@ -18,7 +18,6 @@ const DashboardLogin = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
 
-
   const intialvalue = {
     email: '',
     password: '',
@@ -48,15 +47,21 @@ const DashboardLogin = () => {
     try {
       setloading(true);
       let url =
-        adminType == 'Admin'? '/api/admin/login' : '/api/admin/superadmin-login';
+        adminType == 'Admin'
+          ? '/api/admin/login'
+          : '/api/admin/superadmin-login';
 
-      let user: any = await axios.post(process.env.NEXT_PUBLIC_BASE_URL + url,formData,
+      let user: any = await axios.post(
+        process.env.NEXT_PUBLIC_BASE_URL + url,
+        formData,
       );
       console.log(user.data, 'user');
       setloading(false);
       dispatch(loggedInAdminAction(user.data.user));
-      
-      Cookies.set('2guysAdminToken', user.data.token,{ expires: 24 * 60 * 60 * 1000 })
+
+      Cookies.set('2guysAdminToken', user.data.token, {
+        expires: 24 * 60 * 60 * 1000,
+      });
 
       setFormData(intialvalue);
       Toaster('success', 'You have sucessfully login');
@@ -77,7 +82,6 @@ const DashboardLogin = () => {
       setloading(false);
     }
   };
-
 
   const inputFields = [
     {
@@ -115,7 +119,6 @@ const DashboardLogin = () => {
           setadminType={setadminType}
           adminType={adminType}
         />
-        
       </div>
     </>
   );
