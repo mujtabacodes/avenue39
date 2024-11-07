@@ -198,14 +198,14 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                           AED.<span>{item?.discountPrice * item.quantity}</span>
                         </p>
                         <p className="text-14 font-normal text-nowrap line-through text-[#A5A5A5] w-16">
-                          AED.<span> {item?.price * item.quantity}</span>
+                          AED.<span>{item?.price * item.quantity}</span>
                         </p>
                       </>
                     ) : (
                       <>
 
                         <p className="text-[18px] font-bold">
-                          AED.<span> {item?.price * item.quantity}</span>
+                          AED.<span>{item?.price * item.quantity}</span>
                         </p>
                         <p className="text-[18px] font-bold w-16">
 
@@ -256,12 +256,12 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                         AED.<span>{item?.discountPrice * item.quantity}</span>
                       </p>
                       <p className="text-12 xl:text-16 text-nowrap font-normal line-through text-[#A5A5A5]">
-                        AED.<span> {item?.price * item.quantity}</span>
+                        AED.<span>{item?.price * item.quantity}</span>
                       </p>
                     </>
                   ) : (
                     <p className="text-16 xl:text-[22px] font-bold">
-                      AED.<span> {item?.price * item.quantity}</span>
+                      AED.<span>{item?.price * item.quantity}</span>
                     </p>
                   )}
                   <IoCloseSharp

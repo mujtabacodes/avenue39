@@ -324,7 +324,6 @@ const Checkout = () => {
                       <p>
                         AED.
                         <span>{totalPrice}</span>
-                        .00
                       </p>
                     </div>
                     <div className="border-t-4 pt-6 flex justify-between items-center text-[#666666] text-sm">
@@ -333,14 +332,14 @@ const Checkout = () => {
                         <span>
                           {shippingfee == 0
                             ? 'Free'
-                            : ` AED.${shippingfee} .00`}
+                            : ` AED.${shippingfee}`}
                         </span>
                       </p>
                     </div>
                     <div className="border-t-4 pt-6 flex justify-between items-center text-[#666666] text-18 font-bold">
                       <p>Total</p>
                       <p className="text-black text-[25px]">
-                        AED.<span>{totalPrice + shippingfee}</span>.00
+                        AED.<span>{totalPrice + shippingfee}</span>
                       </p>
                     </div>
                   </div>
