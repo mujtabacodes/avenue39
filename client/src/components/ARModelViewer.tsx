@@ -1,4 +1,6 @@
+import Link from "next/link";
 import React from "react";
+import { Button } from "./ui/button";
 
 interface ARExperienceProps {
   ImageUrl?: string | undefined; // The URL of your hosted .glb file
@@ -11,17 +13,13 @@ const ARExperience: React.FC<ARExperienceProps> = ({ ImageUrl }) => {
 
   // Construct the full public URL of the .glb file
   const fileUrl = encodeURIComponent(`https://avenue39.vercel.app${ImageUrl}`);
-  
-  // Construct the Intent URI to open the Scene Viewer in AR mode
   const intentUri = `intent://arvr.google.com/scene-viewer/1.0?file=${fileUrl}&mode=ar_only#Intent;scheme=https;package=com.google.android.googlequicksearchbox;action=android.intent.action.VIEW;S.browser_fallback_url=https%3A%2F%2Favenue39.vercel.app%2F3dmodel%2Fcarpet.glb;end;`;
 
   return (
     <div>
-      <a href={intentUri} target="_blank" rel="noopener noreferrer">
-        <button style={{ padding: '10px', fontSize: '16px' }}>
+      <Link href={intentUri} target="_blank" rel="noopener noreferrer" className="bg-warning hover:bg-white hover:text-black hover:border hover:border-black w-full text-white flex justify-center items-center gap-3 h-12 rounded-2xl">
           View in AR
-        </button>
-      </a>
+      </Link>
     </div>
   );
 };
