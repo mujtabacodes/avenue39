@@ -15,9 +15,7 @@ const UserNewsletter = () => {
     const productHandler = async () => {
       try {
         setProductloading(true);
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/api/product/get-all`
-        );
+        const response = await fetch('https://jsonplaceholder.typicode.com/comments');
         const allProducts = await response.json();
         setProducts(allProducts);
         setProductloading(false);
@@ -30,15 +28,14 @@ const UserNewsletter = () => {
     productHandler();
   }, [selecteMenu]);
 
-  // Flag to toggle page name for breadcrumbs
-  let productFlag: boolean = selecteMenu === 'Add All Products' ? true : false;
+  let productFlag: boolean = selecteMenu === 'Add All Products';
 
   return (
     <DefaultLayout>
       <Breadcrumb pageName={productFlag ? 'Newsletter' : 'BroadCast Email'} />
       <ViewNewsletter
-        Categories={products} // Pass the product data to ViewNewsletter
-        setCategory={setProducts} // Pass the setter function to update products
+        Categories={products} 
+        setCategory={setProducts} 
         setselecteMenu={setselecteMenu}
         loading={productloading}
       />
