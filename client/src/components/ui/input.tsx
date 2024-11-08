@@ -11,7 +11,7 @@ export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {}
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, id, name, onChange, value, ...props }, ref) => {
+  ({ className, type, id, name, onChange, style , value, ...props }, ref) => {
     const [showPassword, setShowPassword] = React.useState(false);
     const [inputType, setInputType] = React.useState(type);
 
@@ -49,7 +49,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           onChange={onChange}
           value={value}
           className={cn(
-            'flex-grow h-[full] rounded-full border-0 bg-[#F6F6F6] pl-20 pr-12 py-2  placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-0 text-15 font-medium outline-none focus-visible:ring-ring focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-50 placeholder:text-15 placeholder:font-bold',
+            'flex-grow h-[full] rounded-full border-0 bg-[#F6F6F6] pl-20 pr-12 py-2  placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-0 text-15 font-medium outline-none focus-visible:ring-ring focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-50 placeholder:text-15 placeholder:font-bold custom-input-bg',
             className,
           )}
           ref={ref}

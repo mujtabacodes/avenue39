@@ -8,7 +8,7 @@ const Coupan = ({label}:any) => {
             <LabelInput
               labelClass="px-2"
               label={label}
-              className="rounded-none"
+              className="rounded-none custom-input-bg"
               type="text"
               placeholder="Enter your coupon code"
             />
