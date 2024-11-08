@@ -12,7 +12,7 @@ const TopNav = () => {
       <Container className="flex  w-full justify-between items-center gap-4">
         <div className="flex items-center gap-4">
           <TextIcon
-            link="tel:+971 50 597 4495"
+            link="tel:+971505974495"
             Title="+971 50 597 4495"
             Icon={<IoPhonePortraitOutline className="text-[18px] lg:text-xl" />}
           />
