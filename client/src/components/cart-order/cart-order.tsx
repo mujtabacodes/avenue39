@@ -49,11 +49,7 @@ const CartOrder: React.FC = () => {
       <div className="flex justify-between items-center border-t-2 pt-4">
         <p className="text-[#666666] text-20">Subtotal</p>
         <p className="font-bold text-18">
-          AED.
-          <span>
-            <SubTotal />
-          </span>
-          .00
+          AED <span><SubTotal /></span>
         </p>
       </div>
       {/* <div className="flex flex-wrap md:flex-nowrap justify-between border-t-2 pt-4">
@@ -110,11 +106,7 @@ const CartOrder: React.FC = () => {
       <div className="flex justify-between items-center pt-4">
         <p className="text-[#666666] font-bold text-20">Total</p>
         <p className="font-medium text-[26px]">
-          AED.
-          <span>
-            <SubTotal />
-          </span>
-          .00
+          AED <span><SubTotal /></span>
         </p>
       </div>
       <div className="border-t-2">
