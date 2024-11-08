@@ -168,7 +168,7 @@ const Thumbnail: React.FC<ThumbProps> = ({
                     className="column-swiper-slider swiper-slide "
                   >
                     <Image
-                      className="rounded-lg shadow-md md:h-[120px] 2xl:h-[140px]"
+                      className={`rounded-lg shadow-md  ${isZoom ? 'md:h-[120px] 2xl:h-[140px]' : 'h-[110px]'}`}
                       src={thumb.imageUrl || '/default-image.jpg'}
                       width={150}
                       height={150}

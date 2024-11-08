@@ -198,7 +198,7 @@ const ProductPage = ({
                 filteredCards.map(card => (
                   <div key={card.id}>
                     {layout === 'grid' ? (
-                      <Card card={card} category isLoading={false} />
+                      <Card card={card} category isLoading={false} cardImageHeight="h-[350px] xsm:h-[500px] sm:h-[400px] md:h-[350px] 2xl:h-[400px]" />
                     ) : (
                       <LandscapeCard card={card} isLoading={false} />
                     )}

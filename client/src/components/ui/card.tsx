@@ -32,6 +32,7 @@ interface CardProps {
   skeletonHeight?: string;
   isLoading?: boolean;
   category?: boolean;
+  cardImageHeight?: string;
 }
 
 const Card: React.FC<CardProps> = ({
@@ -41,6 +42,7 @@ const Card: React.FC<CardProps> = ({
   skeletonHeight,
   isLoading,
   category,
+  cardImageHeight,
 }) => {
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch<Dispatch>();
@@ -163,6 +165,7 @@ const Card: React.FC<CardProps> = ({
                 'object-cover rounded-3xl',
                 className,
                 skeletonHeight,
+                cardImageHeight
               )}
             />
           </>

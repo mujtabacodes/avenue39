@@ -82,7 +82,7 @@ const SofaBanner: React.FC = () => {
                 </h3>
                 <div className="lg:pt-3">
                   <Link
-                    href="/product/5"
+                    href="/product/white-minimalist-combo-sofa"
                     className="bg-white py-2 px-6 rounded-full text-black hover:bg-black hover:text-white"
                   >
                     Buy Now
