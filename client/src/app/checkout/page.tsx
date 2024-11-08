@@ -299,7 +299,7 @@ const Checkout = () => {
                       Order Notes
                     </Label>
                     <textarea
-                      className="flex-grow h-32 w-full rounded-3xl bg-[#F6F6F6] mt-2 pt-4 pl-5  pr-4 outline-none py-2 focus:outline-none focus:ring-0 focus:ring-ring text-15 font-medium"
+                      className="custom-input-bg flex-grow h-32 w-full rounded-3xl bg-[#F6F6F6] mt-2 pt-4 pl-5  pr-4 outline-none py-2 focus:outline-none focus:ring-0 focus:ring-ring text-15 font-medium"
                       id="note"
                       name="note"
                       onChange={formik.handleChange}

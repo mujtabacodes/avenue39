@@ -99,6 +99,7 @@ export default function UserComponent({
                           placeholder={field.placeholder}
                           value={field.value}
                           onChange={field.onChange}
+                          style={{ backgroundColor: '#F6F6F6 !important' }}
                           // Icons={field.Icon}
                           // iconClassName={field.iconClassName}
                         />

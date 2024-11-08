@@ -141,3 +141,7 @@ width: 1px !important;
   background-color: black !important;
   border-color: black !important;;
 }
+.dark .custom-input-bg {
+  background-color: #F6F6F6 !important;
+  color: black !important;;
+}
