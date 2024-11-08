@@ -20,9 +20,13 @@ export class NewslettersService {
 
   async addEmail(createNewsletterDto: CreateNewsletterDto): Promise<any> {
     const { email } = createNewsletterDto;
+    if (!email) {
+      return { message: 'Email is required' };
+    }
 
+    const user_mail = email.toLowerCase();
     const existingUser = await this.prisma.newsLetters.findUnique({
-      where: { email },
+      where: { email: user_mail },
     });
 
     if (existingUser) {
@@ -31,7 +35,7 @@ export class NewslettersService {
 
     const newUser = await this.prisma.newsLetters.create({
       data: {
-        email,
+        email: user_mail,
       },
     });
 
@@ -96,7 +100,7 @@ export class NewslettersService {
         }
     </style>
     <div style="text-align: center; padding: 40px" class="container">
-      <img src="https://interiorfilm.vercel.app/email/images/logo.png" alt="logo" style="max-width: 285px" />
+      <img src="https://avenue39.vercel.app/logo.png" alt="logo" style="max-width: 285px" />
     </div>
     <div style="padding: 34px 40px; background-color: #e4e4e4; text-align: center" class="container" >
       <h2 style="font-size: 22px; font-weight: 400; margin: 0 0 10px 0">
@@ -256,7 +260,7 @@ export class NewslettersService {
      
       </div>
       <a
-        href="https://interiorfilm.ae/products?category=cement-grey-series"
+        href="https://avenue39.vercel.app"
         target="_blank"
         style="
           background-color: #252323; color: white; padding: 12px 24px; font-size: 14px; font-weight: 500; text-decoration: none;        "
@@ -269,21 +273,20 @@ export class NewslettersService {
           display:flex;margin: auto;max-width: fit-content;align-items: center;gap: 12px;
         "
       >
-        <a href="https://www.facebook.com/Interiorfilmuae"><img src="https://interiorfilm.vercel.app/email/images/facebook.png" alt="facebook" /></a>&nbsp;&nbsp;&nbsp;&nbsp;
-        <a href="https://www.pinterest.com/interiorfilmuae"><img src="https://interiorfilm.vercel.app/email/images/pinterest.png" alt="pinterest" /></a>&nbsp;&nbsp;&nbsp;&nbsp;
-        <a href="https://www.instagram.com/interiorfilmuae"><img src="https://interiorfilm.vercel.app/email/images/instagram.png" alt="instagram" /></a>
+        <a href="https://www.facebook.com/avenue39home"><img src="https://interiorfilm.vercel.app/email/images/facebook.png" alt="facebook" /></a>&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="https://www.instagram.com/avenue39home/"><img src="https://interiorfilm.vercel.app/email/images/instagram.png" alt="instagram" /></a>
       </div>
       <p style="font-size: 14px; line-height: 21px; color: #7a7474; margin-bottom: 30px;">
         Discover exclusive deals and premium quality in every order. We're here to make your shopping experience exceptional. Enjoy!
       </p>
       </p>
       <p style="font-size: 12px; line-height: 16px;">
-        <span style="font-weight: 600;">Sent by Interior Films,</span><br>location, Shop No.6 Oud Metha Bldg, Block A - Oud Metha - Dubai, UAE <br> Phone, +971 4 252 2025
+        <span style="font-weight: 600;">Sent by Avenue39,</span><br>location, Shop No.6 Oud Metha Bldg, Block A - Oud Metha - Dubai, UAE <br> Phone, +971 4 252 2025
       </p>
       <div style="display:flex;max-width: fit-content;margin: auto;gap: 12px;">
-        <a href="https://interiorfilm.vercel.app/contact" target="_blank" style="font-size: 12px; color: black;">Help Center</a>&nbsp;&nbsp;&nbsp;&nbsp;
-        <a href="https://interiorfilm.vercel.app/privacy-policy" target="_blank" style="font-size: 12px; color: black;">Privacy Policy</a>&nbsp;&nbsp;&nbsp;&nbsp;
-        <a href="https://interiorfilm.vercel.app/terms-conditions" target="_blank" style="font-size: 12px; color: black;">Terms of Service</a>
+        <a href="https://avenue39.vercel.app/contact" target="_blank" style="font-size: 12px; color: black;">Help Center</a>&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="https://avenue39.vercel.app/privacy-policy" target="_blank" style="font-size: 12px; color: black;">Privacy Policy</a>&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="https://avenue39.vercel.app/terms-condition" target="_blank" style="font-size: 12px; color: black;">Terms of Service</a>
       </div>
     </div>
   </body>
@@ -293,6 +296,7 @@ export class NewslettersService {
     for (const email of emails) {
       try {
         await this.sendEmail(email, subject || 'Promotional Mail', htmlContent);
+        // return true;
       } catch (error) {
         console.error(`Failed to send email to ${email}:`, error);
       }
