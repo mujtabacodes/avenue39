@@ -47,7 +47,7 @@ const ProductPage = ({
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 500]);
   const [sortOption, setSortOption] = useState<string>('default');
   const [category, setCategory] = useState<any[]>([]);
-  const [filterLoading, setFilterLoading] = useState<boolean>(true); 
+  const [filterLoading, setFilterLoading] = useState<boolean>(true);
   const pathname = usePathname();
 
   const fetchCategoryData = async () => {
@@ -85,10 +85,14 @@ const ProductPage = ({
     isChecked: boolean,
     isSubCategory: boolean,
   ) => {
+    setFilterLoading(true);
     const setter = isSubCategory ? setSelectedSubCategories : setSelectedCategories;
     setter(prev =>
       isChecked ? [...prev, categoryOrSubCategory] : prev.filter(cat => cat !== categoryOrSubCategory),
     );
+    setTimeout(() => {
+      setFilterLoading(false);
+    }, 200)
   };
 
   const handlePriceChange = ([start, end]: [number, number]) => setPriceRange([start, end]);
