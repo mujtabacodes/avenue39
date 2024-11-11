@@ -63,7 +63,8 @@ export class UsersController {
     return this.usersService.userHandler(authToken);
   }
   @Post('update_password')
-  async update_password(@Headers('authorization') authToken: string, @Body() password: string) {
-    return this.usersService.updatePassword(authToken, password);
+  async update_password(@Headers('authorization') authToken: string, @Body() password: {password: string}) {
+    
+    return this.usersService.updatePassword(authToken, password.password);
   }
 }

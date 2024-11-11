@@ -27,13 +27,12 @@ export class UsersService {
 
   async signup(signupUserDto: SignupDto) {
     try {
-      const { email, password } = signupUserDto;
+      const { email, password:newpassword } = signupUserDto;
       const existingUser = await this.prisma.user.findFirst({
         where: { email },
       });
-      console.log('User to already hai bhai');
-      console.log(existingUser);
-      const hashedPassword = await hashPassword(password, this.configService);
+      console.log(newpassword, "new pasword");
+      const hashedPassword = await hashPassword(newpassword, this.configService);
       if (!existingUser) {
         const user = await this.prisma.user.create({
           data: {
@@ -96,11 +95,8 @@ export class UsersService {
       });
 
       if (existingUser) {
-        const isPasswordValid = await verifyPassword(
-          password,
-          existingUser.password,
-          this.configService,
-        );
+        const isPasswordValid = await verifyPassword(password,existingUser.password,this.configService,);
+        console.log(isPasswordValid, "valid passowrd")
         if (!isPasswordValid) {
           return {
             message: 'Invalid Password',
@@ -193,7 +189,7 @@ export class UsersService {
   }
 
 
-  
+
 
 
   async userHandler(authToken: string) {
@@ -243,13 +239,13 @@ console.log(email, "decoded")
       };
       const email = decoded.email;
 
-
-      if (!email) {
-        throw new HttpException('Invalid token', HttpStatus.UNAUTHORIZED);
+console.log(password, "password")
+      if (!email || !password) {
+        throw new HttpException('Invalid Credentials', HttpStatus.UNAUTHORIZED);
       }
       const hashedPassword = await hashPassword(password, this.configService);
 
-
+console.log(hashedPassword, "hashedPassword")
       const existingUser = await this.prisma.user.update({
         where: { email },
         data: {password: hashedPassword}

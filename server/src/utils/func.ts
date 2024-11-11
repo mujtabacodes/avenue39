@@ -2,13 +2,10 @@ import * as bcrypt from 'bcrypt';
 import * as crypto from 'crypto';
 import { ConfigService } from '@nestjs/config';
 
-export async function verifyPassword(
-  password: string,
-  hashedPassword: string,
-  configService: ConfigService,
-): Promise<boolean> {
-  const secret = configService.get<string>(process.env.PASSWORD_SECRET);
-  const passwordWithSecret = password + secret;
+export async function verifyPassword(password: string,hashedPassword: string,configService: ConfigService,): Promise<boolean> {
+  const secret = process.env.PASSWORD_SECRET
+  const passwordWithSecret = password;
+  console.log(hashedPassword, "hashed")
   return await bcrypt.compare(passwordWithSecret, hashedPassword);
 }
 
@@ -16,9 +13,10 @@ export async function hashPassword(
   password: string,
   configService: ConfigService,
 ): Promise<string> {
-  const secret = configService.get<string>(process.env.PASSWORD_SECRET);
-  const passwordWithSecret = password + secret;
+  const secret = process.env.PASSWORD_SECRET;
+  const passwordWithSecret = password;
   const hashedPassword = await bcrypt.hash(passwordWithSecret, 10);
+  console.log(hashedPassword, "hashped pasowrd")
   return hashedPassword;
 }
 
