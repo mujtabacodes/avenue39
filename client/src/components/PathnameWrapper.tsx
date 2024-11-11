@@ -18,6 +18,7 @@ const PathnameWrapper = ({ children }: { children: React.ReactNode }) => {
     '/register',
     '/superAdminlogin',
     '/forgot-password',
+    '/reset-password',
     '/dashboard',
     '/thanks',
   ];
