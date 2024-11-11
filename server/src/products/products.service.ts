@@ -6,7 +6,7 @@ import { AddProductDto, UpdateProductDto } from './dto/product.dto';
 
 @Injectable()
 export class ProductsService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService) { }
 
   getProducts() {
     try {
@@ -84,7 +84,7 @@ export class ProductsService {
     console.log('Update product triggered');
     console.log(productData);
     try {
-      const existingProduct = await this.prisma.products.findFirst({
+      const existingProduct: any = await this.prisma.products.findFirst({
         where: { id: productData.id },
       });
 
@@ -96,20 +96,16 @@ export class ProductsService {
       }
 
       const spacification =
-        productData.spacification?.map(
-          //@ts-ignore
-          (spec) => spec.specsDetails,
-        ) ?? [];
+        productData.spacification?.map((spec:{specsDetails:string}) => spec.specsDetails,) ?? [];
 
-      //@ts-ignore
-      const colors = productData.colors?.map((color) => color.colorName) ?? [];
 
-      await this.prisma.products.update({
-        where: { id: productData.id },
+      const colors = productData.colors?.map((color:{colorName:string}) => color.colorName) ?? [];
+
+      await this.prisma.products.update({ where: { id: productData.id },
         data: {
           name: productData.name ?? existingProduct.name,
-          hoverImageAltText:
-            productData.hoverImageAltText ?? existingProduct.hoverImageAltText,
+          
+  hoverImageAltText: productData.hoverImageAltText ?? existingProduct.hoverImageAltText,
           Images_Alt_Text:
             productData.Images_Alt_Text ?? existingProduct.Images_Alt_Text,
           posterImageAltText:
@@ -152,6 +148,7 @@ export class ProductsService {
           },
         },
       });
+
 
       return {
         message: 'Product updated successfully 🎉',

@@ -8,6 +8,9 @@ import {
   IsInt,
   ArrayNotEmpty,
 } from 'class-validator';
+
+
+
 export class AddProductDto {
   @IsNotEmpty()
   @IsString()
@@ -36,6 +39,7 @@ export class AddProductDto {
   @IsOptional()
   @IsString()
   Meta_Title: string;
+
   @IsOptional()
   @IsString()
   Meta_Description: string;
