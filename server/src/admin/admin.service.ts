@@ -18,7 +18,7 @@ export class AdminService {
   constructor(
     private prisma: PrismaService,
     private configService: ConfigService,
-  ) { }
+  ) {}
 
   async getAdmins() {
     try {
@@ -62,21 +62,20 @@ export class AdminService {
       const { password: _, ...userWithoutPassword } = existingUser;
       res.cookie('2guysAdminToken', token, {
         // httpOnly: true,
-        // secure: process.env.NODE_ENV === 'production',
-        secure: false,
+        secure: process.env.NODE_ENV === 'production',
         maxAge: 24 * 60 * 60 * 1000,
+        SameSite: 'Lax',
       });
 
       return {
         message: 'Login successfull 🎉',
         user: userWithoutPassword,
-        // token,
+        token,
       };
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
-
 
   async superAdminLogin(loginData: AdminLoginDto, res) {
     const { email, password } = loginData;
@@ -85,17 +84,24 @@ export class AdminService {
         where: { email },
       });
 
-
       if (!existingUser)
         return customHttpException('User Not found', 'NOT_FOUND');
 
-      if (existingUser.role !== 'Super-Admin') return customHttpException('Super Admin credentials is correct😴', 'FORBIDDEN');
+      if (existingUser.role !== 'Super-Admin')
+        return customHttpException(
+          'Super Admin credentials is correct😴',
+          'FORBIDDEN',
+        );
 
       if (existingUser) {
-        const isPasswordValid = await verifyPassword(password, existingUser.password, this.configService)
+        const isPasswordValid = await verifyPassword(
+          password,
+          existingUser.password,
+          this.configService,
+        );
 
-        if (!isPasswordValid) throw new UnauthorizedException('Invalid username or password');
-
+        if (!isPasswordValid)
+          throw new UnauthorizedException('Invalid username or password');
 
         const token = jwt.sign({ email: email }, process.env.TOKEN_SECRET, {
           expiresIn: '24h',
@@ -111,9 +117,9 @@ export class AdminService {
         return {
           message: 'Login successfull 🎉',
           user: userWithoutPassword,
+          token,
         };
       }
-
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -125,10 +131,13 @@ export class AdminService {
     try {
       const { email, password } = signupUserDto;
 
-      const existingUser = await this.prisma.admins.findFirst({ where: { email } });
+      const existingUser = await this.prisma.admins.findFirst({
+        where: { email },
+      });
 
-      if (existingUser) return customHttpException('Already user exists😴', 'CONFLICT');
-      
+      if (existingUser)
+        return customHttpException('Already user exists😴', 'CONFLICT');
+
       const hashedPassword = await hashPassword(password, this.configService);
       const user = await this.prisma.admins.create({
         data: {
@@ -137,22 +146,16 @@ export class AdminService {
         },
       });
 
-
       const { password: newpassword, ...userWithoutPassword } = user;
       return {
         message: 'Congrats🎉 admin created successfully',
         user: userWithoutPassword,
         status: HttpStatus.OK,
       };
-
-
-
     } catch (error) {
-       customHttpException(error.message, 'BAD_REQUEST');
+      customHttpException(error.message, 'BAD_REQUEST');
     }
   }
-
-
 
   async editAdmin(updateUserDto: editAdminDto) {
     try {
@@ -160,7 +163,9 @@ export class AdminService {
       const existingUser = await this.prisma.admins.findFirst({
         where: { id },
       });
-      const Newpassword = password ? await hashPassword(password, this.configService) : existingUser.password;
+      const Newpassword = password
+        ? await hashPassword(password, this.configService)
+        : existingUser.password;
 
       if (!existingUser) {
         return {
@@ -168,12 +173,11 @@ export class AdminService {
           status: HttpStatus.BAD_REQUEST,
         };
       } else {
-        
         const updatedUser = await this.prisma.admins.update({
           where: { id },
           data: {
             ...withOutPassword,
-            password: Newpassword
+            password: Newpassword,
           },
         });
 

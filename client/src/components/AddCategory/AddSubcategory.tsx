@@ -122,7 +122,7 @@ const FormLayout = ({
       <p
         className="text-lg font-black mb-4 flex items-center justify-center gap-2 hover:bg-gray-200 w-fit p-2 cursor-pointer text-black dark:bg-boxdark dark:bg-black dark:text-white dark:bg-boxdark dark:border-white"
         onClick={() => {
-          setMenuType('Categories');
+          setMenuType('Sub Categories');
         }}
       >
         <IoMdArrowRoundBack /> Back
@@ -277,7 +277,7 @@ const FormLayout = ({
               <div className="flex justify-center">
                 <button
                   type="submit"
-                  className="mt-4 px-8 py-2 bg-primary text-white rounded"
+                  className="mt-4 px-8 py-2 bg-primary dark:bg-main dark:border-0 text-white rounded"
                 >
                   {loading ? <Loader /> : 'Submit'}
                 </button>

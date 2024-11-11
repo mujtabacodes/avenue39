@@ -66,7 +66,7 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
   };
   useEffect(() => {
     const timeoutId = setTimeout(() => {
-      dispatch(closeDrawer());
+      // dispatch(closeDrawer());
     }, 3000);
 
     return () => clearTimeout(timeoutId);
@@ -93,7 +93,7 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
             className="bg-white opacity-80 z-[51]"
             onClick={handleCloseDrawer}
           />
-          <SheetContent className="sm:max-w-lg z-[52] border-s border-black py-10 ps-10 pe-0 flex flex-col">
+          <SheetContent className="w-[90%] xsm:max-w-lg z-[52] border-s border-black py-5 xsm:py-10 ps-5 xs:ps-10 pe-0 flex flex-col">
             <SheetHeader className="flex flex-row items-center justify-between border-b-2 py-8 pe-12">
               <SheetTitle className="font-medium text-3xl">
                 My Cart (<TotalProducts />)
@@ -122,21 +122,32 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                       className="rounded-md"
                     />
 
-                    <div>
-                      <ProductName className="!text-[16px]">
+                    <div className='w-full'>
+                      <ProductName className="text-start !text-[16px]">
                         {item.name}
                       </ProductName>
-                      <div className="flex justify-between gap-5">
+                      <div className="flex justify-between flex-wrap gap-2">
                         <span> Qty {item.quantity}</span>
-                        <ProductPrice className="flex gap-2 mb-4 !text-[15px]">
-                          AED {item?.discountPrice * item.quantity}
-                          <NormalText className="text-slate-400 line-through  !text-[15px]">
-                            {item?.price * item.quantity}
+                        {item?.discountPrice > 0 ? (<ProductPrice className="flex gap-2 flex-wrap mb-4 !text-[15px] text-nowrap">
+                          <span>
+                            AED {item?.discountPrice * item.quantity}
+                          </span>
+                          <NormalText className="text-slate-400 line-through w-[70px] text-end text-nowrap !text-[15px]">
+                            AED {item?.price * item.quantity}
                           </NormalText>
-                        </ProductPrice>
+                        </ProductPrice>) :
+                          (<ProductPrice className="flex gap-2 flex-wrap mb-4 !text-[15px] text-nowrap">
+                            <span>
+                              AED {item?.price * item.quantity}
+                            </span>
+                            {/* <NormalText className="text-slate-400 line-through w-20 text-end text-nowrap !text-[15px]">
+
+                            </NormalText> */}
+                          </ProductPrice>)}
+                        
                       </div>
                       <div
-                        className="absolute top-0 right-0 cursor-pointer"
+                        className="absolute top-2 right-2 cursor-pointer"
                         onClick={() => removeProductFromCart(item.id)}
                       >
                         <RxCross2 />
@@ -191,20 +202,26 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                 />
                 <div className="w-full">
                   <p className="text-16 xl:text-18">{item.name}</p>
-                  <div className="flex flex-wrap md:flex-nowrap lg:hidden justify-between items-center gap-2 md:gap-6 pr-4">
+                  <div className="flex flex-wrap md:flex-nowrap lg:hidden justify-between items-center gap-2 md:gap-3 pr-4">
                     {item.discountPrice > 0 ? (
                       <>
-                        <p className="text-[18px] font-bold">
-                          Dhs.<span>{item?.discountPrice * item.quantity}</span>
+                        <p className="text-[18px] font-bold ">
+                          AED <span>{item?.discountPrice * item.quantity}</span>
                         </p>
-                        <p className="text-14 font-normal line-through text-[#A5A5A5]">
-                          Dhs.<span> {item?.price * item.quantity}</span>
+                        <p className="text-14 font-normal text-nowrap line-through text-[#A5A5A5] w-16">
+                          AED <span>{item?.price * item.quantity}</span>
                         </p>
                       </>
                     ) : (
-                      <p className="text-[18px] font-bold">
-                        Dhs.<span> {item?.price * item.quantity}</span>
-                      </p>
+                      <>
+
+                        <p className="text-[18px] font-bold">
+                          AED <span>{item?.price * item.quantity}</span>
+                        </p>
+                        <p className="text-[18px] font-bold w-16">
+
+                        </p>
+                      </>
                     )}
 
                     <IoCloseSharp
@@ -245,19 +262,22 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                 </div>
                 <div className="w-40 xl:w-60 flex gap-2 xl:gap-4 items-center justify-end">
                   {item.discountPrice > 0 ? (
-                      <>
-                        <p className="text-16 xl:text-[22px] font-bold">
-                          Dhs.<span>{item?.discountPrice * item.quantity}</span>
-                        </p>
-                        <p className="text-12 xl:text-16 font-normal line-through text-[#A5A5A5]">
-                          Dhs.<span> {item?.price * item.quantity}</span>
-                        </p>
-                      </>
-                    ) : (
+                    <>
                       <p className="text-16 xl:text-[22px] font-bold">
-                        Dhs.<span> {item?.price * item.quantity}</span>
+                        AED <span>{item?.discountPrice * item.quantity}</span>
                       </p>
-                    )}
+                      <p className="text-12 xl:text-16 text-nowrap font-normal text-end w-16 line-through text-[#A5A5A5]">
+                        AED <span>{item?.price * item.quantity}</span>
+                      </p>
+                    </>
+                  ) : (
+                    <>
+                      <p className="text-16 xl:text-[22px] font-bold">
+                        AED <span>{item?.price * item.quantity}</span>
+                      </p>
+                      <p className='w-16'></p>
+                    </>
+                  )}
                   <IoCloseSharp
                     className="cursor-pointer"
                     size={25}

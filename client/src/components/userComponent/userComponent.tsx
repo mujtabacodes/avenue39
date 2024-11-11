@@ -37,7 +37,6 @@ export default function UserComponent({
   const router = useRouter();
   const pathname = usePathname();
 
- 
   const [activeTab, setActiveTab] = useState('Admin'); // State for the active tab
 
   const handleTabChange = (value: string) => {
@@ -48,7 +47,7 @@ export default function UserComponent({
   let adminFlag = pathname === '/dashboard/Admin-login';
   return (
     <>
-      {SelectComonent ? <SelectComonent /> : null}
+      {/* {SelectComonent ? <SelectComonent /> : null} */}
 
       <Fragment>
         <div className="grid grid-cols-1 md:grid-cols-2">
@@ -65,15 +64,25 @@ export default function UserComponent({
                   {descrition && descrition}
                 </p>
               </div> */}
-   
-              <Tabs value={activeTab} onValueChange={handleTabChange} className="md:p-2 mb-10">
+
+              <Tabs
+                value={activeTab}
+                onValueChange={handleTabChange}
+                className="md:p-2 mb-10"
+              >
                 <TabsList className=" w-full text-center space-x-4  flex justify-center items-center">
-                  <TabsTrigger className=" text-16 md:text-2xl font-bold " value="Admin">
+                  <TabsTrigger
+                    className=" text-16 md:text-2xl font-bold "
+                    value="Admin"
+                  >
                     <FaRegUser />
                     Admin
                   </TabsTrigger>
                   <span className="h-10 border border-black" />
-                  <TabsTrigger className=" text-16 md:text-2xl font-bold " value="Super-Admin">
+                  <TabsTrigger
+                    className=" text-16 md:text-2xl font-bold "
+                    value="Super-Admin"
+                  >
                     <FaRegUser />
                     Super Admin
                   </TabsTrigger>
@@ -90,6 +99,7 @@ export default function UserComponent({
                           placeholder={field.placeholder}
                           value={field.value}
                           onChange={field.onChange}
+                          style={{ backgroundColor: '#F6F6F6 !important' }}
                           // Icons={field.Icon}
                           // iconClassName={field.iconClassName}
                         />
@@ -177,7 +187,7 @@ export default function UserComponent({
                         type="submit"
                         disable={loading}
                       >
-                        {loading ? <Loader color="#fff" /> : buttonTitle}
+                        {loading ? <Loader color="#ffffff" /> : buttonTitle}
                       </Button>
                       <div className="flex justify-end space-y-3 w-full">
                         <p className="text-[#9096B2] text-sm">

@@ -2,12 +2,13 @@
 import { INav, IProduct } from '@/types/types';
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { FaRegUser } from 'react-icons/fa';
 import logo from '@icons/logo.png';
 import { IoSearchSharp } from 'react-icons/io5';
 import Container from '../ui/Container';
-import { Drawer, DrawerContent, DrawerTrigger } from '@/components/ui/drawer';
+import { Drawer, DrawerContent, DrawerTitle, DrawerTrigger } from '@/components/ui/drawer';
+import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 import { HiOutlineBars3BottomRight } from 'react-icons/hi2';
 import SocialLink from '../social-link';
 import { IoIosSearch } from 'react-icons/io';
@@ -31,6 +32,7 @@ const Navbar = (props: INav) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const Navigate = useRouter();
   const [isSticky, setIsSticky] = useState<boolean>(false);
+  const drawerInputRef = useRef<HTMLInputElement>(null);
   const userDetails = useSelector(
     (state: State) => state.usrSlice.loggedInUser,
   );
@@ -67,50 +69,74 @@ const Navbar = (props: INav) => {
   const filteredProducts = products.filter((product: IProduct) =>
     product.name.toLowerCase().includes(searchText.toLowerCase()),
   );
+
+  useEffect(() => {
+    // Focus the input inside the drawer when it opens
+    if (isDrawerOpen && drawerInputRef.current) {
+      // Delay the focus slightly to ensure the drawer is fully open
+      setTimeout(() => {
+        drawerInputRef.current?.focus();
+      }, 50);
+    }
+    else {
+      setTimeout(() => {
+        drawerInputRef.current?.focus();
+      }, 50);
+    }
+  }, [isDrawerOpen]);
   return (
     <div className={`bg-white dark:text-black ${isSticky ? 'sticky top-0 z-50' : ''}`}>
       <Container className="flex items-center justify-between p-2 md:p-4 gap-4 dark:bg-white">
         <div className="w-3/12 min-w-32">
-         <div className='w-fit'>
-         <Link className="relative" href={'/'}>
-            <Image
-              className="object-contain"
-              width={180}
-              height={180}
-              src={logo}
-              alt="Logo"
-            />
-          </Link>
-         </div>
+          <div className='w-fit'>
+            <Link className="relative" href={'/'}>
+              <Image
+                className="object-contain"
+                width={180}
+                height={180}
+                src={logo}
+                alt="Logo"
+              />
+            </Link>
+          </div>
         </div>
         <div className="w-6/12">
           <form
             className="relative rounded-md hidden md:block"
             onSubmit={(e) => e.preventDefault()}
           >
-            <input
-              type="text"
-              name="header-search"
-              value={searchText}
-              onChange={handleInputChange}
-              className="px-4 h-12 xl:h-[64px] border block w-full text-sm disabled:opacity-50"
-              placeholder="Search Here..."
-            />
-            <Drawer onOpenChange={setIsDrawerOpen}>
+
+            <Drawer onOpenChange={setIsDrawerOpen} open={isDrawerOpen}>
               <DrawerTrigger asChild>
-                <button
-                  type="submit"
-                  className="absolute inset-y-0 end-0 flex items-center z-20 pe-4 cursor-pointer"
-                >
-                  <IoSearchSharp className="cursor-pointer" size={30} />
-                </button>
+                <>
+                  <input
+                    type="text"
+                    name="header-search"
+                    value={searchText}
+                    onChange={handleInputChange}
+                    onClick={() => setIsDrawerOpen(true)} // Open drawer on click
+                    className="px-4 h-12 xl:h-[64px] border block w-full text-sm disabled:opacity-50 custom-input-bg"
+                    placeholder="Search Here..."
+                  />
+                  <button
+                    type="submit"
+                    className="absolute inset-y-0 end-0 flex items-center z-20 pe-4 cursor-pointer"
+                  >
+                    <IoSearchSharp className="cursor-pointer" size={30} />
+                  </button>
+                </>
               </DrawerTrigger>
+
               <DrawerContent>
+                <VisuallyHidden>
+                  <DrawerTitle>Search Here</DrawerTitle>
+                </VisuallyHidden>
                 <div className="max-w-screen-lg w-full mx-auto mt-10 space-y-5 p-2">
                   <div className="relative rounded-md w-full">
                     <input
                       type="text"
                       name="searchHeader"
+                      ref={drawerInputRef} // Ref to focus on when drawer opens
                       value={searchText}
                       onChange={handleInputChange}
                       className="py-4 px-4 pe-11 border block w-full text-sm disabled:opacity-50"
@@ -126,11 +152,11 @@ const Navbar = (props: INav) => {
                   {isLoading && (
                     <div className="border p-2">
                       <div className="flex border p-2 rounded-md bg-white hover:shadow-md transition duration-300 gap-2 mt-2 items-center">
-                        <Skeleton className="w-[100px] h-[100px]"></Skeleton>
-                        <div className='pt-1 flex flex-col gap-3'>
-                          <Skeleton className="w-32 h-6 rounded-none"></Skeleton>
-                          <Skeleton className="w-32 h-4 rounded-none"></Skeleton>
-                          <Skeleton className="w-32 h-4 rounded-none"></Skeleton>
+                        <Skeleton className="w-[100px] h-[100px]" />
+                        <div className="pt-1 flex flex-col gap-3">
+                          <Skeleton className="w-32 h-6 rounded-none" />
+                          <Skeleton className="w-32 h-4 rounded-none" />
+                          <Skeleton className="w-32 h-4 rounded-none" />
                         </div>
                       </div>
                     </div>
@@ -138,7 +164,7 @@ const Navbar = (props: INav) => {
                   {error && <div>Error fetching products: {error.message}</div>}
                   {!isLoading && !error && filteredProducts.length > 0 && (
                     <div className="border p-2 max-h-[600px] overflow-y-auto custom-scrollbar">
-                      {filteredProducts.map((product: IProduct) => (
+                      {filteredProducts.map((product) => (
                         <DrawerTrigger asChild key={product.id}>
                           <div
                             onClick={() => handleNavigation(product.name)}
@@ -172,18 +198,17 @@ const Navbar = (props: INav) => {
                       ))}
                     </div>
                   )}
-                  {filteredProducts.length < 1 && (
-                    <div>No product is found</div>
-                  )}
+                  {filteredProducts.length < 1 && <div>No product is found</div>}
                 </div>
               </DrawerContent>
             </Drawer>
+
           </form>
         </div>
         <div className="gap-2 flex justify-end items-center w-3/12 space-x-8">
 
           <div className="hidden md:flex justify-between gap-5 items-center">
-          <Wishlist/>
+            <Wishlist />
             <CartItems />
           </div>
           <div className="hidden md:flex gap-5 items-center">
@@ -263,18 +288,18 @@ const Navbar = (props: INav) => {
                         <IoSearchSharp className="cursor-pointer" size={30} />
                       </button>
                     </div>
-                    {!isLoading && (
-                    <div className="border p-2">
-                      <div className="flex border p-2 rounded-md bg-white hover:shadow-md transition duration-300 gap-2 mt-2 items-center">
-                        <Skeleton className="w-[100px] h-[100px]"></Skeleton>
-                        <div className='pt-1 flex flex-col gap-3'>
-                          <Skeleton className="w-40 h-6 rounded-none"></Skeleton>
-                          <Skeleton className="w-40 h-4 rounded-none"></Skeleton>
-                          <Skeleton className="w-40 h-4 rounded-none"></Skeleton>
+                    {isLoading && (
+                      <div className="border p-2">
+                        <div className="flex border p-2 rounded-md bg-white hover:shadow-md transition duration-300 gap-2 mt-2 items-center">
+                          <Skeleton className="w-[100px] h-[100px]"></Skeleton>
+                          <div className='pt-1 flex flex-col gap-3'>
+                            <Skeleton className="w-40 h-6 rounded-none"></Skeleton>
+                            <Skeleton className="w-40 h-4 rounded-none"></Skeleton>
+                            <Skeleton className="w-40 h-4 rounded-none"></Skeleton>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  )}
+                    )}
                     {error && (
                       <div>Error fetching products: {error.message}</div>
                     )}
@@ -321,19 +346,6 @@ const Navbar = (props: INav) => {
                 </DrawerContent>
               </Drawer>
             </form>
-            <Drawer>
-              <DrawerTrigger asChild>
-                <HiOutlineBars3BottomRight
-                  className="cursor-pointer block md:hidden"
-                  size={30}
-                />
-              </DrawerTrigger>
-              <DrawerContent>
-                <div className="p-4">
-                  <SocialLink />
-                </div>
-              </DrawerContent>
-            </Drawer>
           </div>
         </div>
       </Container>

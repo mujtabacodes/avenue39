@@ -22,6 +22,7 @@ import { menuData } from '@/data/menu';
 import { generateSlug } from '@/config';
 import { useRouter } from 'next/navigation';
 import { IoIosHeartEmpty } from 'react-icons/io';
+import SocialLink from '../social-link';
 
 const BottomBar: React.FC = () => {
   const [open, setOpen] = useState(false);
@@ -115,6 +116,9 @@ const BottomBar: React.FC = () => {
                 </Accordion>
               );
             })}
+          </div>
+          <div className='mt-3'>
+          <SocialLink />
           </div>
         </SheetContent>
       </Sheet>

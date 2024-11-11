@@ -89,12 +89,12 @@ const SideCard: React.FC<sideCardProps> = ({ isSlice }) => {
               <p className="text-[13px] font-semibold">{item.name}</p>
               <hr />
               <p className="text-[12px] font-semibold">
-                AED{item.discountPrice.toFixed(2)}
+                AED {item.discountPrice.toFixed(0)}
               </p>
               {item.price && (
                 <>
                   <p className="text-9 font-semibold line-through text-[#A5A5A5]">
-                    AED{item.price.toFixed(2)}
+                    AED {item.price.toFixed(0)}
                   </p>
 
                   {item.sale && item.sale !== '0' && (
@@ -105,7 +105,7 @@ const SideCard: React.FC<sideCardProps> = ({ isSlice }) => {
                 </>
               )}
               <div className="flex">
-                {averageRating > 0 && renderStars({ star: averageRating })}
+                {averageRating > 1 && renderStars({ star: averageRating })}
               </div>
             </div>
           </Link>

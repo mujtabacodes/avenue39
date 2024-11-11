@@ -7,7 +7,7 @@ import { RiDeleteBin6Line } from 'react-icons/ri';
 import axios from 'axios';
 import Loader from '@components/Loader/Loader';
 import { LiaEdit } from 'react-icons/lia';
-import { CategoriesType } from '@/types/interfaces';
+import { CategoriesType, Category } from '@/types/interfaces';
 import { useAppSelector } from '@components/Others/HelperRedux';
 import useColorMode from '@/hooks/useColorMode';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -37,6 +37,14 @@ const TableTwo = ({
   const [category, setCategory] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [colorMode, toggleColorMode] = useColorMode();
+  const [searchTerm, setSearchTerm] = useState<string>('');
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value);
+  };
+  const filteredCategories: Category[] = category.filter((category) =>
+    category.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   const { loggedInUser }: any = useAppSelector((state) => state.usersSlice);
 
@@ -71,6 +79,8 @@ const TableTwo = ({
     CategoryHandler();
   }, []);
 
+
+  
   const confirmDelete = (key: any) => {
     Modal.confirm({
       title: 'Are you sure you want to delete this category?',
@@ -78,6 +88,20 @@ const TableTwo = ({
       onOk: () => handleDelete(key),
       okText: 'Yes',
       cancelText: 'No',
+      okButtonProps: {
+        style: {
+          backgroundColor: 'black', 
+          color: 'white', 
+          outlineColor: 'black', 
+        },
+      },
+      cancelButtonProps: {
+        style: {
+          borderColor: 'black',
+          color: 'black', 
+          outlineColor: 'black', 
+        },
+      },
     });
   };
 
@@ -210,14 +234,20 @@ const TableTwo = ({
       ) : (
         <>
           <div className="flex justify-between mb-4 items-center text-dark dark:text-white">
-            <p>Categories</p>
+          <input
+              className="peer lg:p-3 p-2 block outline-none border rounded-md border-gray-200 dark:bg-boxdark dark:bg-transparent dark:border-white text-11 xs:text-sm dark:focus:border-primary focus:border-dark focus:ring-dark-500 disabled:opacity-50 disabled:pointer-events-none dark:text-black"
+              type="search"
+              placeholder="Search Category"
+              value={searchTerm}
+              onChange={handleSearchChange}
+            />
             <div>
               <p
                 className={`${
                   canAddCategory && 'cursor-pointer'
                 } lg:p-2 md:p-2 ${
                   canAddCategory &&
-                  'dark:border-strokedark dark:border-white bg-black text-white rounded-md border   '
+                  'bg-black dark:bg-main dark:border-0 text-white rounded-md border   '
                 } flex justify-center ${
                   !canAddCategory && 'cursor-not-allowed '
                 }`}
@@ -233,10 +263,10 @@ const TableTwo = ({
             </div>
           </div>
 
-          {category.length > 0 ? (
+          { filteredCategories && filteredCategories.length > 0 ? (
             <Table
               className="overflow-x-scroll lg:overflow-auto"
-              dataSource={category}
+              dataSource={filteredCategories}
               columns={columns}
               pagination={false}
               rowKey="id"

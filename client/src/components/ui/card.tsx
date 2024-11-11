@@ -10,7 +10,7 @@ import { addItem } from '@cartSlice/index';
 import { CartItem } from '@cartSlice/types';
 import { openDrawer } from '@/redux/slices/drawer';
 import { useRouter } from 'next/navigation';
-import { Dialog, DialogContent, DialogOverlay, DialogTrigger } from './dialog';
+import { Dialog, DialogContent, DialogOverlay, DialogTitle, DialogTrigger } from './dialog';
 import ProductDetail from '../product-detail/product-detail';
 import { cn } from '@/lib/utils';
 import { Skeleton } from './skeleton';
@@ -24,6 +24,7 @@ import { fetchReviews } from '@/config/fetch';
 import CardSkeleton from '../cardSkelton';
 import { IoIosHeartEmpty } from 'react-icons/io';
 import { message } from 'antd';
+import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 interface CardProps {
   card?: IProduct;
   isModel?: boolean;
@@ -31,6 +32,7 @@ interface CardProps {
   skeletonHeight?: string;
   isLoading?: boolean;
   category?: boolean;
+  cardImageHeight?: string;
 }
 
 const Card: React.FC<CardProps> = ({
@@ -40,6 +42,7 @@ const Card: React.FC<CardProps> = ({
   skeletonHeight,
   isLoading,
   category,
+  cardImageHeight,
 }) => {
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch<Dispatch>();
@@ -162,6 +165,7 @@ const Card: React.FC<CardProps> = ({
                 'object-cover rounded-3xl',
                 className,
                 skeletonHeight,
+                cardImageHeight
               )}
             />
           </>
@@ -194,7 +198,7 @@ const Card: React.FC<CardProps> = ({
           )}
 
           <div className="flex gap-1 items-center justify-center mt-1 h-5">
-            {averageRating > 0 && renderStars({ star: averageRating })}
+            {averageRating > 1 && renderStars({ star: averageRating })}
           </div>
         </div>
       )}
@@ -205,24 +209,27 @@ const Card: React.FC<CardProps> = ({
         </div>
       ) : isModel ? null : (
         <div
-          className="text-center flex flex-none justify-center gap-3 "
+          className="text-center flex flex-wrap justify-center md:gap-3 space-y-2 md:space-y-0 "
           onClick={(e) => handleEventProbation(e)}
         >
           <button
-            className="my-4 w-32 h-8 text-primary border border-primary rounded-full flex items-center justify-center gap-2 hover:bg-primary hover:text-white"
+            className="md:my-4 w-full md:w-32 h-8 text-primary border border-primary rounded-full flex items-center justify-center gap-2 hover:bg-primary hover:text-white"
             onClick={(e) => handleAddToCard(e)}
           >
             <HiOutlineShoppingBag />
             <span className="text-10 font-medium">Add to Cart</span>
           </button>
-          <Dialog>
+          <Dialog >
             <DialogTrigger>
-              <button className="my-4 w-32 h-8 text-secondary border border-primary bg-primary rounded-full flex items-center justify-center gap-2 hover:bg-secondary hover:text-primary">
+              <button className="md:my-4 w-60 md:w-32 h-8 text-secondary border border-primary bg-primary rounded-full flex items-center justify-center gap-2 hover:bg-secondary hover:text-primary">
                 <span className="text-10 font-medium">Quick View</span>
               </button>
             </DialogTrigger>
             <DialogOverlay />
             <DialogContent className="max-w-[1400px] w-11/12 bg-white px-0 sm:rounded-3xl border border-black shadow-none gap-0 pb-0">
+            <VisuallyHidden>
+          <DialogTitle>Product Detail</DialogTitle>
+        </VisuallyHidden>
               <div className="pb-6 px-5 xs:px-10 me-4 xs:me-7 mt-6 max-h-[80vh] overflow-y-auto custom-scroll">
                 <ProductDetail
                   params={card}

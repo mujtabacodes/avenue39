@@ -6,13 +6,14 @@ import Link from 'next/link';
 import Image from 'next/image';
 import SidebarLinkGroup from './SidebarLinkGroup';
 import { MdOutlineDashboard, MdOutlineKeyboardArrowDown } from 'react-icons/md';
-import { BiCategoryAlt } from 'react-icons/bi';
+import { BiCategoryAlt, BiEnvelope } from 'react-icons/bi';
 import { GrCodeSandbox, GrUserAdmin } from 'react-icons/gr';
 import { useAppSelector } from '@components/Others/HelperRedux';
 import { IoSettingsOutline } from 'react-icons/io5';
 import logoimage from '@assets/icons/whitelogo.png';
 import { TfiShoppingCartFull } from 'react-icons/tfi';
 import { TbGardenCartOff } from 'react-icons/tb';
+import { FaEnvelope } from 'react-icons/fa';
 
 interface SidebarProps {
   sidebarOpen: boolean;
@@ -73,7 +74,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
   return (
     <aside
       ref={sidebar}
-      className={`absolute left-0 top-0 z-50 flex h-screen w-72 flex-col overflow-y-hidden bg-primary text-white duration-300 ease-linear dark:bg-black lg:static lg:translate-x-0 ${
+      className={`absolute left-0 top-0 z-50 flex h-screen w-72 flex-col overflow-y-hidden bg-main text-white duration-300 ease-linear dark:bg-black lg:static lg:translate-x-0 ${
         sidebarOpen ? 'translate-x-0' : '-translate-x-full'
       }`}
     >
@@ -124,9 +125,9 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                     <React.Fragment>
                       <Link
                         href="/dashboard"
-                        className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium  duration-300 ease-in-out hover:bg-black dark:hover:bg-primary ${
+                        className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium  duration-300 ease-in-out hover:bg-black dark:hover:bg-main ${
                           pathname === '/dashboard' &&
-                          'bg-black dark:bg-primary'
+                          'bg-black dark:bg-main'
                         }`}
                         onClick={(e) => {
                           e.preventDefault();
@@ -170,16 +171,16 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               </SidebarLinkGroup>
 
               <SidebarLinkGroup
-                activeCondition={pathname === '/dashboard/category'}
+                activeCondition={pathname === '/dashboard/category' || pathname === '/dashboard/subcategory'}
               >
                 {(handleClick, open) => {
                   return (
                     <React.Fragment>
                       <Link
                         href="#"
-                        className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-black dark:hover:bg-primary ${
-                          pathname === '/dashboard/category' &&
-                          'bg-black dark:bg-primary'
+                        className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-black dark:hover:bg-main ${
+                          pathname === '/dashboard/category' || pathname === '/dashboard/subcategory' ?
+                          'bg-black dark:bg-main' : ''
                         }`}
                         onClick={(e) => {
                           e.preventDefault();
@@ -228,7 +229,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                             <Link
                               href="/dashboard/subcategory"
                               className={`group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white mt-2.5 ${
-                                pathname === '/dashboard/category' &&
+                                pathname === '/dashboard/subcategory' &&
                                 'text-white'
                               }`}
                             >
@@ -251,9 +252,9 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                     <React.Fragment>
                       <Link
                         href="/dashboard"
-                        className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-black dark:hover:bg-primary ${
+                        className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-black dark:hover:bg-main ${
                           pathname === '/dashboard/products' &&
-                          'bg-black dark:bg-primary'
+                          'bg-black dark:bg-main'
                         }`}
                         onClick={(e) => {
                           e.preventDefault(); // Prevent default link behavior
@@ -304,9 +305,9 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                     <React.Fragment>
                       <Link
                         href="/dashboard"
-                        className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-black dark:hover:bg-primary ${
+                        className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-black dark:hover:bg-main ${
                           pathname === '/dashboard/orders' &&
-                          'bg-black dark:bg-primary'
+                          'bg-black dark:bg-main'
                         }`}
                         onClick={(e) => {
                           e.preventDefault(); // Prevent default link behavior
@@ -356,9 +357,9 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                     <React.Fragment>
                       <Link
                         href="/dashboard"
-                        className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-black dark:hover:bg-primary ${
+                        className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-black dark:hover:bg-main ${
                           pathname === '/dashboard/abundant' &&
-                          'bg-black dark:bg-primary'
+                          'bg-black dark:bg-main'
                         }`}
                         onClick={(e) => {
                           e.preventDefault(); // Prevent default link behavior
@@ -401,13 +402,66 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                   );
                 }}
               </SidebarLinkGroup>
+              <SidebarLinkGroup
+                activeCondition={pathname === '/dashboard/usernewsletter'}
+              >
+                {(handleClick, open) => {
+                  return (
+                    <React.Fragment>
+                      <Link
+                        href="/dashboard"
+                        className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-black dark:hover:bg-primary ${
+                          pathname === '/dashboard/usernewsletter' &&
+                          'bg-black dark:bg-primary'
+                        }`}
+                        onClick={(e) => {
+                          e.preventDefault(); // Prevent default link behavior
+                          sidebarExpanded
+                            ? handleClick()
+                            : setSidebarExpanded(true);
+                        }}
+                      >
+                        <BiEnvelope  size={20} className="text-white" />
+                        User Newsletter
+                        <MdOutlineKeyboardArrowDown
+                          size={30}
+                          className={`absolute right-4 top-1/2 -translate-y-1/2 fill-current text-white ${
+                            open && 'rotate-180'
+                          }`}
+                        />
+                      </Link>
+                      {/* <!-- Dropdown Menu Start --> */}
+                      <div
+                        className={`translate transform overflow-hidden ${
+                          !open && 'hidden'
+                        }`}
+                      >
+                        <ul className="mb-3 mt-3 flex flex-col gap-2.5 pl-6">
+                          <li>
+                            <Link
+                              href="/dashboard/usernewsletter"
+                              className={`group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ${
+                                pathname === 'dashboard/usernewsletter' &&
+                                'text-white'
+                              } `}
+                            >
+                              View User Newsletter
+                            </Link>
+                          </li>
+                        </ul>
+                      </div>
+                      {/* <!-- Dropdown Menu End --> */}
+                    </React.Fragment>
+                  );
+                }}
+              </SidebarLinkGroup>
               {superAdmin ? (
                 <li>
                   <Link
                     href="/dashboard/super-admin"
-                    className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-black dark:hover:bg-primary ${
+                    className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-black dark:hover:bg-main ${
                       pathname.includes('super-admin') &&
-                      'bg-black dark:bg-primary'
+                      'bg-black dark:bg-main'
                     }`}
                   >
                     <GrUserAdmin size={20} />
@@ -419,8 +473,8 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               <li>
                 <Link
                   href="/dashboard/settings"
-                  className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-black dark:hover:bg-primary ${
-                    pathname.includes('settings') && 'bg-black dark:bg-primary'
+                  className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-black dark:hover:bg-main ${
+                    pathname.includes('settings') && 'bg-black dark:bg-main'
                   }`}
                 >
                   <IoSettingsOutline size={20} />

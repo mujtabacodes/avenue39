@@ -1,5 +1,7 @@
 import { IProductCategories } from '@/types/types';
 import React from 'react';
+import { Checkbox } from 'antd';
+import { CheckboxChangeEvent } from 'antd/es/checkbox';
 
 interface ICategoryFilter {
   items: IProductCategories[];
@@ -9,16 +11,27 @@ interface ICategoryFilter {
     isSubCategory?: boolean,
   ) => void;
   isSubcategory?: boolean;
+  selectedCategories?: string[];
 }
 
 const CategoryFilter = ({
   items,
   onCategoryChange,
-  isSubcategory = false,
+  isSubcategory,
+  selectedCategories = [],
 }: ICategoryFilter) => {
-  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value, checked } = e.target;
-    onCategoryChange(value, checked, isSubcategory); // Pass isSubcategory as the third argument
+  const handleCheckboxChange = (e: CheckboxChangeEvent, itemName: string) => {
+    if (isSubcategory) {
+      const { checked } = e.target;
+      onCategoryChange(itemName.toUpperCase(), checked, isSubcategory);
+      // console.log(checked, 'checked', isSubcategory, itemName.toUpperCase());
+    }
+    else {
+      const { checked } = e.target;
+      onCategoryChange(itemName.toUpperCase(), checked, isSubcategory);
+      // console.log(checked, 'checked', isSubcategory, itemName.toUpperCase());
+    }
+
   };
 
   return (
@@ -30,24 +43,18 @@ const CategoryFilter = ({
         <form className="flex flex-col gap-5 custom-scroll overflow-y-auto max-h-[280px]">
           {items.map((item) => (
             <div className="flex items-center gap-2" key={item.id}>
-              <input
-                type="checkbox"
-                name="filter"
+              <Checkbox
                 id={`${isSubcategory ? 'Subcategory' : 'Category'}${item.id}`}
-                value={item.name}
-                className="rounded-none border-1 border-black w-4 h-4"
-                onChange={handleCheckboxChange}
-              />
-              <label
-                htmlFor={`${isSubcategory ? 'Subcategory' : 'Category'}${item.id}`}
-                className="text-16 uppercase"
+                className="custom-checkbox hover:border-black"
+                onChange={(e) => handleCheckboxChange(e, item.name)}
+                checked={isSubcategory ? selectedCategories.includes(item.name.toUpperCase()) : selectedCategories.includes(item.name.toUpperCase())}
               >
-                {item.name}
-              </label>
+                <span className="text-16 uppercase">{item.name}</span>
+              </Checkbox>
               {!isSubcategory && (
-              <span className="bg-light px-[2px] font-semibold text-[10px] tracking-tight">
-                {item.totalItems}
-              </span>
+                <span className="bg-light px-[2px] font-semibold text-[10px] tracking-tight">
+                  {item.totalItems}
+                </span>
               )}
             </div>
           ))}

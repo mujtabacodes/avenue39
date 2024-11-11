@@ -4,19 +4,19 @@
 
 @layer base {
   :root {
-    --font-inter:'__Open_Sans_af7b73', '__Open_Sans_Fallback_af7b73';
-    --jadyn:'__jadyn_d94376', '__jadyn_Fallback_d94376';
-    --belgium:'__belgium_d61fef', '__belgium_Fallback_d61fef';
-    --main:#AFA183;
+    --font-inter: '__Open_Sans_af7b73', '__Open_Sans_Fallback_af7b73';
+    --jadyn: '__jadyn_d94376', '__jadyn_Fallback_d94376';
+    --belgium: '__belgium_d61fef', '__belgium_Fallback_d61fef';
+    --main: #afa183;
     --background: #fbfbfb;
     --foreground: #e2e3e5;
-    --light-background: #F6F6F6;
-    --light-foreground: #E3E4E6;
+    --light-background: #f6f6f6;
+    --light-foreground: #e3e4e6;
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
-    --primary: #121A25;
+    --primary: #121a25;
     --primary-foreground: #707070;
     --secondary: #fbfbfb;
     --secondary-foreground: #47474729;
@@ -36,7 +36,7 @@
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
     --red: #ff000029;
-    --warning: #FEB53E;
+    --warning: #feb53e;
     --light-dark: #666666;
   }
 }
@@ -44,13 +44,13 @@ html {
   scroll-behavior: smooth;
 }
 
-body{
+body {
   font-family: var(--font-inter);
 }
-.font-jadyn{
- font-family: var(--jadyn);
+.font-jadyn {
+  font-family: var(--jadyn);
 }
-.font-belgium{
+.font-belgium {
   font-family: var(--belgium);
 }
 .triangle-shape {
@@ -60,41 +60,46 @@ body{
   transform: translateX(-50%);
   width: 60px;
   height: 60px;
-  clip-path: polygon(50% 0%, 90% 20%, 100% 60%, 75% 100%, 25% 100%, 0% 60%, 10% 20%);;
+  clip-path: polygon(
+    50% 0%,
+    90% 20%,
+    100% 60%,
+    75% 100%,
+    25% 100%,
+    0% 60%,
+    10% 20%
+  );
   display: flex;
   justify-content: center;
   align-items: center;
   border: 1px solid #ccc; /* Adjust the border color as needed */
 }
-.ant-input-outlined:focus, .ant-input-outlined:focus-within{
-  border-color:black !important;
+.ant-input-outlined:focus,
+.ant-input-outlined:focus-within {
+  border-color: black !important;
 }
 
-.slider_container::-webkit-scrollbar-thumb{
-width: 1px !important;
+.slider_container::-webkit-scrollbar-thumb {
+  width: 1px !important;
 }
 
-
-
-.linkactive{
+.linkactive {
   position: relative;
-
 }
-.linkactive::after{
+.linkactive::after {
   content: '';
   position: absolute;
   width: 100%;
   height: 3px;
   bottom: 0px;
   left: 0;
-  background-color: #AFA183;
+  background-color: #afa183;
 }
 
 .link-underline,
 .link-footer {
   position: relative;
 }
-
 
 .link-underline::after,
 .link-footer:after {
@@ -104,14 +109,14 @@ width: 1px !important;
   height: 3px;
   bottom: 0px;
   left: 0;
-  background-color: #AFA183;
+  background-color: #afa183;
   transform: scaleX(0);
   transform-origin: bottom right;
   transition: transform 0.3s ease-out;
 }
 
 .link-footer:after {
-  background-color: #AFA183 !important;
+  background-color: #afa183 !important;
 }
 
 .link-underline:hover::after,
@@ -120,13 +125,41 @@ width: 1px !important;
   transform-origin: bottom left;
 }
 
-.ant-select-selector{
-  border-color: #121A25 !important;
+.ant-select-selector {
+  border-color: #121a25 !important;
 }
-.swiper-pagination-bullet{
+.swiper-pagination-bullet {
   height: 12px !important;
   width: 12px !important;
 }
-.swiper-pagination-bullet-active{
+.swiper-pagination-bullet-active {
   background-color: black !important;
+}
+
+.anticon.anticon-exclamation-circle {
+  color: black !important;
+}
+
+.ant-checkbox:hover .ant-checkbox-inner {
+  border-color: black !important;
+}
+.ant-checkbox-checked .ant-checkbox-inner {
+  background-color: black !important;
+  border-color: black !important;
+}
+
+.ant-table-selection .ant-checkbox-inner::after {
+  background-color: transparent !important;
+}
+
+.custom-checkbox:hover .ant-checkbox-inner {
+  border-color: black !important;
+}
+.custom-checkbox .ant-checkbox-checked .ant-checkbox-inner {
+  background-color: black !important;
+  border-color: black !important;
+}
+.dark .custom-input-bg {
+  background-color: #f6f6f6 !important;
+  color: black !important;
 }

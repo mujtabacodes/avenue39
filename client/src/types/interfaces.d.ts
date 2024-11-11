@@ -158,15 +158,15 @@ export interface Categories_Types {
 }
 
 export interface product {
-  posterImageUrl: { public_id: string; imageUrl: string };
-  hoverImageUrl: { public_id: string; imageUrl: string };
+  posterImageUrl: { public_id: string, imageUrl: string, altText:string};
+  hoverImageUrl: { public_id: string, imageUrl: string, altText:string };
   _id: string;
   name: string;
   description: string;
   salePrice: number;
   purchasePrice: number;
   category: string;
-  imageUrl: Array<{ public_id: string; imageUrl: string; _id: string }>;
+  imageUrl: Array<{ public_id: string, imageUrl: string, _id: string, altText:string }>;
   discountPrice: number;
   colors: Array<{ colorName: string; _id: string }>;
   modelDetails: Array<{ name: string; detail: string; _id: string }>;
@@ -174,11 +174,25 @@ export interface product {
   createdAt: string;
   starRating: string;
   reviews: string;
+  productImages?:any;
+  additionalInformation?: any;
   sizes: Array<string>;
+  stock?: string;
+  
   updatedAt: string;
+  
   price: string;
   __v: number;
   code: string;
+  Meta_Title: string
+  Meta_Description: string
+  URL: string
+  Canonical_Tag: string
+  Images_Alt_Text: string
+  Og_title : string
+  Og_description: string
+  Og_Image: string
+  OgUrl:string
 }
 
 declare module 'react-qr-scanner' {

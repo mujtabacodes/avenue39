@@ -15,7 +15,6 @@ import { useDispatch } from 'react-redux';
 import { loggedInUserAction } from '@/redux/slices/user/userSlice';
 import Cookies from 'js-cookie';
 
-
 export function LoginForm() {
   const Navigate = useRouter();
   const dispatch = useDispatch();
@@ -67,7 +66,9 @@ export function LoginForm() {
         Signin.resetForm();
         showToast('success', `${res.data.message}🎉`);
         dispatch(loggedInUserAction(res.data.user));
-        Cookies.set('user_token', res.data.token,{ expires: 24 * 60 * 60 * 1000 })
+        Cookies.set('user_token', res.data.token, {
+          expires: 24 * 60 * 60 * 1000,
+        });
         Navigate.push('/');
       }
     },

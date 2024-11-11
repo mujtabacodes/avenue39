@@ -43,6 +43,7 @@
     "react-apexcharts": "^1.4.1",
     "react-canvas-confetti": "^2.0.7",
     "react-dom": "^18",
+    "react-draggable": "^4.4.6",
     "react-highlight-words": "^0.20.0",
     "react-icons": "^5.2.1",
     "react-qr-scanner": "^1.0.0-alpha.11",
@@ -58,6 +59,7 @@
     "tailwind-merge": "^2.4.0",
     "tailwindcss-animate": "^1.0.7",
     "three": "^0.167.1",
+    "three.interaction": "^0.2.3",
     "vaul": "^0.9.1",
     "yup": "^1.4.0"
   },

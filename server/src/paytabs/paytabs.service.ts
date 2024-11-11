@@ -8,6 +8,7 @@ export class PaytabsService {
   private readonly PAYTABS_QUERY_URL = process.env.PAYTABS_QUERY_URL;
   private readonly SERVER_KEY = process.env.PAYTABS_SERVER_KEY;
   private readonly PROFILE_ID = process.env.PAYTABS_PROFILE_ID;
+  private readonly PAYMOD_CURRENCY = process.env.PAYMOD_CURRENCY;
 
   async createPayment(paymentDetails: CreatePaymentDto) {
     console.log('alyo');
@@ -21,10 +22,14 @@ export class PaytabsService {
       tran_class: 'ecom',
       cart_id: 'orderId',
       cart_description: `Order for ${firstName} ${lastName}`,
-      cart_currency: 'PKR',
-      cart_amount: amount / 100,
-      callback: 'http://localhost:3000/thanks',
-      return: 'https://avenue39.vercel.app/thanks',
+      cart_currency: 'AED',
+      cart_amount: amount,
+      framed: true,
+      framed_return_top: true,
+      framed_return_parent: true,
+      callback: 'http://avenue39.vercel.app/thanks',
+      return: 'http://avenue39.vercel.app/thanks',
+      // return: 'http://localhost:3000/thanks',
       customer_details: {
         name: `${firstName} ${lastName}`,
         email,

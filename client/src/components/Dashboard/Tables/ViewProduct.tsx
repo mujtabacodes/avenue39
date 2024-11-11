@@ -69,6 +69,20 @@ const ViewProduct: React.FC<CategoryProps> = ({
       onOk: () => handleDelete(key),
       okText: 'Yes',
       cancelText: 'No',
+      okButtonProps: {
+        style: {
+          backgroundColor: 'black', 
+          color: 'white', 
+          outlineColor: 'black', 
+        },
+      },
+      cancelButtonProps: {
+        style: {
+          borderColor: 'black',
+          color: 'black', 
+          outlineColor: 'black', 
+        },
+      },
     });
   };
 
@@ -108,8 +122,9 @@ const ViewProduct: React.FC<CategoryProps> = ({
         <Image
           src={`${record?.posterImageUrl}`}
           alt={`Image of ${record.name}`}
-          width={50}
-          height={50}
+          width={200}
+          className='w-[80px] h-[80px] rounded-md object-cover'
+          height={200}
         />
       ),
     },
@@ -163,9 +178,8 @@ const ViewProduct: React.FC<CategoryProps> = ({
       key: 'Edit',
       render: (text: any, record: Product) => (
         <LiaEdit
-          className={`${canEditproduct ? 'cursor-pointer' : ''} ${
-            !canEditproduct ? 'cursor-not-allowed text-slate-200' : ''
-          }`}
+          className={`${canEditproduct ? 'cursor-pointer' : ''} ${!canEditproduct ? 'cursor-not-allowed text-slate-200' : ''
+            }`}
           size={20}
           onClick={() => {
             if (canEditproduct) {
@@ -181,9 +195,8 @@ const ViewProduct: React.FC<CategoryProps> = ({
       key: 'action',
       render: (text: any, record: Product) => (
         <RiDeleteBin6Line
-          className={`${canDeleteProduct ? 'text-red-600 cursor-pointer' : ''} ${
-            !canDeleteProduct ? 'cursor-not-allowed text-slate-200' : ''
-          }`}
+          className={`${canDeleteProduct ? 'text-red-600 cursor-pointer' : ''} ${!canDeleteProduct ? 'cursor-not-allowed text-slate-200' : ''
+            }`}
           size={20}
           onClick={() => {
             console.log(record);
@@ -214,14 +227,11 @@ const ViewProduct: React.FC<CategoryProps> = ({
             />
             <div>
               <p
-                className={`${
-                  canAddProduct && 'cursor-pointer rounded-md text-nowrap text-12 xs:text-base'
-                } p-2 ${
-                  canAddProduct && 'bg-primary text-white rounded-md border'
-                } dark:border-strokedark  flex justify-center dark:bg-black ${
-                  !canAddProduct &&
+                className={`${canAddProduct && 'cursor-pointer rounded-md text-nowrap text-12 xs:text-base'
+                  } p-2 ${canAddProduct && 'bg-primary text-white rounded-md border'
+                  } flex justify-center dark:bg-main dark:border-0 ${!canAddProduct &&
                   'cursor-not-allowed bg-gray-500 text-white rounded-md'
-                }`}
+                  }`}
                 onClick={() => {
                   if (canAddProduct) {
                     setselecteMenu('Add Products');

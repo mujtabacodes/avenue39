@@ -10,7 +10,7 @@ import { CategoriesType } from '@/types/interfaces';
 import ViewSubcategries from '@/components/Dashboard/Tables/ViewSubcategries';
 
 const AddCategory = () => {
-  const [menuType, setMenuType] = useState<string>('Categories');
+  const [menuType, setMenuType] = useState<string>('Sub Categories');
   const [editCategory, seteditCategory] = useState<
     CategoriesType | undefined | null
   >();
@@ -18,7 +18,7 @@ const AddCategory = () => {
   return (
     <DefaultLayout>
       <Breadcrumb pageName={menuType} />
-      {menuType === 'Categories' ? (
+      {menuType === 'Sub Categories' ? (
         <div className="flex flex-col gap-10">
           <ViewSubcategries
             setMenuType={setMenuType}
