@@ -124,7 +124,7 @@ const TimerSlider: React.FC = () => {
                         {slide.price}
                       </h3>
                       <h3 className="lg:text-4xl text-xl lg:mb-10 mb-5 mt-2">
-                        {slide.productName}
+                        {slide.productName}ds
                       </h3>
                       <div className="text-lg font-semibold mb-4 flex space-x-2 lg:mt-6">
                         <div className="flex flex-col items-center">
@@ -183,7 +183,6 @@ const TimerSlider: React.FC = () => {
                         {slide.buttonText}
                       </Button>
                     </div>
-                   
                   </div>
                   <div className="w-full lg:order-2 order-1 lg:p-16">
                     <Image
