@@ -7,10 +7,16 @@ import 'slick-carousel/slick/slick-theme.css';
 import Image from 'next/image';
 import { Button } from '../ui/button';
 import { timerSliderData } from '@/data';
-import { TTimeRemainingArray } from '@/types/types';
+import { IProduct, TTimeRemainingArray } from '@/types/types';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { generateSlug } from '@/config';
+import { useDispatch } from 'react-redux';
+import { Dispatch } from 'redux';
+import { CartItem } from '@/redux/slices/cart/types';
+import { useQuery } from '@tanstack/react-query';
+import { fetchProducts } from '@/config/fetch';
+import { addItem } from '@/redux/slices/cart';
+import { openDrawer } from '@/redux/slices/drawer';
 
 const settings = {
   dots: true,
@@ -23,6 +29,35 @@ const settings = {
 const TimerSlider: React.FC = () => {
   const [timeRemaining, setTimeRemaining] = useState<TTimeRemainingArray>([]);
   const router = useRouter();
+  const dispatch = useDispatch<Dispatch>();
+  const [cartProduct, setCartProduct] = useState<CartItem | undefined>();
+  const {
+    data: products = [],
+    error: productsError,
+    isLoading: isProductsLoading,
+  } = useQuery<IProduct[], Error>({
+    queryKey: ['products'],
+    queryFn: fetchProducts,
+  });
+  
+  useEffect(() => {
+    const product = products.find((product) => product.name === 'Trent Luxury Armchair');
+    if (product) {
+      const itemToAdd: CartItem = {
+        ...product,
+        quantity: 1,
+      };
+      setCartProduct(itemToAdd);
+    }
+  }, [products]);
+  
+  const handleAddToCard = (e: React.MouseEvent<HTMLElement>) => {
+    e.stopPropagation();
+    if (cartProduct) {
+      dispatch(addItem(cartProduct));
+      dispatch(openDrawer());
+    }
+  };
 
   useEffect(() => {
     const updateTimers = () => {
@@ -58,9 +93,9 @@ const TimerSlider: React.FC = () => {
     return () => clearInterval(interval);
   }, []);
 
-  const handleButtonClick = (slug: string) => {
-    router.push(`/product/${slug}`);
-  };
+  // const handleButtonClick = (productId: number) => {
+  //   router.push(`/product/${productId}`);
+  // };
 
   return (
     <div className="flex flex-wrap lg:flex-nowrap lg:justify-end justify-center lg:gap-4 timer_slider">
@@ -143,9 +178,7 @@ const TimerSlider: React.FC = () => {
                       <Button
                         className=" lg:px-12 rounded-full lg:mt-8 tracking-widest text-17 font-bold md:w-[312px] md:h-[66px]"
                         variant={'link'}
-                        onClick={() =>
-                          handleButtonClick(generateSlug(slide.productName))
-                        }
+                        onClick={handleAddToCard}
                       >
                         {slide.buttonText}
                       </Button>
