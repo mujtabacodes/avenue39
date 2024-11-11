@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from '../prisma/prisma.service'; // Assuming you have a PrismaService set up
+import { PrismaService } from '../prisma/prisma.service';
 import { CreateNewsletterDto } from './dto/newsletter.dto';
 import * as nodemailer from 'nodemailer';
 import * as path from 'path';

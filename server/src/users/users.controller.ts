@@ -16,6 +16,7 @@ import {
   UpdateUserDto,
   ForgetPasswordDto,
 } from './dto/user.dto';
+import { hashPassword } from 'src/utils/func';
 
 @Controller('user')
 export class UsersController {
@@ -60,5 +61,10 @@ export class UsersController {
   @Get('getuserHandler')
   async userHandler(@Headers('authorization') authToken: string) {
     return this.usersService.userHandler(authToken);
+  }
+  @Post('update_password')
+  async update_password(@Headers('authorization') authToken: string, @Body() password: {password: string}) {
+    
+    return this.usersService.updatePassword(authToken, password.password);
   }
 }
