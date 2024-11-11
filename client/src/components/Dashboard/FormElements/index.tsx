@@ -247,6 +247,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
       }
     });
   };
+  
 
   const handleImageIndex = (index: number, newImageIndex: number) => {
     const updatedImagesUrl = imagesUrl.map((item, i) =>
