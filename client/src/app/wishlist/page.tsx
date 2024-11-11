@@ -111,7 +111,7 @@ const Wishlist = () => {
                 <div className="block md:hidden space-y-2">
                   <div className=" flex items-center gap-4 ">
                     <p className="font-medium md:font-bold text-12 lg:text-xl xl:text-2xl">
-                      AED.{' '}
+                      AED{' '}
                       <span>
                         {product.discountPrice
                           ? product.discountPrice
@@ -120,7 +120,7 @@ const Wishlist = () => {
                     </p>
                     {product.discountPrice && (
                       <p className="font-normal md:font-bold text-10 lg:text-md xl:text-lg line-through text-lightforeground">
-                        AED. <span>{product.price}</span>
+                        AED <span>{product.price}</span>
                       </p>
                     )}
                     <IoCloseSharp
@@ -148,7 +148,7 @@ const Wishlist = () => {
           <div className="hidden md:block md:col-span-3 lg:col-span-3 xl:col-span-3 2xl:col-span-3">
             <div className="flex items-center gap-1 lg:gap-4">
               <p className="font-medium md:font-bold text-12 lg:text-xl xl:text-2xl">
-                AED.{' '}
+                AED{' '}
                 <span>
                   {product.discountPrice
                     ? product.discountPrice
@@ -157,7 +157,7 @@ const Wishlist = () => {
               </p>
               {product.discountPrice > 0 && (
                 <p className="font-normal md:font-bold text-10 lg:text-md xl:text-lg line-through text-lightforeground">
-                  AED. <span>{product.price}</span>
+                  AED <span>{product.price}</span>
                 </p>
               )}
               <IoCloseSharp

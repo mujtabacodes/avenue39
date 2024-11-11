@@ -66,7 +66,7 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
   };
   useEffect(() => {
     const timeoutId = setTimeout(() => {
-      dispatch(closeDrawer());
+      // dispatch(closeDrawer());
     }, 3000);
 
     return () => clearTimeout(timeoutId);
@@ -123,19 +123,28 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                     />
 
                     <div className='w-full'>
-                      <ProductName className="!text-[16px]">
+                      <ProductName className="text-start !text-[16px]">
                         {item.name}
                       </ProductName>
-                      <div className="flex justify-between gap-2 flex-wrap xsm:gap-5">
+                      <div className="flex justify-between flex-wrap gap-2">
                         <span> Qty {item.quantity}</span>
-                        <ProductPrice className="flex gap-2 flex-wrap mb-4 !text-[15px] text-nowrap">
+                        {item?.discountPrice > 0 ? (<ProductPrice className="flex gap-2 flex-wrap mb-4 !text-[15px] text-nowrap">
                           <span>
                             AED {item?.discountPrice * item.quantity}
                           </span>
-                          <NormalText className="text-slate-400 line-through w-20 text-end text-nowrap !text-[15px]">
+                          <NormalText className="text-slate-400 line-through w-[70px] text-end text-nowrap !text-[15px]">
                             AED {item?.price * item.quantity}
                           </NormalText>
-                        </ProductPrice>
+                        </ProductPrice>) :
+                          (<ProductPrice className="flex gap-2 flex-wrap mb-4 !text-[15px] text-nowrap">
+                            <span>
+                              AED {item?.price * item.quantity}
+                            </span>
+                            {/* <NormalText className="text-slate-400 line-through w-20 text-end text-nowrap !text-[15px]">
+
+                            </NormalText> */}
+                          </ProductPrice>)}
+                        
                       </div>
                       <div
                         className="absolute top-2 right-2 cursor-pointer"

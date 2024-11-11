@@ -10,6 +10,7 @@ import { timerSliderData } from '@/data';
 import { TTimeRemainingArray } from '@/types/types';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { generateSlug } from '@/config';
 
 const settings = {
   dots: true,
@@ -57,8 +58,8 @@ const TimerSlider: React.FC = () => {
     return () => clearInterval(interval);
   }, []);
 
-  const handleButtonClick = (productId: number) => {
-    router.push(`/product/${productId}`);
+  const handleButtonClick = (slug: string) => {
+    router.push(`/product/${slug}`);
   };
 
   return (
@@ -88,7 +89,7 @@ const TimerSlider: React.FC = () => {
                         {slide.price}
                       </h3>
                       <h3 className="lg:text-4xl text-xl lg:mb-10 mb-5 mt-2">
-                        {slide.productName}
+                        {slide.productName}ds
                       </h3>
                       <div className="text-lg font-semibold mb-4 flex space-x-2 lg:mt-6">
                         <div className="flex flex-col items-center">
@@ -142,12 +143,13 @@ const TimerSlider: React.FC = () => {
                       <Button
                         className=" lg:px-12 rounded-full lg:mt-8 tracking-widest text-17 font-bold md:w-[312px] md:h-[66px]"
                         variant={'link'}
-                        onClick={() => handleButtonClick(slide.productId)}
+                        onClick={() =>
+                          handleButtonClick(generateSlug(slide.productName))
+                        }
                       >
                         {slide.buttonText}
                       </Button>
                     </div>
-                   
                   </div>
                   <div className="w-full lg:order-2 order-1 lg:p-16">
                     <Image
