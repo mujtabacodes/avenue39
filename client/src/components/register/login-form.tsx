@@ -133,7 +133,7 @@ export function LoginForm() {
             value={Signin.values.password}
           />
           <div className="text-end pr-4">
-            <Link href={'/forget'}>Forget Passowrd?</Link>
+            <Link href={'/forgot-password'}>Forget Passowrd?</Link>
           </div>
           <Button
             type="submit"

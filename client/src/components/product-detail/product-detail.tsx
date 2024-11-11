@@ -211,9 +211,9 @@ const ProductDetail = ({
           ))}
         </span>
 
-        <NormalText className="mb-2">
+        {/* <NormalText className="mb-2">
           Hurry Up! Only <span className="text-red-600">12</span> left in stock:
-        </NormalText>
+        </NormalText> */}
         <div className="flex items-center gap-4 justify-between mb-2">
           <div className="flex items-center border border-gray-300 rounded py-1 md:p-2 md:py-3">
             <button
