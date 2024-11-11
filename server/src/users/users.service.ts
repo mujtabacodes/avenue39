@@ -182,7 +182,7 @@ export class UsersService {
         },
       });
 
-      // await sendResetEmail(email, resetToken);
+      await sendResetEmail(email, resetToken);
       return {
         message: 'Password reset link sent to your email',
         status: HttpStatus.OK,
@@ -191,21 +191,22 @@ export class UsersService {
       throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
+
+
   async userHandler(authToken: string) {
     try {
       if (!authToken) {
         throw new HttpException('No token provided', HttpStatus.UNAUTHORIZED);
       }
 
-      const token = authToken.startsWith('Bearer ')
-        ? authToken.substring(7)
-        : authToken;
+      const token = authToken.startsWith('Bearer ')? authToken.substring(7): authToken;
       console.log(authToken);
-      console.log(token);
+      console.log(token, "token");
       const decoded = jwt.verify(token, process.env.TOKEN_SECRET) as {
         email: string;
       };
       const email = decoded.email;
+console.log(email, "decoded")
 
       if (!email) {
         throw new HttpException('Invalid token', HttpStatus.UNAUTHORIZED);
@@ -223,4 +224,46 @@ export class UsersService {
       throw new HttpException(error.message, HttpStatus.UNAUTHORIZED);
     }
   }
+
+
+  async updatePassword(authToken: string, password: string) {
+    try {
+      if (!authToken) {
+        throw new HttpException('No token provided', HttpStatus.UNAUTHORIZED);
+      }
+
+      const token = authToken.startsWith('Bearer ')? authToken.substring(7): authToken;
+      console.log(authToken);
+      console.log(token, "token");
+      const decoded = jwt.verify(token, process.env.TOKEN_SECRET) as {
+        email: string;
+      };
+      const email = decoded.email;
+
+
+      if (!email) {
+        throw new HttpException('Invalid token', HttpStatus.UNAUTHORIZED);
+      }
+      const hashedPassword = await hashPassword(password, this.configService);
+
+
+      const existingUser = await this.prisma.user.update({
+        where: { email },
+        data: {password: hashedPassword}
+        
+      });
+      const { password: _, ...userWithoutPassword } = existingUser;
+      return {
+        message: 'Password has been successfully reseted 🎉',
+        user: userWithoutPassword,
+      };
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.UNAUTHORIZED);
+    }
+  }
+
+
+
+
+
 }
