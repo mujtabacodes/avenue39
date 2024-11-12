@@ -100,7 +100,7 @@ const Navbar = (props: INav) => {
             </Link>
           </div>
         </div>
-        <div className="w-6/12">
+        <div className="w-full max-w-[35%] lg:max-w-[40%]">
           <form
             className="relative rounded-md hidden md:block"
             onSubmit={(e) => e.preventDefault()}
@@ -114,7 +114,7 @@ const Navbar = (props: INav) => {
                     name="header-search"
                     value={searchText}
                     onChange={handleInputChange}
-                    onClick={() => setIsDrawerOpen(true)} // Open drawer on click
+                    onClick={() => setIsDrawerOpen(true)}
                     className="px-4 h-12 xl:h-[64px] border block w-full text-sm disabled:opacity-50 custom-input-bg"
                     placeholder="Search Here..."
                   />
@@ -178,16 +178,24 @@ const Navbar = (props: INav) => {
                               className="min-h-[100px] min-w-[100px]"
                             />
                             <div className="pt-1 flex flex-col gap-2">
-                              <p className="text-21 font-normal capitalize">
+                              <p className="text-18 xsm:text-21 font-normal capitalize">
                                 {product.name}
                               </p>
                               <div className="flex items-center gap-4">
-                                <p className="text-15 font-semibold">
-                                  AED <span>{product.price}</span>
-                                </p>
-                                <p className="text-[12px] text-primary-foreground font-bold line-through">
-                                  AED <span>{product.discountPrice}</span>
-                                </p>
+                                {
+                                  product.discountPrice > 0 ? <>
+                                    <p className="text-15 font-semibold">
+                                      AED <span>{product.discountPrice}</span>
+                                    </p>
+                                    <p className="text-[12px] text-primary-foreground font-bold line-through">
+                                      AED <span>{product.price}</span>
+                                    </p>
+                                  </> : <>
+                                  <p className="text-15 font-semibold">
+                                      AED <span>{product.price}</span>
+                                    </p>
+                                  </>
+                                }
                               </div>
                               <div>
                                 <RenderStars card={product} />
@@ -205,9 +213,9 @@ const Navbar = (props: INav) => {
 
           </form>
         </div>
-        <div className="gap-2 flex justify-end items-center w-3/12 space-x-8">
+        <div className="gap-3 lg:gap-5 flex justify-end items-center w-3/12">
 
-          <div className="hidden md:flex justify-between gap-5 items-center">
+          <div className="hidden md:flex justify-between gap-3 lg:gap-5 items-center">
             <Wishlist />
             <CartItems />
           </div>
@@ -254,8 +262,10 @@ const Navbar = (props: INav) => {
                 onOpenChange={setOpen}
               >
                 <div className="flex gap-2 items-center whitespace-nowrap cursor-pointer">
-                  <Avatar icon={<UserOutlined />} />
-                  <span>{userDetails.name}</span>
+                  <span className='w-auto'>
+                    <Avatar icon={<UserOutlined />} size={30} />
+                  </span>
+                  <span className='max-w-28 w-auto text-wrap'>{userDetails.name}</span>
                 </div>
               </Popover>
             )}
