@@ -31,7 +31,7 @@ const ResetForm = () => {
         } catch (error: any) {
             console.error(error);
             setVerifiedToken(false);
-            setLoadingSkeleton(true)
+            setLoadingSkeleton(false)
         }
     };
 
