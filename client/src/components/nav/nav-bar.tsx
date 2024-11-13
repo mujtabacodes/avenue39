@@ -19,12 +19,17 @@ import { useSelector } from 'react-redux';
 import { State } from '@/redux/store';
 import { useQuery } from '@tanstack/react-query';
 import { fetchProducts } from '@/config/fetch';
-import { useRouter } from 'next/navigation';
+;
 import { generateSlug } from '@/config';
 import RenderStars from '../ui/renderstars';
 import { Skeleton } from '../ui/skeleton';
-import { BiHeart } from 'react-icons/bi';
 import Wishlist from '../wishlist/wishlist';
+import Cookies from 'js-cookie';
+
+import { useRouter } from 'next/navigation';
+import { loggedInUserAction } from '@redux/slices/user/userSlice';
+import { useAppDispatch } from '@components/Others/HelperRedux';
+
 
 const Navbar = (props: INav) => {
   const [open, setOpen] = useState(false);
@@ -33,9 +38,10 @@ const Navbar = (props: INav) => {
   const Navigate = useRouter();
   const [isSticky, setIsSticky] = useState<boolean>(false);
   const drawerInputRef = useRef<HTMLInputElement>(null);
-  const userDetails = useSelector(
-    (state: State) => state.usrSlice.loggedInUser,
-  );
+  const userDetails = useSelector((state: State) => state.usrSlice.loggedInUser);
+  const dispatch = useAppDispatch()
+
+
 
   useEffect(() => {
     const handleScroll = () => {
@@ -66,14 +72,37 @@ const Navbar = (props: INav) => {
     Navigate.push(`/product/${generateSlug(name)}`);
   };
 
-  const filteredProducts = products.filter((product: IProduct) =>
-    product.name.toLowerCase().includes(searchText.toLowerCase()),
-  );
+  const filteredProducts = products.filter((product: IProduct) => {
+    const searchTerm = searchText.trim().toLowerCase();
+
+    return (
+      product.name.toLowerCase().includes(searchTerm) ||
+      product.description.toLowerCase().includes(searchTerm) ||
+      product.price.toString().includes(searchTerm) || 
+      product.discountPrice.toString().includes(searchTerm) ||
+      (product.colors && product.colors.some((color: string) => color.toLowerCase().includes(searchTerm))) || 
+      (product.spacification && product.spacification.some((spec) =>
+        Object.values(spec).some((value) =>
+          value.toString().toLowerCase().includes(searchTerm)
+        )
+      )) || 
+      product.additionalInformation.some((info) =>
+        Object.values(info).some((value) =>
+          value.toString().toLowerCase().includes(searchTerm)
+        )
+      ) || 
+      (product.categories && product.categories.some((category) =>
+        category.name.toLowerCase().includes(searchTerm) 
+      )) ||
+      (product.subcategories && product.subcategories.some((subcategory) =>
+        subcategory.name.toLowerCase().includes(searchTerm)
+      ))
+    );
+  });
+
 
   useEffect(() => {
-    // Focus the input inside the drawer when it opens
     if (isDrawerOpen && drawerInputRef.current) {
-      // Delay the focus slightly to ensure the drawer is fully open
       setTimeout(() => {
         drawerInputRef.current?.focus();
       }, 50);
@@ -84,6 +113,20 @@ const Navbar = (props: INav) => {
       }, 50);
     }
   }, [isDrawerOpen]);
+
+  const logoutHhandler = () => {
+    try {
+      Cookies.remove('user_token', { path: '/' });
+
+      dispatch(loggedInUserAction(null));
+
+      Navigate.push('/login');
+      setOpen(false)
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div className={`bg-white dark:text-black ${isSticky ? 'sticky top-0 z-50' : ''}`}>
       <Container className="flex items-center justify-between p-2 md:p-4 gap-4 dark:bg-white">
@@ -191,7 +234,7 @@ const Navbar = (props: INav) => {
                                       AED <span>{product.price}</span>
                                     </p>
                                   </> : <>
-                                  <p className="text-15 font-semibold">
+                                    <p className="text-15 font-semibold">
                                       AED <span>{product.price}</span>
                                     </p>
                                   </>
@@ -249,7 +292,7 @@ const Navbar = (props: INav) => {
                     <Link
                       className="text-black hover:text-primary"
                       href="/login"
-                      onClick={() => setOpen(false)}
+                      onClick={() => logoutHhandler()}
                     >
                       Logout
                     </Link>

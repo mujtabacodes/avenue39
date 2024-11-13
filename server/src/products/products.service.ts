@@ -40,12 +40,6 @@ export class ProductsService {
           status: HttpStatus.FORBIDDEN,
         };
       }
-      const spacification = productData.spacification.map(
-        //@ts-ignore
-        (spec) => spec.specsDetails,
-      );
-      //@ts-ignore
-      const colors = productData.colors.map((color) => color.colorName);
 
       await this.prisma.products.create({
         data: {
@@ -95,17 +89,15 @@ export class ProductsService {
         };
       }
 
-      const spacification =
-        productData.spacification?.map((spec:{specsDetails:string}) => spec.specsDetails,) ?? [];
 
+      const colors = productData.colors?.map((color: { colorName: string }) => color.colorName) ?? [];
 
-      const colors = productData.colors?.map((color:{colorName:string}) => color.colorName) ?? [];
-
-      await this.prisma.products.update({ where: { id: productData.id },
+      await this.prisma.products.update({
+        where: { id: productData.id },
         data: {
           name: productData.name ?? existingProduct.name,
-          
-  hoverImageAltText: productData.hoverImageAltText ?? existingProduct.hoverImageAltText,
+
+          hoverImageAltText: productData.hoverImageAltText ?? existingProduct.hoverImageAltText,
           Images_Alt_Text:
             productData.Images_Alt_Text ?? existingProduct.Images_Alt_Text,
           posterImageAltText:
@@ -139,7 +131,8 @@ export class ProductsService {
             existingProduct.additionalInformation ??
             [],
           colors: colors ?? existingProduct.colors ?? [],
-          spacification: spacification ?? existingProduct.spacification ?? [],
+          spacification: productData.spacification ?? existingProduct.spacification ?? [],
+          sections: productData.sections ?? existingProduct.sections ?? [],
           categories: {
             set: productData.categories?.map((id) => ({ id })) ?? [],
           },

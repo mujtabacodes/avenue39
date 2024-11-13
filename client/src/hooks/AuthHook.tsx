@@ -39,7 +39,7 @@ function UserprotectedRoute(WrappedComponent: any) {
     useEffect(() => {
       const token = Cookies.get('user_token');
 
-      console.log(token);
+      console.log(token, "token");
       AddminProfileTriggerHandler(token);
     }, [router]);
     console.log(loading, 'loading');

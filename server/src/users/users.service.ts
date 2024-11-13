@@ -87,6 +87,7 @@ export class UsersService {
     }
   }
 
+  
   async login(loginData: LoginDto, res) {
     const { email, password } = loginData;
     try {
@@ -131,6 +132,7 @@ export class UsersService {
       throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
+
 
   findAll() {
     return this.prisma.user.findMany({});

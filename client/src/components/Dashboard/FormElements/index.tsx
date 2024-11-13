@@ -845,14 +845,14 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                   <div className="rounded-sm border border-stroke bg-white  dark:bg-black">
                     <div className="border-b border-stroke py-4 px-6 dark:border-strokedark">
                       <h3 className="font-medium text-black dark:text-white">
-                        Policy information
+                        Policy Information
                       </h3>
                     </div>
                     <div className="flex flex-col py-4 px-6">
                     <FieldArray name="sections">
             {({ push: pushSection, remove: removeSection }) => (
               <>
-                {(formik.values.sections || []).map((section, sectionIndex) => (
+                {(formik.values.sections || []).map((section, sectionIndex) => ( 
                   <div key={sectionIndex} className="rounded-sm border border-stroke bg-white dark:bg-black mt-2">
                     <div className="border-b border-stroke py-4 px-6 dark:border-strokedark flex items-center">
                       <input
