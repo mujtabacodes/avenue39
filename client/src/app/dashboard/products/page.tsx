@@ -48,6 +48,12 @@ const Products = () => {
     hoverImageUrl: editProduct && editProduct.hoverImageUrl,
     hoverImageAltText: editProduct && editProduct.hoverImageAltText,
     imagesUrl: editProduct && editProduct.productImages,
+    sections: editProduct && editProduct?.sections.map((item:string) => {
+      return {
+        heading: item, 
+        additionalInformation: [{ name: '', detail: '' }] 
+      };
+    }),
     additionalInformation: editProduct && editProduct.additionalInformation,
     Images_Alt_Text:editProduct && editProduct?.Images_Alt_Text,
     Meta_Title:editProduct && editProduct?.Meta_Title,

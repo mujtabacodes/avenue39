@@ -50,8 +50,11 @@ const MenuBar = () => {
   };
 
   const handleCategoryMenuClick = (menu: string) => {
-    if (menu === 'homeOffice') {
+    if (menu === 'homeOffice' ) {
       route.push(`/products/home-office`);
+    }
+    else if(menu === 'NewArrivals'){
+      route.push(`/products/new-arrivals`);
     }
     else {
       route.push(`/products/${generateSlug(menu)}`);
@@ -92,7 +95,8 @@ const MenuBar = () => {
                   MEGA SALE
                 </button>
               ) : menu === 'NewArrivals' || menu === 'clearance' || menu === 'Accessories' ? (
-                <Link href={`/products/${generateSlug(menuData[menu][0]?.title || '')}`}
+                <Link
+                  href={`/products/${generateSlug(menuData[menu][0]?.title || '')}`}
                   key={menu}
                   className={`menu-item text-12 pb-2 lg:text-14 xl:text-17 font-semibold uppercase whitespace-nowrap text-black dark:text-black flex flex-row gap-2 items-center cursor-pointer link-underline`}
                 >
@@ -101,13 +105,12 @@ const MenuBar = () => {
               ) : (
                 <div
                   key={menu}
-                  className={`menu-item text-12 pb-2 lg:text-14 xl:text-17 font-semibold uppercase whitespace-nowrap text-black dark:text-black flex flex-row gap-2 items-center cursor-pointer ${activeMenu === menu ? 'linkactive' : 'link-underline'}`}
+                  className={`menu-item text-12 pb-2 lg:text-14 xl:text-17 font-semibold uppercase whitespace-nowrap text-black dark:text-black flex flex-row gap-2 items-center cursor-pointer ${pathname === menu ? 'linkactive' : 'link-underline'}`}
                   onMouseEnter={() => handleMouseEnter(menu)}
                   onMouseLeave={handleMouseLeave}
                   onClick={() => handleCategoryMenuClick(menu)}
                 >
-                  {menu.replace(/([A-Z])/g, ' $1').toUpperCase()}{' '}
-                  {/* <MdOutlineKeyboardArrowDown size={25} /> */}
+                  {menu.replace(/([A-Z])/g, ' $1').toUpperCase()}
                 </div>
               )
             )

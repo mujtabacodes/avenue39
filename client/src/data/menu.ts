@@ -52,7 +52,7 @@ export const menuData: MenuData = {
     { link: '/products', title: 'Table Lamps', icon: icon2 },
   ],
   Accessories: [{ link: '/products', title: 'Accessories', icon: icon3 }],
-  NewArrivals: [{ link: '/products', title: 'NewArrivals', icon: icon3 }],
+  NewArrivals: [{ link: '/products', title: 'new-arrivals', icon: icon3 }],
   clearance: [{ link: '/products', title: 'Clearance', icon: icon3 }],
   megaSale: [{ link: '/products', title: '', icon: icon3 }],
 };
