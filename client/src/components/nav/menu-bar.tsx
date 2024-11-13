@@ -91,7 +91,7 @@ const MenuBar = () => {
                 >
                   MEGA SALE
                 </button>
-              ) : menu === 'tvCabinets' || menu === 'clearance' ? (
+              ) : menu === 'NewArrivals' || menu === 'clearance' || menu === 'Accessories' ? (
                 <Link href={`/products/${generateSlug(menuData[menu][0]?.title || '')}`}
                   key={menu}
                   className={`menu-item text-12 pb-2 lg:text-14 xl:text-17 font-semibold uppercase whitespace-nowrap text-black dark:text-black flex flex-row gap-2 items-center cursor-pointer link-underline`}
