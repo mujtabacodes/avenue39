@@ -11,6 +11,7 @@ import { FaRegEye } from 'react-icons/fa';
 import { LiaEdit } from 'react-icons/lia';
 import { useAppSelector } from '@components/Others/HelperRedux';
 import { generateSlug } from '@/config';
+import { product } from '@/types/interfaces';
 
 interface Product {
   id: string;
@@ -58,9 +59,18 @@ const ViewProduct: React.FC<CategoryProps> = ({
   console.log(canDeleteProduct, 'canAddProduct');
 
   const filteredProducts: Product[] =
-    Categories?.filter((product: any) =>
-      product.name.toLowerCase().includes(searchTerm.toLowerCase()),
-    ) || [];
+  
+  Categories?.filter((product: any) =>
+    
+    product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    product.description.toLowerCase().includes(searchTerm.toLowerCase())
+  )
+  .sort((a: product, b: product) => {
+    const dateA = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+    const dateB = b.createdAt ? new Date(b.createdAt).getTime() : 0;
+    return dateB - dateA; 
+  }) || [];
+ 
 
   const confirmDelete = (key: any) => {
     Modal.confirm({

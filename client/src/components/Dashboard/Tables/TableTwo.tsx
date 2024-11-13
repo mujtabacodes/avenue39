@@ -42,9 +42,17 @@ const TableTwo = ({
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
   };
-  const filteredCategories: Category[] = category.filter((category) =>
-    category.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredCategories: Category[] = category
+  .filter((category) =>
+    category.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    category.description.toLowerCase().includes(searchTerm.toLowerCase()) 
+  )
+  .sort((a, b) => {
+    const dateA = a.createdAt ? new Date(a.createdAt).getTime() : 0; 
+    const dateB = b.createdAt ? new Date(b.createdAt).getTime() : 0; 
+    return dateB - dateA; 
+  }) || [];
+  console.log(filteredCategories, "Filter Cetagories")
 
   const { loggedInUser }: any = useAppSelector((state) => state.usersSlice);
 
