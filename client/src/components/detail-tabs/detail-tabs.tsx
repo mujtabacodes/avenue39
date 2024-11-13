@@ -2,7 +2,6 @@ import { useState, FC } from 'react';
 import Container from '../ui/Container';
 import { TiArrowSortedUp } from 'react-icons/ti';
 import SideCard from '@/components/side-card/side-card';
-import { productData, bestSellerProducts, features } from '@/data';
 import BestSellingSlider from '../card-slider/best-selling';
 
 interface Tab {
@@ -30,8 +29,7 @@ const DetailTabs: FC<DetailTabsProps> = ({ tabs }) => {
                   : 'text-slate-400'
               }`}
               onClick={() => setActiveTab(index)}
-            >
-              {tab.label}
+            >{tab.label}
               {activeTab === index && (
                 <TiArrowSortedUp
                   size={30}
