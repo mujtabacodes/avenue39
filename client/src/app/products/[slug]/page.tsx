@@ -2,7 +2,7 @@
 
 import ProductPage from "@/components/product-page/product";
 import { Fragment, useState } from "react";
-import banner7 from '@images/banners/banner7.png'
+import product from '../../../../public/images/product.jpg'
 import ProductBanner from "@/components/discount-banner/product-banner";
 
 
@@ -12,7 +12,7 @@ const SingleProduct = () => {
 
   return (
 
-      <ProductPage sideBanner={banner7} sideBannerProduct='ashton-dining-chair' productBanner={<ProductBanner />}  layout={layout} Setlayout={Setlayout} />
+      <ProductPage sideBanner={product} sideBannerProduct='ashton-dining-chair' productBanner={<ProductBanner />}  layout={layout} Setlayout={Setlayout} />
   );
   };
   
