@@ -2,79 +2,147 @@ import { Injectable } from '@nestjs/common';
 import { CreateSalesRecordDto } from './dto/create-sales_record.dto';
 import { PrismaService } from '../prisma/prisma.service';
 import { customHttpException } from '../utils/helper';
+import { generateUniqueString } from '../utils/func';
+
+
 
 
 @Injectable()
 export class SalesRecordService {
   constructor(private prisma: PrismaService) { }
 
+
   async Add_sales_record(data: CreateSalesRecordDto) {
     try {
-      console.log(data, "data");
+const {amount,shippment_Fee:shipmentFee,orderedProductDetails:updatedProducts,user_email, ...extractedData } = data
 
-      const transaction = await this.prisma.$transaction(async (prisma) => {
-        for (const product of data.products) {
-          const existingProduct = await prisma.products.findUnique({
-            where: { id: product.id },
-          });
+      let orderId = generateUniqueString()
 
-          if (!existingProduct) {
-            throw new Error(`Product with ID ${product.id} not found`);
-          }
+    var myHeaders:Headers = new Headers();
+    myHeaders.append("Authorization", `Token ${process.env.PAYMOB_SECRET_KEY}`);
+    myHeaders.append("Content-Type", "application/json");
+    const staticProduct = {
+      name: 'Shipping Fee',
+      amount: shipmentFee === 'Free' || shipmentFee === 'undefine' ? 0 : Number(shipmentFee) * 100,
+    };
+    
+    console.log(amount, "amount")
 
-          if (existingProduct.stock < product.quantity) {
-            throw new Error(
-              `Not enough stock for product with ID ${product.id}. Available stock: ${existingProduct.stock}`
-            );
-          }
-
-          await prisma.products.update({
-            where: { id: product.id },
-            data: {
-              stock: existingProduct.stock - product.quantity,
-            },
-          });
-        }
-
-        const existingSalesRecord = await prisma.sales_record.findUnique({
-          where: { user_email: data.user_email },
-          include: { products: true },
-        });
-
-        let newSalesRecord;
-
-        if (existingSalesRecord) {
-          newSalesRecord = await prisma.sales_record.update({
-            where: { user_email: data.user_email },
-            data: {
-              products: {
-                create: data.products.map((product) => ({
-                  quantity: product.quantity,
-                  productData: product,
-                })),
-              },
-            },
-            include: { products: true },
-          });
-        } else {
-          newSalesRecord = await prisma.sales_record.create({
-            data: {
-              user_email: data.user_email,
-              products: {
-                create: data.products.map((product) => ({
-                  quantity: product.quantity,
-                  productData: product,
-                })),
-              },
-            },
-            include: { products: true },
-          });
-        }
-
-        return newSalesRecord;
+      let raw = JSON.stringify({
+        "amount": amount * 100,
+        "currency": process.env.PAYMOD_CURRENCY,
+        "payment_methods": [
+          158,
+          49727,
+          52742,
+          52741,
+          52992,
+          53201
+        ],
+        "items": updatedProducts,
+        "billing_data": {...extractedData, email: user_email, amount: amount * 100},
+        "special_reference": orderId,
+        "redirection_url": "https://avenue39.vercel.app/thanks"
       });
 
-      return transaction;
+    console.log(raw, "raw")
+      let requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow' as RequestRedirect
+      };
+  
+  
+      fetch("https://uae.paymob.com/v1/intention/", requestOptions)
+        .then(async(response) => {
+          if (!response.ok) {
+            const errorData = await response.json();
+
+            console.log(errorData, "errorData")
+            throw new Error('Network response was not ok ' + response.statusText);
+          }
+          let result = await response.json
+          return result;
+        })
+        .then(async(result) => {
+          console.log(result, "result")
+          const transaction = await this.prisma.$transaction(async (prisma) => {
+            for (const product of data.products) {
+              const existingProduct = await prisma.products.findUnique({
+                where: { id: product.id },
+              });
+    
+              if (!existingProduct) {
+                throw new Error(`Product with ID ${product.id} not found`);
+              }
+    
+              if (existingProduct.stock < product.quantity) {
+                throw new Error(
+                  `Not enough stock for product with ID ${product.id}. Available stock: ${existingProduct.stock}`
+                );
+              }
+    
+              await prisma.products.update({
+                where: { id: product.id },
+                data: {
+                  stock: existingProduct.stock - product.quantity,
+                },
+              });
+            }
+    
+            const existingSalesRecord = await prisma.sales_record.findUnique({
+              where: { user_email: data.user_email },
+              include: { products: true },
+            });
+    
+            let newSalesRecord;
+    
+            if (existingSalesRecord) {
+              newSalesRecord = await prisma.sales_record.update({
+                where: { user_email: data.user_email },
+                data: {
+                  products: {
+                    create: data.products.map((product) => ({
+                      quantity: product.quantity,
+                      productData: product,
+                      orderId: orderId
+                    })),
+                  },
+                },
+                include: { products: true },
+              });
+            } else {
+              newSalesRecord = await prisma.sales_record.create({
+                data: {
+                  user_email: data.user_email,
+                  products: {
+                    create: data.products.map((product) => ({
+                      quantity: product.quantity,
+                      productData: product,
+                      orderId: orderId
+                    })),
+                  },
+                },
+                include: { products: true },
+              });
+            }
+    
+            return newSalesRecord;
+          });
+          return ({ message: 'Order has been created successfully', transaction });
+        })
+        .catch(error => {
+          console.log('error', error);
+          return ({ message: 'Error creating order', error: error.message });
+        });
+
+
+
+
+  
+
+
     } catch (error: unknown) {
       if (error instanceof Error) {
         customHttpException(error.message, "INTERNAL_SERVER_ERROR");

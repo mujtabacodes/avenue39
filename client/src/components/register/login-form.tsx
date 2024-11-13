@@ -68,6 +68,7 @@ export function LoginForm() {
         dispatch(loggedInUserAction(res.data.user));
         Cookies.set('user_token', res.data.token, {
           expires: 24 * 60 * 60 * 1000,
+          path: '/' 
         });
         Navigate.push('/');
       }

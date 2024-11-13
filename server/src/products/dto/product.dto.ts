@@ -106,6 +106,12 @@ export class AddProductDto {
   @ArrayNotEmpty()
   @IsInt({ each: true })
   subcategories: number[];
+
+  @IsOptional()
+  @IsArray()
+  sections: { heading: string; additionalInformation: {name?:string, detail: string}[] }[];
+
+
 }
 
 export class UpdateProductDto extends AddProductDto {
