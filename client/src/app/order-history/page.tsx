@@ -5,27 +5,35 @@ import { Button } from '@/components/ui/button';
 import Container from '@/components/ui/Container';
 import { Orderbreadcrumbs } from '@/data/data';
 import Cookies from 'js-cookie';
+import {useSelector } from 'react-redux';
+
 
 import {
   historycolumns,
   historydata,
-  ordercolumns,
   Orderdata,
 } from '@/data/table';
 import { useRouter } from 'next/navigation';
 import React, { useEffect } from 'react';
 import { FaRegUser } from 'react-icons/fa6';
+import { State } from '@/redux/store';
+
 
 const OrderHistory = () => {
   const router = useRouter();
+  const { loggedInUser } = useSelector((state: State) => state.usrSlice)
+
 
   useEffect(() => {
     const token = Cookies.get('user_token');
-    console.log(token, "user token")
     if (!token) {
       router.push('/login');
     }
   }, [router]);
+
+console.log(loggedInUser, "loggedInUser")
+
+
   return (
     <>
       <TopHero breadcrumbs={Orderbreadcrumbs} />

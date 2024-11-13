@@ -55,7 +55,7 @@ export const timerSliderData: TimerSliderItem[] = [
     productId: 23234,
     discountText: 'UPTO 50% OFF',
     dealText: 'Deal of the Day',
-    price: '$99.99',
+    price: 'AED 2400',
     productName: 'Trent Luxury Armchair',
     // bannerHeading: 'Amazing Offer Just for You!',
     buttonText: 'ADD TO CART',
@@ -67,7 +67,7 @@ export const timerSliderData: TimerSliderItem[] = [
 
     discountText: 'UPTO 50% OFF',
     dealText: 'Limited Time Offer',
-    price: '$79.99',
+    price: 'AED 2400',
     productName: 'Trent Luxury Armchair',
     // bannerHeading: 'Don’t Miss Out!',
     buttonText: 'ADD TO CART',

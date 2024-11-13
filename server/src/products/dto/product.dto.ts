@@ -8,6 +8,9 @@ import {
   IsInt,
   ArrayNotEmpty,
 } from 'class-validator';
+
+
+
 export class AddProductDto {
   @IsNotEmpty()
   @IsString()
@@ -36,6 +39,7 @@ export class AddProductDto {
   @IsOptional()
   @IsString()
   Meta_Title: string;
+
   @IsOptional()
   @IsString()
   Meta_Description: string;
@@ -102,6 +106,12 @@ export class AddProductDto {
   @ArrayNotEmpty()
   @IsInt({ each: true })
   subcategories: number[];
+
+  @IsOptional()
+  @IsArray()
+  sections: { heading: string; additionalInformation: {name?:string, detail: string}[] }[];
+
+
 }
 
 export class UpdateProductDto extends AddProductDto {

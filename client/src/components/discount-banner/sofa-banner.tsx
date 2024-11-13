@@ -3,18 +3,13 @@ import Image from 'next/image';
 import sofa1 from '@assets/images/banners/ddddd.png';
 import banner2 from '@assets/images/banners/banner2.png';
 import banner3 from '@assets/images/banners/banner3.png';
-import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
 import { Skeleton } from '@/components/ui/skeleton'; // Adjust the path as necessary
 
 const SofaBanner: React.FC = () => {
-  const router = useRouter();
   const [loading, setLoading] = useState(false);
 
-  const handleBuyNowClick = () => {
-    router.push('/checkout');
-  };
 
   return (
     <section className="grid grid-cols-1 lg:grid-cols-2 mt-2 gap-4 relative px-2 md:px-0">
@@ -82,7 +77,7 @@ const SofaBanner: React.FC = () => {
                 </h3>
                 <div className="lg:pt-3">
                   <Link
-                    href="/product/5"
+                    href="/product/white-minimalist-combo-sofa"
                     className="bg-white py-2 px-6 rounded-full text-black hover:bg-black hover:text-white"
                   >
                     Buy Now

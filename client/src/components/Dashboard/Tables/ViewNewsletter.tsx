@@ -5,6 +5,8 @@ import { Table, notification, Modal } from 'antd';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import axios from 'axios';
 import Loader from '@components/Loader/Loader';
+import { Button } from '@/components/ui/button';
+import showToast from '@/components/Toaster/Toaster';
 
 interface Product {
   id: string;
@@ -24,16 +26,19 @@ const ViewNewsletter: React.FC<CategoryProps> = ({
   setselecteMenu,
   loading,
 }) => {
-  const [searchTerm, setSearchTerm] = useState<string>(''); 
+  const [searchTerm, setSearchTerm] = useState<string>('');
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
+  const [sendingLoading, setSendingLoading] = useState<boolean>(false);
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
   };
 
   const filteredProducts: Product[] =
-    Categories?.filter((product) =>
-      product.email && product.email.toLowerCase().includes(searchTerm.toLowerCase())
+    Categories?.filter(
+      (product) =>
+        product.email &&
+        product.email.toLowerCase().includes(searchTerm.toLowerCase()),
     ) || [];
 
   const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
@@ -42,9 +47,9 @@ const ViewNewsletter: React.FC<CategoryProps> = ({
 
   const handleDelete = async (key: string) => {
     try {
-      await axios.delete(`${process.env.NEXT_PUBLIC_BASE_URL}/api/product/delete-product`, {
-        headers: { productId: key },
-      });
+      await axios.delete(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/newsletters/del-user/${key}`,
+      );
       setCategory((prev) => prev.filter((item) => item.id !== key));
       notification.success({
         message: 'Email Deleted',
@@ -88,42 +93,62 @@ const ViewNewsletter: React.FC<CategoryProps> = ({
       ),
     },
   ];
+  const handleBroadcastMail = async () => {
+    setSendingLoading(true);
+    setselecteMenu('Broadcast Email');
+    const selectedEmails = Categories.filter((category) =>
+      selectedRowKeys.includes(category.id),
+    ).map((category) => category.email);
+
+    console.log(selectedEmails);
+
+    try {
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/newsletters/send-promotional-email`,
+        {
+          emails: selectedEmails,
+        },
+      );
+      console.log(res);
+      if (res.status === 201) {
+        setSelectedRowKeys([]);
+        showToast('success', res.data.message + '🎉');
+        setSendingLoading(false);
+      }
+    } catch (error) {
+      setSendingLoading(false);
+      console.log(error);
+    }
+  };
 
   return (
     <div>
-      {loading ? (
-        <div className="flex justify-center mt-10">
-          <Loader />
-        </div>
-      ) : (
-        <>
-          <div className="flex justify-between gap-2 mb-4 items-center">
-            <input
-              type="search"
-              placeholder="Search Email"
-              value={searchTerm}
-              onChange={handleSearchChange}
-              className="p-2 border rounded-md"
-            />
-            <button
-              onClick={() => setselecteMenu('Broadcast Email')}
-              className="bg-primary text-white px-4 py-2 rounded-md"
-            >
-              Broadcast Email
-            </button>
-          </div>
-          <Table
-            rowKey="id"
-            rowSelection={{
-              selectedRowKeys,
-              onChange: onSelectChange,
-            }}
-            dataSource={filteredProducts}
-            columns={columns}
-            pagination={false}
-          />
-        </>
-      )}
+      <div className="flex justify-between gap-2 mb-4 items-center">
+        <input
+          type="search"
+          placeholder="Search Email"
+          value={searchTerm}
+          onChange={handleSearchChange}
+          className="p-2 border rounded-md"
+        />
+        <Button
+          onClick={handleBroadcastMail}
+          className="bg-primary text-white px-4 py-2 rounded-md"
+          disabled={selectedRowKeys.length === 0 || sendingLoading}
+        >
+          {!sendingLoading ? 'Broadcast Email' : 'Sending'}
+        </Button>
+      </div>
+      <Table
+        rowKey="id"
+        rowSelection={{
+          selectedRowKeys,
+          onChange: onSelectChange,
+        }}
+        dataSource={filteredProducts}
+        columns={columns}
+        pagination={false}
+      />
     </div>
   );
 };

@@ -32,6 +32,7 @@ interface CardProps {
   skeletonHeight?: string;
   isLoading?: boolean;
   category?: boolean;
+  cardImageHeight?: string;
 }
 
 const Card: React.FC<CardProps> = ({
@@ -41,6 +42,7 @@ const Card: React.FC<CardProps> = ({
   skeletonHeight,
   isLoading,
   category,
+  cardImageHeight,
 }) => {
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch<Dispatch>();
@@ -132,9 +134,9 @@ const Card: React.FC<CardProps> = ({
     return <CardSkeleton skeletonHeight={skeletonHeight} />;
   }
 
-  if (category) {
-    console.log(card);
-  }
+  // if (category) {
+  //   console.log(card);
+  // }
   return (
     <div
       className="rounded-3xl text-center relative product-card mx-4 group hover:cursor-pointer mb-2"
@@ -163,6 +165,7 @@ const Card: React.FC<CardProps> = ({
                 'object-cover rounded-3xl',
                 className,
                 skeletonHeight,
+                cardImageHeight
               )}
             />
           </>

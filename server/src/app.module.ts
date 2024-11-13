@@ -12,9 +12,16 @@ import { SubcategoriesModule } from './subcategories/subcategories.module';
 import { PaymobModule } from './paymob/paymob.module';
 import { SketchfabModule } from './sketchfab/sketchfab.module';
 import { PaytabsModule } from './paytabs/paytabs.module';
+import { NewslettersModule } from './newsletters/newsletters.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import * as path from 'path';
 
 @Module({
   imports: [
+    ServeStaticModule.forRoot({
+      rootPath: path.join(__dirname, '..', 'src', 'newsletters', 'templates'),
+      serveRoot: '/templates',
+    }),
     UsersModule,
     PrismaModule,
     ProductsModule,
@@ -26,6 +33,7 @@ import { PaytabsModule } from './paytabs/paytabs.module';
     PaymobModule,
     SketchfabModule,
     PaytabsModule,
+    NewslettersModule,
   ],
   controllers: [AppController],
   providers: [AppService],

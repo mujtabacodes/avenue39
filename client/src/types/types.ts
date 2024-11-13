@@ -78,6 +78,7 @@ export interface IServiceItem {
   title: string;
 }
 export interface MenuItem {
+  categoryId?: number;
   title: string;
   icon: any;
   link: string;
@@ -119,7 +120,7 @@ export interface IProduct {
   discountPrice: number;
   sale?: string;
   colors?: [];
-  spacification?: [];
+  spacification?: specsDetails[];
   posterImageUrl: string | StaticImageData;
   posterImagePublicId: string;
   hoverImageUrl: string;
@@ -129,6 +130,10 @@ export interface IProduct {
   categoriesId: number;
   categories?: ICategory[];
   subcategories?: ICategory[];
+}
+export interface specsDetails {
+  id: number;
+  specsDetails: string;
 }
 export interface IProductAdd {
   name: string;
@@ -141,11 +146,16 @@ export interface IProductAdd {
   hoverImageUrl: string;
   hoverImagePublicId: string;
   productImages: ProductImage[];
-  spacification: string[];
+  spacification: Array<{ specsDetails: string; _id: string }>;
   colors?: string[];
   additionalInformation: AdditionalInformation[];
   categories: number[];
   subcategories: number[];
+  Meta_Title:string;
+  Canonical_Tag:string;
+  Meta_Description:string;
+  Images_Alt_Text:string;
+  
 }
 export interface ITestimonialCard {
   id: number;
@@ -318,4 +328,10 @@ export interface AdditionalInformation {
   value?: string;
   colors?: string[];
   dimension?: string[];
+}
+
+export interface IProductCategories {
+  id: string;
+  name: string;
+  subcategories?: ICategory[];
 }

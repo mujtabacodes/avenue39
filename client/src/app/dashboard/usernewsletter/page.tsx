@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import DefaultLayout from '@components/Dashboard/Layouts/DefaultLayout';
 import Breadcrumb from '@components/Dashboard/Breadcrumbs/Breadcrumb';
 import ProtectedRoute from '@/hooks/AuthHookAdmin';
+import axios from 'axios';
 
 const UserNewsletter = () => {
   const [products, setProducts] = useState<any[]>([]);
@@ -15,9 +16,10 @@ const UserNewsletter = () => {
     const productHandler = async () => {
       try {
         setProductloading(true);
-        const response = await fetch('https://jsonplaceholder.typicode.com/comments');
-        const allProducts = await response.json();
-        setProducts(allProducts);
+        const response = await axios.get(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/newsletters/get-all`,
+        );
+        setProducts(response.data);
         setProductloading(false);
       } catch (err) {
         console.log('Error Occurred', err);
