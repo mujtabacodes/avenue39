@@ -2,20 +2,13 @@
 import TopHero from '@/components/top-hero';
 import { profilebreadcrumbs } from '@/data/data';
 import Link from 'next/link';
-import React, { useLayoutEffect, useState, Fragment, useEffect } from 'react';
-// import { useAppSelector } from "@components/Others/HelperRedux";
-// import { IMAGE_INTERFACE } from '@types/types'
-import axios, { Axios } from 'axios';
+import React, {useState, Fragment, useEffect } from 'react';
+import axios from 'axios';
 import Cookies from 'js-cookie';
-
-// import { loggedInUserAction } from '../../redux/slices/userSlice';
-// import { useAppDispatch } from "components/Others/HelperRedux";
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import Container from '@/components/ui/Container';
 import { Button } from '@/components/ui/button';
-import dummyProfile from '@images/profile/Ellipse 6.png';
-import { useAppSelector } from '@/Others/HelperRedux';
 import { useDispatch, useSelector } from 'react-redux';
 import { State } from '@/redux/store';
 import showToast from '@/components/Toaster/Toaster';
@@ -25,10 +18,8 @@ import {
 } from '@/utils/helperFunctions';
 
 export default function Profile() {
-  // const { loggedInUser }: any = useAppSelector((state: any) => state.userSlice);
   console.log('I am on profile page');
-  const { loggedInUser } = useSelector((state: State) => state.usrSlice);
-  const dispatch = useDispatch();
+  const { loggedInUser } = useSelector((state: State) => state.usrSlice)
   console.log(loggedInUser);
 
   const router = useRouter();
@@ -49,9 +40,6 @@ export default function Profile() {
     }
   }, [router]);
 
-  // const initialValue = {
-  //   name: loggedInUser ? `${loggedInUser.email}` : "",
-  // };
 
   const handlePhotoChange = async (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -129,11 +117,6 @@ export default function Profile() {
   };
 
   const handleSubmit = async (event: any) => {
-    event.preventDefault();
-    console.log('Form details');
-    console.log('Form details 11');
-    console.log(profilePhoto);
-    console.log('Form details 1');
 
     let { fullName, ...userDetails }: any = {
       id: loggedInUser.id,
@@ -152,8 +135,7 @@ export default function Profile() {
 
       console.log(userDetails);
     }
-    console.log('Final UserDetails');
-    console.log(userDetails);
+
     try {
       const res = await axios.post(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/edit-user`,
@@ -175,19 +157,16 @@ export default function Profile() {
 
   const logoutHhandler = () => {
     try {
-      Cookies.remove('user_token');
+      console.log("function called")
+      Cookies.remove('user_token', { path: '/' });
+    alert('token removed, "removed')
 
-      router.push('/login');
+      // router.push('/login');
     } catch (err) {
       console.log(err);
     }
   };
 
-  // useLayoutEffect(() => {
-  //   if (loggedInUser && loggedInUser.ProfilePhoto) {
-  //     Object.keys(loggedInUser.ProfilePhoto).length > 0 ? setProfilePhoto([loggedInUser.ProfilePhoto]) : null
-  //   }
-  // }, [loggedInUser]);
   const handleDelete = () => {
     ImageRemoveHandler(loggedInUser.userImagePublicId, profilePhoto);
     setProfilePhoto([]);
@@ -216,7 +195,7 @@ export default function Profile() {
               </Link>
               <p
                 className="border border-gray p-2 max-w-full rounded-md hover:bg-primary hover:text-white md:text-lg font-medium md:font-semibold shadow cursor-pointer"
-                onClick={logoutHhandler}
+                onClick={()=>logoutHhandler()}
               >
                 Log Out
               </p>
