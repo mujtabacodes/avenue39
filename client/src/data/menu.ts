@@ -51,7 +51,8 @@ export const menuData: MenuData = {
     {categoryId: 9 , link: '/products', title: 'Floor Lamps', icon: icon2 },
     {categoryId: 9 , link: '/products', title: 'Table Lamps', icon: icon2 },
   ],
-  tvCabinets: [{categoryId: 10 , link: '/products', title: 'Accessories', icon: icon3 }],
-  clearance: [{categoryId: 11 , link: '/products', title: 'Clearance', icon: icon3 }],
+  Accessories: [{ link: '/products', title: 'Accessories', icon: icon3 }],
+  NewArrivals: [{ link: '/products', title: 'new-arrivals', icon: icon3 }],
+  clearance: [{ link: '/products', title: 'Clearance', icon: icon3 }],
   megaSale: [{ link: '/products', title: '', icon: icon3 }],
 };

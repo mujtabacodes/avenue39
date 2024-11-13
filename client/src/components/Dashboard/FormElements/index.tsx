@@ -121,7 +121,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
   }, []);
   const onSubmit = async (values: any, { resetForm }: any) => {
 
-
+// console.log(values, "values")
     values.categories = selectedCategoryIds;
     values.subcategories = selectedSubcategoryIds;
 
@@ -842,7 +842,102 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                       </>
                     )} */}
                   </div>
+                  <div className="rounded-sm border border-stroke bg-white  dark:bg-black">
+                    <div className="border-b border-stroke py-4 px-6 dark:border-strokedark">
+                      <h3 className="font-medium text-black dark:text-white">
+                        Policy Information
+                      </h3>
+                    </div>
+                    <div className="flex flex-col py-4 px-6">
+                    <FieldArray name="sections">
+            {({ push: pushSection, remove: removeSection }) => (
+              <>
+                {(formik.values.sections || []).map((section, sectionIndex) => ( 
+                  <div key={sectionIndex} className="rounded-sm border border-stroke bg-white dark:bg-black mt-2">
+                    <div className="border-b border-stroke py-4 px-6 dark:border-strokedark flex items-center">
+                      <input
+                        type="text"
+                        name={`sections[${sectionIndex}].heading`}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        value={section.heading || ''}
+                        placeholder="Section Heading"
+                        className="font-medium text-black dark:text-white w-full bg-transparent px-5 py-3 rounded-lg border-[1.5px] border-stroke dark:border-form-strokedark dark:bg-form-input"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => removeSection(sectionIndex)}
+                        className="ml-4 text-red-500"
+                      >
+                        <RxCross2 className="text-red-500 dark:text-white" size={25} />
+                      </button>
+                    </div>
+                    <div className="flex flex-col py-4 px-6">
+                      <FieldArray name={`sections[${sectionIndex}].additionalInformation`}>
+                        {({ push: pushInfo, remove: removeInfo }) => (
+                          <div className="flex flex-col gap-2">
+                            {(section.additionalInformation || []).map((model, modelIndex) => (
+                              <div key={modelIndex} className="flex items-center">
+                                <input
+                                  type="text"
+                                  name={`sections[${sectionIndex}].additionalInformation[${modelIndex}].name`}
+                                  onChange={formik.handleChange}
+                                  onBlur={formik.handleBlur}
+                                  value={model.name || ''}
+                                  placeholder="Model Name"
+                                  className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white"
+                                />
 
+                                <input
+                                  type="text"
+                                  name={`sections[${sectionIndex}].additionalInformation[${modelIndex}].detail`}
+                                  onChange={formik.handleChange}
+                                  onBlur={formik.handleBlur}
+                                  value={model.detail || ''}
+                                  placeholder="Model Detail"
+                                  className="w-full rounded-lg ml-2 border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white"
+                                />
+
+                                <button
+                                  type="button"
+                                  onClick={() => removeInfo(modelIndex)}
+                                  className="ml-2 text-red-500"
+                                >
+                                  <RxCross2 className="text-red-500 dark:text-white" size={25} />
+                                </button>
+                              </div>
+                            ))}
+
+                            {/* Button to add a new model within the current section */}
+                            <button
+                              type="button"
+                              onClick={() => pushInfo({name:'',detail: '' })}
+                              className="px-4 py-2 bg-black text-white dark:bg-main rounded-md shadow-md w-fit"
+                            >
+                              Add Model
+                            </button>
+                          </div>
+                        )}
+                      </FieldArray>
+                    </div>
+                  </div>
+                ))}
+
+                {/* Button to add a new section */}
+                <button
+                  type="button"
+                  onClick={() => pushSection({ heading: '', additionalInformation: [] })}
+                  className="px-4 py-2 bg-black text-white rounded-md shadow-md w-fit mt-4"
+                >
+                  Add Section
+                </button>
+              </>
+            )}
+          </FieldArray>
+                    </div>
+                  </div>
+
+                  
                   <div className="rounded-sm border border-stroke bg-white  dark:bg-black">
                     <div className="border-b border-stroke py-4 px-6 dark:border-strokedark">
                       <h3 className="font-medium text-black dark:text-white">

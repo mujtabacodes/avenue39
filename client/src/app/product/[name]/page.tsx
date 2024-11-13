@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { products } from '@/data/products';
 import Image from 'next/image';
 import { MdStar, MdStarBorder } from 'react-icons/md';
@@ -50,16 +50,44 @@ const ProductPage = ({ params }: { params: IProductDetail }) => {
     queryKey: ['products'],
     queryFn: fetchProducts,
   });
-  const product = products.find(
-    (product) => generateSlug(product.name) === slug,
+  const additional_columns_handler = () => {
+    const section = product?.sections;
+    if (section && section.length > 0) {
+      const dynamicTabs = section.map((sec:any, index) => ({
+        label: sec.heading,
+        content: (
+          <div className="space-y-2">
+            {sec.additionalInformation?.map((item:any, idx:number) => (
+              <div key={idx} className="space-y-2">
+                <p className="text-black text-17 font-normal leading-7">{item.name}</p>
+                <p className="text-slate-400 text-17 font-normal leading-7">{item.detail}</p>
+              </div>
+            ))}
+          </div>
+        ),
+      }));
+      // Only set tabs if they don’t already include the new dynamic tabs
+      setTabs((prevTabs) => [...prevTabs, ...dynamicTabs].filter(
+        (tab, index, self) =>
+          index === self.findIndex((t) => t.label === tab.label)
+      ));
+    }
+  };
+
+
+  const product = products.find((product) => {
+
+return generateSlug(product.name) === slug
+  
+
+}
+  
   );
 
-  console.log('Products are here');
-  console.log(product);
+  console.log(product,"productproduct");
 
   const [sortOption, setSortOption] = useState<string>('default');
   const [visibleCount, setVisibleCount] = useState(3);
-
   const loadMoreReviews = () => {
     setVisibleCount((prevCount) => prevCount + 3);
   };
@@ -135,20 +163,20 @@ const ProductPage = ({ params }: { params: IProductDetail }) => {
     },
   ];
 
-  console.log(product);
+  console.log(product, "product");
   console.log(dataSource);
-  const tabs = [
+  const [tabs, setTabs] = useState<any[]>([
     {
       label: 'Description',
       content: (
         <div className="p-2 flex flex-col md:flex-row gap-6 md:gap-10">
           <div className="w-full md:w-3/5">
             <p className="text-slate-400 text-17 font-normal leading-7">
-              <Skeleton className="textz-slate-400 text-17 font-normal leading-7" />
+              <Skeleton className="text-slate-400 text-17 font-normal leading-7" />
               {product?.description ? (
                 product.description
               ) : (
-                <Skeleton className="textz-slate-400 text-17 font-normal leading-7" />
+                <Skeleton className="text-slate-400 text-17 font-normal leading-7" />
               )}
             </p>
           </div>
@@ -281,23 +309,38 @@ const ProductPage = ({ params }: { params: IProductDetail }) => {
     {
       label: 'Additional Information',
       content: (
-        <Table
+        <>
+        {
+         dataSource && dataSource.length > 0 ?
+          <Table
           columns={columns}
           dataSource={dataSource}
           pagination={false}
           bordered
           rowKey="name"
           className="detail"
-        />
+          />
+          : null 
+        }
+       
+          </>
       ),
     },
-  ];
+  
+  ])
 
   const cartpageBreadcrumbs = [
     { label: 'Home', href: '/' },
     { label: 'Product', href: '/products' },
     { label: product?.name ?? 'Product Page' },
   ];
+ 
+
+useEffect(()=>{
+  additional_columns_handler()
+},[product])
+
+
 
   return (
     <div>
@@ -325,7 +368,7 @@ const ProductPage = ({ params }: { params: IProductDetail }) => {
         )}
       </Container>
       {product && (
-        <div>
+        <div className=''>
           <DetailTabs tabs={tabs} />
         </div>
       )}
