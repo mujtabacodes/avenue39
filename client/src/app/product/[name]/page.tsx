@@ -59,8 +59,8 @@ const ProductPage = ({ params }: { params: IProductDetail }) => {
           <div className="space-y-2">
             {sec.additionalInformation?.map((item:any, idx:number) => (
               <div key={idx} className="space-y-2">
-                <p className="font-semibold text-16">{item.name}</p>
-                <p className="">{item.detail}</p>
+                <p className="text-black text-17 font-normal leading-7">{item.name}</p>
+                <p className="text-slate-400 text-17 font-normal leading-7">{item.detail}</p>
               </div>
             ))}
           </div>
@@ -172,11 +172,11 @@ return generateSlug(product.name) === slug
         <div className="p-2 flex flex-col md:flex-row gap-6 md:gap-10">
           <div className="w-full md:w-3/5">
             <p className="text-slate-400 text-17 font-normal leading-7">
-              <Skeleton className="textz-slate-400 text-17 font-normal leading-7" />
+              <Skeleton className="text-slate-400 text-17 font-normal leading-7" />
               {product?.description ? (
                 product.description
               ) : (
-                <Skeleton className="textz-slate-400 text-17 font-normal leading-7" />
+                <Skeleton className="text-slate-400 text-17 font-normal leading-7" />
               )}
             </p>
           </div>
@@ -368,7 +368,7 @@ useEffect(()=>{
         )}
       </Container>
       {product && (
-        <div>
+        <div className=''>
           <DetailTabs tabs={tabs} />
         </div>
       )}
