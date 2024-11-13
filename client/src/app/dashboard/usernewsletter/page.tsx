@@ -30,15 +30,14 @@ const UserNewsletter = () => {
     productHandler();
   }, [selecteMenu]);
 
-  // Flag to toggle page name for breadcrumbs
-  let productFlag: boolean = selecteMenu === 'Add All Products' ? true : false;
+  let productFlag: boolean = selecteMenu === 'Add All Products';
 
   return (
     <DefaultLayout>
       <Breadcrumb pageName={productFlag ? 'Newsletter' : 'BroadCast Email'} />
       <ViewNewsletter
-        Categories={products} // Pass the product data to ViewNewsletter
-        setCategory={setProducts} // Pass the setter function to update products
+        Categories={products} 
+        setCategory={setProducts} 
         setselecteMenu={setselecteMenu}
         loading={productloading}
       />
