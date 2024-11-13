@@ -134,9 +134,9 @@ const Card: React.FC<CardProps> = ({
     return <CardSkeleton skeletonHeight={skeletonHeight} />;
   }
 
-  if (category) {
-    console.log(card);
-  }
+  // if (category) {
+  //   console.log(card);
+  // }
   return (
     <div
       className="rounded-3xl text-center relative product-card mx-4 group hover:cursor-pointer mb-2"
