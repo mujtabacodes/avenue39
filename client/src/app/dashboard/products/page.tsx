@@ -39,7 +39,7 @@ const Products = () => {
     name: editProduct?.name,
     description: editProduct?.description,
     price: editProduct?.price,
-    spacification: editProduct && editProduct?.spacification.map((item:string)=>{ return ({specsDetails: item})}),
+    spacification: editProduct && editProduct?.spacification,
     discountPrice: editProduct?.discountPrice,
     category: editProduct && editProduct?.category,
     stock: editProduct && editProduct.stock,
@@ -48,12 +48,7 @@ const Products = () => {
     hoverImageUrl: editProduct && editProduct.hoverImageUrl,
     hoverImageAltText: editProduct && editProduct.hoverImageAltText,
     imagesUrl: editProduct && editProduct.productImages,
-    sections: editProduct && editProduct?.sections.map((item:string) => {
-      return {
-        heading: item, 
-        additionalInformation: [{ name: '', detail: '' }] 
-      };
-    }),
+    sections: editProduct && editProduct?.sections,
     additionalInformation: editProduct && editProduct.additionalInformation,
     Images_Alt_Text:editProduct && editProduct?.Images_Alt_Text,
     Meta_Title:editProduct && editProduct?.Meta_Title,

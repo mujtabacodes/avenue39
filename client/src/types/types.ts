@@ -129,6 +129,7 @@ export interface IProduct {
   categoriesId: number;
   categories?: ICategory[];
   subcategories?: ICategory[];
+  sections?:[]
 }
 export interface specsDetails {
   id: number;

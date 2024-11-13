@@ -121,67 +121,67 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
   }, []);
   const onSubmit = async (values: any, { resetForm }: any) => {
 
-console.log(values, "values")
+// console.log(values, "values")
     values.categories = selectedCategoryIds;
     values.subcategories = selectedSubcategoryIds;
 
-    // try {
-    //   setError(null);
-    //   let posterImageUrl = posterimageUrl && posterimageUrl[0];
-    //   let hoverImageUrl = hoverImage && hoverImage[0];
-    //   let createdAt = Date.now();
-    //   if (!posterImageUrl || !(imagesUrl.length > 0)) {
-    //     return showToast('warn', 'Please select relevant Images');
-    //   }
-    //   let newValues = {
-    //     ...values,
-    //     posterImageUrl: posterImageUrl.imageUrl,
-    //     posterImagePublicId: posterImageUrl.public_id,
-    //     posterImageAltText: posterImageUrl.altText,
-    //     hoverImageUrl: hoverImageUrl.imageUrl,
-    //     hoverImagePublicId: hoverImageUrl.public_id,
-    //     hoverImageAltText: posterImageUrl.altText,
-    //     productImages: imagesUrl,
+    try {
+      setError(null);
+      let posterImageUrl = posterimageUrl && posterimageUrl[0];
+      let hoverImageUrl = hoverImage && hoverImage[0];
+      let createdAt = Date.now();
+      if (!posterImageUrl || !(imagesUrl.length > 0)) {
+        return showToast('warn', 'Please select relevant Images');
+      }
+      let newValues = {
+        ...values,
+        posterImageUrl: posterImageUrl.imageUrl,
+        posterImagePublicId: posterImageUrl.public_id,
+        posterImageAltText: posterImageUrl.altText,
+        hoverImageUrl: hoverImageUrl.imageUrl,
+        hoverImagePublicId: hoverImageUrl.public_id,
+        hoverImageAltText: posterImageUrl.altText,
+        productImages: imagesUrl,
 
-    //   };
+      };
 
-    //   setloading(true);
+      setloading(true);
 
-    //   let updateFlag = EditProductValue && EditInitialValues ? true : false;
-    //   let addProductUrl = updateFlag ? `/api/product/update-product` : null;
+      let updateFlag = EditProductValue && EditInitialValues ? true : false;
+      let addProductUrl = updateFlag ? `/api/product/update-product` : null;
   
-    //   let url = `${process.env.NEXT_PUBLIC_BASE_URL}${ updateFlag ? addProductUrl : '/api/product/add-product'}`;
+      let url = `${process.env.NEXT_PUBLIC_BASE_URL}${ updateFlag ? addProductUrl : '/api/product/add-product'}`;
   
-    //   if (updateFlag && EditInitialValues?.id) {
-    //     newValues = { id: EditInitialValues.id, ...newValues };
-    //   }
-    //   const response = await axios.post(url, newValues);
-    //   Toaster('success', updateFlag? 'Product has been sucessufully Updated !': response.data.message,
-    //   );
-    //   setProductInitialValue(AddproductsinitialValues);
-    //   resetForm();
-    //   setloading(false);
-    //   sethoverImage(null);
-    //   setposterimageUrl(null);
-    //   setImagesUrl([]);
-    //   setSelectedCategories([]);
-    //   setSelectedSubcategoryIds([]);
-    //   setSelectedCategoryIds([]);
+      if (updateFlag && EditInitialValues?.id) {
+        newValues = { id: EditInitialValues.id, ...newValues };
+      }
+      const response = await axios.post(url, newValues);
+      Toaster('success', updateFlag? 'Product has been sucessufully Updated !': response.data.message,
+      );
+      setProductInitialValue(AddproductsinitialValues);
+      resetForm();
+      setloading(false);
+      sethoverImage(null);
+      setposterimageUrl(null);
+      setImagesUrl([]);
+      setSelectedCategories([]);
+      setSelectedSubcategoryIds([]);
+      setSelectedCategoryIds([]);
 
-    //   updateFlag ? setEditProduct && setEditProduct(undefined) : null;
-    // } catch (err: any) {
-    //   if (err.response && err.response.data && err.response.data.error) {
-    //     setError(err.response.data.error);
-    //   } else {
-    //     if (err instanceof Error) {
-    //       setError(err.message);
-    //     } else {
-    //       setError('An unexpected error occurred');
-    //     }
-    //   }
-    // } finally {
-    //   setloading(false);
-    // }
+      updateFlag ? setEditProduct && setEditProduct(undefined) : null;
+    } catch (err: any) {
+      if (err.response && err.response.data && err.response.data.error) {
+        setError(err.response.data.error);
+      } else {
+        if (err instanceof Error) {
+          setError(err.message);
+        } else {
+          setError('An unexpected error occurred');
+        }
+      }
+    } finally {
+      setloading(false);
+    }
   };
 
   const validationSchema = Yup.object().shape({
@@ -288,7 +288,7 @@ console.log(values, "values")
         initialValues={
           productInitialValue ? productInitialValue : AddproductsinitialValues
         }
-        // validationSchema={AddProductvalidationSchema}
+        validationSchema={AddProductvalidationSchema}
         onSubmit={onSubmit}
       >
         {(formik) => {
@@ -845,7 +845,7 @@ console.log(values, "values")
                   <div className="rounded-sm border border-stroke bg-white  dark:bg-black">
                     <div className="border-b border-stroke py-4 px-6 dark:border-strokedark">
                       <h3 className="font-medium text-black dark:text-white">
-                        Additional information
+                        Policy information
                       </h3>
                     </div>
                     <div className="flex flex-col py-4 px-6">
@@ -936,6 +936,8 @@ console.log(values, "values")
           </FieldArray>
                     </div>
                   </div>
+
+                  
                   <div className="rounded-sm border border-stroke bg-white  dark:bg-black">
                     <div className="border-b border-stroke py-4 px-6 dark:border-strokedark">
                       <h3 className="font-medium text-black dark:text-white">
