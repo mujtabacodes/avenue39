@@ -78,7 +78,7 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
         <Sheet open={drawerState}>
           <SheetTrigger asChild>
             <div
-              className={`lg:w-14 w-12 h-10 rounded-3xl relative flex justify-center items-center hover:bg-main border hover:border-main hover:text-white  cursor-pointer ${cartItems.length > 0 ? 'text-white bg-main' : 'text-black  border-black'}`}
+              className={`xl:w-14 w-12 h-10 rounded-3xl relative flex justify-center items-center hover:bg-main border hover:border-main hover:text-white  cursor-pointer ${cartItems.length > 0 ? 'text-white bg-main' : 'text-black  border-black'}`}
               onClick={() => navigate.push('/cart')}
             >
               <IoBagOutline size={25} />
