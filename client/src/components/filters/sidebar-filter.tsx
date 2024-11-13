@@ -23,7 +23,7 @@ const SidebarFilter = ({
   sideBannerProduct,
   category,
 }: SidebarFilterProps) => {
-  const [range, setRange] = useState<[number, number]>([0, 500]);
+  const [range, setRange] = useState<[number, number]>([0, 5000]);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [subcategories, setSubcategories] = useState<IProductCategories[]>([]);
   const pathname = usePathname();
@@ -64,12 +64,12 @@ const SidebarFilter = ({
   useEffect(() => {
     if (category && category.length > 0) {
       const currentCategory = pathname.split('/').pop()?.toUpperCase().replace("-", " "); 
-      console.log("aCTUAL", currentCategory)
+      // console.log("aCTUAL", currentCategory)
 
       if (currentCategory) {
         // Check if currentCategory matches any main category name
         const mainCategoryMatch = category.find((cat: any) => cat.name.toUpperCase() === currentCategory);
-        console.log("mainCategoryMatch", mainCategoryMatch)
+        // console.log("mainCategoryMatch", mainCategoryMatch)
 
         if (mainCategoryMatch) {
           // If it matches a main category, check it
@@ -79,7 +79,7 @@ const SidebarFilter = ({
             }
             return prev;
           });
-          console.log("Selected categories: ", selectedCategories)
+          // console.log("Selected categories: ", selectedCategories)
         } else {
           // If it doesn't match a main category, check if it's a subcategory
           category.forEach((cat: any) => {
@@ -92,7 +92,7 @@ const SidebarFilter = ({
                 }
                 return prev.includes(currentCategory) ? prev : [...prev, currentCategory];
               });
-              console.log("Selected categories: ", selectedCategories)
+              // console.log("Selected categories: ", selectedCategories)
             }
           });
         }
@@ -140,8 +140,8 @@ const SidebarFilter = ({
           <h4 className="text-xl font-medium mb-5">Prices</h4>
           <div>
             <Slider
-              defaultValue={[1, 500]}
-              max={500}
+              defaultValue={[1, 5000]}
+              max={5000}
               step={1}
               onValueChange={handleValueChange}
             >

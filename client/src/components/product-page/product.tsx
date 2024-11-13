@@ -44,7 +44,7 @@ const ProductPage = ({
 }: ProductPageProps) => {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [selectedSubCategories, setSelectedSubCategories] = useState<string[]>([]);
-  const [priceRange, setPriceRange] = useState<[number, number]>([0, 500]);
+  const [priceRange, setPriceRange] = useState<[number, number]>([0, 5000]);
   const [sortOption, setSortOption] = useState<string>('default');
   const [category, setCategory] = useState<any[]>([]);
   const [filterLoading, setFilterLoading] = useState<boolean>(true);
@@ -104,27 +104,35 @@ const ProductPage = ({
   });
 
   const filteredCards = products
-    .filter(card => {
-      if (selectedSubCategories.length > 0) {
-        return card.subcategories?.some(sub => selectedSubCategories.includes(sub.name.toUpperCase()));
-      }
-      return selectedCategories.length > 0
-        ? card.categories?.some(cat => selectedCategories.includes(cat.name))
-        : true;
-    })
-    .filter(card => card.price >= priceRange[0] && card.price <= priceRange[1])
-    .sort((a, b) => {
-      switch (sortOption) {
-        case 'name':
-          return a.name.localeCompare(b.name);
-        case 'max':
-          return b.price - a.price;
-        case 'min':
-          return a.price - b.price;
-        default:
-          return 0;
-      }
-    });
+  .filter(card => {
+    if (selectedSubCategories.length > 0) {
+      return card.subcategories?.some(sub => selectedSubCategories.includes(sub.name.toUpperCase()));
+    }
+    return selectedCategories.length > 0
+      ? card.categories?.some(cat => selectedCategories.includes(cat.name))
+      : true;
+  })
+  .filter(card => {
+    const priceToCheck = card.discountPrice > 0 ? card.discountPrice : card.price;
+    return priceToCheck >= priceRange[0] && priceToCheck <= priceRange[1];
+  })
+  .sort((a, b) => {
+    switch (sortOption) {
+      case 'name':
+        return a.name.trim().localeCompare(b.name.trim());
+      case 'max':
+        const priceA = a.discountPrice > 0 ? a.discountPrice : a.price;
+        const priceB = b.discountPrice > 0 ? b.discountPrice : b.price;
+        return priceB - priceA;
+      case 'min':
+        const minPriceA = a.discountPrice > 0 ? a.discountPrice : a.price;
+        const minPriceB = b.discountPrice > 0 ? b.discountPrice : b.price;
+        return minPriceA - minPriceB;
+      default:
+        return 0;
+    }
+  });
+
 
   return (
     <>
