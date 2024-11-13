@@ -19,12 +19,17 @@ import { useSelector } from 'react-redux';
 import { State } from '@/redux/store';
 import { useQuery } from '@tanstack/react-query';
 import { fetchProducts } from '@/config/fetch';
-import { useRouter } from 'next/navigation';
+;
 import { generateSlug } from '@/config';
 import RenderStars from '../ui/renderstars';
 import { Skeleton } from '../ui/skeleton';
-import { BiHeart } from 'react-icons/bi';
 import Wishlist from '../wishlist/wishlist';
+import Cookies from 'js-cookie';
+
+import { useRouter } from 'next/navigation';
+import { loggedInUserAction } from '@redux/slices/user/userSlice';
+import { useAppDispatch } from '@components/Others/HelperRedux';
+
 
 const Navbar = (props: INav) => {
   const [open, setOpen] = useState(false);
@@ -33,9 +38,10 @@ const Navbar = (props: INav) => {
   const Navigate = useRouter();
   const [isSticky, setIsSticky] = useState<boolean>(false);
   const drawerInputRef = useRef<HTMLInputElement>(null);
-  const userDetails = useSelector(
-    (state: State) => state.usrSlice.loggedInUser,
-  );
+  const userDetails = useSelector((state: State) => state.usrSlice.loggedInUser);
+  const dispatch = useAppDispatch()
+
+
 
   useEffect(() => {
     const handleScroll = () => {
@@ -66,14 +72,37 @@ const Navbar = (props: INav) => {
     Navigate.push(`/product/${generateSlug(name)}`);
   };
 
-  const filteredProducts = products.filter((product: IProduct) =>
-    product.name.toLowerCase().includes(searchText.toLowerCase()),
-  );
+  const filteredProducts = products.filter((product: IProduct) => {
+    const searchTerm = searchText.trim().toLowerCase();
+
+    return (
+      product.name.toLowerCase().includes(searchTerm) ||
+      product.description.toLowerCase().includes(searchTerm) ||
+      product.price.toString().includes(searchTerm) || 
+      product.discountPrice.toString().includes(searchTerm) ||
+      (product.colors && product.colors.some((color: string) => color.toLowerCase().includes(searchTerm))) || 
+      (product.spacification && product.spacification.some((spec) =>
+        Object.values(spec).some((value) =>
+          value.toString().toLowerCase().includes(searchTerm)
+        )
+      )) || 
+      product.additionalInformation.some((info) =>
+        Object.values(info).some((value) =>
+          value.toString().toLowerCase().includes(searchTerm)
+        )
+      ) || 
+      (product.categories && product.categories.some((category) =>
+        category.name.toLowerCase().includes(searchTerm) 
+      )) ||
+      (product.subcategories && product.subcategories.some((subcategory) =>
+        subcategory.name.toLowerCase().includes(searchTerm)
+      ))
+    );
+  });
+
 
   useEffect(() => {
-    // Focus the input inside the drawer when it opens
     if (isDrawerOpen && drawerInputRef.current) {
-      // Delay the focus slightly to ensure the drawer is fully open
       setTimeout(() => {
         drawerInputRef.current?.focus();
       }, 50);
@@ -84,6 +113,20 @@ const Navbar = (props: INav) => {
       }, 50);
     }
   }, [isDrawerOpen]);
+
+  const logoutHhandler = () => {
+    try {
+      Cookies.remove('user_token', { path: '/' });
+
+      dispatch(loggedInUserAction(null));
+
+      Navigate.push('/login');
+      setOpen(false)
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div className={`bg-white dark:text-black ${isSticky ? 'sticky top-0 z-50' : ''}`}>
       <Container className="flex items-center justify-between p-2 md:p-4 gap-4 dark:bg-white">
@@ -100,7 +143,7 @@ const Navbar = (props: INav) => {
             </Link>
           </div>
         </div>
-        <div className="w-6/12">
+        <div className="w-full max-w-[35%] lg:max-w-[40%]">
           <form
             className="relative rounded-md hidden md:block"
             onSubmit={(e) => e.preventDefault()}
@@ -114,7 +157,7 @@ const Navbar = (props: INav) => {
                     name="header-search"
                     value={searchText}
                     onChange={handleInputChange}
-                    onClick={() => setIsDrawerOpen(true)} // Open drawer on click
+                    onClick={() => setIsDrawerOpen(true)}
                     className="px-4 h-12 xl:h-[64px] border block w-full text-sm disabled:opacity-50 custom-input-bg"
                     placeholder="Search Here..."
                   />
@@ -178,16 +221,24 @@ const Navbar = (props: INav) => {
                               className="min-h-[100px] min-w-[100px]"
                             />
                             <div className="pt-1 flex flex-col gap-2">
-                              <p className="text-21 font-normal capitalize">
+                              <p className="text-18 xsm:text-21 font-normal capitalize">
                                 {product.name}
                               </p>
                               <div className="flex items-center gap-4">
-                                <p className="text-15 font-semibold">
-                                  AED <span>{product.price}</span>
-                                </p>
-                                <p className="text-[12px] text-primary-foreground font-bold line-through">
-                                  AED <span>{product.discountPrice}</span>
-                                </p>
+                                {
+                                  product.discountPrice > 0 ? <>
+                                    <p className="text-15 font-semibold">
+                                      AED <span>{product.discountPrice}</span>
+                                    </p>
+                                    <p className="text-[12px] text-primary-foreground font-bold line-through">
+                                      AED <span>{product.price}</span>
+                                    </p>
+                                  </> : <>
+                                    <p className="text-15 font-semibold">
+                                      AED <span>{product.price}</span>
+                                    </p>
+                                  </>
+                                }
                               </div>
                               <div>
                                 <RenderStars card={product} />
@@ -205,9 +256,9 @@ const Navbar = (props: INav) => {
 
           </form>
         </div>
-        <div className="gap-2 flex justify-end items-center w-3/12 space-x-8">
+        <div className="gap-3 lg:gap-5 flex justify-end items-center w-3/12">
 
-          <div className="hidden md:flex justify-between gap-5 items-center">
+          <div className="hidden md:flex justify-between gap-3 lg:gap-5 items-center">
             <Wishlist />
             <CartItems />
           </div>
@@ -241,7 +292,7 @@ const Navbar = (props: INav) => {
                     <Link
                       className="text-black hover:text-primary"
                       href="/login"
-                      onClick={() => setOpen(false)}
+                      onClick={() => logoutHhandler()}
                     >
                       Logout
                     </Link>
@@ -254,8 +305,10 @@ const Navbar = (props: INav) => {
                 onOpenChange={setOpen}
               >
                 <div className="flex gap-2 items-center whitespace-nowrap cursor-pointer">
-                  <Avatar icon={<UserOutlined />} />
-                  <span>{userDetails.name}</span>
+                  <span className='w-auto'>
+                    <Avatar icon={<UserOutlined />} size={30} />
+                  </span>
+                  <span className='max-w-28 w-auto text-wrap'>{userDetails.name}</span>
                 </div>
               </Popover>
             )}

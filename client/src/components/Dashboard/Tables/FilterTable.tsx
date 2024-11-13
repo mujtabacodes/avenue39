@@ -108,6 +108,7 @@ const FilterTable: React.FC<FilterTableProps> = ({ data, columns }) => {
         setTimeout(() => searchInput.current?.select(), 100);
       }
     },
+
     render: (text) =>
       searchedColumn === dataIndex ? (
         <Highlighter
@@ -123,7 +124,7 @@ const FilterTable: React.FC<FilterTableProps> = ({ data, columns }) => {
 
   const enhancedColumns = columns.map((col) => ({
     ...col,
-    ...getColumnSearchProps(col.dataIndex as DataIndex),
+    // ...getColumnSearchProps(col.dataIndex as DataIndex),
   }));
 
   return <Table className='overflow-x-auto mt-10 dark:bg-boxdark dark:bg-black dark:text-white dark:bg-boxdark dark:border-white border' columns={enhancedColumns} dataSource={data} pagination={false} />;

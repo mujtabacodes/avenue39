@@ -9,6 +9,7 @@ import SocialLink from '../social-link';
 import Link from 'next/link';
 import axios from 'axios';
 import showToast from '../Toaster/Toaster';
+import { paymentIcons } from '@/data/products';
 
 const Footer: React.FC = () => {
   const [email, setEmail] = useState<string>('');
@@ -60,8 +61,7 @@ const Footer: React.FC = () => {
           <div>
             <Image src={logo} alt="logo" className="w-72" />
             <p className="my-11 font-normal text-13 leading-6 text-primary-foreground">
-              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo.
+            Avenue39 is more than just a furniture store; it&apos;s a philosophy that blends contemporary design with timeless aesthetics. We understand the importance of creating a harmonious environment that reflects your unique personality and taste. Each piece in our collection is thoughtfully selected to offer a perfect fusion of form and function.
             </p>
             <div className="pt-5">
               <SocialLink socialSize="md:text-[25px]" />
@@ -169,10 +169,23 @@ const Footer: React.FC = () => {
             Copyright © 2024 avenue39 All rights reserved.
           </p>
           <div className="flex items-center gap-4">
-            <SiVisa className="text-white" size={40} />
+            {/* <SiVisa className="text-white" size={40} />
             <FaPaypal className="text-white" size={20} />
             <SiMastercard className="text-white" size={25} />
-            <FaStripe className="text-white" size={40} />
+            <FaStripe className="text-white" size={40} /> */}
+             <div className="flex justify-between space-x-4">
+             {paymentIcons.map((icon, index) => (
+          <div key={index} className="w-14 h-auto p-1">
+            <Image
+              src={icon.src} 
+              alt={icon.alt}
+              width={64} 
+              height={60} 
+              className="object-contain shadow"
+            />
+          </div>
+        ))}
+      </div>
           </div>
         </Container>
       </div>

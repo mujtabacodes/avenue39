@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { usePathname } from 'next/navigation';  
+import { usePathname, useSearchParams } from 'next/navigation';  
 import CategoryFilter from './category-filter';
 import { saleitems } from '@/data';
 import { Slider, SliderPrimitive } from '@/components/ui/slider';
@@ -23,10 +23,11 @@ const SidebarFilter = ({
   sideBannerProduct,
   category,
 }: SidebarFilterProps) => {
-  const [range, setRange] = useState<[number, number]>([0, 500]);
+  const [range, setRange] = useState<[number, number]>([0, 10000]);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [subcategories, setSubcategories] = useState<IProductCategories[]>([]);
   const pathname = usePathname();
+  const searchParams = useSearchParams();
 
   const handleValueChange = ([start, end]: [number, number]) => {
     setRange([start, end]);
@@ -37,24 +38,21 @@ const SidebarFilter = ({
     onCategoryChange(name.toUpperCase(), isChecked, isSubCategory);
   
     if (!isSubCategory) {
-      // Main category handling
       setSelectedCategories((prev) => {
         if (isChecked) {
-          return [...prev, name];  // Add category if checked
+          return [...prev, name];
         } else {
-          return prev.filter((cat) => cat.toUpperCase() !== name);  // Remove category if unchecked
+          return prev.filter((cat) => cat.toUpperCase() !== name);
         }
       });
     } else {
-      // Subcategory handling
       setSelectedCategories((prev) => {
         const updatedCategories = [...prev];
         const categoryIndex = updatedCategories.findIndex((cat) => cat.toUpperCase() === name);
-        console.log(updatedCategories, 'updatedCategories')
         if (isChecked && categoryIndex === -1) {
-          updatedCategories.push(name.toUpperCase()); // Add subcategory if checked
+          updatedCategories.push(name.toUpperCase()); 
         } else if (!isChecked && categoryIndex !== -1) {
-          updatedCategories.splice(categoryIndex, 1); // Remove subcategory if unchecked
+          updatedCategories.splice(categoryIndex, 1);
         }
         return updatedCategories;
       });
@@ -63,42 +61,64 @@ const SidebarFilter = ({
 
   useEffect(() => {
     if (category && category.length > 0) {
-      const currentCategory = pathname.split('/').pop()?.toUpperCase().replace("-", " "); 
-      console.log("aCTUAL", currentCategory)
-
+      const categoryId = searchParams.get('id');
+      const currentCategory = pathname.split('/').pop()?.toUpperCase().replace("-", " ");
       if (currentCategory) {
-        // Check if currentCategory matches any main category name
-        const mainCategoryMatch = category.find((cat: any) => cat.name.toUpperCase() === currentCategory);
-        console.log("mainCategoryMatch", mainCategoryMatch)
-
-        if (mainCategoryMatch) {
-          // If it matches a main category, check it
-          setSelectedCategories((prev) => {
-            if (!prev.includes(currentCategory)) {
-              return [...prev, currentCategory];
-            }
-            return prev;
-          });
-          console.log("Selected categories: ", selectedCategories)
-        } else {
-          // If it doesn't match a main category, check if it's a subcategory
-          category.forEach((cat: any) => {
-            const subCategoryMatch = cat.subcategories?.find((subcat: any) => subcat.name.toUpperCase() === currentCategory);
-            if (subCategoryMatch) {
-              // Check both the main category and subcategory
+        if (categoryId) {
+          const categoryMatch = category.find((cat: any) => cat.id.toString() === categoryId);
+          
+          if (categoryMatch) {
+            setSelectedCategories((prev) => {
+              if (!prev.includes(categoryMatch.name)) {
+                return [...prev, categoryMatch.name];
+              }
+              return prev;
+            });
+            const subcategoryMatch = categoryMatch.subcategories?.find((subcat: any) => 
+              subcat.name.toUpperCase() === currentCategory
+            );
+  
+            if (subcategoryMatch) {
               setSelectedCategories((prev) => {
-                if (!prev.includes(cat.name)) {
-                  return [...prev, cat.name, currentCategory];
+                if (!prev.includes(subcategoryMatch.name.toUpperCase())) {
+                  return [...prev, subcategoryMatch.name.toUpperCase()];
                 }
-                return prev.includes(currentCategory) ? prev : [...prev, currentCategory];
+                return prev;
               });
-              console.log("Selected categories: ", selectedCategories)
             }
-          });
+          }
+        } else {
+          const mainCategoryMatch = category.find((cat: any) => cat.name.toUpperCase() === currentCategory);
+  
+          if (mainCategoryMatch) {
+            setSelectedCategories((prev) => {
+              if (!prev.includes(mainCategoryMatch.name)) {
+                return [...prev, mainCategoryMatch.name];
+              }
+              return prev;
+            });
+          } else {
+            category.forEach((cat: any) => {
+              const subCategoryMatch = cat.subcategories?.find((subcat: any) => subcat.name.toUpperCase() === currentCategory);
+  
+              if (subCategoryMatch) {
+                setSelectedCategories((prev) => {
+                  const updatedCategories = [...prev];
+                  if (!updatedCategories.includes(cat.name)) {
+                    updatedCategories.push(cat.name.toUpperCase());
+                  }
+                  if (!updatedCategories.includes(subCategoryMatch.name)) {
+                    updatedCategories.push(subCategoryMatch.name.toUpperCase());
+                  }
+                  return updatedCategories;
+                });
+              }
+            });
+          }
         }
       }
     }
-  }, [pathname, category]);
+  }, [pathname, category , searchParams]);
 
   useEffect(() => {
     if (selectedCategories.length > 0 && category.length > 0) {
@@ -140,9 +160,9 @@ const SidebarFilter = ({
           <h4 className="text-xl font-medium mb-5">Prices</h4>
           <div>
             <Slider
-              defaultValue={[1, 500]}
-              max={500}
-              step={1}
+              defaultValue={[0, 10000]}
+              max={10000}
+              step={10}
               onValueChange={handleValueChange}
             >
               <SliderPrimitive.Thumb />

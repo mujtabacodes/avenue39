@@ -27,13 +27,12 @@ export class UsersService {
 
   async signup(signupUserDto: SignupDto) {
     try {
-      const { email, password } = signupUserDto;
+      const { email, password:newpassword } = signupUserDto;
       const existingUser = await this.prisma.user.findFirst({
         where: { email },
       });
-      console.log('User to already hai bhai');
-      console.log(existingUser);
-      const hashedPassword = await hashPassword(password, this.configService);
+      console.log(newpassword, "new pasword");
+      const hashedPassword = await hashPassword(newpassword, this.configService);
       if (!existingUser) {
         const user = await this.prisma.user.create({
           data: {
@@ -88,6 +87,7 @@ export class UsersService {
     }
   }
 
+  
   async login(loginData: LoginDto, res) {
     const { email, password } = loginData;
     try {
@@ -96,11 +96,8 @@ export class UsersService {
       });
 
       if (existingUser) {
-        const isPasswordValid = await verifyPassword(
-          password,
-          existingUser.password,
-          this.configService,
-        );
+        const isPasswordValid = await verifyPassword(password,existingUser.password,this.configService,);
+        console.log(isPasswordValid, "valid passowrd")
         if (!isPasswordValid) {
           return {
             message: 'Invalid Password',
@@ -135,6 +132,7 @@ export class UsersService {
       throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
+
 
   findAll() {
     return this.prisma.user.findMany({});
@@ -182,7 +180,7 @@ export class UsersService {
         },
       });
 
-      // await sendResetEmail(email, resetToken);
+      await sendResetEmail(email, resetToken);
       return {
         message: 'Password reset link sent to your email',
         status: HttpStatus.OK,
@@ -191,21 +189,25 @@ export class UsersService {
       throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
+
+
+
+
+
   async userHandler(authToken: string) {
     try {
       if (!authToken) {
         throw new HttpException('No token provided', HttpStatus.UNAUTHORIZED);
       }
 
-      const token = authToken.startsWith('Bearer ')
-        ? authToken.substring(7)
-        : authToken;
+      const token = authToken.startsWith('Bearer ')? authToken.substring(7): authToken;
       console.log(authToken);
-      console.log(token);
+      console.log(token, "token");
       const decoded = jwt.verify(token, process.env.TOKEN_SECRET) as {
         email: string;
       };
       const email = decoded.email;
+console.log(email, "decoded")
 
       if (!email) {
         throw new HttpException('Invalid token', HttpStatus.UNAUTHORIZED);
@@ -223,4 +225,46 @@ export class UsersService {
       throw new HttpException(error.message, HttpStatus.UNAUTHORIZED);
     }
   }
+
+
+  async updatePassword(authToken: string, password: string) {
+    try {
+      if (!authToken) {
+        throw new HttpException('No token provided', HttpStatus.UNAUTHORIZED);
+      }
+
+      const token = authToken.startsWith('Bearer ')? authToken.substring(7): authToken;
+      console.log(authToken);
+      console.log(token, "token");
+      const decoded = jwt.verify(token, process.env.TOKEN_SECRET) as {
+        email: string;
+      };
+      const email = decoded.email;
+
+console.log(password, "password")
+      if (!email || !password) {
+        throw new HttpException('Invalid Credentials', HttpStatus.UNAUTHORIZED);
+      }
+      const hashedPassword = await hashPassword(password, this.configService);
+
+console.log(hashedPassword, "hashedPassword")
+      const existingUser = await this.prisma.user.update({
+        where: { email },
+        data: {password: hashedPassword}
+        
+      });
+      const { password: _, ...userWithoutPassword } = existingUser;
+      return {
+        message: 'Password has been successfully reseted 🎉',
+        user: userWithoutPassword,
+      };
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.UNAUTHORIZED);
+    }
+  }
+
+
+
+
+
 }

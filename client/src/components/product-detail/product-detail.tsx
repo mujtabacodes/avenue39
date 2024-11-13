@@ -39,7 +39,7 @@ import {
 } from '@/redux/slices/cart';
 import { Dispatch } from 'redux';
 import { HiMinusSm, HiPlusSm } from 'react-icons/hi';
-import paymenticons from '@icons/payment-icons.png';
+// import paymenticons from '@icons/payment-icons.png';
 import { openDrawer } from '@/redux/slices/drawer';
 import { CartItem } from '@/redux/slices/cart/types';
 import { useRouter } from 'next/navigation';
@@ -52,6 +52,8 @@ import Loader from '../Loader/Loader';
 import { TbCube3dSphere } from 'react-icons/tb';
 import Product3D from '../3DView/Product3D';
 import ARExperience from '../ARModelViewer';
+import { paymentIcons } from '@/data/products';
+
 
 const ProductDetail = ({
   params,
@@ -68,6 +70,7 @@ const ProductDetail = ({
 }) => {
   const [hoveredImage, setHoveredImage] = useState<string | null>(null);
   const cartItems = useSelector((state: State) => state.cart.items);
+
   const [count, setCount] = useState(1);
   const dispatch = useDispatch<Dispatch>();
   const slug = String(params.name);
@@ -211,9 +214,9 @@ const ProductDetail = ({
           ))}
         </span>
 
-        <NormalText className="mb-2">
+        {/* <NormalText className="mb-2">
           Hurry Up! Only <span className="text-red-600">12</span> left in stock:
-        </NormalText>
+        </NormalText> */}
         <div className="flex items-center gap-4 justify-between mb-2">
           <div className="flex items-center border border-gray-300 rounded py-1 md:p-2 md:py-3">
             <button
@@ -485,10 +488,19 @@ const ProductDetail = ({
             </p>
           </div>
         </div>
-
-        <div className="flex justify-center">
-          <Image src={paymenticons} alt="payment icons" />
-        </div>
+        <div className="flex justify-between space-x-4">
+        {paymentIcons.map((icon, index) => (
+          <div key={index} className="w-14 h-auto p-1">
+            <Image
+              src={icon.src} 
+              alt={icon.alt}
+              width={64} 
+              height={60} 
+              className="object-contain shadow "
+            />
+          </div>
+        ))}
+      </div>
       </div>
     </div>
   );

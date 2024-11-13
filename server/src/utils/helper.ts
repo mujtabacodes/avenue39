@@ -6,12 +6,14 @@ export const customHttpException = (error: string, status: string) => {
 
 export const sendResetEmail = async (email: string, token: string) => {
   const transporter = nodemailer.createTransport({
-    service: 'Gmail',
+    host: 'mail.blindsandcurtains.ae',
+    port: 587,
+    secure: false,
     auth: {
       user: process.env.EMAIL_USER,
       pass: process.env.EMAIL_PASS,
     },
-  });
+});
 
   const resetLink = `${process.env.FRONTEND_URL}/reset-password?token=${token}`;
 

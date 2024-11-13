@@ -14,7 +14,6 @@ import { SketchfabModule } from './sketchfab/sketchfab.module';
 import { PaytabsModule } from './paytabs/paytabs.module';
 import { NewslettersModule } from './newsletters/newsletters.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
-import { join } from 'path';
 import * as path from 'path';
 
 @Module({

@@ -44,10 +44,10 @@ const ProductPage = ({
 }: ProductPageProps) => {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [selectedSubCategories, setSelectedSubCategories] = useState<string[]>([]);
-  const [priceRange, setPriceRange] = useState<[number, number]>([0, 500]);
+  const [priceRange, setPriceRange] = useState<[number, number]>([0, 10000]);
   const [sortOption, setSortOption] = useState<string>('default');
   const [category, setCategory] = useState<any[]>([]);
-  const [filterLoading, setFilterLoading] = useState<boolean>(true); 
+  const [filterLoading, setFilterLoading] = useState<boolean>(true);
   const pathname = usePathname();
 
   const fetchCategoryData = async () => {
@@ -85,10 +85,14 @@ const ProductPage = ({
     isChecked: boolean,
     isSubCategory: boolean,
   ) => {
+    setFilterLoading(true);
     const setter = isSubCategory ? setSelectedSubCategories : setSelectedCategories;
     setter(prev =>
       isChecked ? [...prev, categoryOrSubCategory] : prev.filter(cat => cat !== categoryOrSubCategory),
     );
+    setTimeout(() => {
+      setFilterLoading(false);
+    }, 200)
   };
 
   const handlePriceChange = ([start, end]: [number, number]) => setPriceRange([start, end]);
@@ -108,19 +112,27 @@ const ProductPage = ({
         ? card.categories?.some(cat => selectedCategories.includes(cat.name))
         : true;
     })
-    .filter(card => card.price >= priceRange[0] && card.price <= priceRange[1])
+    .filter(card => {
+      const priceToCheck = card.discountPrice > 0 ? card.discountPrice : card.price;
+      return priceToCheck >= priceRange[0] && priceToCheck <= priceRange[1];
+    })
     .sort((a, b) => {
       switch (sortOption) {
         case 'name':
-          return a.name.localeCompare(b.name);
+          return a.name.trim().localeCompare(b.name.trim());
         case 'max':
-          return b.price - a.price;
+          const priceA = a.discountPrice > 0 ? a.discountPrice : a.price;
+          const priceB = b.discountPrice > 0 ? b.discountPrice : b.price;
+          return priceB - priceA;
         case 'min':
-          return a.price - b.price;
+          const minPriceA = a.discountPrice > 0 ? a.discountPrice : a.price;
+          const minPriceB = b.discountPrice > 0 ? b.discountPrice : b.price;
+          return minPriceA - minPriceB;
         default:
           return 0;
       }
     });
+
 
   return (
     <>
@@ -141,10 +153,10 @@ const ProductPage = ({
             <div className="md:hidden">
               <Sheet>
                 <SheetTrigger asChild>
-                  <Button variant="ghost" className="flex items-center gap-1">
+                  <div className="flex items-center gap-1">
                     <span>Filter</span>
                     <BsFilterLeft size={25} />
-                  </Button>
+                  </div>
                 </SheetTrigger>
                 <SheetOverlay className="bg-black opacity-80" />
                 <SheetContent className="pb-5 pt-10 w-4/5 overflow-y-auto">
@@ -156,6 +168,7 @@ const ProductPage = ({
                     onPriceChange={handlePriceChange}
                     sideBanner={sideBanner}
                     category={category}
+                    sideBannerProduct={sideBannerProduct}
                   />
                   <div className="h-16 w-full fixed bottom-0 flex items-center justify-center bg-white border-t-2">
                     <Button variant="ghost" className="underline">

@@ -32,9 +32,9 @@ export function LoginForm() {
   const signupMutation = useMutation({
     mutationFn: (formData: typeof sigupInitialValues) => {
       return axios.post(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/signup`,
-        formData,
-        { withCredentials: true },
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/signup`,formData,
+        { withCredentials: true } 
+      
       );
     },
     onSuccess: (res) => {
@@ -56,7 +56,7 @@ export function LoginForm() {
       return axios.post(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/login`,
         formData,
-        { withCredentials: false },
+        { withCredentials: true } 
       );
     },
     onSuccess: (res) => {
@@ -68,6 +68,7 @@ export function LoginForm() {
         dispatch(loggedInUserAction(res.data.user));
         Cookies.set('user_token', res.data.token, {
           expires: 24 * 60 * 60 * 1000,
+          path: '/' 
         });
         Navigate.push('/');
       }
@@ -133,7 +134,7 @@ export function LoginForm() {
             value={Signin.values.password}
           />
           <div className="text-end pr-4">
-            <Link href={'/forget'}>Forget Passowrd?</Link>
+            <Link href={'/forgot-password'}>Forget Passowrd?</Link>
           </div>
           <Button
             type="submit"

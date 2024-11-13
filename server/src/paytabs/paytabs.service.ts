@@ -13,9 +13,9 @@ export class PaytabsService {
   async createPayment(paymentDetails: CreatePaymentDto) {
     console.log('alyo');
     console.log(paymentDetails);
-    const { firstName, lastName, email, phoneNumber, state, country, amount } =
-      paymentDetails;
+    const { firstName, lastName, email, phoneNumber, state, country, amount } =paymentDetails;
 
+      
     const requestBody = {
       profile_id: this.PROFILE_ID,
       tran_type: 'sale',
@@ -28,8 +28,8 @@ export class PaytabsService {
       framed_return_top: true,
       framed_return_parent: true,
       callback: 'http://avenue39.vercel.app/thanks',
-      return: 'http://avenue39.vercel.app/thanks',
-      // return: 'http://localhost:3000/thanks',
+      // return: 'http://avenue39.vercel.app/thanks',
+      return: 'http://localhost:3000/thanks',
       customer_details: {
         name: `${firstName} ${lastName}`,
         email,
@@ -49,12 +49,14 @@ export class PaytabsService {
           'Content-Type': 'application/json',
         },
       });
+      console.log(response.data, "response")
       return response.data;
     } catch (error) {
-      console.error('Payment API Error:', error.response.data);
+      console.error('Payment API Error:', error);
       throw new Error(error.response.data.message || 'Payment request failed');
     }
   }
+
 
   async checkPaymentStatus(transactionRef: string): Promise<any> {
     const headers = {
@@ -84,4 +86,7 @@ export class PaytabsService {
       );
     }
   }
+
+
+  
 }
