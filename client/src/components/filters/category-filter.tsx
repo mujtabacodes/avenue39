@@ -31,7 +31,6 @@ const CategoryFilter = ({
       onCategoryChange(itemName.toUpperCase(), checked, isSubcategory);
     }
   };
-
   useEffect(() => {
     if (isSubcategory) {
       setIsLoading(false);

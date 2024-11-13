@@ -40,7 +40,6 @@ model Products {
   Og_Image           String?
   Og_Url             String?
   Images_Alt_Text    String?
-
   productImages         Json[]
   additionalInformation Json[]
   colors                Json[] @default([])
@@ -54,6 +53,9 @@ model Products {
   categories    Categories[]            @relation("ProductCategories")
   subcategories SubCategories[]         @relation("ProductSubCategories")
   salesRecords  sales_record_products[] @relation("ProductsTosales_record_products")
+  sections  Json[] @default([])
+
+
 }
 
 model Categories {
@@ -127,6 +129,7 @@ model sales_record_products {
   createdAt     DateTime     @default(now())
   salesRecord   sales_record @relation(fields: [salesRecordId], references: [id])
   Products      Products[]   @relation("ProductsTosales_record_products")
+  orderId       String
 }
 
 model Payment {

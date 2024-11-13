@@ -78,6 +78,7 @@ export interface IServiceItem {
   title: string;
 }
 export interface MenuItem {
+  categoryId?: number;
   title: string;
   icon: any;
   link: string;
