@@ -1,6 +1,13 @@
 import { IProduct } from '@/types/types';
 import productImg1 from '@images/products/imageeee.png';
-import { StaticImageData } from 'next/image';
+
+export const paymentIcons = [
+  { src: '/images/paymentIcons/Mastercard-Logo.webp', alt: 'Mastercard' },
+  { src: '/images/paymentIcons/visacard-logo.webp', alt: 'visacard' },
+  { src: '/images/paymentIcons/apply-pay-black.webp', alt: 'applypay' },
+  { src: '/images/paymentIcons/googlepay-logo.webp', alt: 'googlepay' },
+ 
+];
 
 export interface AdditionalInformation {
   key?: string;
@@ -8,7 +15,6 @@ export interface AdditionalInformation {
   colors?: string[];
   dimension?: string[];
 }
-
 export const products: IProduct[] = [
   {
     id: 5,
