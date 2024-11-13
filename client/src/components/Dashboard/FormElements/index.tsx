@@ -237,7 +237,6 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
     setFilteredSubcategories(subcategories);
   }, [selectedCategoryIds, categoriesList]);
 
-  // Handle subcategory selection
   const handleSubcategoryChange = (subcategoryId: number, checked: boolean) => {
     setSelectedSubcategoryIds((prev) => {
       if (checked) {
@@ -262,17 +261,13 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
     setImagesUrl(updatedImagesUrl);
   };
   const handlealtTextHover = (index: number, newaltText: string) => {
-    //@ts-expect-error
-    const updatedImagesUrl = hoverImage.map((item, i) =>
-      i === index ? { ...item, altText: newaltText } : item
-    );
+
+    const updatedImagesUrl = hoverImage.map((item, i) => i === index ? { ...item, altText: newaltText } : item);
     sethoverImage(updatedImagesUrl);
   };
   const handlealtTextposterimageUrl = (index: number, newaltText: string) => {
-    //@ts-expect-error
-    const updatedImagesUrl = posterimageUrl.map((item, i) =>
-      i === index ? { ...item, altText: newaltText } : item
-    );
+
+    const updatedImagesUrl = posterimageUrl.map((item, i) =>i === index ? { ...item, altText: newaltText } : item);
     setposterimageUrl(updatedImagesUrl);
   };
 
