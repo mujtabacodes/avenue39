@@ -23,7 +23,7 @@ export class SalesRecordService {
       var myHeaders: Headers = new Headers();
       myHeaders.append(
         'Authorization',
-        `Token pak_sk_test_f6625f9ee89984d07a0ec76d1b1d2a597963f4f9e0532dd81f0746e847aca8ad`,
+        `Token ${process.env.PAYMOB_SECRET_KEY}`,
       );
       myHeaders.append('Content-Type', 'application/json');
       const staticProduct = {
