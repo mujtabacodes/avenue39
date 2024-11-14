@@ -106,7 +106,7 @@ const ProductPage = ({
   const filteredCards = products
     .filter(card => {
       if (selectedSubCategories.length > 0) {
-        return card.subcategories?.some(sub => selectedSubCategories.includes(sub.name.toUpperCase()));
+        return card.subcategories?.some(sub => selectedSubCategories.includes(`SUB_${sub.name.toUpperCase()}`));
       }
       return selectedCategories.length > 0
         ? card.categories?.some(cat => selectedCategories.includes(cat.name))
