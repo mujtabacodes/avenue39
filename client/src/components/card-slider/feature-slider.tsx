@@ -36,9 +36,20 @@ const FeatureSlider: React.FC = () => {
       swiperRef.current.swiper.slidePrev();
     }
   };
+  const handleMouseEnter = () => {
+    if (swiperRef.current && swiperRef.current.swiper) {
+      swiperRef.current.swiper.autoplay.stop();
+    }
+  };
 
+  const handleMouseLeave = () => {
+    if (swiperRef.current && swiperRef.current.swiper) {
+      swiperRef.current.swiper.autoplay.start();
+    }
+  };
   return (
-    <div className="slider-container">
+    <div className="slider-container" onMouseEnter={handleMouseEnter}
+    onMouseLeave={handleMouseLeave}>
       {products.length > 0 ? (
         <>
           <div className="text-end mb-3 px-4">
