@@ -50,7 +50,7 @@ const SidebarFilter = ({
         const updatedCategories = [...prev];
         const categoryIndex = updatedCategories.findIndex((cat) => cat.toUpperCase() === name);
         if (isChecked && categoryIndex === -1) {
-          updatedCategories.push(name.toUpperCase()); 
+          updatedCategories.push(name.toUpperCase());
         } else if (!isChecked && categoryIndex !== -1) {
           updatedCategories.splice(categoryIndex, 1);
         }
