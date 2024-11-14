@@ -80,17 +80,13 @@ const ProductPage = ({
         const categoryMatch = category.find((cat: any) => cat.id.toString() === categoryId);
   
         if (categoryMatch) {
-          setSelectedCategories([categoryMatch.name.toUpperCase()]);
-          console.log(selectedCategories, "if selectedCategories");
-          console.log(categoryMatch, "categoryMatch");
-  
+          setSelectedCategories([categoryMatch.name.toUpperCase()]);  
           if (categoryMatch.subcategories) {
             const subcategoryMatch = categoryMatch.subcategories.find((subcat: any) =>
               subcat.name.toUpperCase() === currentCategory
             );
             if (subcategoryMatch) {
               setSelectedSubCategories([`SUB_${subcategoryMatch.name.toUpperCase()}`]);
-              console.log(selectedSubCategories, "if selectedSubCategories");
             }
           }
         }
@@ -100,9 +96,7 @@ const ProductPage = ({
           category.some((cat: { name: string }) => cat.name.toUpperCase() === currentCategory)
         ) {
           handleCategoryChange(currentCategory, true, false);
-          console.log(selectedCategories, "else selectedCategories");
         } else if (currentCategory && isInSubcategories) {
-          console.log(selectedSubCategories, "else selectedSubCategories");
           handleCategoryChange(currentCategory, true, true);
         }
       }
