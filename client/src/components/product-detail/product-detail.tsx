@@ -39,7 +39,7 @@ import {
 } from '@/redux/slices/cart';
 import { Dispatch } from 'redux';
 import { HiMinusSm, HiPlusSm } from 'react-icons/hi';
-import paymenticons from '@icons/payment-icons.png';
+// import paymenticons from '@icons/payment-icons.png';
 import { openDrawer } from '@/redux/slices/drawer';
 import { CartItem } from '@/redux/slices/cart/types';
 import { useRouter } from 'next/navigation';
@@ -52,22 +52,19 @@ import Loader from '../Loader/Loader';
 import { TbCube3dSphere } from 'react-icons/tb';
 import Product3D from '../3DView/Product3D';
 import ARExperience from '../ARModelViewer';
+import { paymentIcons } from '@/data/products';
 
-const ProductDetail = ({
-  params,
-  isZoom,
-  gap,
-  swiperGap,
-  detailsWidth,
-}: {
-  params: IProductDetail;
-  isZoom?: Boolean;
-  gap?: String;
-  swiperGap?: String;
-  detailsWidth?: String;
+
+
+const ProductDetail = ({params,isZoom,gap,swiperGap,detailsWidth,}: {params: IProductDetail;isZoom?: Boolean;gap?: String;swiperGap?: String;detailsWidth?: String;
 }) => {
+  const description:string= "";
+  const [isExpanded, setIsExpanded] = useState(false);
+  const truncateText = (text:any, limit:any) => {
+    return text.length > limit ? text.slice(0, limit) + "..." : text;};
   const [hoveredImage, setHoveredImage] = useState<string | null>(null);
   const cartItems = useSelector((state: State) => state.cart.items);
+
   const [count, setCount] = useState(1);
   const dispatch = useDispatch<Dispatch>();
   const slug = String(params.name);
@@ -195,9 +192,10 @@ const ProductDetail = ({
           <span>AVAILABLE:</span>
           <span className="text-[#56B400]">PRE-ORDER ONLY WHATSAPP</span>
         </div>
-        <p className=" text-lightdark text-14 tracking-wide leading-6">
-          {product?.description}
-        </p>
+        <p className="text-lightdark text-14 tracking-wide leading-6">
+        {isExpanded ? product?.description : truncateText(product?.description, 120)}
+      </p>
+      
 
         <NormalText className="">Hurry Up! Sale ends in:</NormalText>
         <span className="flex gap-2 mb-3">
@@ -485,10 +483,19 @@ const ProductDetail = ({
             </p>
           </div>
         </div>
-
-        <div className="flex justify-center">
-          <Image src={paymenticons} alt="payment icons" />
-        </div>
+        <div className="flex justify-between space-x-4">
+        {paymentIcons.map((icon, index) => (
+          <div key={index} className="w-14 h-auto p-1">
+            <Image
+              src={icon.src} 
+              alt={icon.alt}
+              width={64} 
+              height={60} 
+              className="object-contain shadow "
+            />
+          </div>
+        ))}
+      </div>
       </div>
     </div>
   );

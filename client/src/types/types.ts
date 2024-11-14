@@ -78,6 +78,7 @@ export interface IServiceItem {
   title: string;
 }
 export interface MenuItem {
+  categoryId?: number;
   title: string;
   icon: any;
   link: string;
@@ -129,6 +130,7 @@ export interface IProduct {
   categoriesId: number;
   categories?: ICategory[];
   subcategories?: ICategory[];
+  sections?:[]
 }
 export interface specsDetails {
   id: number;

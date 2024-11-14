@@ -7,7 +7,7 @@ import Providers from '@/redux/provider';
 import PathnameWrapper from '@/components/PathnameWrapper';
 import { ToastContainer } from 'react-toastify';
 
-const inter = Open_Sans({ subsets: ['latin'], variable: '--font-inter' });
+const inter = Open_Sans({ subsets: ['latin'], style:"normal", weight:"400", variable: '--font-inter' });
 
 const belgium = localFont({
   src: [
@@ -41,7 +41,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
+      <body
+      //  className={` ${inter.className}`}
+      >
         <Providers>
           <PathnameWrapper>
             {children}

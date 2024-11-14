@@ -72,9 +72,34 @@ const Navbar = (props: INav) => {
     Navigate.push(`/product/${generateSlug(name)}`);
   };
 
-  const filteredProducts = products.filter((product: IProduct) =>
-    product.name.toLowerCase().includes(searchText.toLowerCase()),
-  );
+  const filteredProducts = products.filter((product: IProduct) => {
+    const searchTerm = searchText.trim().toLowerCase();
+
+    return (
+      product.name.toLowerCase().includes(searchTerm) ||
+      product.description.toLowerCase().includes(searchTerm) ||
+      product.price.toString().includes(searchTerm) || 
+      product.discountPrice.toString().includes(searchTerm) ||
+      (product.colors && product.colors.some((color: string) => color.toLowerCase().includes(searchTerm))) || 
+      (product.spacification && product.spacification.some((spec) =>
+        Object.values(spec).some((value) =>
+          value.toString().toLowerCase().includes(searchTerm)
+        )
+      )) || 
+      product.additionalInformation.some((info) =>
+        Object.values(info).some((value) =>
+          value.toString().toLowerCase().includes(searchTerm)
+        )
+      ) || 
+      (product.categories && product.categories.some((category) =>
+        category.name.toLowerCase().includes(searchTerm) 
+      )) ||
+      (product.subcategories && product.subcategories.some((subcategory) =>
+        subcategory.name.toLowerCase().includes(searchTerm)
+      ))
+    );
+  });
+
 
   useEffect(() => {
     if (isDrawerOpen && drawerInputRef.current) {
@@ -209,7 +234,7 @@ const Navbar = (props: INav) => {
                                       AED <span>{product.price}</span>
                                     </p>
                                   </> : <>
-                                  <p className="text-15 font-semibold">
+                                    <p className="text-15 font-semibold">
                                       AED <span>{product.price}</span>
                                     </p>
                                   </>

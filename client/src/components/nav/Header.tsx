@@ -29,6 +29,8 @@ const Header = () => {
 
     fetchMenuData();
   }, []);
+
+  console.log(menuData,"menuDatamenuData")
   return (
     <>
       <TopNav />
