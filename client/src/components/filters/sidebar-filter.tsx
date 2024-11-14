@@ -133,9 +133,6 @@ const SidebarFilter = ({
       );
   
       setSubcategories(uniqueSubcategories);
-      
-      console.log(selectedCategories, 'selectedCategories')
-      console.log(selectedSubcategories, 'selectedCategories')
     } else {
       setSubcategories([]);
     }
