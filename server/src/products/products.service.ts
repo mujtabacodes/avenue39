@@ -25,6 +25,7 @@ export class ProductsService {
       throw new HttpException(error.message, HttpStatus.NOT_FOUND);
     }
   }
+  
 
   async addProduct(productData: AddProductDto) {
     console.log('Add product triggered');

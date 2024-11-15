@@ -21,36 +21,6 @@ import floorLamps from '@assets/menu-icons/floor-lamp.png';
 import { MenuData } from '@/types/types';
 
 export const menuData: MenuData = {
-  living: [
-    { categoryId: 4, link: '/products', title: 'Sofas', icon: sofa },
-    { categoryId: 4, link: '/products', title: 'Armchairs', icon: armchair },
-    {
-      categoryId: 4,
-      link: '/products',
-      title: 'Accent Chairs',
-      icon: accentChairs,
-    },
-    {
-      categoryId: 4,
-      link: '/products',
-      title: 'TV Cabinets',
-      icon: tvCabinets,
-    },
-    { categoryId: 4, link: '/products', title: 'Side Table', icon: sideTable },
-    {
-      categoryId: 4,
-      link: '/products',
-      title: 'Coffee Tables',
-      icon: coffeeTables,
-    },
-    { categoryId: 4, link: '/products', title: 'Sofa Beds', icon: sofaBed },
-    {
-      categoryId: 4,
-      link: '/products',
-      title: 'Accessories',
-      icon: accessories,
-    },
-  ],
   dining: [
     {
       categoryId: 3,
@@ -77,18 +47,34 @@ export const menuData: MenuData = {
       icon: accessories,
     },
   ],
-  homeOffice: [
+  living: [
+    { categoryId: 4, link: '/products', title: 'Sofas', icon: sofa },
+    { categoryId: 4, link: '/products', title: 'Armchairs', icon: armchair },
     {
-      categoryId: 8,
+      categoryId: 4,
       link: '/products',
-      title: 'Office Tables',
-      icon: officeTables,
+      title: 'Accent Chairs',
+      icon: accentChairs,
     },
     {
-      categoryId: 8,
+      categoryId: 4,
       link: '/products',
-      title: 'Office Chairs',
-      icon: officeChair,
+      title: 'TV Cabinets',
+      icon: tvCabinets,
+    },
+    { categoryId: 4, link: '/products', title: 'Side Tables', icon: sideTable },
+    {
+      categoryId: 4,
+      link: '/products',
+      title: 'Coffee Tables',
+      icon: coffeeTables,
+    },
+    { categoryId: 4, link: '/products', title: 'Sofa Beds', icon: sofaBed },
+    {
+      categoryId: 4,
+      link: '/products',
+      title: 'Accessories',
+      icon: accessories,
     },
   ],
   bedroom: [
@@ -162,7 +148,20 @@ export const menuData: MenuData = {
       icon: bedsideTables,
     },
   ],
-
+  homeOffice: [
+    {
+      categoryId: 8,
+      link: '/products',
+      title: 'Office Tables',
+      icon: officeTables,
+    },
+    {
+      categoryId: 8,
+      link: '/products',
+      title: 'Office Chairs',
+      icon: officeChair,
+    },
+  ],
   Lighting: [
     {
       categoryId: 9,
@@ -179,6 +178,6 @@ export const menuData: MenuData = {
   ],
   Accessories: [{ link: '/products', title: 'Accessories', icon: icon3 }],
   NewArrivals: [{ link: '/products', title: 'New Arrivals', icon: icon3 }],
-  // clearance: [{ link: '/products', title: 'Clearance', icon: icon3 }],
+  clearance: [{ link: '/products', title: 'Clearance', icon: icon3 }],
   megaSale: [{ link: '/products', title: '', icon: icon3 }],
 };
