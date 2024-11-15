@@ -95,17 +95,19 @@ const Footer: React.FC = () => {
         </div>
         <div className="col-span-12 sm:col-span-4 md:col-span-3 lg:col-span-2 px-2">
           <h5 className="font-medium sm:text-lg xl:text-3xl">Categories</h5>
-          <ul className=" leading-8 xl:leading-[45px] font-normal text-14 xl:text-19 text-primary-foreground mt-6">
+          <ul className=" leading-8 xl:leading-[45px] font-normal text-14 xl:text-19 text-primary-foreground mt-6 capitalize">
           {
             Object.keys(menuData).map((menu) => (
               <li key={menu}>
                 <Link
-                  href={`/products/${generateSlug(menu || '')}`}
-                  className="hover:underline"
+                  href={
+                    menu === 'megaSale'?"/products":
+                    `/products/${generateSlug(menu || '')}`}
+                  className="hover:underline capitalize"
                 >
                   {menu === 'megaSale'
-                    ? <p className='text leading-8 xl:-red-600 dark:text-red-600 text-14 xl:text-19 font-normal'>SALE</p>
-                    : menu.replace(/([A-Z])/g, ' $1').toUpperCase()}
+                    ? <p className='text leading-8 text-red-500 dark:text-red-500 text-14 xl:text-19 font-medium capitalize'>Sale</p>
+                    : menu.replace(/([A-Z])/g, ' $1')}
                 </Link>
               </li>
             ))
