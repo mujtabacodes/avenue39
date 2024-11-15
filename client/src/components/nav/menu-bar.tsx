@@ -50,17 +50,14 @@ const MenuBar = () => {
   };
 
   const handleCategoryMenuClick = (menu: string) => {
-    if (menu === 'homeOffice' ) {
+    if (menu === 'homeOffice') {
       route.push(`/products/home-office`);
-    }
-    else if(menu === 'NewArrivals'){
+    } else if (menu === 'NewArrivals') {
       route.push(`/products/new-arrivals`);
-    }
-    else {
+    } else {
       route.push(`/products/${generateSlug(menu)}`);
-
     }
-  }
+  };
 
   const handleMouseEnter = (menu: string) => {
     setActiveMenu(menu);
@@ -92,9 +89,11 @@ const MenuBar = () => {
                   className={`menu-item text-12 pb-2 lg:text-14 xl:text-17 font-semibold uppercase whitespace-nowrap text-red-600 dark:text-red-600 flex flex-row gap-2 items-center cursor-pointer ${pathname === '/products' ? 'linkactive' : 'link-underline'}`}
                   onClick={handleMegaSaleClick}
                 >
-                  MEGA SALE
+                  SALE
                 </button>
-              ) : menu === 'NewArrivals' || menu === 'clearance' || menu === 'Accessories' ? (
+              ) : menu === 'NewArrivals' ||
+                menu === 'clearance' ||
+                menu === 'Accessories' ? (
                 <Link
                   href={`/products/${generateSlug(menuData[menu][0]?.title || '')}`}
                   key={menu}
@@ -112,48 +111,51 @@ const MenuBar = () => {
                 >
                   {menu.replace(/([A-Z])/g, ' $1').toUpperCase()}
                 </div>
-              )
+              ),
             )
           )}
         </Container>
       </div>
-      {activeMenu && !loading && activeMenu !== 'tvCabinets' && activeMenu !== 'clearance' && (
-        <div
-          className="megamenu-container w-full bg-white shadow-lg p-10 z-50 absolute top-[46px]"
-          onMouseEnter={() => setHoveringMenu(true)}
-          onMouseLeave={() => {
-            setHoveringMenu(false);
-            setActiveMenu(null);
-          }}
-        >
-          <Container className="flex gap-4">
-            <div className="w-8/12 space-y-4">
-              <p className="text-19 font-bold w-96">
-                {activeMenu.charAt(0).toUpperCase() + activeMenu.slice(1)}
-              </p>
-              <div className="border-b-4 w-14 border-main" />
-              <div className="grid grid-cols-3 space-y-3">
-                <MenuLink
-                  menudata={menuData[activeMenu]}
-                  onLinkClick={() => setActiveMenu(null)}
-                  loading={loading}
-                />
+      {activeMenu &&
+        !loading &&
+        activeMenu !== 'tvCabinets' &&
+        activeMenu !== 'clearance' && (
+          <div
+            className="megamenu-container w-full bg-white shadow-lg p-10 z-50 absolute top-[46px]"
+            onMouseEnter={() => setHoveringMenu(true)}
+            onMouseLeave={() => {
+              setHoveringMenu(false);
+              setActiveMenu(null);
+            }}
+          >
+            <Container className="flex gap-4">
+              <div className="w-8/12 space-y-4">
+                <p className="text-19 font-bold w-96">
+                  {activeMenu.charAt(0).toUpperCase() + activeMenu.slice(1)}
+                </p>
+                <div className="border-b-4 w-14 border-main" />
+                <div className="grid grid-cols-3 space-y-3">
+                  <MenuLink
+                    menudata={menuData[activeMenu]}
+                    onLinkClick={() => setActiveMenu(null)}
+                    loading={loading}
+                  />
+                </div>
               </div>
-            </div>
-            {(activeMenu === 'bedroom' || activeMenu === 'megaSale') && (
-              <div className="w-full md:w-4/12">
-                <Image
-                  className="object-contain p-2"
-                  width={500}
-                  height={500}
-                  src={megamenu}
-                  alt="menu"
-                />
-              </div>
-            )}
-          </Container>
-        </div>
-      )}
+              {(activeMenu === 'bedroom' || activeMenu === 'megaSale') && (
+                <div className="w-full md:w-4/12">
+                  <Image
+                    className="object-contain p-2"
+                    width={500}
+                    height={500}
+                    src={megamenu}
+                    alt="menu"
+                  />
+                </div>
+              )}
+            </Container>
+          </div>
+        )}
     </div>
   );
 };

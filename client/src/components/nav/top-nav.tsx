@@ -22,18 +22,18 @@ const TopNav = () => {
             Icon={<IoMailOutline className="text-[18px]  lg:text-xl" />}
           />
         </div>
-        <P14 className="hidden md:block">
+        {/* <P14 className="hidden md:block">
           Get Up To 50% off In your first Offer
-        </P14>
-        <div className=' '>
-        <div className='flex  gap-4 '>
-        <SocialLink socialSize="text-[30px]" className='mr' />
-        <div className='h-5 border'/>
-        <Link
+        </P14> */}
+        <div className=" ">
+          <div className="flex  gap-4 ">
+            <SocialLink socialSize="text-[30px]" className="mr" />
+            <div className="h-5 border" />
+            <Link
               className="text-14 font-semibold hover:underline text-white dark:text-white"
               href={'/about'}
             >
-              About us
+              About Us
             </Link>
             <Link
               className="text-14 font-semibold hover:underline text-white dark:text-white"
@@ -41,7 +41,8 @@ const TopNav = () => {
             >
               Contact Us
             </Link>
-        </div>   </div>
+          </div>{' '}
+        </div>
       </Container>
     </div>
   );

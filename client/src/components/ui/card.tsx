@@ -10,7 +10,13 @@ import { addItem } from '@cartSlice/index';
 import { CartItem } from '@cartSlice/types';
 import { openDrawer } from '@/redux/slices/drawer';
 import { useRouter } from 'next/navigation';
-import { Dialog, DialogContent, DialogOverlay, DialogTitle, DialogTrigger } from './dialog';
+import {
+  Dialog,
+  DialogContent,
+  DialogOverlay,
+  DialogTitle,
+  DialogTrigger,
+} from './dialog';
 import ProductDetail from '../product-detail/product-detail';
 import { cn } from '@/lib/utils';
 import { Skeleton } from './skeleton';
@@ -25,6 +31,7 @@ import CardSkeleton from '../cardSkelton';
 import { IoIosHeartEmpty } from 'react-icons/io';
 import { message } from 'antd';
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
+import { TiShoppingCart } from 'react-icons/ti';
 interface CardProps {
   card?: IProduct;
   isModel?: boolean;
@@ -51,34 +58,38 @@ const Card: React.FC<CardProps> = ({
   const handleAddToWishlist = (product: IProduct) => {
     // Create a new wishlist item
     const newWishlistItem = {
-        id: product.id, // Ensure you have the correct property here
-        name: product.name,
-        price: product.price,
-        posterImageUrl: product.posterImageUrl,
-        discountPrice: product.discountPrice,
-        count: 1, // Initialize count to 1 for a new item
-        totalPrice: product.discountPrice ? product.discountPrice : product.price,
+      id: product.id, // Ensure you have the correct property here
+      name: product.name,
+      price: product.price,
+      posterImageUrl: product.posterImageUrl,
+      discountPrice: product.discountPrice,
+      count: 1, // Initialize count to 1 for a new item
+      totalPrice: product.discountPrice ? product.discountPrice : product.price,
     };
 
     // Retrieve existing wishlist from local storage
     let existingWishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
 
     // Check if the product is already in the wishlist
-    const existingItemIndex = existingWishlist.findIndex((item: any) => item.id === newWishlistItem.id); // Use newWishlistItem.id here
+    const existingItemIndex = existingWishlist.findIndex(
+      (item: any) => item.id === newWishlistItem.id,
+    ); // Use newWishlistItem.id here
 
     if (existingItemIndex !== -1) {
-        // If it exists, increment the count and update the total price
-        existingWishlist[existingItemIndex].count += 1;
-        existingWishlist[existingItemIndex].totalPrice =
-            existingWishlist[existingItemIndex].count * (existingWishlist[existingItemIndex].discountPrice || existingWishlist[existingItemIndex].price);
+      // If it exists, increment the count and update the total price
+      existingWishlist[existingItemIndex].count += 1;
+      existingWishlist[existingItemIndex].totalPrice =
+        existingWishlist[existingItemIndex].count *
+        (existingWishlist[existingItemIndex].discountPrice ||
+          existingWishlist[existingItemIndex].price);
     } else {
-        // If it doesn't exist, add the new item to the wishlist
-        existingWishlist.push(newWishlistItem);
+      // If it doesn't exist, add the new item to the wishlist
+      existingWishlist.push(newWishlistItem);
     }
 
     // Save updated wishlist back to local storage
     localStorage.setItem('wishlist', JSON.stringify(existingWishlist));
-    
+
     // Show success message
     message.success('Product added to Wishlist successfully!');
 
@@ -86,8 +97,8 @@ const Card: React.FC<CardProps> = ({
     window.dispatchEvent(new Event('WishlistChanged'));
 
     // Debugging: log the current state of the wishlist
-    console.log(existingWishlist, "existingWishlist");
-};
+    console.log(existingWishlist, 'existingWishlist');
+  };
 
   useEffect(() => {
     if (isLoading == false) {
@@ -138,10 +149,7 @@ const Card: React.FC<CardProps> = ({
   //   console.log(card);
   // }
   return (
-    <div
-      className="rounded-3xl text-center relative product-card mx-4 group hover:cursor-pointer mb-2"
-      
-    >
+    <div className="rounded-3xl text-center relative product-card mx-4 group hover:cursor-pointer mb-2">
       <div className="relative w-full">
         {loading ? (
           <CardSkeleton skeletonHeight={skeletonHeight} />
@@ -152,7 +160,10 @@ const Card: React.FC<CardProps> = ({
                 - {card.sale}%
               </span>
             )}
-            <div onClick={() => handleAddToWishlist(card)} className=" w-10 h-12 absolute right-2 top-2 rounded-xl  flex justify-center items-center border bg-white hover:border-main hover:bg-main hover:text-white  cursor-pointer">
+            <div
+              onClick={() => handleAddToWishlist(card)}
+              className=" w-10 h-12 absolute right-2 top-2 rounded-xl  flex justify-center items-center border bg-white hover:border-main hover:bg-main hover:text-white  cursor-pointer"
+            >
               <IoIosHeartEmpty size={25} />
             </div>
             <Image
@@ -165,7 +176,7 @@ const Card: React.FC<CardProps> = ({
                 'object-cover rounded-3xl',
                 className,
                 skeletonHeight,
-                cardImageHeight
+                cardImageHeight,
               )}
             />
           </>
@@ -185,14 +196,14 @@ const Card: React.FC<CardProps> = ({
         <div onClick={(e) => handleNavigation(e)}>
           <h3 className="text-lg font-semibold mt-2">{card.name}</h3>
           {card.discountPrice > 0 ? (
-            <p className="text-xs font-semibold mt-1">
-              AED {card.discountPrice}
-              <span className="line-through text-secondary-foreground ms-2">
+            <p className="text-md font-semibold mt-1">
+              <span className="line-through text-secondary-foreground ms-2 mr-2">
                 AED {card.price}
               </span>
+              AED {card.discountPrice}
             </p>
           ) : (
-            <span className="text-xs text-black font-semibold">
+            <span className="text-md text-black font-semibold">
               AED {card.price}
             </span>
           )}
@@ -216,20 +227,20 @@ const Card: React.FC<CardProps> = ({
             className="md:my-4 w-full md:w-32 h-8 text-primary border border-primary rounded-full flex items-center justify-center gap-2 hover:bg-primary hover:text-white"
             onClick={(e) => handleAddToCard(e)}
           >
-            <HiOutlineShoppingBag />
-            <span className="text-10 font-medium">Add to Cart</span>
+            <TiShoppingCart />
+            <span className="text-12 font-medium">Add to Cart</span>
           </button>
-          <Dialog >
+          <Dialog>
             <DialogTrigger>
               <button className="md:my-4 w-60 md:w-32 h-8 text-secondary border border-primary bg-primary rounded-full flex items-center justify-center gap-2 hover:bg-secondary hover:text-primary">
-                <span className="text-10 font-medium">Quick View</span>
+                <span className="text-12 font-medium">Quick View</span>
               </button>
             </DialogTrigger>
             <DialogOverlay />
             <DialogContent className="max-w-[1400px] w-11/12 bg-white px-0 sm:rounded-3xl border border-black shadow-none gap-0 pb-0">
-            <VisuallyHidden>
-          <DialogTitle>Product Detail</DialogTitle>
-        </VisuallyHidden>
+              <VisuallyHidden>
+                <DialogTitle>Product Detail</DialogTitle>
+              </VisuallyHidden>
               <div className="pb-6 px-5 xs:px-10 me-4 xs:me-7 mt-6 max-h-[80vh] overflow-y-auto custom-scroll">
                 <ProductDetail
                   params={card}

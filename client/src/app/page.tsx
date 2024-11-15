@@ -16,6 +16,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import DiscountBanner from '@/components/Home/discount-banner';
 import HeroVideo from '@/components/Home/hero-video';
+import WhatsIcon from '@/components/whatsapp';
 import CustomPaging from '@/components/image-slider';
 import { SliderImages } from '@/data/products';
 import { usePathname } from 'next/navigation';
@@ -55,6 +56,7 @@ export default function Home() {
 
   return (
     <>
+      <WhatsIcon />
       <HeroVideo />
       {/* <SimpleSlider />
       <Services /> */}
@@ -74,7 +76,9 @@ export default function Home() {
       <Catalogue/>
       <ColorBanner/>
       <DiscountBanner />
-      <Testimonial testimonialitems={testimonialcards} />
+      {testimonialcards && testimonialcards.length > 50 && (
+        <Testimonial testimonialitems={testimonialcards} />
+      )}
    
     </>
   );
