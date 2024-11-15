@@ -56,15 +56,36 @@ const ViewProduct: React.FC<CategoryProps> = ({
   //   (loggedInUser.role == 'Admin' ? loggedInUser.canEditproduct : true);
   const canEditproduct = true;
 
-  console.log(canDeleteProduct, 'canAddProduct');
 
   const filteredProducts: Product[] =
   
-  Categories?.filter((product: any) =>
-    
-    product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    product.description.toLowerCase().includes(searchTerm.toLowerCase())
-  )
+  Categories?.filter((product: any) =>{
+    const searchtext = searchTerm.trim().toLowerCase();
+
+    return (
+      product.name.toLowerCase().includes(searchtext) ||
+      product.description.toLowerCase().includes(searchtext) ||
+      product.price.toString().includes(searchtext) || 
+      product.discountPrice.toString().includes(searchtext) ||
+      (product.colors && product.colors.some((color: string) => color.toLowerCase().includes(searchtext))) || 
+      (product.spacification && product.spacification.some((spec:any) =>
+        Object.values(spec).some((value:any) =>
+          value.toString().toLowerCase().includes(searchtext)
+        )
+      )) || 
+      product.additionalInformation.some((info:any) =>
+        Object.values(info).some((value:any) =>
+          value.toString().toLowerCase().includes(searchtext)
+        )
+      ) || 
+      (product.categories && product.categories.some((category:any) =>
+        category.name.toLowerCase().includes(searchtext) 
+      )) ||
+      (product.subcategories && product.subcategories.some((subcategory:any) =>
+        subcategory.name.toLowerCase().includes(searchtext)
+      ))
+    );
+  })
   .sort((a: product, b: product) => {
     const dateA = a.createdAt ? new Date(a.createdAt).getTime() : 0;
     const dateB = b.createdAt ? new Date(b.createdAt).getTime() : 0;
