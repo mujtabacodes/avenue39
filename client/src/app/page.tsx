@@ -29,7 +29,9 @@ export default function Home() {
       <TimerSlider />
       <HotProductSlider />
       <DiscountBanner />
-      <Testimonial testimonialitems={testimonialcards} />
+      {testimonialcards && testimonialcards.length > 50 && (
+        <Testimonial testimonialitems={testimonialcards} />
+      )}
     </>
   );
 }

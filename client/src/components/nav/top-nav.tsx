@@ -33,7 +33,7 @@ const TopNav = () => {
               className="text-14 font-semibold hover:underline text-white dark:text-white"
               href={'/about'}
             >
-              About us
+              About Us
             </Link>
             <Link
               className="text-14 font-semibold hover:underline text-white dark:text-white"
