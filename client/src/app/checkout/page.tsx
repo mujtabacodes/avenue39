@@ -43,14 +43,14 @@ const Checkout = () => {
   const [paymentkey, setPaymentKey] = useState('');
   const cartItems = useSelector((state: State) => state.cart.items);
   const initialValues = {
-    firstName: '',
-    lastName: '',
-    email: '',
+    first_name: '',
+    last_name: '',
+    user_email: '',
     country: '',
     address: '',
     postalCode: '',
     city: '',
-    phone: '',
+    phone_number: '',
     note: '',
   };
 
@@ -59,14 +59,16 @@ const Checkout = () => {
     onSubmit: (values) => {
       console.log(values);
       if (
-        values.firstName === '' ||
-        values.lastName === '' ||
+        values.first_name === '' ||
+        values.last_name === '' ||
         values.address === '' ||
-        values.email === ''
+        values.user_email === ''
       ) {
         return showToast('warn', 'Please fill required filds😴');
       }
-      const { city, postalCode, ...submissioValues } = values;
+      const {postalCode, ...submissioValues } = values;
+
+      console.log(values, "values")
 
       handlePayment(submissioValues);
     },
@@ -106,37 +108,26 @@ const Checkout = () => {
       console.log(totalPayment + ' :totalPayment');
 
       try {
-        const paymentKeyResponse = await axios.post(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/api/paytabs/create-payment`,
-          {
-            ...values,
-            amount: totalPayment,
-            // billingData: values,
-            orderedProductDetails: cartItems,
-            shippment_Fee: shipmentFee,
-          },
-        );
-        if (paymentKeyResponse.status === 201) {
-          // window.location.href = paymentKeyResponse.data.redirect_url;
-          setPaymentKey(paymentKeyResponse.data.redirect_url);
-          setPaymentProcess(true);
-        }
-        // console.log('=============== authResponse ===============');
-        // console.log(authResponse);
-        // const paymentKey = await paymentKeyResponse.data.paymentKey;
-        // console.log('Payment Key:' + paymentKey);
-        // setPaymentKey(paymentKey);
-        // setPaymentProcess(true);
-        // if (paymentKey) {
-        //   setIframeSrc(
-        //     `${process.env.NEXT_PUBLIC_PAYMOD_BASE_URL}/iframes/${process.env.NEXT_PUBLIC_PAYMOB_IFRAME_ID}?payment_token=${paymentKey}`,
-        //   );
-        // }
-        // window.location.href = `${process.env.NEXT_PUBLIC_PAYMOD_BASE_URL}/iframes/${process.env.NEXT_PUBLIC_PAYMOB_IFRAME_ID}?payment_token=${paymentKey}`;
-      } catch (error) {
+
+        const proceedPayment = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/sales-record/add_sales`, {
+          ...values,
+          amount: totalPayment,
+          orderedProductDetails: cartItems,
+          shippment_Fee: shippingfee,
+          
+        },
+      );
+      console.log(proceedPayment, "proceedPayment")
+    
+      if(proceedPayment.status === 201){
+        showToast("success", "Order Placed Successfully")
+        window.location.href = `https://uae.paymob.com/unifiedcheckout/?publicKey=${process.env.NEXT_PUBLIC_PAYMOB_PUBLIC_KEY}&clientSecret=${proceedPayment.data.result.client_secret}`;
+        setPaymentProcess(true);
+      }
+      } catch (error:any) {
         showToast(
           'error',
-          'Something is wrong. Please check the input fields.',
+          error.message  || error.error || "Internal server error",
         );
         throw new Error('Something is wrong. Please check the input fields.');
       }
@@ -177,42 +168,42 @@ const Checkout = () => {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <LabelInput
                       label="First Name"
-                      id="firstName"
-                      name="firstName"
+                      id="first_name"
+                      name="first_name"
                       type="text"
                       required
                       onChange={formik.handleChange}
-                      value={formik.values.firstName}
+                      value={formik.values.first_name}
                     />
                     <LabelInput
                       label="Last Name"
-                      id="lastName"
-                      name="lastName"
+                      id="last_name"
+                      name="last_name"
                       type="text"
                       required
                       onChange={formik.handleChange}
-                      value={formik.values.lastName}
+                      value={formik.values.last_name}
                     />
                   </div>
                   <LabelInput
-                    label="Email Address"
-                    id="email"
-                    name="email"
+                    label="email Address"
+                    id="user_email"
+                    name="user_email"
                     type="text"
                     required
                     onChange={formik.handleChange}
-                    value={formik.values.email}
+                    value={formik.values.user_email}
                   />
 
                   <div className=" flex gap-5 flex-col md:flex-row">
                     <LabelInput
-                      label="Phone Number"
-                      id="phone"
-                      name="phone"
+                      label="phone Number"
+                      id="phone_number"
+                      name="phone_number"
                       type="number"
                       required
                       onChange={formik.handleChange}
-                      value={formik.values.phone}
+                      value={formik.values.phone_number}
                     />
                     <LabelInput
                       label="Street Address *"
@@ -259,14 +250,14 @@ const Checkout = () => {
 
                     <div className="flex-1 ">
                       <Label
-                        htmlFor="state"
+                        htmlFor="cit"
                         className="mb-1 px-8 text-sm font-semibold text-17 text-[#666666]"
                       >
                         State
                       </Label>
                       <Select
                         onValueChange={(value: any) => {
-                          formik.setFieldValue('state', value);
+                          formik.setFieldValue('city', value);
                           setSelectedState(value);
                         }}
                         required

@@ -24,7 +24,7 @@ const CategoryFilter = ({
   const handleCheckboxChange = (e: CheckboxChangeEvent, itemName: string) => {
     if (isSubcategory) {
       const { checked } = e.target;
-      onCategoryChange(itemName.toUpperCase(), checked, isSubcategory);
+      onCategoryChange(`SUB_${itemName.toUpperCase()}`, checked, isSubcategory);
     }
     else {
       const { checked } = e.target;
@@ -57,7 +57,7 @@ const CategoryFilter = ({
                   id={`${isSubcategory ? 'Subcategory' : 'Category'}${item.id}`}
                   className="custom-checkbox hover:border-black"
                   onChange={(e) => handleCheckboxChange(e, item.name)}
-                  checked={isSubcategory ? selectedCategories.includes(item.name.toUpperCase()) : selectedCategories.includes(item.name.toUpperCase())}
+                  checked={isSubcategory ? selectedCategories.includes(`SUB_${item.name.toUpperCase()}`) : selectedCategories.includes(item.name.toUpperCase())}
                 >
                   <span className="text-16 uppercase">{item.name}</span>
                 </Checkbox>

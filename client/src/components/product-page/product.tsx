@@ -1,6 +1,6 @@
 import { useState, useEffect, ReactNode } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { usePathname } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import TopHero from '@/components/top-hero';
 import Container from '@/components/ui/Container';
 import { productsbredcrumbs } from '@/data/data';
@@ -49,7 +49,7 @@ const ProductPage = ({
   const [category, setCategory] = useState<any[]>([]);
   const [filterLoading, setFilterLoading] = useState<boolean>(true);
   const pathname = usePathname();
-
+  const searchParams = useSearchParams();
   const fetchCategoryData = async () => {
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/category/get-all`);
@@ -69,16 +69,40 @@ const ProductPage = ({
 
   useEffect(() => {
     const currentCategory = pathname.split('/').pop()?.toUpperCase().replace("-", " ");
+    const categoryId = searchParams.get('id');
+  
     const isInSubcategories = category.some((cat: { subcategories?: { name: string }[] }) =>
       cat.subcategories?.some((subcat: { name: string }) => subcat.name.toUpperCase() === currentCategory)
     );
-
-    if (currentCategory && category.some((cat: { name: string }) => cat.name.toUpperCase() === currentCategory)) {
-      handleCategoryChange(currentCategory, true, false);
-    } else if (currentCategory && isInSubcategories) {
-      handleCategoryChange(currentCategory, true, true);
+  
+    if (currentCategory) {
+      if (categoryId) {
+        const categoryMatch = category.find((cat: any) => cat.id.toString() === categoryId);
+  
+        if (categoryMatch) {
+          setSelectedCategories([categoryMatch.name.toUpperCase()]);  
+          if (categoryMatch.subcategories) {
+            const subcategoryMatch = categoryMatch.subcategories.find((subcat: any) =>
+              subcat.name.toUpperCase() === currentCategory
+            );
+            if (subcategoryMatch) {
+              setSelectedSubCategories([`SUB_${subcategoryMatch.name.toUpperCase()}`]);
+            }
+          }
+        }
+      } else {
+        if (
+          currentCategory &&
+          category.some((cat: { name: string }) => cat.name.toUpperCase() === currentCategory)
+        ) {
+          handleCategoryChange(currentCategory, true, false);
+        } else if (currentCategory && isInSubcategories) {
+          handleCategoryChange(currentCategory, true, true);
+        }
+      }
     }
-  }, [pathname, category]);
+  }, [pathname, category, searchParams]);
+  
 
   const handleCategoryChange = (
     categoryOrSubCategory: string,
@@ -102,11 +126,16 @@ const ProductPage = ({
     queryKey: ['products'],
     queryFn: fetchProducts,
   });
+  useEffect(() => {
+    console.log('Filtering', selectedSubCategories, selectedCategories)
+
+  }, [selectedSubCategories, selectedCategories])
+
 
   const filteredCards = products
     .filter(card => {
       if (selectedSubCategories.length > 0) {
-        return card.subcategories?.some(sub => selectedSubCategories.includes(sub.name.toUpperCase()));
+        return card.subcategories?.some(sub => selectedSubCategories.includes(`SUB_${sub.name.toUpperCase()}`));
       }
       return selectedCategories.length > 0
         ? card.categories?.some(cat => selectedCategories.includes(cat.name))
