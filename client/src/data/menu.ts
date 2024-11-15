@@ -32,7 +32,7 @@ export const menuData: MenuData = {
     {categoryId: 4 , link: '/products', title: 'Armchairs', icon: armchair },
     {categoryId: 4 , link: '/products', title: 'Accent Chairs', icon: accentChairs },
     {categoryId: 4 , link: '/products', title: 'TV Cabinets', icon: tvCabinets },
-    {categoryId: 4 , link: '/products', title: 'Side Table', icon: sideTable },
+    {categoryId: 4 , link: '/products', title: 'Side Tables', icon: sideTable },
     {categoryId: 4 , link: '/products', title: 'Coffee Tables', icon: coffeeTables },
     {categoryId: 4 , link: '/products', title: 'Sofa Beds', icon: sofaBed },
     {categoryId: 4 , link: '/products', title: 'Accessories', icon: accessories },
