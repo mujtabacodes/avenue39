@@ -2,7 +2,6 @@ import { useState, FC } from 'react';
 import Container from '../ui/Container';
 import { TiArrowSortedUp } from 'react-icons/ti';
 import SideCard from '@/components/side-card/side-card';
-import { productData, bestSellerProducts, features } from '@/data';
 import BestSellingSlider from '../card-slider/best-selling';
 
 interface Tab {
@@ -20,7 +19,7 @@ const DetailTabs: FC<DetailTabsProps> = ({ tabs }) => {
   return (
     <div className="w-full mt-5 min-h-48 border-t-[1px]">
       <Container>
-        <div className="flex flex-nowrap gap-8 sm:gap-16 md:gap-24 lg:gap-32 py-4 xs:py-9 w-76 sm:w-full overflow-x-auto overflow-y-hidden">
+        <div className="flex flex-nowrap gap-8 sm:gap-16 md:gap-8 lg:gap-10 py-4 xs:py-9 w-76 sm:w-full overflow-x-auto overflow-y-hidden scrollbar-hide">
           {tabs.map((tab, index) => (
             <button
               key={index}
@@ -30,8 +29,7 @@ const DetailTabs: FC<DetailTabsProps> = ({ tabs }) => {
                   : 'text-slate-400'
               }`}
               onClick={() => setActiveTab(index)}
-            >
-              {tab.label}
+            >{tab.label}
               {activeTab === index && (
                 <TiArrowSortedUp
                   size={30}
@@ -47,7 +45,7 @@ const DetailTabs: FC<DetailTabsProps> = ({ tabs }) => {
         <Container className="flex flex-col sm:flex-row gap-2 xl:gap-10">
           <div className="w-full sm:w-2/3 lg:w-3/4 px-4">
             {tabs[activeTab].content}
-            <div className="w-full relative lg:mt-4">
+            <div className="w-full relative mt-10">
               <h1 className="text-2xl py-3 text-left font-semibold absolute -top-3">Best Seller</h1>
               <BestSellingSlider />
             </div>

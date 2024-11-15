@@ -50,7 +50,7 @@ const SidebarFilter = ({
         const updatedCategories = [...prev];
         const categoryIndex = updatedCategories.findIndex((cat) => cat.toUpperCase() === name);
         if (isChecked && categoryIndex === -1) {
-          updatedCategories.push(name.toUpperCase()); 
+          updatedCategories.push(name.toUpperCase());
         } else if (!isChecked && categoryIndex !== -1) {
           updatedCategories.splice(categoryIndex, 1);
         }
@@ -61,6 +61,7 @@ const SidebarFilter = ({
 
   useEffect(() => {
     if (category && category.length > 0) {
+      setSelectedCategories([]);
       const categoryId = searchParams.get('id');
       const currentCategory = pathname.split('/').pop()?.toUpperCase().replace("-", " ");
       if (currentCategory) {
@@ -77,11 +78,10 @@ const SidebarFilter = ({
             const subcategoryMatch = categoryMatch.subcategories?.find((subcat: any) => 
               subcat.name.toUpperCase() === currentCategory
             );
-  
             if (subcategoryMatch) {
               setSelectedCategories((prev) => {
-                if (!prev.includes(subcategoryMatch.name.toUpperCase())) {
-                  return [...prev, subcategoryMatch.name.toUpperCase()];
+                if (!prev.includes(`SUB_${subcategoryMatch.name.toUpperCase()}`)) {
+                  return [...prev, `SUB_${subcategoryMatch.name.toUpperCase()}`];
                 }
                 return prev;
               });
@@ -126,10 +126,14 @@ const SidebarFilter = ({
         const categoryObj = category.find((cat: any) => cat.name === catName);
         return categoryObj ? categoryObj.subcategories : [];
       });
-      
-      setSubcategories(selectedSubcategories);
-    }
-    else{
+      const uniqueSubcategories = selectedSubcategories.filter((value, index, self) =>
+        index === self.findIndex((t) => (
+          t.name === value.name
+        ))
+      );
+  
+      setSubcategories(uniqueSubcategories);
+    } else {
       setSubcategories([]);
     }
   }, [selectedCategories, category]);
