@@ -7,6 +7,8 @@ import Providers from '@/redux/provider';
 import PathnameWrapper from '@/components/PathnameWrapper';
 import { ToastContainer } from 'react-toastify';
 
+
+
 const inter = Open_Sans({ subsets: ['latin'], style:"normal", weight:"400", variable: '--font-inter' });
 
 const belgium = localFont({

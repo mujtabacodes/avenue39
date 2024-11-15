@@ -8,13 +8,25 @@ import Image from 'next/image';
 
 interface Image {
   imageUrl: string;
+  src: string;
+  alt: string;
 }
 
 interface CustomPagingProps {
   images: Image[];
+  setting: object;
+  className?: string;
+  sliderBgClass?: string;
+  imageBgClass?: string;
 }
 
-const CustomPaging: React.FC<CustomPagingProps> = ({ images }) => {
+const CustomPaging: React.FC<CustomPagingProps> = ({
+  images,
+  setting,
+  className,
+  sliderBgClass,
+  imageBgClass,
+}) => {
   const settings = {
     customPaging: (i: number) => {
       const image = images[i];
@@ -23,9 +35,9 @@ const CustomPaging: React.FC<CustomPagingProps> = ({ images }) => {
           <Image
             src={image.imageUrl}
             alt={`Thumbnail ${i + 1}`}
-            // style={{ width: '50px', height: '30px', objectFit: 'cover' }}
-            width={1000}
-            height={1000}
+            width={100}
+            height={100}
+            objectFit="cover"
           />
         </a>
       );
@@ -36,19 +48,36 @@ const CustomPaging: React.FC<CustomPagingProps> = ({ images }) => {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
+    ...setting,
+    responsive: [
+      {
+        breakpoint: 1024, 
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 768, 
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
   };
 
   return (
-    <div className="h-80 w-44">
-      <Slider {...settings} className="bg-red-300">
-        {images.map((img, index) => (
-          <div key={index} className="bg-violet-600">
+    <div className={`h-80 w-full ${className}`}>
+      <Slider {...settings} className={sliderBgClass}>
+        {images?.map((img, index) => (
+          <div key={index} className={imageBgClass}>
             <Image
               src={img.imageUrl}
               alt={`Image ${index + 1}`}
-              //   style={{ width: '100%', height: 'auto' }}
-              height={500}
-              width={500}
+              width={600} 
+              height={600} 
+              className="object-cover"
             />
           </div>
         ))}

@@ -1,5 +1,6 @@
 import { IProduct } from '@/types/types';
 import productImg1 from '@images/products/imageeee.png';
+import { Description } from '@radix-ui/react-dialog';
 
 export const paymentIcons = [
   { src: '/images/paymentIcons/Mastercard-Logo.webp', alt: 'Mastercard' },
@@ -8,6 +9,26 @@ export const paymentIcons = [
   { src: '/images/paymentIcons/googlepay-logo.webp', alt: 'googlepay' },
  
 ];
+
+export const SliderImages = [
+  { src: '/images/HomeSliderImage/exclusive.webp', alt: 'exclusive' },
+  { src: '/images/HomeSliderImage/fresh.webp', alt: 'exclusive' },
+  { src: '/images/HomeSliderImage/popular.webp', alt: 'exclusive' },
+];
+export const bannerData = {
+  imageUrl: '/images/catalogue/sofa.png', 
+  title: 'CATALOGUE' ,
+  buttonText: 'DOWNLOAD ',
+  fileUrl: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',    
+};
+export const ColorBannerData = {
+  imageUrl: '/images/catalogue/bannerChirs.png', 
+  TopTitle: 'avenue39',
+  Heading: 'Design Chair',
+  ShortText: 'is simply dummy text',
+  Description: 'Lorem Ipsum has been the industry`s standard dummy text ever since the 1500s, when an unknown printer took',
+
+};
 
 export interface AdditionalInformation {
   key?: string;
