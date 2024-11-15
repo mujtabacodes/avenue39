@@ -4,10 +4,15 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React, { useEffect, useRef, useState } from 'react';
 import { FaRegUser } from 'react-icons/fa';
-import logo from '@icons/logo.png';
+import logo from '@icons/logo_nav.png';
 import { IoSearchSharp } from 'react-icons/io5';
 import Container from '../ui/Container';
-import { Drawer, DrawerContent, DrawerTitle, DrawerTrigger } from '@/components/ui/drawer';
+import {
+  Drawer,
+  DrawerContent,
+  DrawerTitle,
+  DrawerTrigger,
+} from '@/components/ui/drawer';
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 import { HiOutlineBars3BottomRight } from 'react-icons/hi2';
 import SocialLink from '../social-link';
@@ -19,7 +24,6 @@ import { useSelector } from 'react-redux';
 import { State } from '@/redux/store';
 import { useQuery } from '@tanstack/react-query';
 import { fetchProducts } from '@/config/fetch';
-;
 import { generateSlug } from '@/config';
 import RenderStars from '../ui/renderstars';
 import { Skeleton } from '../ui/skeleton';
@@ -30,7 +34,6 @@ import { useRouter } from 'next/navigation';
 import { loggedInUserAction } from '@redux/slices/user/userSlice';
 import { useAppDispatch } from '@components/Others/HelperRedux';
 
-
 const Navbar = (props: INav) => {
   const [open, setOpen] = useState(false);
   const [searchText, setSearchText] = useState('');
@@ -38,10 +41,10 @@ const Navbar = (props: INav) => {
   const Navigate = useRouter();
   const [isSticky, setIsSticky] = useState<boolean>(false);
   const drawerInputRef = useRef<HTMLInputElement>(null);
-  const userDetails = useSelector((state: State) => state.usrSlice.loggedInUser);
-  const dispatch = useAppDispatch()
-
-
+  const userDetails = useSelector(
+    (state: State) => state.usrSlice.loggedInUser,
+  );
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -78,36 +81,40 @@ const Navbar = (props: INav) => {
     return (
       product.name.toLowerCase().includes(searchTerm) ||
       product.description.toLowerCase().includes(searchTerm) ||
-      product.price.toString().includes(searchTerm) || 
+      product.price.toString().includes(searchTerm) ||
       product.discountPrice.toString().includes(searchTerm) ||
-      (product.colors && product.colors.some((color: string) => color.toLowerCase().includes(searchTerm))) || 
-      (product.spacification && product.spacification.some((spec) =>
-        Object.values(spec).some((value) =>
-          value.toString().toLowerCase().includes(searchTerm)
-        )
-      )) || 
+      (product.colors &&
+        product.colors.some((color: string) =>
+          color.toLowerCase().includes(searchTerm),
+        )) ||
+      (product.spacification &&
+        product.spacification.some((spec) =>
+          Object.values(spec).some((value) =>
+            value.toString().toLowerCase().includes(searchTerm),
+          ),
+        )) ||
       product.additionalInformation.some((info) =>
         Object.values(info).some((value) =>
-          value.toString().toLowerCase().includes(searchTerm)
-        )
-      ) || 
-      (product.categories && product.categories.some((category) =>
-        category.name.toLowerCase().includes(searchTerm) 
-      )) ||
-      (product.subcategories && product.subcategories.some((subcategory) =>
-        subcategory.name.toLowerCase().includes(searchTerm)
-      ))
+          value.toString().toLowerCase().includes(searchTerm),
+        ),
+      ) ||
+      (product.categories &&
+        product.categories.some((category) =>
+          category.name.toLowerCase().includes(searchTerm),
+        )) ||
+      (product.subcategories &&
+        product.subcategories.some((subcategory) =>
+          subcategory.name.toLowerCase().includes(searchTerm),
+        ))
     );
   });
-
 
   useEffect(() => {
     if (isDrawerOpen && drawerInputRef.current) {
       setTimeout(() => {
         drawerInputRef.current?.focus();
       }, 50);
-    }
-    else {
+    } else {
       setTimeout(() => {
         drawerInputRef.current?.focus();
       }, 50);
@@ -121,17 +128,19 @@ const Navbar = (props: INav) => {
       dispatch(loggedInUserAction(null));
 
       Navigate.push('/login');
-      setOpen(false)
+      setOpen(false);
     } catch (err) {
       console.log(err);
     }
   };
 
   return (
-    <div className={`bg-white dark:text-black ${isSticky ? 'sticky top-0 z-50' : ''}`}>
+    <div
+      className={`bg-white dark:text-black ${isSticky ? 'sticky top-0 z-50' : ''}`}
+    >
       <Container className="flex items-center justify-between p-2 md:p-4 gap-4 dark:bg-white">
         <div className="w-3/12 min-w-32">
-          <div className='w-fit'>
+          <div className="w-fit">
             <Link className="relative" href={'/'}>
               <Image
                 className="object-contain"
@@ -148,7 +157,6 @@ const Navbar = (props: INav) => {
             className="relative rounded-md hidden md:block"
             onSubmit={(e) => e.preventDefault()}
           >
-
             <Drawer onOpenChange={setIsDrawerOpen} open={isDrawerOpen}>
               <DrawerTrigger asChild>
                 <>
@@ -225,20 +233,22 @@ const Navbar = (props: INav) => {
                                 {product.name}
                               </p>
                               <div className="flex items-center gap-4">
-                                {
-                                  product.discountPrice > 0 ? <>
+                                {product.discountPrice > 0 ? (
+                                  <>
                                     <p className="text-15 font-semibold">
                                       AED <span>{product.discountPrice}</span>
                                     </p>
                                     <p className="text-[12px] text-primary-foreground font-bold line-through">
                                       AED <span>{product.price}</span>
                                     </p>
-                                  </> : <>
+                                  </>
+                                ) : (
+                                  <>
                                     <p className="text-15 font-semibold">
                                       AED <span>{product.price}</span>
                                     </p>
                                   </>
-                                }
+                                )}
                               </div>
                               <div>
                                 <RenderStars card={product} />
@@ -249,15 +259,15 @@ const Navbar = (props: INav) => {
                       ))}
                     </div>
                   )}
-                  {filteredProducts.length < 1 && <div>No product is found</div>}
+                  {filteredProducts.length < 1 && (
+                    <div>No product is found</div>
+                  )}
                 </div>
               </DrawerContent>
             </Drawer>
-
           </form>
         </div>
         <div className="gap-3 lg:gap-5 flex justify-end items-center w-3/12">
-
           <div className="hidden md:flex justify-between gap-3 lg:gap-5 items-center">
             <Wishlist />
             <CartItems />
@@ -305,10 +315,12 @@ const Navbar = (props: INav) => {
                 onOpenChange={setOpen}
               >
                 <div className="flex gap-2 items-center whitespace-nowrap cursor-pointer">
-                  <span className='w-auto'>
+                  <span className="w-auto">
                     <Avatar icon={<UserOutlined />} size={30} />
                   </span>
-                  <span className='max-w-28 w-auto text-wrap'>{userDetails.name}</span>
+                  <span className="max-w-28 w-auto text-wrap">
+                    {userDetails.name}
+                  </span>
                 </div>
               </Popover>
             )}
@@ -345,7 +357,7 @@ const Navbar = (props: INav) => {
                       <div className="border p-2">
                         <div className="flex border p-2 rounded-md bg-white hover:shadow-md transition duration-300 gap-2 mt-2 items-center">
                           <Skeleton className="w-[100px] h-[100px]"></Skeleton>
-                          <div className='pt-1 flex flex-col gap-3'>
+                          <div className="pt-1 flex flex-col gap-3">
                             <Skeleton className="w-40 h-6 rounded-none"></Skeleton>
                             <Skeleton className="w-40 h-4 rounded-none"></Skeleton>
                             <Skeleton className="w-40 h-4 rounded-none"></Skeleton>

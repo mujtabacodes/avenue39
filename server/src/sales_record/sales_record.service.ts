@@ -6,313 +6,220 @@ import { generateUniqueString } from '../utils/func';
 
 @Injectable()
 export class SalesRecordService {
-  constructor(private prisma: PrismaService) { }
+  constructor(private prisma: PrismaService) {}
 
+  async Add_sales_record(data: CreateSalesRecordDto) {
+    try {
+      const {
+        amount,
+        shippment_Fee: shipmentFee,
+        orderedProductDetails: updatedProducts,
+        user_email,
+        ...extractedData
+      } = data;
 
-//   async Add_sales_record(data: CreateSalesRecordDto) {
-//     try {
-// const {amount,shippment_Fee:shipmentFee,orderedProductDetails:updatedProducts,user_email, ...extractedData } = data
+      let orderId = generateUniqueString();
 
-//       let orderId = generateUniqueString()
+      var myHeaders: Headers = new Headers();
+      myHeaders.append(
+        'Authorization',
+        `Token ${process.env.PAYMOB_SECRET_KEY}`,
+      );
+      myHeaders.append('Content-Type', 'application/json');
+      const staticProduct = {
+        name: 'Shipping Fee',
+        amount:
+          shipmentFee === 'Free' || shipmentFee === 'undefine'
+            ? 0
+            : Number(shipmentFee) * 100,
+      };
 
-//     var myHeaders:Headers = new Headers();
-//     myHeaders.append("Authorization", `Token ${process.env.PAYMOB_SECRET_KEY}`);
-//     myHeaders.append("Content-Type", "application/json");
+      console.log(amount, 'amount');
 
-//     const staticProduct = {
-//       name: 'Shipping Fee',
-//       amount: shipmentFee === 'Free' || shipmentFee === 'undefine' ? 0 : Number(shipmentFee) * 100,
-//     };
-//       let raw = JSON.stringify({
-//         "amount": amount * 100,
-//         "currency": process.env.PAYMOD_CURRENCY,
-//         "payment_methods": [
-//           158,
-//           49727,
-//           52742,
-//           52741,
-//           52992,
-//           53201
-//         ],
-//         "items": updatedProducts.map((item: any) => ({ 
-//           ...item, 
-//           amount: item.amount * 100 
-//         })),
-//         "billing_data": {...extractedData, email: user_email, amount: amount * 100},
-//         "special_reference": orderId,
-//         "redirection_url": "https://avenue39.vercel.app/thanks"
-//       });
-
-//       let requestOptions = {
-//         method: 'POST',
-//         headers: myHeaders,
-//         body: raw,
-//         redirect: 'follow' as RequestRedirect
-//       };
-  
-  
-//       fetch("https://uae.paymob.com/v1/intention/", requestOptions)
-//         .then(async(response) => {
-//           if (!response.ok) {
-//             const errorData = await response.json();
-
-//             console.log(errorData, "errorData")
-//             throw new Error('Network response was not ok ' + response.statusText);
-//           }
-//           return response.json();
-//         })
-//         .then(async(result) => {
-//           const transaction = await this.prisma.$transaction(async (prisma) => {
-
-//             for (const product of data.orderedProductDetails) {
-//               const existingProduct = await prisma.products.findUnique({
-//                 where: { id: product.id },
-//               });
-    
-//               if (!existingProduct) {
-//                 throw new Error(`Product with ID ${product.id} not found`);
-//               }
-    
-//               if (existingProduct.stock < product.quantity) {
-//                 throw new Error(
-//                   `Not enough stock for product with ID ${product.id}. Available stock: ${existingProduct.stock}`
-//                 );
-//               }
-    
-//               // await prisma.products.update({
-//               //   where: { id: product.id },
-//               //   data: {
-//               //     stock: existingProduct.stock - product.quantity,
-//               //   },
-//               // });
-//             }
-    
-//             const existingSalesRecord = await prisma.sales_record.findUnique({
-//               where: { user_email: data.user_email },
-//               include: { products: true },
-//             });
-    
-//             let newSalesRecord :any;
-    
-//             if (existingSalesRecord) {
-//               newSalesRecord = await prisma.sales_record.update({
-//                 where: { user_email: data.user_email },
-//                 data: {
-//                   products: {
-//                     create: data.orderedProductDetails.map((product) => ({
-//                       quantity: product.quantity,
-//                       productData: product,
-//                       orderId: orderId
-//                     })),
-//                   },
-//                 },
-//                 include: { products: true },
-//               });
-
-
-
-//             } else {
-//               newSalesRecord = await prisma.sales_record.create({
-//                 data: {
-//                   user_email: data.user_email,
-//                   products: {
-//                     create: data.orderedProductDetails.map((product) => ({
-//                       quantity: product.quantity,
-//                       productData: product,
-//                       orderId: orderId
-//                     })),
-//                   },
-//                 },
-//                 include: { products: true },
-//               });
-//             }
-
-//             return newSalesRecord;
-//           });
-
-//           console.log(result, "result")
-    
-//           return { message: 'Order has been created successfully'};
-//         })
-//     } catch (error: unknown) {
-//       console.log(error, "error")
-//       if (error instanceof Error) {
-//         customHttpException(error.message, "INTERNAL_SERVER_ERROR");
-//       } else {
-//         customHttpException("An unknown error occurred", "INTERNAL_SERVER_ERROR");
-//       }
-//     }
-//   }
-
-
-async Add_sales_record(data: CreateSalesRecordDto) {
-  try {
-    const { amount, shippment_Fee: shipmentFee, orderedProductDetails: updatedProducts, user_email, ...extractedData } = data;
-    let orderId = generateUniqueString();
-
-    var myHeaders: Headers = new Headers();
-    myHeaders.append("Authorization", `Token ${process.env.PAYMOB_SECRET_KEY}`);
-    myHeaders.append("Content-Type", "application/json");
-
-    const staticProduct = {
-      name: 'Shipping Fee',
-      price: shipmentFee === 'Free' || shipmentFee === 'undefine' ? 0 : Number(shipmentFee),
-    };
-
-
-
-
-    let raw = JSON.stringify({
-      "amount": amount * 100,
-      "currency": process.env.PAYMOD_CURRENCY,
-      "payment_methods": [158, 49727, 52742, 52741, 52992, 53201],
-      "items": [...updatedProducts, staticProduct].map((item: any) => ({
-        ...item,
-        description: item.description?.slice(0, 255),
-        amount: item.price * 100
-      })),
-      "billing_data": { ...extractedData, email: user_email, amount: amount * 100 },
-      "special_reference": orderId,
-      "redirection_url": "https://avenue39.vercel.app/thanks"
-    });
-
-    let requestOptions = {
-      method: 'POST',
-      headers: myHeaders,
-      body: raw,
-      redirect: 'follow' as RequestRedirect
-    };
-
-
-    const response = await fetch("https://uae.paymob.com/v1/intention/", requestOptions);
-    
-    if (!response.ok) {
-      const errorData = await response.json();
-      console.log(errorData, "errorData");
-      throw new Error('Network response was not ok ' + response.statusText);
-    }
-
-    const result = await response.json();
-
-    const transaction = await this.prisma.$transaction(async (prisma) => {
-      for (const product of data.orderedProductDetails) {
-        const existingProduct = await prisma.products.findUnique({
-          where: { id: product.id },
-        });
-
-        if (!existingProduct) {
-          throw new Error(`Product with ID ${product.id} not found`);
-        }
-
-        if (existingProduct.stock < product.quantity) {
-          throw new Error(`Not enough stock for product with ID ${product.id}. Available stock: ${existingProduct.stock}`);
-        }
-      }
-
-      
-      const existingSalesRecord = await prisma.sales_record.findUnique({
-        where: { user_email: data.user_email },
-        include: { products: true },
+      let raw = JSON.stringify({
+        amount: amount * 100,
+        currency: process.env.PAYMOD_CURRENCY,
+        payment_methods: [158, 49727, 52742, 52741, 52992, 53201],
+        items: updatedProducts,
+        billing_data: {
+          ...extractedData,
+          email: user_email,
+          amount: amount * 100,
+        },
+        special_reference: orderId,
+        redirection_url: 'https://avenue39.vercel.app/thanks',
       });
 
-      let newSalesRecord: any;
+      console.log(raw, 'raw');
+      let requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow' as RequestRedirect,
+      };
 
-      if (existingSalesRecord) {
-        newSalesRecord = await prisma.sales_record.update({
-          where: { user_email: data.user_email },
-          data: {
-            products: {
-              create: data.orderedProductDetails.map((product) => ({
-                quantity: product.quantity,
-                productData: product,
-                orderId: orderId
-              })),
-            },
-          },
-          include: { products: true },
+      fetch('https://uae.paymob.com/v1/intention/', requestOptions)
+        .then(async (response) => {
+          if (!response.ok) {
+            const errorData = await response.json();
+
+            console.log(errorData, 'errorData');
+            throw new Error(
+              'Network response was not ok ' + response.statusText,
+            );
+          }
+          let result = await response.json;
+          return result;
+        })
+        .then(async (result) => {
+          console.log(result, 'result');
+          const transaction = await this.prisma.$transaction(async (prisma) => {
+            for (const product of data.products) {
+              const existingProduct = await prisma.products.findUnique({
+                where: { id: product.id },
+              });
+
+              if (!existingProduct) {
+                throw new Error(`Product with ID ${product.id} not found`);
+              }
+
+              if (existingProduct.stock < product.quantity) {
+                throw new Error(
+                  `Not enough stock for product with ID ${product.id}. Available stock: ${existingProduct.stock}`,
+                );
+              }
+
+              await prisma.products.update({
+                where: { id: product.id },
+                data: {
+                  stock: existingProduct.stock - product.quantity,
+                },
+              });
+            }
+
+            const existingSalesRecord = await prisma.sales_record.findUnique({
+              where: { user_email: data.user_email },
+              include: { products: true },
+            });
+
+            let newSalesRecord;
+
+            if (existingSalesRecord) {
+              newSalesRecord = await prisma.sales_record.update({
+                where: { user_email: data.user_email },
+                data: {
+                  products: {
+                    create: data.products.map((product) => ({
+                      quantity: product.quantity,
+                      productData: product,
+                      orderId: orderId,
+                    })),
+                  },
+                },
+                include: { products: true },
+              });
+            } else {
+              newSalesRecord = await prisma.sales_record.create({
+                data: {
+                  user_email: data.user_email,
+                  products: {
+                    create: data.products.map((product) => ({
+                      quantity: product.quantity,
+                      productData: product,
+                      orderId: orderId,
+                    })),
+                  },
+                },
+                include: { products: true },
+              });
+            }
+
+            return newSalesRecord;
+          });
+          return {
+            message: 'Order has been created successfully',
+            transaction,
+          };
+        })
+        .catch((error) => {
+          console.log('error', error);
+          return { message: 'Error creating order', error: error.message };
         });
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        customHttpException(error.message, 'INTERNAL_SERVER_ERROR');
       } else {
-        newSalesRecord = await prisma.sales_record.create({
-          data: {
-            user_email: data.user_email,
-            products: {
-              create: data.orderedProductDetails.map((product) => ({
-                quantity: product.quantity,
-                productData: product,
-                orderId: orderId
-              })),
-            },
-          },
-          include: { products: true },
-        });
+        customHttpException(
+          'An unknown error occurred',
+          'INTERNAL_SERVER_ERROR',
+        );
       }
-
-      return newSalesRecord;
-    });
-
-    console.log(result, "result");
-    return { message: 'Order has been created successfully', result: result };
-
-  } catch (error: unknown) {
-    console.log(error, "error");
-    if (error instanceof Error) {
-      customHttpException(error.message, "INTERNAL_SERVER_ERROR");
-    } else {
-      customHttpException("An unknown error occurred", "INTERNAL_SERVER_ERROR");
     }
   }
-}
-
-
 
   async get_total_sales() {
     try {
-      let sales = await this.prisma.sales_record_products.findMany()
-      if (!sales) customHttpException("No Sales found", 'NOT_FOUND')
+      let sales = await this.prisma.sales_record_products.findMany();
+      if (!sales) customHttpException('No Sales found', 'NOT_FOUND');
 
-
-      let Total_sales = sales.reduce(function (accumulator: any, currentValue: any) {
+      let Total_sales = sales.reduce(function (
+        accumulator: any,
+        currentValue: any,
+      ) {
         return accumulator + Number(currentValue.quantity);
       }, 0);
 
-      let total_revenue = sales.reduce((accumulator: any, currentValue: any) => {
-        let price = (currentValue.productData.discountPrice || Number(currentValue.productData.discountPrice) > 0) ? currentValue.productData.discountPrice : currentValue.productData.price
+      let total_revenue = sales.reduce(
+        (accumulator: any, currentValue: any) => {
+          let price =
+            currentValue.productData.discountPrice ||
+            Number(currentValue.productData.discountPrice) > 0
+              ? currentValue.productData.discountPrice
+              : currentValue.productData.price;
 
-        let finalPrice = Number(currentValue.quantity) * Number(price)
+          let finalPrice = Number(currentValue.quantity) * Number(price);
 
-        return accumulator + finalPrice
-      }, 0)
-
-      return { Total_sales, total_revenue }
-
+          return accumulator + finalPrice;
+        },
+        0,
+      );
+      return { Total_sales, total_revenue };
     } catch (error: any) {
-      console.log(error, "errr")
-      customHttpException(error.message, 'INTERNAL_SERVER_ERROR')
+      console.log(error, 'errr');
+      customHttpException(error.message, 'INTERNAL_SERVER_ERROR');
     }
-
   }
-
 
   async get_all_records() {
     try {
-      let total_products = await this.prisma.products.count({})
-      let total_categories = await this.prisma.categories.count({})
-      let total_sub_categories = await this.prisma.subCategories.count({})
-      let total_user = await this.prisma.user.count({})
-      let total_Admins = await this.prisma.admins.count({})
-      let sales = await this.prisma.sales_record_products.findMany()
+      let total_products = await this.prisma.products.count({});
+      let total_categories = await this.prisma.categories.count({});
+      let total_sub_categories = await this.prisma.subCategories.count({});
+      let total_user = await this.prisma.user.count({});
+      let total_Admins = await this.prisma.admins.count({});
+      let sales = await this.prisma.sales_record_products.findMany();
 
-      let Total_sales = sales.reduce(function (accumulator: any, currentValue: any) {
+      let Total_sales = sales.reduce(function (
+        accumulator: any,
+        currentValue: any,
+      ) {
         return accumulator + Number(currentValue.quantity);
       }, 0);
 
-      let total_revenue = sales.reduce((accumulator: any, currentValue: any) => {
-        let price = (currentValue.productData.discountPrice || Number(currentValue.productData.discountPrice) > 0) ? currentValue.productData.discountPrice : currentValue.productData.price
+      let total_revenue = sales.reduce(
+        (accumulator: any, currentValue: any) => {
+          let price =
+            currentValue.productData.discountPrice ||
+            Number(currentValue.productData.discountPrice) > 0
+              ? currentValue.productData.discountPrice
+              : currentValue.productData.price;
 
-        let finalPrice = Number(currentValue.quantity) * Number(price)
+          let finalPrice = Number(currentValue.quantity) * Number(price);
 
-        return accumulator + finalPrice
-      }, 0)
+          return accumulator + finalPrice;
+        },
+        0,
+      );
 
       return {
         total_sub_categories,
@@ -321,15 +228,12 @@ async Add_sales_record(data: CreateSalesRecordDto) {
         totalAdmins: total_Admins,
         totalRevenue: total_revenue,
         totalSales: Total_sales,
-        totalUsers:total_user
-      }
-
+        totalUsers: total_user,
+      };
     } catch (error) {
-      customHttpException(error.message, 'INTERNAL_SERVER_ERROR')
-
+      customHttpException(error.message, 'INTERNAL_SERVER_ERROR');
     }
   }
-
 
   async getMonthlySales() {
     const today = new Date();
@@ -345,57 +249,86 @@ async Add_sales_record(data: CreateSalesRecordDto) {
       },
     });
 
-    const monthlyData = sales.reduce((acc, product: any) => {
-      const saleDate = new Date(product.createdAt);
-      const year = saleDate.getFullYear();
-      const month = saleDate.getMonth();
-      const key = `${year}-${month}`;
-      if (!acc[key]) {
-        acc[key] = {
-          year,
-          month,
-          totalRevenue: 0,
-          totalProductCount: 0,
-        };
-      }
+    const monthlyData = sales.reduce(
+      (acc, product: any) => {
+        const saleDate = new Date(product.createdAt);
+        const year = saleDate.getFullYear();
+        const month = saleDate.getMonth();
+        const key = `${year}-${month}`;
+        if (!acc[key]) {
+          acc[key] = {
+            year,
+            month,
+            totalRevenue: 0,
+            totalProductCount: 0,
+          };
+        }
 
-      const revenue = Number(product.productData.discountPrice ?? product.productData.price)
-      const totalRevenue = revenue * Number(product.quantity)
+        const revenue = Number(
+          product.productData.discountPrice ?? product.productData.price,
+        );
+        const totalRevenue = revenue * Number(product.quantity);
 
-      console.log(typeof (revenue), "revmew", "totalRevenue", totalRevenue, revenue)
+        console.log(
+          typeof revenue,
+          'revmew',
+          'totalRevenue',
+          totalRevenue,
+          revenue,
+        );
 
+        acc[key].totalRevenue += totalRevenue;
+        acc[key].totalProductCount += Number(product.quantity);
 
-      acc[key].totalRevenue += totalRevenue
-      acc[key].totalProductCount += Number(product.quantity)
+        return acc;
+      },
+      {} as Record<
+        string,
+        {
+          year: number;
+          month: number;
+          totalRevenue: number;
+          totalProductCount: number;
+        }
+      >,
+    );
 
-      return acc;
-    }, {} as Record<string, { year: number; month: number; totalRevenue: number; totalProductCount: number }>);
-
-
-    const result = Object.values(monthlyData).map(data => ({
+    const result = Object.values(monthlyData).map((data) => ({
       year: data.year,
       month: data.month + 1,
       totalRevenue: data.totalRevenue,
       totalProductCount: data.totalProductCount,
     }));
 
-
     result.sort((a, b) => a.year - b.year || a.month - b.month);
 
     const monthNames = [
-      "January", "February", "March", "April", "May", "June",
-      "July", "August", "September", "October", "November", "December"
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December',
     ];
 
-    const completeMonthlyData = Array.from({ length: currentMonth + 1 }, (_, index) => ({
-      month: `${monthNames[index]} ${currentYear}`,
-      Revenue: 0,
-      Sales: 0
-    }));
+    const completeMonthlyData = Array.from(
+      { length: currentMonth + 1 },
+      (_, index) => ({
+        month: `${monthNames[index]} ${currentYear}`,
+        Revenue: 0,
+        Sales: 0,
+      }),
+    );
 
-    console.log(completeMonthlyData, "completeMonthlyData")
+    console.log(completeMonthlyData, 'completeMonthlyData');
 
-    result.forEach(sale => {
+    result.forEach((sale) => {
       const monthIndex = sale.month - 1;
       completeMonthlyData[monthIndex] = {
         month: `${monthNames[monthIndex]} ${sale.year}`,
@@ -405,8 +338,7 @@ async Add_sales_record(data: CreateSalesRecordDto) {
     });
 
     return completeMonthlyData;
-  };
-
+  }
 
   async getWeeklySales_record() {
     try {
@@ -446,7 +378,7 @@ async Add_sales_record(data: CreateSalesRecordDto) {
           }
 
           const price = Number(
-            product.productData.discountPrice ?? product.productData.price
+            product.productData.discountPrice ?? product.productData.price,
           );
 
           let revenue = Number(product.quantity) * price;
@@ -455,10 +387,18 @@ async Add_sales_record(data: CreateSalesRecordDto) {
 
           return acc;
         },
-        {}
+        {},
       );
 
-      const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+      const days = [
+        'Sunday',
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday',
+        'Saturday',
+      ];
 
       // Initialize the array for the week
       const completeWeeklyData = days.map((day, index) => ({
@@ -470,20 +410,19 @@ async Add_sales_record(data: CreateSalesRecordDto) {
       // Populate the data based on `salesData`
       Object.values(salesData).forEach((item: any) => {
         completeWeeklyData[item.day].revenue += item.revenue;
-        completeWeeklyData[item.day].total_sold_product += item.total_sold_product;
+        completeWeeklyData[item.day].total_sold_product +=
+          item.total_sold_product;
       });
 
-      console.log("completeWeeklyData", completeWeeklyData);
+      console.log('completeWeeklyData', completeWeeklyData);
       return completeWeeklyData;
     } catch (error) {
-      console.log(error, "err");
-      customHttpException(error.message, "INTERNAL_SERVER_ERROR");
+      console.log(error, 'err');
+      customHttpException(error.message, 'INTERNAL_SERVER_ERROR');
     }
   }
 
-
   apiTester() {
-    return "api is working"
+    return 'api is working';
   }
-
 }

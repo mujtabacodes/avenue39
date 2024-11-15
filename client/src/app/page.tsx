@@ -14,9 +14,11 @@ import Link from 'next/link';
 import Image from 'next/image';
 import DiscountBanner from '@/components/Home/discount-banner';
 import HeroVideo from '@/components/Home/hero-video';
+import WhatsIcon from '@/components/whatsapp';
 export default function Home() {
   return (
     <>
+      <WhatsIcon />
       <HeroVideo />
       {/* <SimpleSlider />
       <Services /> */}
@@ -27,7 +29,9 @@ export default function Home() {
       <TimerSlider />
       <HotProductSlider />
       <DiscountBanner />
-      <Testimonial testimonialitems={testimonialcards} />
+      {testimonialcards && testimonialcards.length > 50 && (
+        <Testimonial testimonialitems={testimonialcards} />
+      )}
     </>
   );
 }

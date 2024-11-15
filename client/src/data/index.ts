@@ -32,6 +32,7 @@ import delivery from '@icons/delivery-fast.png';
 import privacy from '@icons/privacy.png';
 import support from '@icons/chat-46.png';
 import opal from '@images/products/OPALdiningtable_900x900S.png';
+import living from '@images/products/armchair.png';
 import armChair from '@images/products/armchair.png';
 import profileimage1 from '@images/profile/Ellipse 4.png';
 import profileimage2 from '@images/profile/Ellipse 5.png';
@@ -670,7 +671,7 @@ export const slidersData: ISliderData[] = [
 export const discountProducts: IDiscountProducts[] = [
   {
     id: 1,
-    imageUrl: opal,
+    imageUrl: living,
     title: 'Extra 20% off Clearance*',
   },
   {
@@ -1122,7 +1123,7 @@ export const cities: City[] = [
 
 export const features: Feature[] = [
   {
-    link:"product/5",
+    link: 'product/5',
     image: cardimage1,
     title: 'Sparta Coffee Table',
     rating: 4,
@@ -1131,7 +1132,7 @@ export const features: Feature[] = [
     discount: 50,
   },
   {
-    link:"product/5",
+    link: 'product/5',
     image: cardimage1,
     title: 'Sparta Coffee Table',
     rating: 4,
@@ -1140,7 +1141,7 @@ export const features: Feature[] = [
     discount: 50,
   },
   {
-    link:"product/5",
+    link: 'product/5',
     image: cardimage1,
     title: 'Sparta Coffee Table',
     rating: 4,
@@ -1149,7 +1150,7 @@ export const features: Feature[] = [
     discount: 30,
   },
   {
-    link:"product/5",
+    link: 'product/5',
     image: cardimage1,
     title: 'Sparta Coffee Table',
     rating: 4,
@@ -1158,7 +1159,7 @@ export const features: Feature[] = [
     discount: 40,
   },
   {
-    link:"product/5",
+    link: 'product/5',
     image: cardimage1,
     title: 'Sparta Coffee Table',
     rating: 4,

@@ -1,6 +1,6 @@
 
 'use client';
-import React from 'react';
+import React, { useRef } from 'react';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Card from '../ui/card';
@@ -26,9 +26,24 @@ const SliderComponent: React.FC<SliderProps> = ({
   cardHeight,
   isLoading,
 }) => {
+  const swiperRef = useRef<any>(null);
+
+  const handleMouseEnter = () => {
+    if (swiperRef.current && swiperRef.current.swiper) {
+      swiperRef.current.swiper.autoplay.stop();
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (swiperRef.current && swiperRef.current.swiper) {
+      swiperRef.current.swiper.autoplay.start();
+    }
+  };
   return (
-    <>
+    <div onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}>
       <Swiper
+       ref={swiperRef}
        slidesPerView={3}
        spaceBetween={30}
        loop={true}
@@ -96,7 +111,7 @@ const SliderComponent: React.FC<SliderProps> = ({
               </SwiperSlide>
             ))}
       </Swiper>
-    </>
+    </div>
   );
 };
 

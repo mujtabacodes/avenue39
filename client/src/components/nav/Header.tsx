@@ -30,7 +30,7 @@ const Header = () => {
     fetchMenuData();
   }, []);
 
-  console.log(menuData,"menuDatamenuData")
+  console.log(menuData, 'menuDatamenuData');
   return (
     <>
       <TopNav />
