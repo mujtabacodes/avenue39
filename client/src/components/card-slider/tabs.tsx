@@ -24,7 +24,7 @@ const Tabs: React.FC<TabsProps> = ({ slidersData, isLoading }) => {
   // Handle horizontal scroll button visibility
   const updateScrollIconsVisibility = () => {
     if (!tabMenuRef.current) return;
-    
+
     const tabMenu = tabMenuRef.current;
     const scrollLeftValue = Math.ceil(tabMenu.scrollLeft);
     const scrollableWidth = tabMenu.scrollWidth - tabMenu.clientWidth;
@@ -76,7 +76,7 @@ const Tabs: React.FC<TabsProps> = ({ slidersData, isLoading }) => {
     const handleResize = () => {
       updateScrollIconsVisibility();
     };
-    
+
     window.addEventListener('resize', handleResize);
     return () => {
       window.removeEventListener('resize', handleResize);
@@ -93,23 +93,23 @@ const Tabs: React.FC<TabsProps> = ({ slidersData, isLoading }) => {
         </div>
 
         <div
-            className="flex flex-nowrap gap-4 max-w-[450px] whitespace-nowrap pb-1 custom-scrollbar overflow-x-auto mb-2"
-            ref={tabMenuRef}
-            onMouseDown={handleMouseDown}
-            onMouseMove={handleMouseMove}
-            onMouseUp={handleMouseUpOrLeave}
-            onMouseLeave={handleMouseUpOrLeave}
-          >
-            {slidersData.map((slider, index) => (
-              <button
-                key={index}
-                onClick={() => handleTabClick(index)}
-                className={`font-medium px-4 py-2 rounded-full transition-colors duration-300 ${index === activeTab ? 'bg-main text-white' : 'bg-white text-black'}`}
-              >
-                {slider.tabTitle}
-              </button>
-            ))}
-          </div>
+          className="flex flex-nowrap gap-4 max-w-[450px] whitespace-nowrap pb-1 custom-scrollbar overflow-x-auto mb-2"
+          ref={tabMenuRef}
+          onMouseDown={handleMouseDown}
+          onMouseMove={handleMouseMove}
+          onMouseUp={handleMouseUpOrLeave}
+          onMouseLeave={handleMouseUpOrLeave}
+        >
+          {slidersData.map((slider, index) => (
+            <button
+              key={index}
+              onClick={() => handleTabClick(index)}
+              className={`font-medium px-4 py-2 rounded-full transition-colors duration-300 ${index === activeTab ? 'bg-main text-white' : 'bg-white text-black'}`}
+            >
+              {slider.tabTitle}
+            </button>
+          ))}
+        </div>
       </div>
 
       {isLoading ? (
