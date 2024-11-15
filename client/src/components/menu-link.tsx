@@ -35,7 +35,7 @@ const MenuLink: React.FC<MenuLinkProps> = ({
         : // Render menu items when not loading
         menudata.map((item, index) => (
           <Link
-            href={`${item.link}/${generateSlug(item.title)}${['Accessories', 'Dining Tables', 'Dining Chairs', 'Sofas', 'Armchairs', 'Accent Chairs', 'TV Cabinets', 'Side Table', 'Sofa Beds', 'Table Lamps', 'Bedside Tables', 'Office Tables' , 'Coffee Tables'].includes(item.title)
+            href={`${item.link}/${generateSlug(item.title)}${['Accessories', 'Dining Tables', 'Dining Chairs', 'Sofas', 'Armchairs', 'Accent Chairs', 'TV Cabinets', 'Side Table', 'Sofa Beds', 'Table Lamps', 'Bedside Tables', 'Office Tables' , 'Coffee Tables' ,'Side Tables'].includes(item.title)
                 ? `?id=${item.categoryId}`
                 : ''
               }`}

@@ -25,16 +25,31 @@ const CardsTabes: React.FC = () => {
     queryKey: ['categories'],
     queryFn: fetchCategories,
   });
-  const slidersData2 = categories.map((category) => ({
-    tabTitle: category.name,
-    cards: products.filter((product) =>
-      // @ts-ignore
-      product.categories.some(
+  const desiredOrder = ['DINING', 'LIVING', 'BEDROOM', 'HOME OFFICE'];
+
+  const slidersData2 = categories
+    .sort((a, b) => {
+      const indexA = desiredOrder.indexOf(a.name);
+      const indexB = desiredOrder.indexOf(b.name);
+
+      return (
+        (indexA === -1 ? Infinity : indexA) -
+        (indexB === -1 ? Infinity : indexB)
+      );
+    })
+    .map((category) => ({
+      tabTitle: category.name,
+      cards: products.filter((product) =>
         // @ts-ignore
-        (prodCategory) => prodCategory.id === category.id,
+        product.categories.some(
+          // @ts-ignore
+          (prodCategory) => prodCategory.id === category.id,
+        ),
       ),
-    ),
-  }));
+    }));
+
+  console.log('slidersData2', slidersData2);
+
   return (
     <Container>
       {productsError || categoriesError ? null : (
