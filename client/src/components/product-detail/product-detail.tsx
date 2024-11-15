@@ -55,19 +55,13 @@ import ARExperience from '../ARModelViewer';
 import { paymentIcons } from '@/data/products';
 
 
-const ProductDetail = ({
-  params,
-  isZoom,
-  gap,
-  swiperGap,
-  detailsWidth,
-}: {
-  params: IProductDetail;
-  isZoom?: Boolean;
-  gap?: String;
-  swiperGap?: String;
-  detailsWidth?: String;
+
+const ProductDetail = ({params,isZoom,gap,swiperGap,detailsWidth,}: {params: IProductDetail;isZoom?: Boolean;gap?: String;swiperGap?: String;detailsWidth?: String;
 }) => {
+  const description:string= "";
+  const [isExpanded, setIsExpanded] = useState(false);
+  const truncateText = (text:any, limit:any) => {
+    return text.length > limit ? text.slice(0, limit) + "..." : text;};
   const [hoveredImage, setHoveredImage] = useState<string | null>(null);
   const cartItems = useSelector((state: State) => state.cart.items);
 
@@ -198,9 +192,10 @@ const ProductDetail = ({
           <span>AVAILABLE:</span>
           <span className="text-[#56B400]">PRE-ORDER ONLY WHATSAPP</span>
         </div>
-        <p className=" text-lightdark text-14 tracking-wide leading-6">
-          {product?.description}
-        </p>
+        <p className="text-lightdark text-14 tracking-wide leading-6">
+        {isExpanded ? product?.description : truncateText(product?.description, 120)}
+      </p>
+      
 
         <NormalText className="">Hurry Up! Sale ends in:</NormalText>
         <span className="flex gap-2 mb-3">
