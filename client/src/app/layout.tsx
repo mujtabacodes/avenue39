@@ -11,9 +11,8 @@ import { ToastContainer } from 'react-toastify';
 const Helvetica = localFont({
   src: [
     {
-      path: '../../public/font/HelveticaNeueThin.ttf',
-      weight: '400',
-      style: 'normal',
+      path: '../../public/font/HelveticaNeueRoman.otf',
+      weight:"500",
     },
   ],
 });
