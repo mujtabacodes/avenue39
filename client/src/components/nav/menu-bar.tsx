@@ -86,7 +86,7 @@ const MenuBar = () => {
               menu === 'megaSale' ? (
                 <button
                   key={menu}
-                  className={`menu-item text-12 pb-2 lg:text-14 xl:text-17 font-semibold uppercase whitespace-nowrap text-red-600 dark:text-red-600 flex flex-row gap-2 items-center cursor-pointer ${pathname === '/products' ? 'linkactive' : 'link-underline'}`}
+                  className={`menu-item text-12 pb-2 lg:text-14 xl:text-19 font-semibold uppercase whitespace-nowrap text-red-600 dark:text-red-600 flex flex-row gap-2 items-center cursor-pointer ${pathname === '/products' ? 'linkactive' : 'link-underline'}`}
                   onClick={handleMegaSaleClick}
                 >
                   SALE
@@ -97,14 +97,14 @@ const MenuBar = () => {
                 <Link
                   href={`/products/${generateSlug(menuData[menu][0]?.title || '')}`}
                   key={menu}
-                  className={`menu-item text-12 pb-2 lg:text-14 xl:text-17 font-semibold uppercase whitespace-nowrap text-black dark:text-black flex flex-row gap-2 items-center cursor-pointer link-underline`}
+                  className={`menu-item text-12 pb-2 lg:text-14 xl:text-19 font-semibold uppercase whitespace-nowrap text-black dark:text-black flex flex-row gap-2 items-center cursor-pointer link-underline`}
                 >
                   {menu.replace(/([A-Z])/g, ' $1').toUpperCase()}
                 </Link>
               ) : (
                 <div
                   key={menu}
-                  className={`menu-item text-12 pb-2 lg:text-14 xl:text-17 font-semibold uppercase whitespace-nowrap text-black dark:text-black flex flex-row gap-2 items-center cursor-pointer ${pathname === menu ? 'linkactive' : 'link-underline'}`}
+                  className={`menu-item text-12 pb-2 lg:text-14 xl:text-19 font-semibold uppercase whitespace-nowrap text-black dark:text-black flex flex-row gap-2 items-center cursor-pointer ${pathname === menu ? 'linkactive' : 'link-underline'}`}
                   onMouseEnter={() => handleMouseEnter(menu)}
                   onMouseLeave={handleMouseLeave}
                   onClick={() => handleCategoryMenuClick(menu)}
