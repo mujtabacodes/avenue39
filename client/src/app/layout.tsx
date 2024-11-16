@@ -12,7 +12,6 @@ const Helvetica = localFont({
   src: [
     {
       path: '../../public/font/HelveticaNeueRoman.otf',
-      weight:"500",
     },
   ],
 });

@@ -49,9 +49,7 @@ html {
 body {
   /* font-family: var(--inter); */
 }
-.font-Helvetica {
-  font-family: var(--Helvetica);
-}
+
 .font-jadyn {
   font-family: var(--jadyn);
 }
