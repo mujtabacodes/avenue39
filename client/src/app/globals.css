@@ -166,3 +166,43 @@ body {
   background-color: #f6f6f6 !important;
   color: black !important;
 }
+/* Custom Slick Slider Arrows */
+.slider-container {
+  position: relative; 
+}
+
+.slider-container .slick-prev, .slider-container .slick-next {
+  position: absolute;
+  top: 50%;
+  background-color: rgb(255, 255, 255); 
+  color: rgb(0, 0, 0);
+  color: rgb(0, 0, 0);
+  padding: 10px;
+  cursor: pointer;
+  font-size: 18px;
+  height: auto;
+  width: auto;
+  border: none;
+  border-radius: 50%;
+  transform: translateY(-50%);
+  box-shadow: #121a25;
+  z-index: 2; 
+}
+
+
+.slider-container .slick-prev {
+  left: 50px !important; 
+  z-index: 1;
+}
+
+.slider-container .slick-next {
+  right: 50px !important; 
+ 
+}
+.slider-container .slick-prev:before, .slider-container .slick-next:before{
+  display: none;
+}
+.slider-container  .slick-prev:hover, .slider-container  .slick-prev:focus, .slider-container  .slick-next:hover, .slider-container  .slick-next:focus{
+background-color: black;
+color: white;
+}
