@@ -4,7 +4,9 @@
 
 @layer base {
   :root {
-    --inter: '__Open_Sans_0f5451', '__Open_Sans_Fallback_0f5451';
+    /* --inter: '__Helvetica_074375', '__Helvetica_Fallback_074375'; */
+    --Helvetica: '__Helvetica_f381f2, __Helvetica_Fallback_f380f2;';
+
     --jadyn: '__jadyn_d94376', '__jadyn_Fallback_d94376';
     --belgium: '__belgium_d61fef', '__belgium_Fallback_d61fef';
     --main: #afa183;
@@ -45,8 +47,9 @@ html {
 }
 
 body {
-  font-family: var(--inter);
+  /* font-family: var(--inter); */
 }
+
 .font-jadyn {
   font-family: var(--jadyn);
 }

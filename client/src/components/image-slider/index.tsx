@@ -5,11 +5,14 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Image from 'next/image';
+import Link from 'next/link';
 
 interface Image {
   imageUrl: string;
   src: string;
   alt: string;
+  link: string;
+  
 }
 
 interface CustomPagingProps {
@@ -38,6 +41,7 @@ const CustomPaging: React.FC<CustomPagingProps> = ({
             width={100}
             height={100}
             objectFit="cover"
+            quality={100}
           />
         </a>
       );
@@ -72,6 +76,7 @@ const CustomPaging: React.FC<CustomPagingProps> = ({
       <Slider {...settings} className={sliderBgClass}>
         {images?.map((img, index) => (
           <div key={index} className={imageBgClass}>
+            <Link href={img.link}>
             <Image
               src={img.imageUrl}
               alt={`Image ${index + 1}`}
@@ -79,6 +84,7 @@ const CustomPaging: React.FC<CustomPagingProps> = ({
               height={600} 
               className="object-cover"
             />
+            </Link>
           </div>
         ))}
       </Slider>

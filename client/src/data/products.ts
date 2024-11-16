@@ -11,9 +11,9 @@ export const paymentIcons = [
 ];
 
 export const SliderImages = [
-  { src: '/images/HomeSliderImage/exclusive.webp', alt: 'exclusive' },
-  { src: '/images/HomeSliderImage/fresh.webp', alt: 'exclusive' },
-  { src: '/images/HomeSliderImage/popular.webp', alt: 'exclusive' },
+  { src: '/images/HomeSliderImage/exclusive.webp', alt: 'exclusive', link: '/products' },
+  { src: '/images/HomeSliderImage/fresh.webp', alt: 'exclusive', link: '/products' },
+  { src: '/images/HomeSliderImage/popular.webp', alt: 'exclusive', link: '/products' },
 ];
 export const bannerData = {
   imageUrl: '/images/catalogue/sofa.png', 
@@ -23,6 +23,7 @@ export const bannerData = {
 };
 export const ColorBannerData = {
   imageUrl: '/images/catalogue/bannerChirs.png', 
+  imageUrl2: '/images/catalogue/bannerchirs2.png', 
   TopTitle: 'avenue39',
   Heading: 'Design Chair',
   ShortText: 'is simply dummy text',

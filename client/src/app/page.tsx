@@ -33,6 +33,7 @@ export default function Home() {
     imageUrl: image.src,  
     src: image.src,
     alt: image.alt,
+    link: image.link
   }));
   const pathname = usePathname();
   const isHomePage = pathname === '/';
@@ -71,7 +72,7 @@ export default function Home() {
       imageBgClass={isHomePage ? 'bg-none border-0' : 'bg-violet-600 border-0'}  
       />
       </div>     
-      <TimerSlider />
+      {/* <TimerSlider /> */}
       <HotProductSlider />
       <Catalogue/>
       <ColorBanner/>

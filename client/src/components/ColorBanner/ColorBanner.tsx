@@ -1,25 +1,35 @@
 import { ColorBannerData } from '@/data/products';
+import Image from 'next/image';
 import React from 'react';
+import Container from '../ui/Container';
 
 const ColorBanner: React.FC = () => {
-  const { imageUrl, ShortText, TopTitle, Description,Heading  } = ColorBannerData; 
+  const { imageUrl, ShortText, TopTitle, Description, Heading,imageUrl2 } = ColorBannerData;
 
   return (
-    <section
-  className="relative lg:h-[700px] h-72 flex lg:items-center justify-start bg-no-repeat bg-contain lg:bg-left bg-bottom text-white "
-  style={{ backgroundImage: `url(${imageUrl})` }}
-><div className="absolute inset-0 bg-black bg-opacity-5"></div>
+    <div className='bg-[#EBEBEB]'>
+    <Container >
+    <section className="flex flex-col lg:flex-row items-end justify-center h-auto text-black  pt-10 pb-3">
+     
+      <div className="flex flex-col justify-center items-center lg:w-[30%] w-full pb-2 text-center mx-auto">
+      <div className='px-14'>
+      <p className="text-lg font-medium pb-1 ">{TopTitle}</p>
+        <h2 className="text-2xl font-semibold pb-1 ">{Heading}</h2>
+        <p className="text-sm font-normal pb-2">{ShortText}</p>
+        <p className="text-18 font-extralight">{Description}</p>
+      </div>
+        <div className="w-fit lg:h-full lg:mt-20 md:mt-10 mt-10"  >
+        <Image src={imageUrl2} className='w-full h-auto object-cover'  alt='categlog' width={1200} height={1200} quality={100}/>        
+      </div>
+      </div>
 
-  <div className='float-start '>
-  <div className="z-10 text-center transform  lg:pt-0 pt-3 lg:translate-x-[10%] lg:max-w-[50%] md:max-w-[50%] px-10 ">
-    <p className="text-14 font-normal pb-2  text-black ">{TopTitle}</p>
-    <p className="text-20 font-semibold pb-1   text-black ">{Heading}</p>
-    <p className="text-10 font-normal pb-2  text-black ">{ShortText}</p>
-    <p className="text-13 font-normal pb-2  text-black ">{Description}</p>
-
-  </div>
-  </div>
-</section>
+    
+      <div className="lg:w-[70%] w-full h-full ">   
+        <Image src={imageUrl} className='w-full h-auto object-cover'  alt='categlog' width={1200} height={1200} quality={100}/>        
+      </div>
+    </section>
+    </Container>
+    </div>
   );
 };
 
