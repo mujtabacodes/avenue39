@@ -3,13 +3,13 @@ import Container from '../ui/Container';
 import Image from 'next/image';
 import logo from '@icons/logo.png';
 import { Button } from '../ui/button';
-import { SiMastercard, SiVisa } from 'react-icons/si';
-import { FaPaypal, FaStripe } from 'react-icons/fa';
 import SocialLink from '../social-link';
 import Link from 'next/link';
 import axios from 'axios';
 import showToast from '../Toaster/Toaster';
 import { paymentIcons } from '@/data/products';
+import { menuData } from '@/data/menu';
+import { generateSlug } from '@/config';
 
 const Footer: React.FC = () => {
   const [email, setEmail] = useState<string>('');
@@ -56,8 +56,8 @@ const Footer: React.FC = () => {
 
   return (
     <section className="pt-16 border-t border-[#EEEEEE] bg-white text-black dark:text-black">
-      <Container className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 sm:gap-x-8 md:gap-x-12 lg:gap-x-16 gap-y-8 px-4">
-        <div className="">
+      <Container className="grid grid-cols-12 sm:gap-x-4 md:gap-x-5 lg:gap-x-8 gap-y-8 px-4">
+        <div className="col-span-12 sm:col-span-12 md:col-span-12 lg:col-span-3">
           <div>
             <Image src={logo} alt="logo" className="w-72" />
             <p className="my-11 font-normal text-13 leading-6 text-primary-foreground">
@@ -68,9 +68,9 @@ const Footer: React.FC = () => {
             </div>
           </div>
         </div>
-        <div className=" px-2">
-          <h5 className="font-medium text-3xl">Quick Links</h5>
-          <ul className="leading-[45px] font-normal text-19 text-primary-foreground mt-6">
+        <div className="col-span-12 sm:col-span-4 md:col-span-3 lg:col-span-2 px-2">
+          <h5 className="font-medium sm:text-lg xl:text-3xl">Quick Links</h5>
+          <ul className=" leading-8 xl:leading-[45px] font-normal text-14 xl:text-19 text-primary-foreground mt-6">
             <li>
               <Link href="/shipping-policy" className="hover:underline">
                 Shipping Policy
@@ -93,9 +93,30 @@ const Footer: React.FC = () => {
             </li>
           </ul>
         </div>
-        <div className=" px-2">
-          <h5 className="font-medium text-3xl">Account Info</h5>
-          <ul className="leading-[45px] font-normal text-19 text-primary-foreground mt-6">
+        <div className="col-span-12 sm:col-span-4 md:col-span-3 lg:col-span-2 px-2">
+          <h5 className="font-medium sm:text-lg xl:text-3xl">Categories</h5>
+          <ul className=" leading-8 xl:leading-[45px] font-normal text-14 xl:text-19 text-primary-foreground mt-6 capitalize">
+          {
+            Object.keys(menuData).map((menu) => (
+              <li key={menu}>
+                <Link
+                  href={
+                    menu === 'megaSale'?"/products":
+                    `/products/${generateSlug(menu || '')}`}
+                  className="hover:underline capitalize"
+                >
+                  {menu === 'megaSale'
+                    ? <p className='text leading-8 text-red-500 dark:text-red-500 text-14 xl:text-19 font-medium capitalize'>Sale</p>
+                    : menu.replace(/([A-Z])/g, ' $1')}
+                </Link>
+              </li>
+            ))
+          }
+            </ul>
+        </div>
+        <div className="col-span-12 sm:col-span-4 md:col-span-3 lg:col-span-2 px-2">
+          <h5 className="font-medium sm:text-lg xl:text-3xl">Account Info</h5>
+          <ul className=" leading-8 xl:leading-[45px] font-normal text-14 xl:text-19 text-primary-foreground mt-6">
             <li>
               <Link href="/profile" target="_self" className="hover:underline">
                 My Account
@@ -122,39 +143,24 @@ const Footer: React.FC = () => {
             </li>
           </ul>
         </div>
-        <div className="">
-          <h5 className="font-medium text-3xl">Newsletter</h5>
+        <div className="col-span-12 sm:col-span-12 md:col-span-3 lg:col-span-3">
+          <h5 className="font-medium sm:text-lg xl:text-3xl">Newsletter</h5>
           <p className="mt-6 text-primary-foreground">
             Get updates by subscribe our weekly newsletter
           </p>
-          {/* <form className="mt-6" onSubmit={handleNewsLetter}>
-            <div className="relative">
-              <input
-                type="email"
-                placeholder="Enter your mail adress"
-                className="bg-black text-white w-full ps-3 py-5 pe-[156px] rounded-2xl text-xs"
-              />
-              <Button
-                variant={'secondary'}
-                className="text-black absolute top-2 right-3 rounded-2xl"
-              >
-                Subscribe Now
-              </Button>
-            </div>
-          </form> */}
           <form className="mt-6" onSubmit={handleNewsLetter}>
             <div className="relative">
               <input
                 type="email"
                 placeholder="Enter your mail address"
-                className="bg-black text-white w-full ps-3 py-5 pe-[156px] rounded-2xl text-xs"
+                className="bg-black text-white w-full ps-3 py-5 pe-[156px] lg:pe-[126px] xl:pe-[156px] rounded-2xl text-xs"
                 value={email}
                 onChange={handleChange}
                 disabled={isLoading}
               />
               <Button
                 variant={'secondary'}
-                className="text-black absolute top-2 right-3 rounded-2xl"
+                className="text-black absolute top-2 right-3 rounded-2xl px-2"
                 disabled={isLoading}
               >
                 {isLoading ? 'Subscribing...' : 'Subscribe Now'}

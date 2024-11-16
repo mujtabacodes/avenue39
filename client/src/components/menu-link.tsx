@@ -35,10 +35,30 @@ const MenuLink: React.FC<MenuLinkProps> = ({
         : // Render menu items when not loading
         menudata.map((item, index) => (
           <Link
-            href={`${item.link}/${generateSlug(item.title)}${['Accessories', 'Dining Tables', 'Dining Chairs', 'Sofas', 'Armchairs', 'Accent Chairs', 'TV Cabinets', 'Side Table', 'Sofa Beds', 'Table Lamps', 'Bedside Tables', 'Office Tables' , 'Coffee Tables' ,'Side Tables'].includes(item.title)
-                ? `?id=${item.categoryId}`
-                : ''
-              }`}
+          href={
+            item.title === 'Sale'
+              ? '/products'
+              : `${item.link}/${generateSlug(item.title)}${
+                  [
+                    'Accessories',
+                    'Dining Tables',
+                    'Dining Chairs',
+                    'Sofas',
+                    'Armchairs',
+                    'Accent Chairs',
+                    'TV Cabinets',
+                    'Side Table',
+                    'Sofa Beds',
+                    'Table Lamps',
+                    'Bedside Tables',
+                    'Office Tables',
+                    'Coffee Tables',
+                    'Side Tables',
+                  ].includes(item.title)
+                    ? `?id=${item.categoryId}`
+                    : ''
+                }`
+          }
             className="flex gap-2 items-center"
             key={index}
             onClick={onLinkClick}
@@ -52,7 +72,11 @@ const MenuLink: React.FC<MenuLinkProps> = ({
                 className='h-[54px] w-[62px]'
               />
             </div>
-            <span className="text-17 font-semibold">{item.title}</span>
+            <span className={`text-17 font-semibold ${item.title =='Sale' ? "text-red-500": ""}`}>
+              
+              {item.title}
+              </span>
+           
           </Link>
         ))}
     </>
