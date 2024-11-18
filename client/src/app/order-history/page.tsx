@@ -16,6 +16,7 @@ import type { ColumnsType } from 'antd/es/table';
 import { State } from '@/redux/store';
 import Image from 'next/image';
 import Link from 'next/link';
+import { generateSlug } from '@/config';
 
 interface Product {
   key: string;
@@ -112,7 +113,7 @@ const OrderHistory: React.FC = () => {
           <MdOutlineProductionQuantityLimits size={30} />
         </div>
          <Link
-         href={"/track-order/001"}
+        href={`/track-order/${generateSlug(record.products[0]?.title || 'order')}`}
          className="cursor-pointer whitespace-nowrap bg-main p-2 rounded-md text-white hover:text-white"
        >
          Track order
