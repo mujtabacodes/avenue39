@@ -36,6 +36,9 @@ function ProtectedRoute(WrappedComponent: any) {
         dispatch(loggedInAdminAction(user.data.user));
         // router.push('/dashboard');
       } catch (err: any) {
+        Cookies.remove('2guysAdminToken');
+        Cookies.remove('superAdminToken');
+        router.push('/dashboard/Admin-login');
         console.log(err, 'err');
       } finally {
         setTimeout(() => {
