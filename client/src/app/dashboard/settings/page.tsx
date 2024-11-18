@@ -1,61 +1,58 @@
 'use client';
-import React, { useState, useEffect } from "react";
-import Breadcrumb from "@components/Dashboard/Breadcrumbs/Breadcrumb";
-import Image from "next/image";
-import DefaultLayout from "@components/Dashboard/Layouts/DefaultLayout";
-import ProtectedRoute from "@/hooks/AuthHookAdmin";
-import { useAppSelector } from "@components/Others/HelperRedux";
-import { uploadPhotosToBackend } from '@/utils/helperFunctions'
-import { IMAGE_INTERFACE } from '@/types/interfaces'
-import axios from "axios";
+import React, { useState, useEffect } from 'react';
+import Breadcrumb from '@components/Dashboard/Breadcrumbs/Breadcrumb';
+import Image from 'next/image';
+import DefaultLayout from '@components/Dashboard/Layouts/DefaultLayout';
+import ProtectedRoute from '@/hooks/AuthHookAdmin';
+import { useAppSelector } from '@components/Others/HelperRedux';
+import { uploadPhotosToBackend } from '@/utils/helperFunctions';
+import { IMAGE_INTERFACE } from '@/types/interfaces';
+import axios from 'axios';
 import Cookies from 'js-cookie';
-import { useAppDispatch } from "@components/Others/HelperRedux";
+import { useAppDispatch } from '@components/Others/HelperRedux';
 import { loggedInAdminAction } from '../../../redux/slices/Admin/AdminsSlice';
 import { ImageRemoveHandler } from '@/utils/helperFunctions';
-import { Input } from "@/components/ui/input";
-import { LabelInput } from "@/components/ui/label-input";
-import { AiOutlineUpload } from "react-icons/ai";
-import { string } from "yup";
+import { Input } from '@/components/ui/input';
+import { LabelInput } from '@/components/ui/label-input';
+import { AiOutlineUpload } from 'react-icons/ai';
+import { string } from 'yup';
 interface ImageType {
-  posterImagePublicId: string | any,
-  posterImageUrl: string
-
+  posterImagePublicId: string | any;
+  posterImageUrl: string;
 }
 
-
 const Settings = () => {
-  const { loggedInUser }: any = useAppSelector(state => state.usersSlice);
+  const { loggedInUser }: any = useAppSelector((state) => state.usersSlice);
   const token = Cookies.get('2guysAdminToken');
   const dispatch = useAppDispatch();
-  let AdminType = loggedInUser && loggedInUser.role == "super-Admin"
+  let AdminType = loggedInUser && loggedInUser.role == 'super-Admin';
 
   const initialFormData = {
-    fullname: loggedInUser ? `${loggedInUser.fullname}` : "",
-
+    fullname: loggedInUser ? `${loggedInUser.fullname}` : '',
   };
   const initialValue = {
-    name: loggedInUser ? `${loggedInUser.email}` : "",
+    name: loggedInUser ? `${loggedInUser.email}` : '',
   };
   const [formData, setFormData] = useState(initialFormData);
 
   const [profilePhoto, setProfilePhoto] = useState<ImageType>();
 
-  const handlePhotoChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log('function trigerd')
+  const handlePhotoChange = async (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    console.log('function trigerd');
     const file = event.target.files?.[0];
 
     if (file) {
-      let imageUrl: any = await uploadPhotosToBackend([file])
-      console.log(imageUrl, "imageUrl")
-      let Images:ImageType= {
-        posterImageUrl:imageUrl.imageUrl        ,
-        posterImagePublicId:imageUrl.public_id
-      }
-      imageUrl ? setProfilePhoto(Images) : null
-
+      let imageUrl: any = await uploadPhotosToBackend([file]);
+      console.log(imageUrl, 'imageUrl');
+      let Images: ImageType = {
+        posterImageUrl: imageUrl.imageUrl,
+        posterImagePublicId: imageUrl.public_id,
+      };
+      imageUrl ? setProfilePhoto(Images) : null;
     }
   };
-
 
   const adminUpdateHandler = async () => {
     try {
@@ -63,76 +60,77 @@ const Settings = () => {
         email: loggedInUser.email,
         name: formData.fullname,
         posterImageUrl: loggedInUser.posterImageUrl,
-        posterImagePublicId: loggedInUser.posterImagePublicId
+        posterImagePublicId: loggedInUser.posterImagePublicId,
       };
 
       if (loggedInUser) {
-        let { name, posterImageUrl, posterImagePublicId, ...extractedData } = loggedInUser;
-        console.log(extractedData, "extractedData");
+        let { name, posterImageUrl, posterImagePublicId, ...extractedData } =
+          loggedInUser;
+        console.log(extractedData, 'extractedData');
 
         if (profilePhoto) {
           initialFormData = {
             ...initialFormData,
             posterImageUrl: profilePhoto.posterImageUrl,
-            posterImagePublicId: profilePhoto.posterImagePublicId
-
-          }
+            posterImagePublicId: profilePhoto.posterImagePublicId,
+          };
         }
 
         let combinedData = {
           ...initialFormData,
-          ...extractedData
+          ...extractedData,
         };
 
-
-
         let response: any = await axios.post(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/edit-admin`, combinedData, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          }
-        }
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/edit-admin`,
+          combinedData,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          },
         );
 
         if (response.status === 200) {
-          console.log("Admin updated successfully:", response.data);
+          console.log('Admin updated successfully:', response.data);
         } else {
-          console.error("Failed to update admin");
+          console.error('Failed to update admin');
         }
       }
     } catch (error) {
-      console.error("Error updating admin:", error);
+      console.error('Error updating admin:', error);
     }
   };
 
-  
   useEffect(() => {
-    setFormData(initialFormData)
-  }, [loggedInUser])
+    setFormData(initialFormData);
+  }, [loggedInUser]);
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();
     try {
       await adminUpdateHandler();
-      await AddminProfileTriggerHandler()
-    }
-    catch (err) {
-      console.log(err, "err")
+      await AddminProfileTriggerHandler();
+    } catch (err) {
+      console.log(err, 'err');
     }
   };
 
   const AddminProfileTriggerHandler = async () => {
     try {
-      let user: any = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/getAdminHandler`, {
-        headers: {
-          "token": token
-        }
-      })
-      dispatch(loggedInAdminAction(user.data.user))
+      let user: any = await axios.get(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/getAdminHandler`,
+        {
+          headers: {
+            token: token,
+          },
+        },
+      );
+      dispatch(loggedInAdminAction(user.data.user));
     } catch (err: any) {
-      console.log(err, "err")
+      console.log(err, 'err');
     }
-  }
+  };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
@@ -140,22 +138,20 @@ const Settings = () => {
       ...prevData,
       [name]: value,
     }));
-  }
+  };
 
   useEffect(() => {
-      let Images:ImageType= {
-        posterImageUrl:'',
-        posterImagePublicId:''
-      }
-if(loggedInUser){
-  Images.posterImageUrl = loggedInUser.posterImageUrl
-  Images.posterImagePublicId = loggedInUser.posterImagePublicId
-  setProfilePhoto(Images)
-}
-      
-    
+    let Images: ImageType = {
+      posterImageUrl: '',
+      posterImagePublicId: '',
+    };
+    if (loggedInUser) {
+      Images.posterImageUrl = loggedInUser.posterImageUrl;
+      Images.posterImagePublicId = loggedInUser.posterImagePublicId;
+      setProfilePhoto(Images);
+    }
   }, [loggedInUser]);
-console.log(profilePhoto, "profilePhoto")
+  console.log(profilePhoto, 'profilePhoto');
 
   return (
     <DefaultLayout>
@@ -172,37 +168,48 @@ console.log(profilePhoto, "profilePhoto")
               <div className="px-7 py-5">
                 <div>
                   <div className="mb-4 flex items-center gap-3">
-
-
-
                     <>
-
                       <div className="h-14 w-14 rounded-full overflow-hidden">
                         <Image
-                          src={(profilePhoto && profilePhoto.posterImageUrl) ? profilePhoto.posterImageUrl : '/images/dummy-avatar.jpg'}
+                          src={
+                            profilePhoto && profilePhoto.posterImageUrl
+                              ? profilePhoto.posterImageUrl
+                              : '/images/dummy-avatar.jpg'
+                          }
                           width={55}
                           height={55}
                           alt="User"
                         />
                       </div>
 
-
                       <div>
                         <span className="mb-1.5 text-primary dark:text-black">
                           Edit your photo
                         </span>
                         <span className="flex gap-2.5">
-                          <button className="text-sm hover:text-primary text-primary dark:text-black" type="button" onClick={() => ImageRemoveHandler(profilePhoto?.posterImagePublicId ? profilePhoto?.posterImagePublicId : '', setProfilePhoto)}>
+                          <button
+                            className="text-sm hover:text-primary text-primary dark:text-black"
+                            type="button"
+                            onClick={() =>
+                              ImageRemoveHandler(
+                                profilePhoto?.posterImagePublicId
+                                  ? profilePhoto?.posterImagePublicId
+                                  : '',
+                                setProfilePhoto,
+                              )
+                            }
+                          >
                             Delete
                           </button>
-                          <button className="text-sm hover:text-primary text-primary dark:text-black" type="button" >
+                          <button
+                            className="text-sm hover:text-primary text-primary dark:text-black"
+                            type="button"
+                          >
                             Update
                           </button>
                         </span>
                       </div>
-
                     </>
-
                   </div>
                   <div className="relative mb-4 rounded-md border-dashed bg-primary py-4 text-white dark:bg-black">
                     <input
@@ -217,19 +224,21 @@ console.log(profilePhoto, "profilePhoto")
                         <AiOutlineUpload className="w-8 h-8 text-primary dark:text-black" />
                       </span>
                       <p className="text-white dark:text-white text-sm">
-                        <span className="text-white dark:text-white text-sm">Click to upload</span> or drag and drop
+                        <span className="text-white dark:text-white text-sm">
+                          Click to upload
+                        </span>{' '}
+                        or drag and drop
                       </p>
-                      <p className="mt-1.5 text-white dark:text-white text-sm">SVG, PNG, JPG or GIF</p>
-                      <p className="text-white dark:text-white text-sm">(max, 800 X 800px)</p>
+                      <p className="mt-1.5 text-white dark:text-white text-sm">
+                        SVG, PNG, JPG or GIF
+                      </p>
+                      <p className="text-white dark:text-white text-sm">
+                        (max, 800 X 800px)
+                      </p>
                     </div>
                   </div>
-
                 </div>
-
-
               </div>
-
-
             </div>
           </div>
 
@@ -269,7 +278,6 @@ console.log(profilePhoto, "profilePhoto")
                   />
 
                   <div className="flex justify-end gap-4.5">
-
                     <button
                       className="flex justify-center rounded bg-primary dark:bg-gray-900 px-6 py-2 font-medium text-white hover:bg-opacity-90 "
                       type="submit"
@@ -281,7 +289,6 @@ console.log(profilePhoto, "profilePhoto")
               </div>
             </div>
           </div>
-
         </div>
       </div>
     </DefaultLayout>
