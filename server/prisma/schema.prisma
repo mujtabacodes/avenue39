@@ -31,19 +31,19 @@ model Products {
   hoverImageUrl       String
   hoverImagePublicId  String
 
-  hoverImageAltText  String?
-  posterImageAltText String?
-  Meta_Title         String?
-  Meta_Description   String?
-  Canonical_Tag      String?
-  Og_title           String?
-  Og_Image           String?
-  Og_Url             String?
-  Images_Alt_Text    String?
+  hoverImageAltText     String?
+  posterImageAltText    String?
+  Meta_Title            String?
+  Meta_Description      String?
+  Canonical_Tag         String?
+  Og_title              String?
+  Og_Image              String?
+  Og_Url                String?
+  Images_Alt_Text       String?
   productImages         Json[]
   additionalInformation Json[]
-  colors                Json[] @default([])
-  spacification         Json[] @default([])
+  colors                Json[]  @default([])
+  spacification         Json[]  @default([])
 
   createdAt     DateTime                @default(now())
   sale          String?                 @default("0")
@@ -53,9 +53,7 @@ model Products {
   categories    Categories[]            @relation("ProductCategories")
   subcategories SubCategories[]         @relation("ProductSubCategories")
   salesRecords  sales_record_products[] @relation("ProductsTosales_record_products")
-  sections  Json[] @default([])
-
-
+  sections      Json[]                  @default([])
 }
 
 model Categories {
@@ -115,10 +113,11 @@ model Admins {
 }
 
 model sales_record {
-  id         Int                     @id @default(autoincrement())
-  user_email String                  @unique
-  createdAt  DateTime                @default(now())
-  products   sales_record_products[]
+  id            Int                     @id @default(autoincrement())
+  user_email    String                  @unique
+  createdAt     DateTime                @default(now())
+  products      sales_record_products[]
+  paymentStatus Json?
 }
 
 model sales_record_products {

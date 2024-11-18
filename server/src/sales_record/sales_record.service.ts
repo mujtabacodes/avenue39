@@ -355,6 +355,15 @@ export class SalesRecordService {
     }
   }
 
+  async order_history() {
+    try {
+      const orders_history = await this.prisma.sales_record_products.findMany();
+      return orders_history;
+    } catch (error) {
+      customHttpException(error.message, 'INTERNAL_SERVER_ERROR');
+    }
+  }
+
   async getMonthlySales() {
     const today = new Date();
     const currentYear = today.getFullYear();
