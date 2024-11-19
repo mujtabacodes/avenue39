@@ -49,7 +49,12 @@ export const menuData: MenuData = {
     { link: '/products', title: 'Sale', icon: "/images/sale.png" }
   ],
   living: [
-    { categoryId: 4, link: '/products', title: 'Sofas', icon: sofa },
+    { 
+      categoryId: 4,
+       link: '/products',
+        title: 'Sofas',
+         icon: sofa },
+
     { categoryId: 4, link: '/products', title: 'Armchairs', icon: armchair },
     {
       categoryId: 4,
