@@ -119,6 +119,7 @@ model sales_record {
   products      sales_record_products[]
   orderId       String                  @unique
   address       String?
+  phoneNumber   String?
   paymentStatus Json?
 }
 
