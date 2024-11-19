@@ -50,6 +50,7 @@ const MenuBar = () => {
   };
 
   const handleCategoryMenuClick = (menu: string) => {
+    setActiveMenu(menu); // Set the clicked menu as active
     if (menu === 'homeOffice') {
       route.push(`/products/home-office`);
     } else if (menu === 'NewArrivals') {
@@ -69,10 +70,25 @@ const MenuBar = () => {
     }
   };
 
+  const isActiveMenu = (menu: string): boolean => {
+    if (menu === 'homeOffice') {
+      return pathname === '/products/home-office';
+    }
+    const submenuPaths = menuData[menu]?.map((item) =>item.categoryId? `${item.link}?id=${item.categoryId}`: `${item.link}/${generateSlug(item.title)}`);
+  console.log(submenuPaths, "submenuPaths")
+    return (
+      submenuPaths?.some((path) => pathname.includes(path)) || pathname.includes(generateSlug(menu))
+    );
+  };
+
+  console.log(isActiveMenu, "isActiveMenu")
+
   return (
     <div className={`${isSticky ? 'sticky top-20 z-50' : 'relative md:pb-12'}`}>
       <div
-        className={`bg-white shadow-md mb-1 pt-3 hidden md:block z-50 ${isSticky ? '' : 'absolute w-full top-0'}`}
+        className={`bg-white shadow-md mb-1 pt-3 hidden md:block z-50 ${
+          isSticky ? '' : 'absolute w-full top-0'
+        }`}
       >
         <Container className="flex flex-wrap items-center justify-between">
           {loading ? (
@@ -82,37 +98,53 @@ const MenuBar = () => {
               ))}
             </div>
           ) : (
-            Object.keys(menuData).map((menu) =>
-              menu === 'megaSale' ? (
-                <button
-                  key={menu}
-                  className={`menu-item text-12 pb-2 lg:text-14 xl:text-19 font-bold uppercase whitespace-nowrap text-red-600 dark:text-red-600 flex flex-row gap-2 items-center cursor-pointer ${pathname === '/products' ? 'linkactive' : 'link-underline'}`}
-                  onClick={handleMegaSaleClick}
-                >
-                  SALE
-                </button>
-              ) : menu === 'NewArrivals' ||
-                menu === 'clearance' ||
-                menu === 'Accessories' ? (
-                <Link
-                  href={`/products/${generateSlug(menuData[menu][0]?.title || '')}`}
-                  key={menu}
-                  className={`menu-item text-12 pb-2 lg:text-14 xl:text-19 font-bold uppercase whitespace-nowrap text-black dark:text-black flex flex-row gap-2 items-center cursor-pointer link-underline`}
-                >
-                  {menu.replace(/([A-Z])/g, ' $1').toUpperCase()}
-                </Link>
-              ) : (
+            Object.keys(menuData).map((menu) => {
+              const isActive = isActiveMenu(menu);
+
+              if (menu === 'megaSale') {
+                return (
+                  <button
+                    key={menu}
+                    className={`menu-item text-12 pb-2 lg:text-14 xl:text-19 font-bold uppercase whitespace-nowrap text-red-600 dark:text-red-600 flex flex-row gap-2 items-center cursor-pointer ${
+                      pathname === '/products' ? 'linkactive' : 'link-underline'
+                    }`}
+                    onClick={handleMegaSaleClick}
+                  >
+                    SALE
+                  </button>
+                );
+              }
+
+              if (['NewArrivals', 'clearance', 'Accessories'].includes(menu)) {
+                return (
+                  <Link
+                    href={`/products/${generateSlug(
+                      menuData[menu][0]?.title || '',
+                    )}`}
+                    key={menu}
+                    className={`menu-item text-12 pb-2 lg:text-14 xl:text-19 font-bold uppercase whitespace-nowrap text-black dark:text-black flex flex-row gap-2 items-center cursor-pointer ${
+                      isActive ? 'linkactive' : 'link-underline'
+                    }`}
+                  >
+                    {menu.replace(/([A-Z])/g, ' $1').toUpperCase()}
+                  </Link>
+                );
+              }
+
+              return (
                 <div
                   key={menu}
-                  className={`menu-item text-12 pb-2 lg:text-14 xl:text-19 font-bold uppercase whitespace-nowrap text-black dark:text-black flex flex-row gap-2 items-center cursor-pointer ${pathname === menu ? 'linkactive' : 'link-underline'}`}
+                  className={`menu-item text-12 pb-2 lg:text-14 xl:text-19 font-bold uppercase whitespace-nowrap text-black dark:text-black flex flex-row gap-2 items-center cursor-pointer ${
+                    isActive ? 'linkactive' : 'link-underline'
+                  }`}
                   onMouseEnter={() => handleMouseEnter(menu)}
                   onMouseLeave={handleMouseLeave}
                   onClick={() => handleCategoryMenuClick(menu)}
                 >
                   {menu.replace(/([A-Z])/g, ' $1').toUpperCase()}
                 </div>
-              ),
-            )
+              );
+            })
           )}
         </Container>
       </div>
@@ -139,6 +171,7 @@ const MenuBar = () => {
                     menudata={menuData[activeMenu]}
                     onLinkClick={() => setActiveMenu(null)}
                     loading={loading}
+                    pathname={pathname}
                   />
                 </div>
               </div>

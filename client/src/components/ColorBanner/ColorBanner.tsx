@@ -9,7 +9,7 @@ const ColorBanner: React.FC = () => {
   return (
     <div className='bg-[#EBEBEB]'>
     <Container >
-    <section className="flex flex-col lg:flex-row items-end justify-center h-auto text-black  pt-10 pb-3">
+    <section className="flex flex-col lg:flex-row items-end justify-center h-auto text-black py-10">
      
       <div className="flex flex-col justify-center items-center lg:w-[30%] w-full pb-2 text-center mx-auto">
       <div className='px-14'>
