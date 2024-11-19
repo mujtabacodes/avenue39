@@ -147,6 +147,8 @@ export class SalesRecordService {
         shippment_Fee: shipmentFee,
         orderedProductDetails: updatedProducts,
         user_email,
+        address,
+
         ...extractedData
       } = data;
       let orderId = generateUniqueString();
@@ -164,6 +166,7 @@ export class SalesRecordService {
           shipmentFee === 'Free' || shipmentFee === 'undefine'
             ? 0
             : Number(shipmentFee),
+        description: 'Shipping Fee',
       };
 
       let raw = JSON.stringify({
@@ -173,7 +176,7 @@ export class SalesRecordService {
         items: [...updatedProducts, staticProduct].map((item: any) => ({
           ...item,
           description: item.description?.slice(0, 255),
-          amount: item.price * 100,
+          amount: (item.discountPrice ? item.discountPrice : item.price) * 100,
         })),
         billing_data: {
           ...extractedData,
@@ -190,7 +193,6 @@ export class SalesRecordService {
         body: raw,
         redirect: 'follow' as RequestRedirect,
       };
-
       const response = await fetch(
         'https://uae.paymob.com/v1/intention/',
         requestOptions,
@@ -252,6 +254,14 @@ export class SalesRecordService {
                   productData: product,
                   orderId: orderId,
                 })),
+              },
+              orderId: orderId,
+              address: `${data.address}, ${data.city}, ${data.country}`,
+              phoneNumber: data.phone_number && data.phone_number.toString(),
+              paymentStatus: {
+                checkoutDate: new Date(),
+                checkoutStatus: true,
+                paymentStatus: false,
               },
             },
             include: { products: true },
@@ -536,6 +546,17 @@ export class SalesRecordService {
 
       console.log('completeWeeklyData', completeWeeklyData);
       return completeWeeklyData;
+    } catch (error) {
+      console.log(error, 'err');
+      customHttpException(error.message, 'INTERNAL_SERVER_ERROR');
+    }
+  }
+  async order_history() {
+    try {
+      const sales = await this.prisma.sales_record.findMany({
+        include: { products: true },
+      });
+      return sales;
     } catch (error) {
       console.log(error, 'err');
       customHttpException(error.message, 'INTERNAL_SERVER_ERROR');
