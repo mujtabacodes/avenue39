@@ -75,6 +75,7 @@ const MenuBar = () => {
     }
   };
 
+  
 
 
   let CategoryFunction = () => {
