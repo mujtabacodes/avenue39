@@ -217,14 +217,14 @@ const FormLayout = ({
                           value={formik.values.description}
                           placeholder="Description"
                           className={`w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${
-                            formik.touched.name && formik.errors.name
+                            formik.touched.description && formik.errors.description
                               ? 'border-red-500'
                               : ''
                           }`}
                         />
-                        {formik.touched.name && formik.errors.name ? (
+                        {formik.touched.description && formik.errors.description ? (
                           <div className="text-red-500 text-sm">
-                            {formik.errors.name}
+                            {formik.errors.description}
                           </div>
                         ) : null}
                       </div>
