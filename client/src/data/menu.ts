@@ -194,7 +194,7 @@ export const menuData: MenuData = {
     { link: '/products', title: 'Sale', icon: "/images/sale.png" }
   ],
   Accessories: [{ link: '/products', title: 'Accessories', icon: icon3 }],
-  NewArrivals: [{ link: '/products', title: 'New Arrivals', icon: icon3 }],
-  clearance: [{ link: '/products', title: 'Clearance', icon: icon3 }],
-  megaSale: [{ link: '/products', title: '', icon: icon3 }],
+  "New Arrivals": [{ link: '/products', title: 'New Arrivals', icon: icon3 }],
+  Clearance: [{ link: '/products', title: 'Clearance', icon: icon3 }],
+  SALE: [{ link: '/products', title: '', icon: icon3 }],
 };

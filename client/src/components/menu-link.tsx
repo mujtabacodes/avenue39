@@ -15,29 +15,28 @@ interface MenuLinkProps {
   menudata: MenuItem[];
   onLinkClick: () => void;
   loading: boolean;
-  pathname: string; // Add pathname prop to track current URL
+  pathname: string; 
 }
 
 const MenuLink: React.FC<MenuLinkProps> = ({
   menudata,
   onLinkClick,
   loading,
-  pathname, // Use this to determine the active link
+  pathname, 
 }) => {
   return (
     <>
       {loading
-        ? // Render skeleton loaders while loading
+        ? 
           Array.from({ length: 4 }).map((_, index) => (
             <div className="flex gap-2 items-center" key={index}>
               <Skeleton className="h-20 w-20 rounded-md border" />
               <Skeleton className="h-6 w-32 rounded-md" />
             </div>
           ))
-        : // Render menu items when not loading
+        : 
           menudata.map((item, index) => {
-            const isActive = pathname.includes(
-              `${item.link}/${generateSlug(item.title)}`
+            const isActive = pathname.includes(`${item.link}/${generateSlug(item.title)}`
             );
 
             return (
@@ -46,24 +45,25 @@ const MenuLink: React.FC<MenuLinkProps> = ({
                   item.title === 'Sale'
                     ? '/products'
                     : `${item.link}/${generateSlug(item.title)}${
-                        [
-                          'Accessories',
-                          'Dining Tables',
-                          'Dining Chairs',
-                          'Sofas',
-                          'Armchairs',
-                          'Accent Chairs',
-                          'TV Cabinets',
-                          'Side Table',
-                          'Sofa Beds',
-                          'Table Lamps',
-                          'Bedside Tables',
-                          'Office Tables',
-                          'Coffee Tables',
-                          'Side Tables',
-                          'accessories',
+                    true
+                        // [
+                        //   'Accessories',
+                        //   'Dining Tables',
+                        //   'Dining Chairs',
+                        //   'Sofas',
+                        //   'Armchairs',
+                        //   'Accent Chairs',
+                        //   'TV Cabinets',
+                        //   'Side Table',
+                        //   'Sofa Beds',
+                        //   'Table Lamps',
+                        //   'Bedside Tables',
+                        //   'Office Tables',
+                        //   'Coffee Tables',
+                        //   'Side Tables',
+                        //   'accessories',
                           
-                        ].includes(item.title)
+                        // ].includes(item.title)
                           ? `?id=${item.categoryId}`
                           : ''
                       }`
