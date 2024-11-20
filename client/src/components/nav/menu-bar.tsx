@@ -142,7 +142,7 @@ const MenuBar = () => {
               ))}
             </div>
           ) : (
-            Object.keys(menuData).map((menu) => {
+            Object.keys(menuData).map((menu , index) => {
               if (menu === 'SALE') {
                 return (
                   <button
@@ -175,9 +175,8 @@ const MenuBar = () => {
               }
 
               return (
-                <div className='relative'>
+                <div className='relative' key={menu}>
                   <div
-                    key={menu}
                     className={`relative menu-item text-14 pb-2 tracking-wide family-Helvetica uppercase whitespace-nowrap text-black dark:text-black flex flex-row gap-2 items-center cursor-pointer ${(isActiveMenu && isActiveMenu === menu ? 'linkactive' : 'link-underline')}`}
                     onMouseEnter={() => handleMouseEnter(menu)}
                     onMouseLeave={handleMouseLeave}
