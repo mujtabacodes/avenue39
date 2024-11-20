@@ -389,10 +389,10 @@ const Navbar = (props: INav) => {
                                 </p>
                                 <div className="flex items-center gap-4">
                                   <p className="text-15 font-semibold">
-                                    Dhs. <span>{product.price}</span>.00
+                                    AED <span>{product.price}</span>
                                   </p>
                                   <p className="text-[12px] text-primary-foreground font-bold line-through">
-                                    <span>{product.discountPrice}</span>.00
+                                    <span>{product.discountPrice}</span>
                                   </p>
                                 </div>
                                 <div>
