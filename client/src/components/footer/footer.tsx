@@ -101,11 +101,11 @@ const Footer: React.FC = () => {
               <li key={menu}>
                 <Link
                   href={
-                    menu === 'megaSale'?"/products":
+                    menu === 'SALE'?"/products":
                     `/products/${generateSlug(menu || '')}`}
                   className="hover:underline capitalize"
                 >
-                  {menu === 'megaSale'
+                  {menu === 'SALE'
                     ? <p className='text leading-8 text-red-500 dark:text-red-500 text-14 xl:text-19 font-medium capitalize'>Sale</p>
                     : menu.replace(/([A-Z])/g, ' $1')}
                 </Link>
