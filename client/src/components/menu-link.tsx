@@ -68,11 +68,11 @@ const MenuLink: React.FC<MenuLinkProps> = ({
                           : ''
                       }`
                 }
-                className={`flex gap-2 items-center  `}
+                className={`flex gap-1 items-center  `}
                 key={index}
                 onClick={onLinkClick}
               >
-                <div className={`rounded-md h-20 w-20 p-2 border flex justify-center items-center ${
+                {/* <div className={`rounded-md h-20 w-20 p-2 border flex justify-center items-center ${
                   isActive ? 'border-main' : ''
                 }`}>
                   <Image
@@ -82,13 +82,11 @@ const MenuLink: React.FC<MenuLinkProps> = ({
                     height={80}
                     className="h-[54px] w-[62px]"
                   />
-                </div>
+                </div> */}
                 <span
-                  className={`text-17 font-semibold ${
+                  className={`text-13 family-Helvetica text-nowrap link-underline pb-1 ${
                     item.title === 'Sale'
                       ? 'text-red-500'
-                      : isActive
-                      ? 'text-[#afa183]' // Example active style
                       : ''
                   }`}
                 >

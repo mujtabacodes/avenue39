@@ -77,7 +77,7 @@ const SofaBanner: React.FC = () => {
                 <div className="lg:pt-2">
                   <Link
                     href="/product/magia-office-desk"
-                    className="bg-main py-2 px-6 rounded-full text-white hover:bg-black"
+                    className="bg-black py-2 px-6 rounded-full text-white hover:bg-main"
                   >
                     Buy Now
                   </Link>
@@ -110,7 +110,7 @@ const SofaBanner: React.FC = () => {
                 <div className="lg:pt-2">
                   <Link
                     href="/product/mila-tv-cabinettv-stand"
-                    className="bg-main py-2 px-6 rounded-full text-white hover:bg-black"
+                    className="bg-black py-2 px-6 rounded-full text-white hover:bg-main"
                   >
                     Buy Now
                   </Link>

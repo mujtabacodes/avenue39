@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'Helvetica'; 
+  src: url('../../public/font/HelveticaNeueRegular.ttf') format('ttf');
+}
 @layer base {
   :root {
     /* --inter: '__Helvetica_074375', '__Helvetica_Fallback_074375'; */
@@ -205,4 +209,8 @@ body {
 .slider-container  .slick-prev:hover, .slider-container  .slick-prev:focus, .slider-container  .slick-next:hover, .slider-container  .slick-next:focus{
 background-color: black;
 color: white;
+}
+
+.family-Helvetica {
+  font-family: 'Helvetica' !important;
 }
