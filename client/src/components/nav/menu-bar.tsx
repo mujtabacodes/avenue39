@@ -149,7 +149,7 @@ const MenuBar = () => {
                     key={menu}
                     className={`
                       
-                      menu-item text-14 pb-2 tracking-wide family-Helvetica uppercase whitespace-nowrap text-red-600 dark:text-red-600 flex flex-row gap-2 items-center cursor-pointer ${(isActiveMenu && isActiveMenu) == menu ? 'linkactive' : 'link-underline'
+                      menu-item text-13 lg:text-15 pb-2 tracking-wide family-Helvetica uppercase whitespace-nowrap text-red-600 dark:text-red-600 flex flex-row gap-2 items-center cursor-pointer ${(isActiveMenu && isActiveMenu) == menu ? 'linkactive' : 'link-underline'
                       }`}
                     onClick={handleMegaSaleClick}
                   >
@@ -164,7 +164,7 @@ const MenuBar = () => {
                   <Link
                     href={`/products/${generateSlug(menuData[menu][0]?.title || '',)}`}
                     key={menu}
-                    className={`menu-item text-14 pb-2 tracking-wide family-Helvetica uppercase whitespace-nowrap text-black dark:text-black flex flex-row gap-2 items-center cursor-pointer ${(isActiveMenu && isActiveMenu) == menu ? 'linkactive' : 'link-underline'
+                    className={`menu-item text-13 lg:text-15 pb-2 tracking-wide family-Helvetica uppercase whitespace-nowrap text-black dark:text-black flex flex-row gap-2 items-center cursor-pointer ${(isActiveMenu && isActiveMenu) == menu ? 'linkactive' : 'link-underline'
                       }`}
                     onClick={() => handleCategoryMenuClick(menu)}
 
@@ -177,7 +177,7 @@ const MenuBar = () => {
               return (
                 <div className='relative' key={menu}>
                   <div
-                    className={`relative menu-item text-14 pb-2 tracking-wide family-Helvetica uppercase whitespace-nowrap text-black dark:text-black flex flex-row gap-2 items-center cursor-pointer ${(isActiveMenu && isActiveMenu === menu ? 'linkactive' : 'link-underline')}`}
+                    className={`relative menu-item text-13 lg:text-15 pb-2 tracking-wide family-Helvetica uppercase whitespace-nowrap text-black dark:text-black flex flex-row gap-2 items-center cursor-pointer ${(isActiveMenu && isActiveMenu === menu ? 'linkactive' : 'link-underline')}`}
                     onMouseEnter={() => handleMouseEnter(menu)}
                     onMouseLeave={handleMouseLeave}
                     onClick={() => handleCategoryMenuClick(menu)}

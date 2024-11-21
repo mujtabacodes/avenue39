@@ -60,7 +60,7 @@ const Footer: React.FC = () => {
         <div className="col-span-12 sm:col-span-12 md:col-span-12 lg:col-span-3">
           <div>
             <Image src={logo} alt="logo" className="w-72" />
-            <p className="my-11 font-normal text-13 leading-6 text-primary-foreground">
+            <p className="my-11 font-normal text-15 leading-6 text-primary-foreground">
             Avenue39 is more than just a furniture store; it&apos;s a philosophy that blends contemporary design with timeless aesthetics. We understand the importance of creating a harmonious environment that reflects your unique personality and taste. Each piece in our collection is thoughtfully selected to offer a perfect fusion of form and function.
             </p>
             <div className="pt-5">
