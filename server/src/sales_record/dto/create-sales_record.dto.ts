@@ -1,6 +1,6 @@
-
 import { Type } from 'class-transformer';
-import {IsString,
+import {
+  IsString,
   IsEmail,
   IsNotEmpty,
   IsNumber,
@@ -11,53 +11,57 @@ import {IsString,
   isNumber,
 } from 'class-validator';
 
-
-
 export class CreateSalesRecordDto {
   @IsEmail()
-  user_email:string
+  user_email: string;
 
   @IsNumber()
-  amount:number
+  amount: number;
 
   @IsString()
-  country: string
+  country: string;
 
   @IsString()
-  address: string
+  address: string;
 
   @IsString()
-  first_name: string
+  first_name: string;
 
   @IsString()
-  city: string
+  city: string;
 
   @IsNumber()
-  phone_number: Number
+  phone_number: Number;
 
-    @IsString()
-    last_name: string
-    
-    @IsString()
-    @IsOptional()
-    note: string 
-  
+  @IsString()
+  last_name: string;
+
+  @IsString()
+  @IsOptional()
+  note: string;
+
   @IsNumber()
-  shippment_Fee: number |string
+  shippment_Fee: number | string;
 
-  
   orderedProductDetails: any[];
 }
 
-
 export interface CreateSalesRecordDto {
-    user_email: string;
-    country: string
-  
-    products: any[];
-  }
-  
-  export interface CreateSalesRecordProductDto {
-    quantity: number;
-    productData: any; 
-  }
+  user_email: string;
+  country: string;
+
+  products: any[];
+}
+
+export interface CreateSalesRecordProductDto {
+  quantity: number;
+  productData: any;
+}
+
+export class updatePaymentStatusDto {
+  @IsString()
+  orderId: string;
+
+  @IsString()
+  paymentStatus: string;
+}

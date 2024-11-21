@@ -1,8 +1,12 @@
-import { Injectable } from '@nestjs/common';
-import { CreateSalesRecordDto } from './dto/create-sales_record.dto';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import {
+  CreateSalesRecordDto,
+  updatePaymentStatusDto,
+} from './dto/create-sales_record.dto';
 import { PrismaService } from '../prisma/prisma.service';
 import { customHttpException } from '../utils/helper';
 import { generateUniqueString } from '../utils/func';
+import { error } from 'console';
 
 @Injectable()
 export class SalesRecordService {
@@ -560,6 +564,48 @@ export class SalesRecordService {
     } catch (error) {
       console.log(error, 'err');
       customHttpException(error.message, 'INTERNAL_SERVER_ERROR');
+    }
+  }
+
+  async updatePaymentStatus(data: updatePaymentStatusDto) {
+    try {
+      const { orderId, paymentStatus } = data;
+      const salesRecord: any = await this.prisma.sales_record.findUnique({
+        where: { orderId },
+      });
+
+      if (!salesRecord) {
+        customHttpException('Order not found', 'NOT_FOUND');
+      }
+
+      if (salesRecord.paymentStatus.paymentStatus) {
+        console.log(salesRecord.paymentStatus.paymentStatus, 'paymentStatus');
+        customHttpException('Payment status already updated!', 'BAD_REQUEST');
+        // throw new HttpException(error, HttpStatus['BAD_REQUEST']);
+      }
+
+      const updatedSalesRecord = await this.prisma.sales_record.update({
+        where: { orderId },
+        data: {
+          paymentStatus: {
+            paymentStatus: paymentStatus,
+            paymentDate: new Date(),
+          },
+        },
+      });
+
+      console.log(updatedSalesRecord, 'updatedSalesRecord');
+      return { message: 'Payment status updated successfuly🎉', orderId };
+    } catch (error: unknown) {
+      console.log(error, 'error');
+      if (error instanceof Error) {
+        customHttpException(error.message, 'INTERNAL_SERVER_ERROR');
+      } else {
+        customHttpException(
+          'An unknown error occurred',
+          'INTERNAL_SERVER_ERROR',
+        );
+      }
     }
   }
 
