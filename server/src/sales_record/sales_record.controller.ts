@@ -6,9 +6,13 @@ import {
   Patch,
   Param,
   Delete,
+  Put,
 } from '@nestjs/common';
 import { SalesRecordService } from './sales_record.service';
-import { CreateSalesRecordDto } from './dto/create-sales_record.dto';
+import {
+  CreateSalesRecordDto,
+  updatePaymentStatusDto,
+} from './dto/create-sales_record.dto';
 
 @Controller('sales-record')
 export class SalesRecordController {
@@ -22,6 +26,10 @@ export class SalesRecordController {
   @Get('order_history')
   order_history() {
     return this.salesRecordService.order_history();
+  }
+  @Patch('update-payment-status')
+  updatePaymentStatus(@Body() updatePaymentStatusDto: updatePaymentStatusDto) {
+    return this.salesRecordService.updatePaymentStatus(updatePaymentStatusDto);
   }
 
   @Get('get_all_records')
