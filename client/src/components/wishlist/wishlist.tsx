@@ -1,3 +1,4 @@
+
 import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
 import { IoIosHeartEmpty } from 'react-icons/io';
@@ -26,7 +27,7 @@ const WishlistCount = () => {
 
   return (
     <div
-      className={`xl:w-14 w-12 h-10 rounded-3xl relative flex justify-center items-center border hover:border-main hover:bg-main hover:text-white cursor-pointer ${
+      className={`xl:w-14 w-12 h-10 rounded-3xl relative flex justify-center items-center cursor-pointer ${
         wishlistCount > 0 ? "bg-main border-main text-white" : "border-black"
       }`}
     >
