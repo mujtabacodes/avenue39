@@ -1,11 +1,11 @@
+
 'use client';
 import { INav, IProduct } from '@/types/types';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useEffect, useRef, useState } from 'react';
-import { FaRegUser } from 'react-icons/fa';
 import logo from '@icons/logo_nav.png';
-import { IoSearchSharp } from 'react-icons/io5';
+import { IoSearchOutline, IoSearchSharp } from 'react-icons/io5';
 import Container from '../ui/Container';
 import {
   Drawer,
@@ -14,9 +14,6 @@ import {
   DrawerTrigger,
 } from '@/components/ui/drawer';
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
-import { HiOutlineBars3BottomRight } from 'react-icons/hi2';
-import SocialLink from '../social-link';
-import { IoIosSearch } from 'react-icons/io';
 import CartItems from '../cart/items';
 import { Avatar, Popover } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
@@ -33,6 +30,7 @@ import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
 import { loggedInUserAction } from '@redux/slices/user/userSlice';
 import { useAppDispatch } from '@components/Others/HelperRedux';
+import { CiUser } from 'react-icons/ci';
 
 const Navbar = (props: INav) => {
   const [open, setOpen] = useState(false);
@@ -166,14 +164,14 @@ const Navbar = (props: INav) => {
                     value={searchText}
                     onChange={handleInputChange}
                     onClick={() => setIsDrawerOpen(true)}
-                    className="px-4 h-12 xl:h-[64px] border block w-full rounded-xl text-sm disabled:opacity-50 custom-input-bg"
+                    className="px-4 h-12 xl:h-[64px] border block w-full text-sm rounded-full disabled:opacity-50 custom-input-bg"
                     placeholder="Search Here..."
                   />
                   <button
                     type="submit"
                     className="absolute inset-y-0 end-0 flex items-center z-20 pe-4 cursor-pointer"
                   >
-                    <IoSearchSharp className="cursor-pointer" size={30} />
+                    <IoSearchOutline className="cursor-pointer font-extralight" size={30} />
                   </button>
                 </>
               </DrawerTrigger>
@@ -187,17 +185,17 @@ const Navbar = (props: INav) => {
                     <input
                       type="text"
                       name="searchHeader"
-                      ref={drawerInputRef} // Ref to focus on when drawer opens
+                      ref={drawerInputRef} 
                       value={searchText}
                       onChange={handleInputChange}
-                      className="py-4 px-4 pe-11 border block w-full text-sm disabled:opacity-50"
+                      className="py-4 px-4 pe-11 border block w-full rounded-full text-sm disabled:opacity-50"
                       placeholder="Search Here..."
                     />
                     <button
                       type="submit"
                       className="absolute inset-y-0 end-0 flex items-center z-20 pe-4 cursor-pointer"
                     >
-                      <IoSearchSharp className="cursor-pointer" size={30} />
+                      <IoSearchOutline className="cursor-pointer" size={30} />
                     </button>
                   </div>
                   {isLoading && (
@@ -267,19 +265,18 @@ const Navbar = (props: INav) => {
             </Drawer>
           </form>
         </div>
-        <div className="gap-3 lg:gap-5 flex justify-end items-center w-3/12">
-          <div className="hidden md:flex justify-between gap-3 lg:gap-5 items-center">
+        <div className="gap-3 lg:gap-3 flex justify-end items-center w-3/12">
+          <div className="hidden md:flex justify-between gap-3 lg:gap-1 items-center">
             <Wishlist />
             <CartItems />
           </div>
           <div className="hidden md:flex gap-5 items-center">
             {!userDetails ? (
               <Link
-                className="gap-2 flex items-center text-14 font-semibold hover:underline text-black dark:text-black"
+                className="gap-2 flex items-center text-14 font-extralight hover:underline text-black dark:text-black"
                 href={'/login'}
               >
-                <FaRegUser size={25} />
-                <span>Login/Register</span>
+                <CiUser  size={30} />
               </Link>
             ) : (
               <Popover
@@ -343,7 +340,7 @@ const Navbar = (props: INav) => {
                         type="text"
                         value={searchText}
                         onChange={handleInputChange}
-                        className="py-4 px-4 pe-11 border block w-full text-sm disabled:opacity-50"
+                        className="py-4 px-4 pe-11 border block w-full rounded-full text-sm disabled:opacity-50"
                         placeholder="Search Here..."
                       />
                       <button
