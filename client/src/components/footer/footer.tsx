@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import Container from '../ui/Container';
 import Image from 'next/image';
@@ -64,34 +63,23 @@ const Footer: React.FC = () => {
         <div className="col-span-12 sm:col-span-12 md:col-span-12 lg:col-span-3">
           <div>
             <Image src={logo} alt="logo" className="w-72" />
-            <p className="my-11 font-normal text-15 leading-6 text-primary-foreground">
-            Avenue39 is more than just a furniture store; it&apos;s a philosophy that blends contemporary design with timeless aesthetics. We understand the importance of creating a harmonious environment that reflects your unique personality and taste. Each piece in our collection is thoughtfully selected to offer a perfect fusion of form and function.
+            <p className="my-7 tracking-wide family-Helvetica text-13 lg:text-15 leading-6 text-black">
+              Avenue39 is more than just a furniture store; it&apos;s a
+              philosophy that blends contemporary design with timeless
+              aesthetics. We understand the importance of creating a harmonious
+              environment that reflects your unique personality and taste. Each
+              piece in our collection is thoughtfully selected to offer a
+              perfect fusion of form and function.
             </p>
             <div className="pt-5">
               <SocialLink socialSize="md:text-[25px]" />
             </div>
-            <div className=' mt-8'>
-                <div className='border border-gray-800  w-56 rounded-sm'>
-                <div className='flex items-center gap-5 py-2 px-3'>
-                <CiHeadphones size={30} />
-                <p className='text-left font-extralight leading-normal'>Request a callback</p>
-                </div>
-
-                </div>
-            </div>
-            <Link href="tel:+971505974495" >
-                <div className='border border-gray-800 mt-4 w-56 rounded-sm'>
-                <div className='flex items-center gap-5 py-2 px-3'>
-                <PiPhoneCallLight size={30} />
-                <p className='text-left font-extralight leading-normal'>+971 50 597 4495</p>
-                </div>
-
-                </div>
-            </Link>
           </div>
         </div>
         <div className="col-span-12 sm:col-span-4 md:col-span-3 lg:col-span-2 px-2">
-          <h5 className="font-medium sm:text-lg xl:text-3xl">Quick Links</h5>
+          <h5 className="font-medium tracking-wide family-Helvetica sm:text-lg xl:text-xl">
+            Quick Links
+          </h5>
           <ul className=" leading-8 xl:leading-[45px] tracking-wide family-Helvetica text-13 lg:text-15 text-black mt-6">
             <li>
               <Link href="/shipping-policy" className="hover:underline">
@@ -116,29 +104,37 @@ const Footer: React.FC = () => {
           </ul>
         </div>
         <div className="col-span-12 sm:col-span-4 md:col-span-3 lg:col-span-2 px-2">
-          <h5 className="font-medium sm:text-lg xl:text-3xl">Categories</h5>
+          <h5 className="font-medium tracking-wide family-Helvetica sm:text-lg xl:text-xl">
+            Categories
+          </h5>
           <ul className=" leading-8 xl:leading-[45px] tracking-wide family-Helvetica text-13 lg:text-15 text-black mt-6 capitalize">
-          {
-            Object.keys(menuData).map((menu) => (
+            {Object.keys(menuData).map((menu) => (
               <li key={menu}>
                 <Link
                   href={
-                    menu === 'SALE'?"/products":
-                    `/products/${generateSlug(menu || '')}`}
+                    menu === 'SALE'
+                      ? '/products'
+                      : `/products/${generateSlug(menu || '')}`
+                  }
                   className="hover:underline capitalize"
                 >
-                  {menu === 'SALE'
-                    ? <p className='text leading-8 text-red-500 dark:text-red-500 text-14 xl:text-19 font-medium capitalize'>Sale</p>
-                    : menu.replace(/([A-Z])/g, ' $1')}
+                  {menu === 'SALE' ? (
+                    <p className="text leading-8 text-red-500 dark:text-red-500 tracking-wide family-Helvetica text-13 lg:text-15 capitalize">
+                      Sale
+                    </p>
+                  ) : (
+                    menu.replace(/([A-Z])/g, ' $1')
+                  )}
                 </Link>
               </li>
-            ))
-          }
-            </ul>
+            ))}
+          </ul>
         </div>
-        <div className="col-span-12 sm:col-span-4 md:col-span-3 lg:col-span-2 px-2">
-          <h5 className="font-medium sm:text-lg xl:text-3xl">Account Info</h5>
-          <ul className=" leading-8 xl:leading-[45px] tracking-wide family-Helvetica text-13 lg:text-15 text-black mt-6">
+        <div className="col-span-12 sm:col-span-4 md:col-span-3 lg:col-span-2">
+          <h5 className="font-medium tracking-wide family-Helvetica sm:text-lg xl:text-xl">
+            Account Info
+          </h5>
+          <ul className="leading-8 xl:leading-[45px] tracking-wide family-Helvetica text-13 lg:text-15 text-black mt-6 capitalize">
             <li>
               <Link href="/profile" target="_self" className="hover:underline">
                 My Account
@@ -163,10 +159,34 @@ const Footer: React.FC = () => {
                 Order History
               </Link>
             </li>
+            <div className="mt-4">
+              <div className="border border-gray-800 w-full max-w-56 rounded-sm">
+                <div className="flex items-center gap-2 py-2 px-2">
+                  <CiHeadphones size={20} />
+                  <p className="text-left text-13 lg:text-15 font-extralight leading-normal">
+                    Request a callback
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="mt-8">
+              <Link href="tel:+971505974495">
+                <div className="border border-gray-800 w-full max-w-56 rounded-sm">
+                  <div className="flex items-center gap-2 py-2 px-2">
+                    <PiPhoneCallLight size={20} />
+                    <p className="text-left text-13 lg:text-15 font-extralight leading-normal">
+                      +971 50 597 4495
+                    </p>
+                  </div>
+                </div>
+              </Link>
+            </div>
           </ul>
         </div>
         <div className="col-span-12 sm:col-span-12 md:col-span-3 lg:col-span-3">
-          <h5 className="font-medium sm:text-lg xl:text-3xl">Newsletter</h5>
+          <h5 className="font-medium tracking-wide family-Helvetica sm:text-lg xl:text-xl">
+            Newsletter
+          </h5>
           <p className="mt-6 tracking-wide family-Helvetica text-13 lg:text-15">
             Get updates by subscribe our weekly newsletter
           </p>
@@ -201,19 +221,19 @@ const Footer: React.FC = () => {
             <FaPaypal className="text-white" size={20} />
             <SiMastercard className="text-white" size={25} />
             <FaStripe className="text-white" size={40} /> */}
-             <div className="flex justify-between space-x-4">
-             {paymentIcons.map((icon, index) => (
-          <div key={index} className="w-14 h-auto p-1">
-            <Image
-              src={icon.src} 
-              alt={icon.alt}
-              width={64} 
-              height={60} 
-              className="object-contain shadow"
-            />
-          </div>
-        ))}
-      </div>
+            <div className="flex justify-between space-x-4">
+              {paymentIcons.map((icon, index) => (
+                <div key={index} className="w-14 h-auto p-1">
+                  <Image
+                    src={icon.src}
+                    alt={icon.alt}
+                    width={64}
+                    height={60}
+                    className="object-contain shadow"
+                  />
+                </div>
+              ))}
+            </div>
           </div>
         </Container>
       </div>
