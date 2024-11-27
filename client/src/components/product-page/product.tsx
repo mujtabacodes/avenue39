@@ -44,10 +44,13 @@ const ProductPage = ({
 }: ProductPageProps) => {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [selectedSubCategories, setSelectedSubCategories] = useState<string[]>([]);
+  const [selectedCategoriesName, setSelectedCategoriesName] = useState<string | undefined>();
+  const [selectedSubCategoriesName, setSelectedSubCategoriesName] = useState<string | undefined>();
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 10000]);
   const [sortOption, setSortOption] = useState<string>('default');
   const [category, setCategory] = useState<any[]>([]);
   const [filterLoading, setFilterLoading] = useState<boolean>(true);
+  
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const fetchCategoryData = async () => {
@@ -126,10 +129,16 @@ const ProductPage = ({
     queryKey: ['products'],
     queryFn: fetchProducts,
   });
-  useEffect(() => {
-    console.log('Filtering', selectedSubCategories, selectedCategories)
 
-  }, [selectedSubCategories, selectedCategories])
+  setTimeout(() => {
+    if(selectedSubCategories){
+      setSelectedSubCategoriesName(selectedSubCategories.at(0))
+    }
+    if(selectedCategories){
+      setSelectedCategoriesName(selectedCategories.at(0))
+    }
+  }, 200)
+    
 
 
   const filteredCards = products
@@ -165,9 +174,9 @@ const ProductPage = ({
 
   return (
     <>
-      <TopHero breadcrumbs={productsbredcrumbs} />
+      <TopHero breadcrumbs={productsbredcrumbs} categoryName={selectedCategoriesName} subCategorName={selectedSubCategoriesName} />
       <Container className="my-5 flex flex-col md:flex-row gap-4 md:gap-8">
-        <div className="w-full md:w-2/6 lg:w-[392px] hidden md:block">
+        {/* <div className="w-full md:w-2/6 lg:w-[392px] hidden md:block">
           <SidebarFilter
             onCategoryChange={handleCategoryChange}
             onPriceChange={handlePriceChange}
@@ -175,11 +184,12 @@ const ProductPage = ({
             category={category}
             sideBannerProduct={sideBannerProduct}
           />
-        </div>
-        <div className="w-full md:w-4/6 lg:w-9/12">
+        </div> */}
+        {/* <div className="w-full md:w-4/6 lg:w-9/12"> */}
+        <div className="w-full">
           {productBanner}
           <div className="mt-4 flex items-center justify-between gap-4 px-2">
-            <div className="md:hidden">
+            {/* <div className="md:hidden">
               <Sheet>
                 <SheetTrigger asChild>
                   <div className="flex items-center gap-1">
@@ -211,7 +221,7 @@ const ProductPage = ({
                   </div>
                 </SheetContent>
               </Sheet>
-            </div>
+            </div> */}
             <p className="md:block hidden">Showing {!filterLoading && filteredCards.length > 0 ? filteredCards.length : 0} results</p>
             <div className="flex items-center gap-2">
               <MdWindow size={25} className="cursor-pointer" onClick={() => Setlayout('grid')} />

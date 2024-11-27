@@ -24,8 +24,8 @@ const ColorBanner: React.FC = () => {
       </div>
 
     
-      <div className="lg:w-[70%] w-full h-full ">   
-        <Image src={imageUrl} className='w-full h-auto object-cover'  alt='categlog' width={1200} height={1200} quality={100}/>        
+      <div className="lg:w-[70%] w-full h-full rounded-2xl">   
+        <Image src={imageUrl} className='w-full h-auto object-cover rounded-[3rem]'  alt='categlog' width={1200} height={1200} quality={100}/>        
       </div>
     </section>
     </Container>
