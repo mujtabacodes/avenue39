@@ -9,7 +9,7 @@ const ColorBanner: React.FC = () => {
   return (
     <div className='bg-[#EBEBEB]'>
     <Container >
-    <section className="flex flex-col lg:flex-row items-end justify-center h-auto text-black  pt-10 pb-3">
+    <section className="flex flex-col lg:flex-row items-end justify-center h-auto text-black py-10">
      
       <div className="flex flex-col justify-center items-center lg:w-[30%] w-full pb-2 text-center mx-auto">
       <div className='px-14'>
@@ -24,8 +24,8 @@ const ColorBanner: React.FC = () => {
       </div>
 
     
-      <div className="lg:w-[70%] w-full h-full ">   
-        <Image src={imageUrl} className='w-full h-auto object-cover'  alt='categlog' width={1200} height={1200} quality={100}/>        
+      <div className="lg:w-[70%] w-full h-full rounded-2xl">   
+        <Image src={imageUrl} className='w-full h-auto object-cover rounded-[3rem]'  alt='categlog' width={1200} height={1200} quality={100}/>        
       </div>
     </section>
     </Container>

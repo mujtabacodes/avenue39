@@ -127,7 +127,7 @@ const DiscountCard: React.FC<DiscountCardProps> = ({ productItems }) => {
                         />
                       </div>
                       <div className="text-14 sm:text-16 lg:text-[20px] font-bold mt-3 pb-1">
-                        Extra 20% off Clearance*
+                        {product.name}
                       </div>
                     </Link>
                   </SwiperSlide>

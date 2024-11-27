@@ -1,8 +1,8 @@
 'use client';
 import Image from 'next/image';
-import sofa1 from '@assets/images/banners/ddddd.png';
-import banner2 from '@assets/images/banners/banner2.png';
-import banner3 from '@assets/images/banners/banner3.png';
+import sofa1 from '@assets/images/banners/freepik_br_8be6ac0d-537a-4b02-bbbf-5fc8266e00e8.png';
+import banner2 from '@assets/images/banners/efsaefdsfe.jpg';
+import banner3 from '@assets/images/banners/freepik__enhance__60779.png';
 import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
 import { Skeleton } from '@/components/ui/skeleton'; // Adjust the path as necessary
@@ -24,18 +24,18 @@ const SofaBanner: React.FC = () => {
               </>
             ) : (
               <>
-                <p className="text-xs sm:text-14 font-normal text-primary-foreground">
-                  Get Discount Up to 80%
+                <p className="text-xs sm:text-14 font-normal text-black">
+                  Chair
                 </p>
                 <h3 className="font-semibold text-xl sm:text-2xl mt-1">
-                  White Minimalist
+                  Marlin Tub
                   <br />
-                  Combo Sofa
+                  Swivel Chair
                 </h3>
-                <div className="lg:pt-6">
+                <div className="lg:pt-2">
                   <Link
-                    href="/products"
-                    className="bg-black py-2 px-6 rounded-full text-white hover:bg-white hover:text-black"
+                    href="/product/marlin-tub-swivel-chair-brown-cream"
+                    className="bg-black py-2 px-6 rounded-full text-white hover:bg-main"
                   >
                     Buy Now
                   </Link>
@@ -45,7 +45,7 @@ const SofaBanner: React.FC = () => {
           </div>
         </div>
         <div className="w-1/2 xs:w-2/3 relative">
-        
+
           {loading ? (
             <Skeleton className="w-full h-full rounded-md" />
           ) : (
@@ -54,39 +54,71 @@ const SofaBanner: React.FC = () => {
         </div>
       </div>
       <div className="grid grid-cols-1 gap-4 min-h-[600px]">
-        {[banner2, banner3].map((banner, index) => (
-          <div
-            key={index}
-            className="w-full h-full rounded-2xl flex justify-center items-center"
-            style={{
-              backgroundImage: loading ? 'none' : `url(${banner.src})`,
-              backgroundSize: 'cover',
-              backgroundRepeat: 'no-repeat',
-              backgroundPosition: 'center',
-            }}
-          >
-            {loading ? (
-              <Skeleton className="w-full h-full rounded-md" />
-            ) : (
+        <div
+          className="w-full h-full rounded-2xl"
+          style={{
+            backgroundImage: loading ? 'none' : `url(${banner2.src})`,
+            backgroundSize: 'cover',
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'center',
+          }}
+        >
+          {loading ? (
+            <Skeleton className="w-full h-full rounded-md" />
+          ) : (
+            <div className='flex justify-center items-center bg-[#0000004d] w-full h-full rounded-2xl'>
               <div className="text-center space-y-3">
                 <p className="text-xs sm:text-14 font-normal text-primary-foreground text-white">
-                  Get Discount Up to 80%
+                  Home Office
                 </p>
                 <h3 className="font-semibold text-xl sm:text-2xl mt-1 text-white">
-                  White Minimalist Combo Sofa
+                  Magia Office Desk
                 </h3>
-                <div className="lg:pt-3">
+                <div className="lg:pt-2">
                   <Link
-                    href="/product/white-minimalist-combo-sofa"
-                    className="bg-white py-2 px-6 rounded-full text-black hover:bg-black hover:text-white"
+                    href="/product/magia-office-desk"
+                    className="bg-black py-2 px-6 rounded-full text-white hover:bg-main"
                   >
                     Buy Now
                   </Link>
                 </div>
               </div>
-            )}
-          </div>
-        ))}
+            </div>
+          )}
+        </div>
+        <div
+          className="w-full h-full rounded-2xl flex justify-center items-center"
+          style={{
+            backgroundImage: loading ? 'none' : `url(${banner3.src})`,
+            backgroundSize: 'cover',
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'center',
+          }}
+        >
+          {loading ? (
+            <Skeleton className="w-full h-full rounded-md" />
+          ) : (
+
+            <div className='flex justify-center items-center bg-[#0000004d] w-full h-full rounded-2xl'>
+              <div className="text-center space-y-3">
+                <p className="text-xs sm:text-14 font-normal text-primary-foreground text-white">
+                  Bedroom
+                </p>
+                <h3 className="font-semibold text-xl sm:text-2xl mt-1 text-white">
+                  Mila TV Cabinet/TV Stand
+                </h3>
+                <div className="lg:pt-2">
+                  <Link
+                    href="/product/mila-tv-cabinettv-stand"
+                    className="bg-black py-2 px-6 rounded-full text-white hover:bg-main"
+                  >
+                    Buy Now
+                  </Link>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     </section>
   );
