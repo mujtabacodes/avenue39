@@ -30,13 +30,13 @@ const TopNav = () => {
             <SocialLink socialSize="text-[30px]" className="mr" />
             <div className="h-5 border" />
             <Link
-              className="text-14 font-semibold hover:underline text-white dark:text-white"
+              className="text-14 font-normal hover:underline text-white dark:text-white"
               href={'/about'}
             >
               About Us
             </Link>
             <Link
-              className="text-14 font-semibold hover:underline text-white dark:text-white"
+              className="text-14 font-normal hover:underline text-white dark:text-white"
               href={'/contact'}
             >
               Contact Us

@@ -59,7 +59,7 @@ const CategoryFilter = ({
                   onChange={(e) => handleCheckboxChange(e, item.name)}
                   checked={isSubcategory ? selectedCategories.includes(`SUB_${item.name.toUpperCase()}`) : selectedCategories.includes(item.name.toUpperCase())}
                 >
-                  <span className="text-16 uppercase">{item.name}</span>
+                  <span className="tracking-wide family-Helvetica text-13 lg:text-15 uppercase">{item.name}</span>
                 </Checkbox>
                 {!isSubcategory && (
                   <span className="bg-light px-[2px] font-semibold text-[10px] tracking-tight">

@@ -101,6 +101,12 @@ export const menuData: MenuData = {
     {
       categoryId: 5,
       link: '/products',
+      title: 'Accent Chairs',
+      icon: accentChairs,
+    },
+    {
+      categoryId: 5,
+      link: '/products',
       title: 'TV Cabinets',
       icon: tvCabinets,
     },
