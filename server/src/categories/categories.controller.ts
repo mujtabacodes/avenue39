@@ -23,6 +23,7 @@ export class CategoriesController {
   addCategory(@Body() addCategoryData: AddCategoryDto) {
     return this.categoriesService.addCategory(addCategoryData);
   }
+
   @Post('update-category')
   updateCategory(@Body() addCategoryData: UpdateCategoryDto) {
     return this.categoriesService.updateCategory(addCategoryData);

@@ -92,7 +92,7 @@ const Footer: React.FC = () => {
         </div>
         <div className="col-span-12 sm:col-span-4 md:col-span-3 lg:col-span-2 px-2">
           <h5 className="font-medium sm:text-lg xl:text-3xl">Quick Links</h5>
-          <ul className=" leading-8 xl:leading-[45px] font-normal text-14 xl:text-19 text-primary-foreground mt-6">
+          <ul className=" leading-8 xl:leading-[45px] tracking-wide family-Helvetica text-13 lg:text-15 text-black mt-6">
             <li>
               <Link href="/shipping-policy" className="hover:underline">
                 Shipping Policy
@@ -117,7 +117,7 @@ const Footer: React.FC = () => {
         </div>
         <div className="col-span-12 sm:col-span-4 md:col-span-3 lg:col-span-2 px-2">
           <h5 className="font-medium sm:text-lg xl:text-3xl">Categories</h5>
-          <ul className=" leading-8 xl:leading-[45px] font-normal text-14 xl:text-19 text-primary-foreground mt-6 capitalize">
+          <ul className=" leading-8 xl:leading-[45px] tracking-wide family-Helvetica text-13 lg:text-15 text-black mt-6 capitalize">
           {
             Object.keys(menuData).map((menu) => (
               <li key={menu}>
@@ -138,7 +138,7 @@ const Footer: React.FC = () => {
         </div>
         <div className="col-span-12 sm:col-span-4 md:col-span-3 lg:col-span-2 px-2">
           <h5 className="font-medium sm:text-lg xl:text-3xl">Account Info</h5>
-          <ul className=" leading-8 xl:leading-[45px] font-normal text-14 xl:text-19 text-primary-foreground mt-6">
+          <ul className=" leading-8 xl:leading-[45px] tracking-wide family-Helvetica text-13 lg:text-15 text-black mt-6">
             <li>
               <Link href="/profile" target="_self" className="hover:underline">
                 My Account
@@ -167,7 +167,7 @@ const Footer: React.FC = () => {
         </div>
         <div className="col-span-12 sm:col-span-12 md:col-span-3 lg:col-span-3">
           <h5 className="font-medium sm:text-lg xl:text-3xl">Newsletter</h5>
-          <p className="mt-6 text-primary-foreground">
+          <p className="mt-6 tracking-wide family-Helvetica text-13 lg:text-15">
             Get updates by subscribe our weekly newsletter
           </p>
           <form className="mt-6" onSubmit={handleNewsLetter}>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Container from './ui/Container';
 import {
   Breadcrumb,
@@ -19,9 +19,17 @@ interface TopHeroProps {
   title?: string;
   category?: string;
   breadcrumbs: BreadcrumbItem[];
+  categoryName?: string | undefined;
+  subCategorName?: string | undefined;
 }
 
-const TopHero: React.FC<TopHeroProps> = ({ title, breadcrumbs, category }) => {
+const TopHero: React.FC<TopHeroProps> = ({
+  title,
+  breadcrumbs,
+  category,
+  categoryName,
+  subCategorName,
+}) => {
   return (
     <div className="bg-[#F6F6F6]">
       <Container className="text-center min-h-14 flex justify-center pt-1 flex-col">
@@ -29,19 +37,49 @@ const TopHero: React.FC<TopHeroProps> = ({ title, breadcrumbs, category }) => {
         <Breadcrumb
           className={`flex ${title ? 'justify-center text-[16px] pt-3' : 'justify-start items-center text-[20px] font-semibold'}`}
         >
-          <BreadcrumbList >
+          <BreadcrumbList>
             {breadcrumbs.map((breadcrumb, index) => (
               <React.Fragment key={index}>
-                <BreadcrumbComponentItem>
-                  {breadcrumb.href ? (
-                    <BreadcrumbLink className='text-14 font-medium text-[#959595]' href={breadcrumb.href}>
+                <BreadcrumbComponentItem className="flex items-center sm:gap-1">
+                  { breadcrumb.href ? (
+                    <BreadcrumbLink
+                      className="text-14 font-medium text-[#959595]"
+                      href={breadcrumb.href}
+                    >
                       {breadcrumb.label}
                     </BreadcrumbLink>
+                  ) : categoryName ? (
+                    <>
+                      <BreadcrumbSeparator>
+                        <BsSlash />
+                      </BreadcrumbSeparator>
+                      {subCategorName ? <BreadcrumbLink className={`text-14 font-medium text-[#959595]`} href={`/products/${categoryName.replaceAll(' ', '-').toLowerCase()}`}>
+                        {categoryName}
+                      </BreadcrumbLink> : <BreadcrumbPage className="text-14 font-semibold text-black">
+                        {categoryName}
+                      </BreadcrumbPage>}
+                      
+                      {subCategorName ? (
+                        <>
+                          {' '}
+                          <BreadcrumbSeparator>
+                            <BsSlash />
+                          </BreadcrumbSeparator>
+                          <BreadcrumbPage className="text-14 font-semibold text-black">
+                            {subCategorName.replace('SUB_', '')}
+                          </BreadcrumbPage>
+                        </>
+                      ) : (
+                        ''
+                      )}
+                    </>
                   ) : (
-                    <BreadcrumbPage className='text-14 font-semibold text-black'>{breadcrumb.label}</BreadcrumbPage>
+                    <BreadcrumbPage className="text-14 font-semibold text-black">
+                      {breadcrumb.label}
+                    </BreadcrumbPage>
                   )}
                 </BreadcrumbComponentItem>
-                {index < breadcrumbs.length - 1 && (
+                {index < breadcrumbs.length - 1 && !categoryName && (
                   <BreadcrumbSeparator>
                     <BsSlash />
                   </BreadcrumbSeparator>

@@ -37,7 +37,7 @@ const TopNav = () => {
               About Us
             </Link>
             <Link
-              className="text-14 font-semibold hover:underline text-white dark:text-white"
+              className="text-14 font-normal hover:underline text-white dark:text-white"
               href={'/contact'}
             >
               Contact Us

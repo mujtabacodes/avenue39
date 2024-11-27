@@ -71,7 +71,7 @@ export function H1Bold({ children, className }: ITypo) {
 export function P14({ children, className }: ITypo) {
   return (
     <div
-      className={`text-[10px] lg:text-[12px] xl:text-[14px] ${className}  ${Para14.className}`}
+      className={`text-[10px] lg:text-[12px] xl:text-[14px] font-semibold hover:underline ${className}  ${Para14.className}`}
     >
       {children}
     </div>

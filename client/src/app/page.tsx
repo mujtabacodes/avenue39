@@ -76,7 +76,7 @@ export default function Home() {
       <HotProductSlider />
       <Catalogue/>
       <ColorBanner/>
-      <DiscountBanner />
+      {/* <DiscountBanner /> */}
       {testimonialcards && testimonialcards.length > 50 && (
         <Testimonial testimonialitems={testimonialcards} />
       )}

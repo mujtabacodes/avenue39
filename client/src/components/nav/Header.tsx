@@ -7,7 +7,6 @@ import BottomBar from './bottom-bar';
 const Header = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [menuData, setMenuData] = useState<any[]>([]);
-  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchMenuData = async () => {
@@ -22,7 +21,6 @@ const Header = () => {
         setMenuData(data);
         setLoading(false);
       } catch (error: any) {
-        setError(error.message);
         setLoading(false);
       }
     };
