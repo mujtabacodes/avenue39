@@ -14,9 +14,6 @@ import {
   DrawerTrigger,
 } from '@/components/ui/drawer';
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
-import { HiOutlineBars3BottomRight } from 'react-icons/hi2';
-import SocialLink from '../social-link';
-import { IoIosSearch } from 'react-icons/io';
 import CartItems from '../cart/items';
 import { Avatar, Popover } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
