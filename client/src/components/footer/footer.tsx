@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import Container from '../ui/Container';
 import Image from 'next/image';
@@ -10,6 +11,9 @@ import showToast from '../Toaster/Toaster';
 import { paymentIcons } from '@/data/products';
 import { menuData } from '@/data/menu';
 import { generateSlug } from '@/config';
+import { CiHeadphones } from 'react-icons/ci';
+import { BsTelephone } from 'react-icons/bs';
+import { PiPhoneCallLight } from 'react-icons/pi';
 
 const Footer: React.FC = () => {
   const [email, setEmail] = useState<string>('');
@@ -60,12 +64,30 @@ const Footer: React.FC = () => {
         <div className="col-span-12 sm:col-span-12 md:col-span-12 lg:col-span-3">
           <div>
             <Image src={logo} alt="logo" className="w-72" />
-            <p className="my-11 font-normal text-13 leading-6 text-primary-foreground">
+            <p className="my-11 font-normal text-15 leading-6 text-primary-foreground">
             Avenue39 is more than just a furniture store; it&apos;s a philosophy that blends contemporary design with timeless aesthetics. We understand the importance of creating a harmonious environment that reflects your unique personality and taste. Each piece in our collection is thoughtfully selected to offer a perfect fusion of form and function.
             </p>
             <div className="pt-5">
               <SocialLink socialSize="md:text-[25px]" />
             </div>
+            <div className=' mt-8'>
+                <div className='border border-gray-800  w-56 rounded-sm'>
+                <div className='flex items-center gap-5 py-2 px-3'>
+                <CiHeadphones size={30} />
+                <p className='text-left font-extralight leading-normal'>Request a callback</p>
+                </div>
+
+                </div>
+            </div>
+            <Link href="tel:+971505974495" >
+                <div className='border border-gray-800 mt-4 w-56 rounded-sm'>
+                <div className='flex items-center gap-5 py-2 px-3'>
+                <PiPhoneCallLight size={30} />
+                <p className='text-left font-extralight leading-normal'>+971 50 597 4495</p>
+                </div>
+
+                </div>
+            </Link>
           </div>
         </div>
         <div className="col-span-12 sm:col-span-4 md:col-span-3 lg:col-span-2 px-2">
@@ -101,11 +123,11 @@ const Footer: React.FC = () => {
               <li key={menu}>
                 <Link
                   href={
-                    menu === 'megaSale'?"/products":
+                    menu === 'SALE'?"/products":
                     `/products/${generateSlug(menu || '')}`}
                   className="hover:underline capitalize"
                 >
-                  {menu === 'megaSale'
+                  {menu === 'SALE'
                     ? <p className='text leading-8 text-red-500 dark:text-red-500 text-14 xl:text-19 font-medium capitalize'>Sale</p>
                     : menu.replace(/([A-Z])/g, ' $1')}
                 </Link>
