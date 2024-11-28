@@ -188,7 +188,7 @@ const ProductPage = ({
         {/* <div className="w-full md:w-4/6 lg:w-9/12"> */}
         <div className="w-full">
           {productBanner}
-          <div className="mt-4 flex items-center justify-between gap-4 px-2">
+          <div className="mt-4 flex items-center justify-between gap-4 py-2 px-2">
             {/* <div className="md:hidden">
               <Sheet>
                 <SheetTrigger asChild>
