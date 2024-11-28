@@ -206,6 +206,7 @@ const Navbar = (props: INav) => {
                           <Skeleton className="w-32 h-6 rounded-none" />
                           <Skeleton className="w-32 h-4 rounded-none" />
                           <Skeleton className="w-32 h-4 rounded-none" />
+                          <Skeleton className="w-32 h-4 rounded-none" />
                         </div>
                       </div>
                     </div>
