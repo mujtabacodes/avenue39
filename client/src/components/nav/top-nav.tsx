@@ -13,7 +13,7 @@ const TopNav = () => {
     <div className="bg-main text-secondary p-2 hidden md:block ">
       <Container className="flex  w-full justify-between items-center gap-4">
         <div className="flex items-center gap-4">
-          <TextIcon
+          {/* <TextIcon
             link="tel:+971505974495"
             Title="+971 50 597 4495"
             Icon={<IoPhonePortraitOutline className="text-[18px] lg:text-xl" />}
@@ -23,10 +23,10 @@ const TopNav = () => {
             Title="cs@avenue.com"
             Icon={<IoMailOutline className="text-[18px]  lg:text-xl" />}
 
-          />
+          /> */}
 
  
-          <p className='font-extralight family-Helvetica text-14'>FALL CLEARANCE. Save up to 60% on Outdoor, Living, Dining, Bedroom & More. <Link className='text-red-600 border-b border-red-600' href={'./products'} >SHOP SALE</Link></p>
+          <p className='font-extralight family-Helvetica text-14'>FALL CLEARANCE. Save up to 60% on Outdoor, Living, Dining, Bedroom & More. <Link className='text-red-600 border-b border-red-600' href={'products'} >SHOP SALE</Link></p>
         </div>
         {/* <P14 className="hidden md:block">
           Get Up To 50% off In your first Offer
