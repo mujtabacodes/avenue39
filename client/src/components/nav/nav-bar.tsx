@@ -164,7 +164,7 @@ const Navbar = (props: INav) => {
                     value={searchText}
                     onChange={handleInputChange}
                     onClick={() => setIsDrawerOpen(true)}
-                    className="px-4 h-12 xl:h-[55px] border block w-full ps-16 text-sm rounded-full disabled:opacity-50 custom-input-bg"
+                    className="px-4 h-12 xl:h-[64px] border-2 border-black block w-full ps-16 text-sm rounded-full disabled:opacity-50 custom-input-bg"
                     placeholder="Search Here..."
                   />
                   <button
