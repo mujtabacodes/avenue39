@@ -34,7 +34,7 @@ const TopNav = () => {
         <div className=" ">
           <div className="flex  gap-4 ">
             <SocialLink socialSize="text-[30px]" className="mr" />
-            <div className="h-5 border" />
+            {/* <div className="h-5 border" />
             <Link
               className="text-14 tracking-wide family-Helvetica hover:underline text-white dark:text-white"
               href={'/about'}
@@ -46,7 +46,7 @@ const TopNav = () => {
               href={'/contact'}
             >
               Contact Us
-            </Link>
+            </Link> */}
           </div>
         </div>
       </Container>
