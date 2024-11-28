@@ -6,6 +6,7 @@ import { IoMailOutline, IoPhonePortraitOutline } from 'react-icons/io5';
 import { P14 } from '@/styles/typo';
 import SocialLink from '../social-link';
 import Link from 'next/link';
+import { products } from '@/data';
 
 const TopNav = () => {
   return (
@@ -21,7 +22,11 @@ const TopNav = () => {
             link="mailto:cs@avenue.com"
             Title="cs@avenue.com"
             Icon={<IoMailOutline className="text-[18px]  lg:text-xl" />}
+
           />
+
+ 
+          <p className='font-extralight family-Helvetica text-14'>FALL CLEARANCE. Save up to 60% on Outdoor, Living, Dining, Bedroom & More. <Link className='text-red-600 border-b border-red-600' href={'./products'} >SHOP SALE</Link></p>
         </div>
         {/* <P14 className="hidden md:block">
           Get Up To 50% off In your first Offer
