@@ -164,14 +164,14 @@ const Navbar = (props: INav) => {
                     value={searchText}
                     onChange={handleInputChange}
                     onClick={() => setIsDrawerOpen(true)}
-                    className="px-4 h-12 xl:h-[64px] border block w-full text-sm rounded-full disabled:opacity-50 custom-input-bg"
+                    className="px-4 h-12 xl:h-[55px] border block w-full ps-16 text-sm rounded-full disabled:opacity-50 custom-input-bg"
                     placeholder="Search Here..."
                   />
                   <button
                     type="submit"
-                    className="absolute inset-y-0 end-0 flex items-center z-20 pe-4 cursor-pointer"
+                    className="absolute inset-y-0 start-0 flex items-center z-20 ps-4 cursor-pointer"
                   >
-                    <IoSearchOutline className="cursor-pointer font-extralight" size={30} />
+                    <IoSearchOutline className="cursor-pointer font-extralight" size={40} />
                   </button>
                 </>
               </DrawerTrigger>
@@ -188,12 +188,12 @@ const Navbar = (props: INav) => {
                       ref={drawerInputRef} 
                       value={searchText}
                       onChange={handleInputChange}
-                      className="py-4 px-4 pe-11 border block w-full rounded-full text-sm disabled:opacity-50"
+                      className="py-4 px-4 pe-11 border ps-16 block w-full rounded-full text-sm disabled:opacity-50"
                       placeholder="Search Here..."
                     />
                     <button
                       type="submit"
-                      className="absolute inset-y-0 end-0 flex items-center z-20 pe-4 cursor-pointer"
+                      className="absolute inset-y-0 start-0 flex items-center z-20 ps-4 cursor-pointer"
                     >
                       <IoSearchOutline className="cursor-pointer" size={30} />
                     </button>
