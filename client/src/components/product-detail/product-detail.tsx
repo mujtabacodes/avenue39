@@ -227,7 +227,7 @@ const ProductDetail = ({params,isZoom,gap,swiperGap,detailsWidth,}: {params: IPr
             </button>
           </div>
 
-          <Link
+          {/* <Link
             href="https://wa.me/971505974495"
             target='_blank'
             rel='noreferrer'
@@ -235,7 +235,7 @@ const ProductDetail = ({params,isZoom,gap,swiperGap,detailsWidth,}: {params: IPr
           >
             <BsWhatsapp size={35} />
             <span className="font-light text-sm">PRE-ORDER ONLY</span>
-          </Link>
+          </Link> */}
         </div>
 
         <Button
