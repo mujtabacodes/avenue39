@@ -26,8 +26,9 @@ const TopNav = () => {
           /> */}
 
  
-          <p className='font-extralight family-Helvetica text-14'>FALL CLEARANCE. Save up to 60% on Outdoor, Living, Dining, Bedroom & More. <Link className='text-red-600 border-b border-red-600' href={'products'} >SHOP SALE</Link></p>
+         
         </div>
+        <p className='font-extralight family-Helvetica text-14'>FALL CLEARANCE. Save up to 60% on Outdoor, Living, Dining, Bedroom & More. <Link className='text-red-600 border-b border-red-600' href={'products'} >SHOP SALE</Link></p>
         {/* <P14 className="hidden md:block">
           Get Up To 50% off In your first Offer
         </P14> */}
