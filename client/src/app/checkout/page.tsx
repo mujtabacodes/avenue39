@@ -66,7 +66,7 @@ const Checkout = () => {
       ) {
         return showToast('warn', 'Please fill required filds😴');
       }
-      const {postalCode, ...submissioValues } = values;
+      const { postalCode, ...submissioValues } = values;
 
       console.log(values, "values")
 
@@ -114,20 +114,22 @@ const Checkout = () => {
           amount: totalPayment,
           orderedProductDetails: cartItems,
           shippment_Fee: shippingfee,
-          
+
         },
-      );
-      console.log(proceedPayment, "proceedPayment")
-    
-      if(proceedPayment.status === 201){
-        showToast("success", "Order Placed Successfully")
-        window.location.href = `https://uae.paymob.com/unifiedcheckout/?publicKey=${process.env.NEXT_PUBLIC_PAYMOB_PUBLIC_KEY}&clientSecret=${proceedPayment.data.result.client_secret}`;
-        setPaymentProcess(true);
-      }
-      } catch (error:any) {
+        );
+        console.log(proceedPayment, "proceedPayment")
+
+        if (proceedPayment.status === 201) {
+          showToast("success", "Order Placed Successfully")
+          setPaymentKey(`https://uae.paymob.com/unifiedcheckout/?publicKey=${process.env.NEXT_PUBLIC_PAYMOB_PUBLIC_KEY}&clientSecret=${proceedPayment.data.result.client_secret}`)
+          // window.location.href = `https://uae.paymob.com/unifiedcheckout/?publicKey=${process.env.NEXT_PUBLIC_PAYMOB_PUBLIC_KEY}&clientSecret=${proceedPayment.data.result.client_secret}`;
+          setPaymentProcess(true);
+
+        }
+      } catch (error: any) {
         showToast(
           'error',
-          error.message  || error.error || "Internal server error",
+          error.message || error.error || "Internal server error",
         );
         throw new Error('Something is wrong. Please check the input fields.');
       }
