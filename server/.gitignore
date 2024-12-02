@@ -56,5 +56,5 @@ pids
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
 #Backup DB
-*.sql
 backup.sql
+backup2.sql
