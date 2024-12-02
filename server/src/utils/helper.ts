@@ -1,5 +1,6 @@
 import { HttpException, HttpStatus } from '@nestjs/common';
 import nodemailer from 'nodemailer';
+
 export const customHttpException = (error: string, status: string) => {
   throw new HttpException(error, HttpStatus[status]);
 };

@@ -221,45 +221,49 @@ export class SalesRecordService {
           }
 
           if (existingProduct.stock < product.quantity) {
-            throw new Error(
-              `Not enough stock for product with ID ${product.id}. Available stock: ${existingProduct.stock}`,
-            );
+            throw new Error(`Not enough stock for product with ID ${product.id}. Available stock: ${existingProduct.stock}`,);
           }
         }
 
-        const existingSalesRecord = await prisma.sales_record.findUnique({
-          where: { user_email: data.user_email },
-          include: { products: true },
-        });
+        // const existingSalesRecord = await prisma.sales_record.findUnique({
+        //   where: { user_email: data.user_email },
+        //   include: { products: true },
+        // });
 
-        let newSalesRecord: any;
 
-        if (existingSalesRecord) {
-          newSalesRecord = await prisma.sales_record.update({
-            where: { user_email: data.user_email },
-            data: {
-              products: {
-                create: data.orderedProductDetails.map((product) => ({
-                  quantity: product.quantity,
-                  productData: product,
-                  orderId: orderId,
-                })),
-              },
-            },
-            include: { products: true },
-          });
-        } else {
-          newSalesRecord = await prisma.sales_record.create({
+        // let newSalesRecord: any;
+
+        // if (existingSalesRecord) {
+        //   newSalesRecord = await prisma.sales_record.update({
+        //     where: { user_email: data.user_email },
+        //     data: {
+        //       products: {
+        //         create: data.orderedProductDetails.map((product) => ({
+        //           quantity: product.quantity,
+        //           productData: product,
+        //           orderId: String(result.intention_order_id)
+        //         })),
+        //       },
+        //     },
+        //     include: { products: true },
+        //   });
+
+        // }
+        
+        // else {
+
+
+          let newSalesRecord = await prisma.sales_record.create({
             data: {
               user_email: data.user_email,
               products: {
                 create: data.orderedProductDetails.map((product) => ({
                   quantity: product.quantity,
                   productData: product,
-                  orderId: orderId,
+                  orderId: String(result.intention_order_id)
                 })),
               },
-              orderId: orderId,
+              orderId: String(result.intention_order_id),
               address: `${data.address}, ${data.city}, ${data.country}`,
               phoneNumber: data.phone_number && data.phone_number.toString(),
               paymentStatus: {
@@ -270,7 +274,7 @@ export class SalesRecordService {
             },
             include: { products: true },
           });
-        }
+        // }
 
         return newSalesRecord;
       });
@@ -555,6 +559,7 @@ export class SalesRecordService {
       customHttpException(error.message, 'INTERNAL_SERVER_ERROR');
     }
   }
+
   async order_history() {
     try {
       const sales = await this.prisma.sales_record.findMany({
@@ -581,7 +586,6 @@ export class SalesRecordService {
       if (salesRecord.paymentStatus.paymentStatus) {
         console.log(salesRecord.paymentStatus.paymentStatus, 'paymentStatus');
         customHttpException('Payment status already updated!', 'BAD_REQUEST');
-        // throw new HttpException(error, HttpStatus['BAD_REQUEST']);
       }
 
       const updatedSalesRecord = await this.prisma.sales_record.update({
@@ -590,6 +594,8 @@ export class SalesRecordService {
           paymentStatus: {
             paymentStatus: paymentStatus,
             paymentDate: new Date(),
+            checkout: false,
+            success: true
           },
         },
       });
@@ -608,6 +614,22 @@ export class SalesRecordService {
       }
     }
   }
+
+
+  async track_order (id: string){
+    try {
+      let sales_record = await this.prisma.sales_record.findFirst({where: {orderId: id}})
+      return sales_record;
+    } catch (error) {
+      customHttpException(
+        error.message  || 'An unknown error occurred',error.status ||'INTERNAL_SERVER_ERROR',);
+    }
+  }
+
+
+
+
+
 
   apiTester() {
     return 'api is working';
