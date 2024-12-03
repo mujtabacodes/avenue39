@@ -8,6 +8,7 @@ import { customHttpException } from '../utils/helper';
 import { generateUniqueString } from '../utils/func';
 import { error } from 'console';
 
+
 @Injectable()
 export class SalesRecordService {
   constructor(private prisma: PrismaService) {}
