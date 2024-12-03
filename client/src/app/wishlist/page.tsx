@@ -14,6 +14,8 @@ import { openDrawer } from '@/redux/slices/drawer';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch } from 'redux';
 import { State } from '@/redux/store';
+import { IoIosHeartEmpty } from 'react-icons/io';
+import Link from 'next/link';
 interface IProduct {
   id: string;
   name: string;
@@ -95,7 +97,9 @@ const Wishlist = () => {
   return (
     <>
       <TopHero breadcrumbs={wishbredcrumbs} />
-      {wishlist.map((product,index) => (
+      {wishlist.length > 0 ? (
+
+      wishlist.map((product,index) => (
         <Container className="grid grid-cols-12 gap-3  bg-white shadow my-5 items-center mt-2 py-2" key={index}>
           <div className="col-span-12 md:col-span-4 lg:col-span-4 xl:col-span-5 2xl:col-span-6">
             <div className="flex items-center gap-3">
@@ -176,7 +180,23 @@ const Wishlist = () => {
             </button>
           </div>
         </Container>
-      ))}
+      ))
+    ) : (
+      <div className="flex justify-center items-center w-full h-96">
+      <div className="flex flex-col gap-4 items-center">
+        <IoIosHeartEmpty size={100} className="text-black" />
+        <p className="font-medium text-2xl">No Items In Wishlist</p>
+        <div className="">
+          <Link
+            href="/products"
+            className="bg-[#F6F6F6] px-6 flex justify-center items-center  hover:border-[#666666] border-[#F6F6F6] text-[#666666] h-[73px]"
+          >
+            Continue Shopping
+          </Link>
+        </div>
+      </div>
+    </div>
+    )}
     </>
   );
 };

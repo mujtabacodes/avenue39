@@ -245,7 +245,7 @@ const ProductDetail = ({params,isZoom,gap,swiperGap,detailsWidth,}: {params: IPr
           <IoBagOutline size={20} /> BUY IT NOW
         </Button>
 
-        <div className="flex gap-2 mb-4">
+        <div className="flex gap-2 mb-4 lg:w-full sm:w-1/2">
           <Button
             variant={'outline'}
             className="text-primary w-1/2 h-12 rounded-2xl flex gap-3"
