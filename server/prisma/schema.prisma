@@ -114,7 +114,7 @@ model Admins {
 
 model sales_record {
   id            Int                     @id @default(autoincrement())
-  user_email    String                  @unique
+  user_email    String
   createdAt     DateTime                @default(now())
   products      sales_record_products[]
   orderId       String                  @unique
