@@ -16,6 +16,7 @@ import {
   ImageRemoveHandler,
   uploadPhotosToBackend,
 } from '@/utils/helperFunctions';
+import { loggedInUserAction } from '@/redux/slices/user/userSlice';
 
 export default function Profile() {
   console.log('I am on profile page');
@@ -24,15 +25,16 @@ export default function Profile() {
 
   const router = useRouter();
 
-  const initialFormData = {
-    fullName: loggedInUser?.name,
-  };
-  const [formData, setFormData] = useState(initialFormData);
-  const [profilePhoto, setProfilePhoto] = useState<any>([]);
+
+  const [formData, setFormData] = useState({fullName: "", email: ""});
+  const [profilePhoto, setProfilePhoto] = useState<any>({});
   const token = Cookies.get('user_token');
-  if (loggedInUser?.userImageUrl) {
-    profilePhoto.imageUrl = loggedInUser.userImageUrl;
-  }
+  const dispatch= useDispatch()
+
+
+
+
+
   useEffect(() => {
     const token = Cookies.get('user_token');
     if (!token) {
@@ -48,64 +50,41 @@ export default function Profile() {
     if (file) {
       console.log(file);
       let imageUrl: any = await uploadPhotosToBackend([file]);
+      console.log(file);
       console.log('response from image updload');
-      console.log(imageUrl);
-      imageUrl ? setProfilePhoto(imageUrl) : null;
+      console.log(imageUrl,"imageUrlimageUrl");
+      imageUrl ? setProfilePhoto((pre:any)=>imageUrl) : null;
     }
   };
 
-  const AddminProfileTriggerHandler = async () => {
-    try {
-      let user: any = await axios.get(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/users/getuserHandler`,
-        {
-          headers: {
-            token: token,
-          },
+
+useEffect(() => {
+  console.log("function logged")
+  if (loggedInUser) {
+    setProfilePhoto({imageUrl : loggedInUser?.userImageUrl, public_id : loggedInUser.userPublicId})
+    setFormData({fullName: loggedInUser.name, email: loggedInUser.email})
+  }
+
+}, [loggedInUser])
+
+
+const AddminProfileTriggerHandler = async () => {
+  try {
+    if (!token) return;
+    let user: any = await axios.get(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/getuserHandler`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
         },
-      );
-      // dispatch(loggedInUserAction(user.data.user))
-    } catch (err: any) {
-      console.log(err, 'err');
-    }
-  };
+      },
+    );
+    dispatch(loggedInUserAction(user.data.user));
+  } catch (err: any) {
+    console.log(err, 'err');
+  } 
+};
 
-  const adminUpdateHandler = async () => {
-    // try {
-    //   let initialFormData: any = {
-    //     email: loggedInUser.email,
-    //     fullName: formData.fullName,
-    //   };
-    //   if (profilePhoto.length > 0) {
-    //     initialFormData = {
-    //       ...initialFormData,
-    //       ProfilePhoto: profilePhoto[0],
-    //     };
-    //   }
-    //   if (loggedInUser) {
-    //     let { fullName, ProfilePhoto, ...extractedData } = loggedInUser;
-    //     if (!initialFormData.fullName) throw new Error('Full name is required or Full is required')
-    //     let combinedData = {
-    //       ...initialFormData,
-    //       ...extractedData
-    //     };
-    //     let response: any = await axios.put(
-    //       `${process.env.NEXT_PUBLIC_BASE_URL}/api/users/userEdit/${loggedInUser._id}`, combinedData, {
-    //       headers: {
-    //         "token": token
-    //       }
-    //     }
-    //     );
-    //     if (response.status === 200) {
-    //       console.log("Admin updated successfully:", response.data);
-    //     } else {
-    //       console.error("Failed to update admin");
-    //     }
-    //   }
-    // } catch (error) {
-    //   console.error("Error updating admin:", error);
-    // }
-  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -117,24 +96,24 @@ export default function Profile() {
   };
 
   const handleSubmit = async (event: any) => {
-
+    event.preventDefault();
     let { fullName, ...userDetails }: any = {
       id: loggedInUser.id,
       name: formData.fullName,
       ...formData,
     };
 
-    console.log(userDetails);
 
-    if (profilePhoto?.imageUrl) {
+
+
       userDetails = {
         ...userDetails,
-        userImageUrl: profilePhoto?.imageUrl,
-        userImagePublicId: profilePhoto?.public_id, // Assuming the correct key is `publicId`
+        userImageUrl: profilePhoto.imageUrl || "",
+        userImagePublicId: profilePhoto.public_id || "",
       };
 
       console.log(userDetails);
-    }
+  
 
     try {
       const res = await axios.post(
@@ -143,36 +122,39 @@ export default function Profile() {
       );
 
       showToast('success', res.data.message);
+      dispatch(loggedInUserAction(res.data.user))
+
     } catch (error) {
       showToast('error', 'Their is something wrong!');
     }
 
-    try {
-      await adminUpdateHandler();
-      await AddminProfileTriggerHandler();
-    } catch (err) {
-      console.log(err, 'err');
-    }
+
   };
 
   const logoutHhandler = () => {
     try {
-      console.log("function called")
       Cookies.remove('user_token', { path: '/' });
-    alert('token removed, "removed')
-
-      // router.push('/login');
+      router.push('/login');
     } catch (err) {
       console.log(err);
     }
   };
 
-  const handleDelete = () => {
-    ImageRemoveHandler(loggedInUser.userImagePublicId, profilePhoto);
-    setProfilePhoto([]);
-    showToast('success', 'Image removed successfully🎉');
-    console.log(profilePhoto);
-  };
+  const handleDelete = async() => {
+      try {
+        await ImageRemoveHandler(loggedInUser.userImagePublicId, profilePhoto);
+        setProfilePhoto({});
+        showToast('success', 'Image removed successfully🎉');
+        console.log(profilePhoto);
+      } catch (err:any) {
+        showToast('error',(err?.response?.data?.message || err?.response  ||'Their is something wrong!'));
+  
+      }
+
+
+        };
+
+ 
   return (
     <Fragment>
       <TopHero breadcrumbs={profilebreadcrumbs} />
@@ -352,7 +334,7 @@ export default function Profile() {
                             name="email"
                             id="email"
                             placeholder="Email Address"
-                            // value={initialValue.name}
+                            value={formData.email}
                             disabled={true}
                           />
                         </div>
