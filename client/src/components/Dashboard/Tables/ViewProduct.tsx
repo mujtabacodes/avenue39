@@ -148,13 +148,14 @@ const ViewProduct: React.FC<CategoryProps> = ({
     {
       title: 'Image',
       dataIndex: 'posterImageUrl',
+      width: 150,
       key: 'posterImageUrl',
       render: (text: any, record: Product) => (
         <Image
           src={`${record?.posterImageUrl}`}
           alt={`Image of ${record.name}`}
           width={200}
-          className='w-[80px] h-[80px] rounded-md object-cover'
+          className=' sm:w-[80px] sm:h-[80px] rounded-md object-contain'
           height={200}
         />
       ),
@@ -163,9 +164,11 @@ const ViewProduct: React.FC<CategoryProps> = ({
       title: 'Name',
       dataIndex: 'name',
       key: 'name',
+      width: 200,
     },
     {
       title: 'Stock Quantity',
+      width: 170,
       dataIndex: 'stock',
       key: 'stock',
     },
@@ -173,6 +176,7 @@ const ViewProduct: React.FC<CategoryProps> = ({
       title: 'Date',
       dataIndex: 'createdAt',
       key: 'date',
+      width: 150,
       render: (text: any, record: Product) => {
         const createdAt = new Date(record.createdAt);
         const formattedDate = `${createdAt.getFullYear()}-${String(
@@ -185,6 +189,7 @@ const ViewProduct: React.FC<CategoryProps> = ({
       title: 'Time',
       dataIndex: 'createdAt',
       key: 'time',
+      width: 120,
       render: (text: any, record: Product) => {
         const createdAt = new Date(record.createdAt);
         const formattedTime = `${String(createdAt.getHours()).padStart(2, '0')}:${String(
@@ -196,6 +201,7 @@ const ViewProduct: React.FC<CategoryProps> = ({
     {
       title: 'Preview',
       key: 'Preview',
+      width: 120,
       render: (text: any, record: Product) => {
         const handleClick = () => {
           const url = `/product/${generateSlug(record.name)}`;
@@ -207,6 +213,7 @@ const ViewProduct: React.FC<CategoryProps> = ({
     {
       title: 'Edit',
       key: 'Edit',
+      width: 150,
       render: (text: any, record: Product) => (
         <LiaEdit
           className={`${canEditproduct ? 'cursor-pointer' : ''} ${!canEditproduct ? 'cursor-not-allowed text-slate-200' : ''
@@ -224,6 +231,7 @@ const ViewProduct: React.FC<CategoryProps> = ({
     {
       title: 'Action',
       key: 'action',
+      width: 150,
       render: (text: any, record: Product) => (
         <RiDeleteBin6Line
           className={`${canDeleteProduct ? 'text-red-600 cursor-pointer' : ''} ${!canDeleteProduct ? 'cursor-not-allowed text-slate-200' : ''

@@ -22,7 +22,7 @@ const LabelInput = React.forwardRef<HTMLInputElement, InputProps>(
     return (
       <div className="relative flex flex-col w-full">
         <Label htmlFor={id} className={cn(
-              'mb-1 px-8 text-sm font-semibold text-17 text-[#666666] ',
+              'mb-1 px-8 text-xs sm:text-sm font-semibold text-[#666666] ',
               labelClass,
             )} >
           {label}
@@ -38,7 +38,7 @@ const LabelInput = React.forwardRef<HTMLInputElement, InputProps>(
             onChange={onChange}
             value={value}
             className={cn(
-              'flex-grow h-full rounded-full border-0 bg-[#F6F6F6] pl-8 pr-12 py-2 custom-input-bg focus-visible:outline-none focus-visible:ring-0 text-15 font-medium outline-none focus-visible:ring-ring focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-50 ',
+              'flex-grow h-full rounded-full border-0 bg-[#F6F6F6] pl-8 pr-12 py-2 custom-input-bg focus-visible:outline-none focus-visible:ring-0 text-12 sm:text-15 font-medium outline-none focus-visible:ring-ring focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-50 w-[100%] ',
               className,
             )}
             ref={ref}
