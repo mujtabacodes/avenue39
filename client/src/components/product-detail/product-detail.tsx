@@ -245,7 +245,7 @@ const ProductDetail = ({params,isZoom,gap,swiperGap,detailsWidth,}: {params: IPr
           <IoBagOutline size={20} /> BUY IT NOW
         </Button>
 
-        <div className="flex gap-2 mb-4">
+        <div className="flex gap-2 mb-4 lg:w-full sm:w-1/2">
           <Button
             variant={'outline'}
             className="text-primary w-1/2 h-12 rounded-2xl flex gap-3"
@@ -255,11 +255,13 @@ const ProductDetail = ({params,isZoom,gap,swiperGap,detailsWidth,}: {params: IPr
           </Button>
 
           {/* <Dialog>
+
           <DialogTrigger asChild>
           <Button className="bg-warning w-1/2 text-white flex gap-3 h-12 rounded-2xl">
             TRY AT HOME
           </Button>
-                </DialogTrigger>      
+                </DialogTrigger>
+      
                 <DialogOverlay className="bg-white/80" />
                 <DialogContent className="sm:max-w-[80%] lg:max-w-[60%] bg-white px-0 sm:rounded-none border border-gray shadow-sm gap-0 pb-0">
                   <DialogHeader>
@@ -280,7 +282,8 @@ const ProductDetail = ({params,isZoom,gap,swiperGap,detailsWidth,}: {params: IPr
               <Button className="bg-warning w-1/2 text-white flex gap-3 h-12 rounded-2xl">
                 TRY AT HOME
               </Button>
-            </DialogTrigger>            
+            </DialogTrigger>
+            
             <DialogOverlay className="bg-white/80" />
             <DialogContent className="sm:max-w-[80%] lg:max-w-[30%] bg-white px-0 pt-0 sm:rounded-none border border-gray shadow-sm gap-0 pb-0">
               <DialogHeader className="flex items-start px-5 pt-0 py-5 border-b-2">
