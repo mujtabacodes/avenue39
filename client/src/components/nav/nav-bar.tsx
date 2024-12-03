@@ -63,6 +63,22 @@ const Navbar = (props: INav) => {
     enabled: isDrawerOpen, // Fetch only when the drawer is open
   });
 
+
+  console.log('I am on profile page');
+  const { loggedInUser } = useSelector((state: State) => state.usrSlice)
+
+  const initialFormData = {
+    fullName: loggedInUser?.name,
+  };
+  const [profilePhoto, setProfilePhoto] = useState<any>([]);;
+  useEffect(() => {
+    if (loggedInUser) {
+      setProfilePhoto({imageUrl : loggedInUser?.userImageUrl, public_id : loggedInUser.userPublicId})
+    }
+  
+  }, [loggedInUser])
+
+
   const products = productsData || [];
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -278,6 +294,8 @@ const Navbar = (props: INav) => {
               >
                 <CiUser  size={30} />
               </Link>
+              
+
             ) : (
               <Popover
                 content={
@@ -313,7 +331,18 @@ const Navbar = (props: INav) => {
               >
                 <div className="flex gap-2 items-center whitespace-nowrap cursor-pointer">
                   <span className="w-auto">
-                    <Avatar icon={<UserOutlined />} size={30} />
+                  <div className="h-14 w-14 rounded-full overflow-hidden">
+                  <Image
+                    src={
+                      profilePhoto && profilePhoto.imageUrl
+                        ? profilePhoto.imageUrl
+                        : "/images/dummy-avatar.jpg"
+                    }
+                    width={55}
+                    height={55}
+                    alt="User"
+                  />
+                </div>
                   </span>
                   <span className="max-w-28 w-auto text-wrap">
                     {userDetails.name}

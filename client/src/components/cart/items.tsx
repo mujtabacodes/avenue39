@@ -201,6 +201,7 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                   height={isCheckoutPage ? 50 : 100}
                   src={item.posterImageUrl}
                   alt={item.name}
+                  className='rounded-md'
                 />
                 <div className="w-full">
                   <p className="text-16 xl:text-18">{item.name}</p>
@@ -231,7 +232,6 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                       size={20}
                       onClick={() => removeProductFromCart(item.id)}
                     />
-                    <div>
                       {!isCheckoutPage && (
                         <Counter
                           count={item.quantity}
@@ -243,7 +243,6 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                           }
                         />
                       )}
-                    </div>
                   </div>
                 </div>
               </div>

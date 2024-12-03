@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AiOutlineHome } from 'react-icons/ai';
 import { BiLogInCircle, BiSolidToTop } from 'react-icons/bi';
 import { FaRegHeart } from 'react-icons/fa';
@@ -20,10 +20,13 @@ import { useSelector } from 'react-redux';
 import { State } from '@/redux/store';
 import { menuData } from '@/data/menu';
 import { generateSlug } from '@/config';
-import { useRouter } from 'next/navigation';
 import { IoIosHeartEmpty } from 'react-icons/io';
 import SocialLink from '../social-link';
-
+import Image from 'next/image';
+import { loggedInUserAction } from '@/redux/slices/user/userSlice';
+import Cookies from 'js-cookie';
+import { useAppDispatch } from '@components/Others/HelperRedux';
+import { useRouter } from 'next/navigation';
 const BottomBar: React.FC = () => {
   const [open, setOpen] = useState(false);
   const userDetails = useSelector(
@@ -34,14 +37,33 @@ const BottomBar: React.FC = () => {
   const hide = () => {
     setOpen(false);
   };
+  const dispatch = useAppDispatch();
 
   const handleOpenChange = (newOpen: boolean) => {
     setOpen(newOpen);
   };
-  const handleLinkClick = () => {
-    setOpen(false); // Optional: If you want the Sheet to close after clicking
-  };
+  const logoutHhandler = () => {
+    try {
+      Cookies.remove('user_token', { path: '/' });
 
+      dispatch(loggedInUserAction(null));
+
+      route.push('/login');
+      setOpen(false);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+ 
+  const { loggedInUser } = useSelector((state: State) => state.usrSlice)
+  const [profilePhoto, setProfilePhoto] = useState<any>([]);;
+  useEffect(() => {
+    if (loggedInUser) {
+      setProfilePhoto({imageUrl : loggedInUser?.userImageUrl, public_id : loggedInUser.userPublicId})
+    }
+  
+  }, [loggedInUser])
+  
   return (
     <div className="flex justify-between items-center px-4 md:hidden py-3 border-t w-full fixed bottom-0 bg-white z-50">
       <Link href={'/'}>
@@ -152,7 +174,7 @@ const BottomBar: React.FC = () => {
                 <Link
                   className="text-black hover:text-primary"
                   href="/login"
-                  onClick={hide}
+                  onClick={() => logoutHhandler()}
                 >
                   Logout
                 </Link>
@@ -166,7 +188,18 @@ const BottomBar: React.FC = () => {
           onOpenChange={handleOpenChange}
         >
           <div className="flex gap-2 items-center whitespace-nowrap cursor-pointer">
-            <Avatar icon={<UserOutlined />} />
+          <div className="h-8 w-8 rounded-full overflow-hidden">
+                  <Image
+                    src={
+                      profilePhoto && profilePhoto.imageUrl
+                        ? profilePhoto.imageUrl
+                        : "/images/dummy-avatar.jpg"
+                    }
+                    width={55}
+                    height={55}
+                    alt="User"
+                  />
+                </div>
           </div>
         </Popover>
       )}
