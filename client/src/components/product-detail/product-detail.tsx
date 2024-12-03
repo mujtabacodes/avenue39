@@ -239,16 +239,16 @@ const ProductDetail = ({params,isZoom,gap,swiperGap,detailsWidth,}: {params: IPr
         </div>
 
         <Button
-          className="bg-primary text-white flex gap-3 justify-center sm:w-1/2 items-center lg:w-full h-12 rounded-2xl mb-3 font-light"
+          className="bg-primary text-white flex gap-3 justify-center sm:w-1/2 items-center lg:w-full h-12 rounded-2xl mb-3 font-light md:w-full"
           onClick={(e) => handleBuyNow(e)}
         >
           <IoBagOutline size={20} /> BUY IT NOW
         </Button>
 
-        <div className="flex gap-2 mb-4 lg:w-full sm:w-1/2">
+        <div className="flex gap-2 mb-4 lg:w-full sm:w-1/2  md:w-full">
           <Button
             variant={'outline'}
-            className="text-primary w-1/2 h-12 rounded-2xl flex gap-3"
+            className="text-primary w-full h-12 rounded-2xl flex gap-3"
             onClick={(e) => handleAddToCard(e)}
           >
             Add to cart
@@ -273,7 +273,7 @@ const ProductDetail = ({params,isZoom,gap,swiperGap,detailsWidth,}: {params: IPr
                 </DialogContent>
           </Dialog> */}
 
-            <div className='w-2/4'>
+            <div className='w-full  md:w-full'>
 
                   <ARExperience ImageUrl={"/3dmodel/carpet.glb"}/>
             </div>
@@ -307,7 +307,7 @@ const ProductDetail = ({params,isZoom,gap,swiperGap,detailsWidth,}: {params: IPr
         <Dialog>
           <DialogTrigger asChild>
             <Button
-              className="bg-[#afa183] text-white flex gap-3 justify-center sm:w-1/2 items-center lg:w-full h-12 rounded-2xl mb-3 font-light"
+              className="bg-[#afa183] text-white flex gap-3 justify-center sm:w-1/2 items-center lg:w-full h-12 rounded-2xl mb-3 font-light  md:w-full"
               onClick={(e) => handle3D(e)}
             >
               <TbCube3dSphere size={20} /> View 3D
