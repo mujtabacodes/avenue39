@@ -1,74 +1,28 @@
-'use client'
 import Image from "next/image";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
+import React from "react";
 import axios from "axios";
+import Container from "@/components/ui/Container";
+import { IOrder, IOrderProduct, IProduct } from "@/types/types";
 
-interface OrderDetail {
-  shippingAddress: string;
-  billingAddress: string;
-  shippingMethod: string;
-  paymentMethod: string;
-}
-
-const orderDetails: OrderDetail[] = [
-  {
-    shippingAddress: "123 Dummy St, City, Country",
-    billingAddress: "456 Fake Rd, City, Country",
-    shippingMethod: "Standard Shipping",
-    paymentMethod: "Credit Card",
-  },
-];
-
-const ViewOrder = ({ params:{name} }:{params:{name:string}}) => {
-
-
-  const [products, setProducts] = useState<any[]>([]);
-  const [userDetail, setUserDetail] = useState<any>(null);
-  const [total, setTotal] = useState<number>(0);
-  const [shippingFee, setShippingFee] = useState<number>(0);
-
-console.log(name, "param ")
-
-
-  useEffect(() => {
-    const fetchOrders = async () => {
-      try {
-        const res = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/track-order/${name}`);
-        if (res.data && res.data.products) {
-          const fetchedProducts = res.data.products;
-          const userDetails = res.data.userDetails;
-          setProducts(fetchedProducts);
-          setUserDetail(userDetails);
-          const totalAmount = fetchedProducts.reduce(
-            //@ts-expect-error
-            (sum: number, product: Product) => sum + parseFloat(product.totalPrice.toString()),
-            0
-          );
-          const totalShipping = fetchedProducts.reduce(
-            //@ts-expect-error
-            (sum: number, product: Product) => sum + parseFloat(product.shippment_Fee),
-            0
-          );
-
-          setTotal(totalAmount);
-          setShippingFee(totalShipping);
-        }
-      } catch (error) {
-        console.error("Error fetching order history:", error);
-      }
-    };
-
-    fetchOrders();
-  }, [name]);
-
+const ViewOrder = async ({ params: { name } }: { params: { name: string } }) => {
+  const response = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/sales-record/trackorder/${name}`);
+  const userDetail: IOrder = response.data;
+  if (userDetail) {
+    console.log(userDetail, 'order track')
+  }
+  const subTotal = userDetail.products.reduce((total, item) => {
+    const productPrice = item.productData?.discountPrice > 0 ? item.productData?.discountPrice : item.productData?.price;
+    return total + item.quantity * productPrice;
+  }, 0);
+  const Shipping = 0;
+  const Total = Number(subTotal) + Shipping;
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-10 my-10 max-w-screen-lg mx-auto">
+    <Container className="grid grid-cols-1 md:grid-cols-2 gap-10 py-10">
       <div>
-      {userDetail && (
-        <div className="max-w-screen-sm mx-auto">
-          {/* <div className="space-y-3">
+        {userDetail && (
+          <div className="max-w-screen-sm mx-auto">
+            {/* <div className="space-y-3">
             <div>
               <p className="font-medium text-23">Login To View</p>
             </div>
@@ -98,99 +52,99 @@ console.log(name, "param ")
               </div>
             </div>
           </div> */}
-      
-        
-          <div className="border border-gray p-2 rounded-md mt-10">
-            <p className="font-medium text-23">
-             {userDetail.first_name} {userDetail.last_name} 
-            </p>
-            <p className="text-14">
-            {userDetail.usermail}
-            </p>
-          </div>
 
-          <div className="border border-gray p-2 rounded-md mt-10">
-            <p className="font-medium text-23">Order Detail</p>
-            <div className="grid grid-cols-6 gap-4">
-             
-                  <div className="col-span-6">
-                    <p className="text-18 font-medium">Shipping Address</p>
-                    <p className="text-14">{userDetail.userAddress}</p>
-                    <p className="text-14"> {userDetail.city}, {userDetail.country}</p>
-                  </div>
-               
-              
+            <div className="border border-gray p-2 rounded-md">
+              <p className="text-18 font-bold">Order Id</p>
+              <p className="text-14">
+                {userDetail.orderId}
+              </p>
+              <p className="text-18 font-bold">Email</p>
+              <p className="text-14">
+                {userDetail.user_email}
+              </p>
+            </div>
+
+            <div className="border border-gray p-2 rounded-md mt-10">
+              <p className="font-bold text-23">Order Detail</p>
+              <div className="grid grid-cols-1 gap-4">
+                <div>
+                  <p className="text-18 font-medium">Shipping Address</p>
+                  <p className="text-14">{userDetail.address}</p>
+                </div>
+                <div>
+                  <p className="text-18 font-medium">Phone Number</p>
+                  <p className="text-14">{userDetail.phoneNumber}</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex flex-wrap justify-between items-center mt-10">
+              <p className="text-light font-semibold">
+                Need help?{" "}
+                <Link className="text-black" href="/contact">
+                  Contact Us
+                </Link>
+              </p>
+              <Link className="bg-black text-white px-4 py-2" href="/">
+                Continue Shopping
+              </Link>
             </div>
           </div>
-
-          <div className="flex flex-wrap justify-between items-center mt-5">
-            <p className="text-light font-semibold">
-              Need help?{" "}
-              <Link className="text-black" href="/contact">
-                Contact Us
-              </Link>
-            </p>
-            <Link className="bg-black text-white px-4 py-2" href="/">
-              Continue Shopping
-            </Link>
-          </div>
-        </div>
-)}
+        )}
       </div>
 
-      {/* Product Details Section */}
       <div className="space-y-3">
-        {products.map((product) => (
+        {userDetail.products.map((product: IOrderProduct) => (
           <div key={product.id}>
-            <div className="flex gap-2 mt-1">
+            <div className="flex gap-4 mt-1">
               <Image
                 className="w-[80px] h-[80px] object-cover rounded-md"
                 width={200}
                 height={200}
-                src={product.imageUrl} // Dynamic image URL
-                alt={product.name} // Dynamic product name as alt text
+                src={product.productData.posterImageUrl || product.productData.hoverImageUrl}
+                alt={product.productData.name}
               />
               <div>
-                <p>{product.name}</p> {/* Dynamic product name */}
+                <p>{product.productData.name}</p>
                 <div className="flex justify-between">
-                  <p className="font-medium text-lightdark">Product</p>
+                  <p className="font-medium text-lightdark">Price</p>
                   <p>
-                    AED<span>{product.price}</span> {/* Dynamic product price */}
+                    AED <span>{product.productData?.discountPrice > 0 ? product.productData?.discountPrice : product.productData?.price}</span>
                   </p>
                 </div>
                 <p className="font-medium">
-                  Quantity: <span>{product.count}</span> {/* Dynamic product quantity */}
+                  Quantity: <span>{product.quantity}</span>
                 </p>
               </div>
             </div>
 
-           
+
           </div>
         ))}
 
         {/* Display Shipping Fee and Total Only Once */}
-        <div className="flex justify-between mt-5">
-          <p className="text-18 font-semibold">Subtotal</p>
-          <p>
-            AED<span>{total}</span> 
-          </p>
-        </div>
-        <div className="flex justify-between mt-5">
-          <p className="text-18 font-semibold">Shipping Fee</p>
-          <p>
-            AED<span>{shippingFee}</span> 
-          </p>
-        </div>
-       
-        <hr />
-        <div className="flex justify-between">
-          <p className="text-18 font-semibold">Total</p>
-          <p>
-            AED<span>{total+shippingFee }</span>
-          </p>
+        <div className="border border-gray py-4 rounded-md px-4">
+          {/* <div className="flex justify-between">
+            <p className="text-18 font-semibold">Subtotal</p>
+            <p>
+              AED <span>{subTotal}</span>
+            </p>
+          </div> */}
+          {/* <div className="flex justify-between my-4">
+            <p className="text-18 font-semibold">Shipping Fee</p>
+            <p>
+              AED<span>{ }</span>
+            </p>
+          </div> */}
+          <div className="flex justify-between">
+            <p className="text-18 font-semibold">Total</p>
+            <p>
+              AED <span>{Total}</span>
+            </p>
+          </div>
         </div>
       </div>
-    </div>
+    </Container>
   );
 };
 

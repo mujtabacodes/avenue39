@@ -336,3 +336,29 @@ export interface IProductCategories {
   name: string;
   subcategories?: ICategory[];
 }
+
+export interface IOrder {
+  id: number;
+  orderId: string;
+  user_email: string;
+  address: string;
+  phoneNumber?: string;
+  products: IOrderProduct[];
+  paymentStatus: IPaymentStatus;
+  createdAt: string;
+}
+
+export interface IOrderProduct {
+  id: number;
+  orderId: string;
+  createdAt: string;
+  quantity: number;
+  saleRecordId: number;
+  productData: IProduct;
+}
+
+export interface IPaymentStatus {
+  checkoutData: string;
+  checkoutStatus: boolean;
+  paymentStatus: boolean;
+}
