@@ -18,7 +18,7 @@ const ViewOrder = async ({ params: { name } }: { params: { name: string } }) => 
           <div className="col-span-2 text-center">
             <h2 className="text-xl font-semibold">Order Not Found</h2>
             <p className="text-gray-500 mt-2">
-              We couldn't find an order matching the provided details. Please double-check your order ID or email.
+              We couldn&apos;t find an order matching the provided details. Please double-check your order ID or email.
             </p>
             <Link href="/" className="bg-black text-white px-4 py-2 mt-4 inline-block">
               Continue Shopping
