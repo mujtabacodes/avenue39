@@ -21,12 +21,16 @@ const orderDetails: OrderDetail[] = [
   },
 ];
 
-const ViewOrder = () => {
+const ViewOrder = ({ params:{name} }:{params:{name:string}}) => {
+
+
   const [products, setProducts] = useState<any[]>([]);
   const [userDetail, setUserDetail] = useState<any>(null);
   const [total, setTotal] = useState<number>(0);
   const [shippingFee, setShippingFee] = useState<number>(0);
-  const { name } = useParams();
+
+console.log(name, "param ")
+
 
   useEffect(() => {
     const fetchOrders = async () => {
