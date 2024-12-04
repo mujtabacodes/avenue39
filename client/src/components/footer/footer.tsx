@@ -161,12 +161,14 @@ const Footer: React.FC = () => {
             </li>
             <div className="mt-4">
               <div className="border border-gray-800 w-full max-w-56 rounded-sm">
-                <div className="flex items-center gap-2 py-2 px-2">
+               <Link href="https://mail.google.com/mail/?view=cm&fs=1&to=cs@avenue.com" target="_blank">
+               <div className="flex items-center gap-2 py-2 px-2">
                   <CiHeadphones size={20} />
                   <p className="text-left text-13 lg:text-15 font-extralight leading-normal">
                     Request a callback
                   </p>
                 </div>
+               </Link>
               </div>
             </div>
             <div className="mt-8">

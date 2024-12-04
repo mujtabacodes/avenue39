@@ -157,7 +157,7 @@ const Card: React.FC<CardProps> = ({
           <>
             {card.sale !== '0' && (
               <span className="absolute top-4 left-4 text-white text-15 font-light bg-red-500 rounded-full w-[76px] h-9 flex justify-center items-center">
-                - {card.sale}%
+                - {card.sale}
               </span>
             )}
             <div
