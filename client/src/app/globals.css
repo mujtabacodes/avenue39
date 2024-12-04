@@ -214,3 +214,7 @@ color: white;
 .family-Helvetica {
   font-family: 'Helvetica' !important;
 }
+
+.custom-table .ant-spin-nested-loading {
+  min-width: 1024px !important;
+}

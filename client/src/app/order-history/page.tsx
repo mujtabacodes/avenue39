@@ -11,12 +11,14 @@ import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import { FaRegUser } from 'react-icons/fa6';
 import { MdOutlineProductionQuantityLimits } from 'react-icons/md';
-import { Modal, Table } from 'antd';
+import { Modal, Skeleton, Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import { State } from '@/redux/store';
 import Image from 'next/image';
 import Link from 'next/link';
 import { generateSlug } from '@/config';
+import axios from 'axios';
+import { IOrder, IPaymentStatus } from '@/types/types';
 
 interface Product {
   key: string;
@@ -42,8 +44,10 @@ const OrderHistory: React.FC = () => {
   const router = useRouter();
   const { loggedInUser } = useSelector((state: State) => state.usrSlice);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
-
+  const [selectedOrder, setSelectedOrder] = useState<IOrder | null>(null);
+  const [ordersHistory, setOrdersHistory] = useState<IOrder[]>([]);
+  const [ordersHistoryLoading, setOrdersHistoryLoading] = useState<boolean>(true);
+  const skeletonArray = new Array(14).fill(0);
   useEffect(() => {
     const token = Cookies.get('user_token');
     if (!token) {
@@ -51,9 +55,27 @@ const OrderHistory: React.FC = () => {
     }
   }, [router]);
 
-  const showModal = (record: Order) => {
+  useEffect(() => {
+    const fetchOrdersHistroy = async () => {
+      try {
+        const res = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/sales-record/order_history`, { email: 'faadsardar123@gmail.com' });
+        if (res) {
+          console.log(res.data, 'order history')
+          setOrdersHistory(res.data);
+          setOrdersHistoryLoading(false)
+        }
+      }
+      catch (error) {
+        console.error("Error fetching order history:", error);
+      }
+    }
+    fetchOrdersHistroy();
+  }, []);
+
+  const showModal = (record: IOrder) => {
     setSelectedOrder(record);
     setIsModalOpen(true);
+    console.log(record, 'selectedOrder');
   };
 
   const handleOk = () => {
@@ -64,186 +86,137 @@ const OrderHistory: React.FC = () => {
     setIsModalOpen(false);
   };
 
-  const columns: ColumnsType<Order> = [
+  const columns: ColumnsType<IOrder> = [
     {
-      title: 'OrderId',
-      dataIndex: 'OrderId',
-      key: 'OrderId',
-      width: '10%',
+      title: 'Order ID',
+      dataIndex: 'orderId',
+      key: 'orderId',
+      width: '15%',
     },
     {
-      title: 'Name',
-      dataIndex: 'Name',
-      key: 'Name',
+      title: 'User Email',
+      dataIndex: 'user_email',
+      key: 'user_email',
       width: '20%',
     },
     {
       title: 'Address',
-      dataIndex: 'Address',
-      key: 'Address',
-      width: '20%',
-    },
-    {
-      title: 'Country',
-      dataIndex: 'Country',
-      key: 'Country',
-      width: '10%',
-    },
-    {
-      title: 'Email',
-      dataIndex: 'Email',
-      key: 'Email',
-      width: '20%',
+      dataIndex: 'address',
+      key: 'address',
+      width: '25%',
     },
     {
       title: 'Phone Number',
-      dataIndex: 'PhoneNumber',
-      key: 'PhoneNumber',
+      dataIndex: 'phoneNumber',
+      key: 'phoneNumber',
       width: '15%',
+      render: (phone) => phone, // Handle optional phone number
+    },
+    {
+      title: 'Payment Status',
+      dataIndex: 'paymentStatus',
+      key: 'paymentStatus',
+      width: '15%',
+      render: (paymentStatus: IPaymentStatus) => {
+        if (!paymentStatus.checkoutStatus && !paymentStatus.paymentStatus) {
+          return <span className="text-red-600">Unpaid</span>;
+        } else if (paymentStatus.checkoutStatus && !paymentStatus.paymentStatus) {
+          return <span className="text-main">Pending</span>;
+        } else if (paymentStatus.checkoutStatus && paymentStatus.paymentStatus) {
+          return <span className="text-green-600">Paid</span>;
+        }
+        return <span className="text-gray-500">Unknown</span>;
+      }
+    },
+    {
+      title: 'Created At',
+      dataIndex: 'createdAt',
+      key: 'createdAt',
+      width: '10%',
+      render: (date) => new Date(date).toLocaleDateString(),
     },
     {
       title: 'Action',
       key: 'action',
       render: (_, record) => (
-       <div className='flex items-center gap-4'>
-        <div
-          className="cursor-pointer"
-          onClick={() => showModal(record)}
-        >
-          <MdOutlineProductionQuantityLimits size={30} />
+        <div className='flex items-center gap-4'>
+          <div className='cursor-pointer' onClick={() => showModal(record)}>
+            <MdOutlineProductionQuantityLimits size={30} />
+          </div>
+          <Link
+            href={`/track-order/${generateSlug(record.orderId)}`}
+            className='cursor-pointer whitespace-nowrap bg-main p-2 rounded-md text-white hover:text-white'
+          >
+            Track order
+          </Link>
         </div>
-         <Link
-        href={`/track-order/${generateSlug(record.products[0]?.title || 'order')}`}
-         className="cursor-pointer whitespace-nowrap bg-main p-2 rounded-md text-white hover:text-white"
-       >
-         Track order
-       </Link>
-       </div>
       ),
-    },
+    }
+
   ];
 
-  const orders: Order[] = [
-    {
-      key: '1',
-      OrderId: '001',
-      Name: 'John Brown',
-      Address: 'New York No. 1 Lake Park',
-      Country: 'USA',
-      Email: 'john@example.com',
-      PhoneNumber: '1234567890',
-      products: [
-        {
-          key: 'p1',
-          title: 'Product A',
-          quantity: 2,
-          price: 50,
-          date: '2024-01-10',
-          image: 'images/catalogue/sofa.png',
-        },
-        {
-          key: 'p2',
-          title: 'Product B',
-          quantity: 1,
-          price: 20,
-          date: '2024-01-10',
-          image: 'images/login.jpg',
-        },
-      ],
-    },
-    {
-      key: '2',
-      OrderId: '002',
-      Name: 'Joe Black',
-      Address: 'London No. 1 Lake Park',
-      Country: 'UK',
-      Email: 'joe@example.com',
-      PhoneNumber: '0987654321',
-      products: [
-        {
-          key: 'p3',
-          title: 'Product C',
-          quantity: 3,
-          price: 75,
-          date: '2024-01-15',
-          image: 'images/login.jpg',
-        },
-      ],
-    },
-    {
-      key: '3',
-      OrderId: '003',
-      Name: 'Jim Green',
-      Address: 'Sydney No. 1 Lake Park',
-      Country: 'Australia',
-      Email: 'jim@example.com',
-      PhoneNumber: '1122334455',
-      products: [],
-    },
-  ];
 
   return (
     <>
       <TopHero breadcrumbs={Orderbreadcrumbs} />
       <Container className="py-10">
-        <div className="flex justify-between">
-          <div className="space-y-2">
-            <h1 className="text-2xl lg:text-3xl font-semibold">Account</h1>
-            <Button
-              onClick={() => router.push('/login')}
-              className="gap-2 text-xl"
-              variant={'ghost'}
-            >
-              <FaRegUser size={20} /> Logout
-            </Button>
-          </div>
-          <div className="space-y-2">
-            <h1 className="text-2xl lg:text-3xl font-medium">Account details</h1>
-            <div className="space-y-2">
-              <button className="underline">View addresses</button>
-            </div>
-          </div>
-        </div>
-        <div className="mt-10">
-          <h1 className="text-2xl lg:text-3xl font-medium">Order history</h1>
-          <Table columns={columns} dataSource={orders} rowKey="key" pagination={false} />
+        <div>
+          <h1 className="text-2xl lg:text-3xl font-medium mb-4">Order history</h1>
+          {ordersHistoryLoading ? (<div className="overflow-x-auto custom-table grid grid-cols-7">
+            {skeletonArray.map((_, index) => (
+              <div className="w-full p-4 animate-pulse" key={index}>
+                <div className="bg-gray-200 h-5 rounded-lg"></div>
+              </div>
+            ))}
+          </div>) : (
+            <Table columns={columns} dataSource={ordersHistory} rowKey="key" pagination={false} className='overflow-x-auto custom-table' />
+          )}
         </div>
       </Container>
       <Modal
-        title={<p><strong>Order ID:</strong> {selectedOrder?.OrderId}</p>}
+        title={<p><strong>Order ID:</strong> {selectedOrder?.orderId}</p>}
         width={600}
         open={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
         footer=""
       >
-       {selectedOrder ? (
+        {selectedOrder ? (
           <div className="mt-5 space-y-4">
             {selectedOrder.products.length > 0 ? (
               selectedOrder.products.map((product) => (
                 <div
-                  key={product.key}
+                  key={product.id}
                   className="flex gap-3 border rounded-md p-3 hover:border-main transition duration-200"
                 >
                   <div>
-                    <Image
-                      className="rounded-md"
-                      width={80}
-                      height={80}
-                      src={product.image}
-                      alt={product.title}
-                    />
+                    {product.productData ? (
+                      <Image
+                        className="rounded-md"
+                        width={80}
+                        height={80}
+                        src={
+                          product.productData.posterImageUrl ||
+                          product.productData.hoverImageUrl
+                        }
+                        alt={product.productData.name}
+                      />
+                    ) : (
+                      <p>Image not available</p>
+                    )}
                   </div>
                   <div>
-                    <p className="font-semibold md:text-14">Title: {product.title}</p>
+                    <p className="font-semibold md:text-14">
+                      Title: {product.productData?.name}
+                    </p>
                     <p className="font-semibold md:text-14">
                       Qt: <span>{product.quantity}</span>
                     </p>
                     <p className="font-semibold md:text-14">
-                      Price: AED <span>{product.price}</span>
+                      Price: AED <span>{product.productData?.discountPrice > 0 ? product.productData?.discountPrice : product.productData?.price}</span>
                     </p>
                     <p className="font-semibold md:text-14">
-                      Date: <span>{product.date}</span>
+                      Date: <span>{product.createdAt}</span>
                     </p>
                   </div>
                 </div>
@@ -255,8 +228,8 @@ const OrderHistory: React.FC = () => {
         ) : (
           <p>No details available.</p>
         )}
-
       </Modal>
+
     </>
   );
 };
