@@ -137,12 +137,11 @@ const DiscountCard: React.FC<DiscountCardProps> = ({ productItems }) => {
           );
         })}
 
-        {products
+        {/* {products
           .filter(
             (product) =>
               !categoryOrder.some((category) =>
-                //@ts-expect-error
-                product.categories.some((cat) => cat.name === category),
+                product?.categories?.some((cat) => cat.name === category),
               ) && !displayedProductIds.has(product.id),
           )
           .map((item) => {
@@ -167,7 +166,7 @@ const DiscountCard: React.FC<DiscountCardProps> = ({ productItems }) => {
                 </Link>
               </SwiperSlide>
             );
-          })}
+          })} */}
       </Swiper>
     </div>
   );
