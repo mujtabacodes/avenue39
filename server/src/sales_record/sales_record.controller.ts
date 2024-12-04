@@ -23,9 +23,9 @@ export class SalesRecordController {
     return this.salesRecordService.Add_sales_record(createSalesRecordDto);
   }
 
-  @Get('order_history')
-  order_history() {
-    return this.salesRecordService.order_history();
+  @Post('order_history')
+  order_history(@Body() email: {email:string}) {
+    return this.salesRecordService.order_history(email.email);
   }
   @Patch('update-payment-status')
   updatePaymentStatus(@Body() updatePaymentStatusDto: updatePaymentStatusDto) {

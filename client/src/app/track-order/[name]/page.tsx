@@ -1,125 +1,76 @@
-'use client'
 import Image from "next/image";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
+import React from "react";
 import axios from "axios";
+import Container from "@/components/ui/Container";
+import { Skeleton } from "antd";
+import { IOrder, IOrderProduct } from "@/types/types";
 
-interface OrderDetail {
-  shippingAddress: string;
-  billingAddress: string;
-  shippingMethod: string;
-  paymentMethod: string;
-}
+const ViewOrder = async ({ params: { name } }: { params: { name: string } }) => {
+  let userDetail: IOrder | null = null;
 
-const orderDetails: OrderDetail[] = [
-  {
-    shippingAddress: "123 Dummy St, City, Country",
-    billingAddress: "456 Fake Rd, City, Country",
-    shippingMethod: "Standard Shipping",
-    paymentMethod: "Credit Card",
-  },
-];
+  try {
+    const response = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/sales-record/trackorder/${name}`);
+    userDetail = response.data;
+    if (!userDetail || Object.keys(userDetail).length === 0) {
+      return (
+        <Container className="grid grid-cols-1 md:grid-cols-2 gap-10 py-10">
+          <div className="col-span-2 text-center">
+            <h2 className="text-xl font-semibold">Order Not Found</h2>
+            <p className="text-gray-500 mt-2">
+              We couldn&apos;t find an order matching the provided details. Please double-check your order ID or email.
+            </p>
+            <Link href="/" className="bg-black text-white px-4 py-2 mt-4 inline-block">
+              Continue Shopping
+            </Link>
+          </div>
+        </Container>
+      );
+    }
+  } catch (error) {
+    return (
+      <Container className="text-center py-20">
+        <h2 className="text-xl font-semibold">Error Fetching Order</h2>
+        <p className="text-gray-500 mt-2">
+          There was an issue retrieving your order details. Please try again later.
+        </p>
+      </Container>
+    );
+  }
 
-const ViewOrder = () => {
-  const [products, setProducts] = useState<any[]>([]);
-  const [userDetail, setUserDetail] = useState<any>(null);
-  const [total, setTotal] = useState<number>(0);
-  const [shippingFee, setShippingFee] = useState<number>(0);
-  const { name } = useParams();
-
-  useEffect(() => {
-    const fetchOrders = async () => {
-      try {
-        const res = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/track-order/${name}`);
-        if (res.data && res.data.products) {
-          const fetchedProducts = res.data.products;
-          const userDetails = res.data.userDetails;
-          setProducts(fetchedProducts);
-          setUserDetail(userDetails);
-          const totalAmount = fetchedProducts.reduce(
-            //@ts-expect-error
-            (sum: number, product: Product) => sum + parseFloat(product.totalPrice.toString()),
-            0
-          );
-          const totalShipping = fetchedProducts.reduce(
-            //@ts-expect-error
-            (sum: number, product: Product) => sum + parseFloat(product.shippment_Fee),
-            0
-          );
-
-          setTotal(totalAmount);
-          setShippingFee(totalShipping);
-        }
-      } catch (error) {
-        console.error("Error fetching order history:", error);
-      }
-    };
-
-    fetchOrders();
-  }, [name]);
+  const subTotal = userDetail.products.reduce((total, item) => {
+    const productPrice = item.productData?.discountPrice > 0 ? item.productData?.discountPrice : item.productData?.price;
+    return total + item.quantity * productPrice;
+  }, 0);
+  const Shipping = 0;
+  const Total = subTotal + Shipping;
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-10 my-10 max-w-screen-lg mx-auto">
+    <Container className="grid grid-cols-1 md:grid-cols-2 gap-10 py-10">
       <div>
-      {userDetail && (
         <div className="max-w-screen-sm mx-auto">
-          {/* <div className="space-y-3">
-            <div>
-              <p className="font-medium text-23">Login To View</p>
-            </div>
-            <div className="grid grid-cols-12 gap-3 items-center">
-              <div className="col-span-5 w-full">
-                <input
-                  className="w-full rounded-md p-2 border border-gray"
-                  name="email"
-                  placeholder="Email"
-                  type="email"
-                  id={"email"}
-                />
-              </div>
-              <div className="col-span-5">
-                <input
-                  className="w-full rounded-md p-2 border border-gray"
-                  name="ordernumber"
-                  placeholder="Order Number"
-                  type="ordernumber"
-                  id={"ordernumber"}
-                />
-              </div>
-              <div className="col-span-2">
-                <button className="bg-black text-white px-4 py-2 rounded-md w-full">
-                  Login
-                </button>
-              </div>
-            </div>
-          </div> */}
-      
-        
-          <div className="border border-gray p-2 rounded-md mt-10">
-            <p className="font-medium text-23">
-             {userDetail.first_name} {userDetail.last_name} 
-            </p>
-            <p className="text-14">
-            {userDetail.usermail}
-            </p>
+          <div className="border border-gray p-2 rounded-md">
+            <p className="text-18 font-bold">Order Id</p>
+            <p className="text-14">{userDetail.orderId}</p>
+            <p className="text-18 font-bold">Email</p>
+            <p className="text-14">{userDetail.user_email}</p>
           </div>
 
           <div className="border border-gray p-2 rounded-md mt-10">
-            <p className="font-medium text-23">Order Detail</p>
-            <div className="grid grid-cols-6 gap-4">
-             
-                  <div className="col-span-6">
-                    <p className="text-18 font-medium">Shipping Address</p>
-                    <p className="text-14">{userDetail.userAddress}</p>
-                    <p className="text-14"> {userDetail.city}, {userDetail.country}</p>
-                  </div>
-               
-              
+            <p className="font-bold text-23">Order Detail</p>
+            <div className="grid grid-cols-1 gap-4">
+              <div>
+                <p className="text-18 font-medium">Shipping Address</p>
+                <p className="text-14">{userDetail.address}</p>
+              </div>
+              <div>
+                <p className="text-18 font-medium">Phone Number</p>
+                <p className="text-14">{userDetail.phoneNumber}</p>
+              </div>
             </div>
           </div>
 
-          <div className="flex flex-wrap justify-between items-center mt-5">
+          <div className="flex flex-wrap justify-between items-center mt-10">
             <p className="text-light font-semibold">
               Need help?{" "}
               <Link className="text-black" href="/contact">
@@ -131,63 +82,56 @@ const ViewOrder = () => {
             </Link>
           </div>
         </div>
-)}
       </div>
 
-      {/* Product Details Section */}
       <div className="space-y-3">
-        {products.map((product) => (
-          <div key={product.id}>
-            <div className="flex gap-2 mt-1">
-              <Image
-                className="w-[80px] h-[80px] object-cover rounded-md"
-                width={200}
-                height={200}
-                src={product.imageUrl} // Dynamic image URL
-                alt={product.name} // Dynamic product name as alt text
-              />
-              <div>
-                <p>{product.name}</p> {/* Dynamic product name */}
-                <div className="flex justify-between">
-                  <p className="font-medium text-lightdark">Product</p>
-                  <p>
-                    AED<span>{product.price}</span> {/* Dynamic product price */}
-                  </p>
-                </div>
-                <p className="font-medium">
-                  Quantity: <span>{product.count}</span> {/* Dynamic product quantity */}
+        {userDetail.products.map((product: IOrderProduct) => (
+          <div key={product.id} className="flex gap-4 mt-1">
+            <Image
+              className="w-[80px] h-[80px] object-cover rounded-md"
+              width={200}
+              height={200}
+              src={product.productData.posterImageUrl || product.productData.hoverImageUrl}
+              alt={product.productData.name}
+            />
+            <div>
+              <p>{product.productData.name}</p>
+              <div className="flex justify-between">
+                <p className="font-medium text-lightdark">Price</p>
+                <p>
+                  AED{" "}
+                  <span>
+                    {product.productData?.discountPrice > 0
+                      ? product.productData?.discountPrice
+                      : product.productData?.price}
+                  </span>
                 </p>
               </div>
+              <p className="font-medium">
+                Quantity: <span>{product.quantity}</span>
+              </p>
             </div>
-
-           
           </div>
         ))}
 
-        {/* Display Shipping Fee and Total Only Once */}
-        <div className="flex justify-between mt-5">
-          <p className="text-18 font-semibold">Subtotal</p>
-          <p>
-            AED<span>{total}</span> 
-          </p>
-        </div>
-        <div className="flex justify-between mt-5">
-          <p className="text-18 font-semibold">Shipping Fee</p>
-          <p>
-            AED<span>{shippingFee}</span> 
-          </p>
-        </div>
-       
-        <hr />
-        <div className="flex justify-between">
-          <p className="text-18 font-semibold">Total</p>
-          <p>
-            AED<span>{total+shippingFee }</span>
-          </p>
+        <div className="border border-gray py-4 rounded-md px-4">
+          {/* <div className="flex justify-between">
+            <p className="text-18 font-semibold">Sub total</p>
+            <p>AED {subTotal}</p>
+          </div>
+          <div className="flex justify-between">
+            <p className="text-18 font-semibold">Shipment Fee</p>
+            <p>AED {Shipping}</p>
+          </div> */}
+          <div className="flex justify-between">
+            <p className="text-18 font-semibold">Total</p>
+            <p>AED {Total}</p>
+          </div>
         </div>
       </div>
-    </div>
+    </Container>
   );
 };
 
 export default ViewOrder;
+
