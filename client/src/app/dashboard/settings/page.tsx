@@ -161,7 +161,7 @@ const Settings = () => {
           <div className="col-span-5 xl:col-span-2">
             <div className="rounded-sm border border-stroke bg-white shadow-default dark:bg-black dark:text-white dark:bg-boxdark dark:border-blue-50 dark:border-strokedark dark:bg-boxdark ">
               <div className="border-b border-stroke px-7 py-4 dark:border-strokedark">
-                <h3 className="font-medium text-primary dark:text-white">
+                <h3 className="font-medium text-14 sm:text-15 text-primary dark:text-white">
                   Profile Photo
                 </h3>
               </div>
@@ -183,7 +183,7 @@ const Settings = () => {
                       </div>
 
                       <div>
-                        <span className="mb-1.5 text-primary dark:text-black">
+                        <span className="mb-1.5 text-primary text-15 dark:text-black">
                           Edit your photo
                         </span>
                         <span className="flex gap-2.5">
@@ -223,16 +223,16 @@ const Settings = () => {
                       <span className="my-2 inline-block rounded-full bg-white border-primary border p-2">
                         <AiOutlineUpload className="w-8 h-8 text-primary dark:text-black" />
                       </span>
-                      <p className="text-white dark:text-white text-sm">
-                        <span className="text-white dark:text-white text-sm">
+                      <p className="text-white dark:text-white text-xs sm:text-sm ">
+                        <span className="text-white dark:text-white">
                           Click to upload
                         </span>{' '}
                         or drag and drop
                       </p>
-                      <p className="mt-1.5 text-white dark:text-white text-sm">
+                      <p className="mt-1.5 text-white dark:text-white text-xs sm:text-sm">
                         SVG, PNG, JPG or GIF
                       </p>
-                      <p className="text-white dark:text-white text-sm">
+                      <p className="text-white dark:text-white text-xs sm:text-sm">
                         (max, 800 X 800px)
                       </p>
                     </div>
@@ -245,13 +245,13 @@ const Settings = () => {
           <div className="col-span-5 xl:col-span-3 dark:border-strokedark dark:bg-boxdark dark:border-strokedark dark:bg-boxdark dark:bg-black dark:text-white dark:bg-boxdark dark:border-white ">
             <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark dark:border-strokedark dark:bg-boxdark dark:bg-black dark:text-white dark:bg-boxdark dark:border-white ">
               <div className="border-b border-stroke px-7 py-4 dark:border-strokedark">
-                <h3 className="font-medium text-primary dark:text-white">
+                <h3 className="font-medium  text-14 sm:text-15 text-primary dark:text-white">
                   Personal Information
                 </h3>
               </div>
-              <div className="p-7">
+              <div className="p-4 sm:p-7">
                 <form onSubmit={handleSubmit} className="space-y-4">
-                  <div className="mb-5.5 flex flex-col gap-5.5 sm:flex-row">
+                  <div className="mb-5.5 flex flex-col justify-center items-center gap-5.5 sm:flex-row">
                     <div className="w-full sm:w-1/2">
                       {/* Add additional form fields if needed */}
                     </div>
@@ -277,9 +277,9 @@ const Settings = () => {
                     disabled={true}
                   />
 
-                  <div className="flex justify-end gap-4.5">
+                  <div className="flex justify-center sm:justify-end gap-4.5">
                     <button
-                      className="flex justify-center rounded bg-primary dark:bg-gray-900 px-6 py-2 font-medium text-white hover:bg-opacity-90 "
+                      className="flex justify-center rounded bg-primary dark:bg-gray-900 px-6 py-2 font-medium text-white hover:bg-opacity-90 text-14 "
                       type="submit"
                     >
                       Save

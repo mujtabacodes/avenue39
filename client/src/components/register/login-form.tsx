@@ -104,12 +104,12 @@ export function LoginForm() {
   return (
     <Tabs defaultValue="login" className="p-2">
       <TabsList className=" w-full text-center space-x-4  flex justify-center items-center">
-        <TabsTrigger className="text-2xl font-bold " value="login">
+        <TabsTrigger className="sm:text-2xl whitespace-nowrap font-bold " value="login">
           <FaRegUser />
           Sign in
         </TabsTrigger>
         <span className="h-10 border border-black" />
-        <TabsTrigger className="text-2xl font-bold " value="register">
+        <TabsTrigger className="sm:text-2xl font-bold whitespace-nowrap " value="register">
           <FaRegUser />
           Sign up
         </TabsTrigger>
@@ -133,7 +133,7 @@ export function LoginForm() {
             onChange={Signin.handleChange}
             value={Signin.values.password}
           />
-          <div className="text-end pr-4">
+          <div className="text-center sm:text-end pr-4 text-sm">
             <Link href={'/forgot-password'}>Forget Passowrd?</Link>
           </div>
           <Button

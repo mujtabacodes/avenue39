@@ -11,7 +11,6 @@ import tabby from '@assets/icons/tabby-logo.png';
 import tamara from '@assets/icons/tamara-logo.png';
 import Coupan from '@/components/coupan-code';
 import CartItems from '@/components/cart/items';
-import { SubTotal } from '@/config';
 import { useSelector } from 'react-redux';
 import { State } from '@/redux/store';
 import { selectTotalPrice } from '@/redux/slices/cart';
@@ -21,13 +20,11 @@ import {
   SelectContent,
   SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
 import { LabelInput } from '@/components/ui/label-input';
 import { Label } from '@/components/ui/label';
-import Link from 'next/link';
 import Loader from '@/components/Loader/Loader';
 import axios from 'axios';
 import showToast from '@/components/Toaster/Toaster';
@@ -162,12 +159,12 @@ const Checkout = () => {
           <Container>
             <form
               onSubmit={formik.handleSubmit}
-              className="grid grid-cols-1 md:grid-cols-2 mt-10 md:gap-10 mb-10"
+              className="grid grid-cols-1 md:grid-cols-2 mt-10 gap-5 xl:gap-10 mb-10 px-2"
             >
               <div>
                 <h2 className="text-[33px]">Checkout</h2>
                 <div className="space-y-5 mt-10">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                  <div className="flex flex-wrap sm:flex-nowrap md:flex-wrap  xl:flex-nowrap gap-5">
                     <LabelInput
                       label="First Name"
                       id="first_name"
@@ -197,7 +194,7 @@ const Checkout = () => {
                     value={formik.values.user_email}
                   />
 
-                  <div className=" flex gap-5 flex-col md:flex-row">
+                  <div className=" flex flex-wrap sm:flex-nowrap md:flex-wrap  xl:flex-nowrap gap-4">
                     <LabelInput
                       label="phone Number"
                       id="phone_number"
@@ -217,7 +214,7 @@ const Checkout = () => {
                       value={formik.values.address}
                     />
                   </div>
-                  <div className="flex flex-col md:flex-row gap-5">
+                  <div className="flex flex-wrap sm:flex-nowrap md:flex-wrap  xl:flex-nowrap gap-2">
                     <div className="flex-1">
                       <Label
                         htmlFor="country"
@@ -229,13 +226,11 @@ const Checkout = () => {
                         onValueChange={(value: any) =>
                           formik.setFieldValue('country', value)
                         }
+                        defaultValue="United Arab Emirates"
                         required
                       >
-                        <SelectTrigger className="flex-grow h-full mt-3 rounded-full border-0 bg-[#F6F6F6] pl-8 pr-12 py-2  focus-visible:outline-none focus-visible:ring-0 text-15 font-medium outline-none focus-visible:ring-ring focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-50 ">
-                          <SelectValue
-                            placeholder="Country/Region"
-                            className=""
-                          />
+                        <SelectTrigger className="flex-grow h-[73px] mt-3 rounded-full border-0 bg-[#F6F6F6] pl-8 pr-10 py-2   focus-visible:outline-none focus-visible:ring-0 text-15 font-medium outline-none focus-visible:ring-ring focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-50 ">
+                          <SelectValue/>
                         </SelectTrigger>
                         <SelectContent className="rounded-3xl">
                           <SelectGroup>
@@ -262,9 +257,10 @@ const Checkout = () => {
                           formik.setFieldValue('city', value);
                           setSelectedState(value);
                         }}
+                        defaultValue="Dubai"
                         required
                       >
-                        <SelectTrigger className="flex-grow h-full mt-3 rounded-full border-0 bg-[#F6F6F6] pl-8 pr-10 py-2   focus-visible:outline-none focus-visible:ring-0 text-15 font-medium outline-none focus-visible:ring-ring focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-50 ">
+                        <SelectTrigger className="flex-grow h-[73px]  mt-3 rounded-full border-0 bg-[#F6F6F6] pl-8 pr-10 py-2   focus-visible:outline-none focus-visible:ring-0 text-15 font-medium outline-none focus-visible:ring-ring focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-50 ">
                           <SelectValue placeholder="Select your state" />
                         </SelectTrigger>
                         <SelectContent className="rounded-3xl">
@@ -284,7 +280,7 @@ const Checkout = () => {
                     </div>
                   </div>
 
-                  <div style={{ marginTop: '3rem' }}>
+                  <div className=' mt-5 md:mt-10'>
                     <Label
                       htmlFor="Notes"
                       className="mb-1 px-8 text-sm font-semibold text-17 text-[#666666] mt-3 "
@@ -353,7 +349,7 @@ const Checkout = () => {
                     </p>
                   </div>
 
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-center justify-between flex-wrap sm:flex-nowrap gap-4 w-full">
                     <div className="flex gap-4 items-center">
                       <div className="flex items-center space-x-2">
                         <Checkbox id="terms" />
@@ -369,13 +365,13 @@ const Checkout = () => {
                         />
                       </div>
                     </div>
-                    <div>
-                      <Button
+                    <div className='w-full sm:w-auto'>
+                      <button
                         type="submit"
-                        className="bg-black !text-white hover:!text-black hover:bg-white text-sm rounded-md border-2 border-black h-[58px] py-5 text-16 px-16  "
+                        className="bg-black !text-white hover:!text-black hover:bg-white text-sm rounded-md border-2 border-black h-[58px] py-5 text-16 px-16 !w-full "
                       >
                         {loading ? <Loader color="#fff" /> : 'Pay Now'}
-                      </Button>
+                      </button>
                     </div>
                   </div>
                 </div>
