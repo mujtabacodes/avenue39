@@ -429,11 +429,13 @@ export class SalesRecordService {
     }
   }
 
-  async order_history(email: string) {
+  async order_history(req: Request | any) {
 
     try {
+      const { email } = req.user
       console.log(email, "email")
-      const sales = await this.prisma.sales_record.findMany({where:{user_email: "faadsardar123@gmail.com"},
+if(!email) return "Email not found , Please login and then try"
+      const sales = await this.prisma.sales_record.findMany({where: { user_email: { contains: email } },
         include: { products: true },
       });
       return sales;

@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   Put,
+  Req,
 } from '@nestjs/common';
 import { SalesRecordService } from './sales_record.service';
 import {
@@ -23,9 +24,9 @@ export class SalesRecordController {
     return this.salesRecordService.Add_sales_record(createSalesRecordDto);
   }
 
-  @Post('order_history')
-  order_history(@Body() email: {email:string}) {
-    return this.salesRecordService.order_history(email.email);
+  @Get('order_history')
+  order_history(@Req() req:Request) {
+    return this.salesRecordService.order_history(req);
   }
   @Patch('update-payment-status')
   updatePaymentStatus(@Body() updatePaymentStatusDto: updatePaymentStatusDto) {
