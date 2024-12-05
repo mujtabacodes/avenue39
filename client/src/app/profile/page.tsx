@@ -19,9 +19,7 @@ import {
 import { loggedInUserAction } from '@/redux/slices/user/userSlice';
 
 export default function Profile() {
-  console.log('I am on profile page');
   const { loggedInUser } = useSelector((state: State) => state.usrSlice)
-  console.log(loggedInUser);
 
   const router = useRouter();
 
@@ -135,6 +133,7 @@ const AddminProfileTriggerHandler = async () => {
     try {
       Cookies.remove('user_token', { path: '/' });
       router.push('/login');
+      dispatch(loggedInUserAction(null));
     } catch (err) {
       console.log(err);
     }

@@ -54,7 +54,7 @@ const OrderHistory: React.FC = () => {
     if (!token) {
       router.push('/login');
     }
-    else{
+    else {
       setuserToken(token);
     }
   }, [router]);
@@ -72,18 +72,19 @@ const OrderHistory: React.FC = () => {
         );
         if (res) {
           setOrdersHistory(res.data);
-          setOrdersHistoryLoading(false);
         }
       } catch (error) {
         console.error("Error fetching order history:", error);
+      } finally {
+        setOrdersHistoryLoading(false);
+        console.log(ordersHistoryLoading, "ordersHistoryLoading")
       }
     };
     if (userToken) {
-      console.log(userToken, "USEROTOKEN")
       fetchOrdersHistroy(userToken);
     }
-    
-  }, [loggedInUser]);
+
+  }, [userToken]);
 
   const showModal = (record: IOrder) => {
     setSelectedOrder(record);
