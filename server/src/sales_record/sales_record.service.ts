@@ -433,8 +433,9 @@ export class SalesRecordService {
 
     try {
       const { email } = req.user
-
-      const sales = await this.prisma.sales_record.findMany({where:{user_email: email},
+      console.log(email, "email")
+if(!email) return "Email not found , Please login and then try"
+      const sales = await this.prisma.sales_record.findMany({where: { user_email: { contains: email } },
         include: { products: true },
       });
       return sales;

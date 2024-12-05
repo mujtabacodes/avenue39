@@ -13,7 +13,7 @@ export class LoggerMiddleware implements NestMiddleware {
     }
     try {
       const decoded = jwt.verify(token, process.env.TOKEN_SECRET);
-      req['user'] = decoded.email;
+      req['user'] = decoded;
       next();
     } catch (err) {
       console.log(err, "err")
