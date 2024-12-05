@@ -353,7 +353,7 @@ const Navbar = (props: INav) => {
           </div>
           <div className="md:hidden flex gap-2 items-center">
             <form onSubmit={(e) => e.preventDefault()}>
-              <Drawer onOpenChange={setIsDrawerOpen}>
+              <Drawer >
                 <DrawerTrigger asChild>
                   <button
                     type="submit"
