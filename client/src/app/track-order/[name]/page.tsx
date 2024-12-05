@@ -3,7 +3,6 @@ import Link from "next/link";
 import React from "react";
 import axios from "axios";
 import Container from "@/components/ui/Container";
-import { Skeleton } from "antd";
 import { IOrder, IOrderProduct } from "@/types/types";
 
 const ViewOrder = async ({ params: { name } }: { params: { name: string } }) => {
@@ -48,7 +47,6 @@ const ViewOrder = async ({ params: { name } }: { params: { name: string } }) => 
   return (
     <Container className="grid grid-cols-1 md:grid-cols-2 gap-10 py-10">
       <div>
-        <div className="max-w-screen-sm mx-auto">
           <div className="border border-gray p-2 rounded-md">
             <p className="text-18 font-bold">Order Id</p>
             <p className="text-14">{userDetail.orderId}</p>
@@ -81,7 +79,6 @@ const ViewOrder = async ({ params: { name } }: { params: { name: string } }) => 
               Continue Shopping
             </Link>
           </div>
-        </div>
       </div>
 
       <div className="space-y-3">
