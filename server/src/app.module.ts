@@ -1,4 +1,4 @@
-import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
@@ -15,6 +15,8 @@ import { PaytabsModule } from './paytabs/paytabs.module';
 import { NewslettersModule } from './newsletters/newsletters.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import * as path from 'path';
+import { LoggerMiddleware } from '../src/common/logger.middleware';
+
 
 @Module({
   imports: [
@@ -38,4 +40,15 @@ import * as path from 'path';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+
+
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(LoggerMiddleware).exclude(
+        {path: "trackorder/:id", method:RequestMethod.GET},
+        {path: "add_sales", method:RequestMethod.POST},
+      )
+      .forRoutes('sales-record');
+  }
+}
