@@ -1,7 +1,7 @@
 'use client';
 import Image from 'next/image';
 import sofa1 from '@assets/images/banners/fdsdf.webp';
-import banner2 from '@assets/images/banners/efsaefdsfe.jpg';
+import banner2 from '@assets/images/banners/laptop-table.jpg';
 import banner3 from '@assets/images/banners/freepik__enhance__60779.webp';
 import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
