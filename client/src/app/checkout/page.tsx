@@ -185,7 +185,7 @@ const Checkout = () => {
                     />
                   </div>
                   <LabelInput
-                    label="email Address"
+                    label="Email Address"
                     id="user_email"
                     name="user_email"
                     type="text"
@@ -196,7 +196,7 @@ const Checkout = () => {
 
                   <div className=" flex flex-wrap sm:flex-nowrap md:flex-wrap  xl:flex-nowrap gap-4">
                     <LabelInput
-                      label="phone Number"
+                      label="Phone Number"
                       id="phone_number"
                       name="phone_number"
                       type="number"
@@ -229,7 +229,7 @@ const Checkout = () => {
                         defaultValue="United Arab Emirates"
                         required
                       >
-                        <SelectTrigger className="flex-grow h-[73px] mt-3 rounded-full border-0 bg-[#F6F6F6] pl-8 pr-10 py-2   focus-visible:outline-none focus-visible:ring-0 text-15 font-medium outline-none focus-visible:ring-ring focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-50 ">
+                        <SelectTrigger className="flex-grow h-[50px] mt-3 rounded-full border-0 bg-[#F6F6F6] pl-8 pr-10 py-2   focus-visible:outline-none focus-visible:ring-0 text-15 font-medium outline-none focus-visible:ring-ring focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-50 ">
                           <SelectValue/>
                         </SelectTrigger>
                         <SelectContent className="rounded-3xl">
@@ -260,7 +260,7 @@ const Checkout = () => {
                         defaultValue="Dubai"
                         required
                       >
-                        <SelectTrigger className="flex-grow h-[73px]  mt-3 rounded-full border-0 bg-[#F6F6F6] pl-8 pr-10 py-2   focus-visible:outline-none focus-visible:ring-0 text-15 font-medium outline-none focus-visible:ring-ring focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-50 ">
+                        <SelectTrigger className="flex-grow h-[50px]  mt-3 rounded-full border-0 bg-[#F6F6F6] pl-8 pr-10 py-2   focus-visible:outline-none focus-visible:ring-0 text-15 font-medium outline-none focus-visible:ring-ring focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-50 ">
                           <SelectValue placeholder="Select your state" />
                         </SelectTrigger>
                         <SelectContent className="rounded-3xl">
