@@ -65,7 +65,7 @@ const Checkout = () => {
       }
       const { postalCode, ...submissioValues } = values;
 
-      console.log(values, "values")
+      console.log(values, 'values');
 
       handlePayment(submissioValues);
     },
@@ -96,37 +96,30 @@ const Checkout = () => {
 
       setloading(true);
 
-      console.log('======= AYLO PAYMENTS ========');
-      console.log('billingData');
-      console.log(values);
-      console.log('cartItems');
-      console.log(cartItems);
-      console.log(shipmentFee + ' :shipmentFee');
-      console.log(totalPayment + ' :totalPayment');
-
       try {
-
-        const proceedPayment = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/sales-record/add_sales`, {
-          ...values,
-          amount: totalPayment,
-          orderedProductDetails: cartItems,
-          shippment_Fee: shippingfee,
-
-        },
+        const proceedPayment = await axios.post(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/sales-record/add_sales`,
+          {
+            ...values,
+            amount: totalPayment,
+            orderedProductDetails: cartItems,
+            shippment_Fee: shippingfee,
+          },
         );
-        console.log(proceedPayment, "proceedPayment")
+        console.log(proceedPayment, 'proceedPayment');
 
         if (proceedPayment.status === 201) {
-          showToast("success", "Order Placed Successfully")
-          setPaymentKey(`https://uae.paymob.com/unifiedcheckout/?publicKey=${process.env.NEXT_PUBLIC_PAYMOB_PUBLIC_KEY}&clientSecret=${proceedPayment.data.result.client_secret}`)
+          showToast('success', 'Order Placed Successfully');
+          setPaymentKey(
+            `https://uae.paymob.com/unifiedcheckout/?publicKey=${process.env.NEXT_PUBLIC_PAYMOB_PUBLIC_KEY}&clientSecret=${proceedPayment.data.result.client_secret}`,
+          );
           // window.location.href = `https://uae.paymob.com/unifiedcheckout/?publicKey=${process.env.NEXT_PUBLIC_PAYMOB_PUBLIC_KEY}&clientSecret=${proceedPayment.data.result.client_secret}`;
           setPaymentProcess(true);
-
         }
       } catch (error: any) {
         showToast(
           'error',
-          error.message || error.error || "Internal server error",
+          error.message || error.error || 'Internal server error',
         );
         throw new Error('Something is wrong. Please check the input fields.');
       }
@@ -230,7 +223,7 @@ const Checkout = () => {
                         required
                       >
                         <SelectTrigger className="flex-grow h-[73px] mt-3 rounded-full border-0 bg-[#F6F6F6] pl-8 pr-10 py-2   focus-visible:outline-none focus-visible:ring-0 text-15 font-medium outline-none focus-visible:ring-ring focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-50 ">
-                          <SelectValue/>
+                          <SelectValue />
                         </SelectTrigger>
                         <SelectContent className="rounded-3xl">
                           <SelectGroup>
@@ -280,7 +273,7 @@ const Checkout = () => {
                     </div>
                   </div>
 
-                  <div className=' mt-5 md:mt-10'>
+                  <div className=" mt-5 md:mt-10">
                     <Label
                       htmlFor="Notes"
                       className="mb-1 px-8 text-sm font-semibold text-17 text-[#666666] mt-3 "
@@ -318,9 +311,7 @@ const Checkout = () => {
                       <p>Shipping fee</p>
                       <p>
                         <span>
-                          {shippingfee == 0
-                            ? 'Free'
-                            : ` AED ${shippingfee}`}
+                          {shippingfee == 0 ? 'Free' : ` AED ${shippingfee}`}
                         </span>
                       </p>
                     </div>
@@ -365,12 +356,12 @@ const Checkout = () => {
                         />
                       </div>
                     </div>
-                    <div className='w-full sm:w-auto'>
+                    <div className="w-full sm:w-auto">
                       <button
                         type="submit"
                         className="bg-black !text-white hover:!text-black hover:bg-white text-sm rounded-md border-2 border-black h-[58px] py-5 text-16 px-16 !w-full "
                       >
-                        {loading ? <Loader color="#fff" /> : 'Pay Now'}
+                        {loading ? <Loader color="#fff" /> : 'NEXT'}
                       </button>
                     </div>
                   </div>
