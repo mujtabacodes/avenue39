@@ -1,8 +1,8 @@
 'use client';
 import Image from 'next/image';
-import sofa1 from '@assets/images/banners/freepik_br_8be6ac0d-537a-4b02-bbbf-5fc8266e00e8.png';
-import banner2 from '@assets/images/banners/efsaefdsfe.jpg';
-import banner3 from '@assets/images/banners/freepik__enhance__60779.png';
+import sofa1 from '@assets/images/banners/fdsdf.webp';
+import banner2 from '@assets/images/banners/laptop-table.jpg';
+import banner3 from '@assets/images/banners/freepik__enhance__60779.webp';
 import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
 import { Skeleton } from '@/components/ui/skeleton'; // Adjust the path as necessary

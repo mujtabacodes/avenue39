@@ -47,35 +47,48 @@ const OrderHistory: React.FC = () => {
   const [selectedOrder, setSelectedOrder] = useState<IOrder | null>(null);
   const [ordersHistory, setOrdersHistory] = useState<IOrder[]>([]);
   const [ordersHistoryLoading, setOrdersHistoryLoading] = useState<boolean>(true);
+  const [userToken, setuserToken] = useState<string>('');
   const skeletonArray = new Array(14).fill(0);
   useEffect(() => {
     const token = Cookies.get('user_token');
     if (!token) {
       router.push('/login');
     }
+    else {
+      setuserToken(token);
+    }
   }, [router]);
 
   useEffect(() => {
-    const fetchOrdersHistroy = async () => {
+    const fetchOrdersHistroy = async (token: string) => {
       try {
-        const res = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/sales-record/order_history`, { email: 'faadsardar123@gmail.com' });
+        const res = await axios.get(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/sales-record/order_history`,
+          {
+            headers: {
+              authorization: `Bearer ${token}`,
+            },
+          }
+        );
         if (res) {
-          console.log(res.data, 'order history')
           setOrdersHistory(res.data);
-          setOrdersHistoryLoading(false)
         }
-      }
-      catch (error) {
+      } catch (error) {
         console.error("Error fetching order history:", error);
+      } finally {
+        setOrdersHistoryLoading(false);
+        console.log(ordersHistoryLoading, "ordersHistoryLoading")
       }
+    };
+    if (userToken) {
+      fetchOrdersHistroy(userToken);
     }
-    fetchOrdersHistroy();
-  }, []);
+
+  }, [userToken]);
 
   const showModal = (record: IOrder) => {
     setSelectedOrder(record);
     setIsModalOpen(true);
-    console.log(record, 'selectedOrder');
   };
 
   const handleOk = () => {
@@ -110,7 +123,7 @@ const OrderHistory: React.FC = () => {
       dataIndex: 'phoneNumber',
       key: 'phoneNumber',
       width: '15%',
-      render: (phone) => phone, // Handle optional phone number
+      render: (phone) => phone,
     },
     {
       title: 'Payment Status',
