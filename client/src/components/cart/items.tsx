@@ -2,7 +2,7 @@
 
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { State, Dispatch } from '@redux/store';
 import {
@@ -30,8 +30,11 @@ import {
   SheetTrigger,
 } from '../ui/sheet';
 import { TfiClose } from 'react-icons/tfi';
-import { TotalProducts } from '@/config';
+import { generateSlug, TotalProducts } from '@/config';
 import { closeDrawer, openDrawer } from '@/redux/slices/drawer';
+import { FaTrash } from 'react-icons/fa';
+import { MdModeEdit } from 'react-icons/md';
+import Link from 'next/link';
 
 interface ICartItems {
   isCartPage?: boolean;
@@ -42,6 +45,7 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
   const navigate = useRouter();
   const dispatch = useDispatch<Dispatch>();
   const cartItems = useSelector((state: State) => state.cart.items);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   console.log('cartItems');
   console.log(cartItems);
   const totalPrice = useSelector((state: State) =>
@@ -66,12 +70,22 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
       dispatch(updateItemQuantity({ id, quantity }));
     }
   };
+  const handleenterDrawer = () => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+  };
+  const handleleaveDrawer = () => {
+    if (timeoutRef.current) {
+      timeoutRef.current = setTimeout(() => {
+        dispatch(closeDrawer());
+      }, 3000);
+    }
+  };
   useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      // dispatch(closeDrawer());
+    timeoutRef.current = setTimeout(() => {
+      dispatch(closeDrawer());
     }, 3000);
-
-    return () => clearTimeout(timeoutId);
   }, [drawerState, dispatch]);
 
   return (
@@ -81,7 +95,7 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
           <SheetTrigger asChild>
             <div
               className={`xl:w-14 w-12 h-10 rounded-3xl relative flex justify-center items-center  cursor-pointer ${cartItems.length > 0 ? 'text-white bg-main' : 'text-black  border-black'}`}
-              onClick={() => navigate.push('/cart')}
+              onClick={handleOpenDrawer}
             >
               <IoBagOutline size={25} />
               {cartItems.length > 0 && (
@@ -95,16 +109,15 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
             className="bg-white opacity-80 z-[51]"
             onClick={handleCloseDrawer}
           />
-          <SheetContent className="w-[90%] xsm:max-w-lg z-[52] border-s border-black py-5 xsm:py-10 ps-5 xs:ps-10 pe-0 flex flex-col">
-            <SheetHeader className="flex flex-row items-center justify-between border-b-2 py-8 pe-12">
+          <SheetContent className="w-[90%] xsm:max-w-lg z-[52] border-s border-black py-5 xsm:py-10 ps-5 xs:ps-10 pe-0 flex flex-col" onMouseEnter={handleenterDrawer} onMouseLeave={handleleaveDrawer}>
+            <SheetHeader className="flex flex-row items-center justify-between border-b-2 pb-6 relative">
               <SheetTitle className="font-medium text-3xl">
                 My Cart (<TotalProducts />)
               </SheetTitle>
               <SheetClose
-                className="flex gap-4 items-center"
+                className="absolute -top-6 right-6"
                 onClick={handleCloseDrawer}
               >
-                <span className="font-medium text-2xl">Close</span>
                 <TfiClose size={25} />
               </SheetClose>
             </SheetHeader>
@@ -129,7 +142,7 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                         {item.name}
                       </ProductName>
                       <div className="flex justify-between flex-wrap gap-2">
-                        <span> Qty {item.quantity}</span>
+                        <span> Qty: {item.quantity}</span>
                         {item?.discountPrice > 0 ? (<ProductPrice className="flex gap-2 flex-wrap mb-4 !text-[15px] text-nowrap">
                           <span>
                             AED {item?.discountPrice * item.quantity}
@@ -146,7 +159,7 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
 
                             </NormalText> */}
                           </ProductPrice>)}
-                        
+
                       </div>
                       <div
                         className="absolute top-2 right-2 cursor-pointer"
@@ -173,13 +186,13 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                     className="flex gap-4 items-center"
                     onClick={() => navigate.push('/cart')}
                   >
-                    <CustomButtom variant="light">VIEW CART</CustomButtom>
+                    <CustomButtom variant="light" onClick={handleCloseDrawer} className='border-[#EBEBEB] border'>VIEW CART</CustomButtom>
                   </SheetClose>
                   <SheetClose
                     className="flex gap-4 items-center"
                     onClick={() => navigate.push('/checkout')}
                   >
-                    <CustomButtom variant="dark" className="hover:text-white">
+                    <CustomButtom variant="dark" className="hover:text-white border-black border" onClick={handleCloseDrawer}>
                       Check out
                     </CustomButtom>
                   </SheetClose>
@@ -196,19 +209,21 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
               key={item.id}
             >
               <div className="flex items-center gap-4 w-full">
-                <Image
-                  width={isCheckoutPage ? 50 : 100}
-                  height={isCheckoutPage ? 50 : 100}
-                  src={item.posterImageUrl}
-                  alt={item.name}
-                  className='rounded-md'
-                />
+                <div className='w-28 h-28'>
+                  <Image
+                    width={isCheckoutPage ? 50 : 100}
+                    height={isCheckoutPage ? 50 : 100}
+                    src={item.posterImageUrl}
+                    alt={item.name}
+                    className='rounded-md object-cover w-full h-full'
+                  />
+                </div>
                 <div className="w-full">
                   <p className="text-16 xl:text-18">{item.name}</p>
                   <div className="flex flex-wrap md:flex-nowrap lg:hidden justify-between items-center gap-2 md:gap-3 pr-4">
                     {item.discountPrice > 0 ? (
                       <>
-                        <p className="text-[18px] font-bold ">
+                        <p className="text-16 xs:text-18 font-bold text-nowrap">
                           AED <span>{item?.discountPrice * item.quantity}</span>
                         </p>
                         <p className="text-14 font-normal text-nowrap line-through text-[#A5A5A5] w-16">
@@ -218,7 +233,7 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                     ) : (
                       <>
 
-                        <p className="text-[18px] font-bold">
+                        <p className="text-16 xs:text-18 font-bold text-nowrap">
                           AED <span>{item?.price * item.quantity}</span>
                         </p>
                         <p className="text-[18px] font-bold w-16">
@@ -226,28 +241,35 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                         </p>
                       </>
                     )}
-
-                    <IoCloseSharp
-                      className="cursor-pointer"
-                      size={20}
-                      onClick={() => removeProductFromCart(item.id)}
-                    />
-                      {!isCheckoutPage && (
-                        <Counter
-                          count={item.quantity}
-                          onIncrement={() =>
-                            updateProductQuantity(item.id, item.quantity + 1)
-                          }
-                          onDecrement={() =>
-                            updateProductQuantity(item.id, item.quantity - 1)
-                          }
+                    <div className='flex items-center gap-4'>
+                      <Link href={`/product/${generateSlug(item.name)}`} >
+                        <MdModeEdit
+                          className="cursor-pointer"
+                          size={20}
                         />
-                      )}
+                      </Link>
+                      <FaTrash
+                        className="cursor-pointer"
+                        size={15}
+                        onClick={() => removeProductFromCart(item.id)}
+                      />
+                    </div>
+                    {!isCheckoutPage && (
+                      <Counter
+                        count={item.quantity}
+                        onIncrement={() =>
+                          updateProductQuantity(item.id, item.quantity + 1)
+                        }
+                        onDecrement={() =>
+                          updateProductQuantity(item.id, item.quantity - 1)
+                        }
+                      />
+                    )}
                   </div>
                 </div>
               </div>
 
-              <div className="hidden lg:flex items-center gap-2 xl:gap-6 pr-4">
+              <div className="hidden lg:flex items-center justify-between gap-2 xl:gap-6 pr-4 w-full">
                 <div className="hidden lg:block">
                   {!isCheckoutPage && (
                     <Counter
@@ -261,29 +283,37 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                     />
                   )}
                 </div>
-                <div className="w-40 xl:w-60 flex gap-2 xl:gap-4 items-center justify-end">
+                <div className="w-52 xl:w-64 flex gap-2 xl:gap-4 items-center justify-between">
                   {item.discountPrice > 0 ? (
                     <>
-                      <p className="text-16 xl:text-[22px] font-bold">
+                      <p className="text-14 xs:text-16 xl:text-[20px] font-bold text-nowrap">
                         AED <span>{item?.discountPrice * item.quantity}</span>
                       </p>
-                      <p className="text-12 xl:text-16 text-nowrap font-normal text-end w-16 line-through text-[#A5A5A5]">
+                      <p className="text-12 xl:text-14 text-nowrap font-normal text-end w-16 line-through text-[#A5A5A5]">
                         AED <span>{item?.price * item.quantity}</span>
                       </p>
                     </>
                   ) : (
                     <>
-                      <p className="text-16 xl:text-[22px] font-bold">
+                      <p className="text-14 xs:text-16 xl:text-[20px] font-bold text-nowrap">
                         AED <span>{item?.price * item.quantity}</span>
                       </p>
                       <p className='w-16'></p>
                     </>
                   )}
-                  <IoCloseSharp
-                    className="cursor-pointer"
-                    size={25}
-                    onClick={() => removeProductFromCart(item.id)}
-                  />
+                  <div className='flex items-center gap-2'>
+                    <Link href={`/product/${generateSlug(item.name)}`} >
+                      <MdModeEdit
+                        className="cursor-pointer"
+                        size={20}
+                      />
+                    </Link>
+                    <FaTrash
+                      className="cursor-pointer"
+                      size={15}
+                      onClick={() => removeProductFromCart(item.id)}
+                    />
+                  </div>
                 </div>
               </div>
             </div>

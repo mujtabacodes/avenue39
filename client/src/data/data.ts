@@ -22,7 +22,7 @@ export const productsbredcrumbs = [
 ];
 export const cartbredcrumbs = [
   { label: 'Home', href: '/' },
-  { label: 'checkout' },
+  { label: 'Cart' },
 ];
 export const wishbredcrumbs = [
   { label: 'Home', href: '/' },

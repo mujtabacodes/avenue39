@@ -126,7 +126,7 @@ const DiscountCard: React.FC<DiscountCardProps> = ({ productItems }) => {
                           objectFit="cover"
                         />
                       </div>
-                      <div className="text-14 sm:text-16 lg:text-[20px] font-bold mt-3 pb-1">
+                      <div className="text-14 sm:text-16 lg:text-[18px] truncate font-bold mt-3 pb-1">
                         {product.name}
                       </div>
                     </Link>

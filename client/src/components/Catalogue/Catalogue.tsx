@@ -33,7 +33,7 @@ const Catalogue: React.FC = () => {
 <section className='flex items-center lg:justify-start md:justify-start sm:justify-start justify-center gap-4 md:flex-nowrap flex-wrap w-full bg-[#E2E3E5] h-full lg:pb-0 pb-8'>
 
 <div className='lg:w-[65%] md:w-[50%] object-fill'>
-<Image src={imageUrl} className='w-full h-auto object-cover p-12'  alt='categlog' width={1200} height={1200} quality={100}/>
+<Image src={imageUrl} className='w-full h-[80vh] object-contain p-8'  alt='categlog' width={1200} height={1200} quality={100}/>
 
 </div>
 
@@ -46,7 +46,7 @@ const Catalogue: React.FC = () => {
       download
       target="_blank"
       rel="noopener noreferrer" 
-      className="bg-black text-white font-extralight px-8 md:px-10 py-2 rounded-full tracking-[6px] hover:bg-gray-800 transition text-xl md:text-2xl"
+      className="bg-black text-white font-extralight px-8 md:px-10 py-2 rounded-full tracking-[6px] hover:bg-gray-800 transition text-lg md:text-xl"
     >
       {buttonText}
     </a>

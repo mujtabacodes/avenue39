@@ -29,7 +29,7 @@ const HotProductSlider: React.FC = () => {
   const nextButtonRef = useRef<HTMLButtonElement>(null);
 
   return (
-    <section className="mt-10">
+    <section className="my-10">
       <Container className="slider-container w-full">
         <div className='flex justify-between items-center px-2 md:px-4'>
         <h2 className="text-xl xs:text-2xl sm:text-4xl mb-10 font-semibold">
@@ -107,7 +107,7 @@ const HotProductSlider: React.FC = () => {
                     <SwiperSlide key={card.id}>
                       <Card
                         className="w-full"
-                        skeletonHeight="h-[300px] md:h-[250px] lg:h-[400px] xl:h-[672px]"
+                        skeletonHeight="h-[300px] md:h-[250px] lg:h-[400px] xl:h-[500px]"
                         isLoading={isProductsLoading}
                         card={card}
                       />
@@ -118,7 +118,7 @@ const HotProductSlider: React.FC = () => {
                       <Card
                         isLoading={true}
                         className="w-full"
-                        skeletonHeight="h-[300px] md:h-[250px] lg:h-[400px] xl:h-[672px]"
+                        skeletonHeight="h-[300px] md:h-[250px] lg:h-[400px] xl:h-[500px]"
                       />
                     </SwiperSlide>
                   ))}

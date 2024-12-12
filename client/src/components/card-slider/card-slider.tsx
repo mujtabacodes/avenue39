@@ -99,7 +99,7 @@ const SliderComponent: React.FC<SliderProps> = ({
                 card={card}
                 isModel={isModel}
                 skeletonHeight={`h-[400px] md:h-[250px] lg:h-[400px] ${
-                  cardHeight ? cardHeight : 'xl:h-[672px]'
+                  cardHeight ? cardHeight : 'xl:h-[500px]'
                 }`}
               />
             </SwiperSlide>
