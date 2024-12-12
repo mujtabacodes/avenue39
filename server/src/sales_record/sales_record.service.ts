@@ -146,8 +146,10 @@ export class SalesRecordService {
   
         return newSalesRecord;
       });
-      
 
+
+
+      
       console.log(result, 'result');
       return { message: 'Order has been created successfully', result: result };
     } catch (error: unknown) {
