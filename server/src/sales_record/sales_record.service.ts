@@ -215,11 +215,8 @@ export class SalesRecordService {
 
       let total_revenue = sales.reduce(
         (accumulator: any, currentValue: any) => {
-          let price =
-            currentValue.productData.discountPrice ||
-            Number(currentValue.productData.discountPrice) > 0
-              ? currentValue.productData.discountPrice
-              : currentValue.productData.price;
+let price =currentValue.productData.discountPrice || Number(currentValue.productData.discountPrice) > 0 ? 
+currentValue.productData.discountPrice: currentValue.productData.price;
 
           let finalPrice = Number(currentValue.quantity) * Number(price);
 
