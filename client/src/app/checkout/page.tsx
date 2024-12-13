@@ -28,6 +28,7 @@ import { Label } from '@/components/ui/label';
 import Loader from '@/components/Loader/Loader';
 import axios from 'axios';
 import showToast from '@/components/Toaster/Toaster';
+import { RiSecurePaymentFill } from 'react-icons/ri';
 const Checkout = () => {
   const [selectedState, setSelectedState] = useState<string | null>(null);
   const [shippingfee, setShippingFee] = useState<number>(15);
@@ -322,7 +323,7 @@ const Checkout = () => {
                       </p>
                     </div>
                   </div>
-                  <div className="flex items-center space-x-2">
+                  {/* <div className="flex items-center space-x-2">
                     <Checkbox id="terms" />
                     <label
                       htmlFor="terms"
@@ -330,7 +331,7 @@ const Checkout = () => {
                     >
                       Direct Bank Transfer
                     </label>
-                  </div>
+                  </div> */}
                   <div className="bg-[#EEEEEE] px-4 py-1 space-y-5">
                     <p className="text-12">
                       Make your payment directly into our bank account. Please
@@ -341,7 +342,7 @@ const Checkout = () => {
                   </div>
 
                   <div className="flex items-center justify-between flex-wrap sm:flex-nowrap gap-4 w-full">
-                    <div className="flex gap-4 items-center">
+                    {/* <div className="flex gap-4 items-center">
                       <div className="flex items-center space-x-2">
                         <Checkbox id="terms" />
                         <Image width={80} height={80} src={tabby} alt="tabby" />
@@ -355,7 +356,14 @@ const Checkout = () => {
                           alt="tabby"
                         />
                       </div>
+                    </div> */}
+                    <div className="flex gap-4 items-center">
+                      <div className="flex items-center gap-2">
+                        <RiSecurePaymentFill className="text-2xl" />
+                        Secure Payment System
+                      </div>
                     </div>
+
                     <div className="w-full sm:w-auto">
                       <button
                         type="submit"
