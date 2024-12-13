@@ -21,6 +21,20 @@ import { useSearchParams } from 'next/navigation';
 import Confetti from '@/components/confetti/confetti';
 import RedCross from '@assets/icons/remove.png';
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
+import axios from 'axios';
+interface PaymentQueryParams {
+  id: string | null;
+  amount_cents: string | null;
+  success: string | null;
+  integration_id: string | null;
+  currency: string | null;
+  is_refund: string | null;
+  orderId: string | null;
+  pending: string | null;
+  is_3d_secure: string | null;
+  created_at: string | null;
+}
+
 const ThankYouPage = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const searchParams = useSearchParams();
@@ -43,23 +57,71 @@ const ThankYouPage = () => {
 
   const id = searchParams.get('id');
   const amount_cents = searchParams.get('amount_cents');
-  const success = searchParams.get('success');
+  const paymentStatus = searchParams.get('success');
   const integration_id = searchParams.get('integration_id');
   const created_at = searchParams.get('created_at');
   const currency = searchParams.get('currency');
   const is_refund = searchParams.get('is_refund');
-  const order_id = searchParams.get('order');
+  const orderId = searchParams.get('order');
   const pending = searchParams.get('pending');
   const is_3d_secure = searchParams.get('is_3d_secure');
+  const merchant_order_id = searchParams.get('merchant_order_id');
 
-  let successFlag: boolean = success ? success.toLowerCase() === 'true' : false;
-  if (successFlag) {
-    localStorage.removeItem('cart');
-  }
+  let successFlag: boolean = paymentStatus
+    ? paymentStatus.toLowerCase() === 'true'
+    : false;
+
+  let paymentObject = {
+    id,
+    paymentStatus,
+    amount_cents,
+    integration_id,
+    currency,
+    is_refund,
+    orderId,
+    pending,
+    is_3d_secure,
+    created_at,
+    merchant_order_id,
+  };
+  const [payementDetails, setpayementDetails] =
+    useState<PaymentQueryParams>(paymentObject);
+
+  const dbFunctionHandler = async () => {
+    try {
+      if (
+        !id ||
+        !paymentStatus ||
+        !amount_cents ||
+        !integration_id ||
+        !currency ||
+        !orderId ||
+        !pending ||
+        !is_3d_secure ||
+        !created_at ||
+        !merchant_order_id
+      ) {
+        throw new Error('Missing required fields in request body');
+      }
+      if (successFlag) {
+        localStorage.removeItem('cart');
+      }
+      const response = await axios.patch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/sales-record/update-payment-status`,
+        payementDetails,
+      );
+      console.log(response, 'response');
+    } catch (error) {
+      console.log(error, 'err');
+    }
+  };
+
+  useEffect(() => {
+    dbFunctionHandler();
+  }, []);
   return (
     <Fragment>
-      {/* {successFlag ? ( */}
-      {true ? (
+      {successFlag ? (
         <>
           <Confetti />
           <Container className="py-16">
