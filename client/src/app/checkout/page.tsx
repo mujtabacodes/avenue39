@@ -367,9 +367,9 @@ const Checkout = () => {
                     <div className="w-full sm:w-auto">
                       <button
                         type="submit"
-                        className="bg-black !text-white hover:!text-black hover:bg-white text-sm rounded-md border-2 border-black h-[58px] py-5 text-16 px-16 !w-full "
+                        className="bg-black custom-clr-btn !text-white hover:!text-black hover:bg-white text-sm rounded-md border-2 border-black h-[58px] py-5 text-16 px-16 !w-full "
                       >
-                        {loading ? <Loader color="#fff" /> : 'NEXT'}
+                        {!loading ? <Loader color="#fff" /> : 'NEXT'}
                       </button>
                     </div>
                   </div>
