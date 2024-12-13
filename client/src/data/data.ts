@@ -46,7 +46,7 @@ export const TShippingPolicybredcrumbs = [
 ];
 
 import * as Yup from 'yup';
-import { Product, Category, FormValues, SubCategory } from '@/types/interfaces';
+import { Product, Category, FormValues, SubCategory, TCategories } from '@/types/interfaces';
 import { IProduct, IProductAdd, IProductWithoutId } from '@/types/types';
 
 export const validateForm = (formData: {
@@ -218,3 +218,250 @@ export const options = [
     label: 'Fujairah',
   },
 ];
+
+export const categories: any = [
+  {
+    maintitle: "coffee-tables",
+    data: {
+      topText: "Coffee Table",
+      heading: "Heading for Category Two",
+      subHeading: "Subheading for Category Two",
+      paragraph: "Some description about category two goes here. Some description about category two goes here",
+      LeftSideImage: [
+        { img: "/images/categories/Coffee-Table/banner-11a.png" },
+        { img: "/images/categories/Coffee-Table/banner-12a.png" },
+      ],
+      RightSideImage: [
+        { img: "/images/categories/Coffee-Table/banner-11.jpg" },
+        { img: "/images/categories/Coffee-Table/banner-12.jpg" },
+      ],
+    },
+  },
+  {
+    maintitle: "accessories",
+    data: {
+      topText: "Accessories",
+      heading: "Accessories",
+      subHeading: "Subheading for Category Two",
+      paragraph: "Some description about category two goes here. Some description about category two goes here",
+      LeftSideImage: [
+        { img: "/images/categories/Accessories/banner-4a.png" },
+      ],
+      RightSideImage: [
+        { img: "/images/categories/Accessories/banner-4.jpg" },
+      ],
+    },
+  },
+  { 
+    maintitle: "armchairs",
+    data: {
+      topText: "Armchairs",
+      heading: "Armchairs",
+      subHeading: "Subheading for Category Two",
+      paragraph: "Some description about category two goes here. Some description about category two goes here",
+      LeftSideImage: [
+        { img: "/images/categories/Armchairs/banner-6a.png" },
+        { img: "/images/categories/Armchairs/banner-7a.png" },
+      ],
+      RightSideImage: [
+        { img: "/images/categories/Armchairs/banner-6.jpg" },
+        { img: "/images/categories/Armchairs/banner-7.jpg" },
+      ],
+    },
+  },
+  
+  {
+    maintitle: "barstools",
+    data: {
+      topText: "Barstools",
+      heading: "Barstools",
+      subHeading: "Subheading for Category Two",
+      paragraph: "Some description about category two goes here.",
+      LeftSideImage: [
+        { img: "/images/categories/Barstools/banner-21a.png" },
+        { img: "/images/categories/Barstools/banner-22a.png" },
+      ],
+      RightSideImage: [
+        { img: "/images/categories/Barstools/banner-21.jpg" },
+        { img: "/images/categories/Barstools/banner-22.jpg" },
+      ],
+      
+    },
+  },
+  {
+    maintitle: "floor-lamps",
+    data: {
+      topText: "Floor Lamps ",
+      heading: "Floor Lamps",
+      subHeading: "Subheading for Category Two",
+      paragraph: "Some description about category two goes here.",
+      LeftSideImage: [
+        { img: "/images/categories/Floor-Lamps/banner-26a.png" },
+      ],
+      RightSideImage: [
+        { img: "/images/categories/Floor-Lamps/banner-26.jpg" },
+      ],
+      
+    },
+  },
+  {
+    maintitle: "office-tables",
+    data: {
+      topText: "Office Tables",
+      heading: "Office Tables",
+      subHeading: "Subheading for Category Two",
+      paragraph: "Some description about category two goes here.",
+       LeftSideImage: [
+        { img: "/images/categories/Office-Tables/banner-23a.png" },
+        { img: "/images/categories/Office-Tables/banner-24a.png" },
+      ],
+      RightSideImage: [
+        { img: "/images/categories/Office-Tables/banner-23.jpg" },
+        { img: "/images/categories/Office-Tables/banner-24.jpg" },
+      ],
+      
+    },
+  },
+  {
+    maintitle: "side-tables",
+    data: {
+      topText: "Side Tables",
+      heading: "Side Tables",
+      subHeading: "Subheading for Category Two",
+      paragraph: "Some description about category two goes here.",
+       LeftSideImage: [
+        { img: "/images/categories/Side-Tables/banner-9a.png" },
+        { img: "/images/categories/Side-Tables/banner-10a.png" },
+      ],
+      RightSideImage: [
+        { img: "/images/categories/Side-Tables/banner-9.jpg" },
+        { img: "/images/categories/Side-Tables/banner-10.jpg" },
+      ],
+      
+    },
+  },
+  {
+    maintitle: "dining-tables",
+    data: {
+      topText: "Dining Tables",
+      heading: "Dining Tables",
+      subHeading: "Subheading for Category Two",
+      paragraph: "Some description about category two goes here.",
+       LeftSideImage: [
+        { img: "/images/categories/Dining-Table/banner-1a.png" },
+        { img: "/images/categories/Dining-Table/banner-2a.png" },
+      ],
+      RightSideImage: [
+        { img: "/images/categories/Dining-Table/banner-1.jpg" },
+        { img: "/images/categories/Dining-Table/banner-2.jpg" },
+      ],
+      
+    },
+  },
+  {
+    maintitle: "side-cabinets",
+    data: {
+      topText: "Side Cabinets",
+      heading: "Side Cabinets",
+      subHeading: "Subheading for Category Two",
+      paragraph: "Some description about category two goes here.",
+       LeftSideImage: [
+        { img: "/images/categories/Coffee-Table/banner-11a.png" },
+        { img: "/images/categories/Coffee-Table/banner-12a.png" },
+      ],
+      RightSideImage: [
+        { img: "/images/categories/Coffee-Table/banner-11.jpg" },
+        { img: "/images/categories/Coffee-Table/banner-12.jpg" },
+      ],
+      
+    },
+  },
+  {
+    maintitle: "sofas",
+    data: {
+      topText: "Sofaa",
+      heading: "Sofaa",
+      subHeading: "Subheading for Category Two",
+      paragraph: "Some description about category two goes here.",
+       LeftSideImage: [
+        { img: "/images/categories/Sofas/banner-14a.png" },
+        { img: "/images/categories/Sofas/banner-15a.png" },
+        { img: "/images/categories/Sofas/banner-16a.png" },
+      ],
+      RightSideImage: [
+        { img: "/images/categories/Sofas/banner-14.jpg" },
+        { img: "/images/categories/Sofas/banner-15.jpg" },
+        { img: "/images/categories/Sofas/banner-16.jpg" },
+      ],
+    },
+  },
+  {
+    maintitle: "table-lamps",
+    data: {
+      topText: "Table Lamps",
+      heading: "Table Lamps",
+      subHeading: "Subheading for Category Two",
+      paragraph: "Some description about category two goes here.",
+       LeftSideImage: [
+        { img: "/images/categories/Table-Lamps/banner-25a.png" },
+      ],
+      RightSideImage: [
+        { img: "/images/categories/Table-Lamps/banner-25.jpg" },
+      ],
+      
+    },
+  },
+  {
+    maintitle: "tv-cabinets",
+    data: {
+      topText: "TV Cabinets",
+      heading: "TV Cabinets",
+      subHeading: "Subheading for Category Two",
+      paragraph: "Some description about category two goes here.",
+       LeftSideImage: [
+        { img: "/images/categories/TV-Cabinet/banner-8a.png" },
+      ],
+      RightSideImage: [
+        { img: "/images/categories/TV-Cabinet/banner-8.jpg" },
+      ],
+      
+    },
+  },
+  {
+    maintitle: "bedside-tables",
+    data: {
+      topText: "Beside Tables",
+      heading: "Beside Tables",
+      subHeading: "Subheading for Category Two",
+      paragraph: "Some description about category two goes here.",
+       LeftSideImage: [
+        { img: "/images/categories/Bedside-Table/banner-19a.png" },
+        { img: "/images/categories/Bedside-Table/banner-20a.png" },
+      ],
+      RightSideImage: [
+        { img: "/images/categories/Bedside-Table/banner-19.jpg" },
+        { img: "/images/categories/Bedside-Table/banner-20.jpg" },
+      ],
+      
+    },
+  },
+  {
+    maintitle: "accent-chairs",
+    data: {
+      topText: "Accent Chairs",
+      heading: "Accent Chairs",
+      subHeading: "Subheading for Category Two",
+      paragraph: "Some description about category two goes here.",
+       LeftSideImage: [
+        { img: "/images/categories/Accent-Chairs/banner-17a.png" },
+        { img: "/images/categories/Accent-Chairs/banner-18a.png" },
+      ],
+      RightSideImage: [
+        { img: "/images/categories/Accent-Chairs/banner-17.jpg" },
+        { img: "/images/categories/Accent-Chairs/banner-18.jpg" },
+      ],
+      
+    },
+  },
+];
+
