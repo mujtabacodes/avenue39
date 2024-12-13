@@ -4,17 +4,19 @@ import { HiMinusSm, HiPlusSm } from 'react-icons/hi';
 
 interface CounterProps {
   count: number;
+  stock?: number;
   onIncrement?: () => void;
   onDecrement?: () => void;
 }
 
 const Counter: React.FC<CounterProps> = ({
   count,
+  stock,
   onIncrement,
   onDecrement,
 }) => {
   return (
-    <div className="flex items-center border border-gray-300 rounded py-1 md:p-2 md:py-3">
+    <div className="flex items-center border border-gray-300 rounded py-1 md:py-3">
       <button
         onClick={onDecrement}
         className="px-2 text-gray-600"
@@ -23,7 +25,7 @@ const Counter: React.FC<CounterProps> = ({
         <HiMinusSm size={20} />
       </button>
       <span className="mx-2">{count}</span>
-      <button onClick={onIncrement} className="px-2 text-gray-600">
+      <button onClick={onIncrement} disabled={ stock && stock <= count || false} className="px-2 text-gray-600 disabled:text-gray-300">
         <HiPlusSm size={20} />
       </button>
     </div>

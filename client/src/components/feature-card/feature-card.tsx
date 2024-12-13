@@ -172,7 +172,6 @@ const FeatureCard: React.FC<CardProps> = ({
             <div className="bg-[#FF0000] h-auto py-2 px-4 rounded-3xl absolute top-8 left-2 flex justify-center items-center cursor-pointer">
               <p className="text-15 text-white">
                 {card.sale}
-                <span>%</span>
               </p>
             </div>
           )}
