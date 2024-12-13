@@ -80,7 +80,7 @@ const ProductDetail = ({ params, isZoom, gap, swiperGap, detailsWidth, }: {
   useEffect(() => {
     const targetDate = product?.sale_counter
       ? new Date(product.sale_counter)
-      : new Date();
+      : new Date("2024-12-26");
 
     const updateCountdown = () => {
       const now = new Date();
@@ -237,9 +237,10 @@ const ProductDetail = ({ params, isZoom, gap, swiperGap, detailsWidth, }: {
           </span>)}
         </div>
         <p className="text-lightdark text-14 tracking-wide leading-6">
-          {isExpanded ? product?.description : truncateText(product?.description, 120)}
+          {isExpanded
+            ? product?.description
+            : truncateText(product?.description, 120)}
         </p>
-
 
 
         {product.sale_counter && (<>
@@ -320,9 +321,8 @@ const ProductDetail = ({ params, isZoom, gap, swiperGap, detailsWidth, }: {
                 </DialogContent>
           </Dialog> */}
 
-          <div className='w-full  md:w-full'>
-
-            <ARExperience ImageUrl={"/3dmodel/carpet.glb"} />
+          <div className="w-full  md:w-full">
+            <ARExperience ImageUrl={'/3dmodel/carpet.glb'} />
           </div>
           {/* <Dialog>
             <DialogTrigger asChild>

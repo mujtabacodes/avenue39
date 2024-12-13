@@ -149,7 +149,7 @@ const Thumbnail: React.FC<ThumbProps> = ({
               </div>
             ) : (
               <Swiper
-               style={{overflowY:"scroll"}}
+                style={{ overflowY: 'scroll' }}
                 onSwiper={(swiper) => {
                   setThumbsSwiper(swiper);
                   swiperRef.current = swiper;
@@ -224,7 +224,7 @@ const Thumbnail: React.FC<ThumbProps> = ({
                 {thumbs.map((thumb, index) => (
                   <SwiperSlide key={index}>
                     <div
-                      className={`relative w-full h-full ${isZoom ? zoomEnabled ? 'cursor-none' : 'cursor-zoom-in' : 'cursor-default'}`}
+                      className={`relative w-full h-full ${isZoom ? (zoomEnabled ? 'cursor-none' : 'cursor-zoom-in') : 'cursor-default'}`}
                       onClick={(e) =>
                         handleClick(
                           thumb.imageUrl || '',
@@ -248,7 +248,16 @@ const Thumbnail: React.FC<ThumbProps> = ({
                         width={700}
                         height={700}
                         alt={thumb.altText || 'Main Image'}
-                        onClick={(e) =>
+                        onMouseEnter={(e) =>
+                          isZoom
+                            ? handleClick(
+                                thumb.imageUrl || '',
+                                thumb.public_id || '',
+                                e,
+                              )
+                            : undefined
+                        }
+                        onMouseLeave={(e) =>
                           isZoom
                             ? handleClick(
                                 thumb.imageUrl || '',
@@ -295,7 +304,7 @@ const Thumbnail: React.FC<ThumbProps> = ({
                 backgroundPosition: backgroundPosition,
                 border: '1px solid #707070',
                 backgroundRepeat: 'no-repeat',
-                backgroundSize: '500%',
+                backgroundSize: '300%',
                 width: '500px',
                 height: '500px',
               }}

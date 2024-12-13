@@ -11,7 +11,7 @@ import { error } from 'console';
 
 @Injectable()
 export class SalesRecordService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService) { }
 
   async Add_sales_record(data: CreateSalesRecordDto) {
     try {
@@ -81,6 +81,7 @@ export class SalesRecordService {
 
       const transaction = await this.prisma.$transaction(async (prisma) => {
         for (const product of data.orderedProductDetails) {
+          console.log(product.id, "id")
           const existingProduct = await prisma.products.findUnique({
             where: { id: product.id },
           });
@@ -118,35 +119,36 @@ export class SalesRecordService {
         //   });
 
         // }
-        
-        // else {
 
 
-          let newSalesRecord = await prisma.sales_record.create({
-            data: {
-              user_email: data.user_email,
-              products: {
-                create: data.orderedProductDetails.map((product) => ({
-                  quantity: product.quantity,
-                  productData: product,
-                  orderId: String(result.intention_order_id)
-                })),
-              },
-              orderId: String(result.intention_order_id),
-              address: `${data.address}, ${data.city}, ${data.country}`,
-              phoneNumber: data.phone_number && data.phone_number.toString(),
-              paymentStatus: {
-                checkoutDate: new Date(),
-                checkoutStatus: true,
-                paymentStatus: false,
-              },
+
+        let newSalesRecord = await prisma.sales_record.create({
+          data: {
+            user_email: data.user_email,
+            products: {
+              create: data.orderedProductDetails.map((product) => ({
+                quantity: product.quantity,
+                productData: product,
+                orderId: String(result.intention_order_id)
+              })),
             },
-            include: { products: true },
-          });
-        // }
+            orderId: String(result.intention_order_id),
+            address: `${data.address}, ${data.city}, ${data.country}`,
+            phoneNumber: data.phone_number && data.phone_number.toString(),
+            paymentStatus: {
+              checkoutDate: new Date(),
+              checkoutStatus: true,
+              paymentStatus: false,
+            },
+          },
+          include: { products: true },
+        });
 
         return newSalesRecord;
       });
+
+
+
 
       console.log(result, 'result');
       return { message: 'Order has been created successfully', result: result };
@@ -179,7 +181,7 @@ export class SalesRecordService {
         (accumulator: any, currentValue: any) => {
           let price =
             currentValue.productData.discountPrice ||
-            Number(currentValue.productData.discountPrice) > 0
+              Number(currentValue.productData.discountPrice) > 0
               ? currentValue.productData.discountPrice
               : currentValue.productData.price;
 
@@ -204,27 +206,39 @@ export class SalesRecordService {
       let total_sub_categories = await this.prisma.subCategories.count({});
       let total_user = await this.prisma.user.count({});
       let total_Admins = await this.prisma.admins.count({});
-      let sales = await this.prisma.sales_record_products.findMany();
+      let sales = await this.prisma.sales_record.findMany({ include: { products: true } });
 
-      let Total_sales = sales.reduce(function (
-        accumulator: any,
-        currentValue: any,
-      ) {
-        return accumulator + Number(currentValue.quantity);
-      }, 0);
+      
+      const reducer_handler = (arr: any[]) => {
+        return arr.reduce((totalQuantity: number, currentValue: any) => {
+          const productQuantitySum = currentValue.products.reduce((productTotal: number, value: any) => {
+            console.log(value, "valued");
+            return productTotal + value.productData.quantity;
+          }, 0);
+          return totalQuantity + productQuantitySum;
+        }, 0);
+      };
+      
 
-      let total_revenue = sales.reduce(
-        (accumulator: any, currentValue: any) => {
-          let price =
-            currentValue.productData.discountPrice ||
-            Number(currentValue.productData.discountPrice) > 0
-              ? currentValue.productData.discountPrice
-              : currentValue.productData.price;
 
-          let finalPrice = Number(currentValue.quantity) * Number(price);
+      let sucessfulpayment = sales.filter((prod: any) => prod.paymentStatus.paymentStatus)
 
-          return accumulator + finalPrice;
-        },
+
+      let Total_sales = reducer_handler(sucessfulpayment)
+      let abdundant   = sales.filter((prod: any) => prod.paymentStatus.checkoutStatus)      
+      let Total_abandant_order = reducer_handler(abdundant)
+      console.log(Total_abandant_order, "Total_abandant_order")
+
+
+      let total_revenue = sucessfulpayment.reduce((accumulator: any, currentValue: any) => {
+
+        return currentValue.products.reduce((accum: number, value: any) => {
+          let price = value.productData.discountPrice && Number(value.productData.discountPrice) > 0 ? value.productData.discountPrice : value.productData.price;
+          let finalPrice = Number(value.productData.quantity) * Number(price);
+          return accum += finalPrice
+        }, 0)
+   
+      },
         0,
       );
 
@@ -236,6 +250,7 @@ export class SalesRecordService {
         totalRevenue: total_revenue,
         totalSales: Total_sales,
         totalUsers: total_user,
+        Total_abandant_order
       };
     } catch (error) {
       customHttpException(error.message, 'INTERNAL_SERVER_ERROR');
@@ -434,8 +449,9 @@ export class SalesRecordService {
     try {
       const { email } = req.user
       console.log(email, "email")
-if(!email) return "Email not found , Please login and then try"
-      const sales = await this.prisma.sales_record.findMany({where: { user_email: { contains: email } },
+      if (!email) return "Email not found , Please login and then try"
+      const sales = await this.prisma.sales_record.findMany({
+        where: { user_email: { contains: email } },
         include: { products: true },
       });
       return sales;
@@ -489,13 +505,13 @@ if(!email) return "Email not found , Please login and then try"
   }
 
 
-  async track_order (id: string){
+  async track_order(id: string) {
     try {
-      let sales_record = await this.prisma.sales_record.findFirst({where: {orderId: id}, include:{products: true}})
+      let sales_record = await this.prisma.sales_record.findFirst({ where: { orderId: id }, include: { products: true } })
       return sales_record;
     } catch (error) {
       customHttpException(
-        error.message  || 'An unknown error occurred',error.status ||'INTERNAL_SERVER_ERROR',);
+        error.message || 'An unknown error occurred', error.status || 'INTERNAL_SERVER_ERROR',);
     }
   }
 

@@ -120,7 +120,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
     CategoryHandler();
   }, []);
   const onSubmit = async (values: any, { resetForm }: any) => {
-
+    console.log(values, 'values')
     values.categories = selectedCategoryIds;
     values.subcategories = selectedSubcategoryIds;
 
@@ -487,19 +487,18 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                       </div>
                       <div className='mt-4 md:w-1/2'>
                         <label className="mb-3 block text-sm font-medium text-black dark:text-white">
-                          Sale Timer
+                          Sale Counter
                         </label>
                         <input
-                          type="date"
+                          type="datetime-local"
                           name="sale_counter"
                           onChange={formik.handleChange}
                           value={formik.values.sale_counter}
-                          min={new Date().toISOString().split("T")[0]} // Dynamically set today's date
-                          placeholder="Meta Title"
+                          min={new Date().toISOString().slice(0, 16)}
+                          placeholder="Select Date and Time"
                           className={`w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${formik.touched.sale_counter && formik.errors.sale_counter ? "border-red-500" : ""
                             }`}
                         />
-
                       </div>
                       <div className='mt-4 space-y-4'>
                         <div className="flex gap-4">

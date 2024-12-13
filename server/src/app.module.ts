@@ -46,8 +46,8 @@ export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
       .apply(LoggerMiddleware).exclude(
-        {path: "trackorder/:id", method:RequestMethod.GET},
-        {path: "add_sales", method:RequestMethod.POST},
+        {path: "sales-record/trackorder/:id", method:RequestMethod.GET},
+        {path: "sales-record/add_sales", method:RequestMethod.POST},
       )
       .forRoutes('sales-record');
   }
