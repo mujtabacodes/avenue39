@@ -17,8 +17,9 @@ import { HiOutlineShoppingBag } from 'react-icons/hi';
 import { categories } from '@/data/data';
 import { useParams } from 'next/navigation';
 import Image from 'next/image';
+import { TCategories } from '@/types/interfaces';
 
-const SwiperSlider: React.FC = () => {
+const productBanner: React.FC = () => {
   const {
     data: products = [],
     error: productsError,
@@ -55,9 +56,9 @@ const SwiperSlider: React.FC = () => {
   return (
     <>
       {sliderData ? (
-        <section className="flex flex-col lg:flex-row items-end justify-center h-auto text-black pb-10 categorySlider">
+        <section className="categorySlider grid grid-cols-1 lg:grid-cols-2 gap-6 items-center justify-center text-black pb-10">
      
-          <div className="md:w-[40%] w-full text-center mx-auto">
+          <div className="md:w-full w-full text-center mx-auto">
          
             <Swiper
               slidesPerView={1}
@@ -72,7 +73,7 @@ const SwiperSlider: React.FC = () => {
               
               {sliderData?.LeftSideImage?.map((image: any, index: number) => (
                 <SwiperSlide key={index} className="slider-image P-10  ">
-                   <div className="sm:px-24 xsm:px-12 mt-4 ">
+                   <div className="sm:px-20 md:px-10 xsm:px-12 mt-4 ">
               <p className="text-lg font-medium pb-1">{sliderData?.topText}</p>
               <h2 className="lg:text-3xl text-2xl font-semibold pb-1">{sliderData?.heading}</h2>
               <p className="text-sm  font-normal pb-2">{sliderData?.subHeading}</p>
@@ -93,7 +94,7 @@ const SwiperSlider: React.FC = () => {
            
           </div>
 
-          <div className="lg:w-[70%] w-full h-full rounded-2xl">
+          <div className="lg:w-full w-full h-full rounded-2xl">
             <Swiper
               slidesPerView={1}
               spaceBetween={20}
@@ -119,14 +120,14 @@ const SwiperSlider: React.FC = () => {
             </Swiper>
           </div>
 
-          <div className="absolute sm:left-12 left-1 sm:top-1/2 top-80 transform -translate-y-1/2 flex gap-2 z-40  ">
+          <div className="absolute sm:left-12 left-1 sm:top-96 top-80 transform -translate-y-top-96 flex gap-2 z-40  ">
           {sliderData?.LeftSideImage?.length > 1 && (
             <button onClick={previous} aria-label="Previous slide" className="p-2 bg-gray-300 rounded-full">
               <IoIosArrowBack size={20} />
             </button>
           )}
         </div>
-        <div className="absolute sm:right-12 right-1 sm:top-1/2 top-80 transform -translate-y-1/2 flex gap-2 z-40 ">
+        <div className="absolute sm:right-12 right-1 sm:top-96 top-80 transform -translate-y-top-96 flex gap-2 z-40 ">
           {sliderData?.LeftSideImage?.length > 1 && (
             <button onClick={next} aria-label="Next slide" className="p-2 bg-gray-300 rounded-full">
               <IoIosArrowForward size={20} />
@@ -173,5 +174,5 @@ const SwiperSlider: React.FC = () => {
   );
 };
 
-export default SwiperSlider;
+export default productBanner;
 

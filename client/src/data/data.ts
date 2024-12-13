@@ -384,13 +384,13 @@ export const categories: any = [
       subHeading: "Subheading for Category Two",
       paragraph: "Some description about category two goes here.",
        LeftSideImage: [
-        { img: "/images/categories/Sofas/banner-14a.png" },
-        { img: "/images/categories/Sofas/banner-15a.png" },
+         { img: "/images/categories/Sofas/banner-15a.png" },
+         { img: "/images/categories/Sofas/banner-14a.png" },
         { img: "/images/categories/Sofas/banner-16a.png" },
       ],
       RightSideImage: [
-        { img: "/images/categories/Sofas/banner-14.jpg" },
         { img: "/images/categories/Sofas/banner-15.jpg" },
+        { img: "/images/categories/Sofas/banner-14.jpg" },
         { img: "/images/categories/Sofas/banner-16.jpg" },
       ],
     },
