@@ -131,6 +131,8 @@ export interface IProduct {
   categories?: ICategory[];
   subcategories?: ICategory[];
   sections?:[]
+  createdAt?: string;
+  sale_counter?: string;
 }
 export interface specsDetails {
   id: number;

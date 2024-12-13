@@ -1,3 +1,6 @@
+
+'use client'
+
 import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
@@ -17,9 +20,8 @@ import { HiOutlineShoppingBag } from 'react-icons/hi';
 import { categories } from '@/data/data';
 import { useParams } from 'next/navigation';
 import Image from 'next/image';
-import { TCategories } from '@/types/interfaces';
 
-const productBanner: React.FC = () => {
+const ProductBanner: React.FC = () => {
   const {
     data: products = [],
     error: productsError,
@@ -56,8 +58,8 @@ const productBanner: React.FC = () => {
   return (
     <>
       {sliderData ? (
-        <section className="categorySlider grid grid-cols-1 lg:grid-cols-2 gap-6 items-center justify-center text-black pb-10">
-     
+       <div className='lg:h-96 h-full overflow-hidden'>
+         <section className="categorySlider grid grid-cols-1 lg:grid-cols-2  sm:items-start xsm:items-center justify-center  text-black pb-10 gap-6 ">     
           <div className="md:w-full w-full text-center mx-auto">
          
             <Swiper
@@ -82,7 +84,7 @@ const productBanner: React.FC = () => {
                  <div className="px-3">
                  <Image
                     src={image.img}
-                    className="w-auto m-auto h-auto object-cover lg:mt-20 md:mt-10 mt-10"
+                    className="w-auto m-auto object-cover lg:mt-20 md:mt-10 mt-10"
                     alt={`Left Image ${index + 1}`}
                     width={300}
                     height={300}
@@ -94,7 +96,7 @@ const productBanner: React.FC = () => {
            
           </div>
 
-          <div className="lg:w-full w-full h-full rounded-2xl">
+          <div className="lg:w-full w-full rounded-2xl">
             <Swiper
               slidesPerView={1}
               spaceBetween={20}
@@ -135,6 +137,7 @@ const productBanner: React.FC = () => {
           )}
         </div>
         </section>
+       </div>
       ) : <div
                 className="w-full h-[437px] px-9 py-12 flex items-center rounded-2xl"
                 style={{
@@ -174,5 +177,5 @@ const productBanner: React.FC = () => {
   );
 };
 
-export default productBanner;
+export default ProductBanner;
 
