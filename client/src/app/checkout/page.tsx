@@ -1,12 +1,10 @@
 'use client';
-import CheckoutForm from '@/components/forms/checkout-form';
 import TopHero from '@/components/top-hero';
-import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import Container from '@/components/ui/Container';
 import { checkout } from '@/data/data';
 import Image from 'next/image';
-import React, { Fragment, useEffect, useRef, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import tabby from '@assets/icons/tabby-logo.png';
 import tamara from '@assets/icons/tamara-logo.png';
 import Coupan from '@/components/coupan-code';
@@ -31,7 +29,7 @@ import showToast from '@/components/Toaster/Toaster';
 import { RiSecurePaymentFill } from 'react-icons/ri';
 const Checkout = () => {
   const [selectedState, setSelectedState] = useState<string | null>(null);
-  const [shippingfee, setShippingFee] = useState<number>(15);
+  const [shippingfee, setShippingFee] = useState<number>(50);
   const totalPrice = useSelector((state: State) =>
     selectTotalPrice(state.cart),
   );
@@ -72,13 +70,13 @@ const Checkout = () => {
     },
   });
   const selectOption = [
-    { title: 'Dubai', fee: 15 },
-    { title: 'Abu Dhabi', fee: 20 },
-    { title: 'Sharjah', fee: 20 },
-    { title: 'Ajman', fee: 25 },
-    { title: 'Ras Al Khaima', fee: 25 },
-    { title: 'Umm Al Quwain', fee: 25 },
-    { title: 'Fujairah', fee: 25 },
+    { title: 'Dubai', fee: 50 },
+    { title: 'Abu Dhabi', fee: 100},
+    { title: 'Sharjah', fee: 100 },
+    { title: 'Ajman', fee: 100 },
+    { title: 'Ras Al Khaima', fee: 100 },
+    { title: 'Umm Al Quwain', fee: 100 },
+    { title: 'Fujairah', fee: 100 },
   ];
 
   useEffect(() => {
@@ -86,7 +84,7 @@ const Checkout = () => {
       const option = selectOption.find(
         (option) => option.title === selectedState,
       );
-      setShippingFee(option ? option.fee : 15);
+      setShippingFee(option ? option.fee : 50);
     }
   }, [selectedState]);
   const handlePayment = async (values: any) => {
@@ -179,7 +177,7 @@ const Checkout = () => {
                     />
                   </div>
                   <LabelInput
-                    label="email Address"
+                    label="Email Address"
                     id="user_email"
                     name="user_email"
                     type="text"
@@ -189,15 +187,20 @@ const Checkout = () => {
                   />
 
                   <div className=" flex flex-wrap sm:flex-nowrap md:flex-wrap  xl:flex-nowrap gap-4">
-                    <LabelInput
-                      label="phone Number"
-                      id="phone_number"
-                      name="phone_number"
-                      type="number"
-                      required
-                      onChange={formik.handleChange}
-                      value={formik.values.phone_number}
-                    />
+                  <LabelInput
+                  label="Phone Number"
+                  id="phone_number"
+                  name="phone_number"
+                  type="tel"
+                  required
+                  onChange={(e) => {
+                  const value = e.target.value;
+                  if (/^\d*$/.test(value)) {
+                    formik.handleChange(e);}
+  }}
+  value={formik.values.phone_number}
+/>
+
                     <LabelInput
                       label="Street Address *"
                       id="address"
@@ -254,7 +257,7 @@ const Checkout = () => {
                         defaultValue="Dubai"
                         required
                       >
-                        <SelectTrigger className="flex-grow h-[73px]  mt-3 rounded-full border-0 bg-[#F6F6F6] pl-8 pr-10 py-2   focus-visible:outline-none focus-visible:ring-0 text-15 font-medium outline-none focus-visible:ring-ring focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-50 ">
+                        <SelectTrigger className="flex-grow h-[50px]  mt-3 rounded-full border-0 bg-[#F6F6F6] pl-8 pr-10 py-2   focus-visible:outline-none focus-visible:ring-0 text-15 font-medium outline-none focus-visible:ring-ring focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-50 ">
                           <SelectValue placeholder="Select your state" />
                         </SelectTrigger>
                         <SelectContent className="rounded-3xl">
@@ -310,16 +313,12 @@ const Checkout = () => {
                     </div>
                     <div className="border-t-4 pt-6 flex justify-between items-center text-[#666666] text-sm">
                       <p>Shipping fee</p>
-                      <p>
-                        <span>
-                          {shippingfee == 0 ? 'Free' : ` AED ${shippingfee}`}
-                        </span>
-                      </p>
-                    </div>
+                      <p><span>{totalPrice > 1000 || shippingfee === 0? 'Free': `AED ${shippingfee}`}</span></p>
+                  </div>
                     <div className="border-t-4 pt-6 flex justify-between items-center text-[#666666] text-18 font-bold">
                       <p>Total</p>
-                      <p className="text-black text-[25px]">
-                        AED <span>{totalPrice + shippingfee}</span>
+                      <p className="text-black text-[25px]"> AED{" "}
+                      <span>{totalPrice > 1000 ? totalPrice : totalPrice + shippingfee}</span>
                       </p>
                     </div>
                   </div>
