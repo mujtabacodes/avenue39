@@ -2,25 +2,25 @@
 import React, { useRef, useState } from 'react';
 const HeroVideo: React.FC = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [isPlaying, setIsPlaying] = useState<boolean>(true);
+  // const [isPlaying, setIsPlaying] = useState<boolean>(true);
 
-  const handleVideoClick = () => {
-    if (videoRef.current) {
-      if (isPlaying) {
-        videoRef.current.pause();
-      } else {
-        videoRef.current.play();
-      }
-      setIsPlaying(!isPlaying);
-    }
-  };
+  // const handleVideoClick = () => {
+  //   if (videoRef.current) {
+  //     if (isPlaying) {
+  //       videoRef.current.pause();
+  //     } else {
+  //       videoRef.current.play();
+  //     }
+  //     setIsPlaying(!isPlaying);
+  //   }
+  // };
 
   return (
     <div className="relative w-full">
       <video
         ref={videoRef}
-        className="w-full object-cover h-full md:h-[660px]"
-        onClick={handleVideoClick}
+        className="w-full object-cover h-full md:h-[475px] xl:h-[434px]"
+        // onClick={handleVideoClick}
         loop
         muted
         autoPlay

@@ -369,7 +369,7 @@
   background-color: #24303f !important;
   color: white !important;
 }
-.dark .apexcharts-legend-text{
+.dark .apexcharts-legend-text {
   color: white !important;
 }
 .dark g text {
@@ -405,4 +405,12 @@
   /* -webkit-appearance:; */
   background-color: #24303f !important;
   text-align: black;
+}
+
+.customclass {
+  color: #fff !important;
+}
+
+.custom-clr-btn:hover .ant-spin-dot {
+  color: black !important;
 }

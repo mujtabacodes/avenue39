@@ -179,7 +179,7 @@ const Navbar = (props: INav) => {
                     value={searchText}
                     onChange={handleInputChange}
                     onClick={() => setIsDrawerOpen(true)}
-                    className="px-4 h-12 xl:h-[64px] border-2 border-black block w-full ps-16 text-sm rounded-full disabled:opacity-50 custom-input-bg"
+                    className=" h-[28px] border-2 border-black block w-full ps-8 text-xs rounded-full disabled:opacity-50 custom-input-bg"
                     placeholder="Search Here..."
                   />
                   <button
@@ -188,7 +188,7 @@ const Navbar = (props: INav) => {
                   >
                     <IoSearchOutline
                       className="cursor-pointer font-extralight"
-                      size={40}
+                      size={14}
                     />
                   </button>
                 </>
