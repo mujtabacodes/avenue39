@@ -57,7 +57,7 @@ const SwiperSlider: React.FC = () => {
       {sliderData ? (
         <section className="flex flex-col lg:flex-row items-end justify-center h-auto text-black pb-10 categorySlider">
      
-          <div className="lg:w-[30%] w-full text-center mx-auto">
+          <div className="md:w-[40%] w-full text-center mx-auto">
          
             <Swiper
               slidesPerView={1}
@@ -72,7 +72,7 @@ const SwiperSlider: React.FC = () => {
               
               {sliderData?.LeftSideImage?.map((image: any, index: number) => (
                 <SwiperSlide key={index} className="slider-image P-10  ">
-                   <div className="px-14 mt-4 ">
+                   <div className="sm:px-24 xsm:px-12 mt-4 ">
               <p className="text-lg font-medium pb-1">{sliderData?.topText}</p>
               <h2 className="lg:text-3xl text-2xl font-semibold pb-1">{sliderData?.heading}</h2>
               <p className="text-sm  font-normal pb-2">{sliderData?.subHeading}</p>
@@ -119,17 +119,17 @@ const SwiperSlider: React.FC = () => {
             </Swiper>
           </div>
 
-          <div className="absolute left-12 top-1/2 transform -translate-y-1/2 flex gap-2 z-50">
+          <div className="absolute sm:left-12 left-1 sm:top-1/2 top-80 transform -translate-y-1/2 flex gap-2 z-40  ">
           {sliderData?.LeftSideImage?.length > 1 && (
             <button onClick={previous} aria-label="Previous slide" className="p-2 bg-gray-300 rounded-full">
-              <IoIosArrowBack size={24} />
+              <IoIosArrowBack size={20} />
             </button>
           )}
         </div>
-        <div className="absolute right-12 top-1/2 transform -translate-y-1/2 flex gap-2 z-50">
+        <div className="absolute sm:right-12 right-1 sm:top-1/2 top-80 transform -translate-y-1/2 flex gap-2 z-40 ">
           {sliderData?.LeftSideImage?.length > 1 && (
             <button onClick={next} aria-label="Next slide" className="p-2 bg-gray-300 rounded-full">
-              <IoIosArrowForward size={24} />
+              <IoIosArrowForward size={20} />
             </button>
           )}
         </div>
