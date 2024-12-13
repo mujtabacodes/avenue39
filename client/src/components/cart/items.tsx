@@ -209,17 +209,20 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
               key={item.id}
             >
               <div className="flex items-center gap-4 w-full">
-                <div className='w-28 h-28'>
-                  <Image
-                    width={isCheckoutPage ? 50 : 100}
-                    height={isCheckoutPage ? 50 : 100}
-                    src={item.posterImageUrl}
-                    alt={item.name}
-                    className='rounded-md object-cover w-full h-full'
-                  />
-                </div>
+                <Link href={`/product/${generateSlug(item.name)}`}>
+                  <div className='w-24 h-28'>
+                    <Image
+                      width={isCheckoutPage ? 50 : 100}
+                      height={isCheckoutPage ? 50 : 100}
+                      src={item.posterImageUrl}
+                      alt={item.name}
+                      className='rounded-md object-cover w-full h-full'
+                    />
+                  </div></Link>
                 <div className="w-full">
-                  <p className="text-16 xl:text-18">{item.name}</p>
+                <Link href={`/product/${generateSlug(item.name)}`}>
+                  <span className="text-16 xl:text-18">{item.name}</span>
+                  </Link>
                   <div className="flex flex-wrap md:flex-nowrap lg:hidden justify-between items-center gap-2 md:gap-3 pr-4">
                     {item.discountPrice > 0 ? (
                       <>
@@ -257,6 +260,7 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                     {!isCheckoutPage && (
                       <Counter
                         count={item.quantity}
+                        stock={item.stock}
                         onIncrement={() =>
                           updateProductQuantity(item.id, item.quantity + 1)
                         }
@@ -274,6 +278,7 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                   {!isCheckoutPage && (
                     <Counter
                       count={item.quantity}
+                      stock={item.stock}
                       onIncrement={() =>
                         updateProductQuantity(item.id, item.quantity + 1)
                       }

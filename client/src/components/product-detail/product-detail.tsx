@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Thumbnail from '../carousel/thumbnail';
 // import { products } from '@/data/products';
 import { IProduct, IProductDetail, IReview } from '@/types/types';
@@ -56,18 +56,55 @@ import { paymentIcons } from '@/data/products';
 
 
 
-const ProductDetail = ({params,isZoom,gap,swiperGap,detailsWidth,}: {params: IProductDetail;isZoom?: Boolean;gap?: String;swiperGap?: String;detailsWidth?: String;
+const ProductDetail = ({ params, isZoom, gap, swiperGap, detailsWidth, }: {
+  params: IProductDetail; isZoom?: Boolean; gap?: String; swiperGap?: String; detailsWidth?: String;
 }) => {
-  const description:string= "";
+  const description: string = "";
   const [isExpanded, setIsExpanded] = useState(false);
-  const truncateText = (text:any, limit:any) => {
-    return text.length > limit ? text.slice(0, limit) + "..." : text;};
+  const truncateText = (text: any, limit: any) => {
+    return text.length > limit ? text.slice(0, limit) + "..." : text;
+  };
   const [hoveredImage, setHoveredImage] = useState<string | null>(null);
   const cartItems = useSelector((state: State) => state.cart.items);
 
   const [count, setCount] = useState(1);
   const dispatch = useDispatch<Dispatch>();
   const slug = String(params.name);
+  const [timeLeft, setTimeLeft] = useState({
+    day: 0,
+    hour: 0,
+    min: 0,
+    sec: 0,
+  });
+
+  useEffect(() => {
+    const targetDate = product?.sale_counter
+      ? new Date(product.sale_counter)
+      : new Date();
+
+    const updateCountdown = () => {
+      const now = new Date();
+      const difference = targetDate.getTime() - now.getTime();
+
+      if (difference <= 0) {
+        setTimeLeft({ day: 0, hour: 0, min: 0, sec: 0 });
+        clearInterval(timerId);
+        return;
+      }
+
+      const day = Math.floor(difference / (1000 * 60 * 60 * 24));
+      const hour = Math.floor((difference / (1000 * 60 * 60)) % 24);
+      const min = Math.floor((difference / (1000 * 60)) % 60);
+      const sec = Math.floor((difference / 1000) % 60);
+
+      setTimeLeft({ day, hour, min, sec });
+    };
+    const timerId = setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    return () => clearInterval(timerId);
+  }, []);
+
   const {
     data: products = [],
     error,
@@ -145,37 +182,40 @@ const ProductDetail = ({params,isZoom,gap,swiperGap,detailsWidth,}: {params: IPr
 
       <div className={`${detailsWidth} flex flex-col gap-2 pt-2`}>
         <div className="flex gap-2">
-          <div className="bg-[#00AEEF] p-2 rounded-sm text-white text-xs">
-            New
-          </div>
-          <div className="bg-[#EE1C25] p-2 rounded-sm text-white text-xs">
-            -50%
-          </div>
-          <div className="bg-[#56B400] p-2 rounded-sm text-white text-xs">
-            IN STOCK
-          </div>
+          {product.createdAt && (() => {
+            const productDate = new Date(product.createdAt);
+            const twoWeeksAgo = new Date();
+            twoWeeksAgo.setDate(twoWeeksAgo.getDate() - 14);
+
+            return productDate >= twoWeeksAgo ? (
+              <div className="bg-[#00AEEF] p-2 rounded-sm text-white text-xs">
+                New
+              </div>
+            ) : null;
+          })()}
+          {product.sale && product.sale > '0' && (<div className="bg-[#EE1C25] p-2 rounded-sm text-white text-xs">
+            {product.sale}
+          </div>)}
+          {product.stock > 0 ? (<div className="bg-[#56B400] p-2 rounded-sm text-white text-xs">
+            IN STOCK { }
+          </div>) : (<div className="bg-[#EE1C25] p-2 rounded-sm text-white text-xs">
+            OUT OF STOCK
+          </div>)}
+
         </div>
         <ProductName>{product?.name}</ProductName>
-
-        <div className="flex gap-2 items-center justify-between">
-          <div className="flex gap-2 items-center">
-            {averageRating > 1 && (
-              <>
-                <span className="flex items-center">
-                  {' '}
-                  {renderStars({ star: averageRating })}
-                </span>
-                <span className="text-[#999999] text-11 font-medium text-nowrap">
-                  {productReviews.length} reviews
-                </span>
-              </>
-            )}
-          </div>
-          <h3 className="text-red-500 flex items-center font-medium text-sm">
-            <MdLocalFireDepartment className="text-lg mr-1" /> 12 sold in last
-            19 hours
-          </h3>
-        </div>
+        {averageRating > 1 && (
+          <>
+            <div className="flex gap-2 items-center">
+              <span className="flex items-center">
+                {renderStars({ star: averageRating })}
+              </span>
+              <span className="text-[#999999] text-11 font-medium text-nowrap">
+                {productReviews.length} reviews
+              </span>
+            </div>
+          </>
+        )}
         {product?.discountPrice > 0 ? (
           <ProductPrice className="flex items-center gap-2">
             AED {product?.discountPrice}
@@ -190,24 +230,31 @@ const ProductDetail = ({params,isZoom,gap,swiperGap,detailsWidth,}: {params: IPr
         )}
         <div className="flex gap-3 font-semibold">
           <span>AVAILABLE:</span>
-          <span className="text-[#56B400]">PRE-ORDER ONLY WHATSAPP</span>
+          {product.stock > 0 ? (<span className="text-[#56B400]">
+            In Stock
+          </span>) : (<span className="text-[#EE1C25]">
+            Out Of Stock
+          </span>)}
         </div>
         <p className="text-lightdark text-14 tracking-wide leading-6">
-        {isExpanded ? product?.description : truncateText(product?.description, 120)}
-      </p>
-      
+          {isExpanded ? product?.description : truncateText(product?.description, 120)}
+        </p>
 
-        <NormalText className="">Hurry Up! Sale ends in:</NormalText>
-        <span className="flex gap-2 mb-3">
-          {['25 Days', '25 HOUR', '25 MIN', '25 SEC'].map((time, index) => (
-            <div
-              key={index}
-              className="bg-[#F5F5F5] p-2 rounded-md w-14 text-center font-normal text-13 text-lightdark"
-            >
-              {time}
-            </div>
-          ))}
-        </span>
+
+
+        {product.sale_counter && (<>
+          <NormalText className="">Hurry Up! Sale ends in:</NormalText>
+          <div className="flex gap-2 mb-3 mt-2">
+            {Object.entries(timeLeft).map(([label, value], index) => (
+              <div
+                key={index}
+                className="bg-[#F5F5F5] p-2 rounded-md w-14 text-center font-normal text-14 text-lightdark flex flex-col"
+              >
+                <span>{value}</span> <span className='text-10'>{label.toUpperCase()}</span>
+              </div>
+            ))}
+          </div>
+        </>)}
 
         {/* <NormalText className="mb-2">
           Hurry Up! Only <span className="text-red-600">12</span> left in stock:
@@ -222,7 +269,7 @@ const ProductDetail = ({params,isZoom,gap,swiperGap,detailsWidth,}: {params: IPr
               <HiMinusSm size={20} />
             </button>
             <span className="mx-2">{count}</span>
-            <button onClick={onIncrement} className="px-2 text-gray-600">
+            <button onClick={onIncrement} disabled={product.stock <= count} className="px-2 text-gray-600 disabled:text-gray-300">
               <HiPlusSm size={20} />
             </button>
           </div>
@@ -273,10 +320,10 @@ const ProductDetail = ({params,isZoom,gap,swiperGap,detailsWidth,}: {params: IPr
                 </DialogContent>
           </Dialog> */}
 
-            <div className='w-full  md:w-full'>
+          <div className='w-full  md:w-full'>
 
-                  <ARExperience ImageUrl={"/3dmodel/carpet.glb"}/>
-            </div>
+            <ARExperience ImageUrl={"/3dmodel/carpet.glb"} />
+          </div>
           {/* <Dialog>
             <DialogTrigger asChild>
               <Button className="bg-warning w-1/2 text-white flex gap-3 h-12 rounded-2xl">
@@ -484,18 +531,18 @@ const ProductDetail = ({params,isZoom,gap,swiperGap,detailsWidth,}: {params: IPr
           </div>
         </div>
         <div className="flex justify-between space-x-4">
-        {paymentIcons.map((icon, index) => (
-          <div key={index} className="w-14 h-auto p-1">
-            <Image
-              src={icon.src} 
-              alt={icon.alt}
-              width={64} 
-              height={60} 
-              className="object-contain shadow "
-            />
-          </div>
-        ))}
-      </div>
+          {paymentIcons.map((icon, index) => (
+            <div key={index} className="w-14 h-auto p-1">
+              <Image
+                src={icon.src}
+                alt={icon.alt}
+                width={64}
+                height={60}
+                className="object-contain shadow "
+              />
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

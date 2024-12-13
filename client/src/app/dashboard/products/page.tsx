@@ -57,6 +57,7 @@ const Products = () => {
     Og_title:editProduct && editProduct?.Meta_Title,
     Og_Image:editProduct && editProduct?.Meta_Title,
     OgUrl:editProduct && editProduct?.Meta_Title,
+    sale_counter:editProduct && editProduct?.sale_counter,
   };
   console.log(EditInitialValues,"EditInitialValues")
 
