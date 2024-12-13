@@ -81,6 +81,7 @@ export class SalesRecordService {
 
       const transaction = await this.prisma.$transaction(async (prisma) => {
         for (const product of data.orderedProductDetails) {
+          console.log(product.id, "id")
           const existingProduct = await prisma.products.findUnique({
             where: { id: product.id },
           });
@@ -119,8 +120,7 @@ export class SalesRecordService {
 
         // }
         
-        // else {
-
+    
 
           let newSalesRecord = await prisma.sales_record.create({
             data: {
@@ -143,11 +143,13 @@ export class SalesRecordService {
             },
             include: { products: true },
           });
-        // }
-
+  
         return newSalesRecord;
       });
 
+
+
+      
       console.log(result, 'result');
       return { message: 'Order has been created successfully', result: result };
     } catch (error: unknown) {
@@ -215,11 +217,8 @@ export class SalesRecordService {
 
       let total_revenue = sales.reduce(
         (accumulator: any, currentValue: any) => {
-          let price =
-            currentValue.productData.discountPrice ||
-            Number(currentValue.productData.discountPrice) > 0
-              ? currentValue.productData.discountPrice
-              : currentValue.productData.price;
+let price =currentValue.productData.discountPrice || Number(currentValue.productData.discountPrice) > 0 ? 
+currentValue.productData.discountPrice: currentValue.productData.price;
 
           let finalPrice = Number(currentValue.quantity) * Number(price);
 
