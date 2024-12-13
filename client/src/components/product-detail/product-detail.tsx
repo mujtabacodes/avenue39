@@ -54,14 +54,24 @@ import Product3D from '../3DView/Product3D';
 import ARExperience from '../ARModelViewer';
 import { paymentIcons } from '@/data/products';
 
-
-
-const ProductDetail = ({params,isZoom,gap,swiperGap,detailsWidth,}: {params: IProductDetail;isZoom?: Boolean;gap?: String;swiperGap?: String;detailsWidth?: String;
+const ProductDetail = ({
+  params,
+  isZoom,
+  gap,
+  swiperGap,
+  detailsWidth,
+}: {
+  params: IProductDetail;
+  isZoom?: Boolean;
+  gap?: String;
+  swiperGap?: String;
+  detailsWidth?: String;
 }) => {
-  const description:string= "";
+  const description: string = '';
   const [isExpanded, setIsExpanded] = useState(false);
-  const truncateText = (text:any, limit:any) => {
-    return text.length > limit ? text.slice(0, limit) + "..." : text;};
+  const truncateText = (text: any, limit: any) => {
+    return text.length > limit ? text.slice(0, limit) + '...' : text;
+  };
   const [hoveredImage, setHoveredImage] = useState<string | null>(null);
   const cartItems = useSelector((state: State) => state.cart.items);
 
@@ -193,9 +203,10 @@ const ProductDetail = ({params,isZoom,gap,swiperGap,detailsWidth,}: {params: IPr
           <span className="text-[#56B400]">PRE-ORDER ONLY WHATSAPP</span>
         </div>
         <p className="text-lightdark text-14 tracking-wide leading-6">
-        {isExpanded ? product?.description : truncateText(product?.description, 120)}
-      </p>
-      
+          {isExpanded
+            ? product?.description
+            : truncateText(product?.description, 120)}
+        </p>
 
         <NormalText className="">Hurry Up! Sale ends in:</NormalText>
         <span className="flex gap-2 mb-3">
@@ -273,10 +284,9 @@ const ProductDetail = ({params,isZoom,gap,swiperGap,detailsWidth,}: {params: IPr
                 </DialogContent>
           </Dialog> */}
 
-            <div className='w-full  md:w-full'>
-
-                  <ARExperience ImageUrl={"/3dmodel/carpet.glb"}/>
-            </div>
+          <div className="w-full  md:w-full">
+            <ARExperience ImageUrl={'/3dmodel/carpet.glb'} />
+          </div>
           {/* <Dialog>
             <DialogTrigger asChild>
               <Button className="bg-warning w-1/2 text-white flex gap-3 h-12 rounded-2xl">
@@ -484,18 +494,18 @@ const ProductDetail = ({params,isZoom,gap,swiperGap,detailsWidth,}: {params: IPr
           </div>
         </div>
         <div className="flex justify-between space-x-4">
-        {paymentIcons.map((icon, index) => (
-          <div key={index} className="w-14 h-auto p-1">
-            <Image
-              src={icon.src} 
-              alt={icon.alt}
-              width={64} 
-              height={60} 
-              className="object-contain shadow "
-            />
-          </div>
-        ))}
-      </div>
+          {paymentIcons.map((icon, index) => (
+            <div key={index} className="w-14 h-auto p-1">
+              <Image
+                src={icon.src}
+                alt={icon.alt}
+                width={64}
+                height={60}
+                className="object-contain shadow "
+              />
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

@@ -55,7 +55,7 @@ const MenuBar = () => {
 
   const handleCategoryMenuClick = (menu: string) => {
     setActiveMenu(menu);
-    setActivatedMenu(menu)
+    setActivatedMenu(menu);
     if (menu === 'homeOffice') {
       route.push(`/products/home-office`);
     } else if (menu === 'NewArrivals') {
@@ -75,64 +75,57 @@ const MenuBar = () => {
     }
   };
 
-
-
-
   let CategoryFunction = () => {
-    let menu: string = ActivatedMenu || ""
+    let menu: string = ActivatedMenu || '';
     // console.log(pathname, "pathname")
-    if (pathname === "/products") {
-      setisActiveMenu("SALE")
-      return
+    if (pathname === '/products') {
+      setisActiveMenu('SALE');
+      return;
     }
-    if (pathname === "/products/new-arrivals") {
-      setisActiveMenu("New Arrivals")
-      return
+    if (pathname === '/products/new-arrivals') {
+      setisActiveMenu('New Arrivals');
+      return;
     }
 
     if (!categoryId) {
-      let categoryName = pathname.split('/').pop()?.replaceAll('-','')
-// console.log(categoryName, "categoryName")
+      let categoryName = pathname.split('/').pop()?.replaceAll('-', '');
+      // console.log(categoryName, "categoryName")
 
       for (const key in menuData) {
         const items = menuData[key];
 
         if (categoryName?.toLowerCase() === generateSlug(key).toLowerCase()) {
-          setisActiveMenu(key)
+          setisActiveMenu(key);
           return key;
         }
       }
-
     }
 
     for (const key in menuData) {
       const items = menuData[key];
-      console.log(items, "item")
-      if (categoryId && items.some(item => item.categoryId == categoryId)) {
-        console.log(key, "item")
-        setisActiveMenu(key)
+      console.log(items, 'item');
+      if (categoryId && items.some((item) => item.categoryId == categoryId)) {
+        console.log(key, 'item');
+        setisActiveMenu(key);
         return key;
       }
     }
     return null;
-  }
-
-
+  };
 
   useEffect(() => {
     setisActiveMenu(null);
-    CategoryFunction()
-
-  }, [activeMenu, categoryId, pathname])
+    CategoryFunction();
+  }, [activeMenu, categoryId, pathname]);
 
   // console.log(isActiveMenu, "isActiveMenu")
-
 
   return (
     <div className={`${isSticky ? 'sticky top-20 z-50' : 'relative md:pb-12'}`}>
       <div
-        className={`bg-white shadow-md mb-1 pt-3 hidden md:block z-50 ${isSticky ? '' : 'absolute w-full top-0'
-          }`}
+        className={`bg-white shadow-md mb-1 pt-3 hidden md:block z-50 ${
+          isSticky ? '' : 'absolute w-full top-0'
+        }`}
       >
         <Container className="flex flex-wrap items-center justify-between">
           {loading ? (
@@ -142,14 +135,17 @@ const MenuBar = () => {
               ))}
             </div>
           ) : (
-            Object.keys(menuData).map((menu , index) => {
+            Object.keys(menuData).map((menu, index) => {
               if (menu === 'SALE') {
                 return (
                   <button
                     key={menu}
                     className={`
                       
-                      menu-item text-13 lg:text-15 pb-2 tracking-wide family-Helvetica uppercase whitespace-nowrap text-red-600 dark:text-red-600 flex flex-row gap-2 items-center cursor-pointer ${(isActiveMenu && isActiveMenu) == menu ? 'linkactive' : 'link-underline'
+                      menu-item text-13 lg:text-15 pb-2 tracking-wide family-Helvetica uppercase whitespace-nowrap text-red-600 dark:text-red-600 flex flex-row gap-2 items-center cursor-pointer ${
+                        (isActiveMenu && isActiveMenu) == menu
+                          ? 'linkactive'
+                          : 'link-underline'
                       }`}
                     onClick={handleMegaSaleClick}
                   >
@@ -162,12 +158,14 @@ const MenuBar = () => {
                 // console.log(menu, "menue")
                 return (
                   <Link
-                    href={`/products/${generateSlug(menuData[menu][0]?.title || '',)}`}
+                    href={`/products/${generateSlug(menuData[menu][0]?.title || '')}`}
                     key={menu}
-                    className={`menu-item text-13 lg:text-15 pb-2 tracking-wide family-Helvetica uppercase whitespace-nowrap text-black dark:text-black flex flex-row gap-2 items-center cursor-pointer ${(isActiveMenu && isActiveMenu) == menu ? 'linkactive' : 'link-underline'
-                      }`}
+                    className={`menu-item text-13 lg:text-15 pb-2 tracking-wide family-Helvetica uppercase whitespace-nowrap text-black dark:text-black flex flex-row gap-2 items-center cursor-pointer ${
+                      (isActiveMenu && isActiveMenu) == menu
+                        ? 'linkactive'
+                        : 'link-underline'
+                    }`}
                     onClick={() => handleCategoryMenuClick(menu)}
-
                   >
                     {menu.replace(/([A-Z])/g, ' $1').toUpperCase()}
                   </Link>
@@ -175,9 +173,9 @@ const MenuBar = () => {
               }
 
               return (
-                <div className='relative' key={menu}>
+                <div className="relative" key={menu}>
                   <div
-                    className={`relative menu-item text-13 lg:text-15 pb-2 tracking-wide family-Helvetica uppercase whitespace-nowrap text-black dark:text-black flex flex-row gap-2 items-center cursor-pointer ${(isActiveMenu && isActiveMenu === menu ? 'linkactive' : 'link-underline')}`}
+                    className={`relative menu-item text-13 lg:text-15 pb-2 tracking-wide family-Helvetica uppercase whitespace-nowrap text-black dark:text-black flex flex-row gap-2 items-center cursor-pointer ${isActiveMenu && isActiveMenu === menu ? 'linkactive' : 'link-underline'}`}
                     onMouseEnter={() => handleMouseEnter(menu)}
                     onMouseLeave={handleMouseLeave}
                     onClick={() => handleCategoryMenuClick(menu)}
@@ -185,32 +183,30 @@ const MenuBar = () => {
                     {menu.replace(/([A-Z])/g, ' $1').toUpperCase()}
                   </div>
 
-                  {activeMenu &&
-                    !loading &&
-                    activeMenu === menu && (
-                      <div className={`megamenu-container w-[200px] bg-white shadow-lg p-10 z-50  absolute top-[28px] `}
-                        onMouseEnter={() => setHoveringMenu(true)}
-                        onMouseLeave={() => {
-                          setHoveringMenu(false);
-                          setActiveMenu(null);
-                        }}
-                      >
-                        <div className="flex gap-4">
-                          <div className="w-full space-y-4">
-                            <div className="grid grid-cols-1 space-y-2">
-                              <MenuLink
-                                menudata={menuData[activeMenu]}
-                                onLinkClick={() => setActiveMenu(null)}
-                                loading={loading}
-                                pathname={pathname}
-                              />
-                            </div>
+                  {activeMenu && !loading && activeMenu === menu && (
+                    <div
+                      className={`megamenu-container w-[200px] bg-white shadow-lg p-10 z-50  absolute top-[28px] `}
+                      onMouseEnter={() => setHoveringMenu(true)}
+                      onMouseLeave={() => {
+                        setHoveringMenu(false);
+                        setActiveMenu(null);
+                      }}
+                    >
+                      <div className="flex gap-4">
+                        <div className="w-full space-y-4">
+                          <div className="grid grid-cols-1 space-y-2">
+                            <MenuLink
+                              menudata={menuData[activeMenu]}
+                              onLinkClick={() => setActiveMenu(null)}
+                              loading={loading}
+                              pathname={pathname}
+                            />
                           </div>
                         </div>
                       </div>
-                    )}
+                    </div>
+                  )}
                 </div>
-
               );
             })
           )}
