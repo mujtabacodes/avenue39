@@ -46,8 +46,6 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
   const dispatch = useDispatch<Dispatch>();
   const cartItems = useSelector((state: State) => state.cart.items);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-  console.log('cartItems');
-  console.log(cartItems);
   const totalPrice = useSelector((state: State) =>
     selectTotalPrice(state.cart),
   );
@@ -220,8 +218,8 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                     />
                   </div></Link>
                 <div className="w-full">
-                <Link href={`/product/${generateSlug(item.name)}`}>
-                  <span className="text-16 xl:text-18">{item.name}</span>
+                  <Link href={`/product/${generateSlug(item.name)}`}>
+                    <span className="text-16 xl:text-18">{item.name}</span>
                   </Link>
                   <div className="flex flex-wrap md:flex-nowrap lg:hidden justify-between items-center gap-2 md:gap-3 pr-4">
                     {item.discountPrice > 0 ? (

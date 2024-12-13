@@ -80,7 +80,7 @@ const ProductDetail = ({ params, isZoom, gap, swiperGap, detailsWidth, }: {
   useEffect(() => {
     const targetDate = product?.sale_counter
       ? new Date(product.sale_counter)
-      : new Date("2024-12-26");
+      : new Date();
 
     const updateCountdown = () => {
       const now = new Date();

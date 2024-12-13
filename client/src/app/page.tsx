@@ -42,6 +42,8 @@ export default function Home() {
     slidesToShow: 3,  
     slidesToScroll: 1,
     dots: false,  
+    infinite: false,
+    arrows: transformedSliderImages.length > 3 ? true : false,
     prevArrow: (
       <button className="custom-prev-arrow">
         <span><BsArrowLeft /></span>
