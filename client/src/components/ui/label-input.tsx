@@ -28,7 +28,7 @@ const LabelInput = React.forwardRef<HTMLInputElement, InputProps>(
           {label}
         </Label>
         <div className={cn(
-              'relative flex items-center h-[73px] w-full  rounded-full border-input bg-[#F6F6F6]',
+              'relative flex items-center h-[50px] w-full  rounded-full border-input bg-[#F6F6F6]',
               className,
             )}>
           <input
