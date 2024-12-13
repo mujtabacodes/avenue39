@@ -78,33 +78,6 @@ const Footer: React.FC = () => {
         </div>
         <div className="col-span-12 sm:col-span-4 md:col-span-3 lg:col-span-2 px-2">
           <h5 className="font-medium tracking-wide family-Helvetica sm:text-lg xl:text-xl">
-            Quick Links
-          </h5>
-          <ul className=" leading-8 xl:leading-[45px] tracking-wide family-Helvetica text-13 lg:text-15 text-black mt-6">
-            <li>
-              <Link href="/shipping-policy" className="hover:underline">
-                Shipping Policy
-              </Link>
-            </li>
-            <li>
-              <Link href="/privacy-policy" className="hover:underline">
-                Privacy Policy
-              </Link>
-            </li>
-            <li>
-              <Link href="/terms-condition" className="hover:underline">
-                Terms & Conditions
-              </Link>
-            </li>
-            <li>
-              <Link href="/return-policy" className="hover:underline">
-                Return Policy
-              </Link>
-            </li>
-          </ul>
-        </div>
-        <div className="col-span-12 sm:col-span-4 md:col-span-3 lg:col-span-2 px-2">
-          <h5 className="font-medium tracking-wide family-Helvetica sm:text-lg xl:text-xl">
             Categories
           </h5>
           <ul className=" leading-8 xl:leading-[45px] tracking-wide family-Helvetica text-13 lg:text-15 text-black mt-6 capitalize">
@@ -130,9 +103,37 @@ const Footer: React.FC = () => {
             ))}
           </ul>
         </div>
+        <div className="col-span-12 sm:col-span-4 md:col-span-3 lg:col-span-2 px-2">
+          <h5 className="font-medium tracking-wide family-Helvetica sm:text-lg xl:text-xl">
+            Terms & Policies
+          </h5>
+          <ul className=" leading-8 xl:leading-[45px] tracking-wide family-Helvetica text-13 lg:text-15 text-black mt-6">
+            <li>
+              <Link href="/shipping-policy" className="hover:underline">
+                Shipping Policy
+              </Link>
+            </li>
+            <li>
+              <Link href="/privacy-policy" className="hover:underline">
+                Privacy Policy
+              </Link>
+            </li>
+            <li>
+              <Link href="/terms-condition" className="hover:underline">
+                Terms & Conditions
+              </Link>
+            </li>
+            <li>
+              <Link href="/return-policy" className="hover:underline">
+                Return Policy
+              </Link>
+            </li>
+          </ul>
+        </div>
+
         <div className="col-span-12 sm:col-span-4 md:col-span-3 lg:col-span-2">
           <h5 className="font-medium tracking-wide family-Helvetica sm:text-lg xl:text-xl">
-            Account Info
+            Account
           </h5>
           <ul className="leading-8 xl:leading-[45px] tracking-wide family-Helvetica text-13 lg:text-15 text-black mt-6 capitalize">
             <li>
@@ -161,18 +162,22 @@ const Footer: React.FC = () => {
             </li>
             <div className="mt-4">
               <div className="border border-gray-800 w-full max-w-56 rounded-sm">
-               <Link   href="mailto:cs@avenue.com"  rel="noreferrer" target='_blank'>
-               <div className="flex items-center gap-2 py-2 px-2">
-                  <CiHeadphones size={20} />
-                  <p className="text-left text-13 lg:text-15 font-extralight leading-normal">
-                    Request a callback
-                  </p>
-                </div>
-               </Link>
+                <Link
+                  href="mailto:cs@avenue.com"
+                  rel="noreferrer"
+                  target="_blank"
+                >
+                  <div className="flex items-center gap-2 py-2 px-2">
+                    <CiHeadphones size={20} />
+                    <p className="text-left text-13 lg:text-15 font-extralight leading-normal">
+                      Request a callback
+                    </p>
+                  </div>
+                </Link>
               </div>
             </div>
             <div className="mt-8">
-              <Link href="tel:+971505974495" target='_blank' rel="noreferrer">
+              <Link href="tel:+971505974495" target="_blank" rel="noreferrer">
                 <div className="border border-gray-800 w-full max-w-56 rounded-sm">
                   <div className="flex items-center gap-2 py-2 px-2">
                     <PiPhoneCallLight size={20} />

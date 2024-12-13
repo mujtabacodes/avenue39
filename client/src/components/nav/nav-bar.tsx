@@ -1,4 +1,3 @@
-
 'use client';
 import { INav, IProduct } from '@/types/types';
 import Image from 'next/image';
@@ -31,6 +30,7 @@ import { useRouter } from 'next/navigation';
 import { loggedInUserAction } from '@redux/slices/user/userSlice';
 import { useAppDispatch } from '@components/Others/HelperRedux';
 import { CiUser } from 'react-icons/ci';
+import { RxCrossCircled } from 'react-icons/rx';
 
 const Navbar = (props: INav) => {
   const [open, setOpen] = useState(false);
@@ -60,24 +60,23 @@ const Navbar = (props: INav) => {
   } = useQuery<IProduct[], Error>({
     queryKey: ['products'],
     queryFn: fetchProducts,
-    enabled: isDrawerOpen, // Fetch only when the drawer is open
+    enabled: isDrawerOpen,
   });
 
-
-  console.log('I am on profile page');
-  const { loggedInUser } = useSelector((state: State) => state.usrSlice)
+  const { loggedInUser } = useSelector((state: State) => state.usrSlice);
 
   const initialFormData = {
     fullName: loggedInUser?.name,
   };
-  const [profilePhoto, setProfilePhoto] = useState<any>([]);;
+  const [profilePhoto, setProfilePhoto] = useState<any>([]);
   useEffect(() => {
     if (loggedInUser) {
-      setProfilePhoto({imageUrl : loggedInUser?.userImageUrl, public_id : loggedInUser.userPublicId})
+      setProfilePhoto({
+        imageUrl: loggedInUser?.userImageUrl,
+        public_id: loggedInUser.userPublicId,
+      });
     }
-  
-  }, [loggedInUser])
-
+  }, [loggedInUser]);
 
   const products = productsData || [];
 
@@ -187,7 +186,10 @@ const Navbar = (props: INav) => {
                     type="submit"
                     className="absolute inset-y-0 start-0 flex items-center z-20 ps-4 cursor-pointer"
                   >
-                    <IoSearchOutline className="cursor-pointer font-extralight" size={14} />
+                    <IoSearchOutline
+                      className="cursor-pointer font-extralight"
+                      size={14}
+                    />
                   </button>
                 </>
               </DrawerTrigger>
@@ -196,12 +198,18 @@ const Navbar = (props: INav) => {
                 <VisuallyHidden>
                   <DrawerTitle>Search Here</DrawerTitle>
                 </VisuallyHidden>
-                <div className="max-w-screen-lg w-full mx-auto mt-10 space-y-5 p-2">
+                <div className="absolute right-4 top-4">
+                  <RxCrossCircled
+                    className="text-[2rem] text-slate-500 cursor-pointer"
+                    onClick={() => setIsDrawerOpen(false)}
+                  />
+                </div>
+                <div className="max-w-screen-lg w-full mx-auto mt-10 space-y-5 p-2 ">
                   <div className="relative rounded-md w-full">
                     <input
                       type="text"
                       name="searchHeader"
-                      ref={drawerInputRef} 
+                      ref={drawerInputRef}
                       value={searchText}
                       onChange={handleInputChange}
                       className="py-4 px-4 pe-11 border ps-16 block w-full rounded-full text-sm disabled:opacity-50"
@@ -227,52 +235,55 @@ const Navbar = (props: INav) => {
                     </div>
                   )}
                   {error && <div>Error fetching products: {error.message}</div>}
-                  {!isLoading && !error && filteredProducts.length > 0 && (
-                    <div className="border p-2 max-h-[600px] overflow-y-auto custom-scrollbar">
-                      {filteredProducts.map((product) => (
-                        <DrawerTrigger asChild key={product.id}>
-                          <div
-                            onClick={() => handleNavigation(product.name)}
-                            className="flex border p-2 rounded-md bg-white hover:shadow-md transition duration-300 gap-2 mt-2 cursor-pointer"
-                          >
-                            <Image
-                              width={100}
-                              height={100}
-                              src={product.posterImageUrl}
-                              alt={product.name}
-                              className="min-h-[100px] min-w-[100px]"
-                            />
-                            <div className="pt-1 flex flex-col gap-2">
-                              <p className="text-18 xsm:text-21 font-normal capitalize">
-                                {product.name}
-                              </p>
-                              <div className="flex items-center gap-4">
-                                {product.discountPrice > 0 ? (
-                                  <>
-                                    <p className="text-15 font-semibold">
-                                      AED <span>{product.discountPrice}</span>
-                                    </p>
-                                    <p className="text-[12px] text-primary-foreground font-bold line-through">
-                                      AED <span>{product.price}</span>
-                                    </p>
-                                  </>
-                                ) : (
-                                  <>
-                                    <p className="text-15 font-semibold">
-                                      AED <span>{product.price}</span>
-                                    </p>
-                                  </>
-                                )}
-                              </div>
-                              <div>
-                                <RenderStars card={product} />
+                  {!isLoading &&
+                    !error &&
+                    searchText !== '' &&
+                    filteredProducts.length > 0 && (
+                      <div className="border p-2 max-h-[600px] overflow-y-auto custom-scrollbar">
+                        {filteredProducts.map((product) => (
+                          <DrawerTrigger asChild key={product.id}>
+                            <div
+                              onClick={() => handleNavigation(product.name)}
+                              className="flex border p-2 rounded-md bg-white hover:shadow-md transition duration-300 gap-2 mt-2 cursor-pointer"
+                            >
+                              <Image
+                                width={100}
+                                height={100}
+                                src={product.posterImageUrl}
+                                alt={product.name}
+                                className="min-h-[100px] min-w-[100px]"
+                              />
+                              <div className="pt-1 flex flex-col gap-2">
+                                <p className="text-18 xsm:text-21 font-normal capitalize">
+                                  {product.name}
+                                </p>
+                                <div className="flex items-center gap-4">
+                                  {product.discountPrice > 0 ? (
+                                    <>
+                                      <p className="text-15 font-semibold">
+                                        AED <span>{product.discountPrice}</span>
+                                      </p>
+                                      <p className="text-[12px] text-primary-foreground font-bold line-through">
+                                        AED <span>{product.price}</span>
+                                      </p>
+                                    </>
+                                  ) : (
+                                    <>
+                                      <p className="text-15 font-semibold">
+                                        AED <span>{product.price}</span>
+                                      </p>
+                                    </>
+                                  )}
+                                </div>
+                                <div>
+                                  <RenderStars card={product} />
+                                </div>
                               </div>
                             </div>
-                          </div>
-                        </DrawerTrigger>
-                      ))}
-                    </div>
-                  )}
+                          </DrawerTrigger>
+                        ))}
+                      </div>
+                    )}
                   {filteredProducts.length < 1 && (
                     <div>No product is found</div>
                   )}
@@ -292,10 +303,8 @@ const Navbar = (props: INav) => {
                 className="gap-2 flex items-center text-14 font-extralight hover:underline text-black dark:text-black"
                 href={'/login'}
               >
-                <CiUser  size={30} />
+                <CiUser size={30} />
               </Link>
-              
-
             ) : (
               <Popover
                 content={
@@ -331,18 +340,18 @@ const Navbar = (props: INav) => {
               >
                 <div className="flex gap-2 items-center whitespace-nowrap cursor-pointer">
                   <span className="w-auto">
-                  <div className="h-14 w-14 rounded-full overflow-hidden">
-                  <Image
-                    src={
-                      profilePhoto && profilePhoto.imageUrl
-                        ? profilePhoto.imageUrl
-                        : "/images/dummy-avatar.jpg"
-                    }
-                    width={55}
-                    height={55}
-                    alt="User"
-                  />
-                </div>
+                    <div className="h-14 w-14 rounded-full overflow-hidden">
+                      <Image
+                        src={
+                          profilePhoto && profilePhoto.imageUrl
+                            ? profilePhoto.imageUrl
+                            : '/images/dummy-avatar.jpg'
+                        }
+                        width={55}
+                        height={55}
+                        alt="User"
+                      />
+                    </div>
                   </span>
                   <span className="max-w-28 w-auto text-wrap">
                     {userDetails.name}
@@ -353,7 +362,7 @@ const Navbar = (props: INav) => {
           </div>
           <div className="md:hidden flex gap-2 items-center">
             <form onSubmit={(e) => e.preventDefault()}>
-              <Drawer >
+              <Drawer>
                 <DrawerTrigger asChild>
                   <button
                     type="submit"
