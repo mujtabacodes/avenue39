@@ -195,15 +195,20 @@ const Checkout = () => {
                   />
 
                   <div className=" flex flex-wrap sm:flex-nowrap md:flex-wrap  xl:flex-nowrap gap-4">
-                    <LabelInput
-                      label="Phone Number"
-                      id="phone_number"
-                      name="phone_number"
-                      type="number"
-                      required
-                      onChange={formik.handleChange}
-                      value={formik.values.phone_number}
-                    />
+                  <LabelInput
+                  label="Phone Number"
+                  id="phone_number"
+                  name="phone_number"
+                  type="tel"
+                  required
+                  onChange={(e) => {
+                  const value = e.target.value;
+                  if (/^\d*$/.test(value)) {
+                    formik.handleChange(e);}
+  }}
+  value={formik.values.phone_number}
+/>
+
                     <LabelInput
                       label="Street Address *"
                       id="address"
