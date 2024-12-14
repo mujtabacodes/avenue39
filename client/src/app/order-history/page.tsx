@@ -66,7 +66,7 @@ const OrderHistory: React.FC = () => {
           `${process.env.NEXT_PUBLIC_BASE_URL}/api/sales-record/order_history`,
           {
             headers: {
-              authorization: `Bearer ${token}`,
+              token: token,
             },
           }
         );
@@ -77,7 +77,6 @@ const OrderHistory: React.FC = () => {
         console.error("Error fetching order history:", error);
       } finally {
         setOrdersHistoryLoading(false);
-        console.log(ordersHistoryLoading, "ordersHistoryLoading")
       }
     };
     if (userToken) {
@@ -137,7 +136,9 @@ const OrderHistory: React.FC = () => {
           return <span className="text-main">Pending</span>;
         } else if (paymentStatus.checkoutStatus && paymentStatus.paymentStatus) {
           return <span className="text-green-600">Paid</span>;
-        }
+        } else if (!paymentStatus.checkoutStatus && paymentStatus.paymentStatus) {
+        return <span className="text-green-600">Paid</span>;
+      }
         return <span className="text-gray-500">Unknown</span>;
       }
     },
