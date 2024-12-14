@@ -134,6 +134,7 @@ export class ProductsService {
           colors: colors ?? existingProduct.colors ?? [],
           spacification: productData.spacification ?? existingProduct.spacification ?? [],
           sections: productData.sections ?? existingProduct.sections ?? [],
+          sale_counter: productData.sale_counter ?? existingProduct.sale_counter ?? [],
           categories: {
             set: productData.categories?.map((id) => ({ id })) ?? [],
           },
