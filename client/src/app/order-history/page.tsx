@@ -136,7 +136,9 @@ const OrderHistory: React.FC = () => {
           return <span className="text-main">Pending</span>;
         } else if (paymentStatus.checkoutStatus && paymentStatus.paymentStatus) {
           return <span className="text-green-600">Paid</span>;
-        }
+        } else if (!paymentStatus.checkoutStatus && paymentStatus.paymentStatus) {
+        return <span className="text-green-600">Paid</span>;
+      }
         return <span className="text-gray-500">Unknown</span>;
       }
     },
