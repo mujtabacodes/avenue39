@@ -52,6 +52,7 @@ model Products {
   categories            Categories[]            @relation("ProductCategories")
   subcategories         SubCategories[]         @relation("ProductSubCategories")
   salesRecords          sales_record_products[] @relation("ProductsTosales_record_products")
+  sale_counter          String?
 }
 
 model Categories {
