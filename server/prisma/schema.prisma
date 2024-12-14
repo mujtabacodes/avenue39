@@ -48,11 +48,11 @@ model Products {
   posterImageAltText    String?
   Images_Alt_Text       String?
   sections              Json[]                  @default([])
+  sale_counter          String?
   reviews               Reviews[]
   categories            Categories[]            @relation("ProductCategories")
   subcategories         SubCategories[]         @relation("ProductSubCategories")
   salesRecords          sales_record_products[] @relation("ProductsTosales_record_products")
-  sale_counter          String?
 }
 
 model Categories {
