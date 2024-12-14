@@ -8,10 +8,9 @@ import { customHttpException } from '../utils/helper';
 import { generateUniqueString } from '../utils/func';
 import { error } from 'console';
 
-
 @Injectable()
 export class SalesRecordService {
-  constructor(private prisma: PrismaService) { }
+  constructor(private prisma: PrismaService) {}
 
   async Add_sales_record(data: CreateSalesRecordDto) {
     try {
@@ -81,7 +80,7 @@ export class SalesRecordService {
 
       const transaction = await this.prisma.$transaction(async (prisma) => {
         for (const product of data.orderedProductDetails) {
-          console.log(product.id, "id")
+          console.log(product.id, 'id');
           const existingProduct = await prisma.products.findUnique({
             where: { id: product.id },
           });
@@ -91,7 +90,9 @@ export class SalesRecordService {
           }
 
           if (existingProduct.stock < product.quantity) {
-            throw new Error(`Not enough stock for product with ID ${product.id}. Available stock: ${existingProduct.stock}`,);
+            throw new Error(
+              `Not enough stock for product with ID ${product.id}. Available stock: ${existingProduct.stock}`,
+            );
           }
         }
 
@@ -99,7 +100,6 @@ export class SalesRecordService {
         //   where: { user_email: data.user_email },
         //   include: { products: true },
         // });
-
 
         // let newSalesRecord: any;
 
@@ -120,8 +120,6 @@ export class SalesRecordService {
 
         // }
 
-
-
         let newSalesRecord = await prisma.sales_record.create({
           data: {
             user_email: data.user_email,
@@ -129,7 +127,7 @@ export class SalesRecordService {
               create: data.orderedProductDetails.map((product) => ({
                 quantity: product.quantity,
                 productData: product,
-                orderId: String(result.intention_order_id)
+                orderId: String(result.intention_order_id),
               })),
             },
             orderId: String(result.intention_order_id),
@@ -146,9 +144,6 @@ export class SalesRecordService {
 
         return newSalesRecord;
       });
-
-
-
 
       console.log(result, 'result');
       return { message: 'Order has been created successfully', result: result };
@@ -181,7 +176,7 @@ export class SalesRecordService {
         (accumulator: any, currentValue: any) => {
           let price =
             currentValue.productData.discountPrice ||
-              Number(currentValue.productData.discountPrice) > 0
+            Number(currentValue.productData.discountPrice) > 0
               ? currentValue.productData.discountPrice
               : currentValue.productData.price;
 
@@ -206,39 +201,46 @@ export class SalesRecordService {
       let total_sub_categories = await this.prisma.subCategories.count({});
       let total_user = await this.prisma.user.count({});
       let total_Admins = await this.prisma.admins.count({});
-      let sales = await this.prisma.sales_record.findMany({ include: { products: true } });
-
+      let sales = await this.prisma.sales_record.findMany({
+        include: { products: true },
+      });
 
       const reducer_handler = (arr: any[]) => {
         return arr.reduce((totalQuantity: number, currentValue: any) => {
-          const productQuantitySum = currentValue.products.reduce((productTotal: number, value: any) => {
-            console.log(value, "valued");
-            return productTotal + value.productData.quantity;
-          }, 0);
+          const productQuantitySum = currentValue.products.reduce(
+            (productTotal: number, value: any) => {
+              console.log(value, 'valued');
+              return productTotal + value.productData.quantity;
+            },
+            0,
+          );
           return totalQuantity + productQuantitySum;
         }, 0);
       };
-      
 
+      let sucessfulpayment = sales.filter(
+        (prod: any) => prod.paymentStatus.paymentStatus,
+      );
 
-      let sucessfulpayment = sales.filter((prod: any) => prod.paymentStatus.paymentStatus)
+      let Total_sales = reducer_handler(sucessfulpayment);
+      let abdundant = sales.filter(
+        (prod: any) => prod.paymentStatus.checkoutStatus,
+      );
+      let Total_abandant_order = reducer_handler(abdundant);
+      console.log(Total_abandant_order, 'Total_abandant_order');
 
-
-      let Total_sales = reducer_handler(sucessfulpayment)
-      let abdundant   = sales.filter((prod: any) => prod.paymentStatus.checkoutStatus)      
-      let Total_abandant_order = reducer_handler(abdundant)
-      console.log(Total_abandant_order, "Total_abandant_order")
-
-
-      let total_revenue = sucessfulpayment.reduce((accumulator: any, currentValue: any) => {
-
-        return currentValue.products.reduce((accum: number, value: any) => {
-          let price = value.productData.discountPrice && Number(value.productData.discountPrice) > 0 ? value.productData.discountPrice : value.productData.price;
-          let finalPrice = Number(value.productData.quantity) * Number(price);
-          return accum += finalPrice
-        }, 0)
-   
-      },
+      let total_revenue = sucessfulpayment.reduce(
+        (accumulator: any, currentValue: any) => {
+          return currentValue.products.reduce((accum: number, value: any) => {
+            let price =
+              value.productData.discountPrice &&
+              Number(value.productData.discountPrice) > 0
+                ? value.productData.discountPrice
+                : value.productData.price;
+            let finalPrice = Number(value.productData.quantity) * Number(price);
+            return (accum += finalPrice);
+          }, 0);
+        },
         0,
       );
 
@@ -250,7 +252,7 @@ export class SalesRecordService {
         totalRevenue: total_revenue,
         totalSales: Total_sales,
         totalUsers: total_user,
-        Total_abandant_order
+        Total_abandant_order,
       };
     } catch (error) {
       customHttpException(error.message, 'INTERNAL_SERVER_ERROR');
@@ -445,11 +447,10 @@ export class SalesRecordService {
   }
 
   async order_history(req: Request | any) {
-
     try {
-      const { email } = req.user
-      console.log(email, "email")
-      if (!email) return "Email not found , Please login and then try"
+      const { email } = req.user;
+      console.log(email, 'email');
+      if (!email) return 'Email not found , Please login and then try';
       const sales = await this.prisma.sales_record.findMany({
         where: { user_email: { contains: email } },
         include: { products: true },
@@ -457,7 +458,10 @@ export class SalesRecordService {
       return sales;
     } catch (error) {
       console.log(error, 'err');
-      customHttpException(error.meta?.cause || error.message, 'INTERNAL_SERVER_ERROR');
+      customHttpException(
+        error.meta?.cause || error.message,
+        'INTERNAL_SERVER_ERROR',
+      );
     }
   }
 
@@ -484,7 +488,7 @@ export class SalesRecordService {
             paymentStatus: paymentStatus,
             paymentDate: new Date(),
             checkout: false,
-            success: true
+            success: true,
           },
         },
       });
@@ -504,27 +508,34 @@ export class SalesRecordService {
     }
   }
 
-
   async track_order(id: string) {
     try {
-      let sales_record = await this.prisma.sales_record.findFirst({ where: { orderId: id }, include: { products: true } })
+      let sales_record = await this.prisma.sales_record.findFirst({
+        where: { orderId: id },
+        include: { products: true },
+      });
       return sales_record;
     } catch (error) {
       customHttpException(
-        error.message || 'An unknown error occurred', error.status || 'INTERNAL_SERVER_ERROR',);
+        error.message || 'An unknown error occurred',
+        error.status || 'INTERNAL_SERVER_ERROR',
+      );
     }
   }
 
-  async Get_orders (){
+  async Get_orders() {
     try {
-      let sales = await this.prisma.sales_record.findMany({ include: { products: true } });
-      return sales; 
+      let sales = await this.prisma.sales_record.findMany({
+        include: { products: true },
+      });
+      return sales;
     } catch (error) {
       customHttpException(
-        error.message || 'An unknown error occurred', error.status || 'INTERNAL_SERVER_ERROR',)
+        error.message || 'An unknown error occurred',
+        error.status || 'INTERNAL_SERVER_ERROR',
+      );
     }
   }
-
 
   apiTester() {
     return 'api is working';
