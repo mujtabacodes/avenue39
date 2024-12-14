@@ -7,6 +7,7 @@ import {
   IsArray,
   IsInt,
   ArrayNotEmpty,
+  isString,
 } from 'class-validator';
 
 
@@ -111,6 +112,9 @@ export class AddProductDto {
   @IsArray()
   sections: { heading: string; additionalInformation: {name?:string, detail: string}[] }[];
 
+  @IsOptional()
+  @IsString()
+  sale_counter:string
 
 }
 
