@@ -91,6 +91,8 @@ export class ProductsService {
       }
 
 
+
+      
       const colors = productData.colors?.map((color: { colorName: string }) => color.colorName) ?? [];
 
       await this.prisma.products.update({
