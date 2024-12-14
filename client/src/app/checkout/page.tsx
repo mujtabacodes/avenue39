@@ -71,7 +71,7 @@ const Checkout = () => {
   });
   const selectOption = [
     { title: 'Dubai', fee: 50 },
-    { title: 'Abu Dhabi', fee: 100},
+    { title: 'Abu Dhabi', fee: 100 },
     { title: 'Sharjah', fee: 100 },
     { title: 'Ajman', fee: 100 },
     { title: 'Ras Al Khaima', fee: 100 },
@@ -187,19 +187,20 @@ const Checkout = () => {
                   />
 
                   <div className=" flex flex-wrap sm:flex-nowrap md:flex-wrap  xl:flex-nowrap gap-4">
-                  <LabelInput
-                  label="Phone Number"
-                  id="phone_number"
-                  name="phone_number"
-                  type="tel"
-                  required
-                  onChange={(e) => {
-                  const value = e.target.value;
-                  if (/^\d*$/.test(value)) {
-                    formik.handleChange(e);}
-  }}
-  value={formik.values.phone_number}
-/>
+                    <LabelInput
+                      label="Phone Number"
+                      id="phone_number"
+                      name="phone_number"
+                      type="tel"
+                      required
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        if (/^\d*$/.test(value)) {
+                          formik.handleChange(e);
+                        }
+                      }}
+                      value={formik.values.phone_number}
+                    />
 
                     <LabelInput
                       label="Street Address *"
@@ -313,12 +314,24 @@ const Checkout = () => {
                     </div>
                     <div className="border-t-4 pt-6 flex justify-between items-center text-[#666666] text-sm">
                       <p>Shipping fee</p>
-                      <p><span>{totalPrice > 1000 || shippingfee === 0? 'Free': `AED ${shippingfee}`}</span></p>
-                  </div>
+                      <p>
+                        <span>
+                          {totalPrice > 1000 || shippingfee === 0
+                            ? 'Free'
+                            : `AED ${shippingfee}`}
+                        </span>
+                      </p>
+                    </div>
                     <div className="border-t-4 pt-6 flex justify-between items-center text-[#666666] text-18 font-bold">
                       <p>Total</p>
-                      <p className="text-black text-[25px]"> AED{" "}
-                      <span>{totalPrice > 1000 ? totalPrice : totalPrice + shippingfee}</span>
+                      <p className="text-black text-[25px]">
+                        {' '}
+                        AED{' '}
+                        <span>
+                          {totalPrice > 1000
+                            ? totalPrice
+                            : totalPrice + shippingfee}
+                        </span>
                       </p>
                     </div>
                   </div>
@@ -368,7 +381,7 @@ const Checkout = () => {
                         type="submit"
                         className="bg-black custom-clr-btn !text-white hover:!text-black hover:bg-white text-sm rounded-md border-2 border-black h-[58px] py-5 text-16 px-16 !w-full "
                       >
-                        {!loading ? <Loader color="#fff" /> : 'NEXT'}
+                        {loading ? <Loader color="#fff" /> : 'NEXT'}
                       </button>
                     </div>
                   </div>

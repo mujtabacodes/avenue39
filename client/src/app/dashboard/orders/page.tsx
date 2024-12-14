@@ -8,7 +8,7 @@ import axios from 'axios';
 import Image from 'next/image';
 import { LuView } from 'react-icons/lu';
 import { formatDate } from '@/config';
-
+import Cookies from 'js-cookie';
 interface Order {
   OrderId: string;
   Name?: string;
@@ -24,11 +24,19 @@ const Orders = () => {
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [visible, setVisible] = useState(false);
   const [selectedProducts, setSelectedProducts] = useState<any[]>([]);
-
+  const token = Cookies.get('2guysAdminToken');
+  const superAdminToken = Cookies.get('superAdminToken');
+  let finalToken = token ? token : superAdminToken;
+  const headers = {
+    token: finalToken,
+  };
   useEffect(() => {
     async function getOrderHistory() {
       const res = await axios.get(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/sales-record/order_history`,
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/sales-record/Get_orders`,
+        {
+          headers,
+        },
       );
       const data = res.data.filter(
         (order: any) => order.paymentStatus.paymentStatus === true,

@@ -25,7 +25,7 @@ import axios from 'axios';
 interface PaymentQueryParams {
   id: string | null;
   amount_cents: string | null;
-  success: string | null;
+  paymentStatus: string | null;
   integration_id: string | null;
   currency: string | null;
   is_refund: string | null;

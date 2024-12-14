@@ -9,15 +9,25 @@ import axios from 'axios';
 import { formatDate } from '@/config';
 import { LuView } from 'react-icons/lu';
 import Image from 'next/image';
+import Cookies from 'js-cookie';
 const Abundant = () => {
   const [abundantOrderData, setAbundantOrderData] = useState<any[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [visible, setVisible] = useState(false);
   const [selectedProducts, setSelectedProducts] = useState<any[]>([]);
+  const token = Cookies.get('2guysAdminToken');
+  const superAdminToken = Cookies.get('superAdminToken');
+  let finalToken = token ? token : superAdminToken;
+  const headers = {
+    token: finalToken,
+  };
   useEffect(() => {
     async function getOrderHistory() {
       const res = await axios.get(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/sales-record/order_history`,
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/sales-record/Get_orders`,
+        {
+          headers,
+        },
       );
       console.log(res.data);
       const data = res.data.filter(
