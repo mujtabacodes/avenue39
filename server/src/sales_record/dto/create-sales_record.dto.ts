@@ -9,6 +9,7 @@ import {
   IsInt,
   ValidateNested,
   isNumber,
+  IsBoolean,
 } from 'class-validator';
 
 export class CreateSalesRecordDto {
@@ -62,6 +63,6 @@ export class updatePaymentStatusDto {
   @IsString()
   orderId: string;
 
-  @IsString()
-  paymentStatus: string;
+  @IsBoolean()
+  paymentStatus: boolean;
 }
