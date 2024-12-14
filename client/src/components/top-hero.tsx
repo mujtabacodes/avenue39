@@ -74,7 +74,7 @@ const TopHero: React.FC<TopHeroProps> = ({
                       )}
                     </>
                   ) : (
-                    <BreadcrumbPage className="text-14 font-semibold text-black">
+                    <BreadcrumbPage className="text-14 font-semibold text-black capitalize">
                       {breadcrumb.label}
                     </BreadcrumbPage>
                   )}

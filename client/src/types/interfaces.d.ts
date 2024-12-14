@@ -26,7 +26,14 @@ export interface PRODUCTCARDPROPS {
   width?: any;
   height?: any;
 }
-
+export interface TCategories {
+  topText: string;
+  heading: string;
+  subHeading?: string; // Optional
+  paragraph: string;
+  LeftSideImage: string[];
+  rightSideImages?: string[]; // Optional
+}
 export interface Product {
   name: string;
   description: string;

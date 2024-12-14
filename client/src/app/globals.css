@@ -192,7 +192,9 @@ body {
   box-shadow: #121a25;
   z-index: 2; 
 }
-
+.categorySlider .swiper-pagination-clickable .swiper-pagination-bullet{
+  display: none;
+}
 
 .slider-container .slick-prev {
   left: 50px !important; 

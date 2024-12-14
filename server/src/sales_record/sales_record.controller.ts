@@ -52,6 +52,11 @@ track_order(@Param("id") id:string){
   return this.salesRecordService.track_order(id)
 }
 
+@Get('Get_orders')
+Get_orders(){
+  return this.salesRecordService.Get_orders()
+}
+
   @Get()
   api_Tester() {
     return this.salesRecordService.apiTester();

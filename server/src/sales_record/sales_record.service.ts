@@ -208,7 +208,7 @@ export class SalesRecordService {
       let total_Admins = await this.prisma.admins.count({});
       let sales = await this.prisma.sales_record.findMany({ include: { products: true } });
 
-      
+
       const reducer_handler = (arr: any[]) => {
         return arr.reduce((totalQuantity: number, currentValue: any) => {
           const productQuantitySum = currentValue.products.reduce((productTotal: number, value: any) => {
@@ -512,6 +512,16 @@ export class SalesRecordService {
     } catch (error) {
       customHttpException(
         error.message || 'An unknown error occurred', error.status || 'INTERNAL_SERVER_ERROR',);
+    }
+  }
+
+  async Get_orders (){
+    try {
+      let sales = await this.prisma.sales_record.findMany({ include: { products: true } });
+      return sales; 
+    } catch (error) {
+      customHttpException(
+        error.message || 'An unknown error occurred', error.status || 'INTERNAL_SERVER_ERROR',)
     }
   }
 
