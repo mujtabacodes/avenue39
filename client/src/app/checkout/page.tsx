@@ -103,6 +103,7 @@ const Checkout = () => {
             amount: totalPayment,
             orderedProductDetails: cartItems,
             shippment_Fee: shippingfee,
+            phone_number: Number(values.phone_number),
           },
         );
         console.log(proceedPayment, 'proceedPayment');

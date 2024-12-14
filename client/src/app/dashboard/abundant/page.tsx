@@ -2,17 +2,13 @@
 import Breadcrumb from '@/components/Dashboard/Breadcrumbs/Breadcrumb';
 import DefaultLayout from '@/components/Dashboard/Layouts/DefaultLayout';
 import React, { useEffect, useState } from 'react';
-import FilterTable from '@/components/Dashboard/Tables/FilterTable';
-import { ordercolumns, Orderdata } from '@/data/table';
-import { Modal, Table } from 'antd';
 import axios from 'axios';
 import { formatDate } from '@/config';
 import { LuView } from 'react-icons/lu';
-import Image from 'next/image';
 import Cookies from 'js-cookie';
+import OrderList from '@/components/Orders/orders';
 const Abundant = () => {
   const [abundantOrderData, setAbundantOrderData] = useState<any[]>([]);
-  const [searchTerm, setSearchTerm] = useState<string>('');
   const [visible, setVisible] = useState(false);
   const [selectedProducts, setSelectedProducts] = useState<any[]>([]);
   const token = Cookies.get('2guysAdminToken');
@@ -86,83 +82,19 @@ const Abundant = () => {
 
   const handleViewProducts = (products: any[]) => {
     setSelectedProducts(products);
-    console.log('================= CHAL OYE ================');
-    console.log(products);
     setVisible(true);
   };
 
-  const handleOk = () => {
-    setVisible(false);
-  };
-
-  const handleCancel = () => {
-    setVisible(false);
-  };
-
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setSearchTerm(value);
-    setAbundantOrderData(
-      Orderdata.filter((order) =>
-        order.Name
-          ? order.Name.toLowerCase().includes(value.toLowerCase())
-          : false,
-      ),
-    );
-  };
   return (
     <DefaultLayout>
       <Breadcrumb pageName={'Abundant Order'} />
-      {/* <FilterTable data={Orderdata} columns={ordercolumns} /> */}
-      <div className="flex justify-between mb-4 items-center text-dark dark:text-white">
-        <input
-          className="peer lg:p-3 p-2 block outline-none border rounded-md border-gray-200 dark:bg-boxdark dark:bg-transparent dark:border-white text-11 xs:text-sm dark:focus:border-primary focus:border-dark focus:ring-dark-500 disabled:opacity-50 disabled:pointer-events-none dark:text-black"
-          type="search"
-          placeholder="Search Order"
-          value={searchTerm}
-          onChange={handleSearchChange}
-        />
-      </div>
-      {abundantOrderData ? (
-        <>
-          <Table
-            className="overflow-x-scroll lg:overflow-auto"
-            dataSource={abundantOrderData}
-            columns={ordercolumns}
-            pagination={false}
-            rowKey="id"
-          />
-          <Modal
-            title="Order Detail"
-            visible={visible}
-            onOk={handleOk}
-            onCancel={handleCancel}
-            footer={null}
-          >
-            {selectedProducts.map((product) => (
-              <div className="flex gap-2 items-center mt-2" key={product.id}>
-                <Image
-                  className="rounded-md"
-                  width={100}
-                  height={100}
-                  src={product.productData.posterImageUrl}
-                  alt={product.productData.name}
-                />
-                <div>
-                  <h3>{product.productData.name}</h3>
-                  <p>
-                    Price: {product.productData.price}{' '}
-                    {product.productData.currency}
-                  </p>
-                  <p>Quantity: {product.quantity}</p>
-                </div>
-              </div>
-            ))}
-          </Modal>
-        </>
-      ) : (
-        'No Orders found'
-      )}
+      <OrderList
+        orderData={abundantOrderData}
+        orderColumns={ordercolumns}
+        visible={visible}
+        setVisible={setVisible}
+        selectedProducts={selectedProducts}
+      />
     </DefaultLayout>
   );
 };

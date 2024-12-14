@@ -25,7 +25,7 @@ import axios from 'axios';
 interface PaymentQueryParams {
   id: string | null;
   amount_cents: string | null;
-  paymentStatus: string | null;
+  paymentStatus: boolean | null;
   integration_id: string | null;
   currency: string | null;
   is_refund: string | null;
@@ -73,7 +73,7 @@ const ThankYouPage = () => {
 
   let paymentObject = {
     id,
-    paymentStatus,
+    paymentStatus: successFlag,
     amount_cents,
     integration_id,
     currency,
