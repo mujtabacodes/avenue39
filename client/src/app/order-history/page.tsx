@@ -66,18 +66,19 @@ const OrderHistory: React.FC = () => {
           `${process.env.NEXT_PUBLIC_BASE_URL}/api/sales-record/order_history`,
           {
             headers: {
-              authorization: `Bearer ${token}`,
+              token: token,
             },
           }
         );
         if (res) {
           setOrdersHistory(res.data);
+          console.log(res.data, "ordersHistoryLoading")
+
         }
       } catch (error) {
         console.error("Error fetching order history:", error);
       } finally {
         setOrdersHistoryLoading(false);
-        console.log(ordersHistoryLoading, "ordersHistoryLoading")
       }
     };
     if (userToken) {
