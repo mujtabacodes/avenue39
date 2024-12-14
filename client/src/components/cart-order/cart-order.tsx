@@ -45,7 +45,7 @@ const CartOrder: React.FC = () => {
 
   return (
     <div className="shadow border border-[#EEEEEE] rounded-md p-2 md:p-4 w-full space-y-5 mt-5 md:mt-0">
-      <p className="text-center text-[26px]">Cart Total</p>
+      <p className="text-center text-[26px]">Cart</p>
       <div className="flex justify-between items-center border-t-2 pt-4">
         <p className="text-[#666666] text-20">Subtotal</p>
         <p className="font-bold text-18">
