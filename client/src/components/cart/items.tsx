@@ -69,21 +69,21 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
     }
   };
   const handleenterDrawer = () => {
-    // if (timeoutRef.current) {
-    //   clearTimeout(timeoutRef.current);
-    // }
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
   };
   const handleleaveDrawer = () => {
-    // if (timeoutRef.current) {
-    //   timeoutRef.current = setTimeout(() => {
-    //     dispatch(closeDrawer());
-    //   }, 3000);
-    // }
+    if (timeoutRef.current) {
+      timeoutRef.current = setTimeout(() => {
+        dispatch(closeDrawer());
+      }, 3000);
+    }
   };
   useEffect(() => {
-    // timeoutRef.current = setTimeout(() => {
-    //   dispatch(closeDrawer());
-    // }, 3000);
+    timeoutRef.current = setTimeout(() => {
+      dispatch(closeDrawer());
+    }, 3000);
   }, [drawerState, dispatch]);
 
   return (
