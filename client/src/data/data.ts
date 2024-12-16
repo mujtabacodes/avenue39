@@ -348,7 +348,7 @@ export const categories: any = [
       subHeading: "Subheading for Category Two",
       paragraph: "Some description about category two goes here.",
        LeftSideImage: [
-        { img: "/images/categories/Dining-Table/banner-1a.png" },
+        { img: "/images/categories/Dining-Table/banner-1A.png" },
         { img: "/images/categories/Dining-Table/banner-2a.png" },
       ],
       RightSideImage: [
