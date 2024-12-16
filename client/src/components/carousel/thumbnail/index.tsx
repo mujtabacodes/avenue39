@@ -180,7 +180,7 @@ const Thumbnail: React.FC<ThumbProps> = ({
             )}
             <div
               className="absolute -bottom-5 right-36 md:right-1/3 z-10 cursor-pointer bg-[#F6F6F6] w-12 h-12 flex justify-center items-center"
-              // onClick={() => scrollToSlide('up')}
+              onClick={() => scrollToSlide('up')}
               onClick={scrollToNextImage}
             >
               <FaSortDown
@@ -224,21 +224,14 @@ const Thumbnail: React.FC<ThumbProps> = ({
                 {thumbs.map((thumb, index) => (
                   <SwiperSlide key={index}>
                     <div
-                      className={`relative w-full h-full ${isZoom ? (zoomEnabled ? 'cursor-none' : 'cursor-zoom-in') : 'cursor-default'}`}
-                      onClick={(e) =>
-                        handleClick(
-                          thumb.imageUrl || '',
-                          thumb.public_id || '',
-                          e,
-                        )
-                      }
+                      className={`relative w-full h-full ${zoomEnabled ? 'cursor-none' : 'cursor-zoom-in'}`}
                       onMouseMove={handleMouseMove}
                       onMouseLeave={handleMouseLeave}
                       onMouseEnter={(e) =>
                         handleMouseEnter(
                           thumb.imageUrl || '',
                           thumb.public_id || '',
-                          e,
+                          e
                         )
                       }
                     >
@@ -250,24 +243,24 @@ const Thumbnail: React.FC<ThumbProps> = ({
                         alt={thumb.altText || 'Main Image'}
                         onMouseEnter={(e) =>
                           isZoom
-                            ? handleClick(
-                                thumb.imageUrl || '',
-                                thumb.public_id || '',
-                                e,
-                              )
+                            ? handleMouseEnter(
+                              thumb.imageUrl || '',
+                              thumb.public_id || '',
+                              e,
+                            )
                             : undefined
                         }
                         onMouseLeave={(e) =>
                           isZoom
-                            ? handleClick(
-                                thumb.imageUrl || '',
-                                thumb.public_id || '',
-                                e,
-                              )
+                            ? handleMouseEnter(
+                              thumb.imageUrl || '',
+                              thumb.public_id || '',
+                              e,
+                            )
                             : undefined
                         }
                         onMouseMove={handleMouseMove}
-                        // onMouseLeave={handleMouseLeave}
+                        onMouseLeave={handleMouseLeave}
                       />
                     </div>
                   </SwiperSlide>
@@ -300,7 +293,6 @@ const Thumbnail: React.FC<ThumbProps> = ({
               className="magnified-image absolute left-50 top-0 z-50"
               style={{
                 backgroundImage: `url(${hoveredImage})`,
-
                 backgroundPosition: backgroundPosition,
                 border: '1px solid #707070',
                 backgroundRepeat: 'no-repeat',
