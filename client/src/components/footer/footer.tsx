@@ -133,7 +133,7 @@ const Footer: React.FC = () => {
 
         <div className="col-span-12 sm:col-span-4 md:col-span-3 lg:col-span-2">
           <h5 className="font-medium tracking-wide family-Helvetica sm:text-lg xl:text-xl">
-            Account
+            About
           </h5>
           <ul className="leading-8 xl:leading-[45px] tracking-wide family-Helvetica text-13 lg:text-15 text-black mt-6 capitalize">
             <li>

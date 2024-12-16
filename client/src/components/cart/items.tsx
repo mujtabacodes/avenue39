@@ -107,13 +107,12 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
             className="bg-white opacity-80 z-[51]"
             onClick={handleCloseDrawer}
           />
-          <SheetContent className="w-[90%] xsm:max-w-lg z-[52] border-s border-black py-5 xsm:py-10 ps-5 xs:ps-10 pe-0 flex flex-col" onMouseEnter={handleenterDrawer} onMouseLeave={handleleaveDrawer}>
-            <SheetHeader className="flex flex-row items-center justify-between border-b-2 pb-6 relative">
+          <SheetContent className="w-[90%] xsm:max-w-lg z-[52] border-s border-b h-[70vh] border-black py-5 xsm:py-10 ps-5 xs:ps-10 pe-0 flex flex-col" onMouseEnter={handleenterDrawer} onMouseLeave={handleleaveDrawer}>
+            <SheetHeader className="space-y-0 flex flex-row items-center justify-between border-b-2 pb-6 relative pe-6">
               <SheetTitle className="font-medium text-3xl">
                 My Cart (<TotalProducts />)
               </SheetTitle>
               <SheetClose
-                className="absolute -top-6 right-6"
                 onClick={handleCloseDrawer}
               >
                 <TfiClose size={25} />
@@ -127,15 +126,17 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                     key={item.id}
                     className="relative flex items-center bg-slate-50 border-dotted gap-3 p-4 w-full rounded-md"
                   >
-                    <Image
-                      src={item.posterImageUrl}
-                      alt={item.name}
-                      width={80}
-                      height={80}
-                      className="rounded-md"
-                    />
+                    <div className='w-[70px] h-[70px]'>
+                      <Image
+                        src={item.posterImageUrl}
+                        alt={item.name}
+                        width={80}
+                        height={80}
+                        className="rounded-md w-full min-w-[70px] h-full"
+                      />
+                    </div>
 
-                    <div className='w-full'>
+                    <div className='grow'>
                       <ProductName className="text-start !text-[16px]">
                         {item.name}
                       </ProductName>
@@ -208,7 +209,7 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
             >
               <div className="flex items-center gap-4 w-full">
                 <Link href={`/product/${generateSlug(item.name)}`}>
-                  <div className='w-24 h-28'>
+                  <div className='w-24 h-24'>
                     <Image
                       width={isCheckoutPage ? 50 : 100}
                       height={isCheckoutPage ? 50 : 100}
