@@ -19,7 +19,7 @@ const HeroVideo: React.FC = () => {
     <div className="relative w-full">
       <video
         ref={videoRef}
-        className="w-full object-cover h-full md:h-[475px] xl:h-[434px]"
+        className="w-full object-cover h-full md:h-[53vh] lg:h-[63vh] xl:h-[73vh] 2xl:h-[83vh]"
         // onClick={handleVideoClick}
         loop
         muted
