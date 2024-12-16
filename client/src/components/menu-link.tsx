@@ -29,7 +29,6 @@ const MenuLink: React.FC<MenuLinkProps> = ({
       {loading
         ? Array.from({ length: 4 }).map((_, index) => (
             <div className="flex gap-2 items-center" key={index}>
-              <Skeleton className="h-20 w-20 rounded-md border" />
               <Skeleton className="h-6 w-32 rounded-md" />
             </div>
           ))
@@ -83,8 +82,8 @@ const MenuLink: React.FC<MenuLinkProps> = ({
                   />
                 </div> */}
                 <span
-                  className={`text-14 tracking-wide family-Helvetica  whitespace-nowrap  text-slate-600 dark:text-black link-underline font-thin pb-1 ${
-                    item.title === 'Sale' ? 'text-red-500' : ''
+                  className={`text-14 tracking-wide family-Helvetica  whitespace-nowraptext-black link-underline pb-1 ${
+                    item.title === 'Sale' ? 'text-red-600' : ''
                   }`}
                 >
                   {item.title}
