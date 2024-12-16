@@ -82,7 +82,7 @@ const MenuLink: React.FC<MenuLinkProps> = ({
                   />
                 </div> */}
                 <span
-                  className={`text-14 tracking-wide family-Helvetica  whitespace-nowraptext-black link-underline pb-1 ${
+                  className={`text-14 tracking-wide family-Helvetica  whitespace-nowrap text-black link-underline pb-1 ${
                     item.title === 'Sale' ? 'text-red-600' : ''
                   }`}
                 >
