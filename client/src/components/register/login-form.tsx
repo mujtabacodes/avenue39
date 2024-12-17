@@ -15,13 +15,20 @@ import { useDispatch } from 'react-redux';
 import { loggedInUserAction } from '@/redux/slices/user/userSlice';
 import Cookies from 'js-cookie';
 
-export function LoginForm() {
+
+interface TabsProps {
+  onTabChange?: (value: string) => void;
+}
+
+export function LoginForm({ onTabChange }: TabsProps) {
   const Navigate = useRouter();
   const dispatch = useDispatch();
-  const sigupInitialValues = {
-    name: '',
+  const SignupInitialValues = {
+    first_name: '',
+    last_name: '',
     email: '',
     password: '',
+    confirm_password: '',
     phone: '',
   };
   const singinInitialValues = {
@@ -30,18 +37,18 @@ export function LoginForm() {
   };
 
   const signupMutation = useMutation({
-    mutationFn: (formData: typeof sigupInitialValues) => {
+    mutationFn: (formData: typeof SignupInitialValues) => {
       return axios.post(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/signup`,formData,
-        { withCredentials: true } 
-      
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/signup`, formData,
+        { withCredentials: true }
+
       );
     },
     onSuccess: (res) => {
       if (res.data.status == 409) {
         showToast('warn', res.data.message + '!');
       } else {
-        Sigup.resetForm();
+        Signup.resetForm();
         showToast('success', 'Account created Successfully🎉');
       }
     },
@@ -56,7 +63,7 @@ export function LoginForm() {
       return axios.post(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/login`,
         formData,
-        { withCredentials: true } 
+        { withCredentials: true }
       );
     },
     onSuccess: (res) => {
@@ -68,7 +75,7 @@ export function LoginForm() {
         dispatch(loggedInUserAction(res.data.user));
         Cookies.set('user_token', res.data.token, {
           expires: 24 * 60 * 60 * 1000,
-          path: '/' 
+          path: '/'
         });
         Navigate.push('/');
       }
@@ -79,13 +86,22 @@ export function LoginForm() {
     },
   });
 
-  const Sigup = useFormik({
-    initialValues: sigupInitialValues,
+  const Signup = useFormik({
+    initialValues: SignupInitialValues,
     onSubmit: (values) => {
-      if (values.name === '' || values.password === '' || values.email === '') {
-        showToast('warn', 'Ensure name, email and password filled.');
+      const { first_name, last_name, confirm_password, ...rest } = values;
+  
+      if (!first_name || !last_name || !values.password || !values.email) {
+        showToast('warn', 'Ensure name, email, and password are filled.');
+      } else if (values.password !== confirm_password) {
+        showToast('warn', 'Passwords do not match.');
       } else {
-        signupMutation.mutate(values);
+        const modifiedValues: any = {
+          ...rest,
+          name: `${first_name} ${last_name}`.trim(),
+        };
+  
+        signupMutation.mutate(modifiedValues);
       }
     },
   });
@@ -102,7 +118,7 @@ export function LoginForm() {
   });
 
   return (
-    <Tabs defaultValue="login" className="p-2">
+    <Tabs defaultValue="login" onValueChange={onTabChange} className="p-2">
       <TabsList className=" w-full text-center space-x-4  flex justify-center items-center">
         <TabsTrigger className="sm:text-2xl whitespace-nowrap font-bold " value="login">
           <FaRegUser />
@@ -152,47 +168,65 @@ export function LoginForm() {
       </TabsContent>
 
       <TabsContent value="register">
-        <form onSubmit={Sigup.handleSubmit} className="space-y-5 mt-10">
-          <Input
-            id="name"
-            name="name"
-            type="text"
-            placeholder="Enter Name"
-            onChange={Sigup.handleChange}
-            value={Sigup.values.name}
-          />
-          <Input
-            id="email"
-            name="email"
-            type="email"
-            placeholder="Enter Email"
-            onChange={Sigup.handleChange}
-            value={Sigup.values.email}
-          />
-          <Input
-            id="phone"
-            name="phone"
-            type="phone"
-            placeholder="Enter Phone Number"
-            onChange={Sigup.handleChange}
-            value={Sigup.values.phone}
-          />
-          <Input
-            id="password"
-            name="password"
-            type="password"
-            placeholder="Enter Password"
-            onChange={Sigup.handleChange}
-            value={Sigup.values.password}
-          />
-          <div className="flex items-center space-x-2 px-9">
-            <Checkbox id="terms" />
-            <label
-              htmlFor="terms"
-              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-            >
-              Accept terms and conditions
-            </label>
+        <form onSubmit={Signup.handleSubmit} className="mt-10">
+          <div className='space-y-5 sm:space-y-0 sm:grid grid-cols-2 gap-5 mb-5'>
+            <Input
+              id="first_name"
+              name="first_name"
+              type="text"
+              placeholder="Enter First Name"
+              onChange={Signup.handleChange}
+              value={Signup.values.first_name}
+            />
+            <Input
+              id="last_name"
+              name="last_name"
+              type="text"
+              placeholder="Enter Last Name"
+              onChange={Signup.handleChange}
+              value={Signup.values.last_name}
+            />
+            <Input
+              id="email"
+              name="email"
+              type="email"
+              placeholder="Enter Email"
+              onChange={Signup.handleChange}
+              value={Signup.values.email}
+            />
+            <Input
+              id="phone"
+              name="phone"
+              type="phone"
+              placeholder="Enter Phone Number"
+              onChange={Signup.handleChange}
+              value={Signup.values.phone}
+            />
+            <Input
+              id="password"
+              name="password"
+              type="password"
+              placeholder="Enter Password"
+              onChange={Signup.handleChange}
+              value={Signup.values.password}
+            />
+            <Input
+              id="confirm_password"
+              name="confirm_password"
+              type="password"
+              placeholder="Confirm Password"
+              onChange={Signup.handleChange}
+              value={Signup.values.confirm_password}
+            />
+            <div className="flex items-center space-x-2 px-2 col-span-2">
+              <Checkbox id="terms" />
+              <label
+                htmlFor="terms"
+                className="text-sm text-gray-400 flex flex-col gap-1 font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              >
+                <span>By creating your account you agree to our</span><span className='text-black'>Terms and Conditions</span>
+              </label>
+            </div>
           </div>
           <Button
             type="submit"

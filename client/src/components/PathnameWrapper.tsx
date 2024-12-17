@@ -4,28 +4,19 @@ import { usePathname } from 'next/navigation';
 
 import Authhook from '@/hooks/AuthHook';
 import Footer from './footer/footer';
-import TopNav from './nav/top-nav';
-import Navbar from './nav/nav-bar';
-import MenuBar from './nav/menu-bar';
-import BottomBar from './nav/bottom-bar';
 import Header from './nav/Header';
 
 const PathnameWrapper = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname() as string;
 
   const withoutHeaderPages = [
-    '/login',
-    '/register',
-    '/superAdminlogin',
-    '/forgot-password',
-    '/reset-password',
     '/dashboard',
     '/thanks',
   ];
   return (
     <>
       {withoutHeaderPages.includes(pathname) ||
-      pathname.split('/').includes('dashboard') ? null : (
+      pathname.split('/').includes('dashboard') ? pathname === '/dashboard/Admin-login' ?  <Header /> : null : (
         <>
           <Header />
         </>
@@ -33,7 +24,7 @@ const PathnameWrapper = ({ children }: { children: React.ReactNode }) => {
       {children}
       {pathname !== '/' &&
       (withoutHeaderPages.includes(pathname) ||
-        pathname.split('/').includes('dashboard')) ? null : (
+        pathname.split('/').includes('dashboard')) ? pathname === '/dashboard/Admin-login' ?  <Footer /> : null : (
         <Footer />
       )}
     </>
