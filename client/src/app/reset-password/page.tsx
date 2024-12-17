@@ -6,38 +6,19 @@ import loginBackground from '@assets/images/login.png';
 import { CgCloseO } from 'react-icons/cg'
 import logo from '@assets/icons/logo.png';
 import ResetForm from '@/components/register/reset-form';
+import Services from '@/components/services/services';
 
 
 const ResetPasswordPage = () => {
     return (
         <Fragment>
-            <div className="grid grid-cols-1 md:grid-cols-2">
-                <div className='p-10'>
-                    <Link className='flex justify-center md:justify-start' href={"/"}><Image width={250} height={250} src={logo} alt='logo' /></Link>
-
-                    <div className=' mt-10 md:mt-40 max-w-screen-sm mx-auto'>
-                        <ResetForm />
-                    </div>
-
-                </div>
-
-                <div className="h-screen hidden md:block" style={{
-                    backgroundImage: `url(${loginBackground.src})`, backgroundSize: 'cover',
-                    backgroundRepeat: 'no-repeat',
-                    backgroundPosition: 'center'
-                }}>
-                    <Container className='mt-10 text-white space-y-5'>
-                        <Link href={"/"} className='flex justify-end'>
-                            <CgCloseO size={50} />
-                        </Link>
-                        <div className='text-[40px] font-medium'>
-                            <p>Welcome !</p>
-                            <p>Enter new password</p>
-                        </div>
-                    </Container>
-                </div>
-            </div>
-        </Fragment>
+        <div className="grid grid-cols-1 justify-center px-2 py-5">
+          <div className={`max-w-screen-sm w-full mx-auto px-2 py-5 xs:p-5 sm:p-10 shadow-[0px_3px_6px_#00000029] rounded-md h-fit`}>
+            <ResetForm />
+          </div>
+        </div>
+        <Services />
+      </Fragment>
     )
 }
 

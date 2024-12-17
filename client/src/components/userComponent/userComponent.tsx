@@ -1,22 +1,16 @@
 'use client';
 import React, { Fragment, useState } from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 import Loader from '@components/Loader/Loader';
-import { IoArrowBackSharp } from 'react-icons/io5';
 import { usePathname, useRouter } from 'next/navigation';
 import { Select } from 'antd';
-import Container from '../ui/Container';
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
 import { USRPROPS } from '@/types/types';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs';
 import { FaRegUser } from 'react-icons/fa';
-import { CgCloseO } from 'react-icons/cg';
-import loginBackground from '@assets/images/login.png';
-import logo from '@assets/icons/logo.png';
+import Services from '../services/services';
 
-const { Option } = Select;
 
 export default function UserComponent({
   handleSubmit,
@@ -37,11 +31,11 @@ export default function UserComponent({
   const router = useRouter();
   const pathname = usePathname();
 
-  const [activeTab, setActiveTab] = useState('Admin'); // State for the active tab
+  const [activeTab, setActiveTab] = useState('Admin');
 
   const handleTabChange = (value: string) => {
-    setActiveTab(value); // Update the active tab based on the selection
-    setadminType && setadminType(value); // Update the admin type when the tab changes
+    setActiveTab(value); 
+    setadminType && setadminType(value);
   };
 
   let adminFlag = pathname === '/dashboard/Admin-login';
@@ -50,12 +44,8 @@ export default function UserComponent({
       {/* {SelectComonent ? <SelectComonent /> : null} */}
 
       <Fragment>
-        <div className="grid grid-cols-1 md:grid-cols-2">
-          <div className="p-2 pt-10 md:p-10">
-            <Link className="flex justify-center md:justify-start" href={'/'}>
-              <Image width={250} height={250} src={logo} alt="logo" />
-            </Link>
-            <div className=" mt-10 md:mt-40 max-w-screen-sm mx-auto">
+        <div className="grid grid-cols-1 justify-center px-2 py-5">
+            <div className="max-w-screen-sm mx-auto px-2 py-5 xs:p-5 sm:p-10 shadow-[0px_3px_6px_#00000029] rounded-md h-fit">
               {/* <div className="flex flex-col items-center  mb-10">
                 <h2 className="text-xl text-[#3A393C] lg:text-4xl">
                   {adminFlag ? `Sign in as ${adminType}` : title && title}
@@ -68,7 +58,6 @@ export default function UserComponent({
               <Tabs
                 value={activeTab}
                 onValueChange={handleTabChange}
-                className="md:p-2 mb-10"
               >
                 <TabsList className=" w-full text-center space-x-4  flex justify-center items-center">
                   <TabsTrigger
@@ -211,28 +200,8 @@ export default function UserComponent({
                 </TabsContent>
               </Tabs>
             </div>
-          </div>
-
-          <div
-            className="h-screen hidden md:block"
-            style={{
-              backgroundImage: `url(${loginBackground.src})`,
-              backgroundSize: 'cover',
-              backgroundRepeat: 'no-repeat',
-              backgroundPosition: 'center',
-            }}
-          >
-            <Container className="mt-10 text-white space-y-5">
-              <Link href={'/'} className="flex justify-end">
-                <CgCloseO size={50} />
-              </Link>
-              <div className="text-[40px] font-medium">
-                <p>Welcome !</p>
-                <p>First time, you should login or sign up</p>
-              </div>
-            </Container>
-          </div>
         </div>
+        <Services />
       </Fragment>
     </>
   );
