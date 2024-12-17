@@ -14,11 +14,11 @@ const PathnameWrapper = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname() as string;
 
   const withoutHeaderPages = [
-    '/login',
-    '/register',
-    '/superAdminlogin',
-    '/forgot-password',
-    '/reset-password',
+    // '/login',
+    // '/register',
+    // '/superAdminlogin',
+    // '/forgot-password',
+    // '/reset-password',
     '/dashboard',
     '/thanks',
   ];
