@@ -274,7 +274,7 @@ const Thumbnail: React.FC<ThumbProps> = ({
                 ))}
               </Swiper>
             )}
-            {zoomEnabled && (
+            {/* {zoomEnabled && (
               <div className="relative w-full h-8 my-2">
                 <div className="flex gap-2 items-center justify-end absolute top-0 right-2">
                   <span
@@ -291,7 +291,7 @@ const Thumbnail: React.FC<ThumbProps> = ({
                   </span>
                 </div>
               </div>
-            )}
+            )} */}
           </div>
         </div>
         {cursorVisible && zoomEnabled && (
