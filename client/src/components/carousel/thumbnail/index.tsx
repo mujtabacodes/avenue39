@@ -225,13 +225,13 @@ const Thumbnail: React.FC<ThumbProps> = ({
                   <SwiperSlide key={index}>
                     <div
                       className={`relative w-full h-full ${isZoom ? (zoomEnabled ? 'cursor-none' : 'cursor-zoom-in') : 'cursor-default'}`}
-                      onClick={(e) =>
-                        handleClick(
-                          thumb.imageUrl || '',
-                          thumb.public_id || '',
-                          e,
-                        )
-                      }
+                      // onClick={(e) =>
+                      //   handleClick(
+                      //     thumb.imageUrl || '',
+                      //     thumb.public_id || '',
+                      //     e,
+                      //   )
+                      // }
                       onMouseMove={handleMouseMove}
                       onMouseLeave={handleMouseLeave}
                       onMouseEnter={(e) =>
