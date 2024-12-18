@@ -62,6 +62,7 @@ const Navbar = (props: INav) => {
     queryFn: fetchProducts,
     enabled: isDrawerOpen,
   });
+  const [isProductListOpen, setIsProductListOpen] = useState(false);
 
   const { loggedInUser } = useSelector((state: State) => state.usrSlice);
 
@@ -149,9 +150,9 @@ const Navbar = (props: INav) => {
 
   return (
     <div
-      className={`bg-white dark:text-black ${isSticky ? 'sticky top-0 z-50' : ''}`}
+      className={`bg-white dark:text-black ${isSticky ? 'sticky top-0 z-[199]' : ''}`}
     >
-      <Container className="flex items-center justify-between p-2 md:p-4 gap-4 dark:bg-white">
+      <Container className="flex items-center justify-between p-2 md:p-4 gap-4 dark:bg-white ">
         <div className="w-3/12 min-w-32">
           <div className="w-fit">
             <Link className="relative" href={'/'}>
@@ -165,132 +166,82 @@ const Navbar = (props: INav) => {
             </Link>
           </div>
         </div>
-        <div className="w-full max-w-[35%] lg:max-w-[40%]">
-          <form
-            className="relative rounded-md hidden md:block"
-            onSubmit={(e) => e.preventDefault()}
-          >
-            <Drawer onOpenChange={setIsDrawerOpen} open={isDrawerOpen}>
-              <DrawerTrigger asChild>
-                <>
-                  <input
-                    type="text"
-                    name="header-search"
-                    value={searchText}
-                    onChange={handleInputChange}
-                    onClick={() => setIsDrawerOpen(true)}
-                    className=" h-[40px] border-2 border-black block w-full ps-9 text-sm rounded-full disabled:opacity-50 custom-input-bg"
-                    placeholder="Search Here..."
-                  />
-                  <button
-                    type="submit"
-                    className="absolute inset-y-0 start-0 flex items-center z-20 ps-4 cursor-pointer"
-                  >
-                    <IoSearchOutline
-                      className="cursor-pointer font-extralight"
-                      size={18}
-                    />
-                  </button>
-                </>
-              </DrawerTrigger>
+        <div className="w-full max-w-[35%] lg:max-w-[40%] ">
+        <div className='bg-whtie'>
+        <form
+      className="relative w-full lg:block hidden bg-white z-[1099]"
+      onSubmit={(e) => e.preventDefault()}
+    >
+      <input
+        type="text"
+        name="header-search"
+        value={searchText}
+        onChange={handleInputChange}
+        onClick={() => setIsProductListOpen(true)}
+        className="h-[40px] border-2 border-black block w-full rounded-full custom-input-bg pl-12 z-[199] "
+        placeholder="Search Here..."
+      />
+      <button
+        type="submit"
+        className="absolute inset-y-0 left-0 flex items-center z-20 pl-4 cursor-pointer"
+      >
+        <IoSearchOutline
+          className="cursor-pointer font-extralight"
+          size={18}
+        />
+      </button>
 
-              <DrawerContent>
-                <VisuallyHidden>
-                  <DrawerTitle>Search Here</DrawerTitle>
-                </VisuallyHidden>
-                <div className="absolute right-4 top-4">
-                  <RxCrossCircled
-                    className="text-[2rem] text-slate-500 cursor-pointer"
-                    onClick={() => setIsDrawerOpen(false)}
+      {isProductListOpen && (
+        <>
+          <div className="absolute top-full w-full p-3 bg-white border mt-2 max-h-[600px] overflow-y-auto custom-scrollbar z-[999]">
+            {filteredProducts.length > 0 ? (
+              filteredProducts.map((product) => (
+                <div
+                  key={product.id}
+                  onClick={() => handleNavigation(product.name)}
+                  className="flex border p-2 rounded-md bg-white hover:shadow-md transition duration-300 gap-2 cursor-pointer "
+                >
+                  <Image
+                    width={100}
+                    height={100}
+                    src={product.posterImageUrl}
+                    alt={product.name}
+                    className="min-h-[100px] min-w-[100px]"
                   />
-                </div>
-                <div className="max-w-screen-lg w-full mx-auto mt-10 space-y-5 p-2 ">
-                  <div className="relative rounded-md w-full">
-                    <input
-                      type="text"
-                      name="searchHeader"
-                      ref={drawerInputRef}
-                      value={searchText}
-                      onChange={handleInputChange}
-                      className="py-4 px-4 pe-11 border ps-16 block w-full rounded-full text-sm disabled:opacity-50"
-                      placeholder="Search Here..."
-                    />
-                    <button
-                      type="submit"
-                      className="absolute inset-y-0 start-0 flex items-center z-20 ps-4 cursor-pointer"
-                    >
-                      <IoSearchOutline className="cursor-pointer" size={30} />
-                    </button>
-                  </div>
-                  {isLoading && (
-                    <div className="border p-2">
-                      <div className="flex border p-2 rounded-md bg-white hover:shadow-md transition duration-300 gap-2 mt-2 items-center">
-                        <Skeleton className="w-[100px] h-[100px]" />
-                        <div className="pt-1 flex flex-col gap-3">
-                          <Skeleton className="w-32 h-6 rounded-none" />
-                          <Skeleton className="w-32 h-4 rounded-none" />
-                          <Skeleton className="w-32 h-4 rounded-none" />
-                        </div>
-                      </div>
+                  <div className="pt-1 flex flex-col gap-2">
+                    <p className="text-18 xsm:text-21 font-normal capitalize">{product.name}</p>
+                    <div className="flex items-center gap-4">
+                      {product.discountPrice > 0 ? (
+                        <>
+                          <p className="text-15 font-semibold">
+                            AED <span>{product.discountPrice}</span>
+                          </p>
+                          <p className="text-[12px] text-primary-foreground font-bold line-through">
+                            AED <span>{product.price}</span>
+                          </p>
+                        </>
+                      ) : (
+                        <p className="text-15 font-semibold">
+                          AED <span>{product.price}</span>
+                        </p>
+                      )}
                     </div>
-                  )}
-                  {error && <div>Error fetching products: {error.message}</div>}
-                  {!isLoading &&
-                    !error &&
-                    searchText !== '' &&
-                    filteredProducts.length > 0 && (
-                      <div className="border p-2 max-h-[600px] overflow-y-auto custom-scrollbar">
-                        {filteredProducts.map((product) => (
-                          <DrawerTrigger asChild key={product.id}>
-                            <div
-                              onClick={() => handleNavigation(product.name)}
-                              className="flex border p-2 rounded-md bg-white hover:shadow-md transition duration-300 gap-2 mt-2 cursor-pointer"
-                            >
-                              <Image
-                                width={100}
-                                height={100}
-                                src={product.posterImageUrl}
-                                alt={product.name}
-                                className="min-h-[100px] min-w-[100px]"
-                              />
-                              <div className="pt-1 flex flex-col gap-2">
-                                <p className="text-18 xsm:text-21 font-normal capitalize">
-                                  {product.name}
-                                </p>
-                                <div className="flex items-center gap-4">
-                                  {product.discountPrice > 0 ? (
-                                    <>
-                                      <p className="text-15 font-semibold">
-                                        AED <span>{product.discountPrice}</span>
-                                      </p>
-                                      <p className="text-[12px] text-primary-foreground font-bold line-through">
-                                        AED <span>{product.price}</span>
-                                      </p>
-                                    </>
-                                  ) : (
-                                    <>
-                                      <p className="text-15 font-semibold">
-                                        AED <span>{product.price}</span>
-                                      </p>
-                                    </>
-                                  )}
-                                </div>
-                                <div>
-                                  <RenderStars card={product} />
-                                </div>
-                              </div>
-                            </div>
-                          </DrawerTrigger>
-                        ))}
-                      </div>
-                    )}
-                  {filteredProducts.length < 1 && (
-                    <div>No product is found</div>
-                  )}
+                    <RenderStars card={product} />
+                  </div>
                 </div>
-              </DrawerContent>
-            </Drawer>
-          </form>
+              ))
+            ) : (
+              <div>No product is found</div>
+            )}
+          </div>
+          <div
+            onClick={() => setIsProductListOpen(false)}
+            className="fixed h-full inset-0  bg-black bg-opacity-0"
+          ></div>
+        </>
+      )}
+    </form>
+        </div>
         </div>
         <div className="gap-3 lg:gap-3 flex justify-end items-center w-3/12">
           <div className="hidden md:flex justify-between gap-3 lg:gap-1 items-center">
@@ -378,7 +329,7 @@ const Navbar = (props: INav) => {
                         type="text"
                         value={searchText}
                         onChange={handleInputChange}
-                        className="py-4 px-4 pe-11 border block w-full rounded-full text-sm disabled:opacity-50"
+                        className="py-4 px-4 pe-11 border block w-full rounded-full text-sm disabled:opacity-50 "
                         placeholder="Search Here..."
                       />
                       <button
