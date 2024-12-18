@@ -77,34 +77,6 @@ const ProductDetail = ({ params, isZoom, gap, swiperGap, detailsWidth, }: {
     sec: 0,
   });
 
-  useEffect(() => {
-    const targetDate = product?.sale_counter
-      ? new Date(product.sale_counter)
-      : new Date();
-
-    const updateCountdown = () => {
-      const now = new Date();
-      const difference = targetDate.getTime() - now.getTime();
-
-      if (difference <= 0) {
-        setTimeLeft({ day: 0, hour: 0, min: 0, sec: 0 });
-        clearInterval(timerId);
-        return;
-      }
-
-      const day = Math.floor(difference / (1000 * 60 * 60 * 24));
-      const hour = Math.floor((difference / (1000 * 60 * 60)) % 24);
-      const min = Math.floor((difference / (1000 * 60)) % 60);
-      const sec = Math.floor((difference / 1000) % 60);
-
-      setTimeLeft({ day, hour, min, sec });
-    };
-    const timerId = setInterval(updateCountdown, 1000);
-    updateCountdown();
-
-    return () => clearInterval(timerId);
-  }, []);
-
   const {
     data: products = [],
     error,
@@ -117,6 +89,35 @@ const ProductDetail = ({ params, isZoom, gap, swiperGap, detailsWidth, }: {
   console.log(slug, 'slug');
   const product = products.find((product) => product.name === slug);
   const Navigate = useRouter();
+  useEffect(() => {
+    if (product) {
+      const targetDate = product.sale_counter
+        ? new Date(product.sale_counter)
+        : new Date();
+
+      const updateCountdown = () => {
+        const now = new Date();
+        const difference = targetDate.getTime() - now.getTime();
+
+        if (difference <= 0) {
+          setTimeLeft({ day: 0, hour: 0, min: 0, sec: 0 });
+          clearInterval(timerId);
+          return;
+        }
+
+        const day = Math.floor(difference / (1000 * 60 * 60 * 24));
+        const hour = Math.floor((difference / (1000 * 60 * 60)) % 24);
+        const min = Math.floor((difference / (1000 * 60)) % 60);
+        const sec = Math.floor((difference / 1000) % 60);
+
+        setTimeLeft({ day, hour, min, sec });
+      };
+      const timerId = setInterval(updateCountdown, 1000);
+      updateCountdown();
+
+      return () => clearInterval(timerId);
+    }
+  }, [product]);
 
   const {
     data: reviews = [],
@@ -193,8 +194,8 @@ const ProductDetail = ({ params, isZoom, gap, swiperGap, detailsWidth, }: {
               </div>
             ) : null;
           })()}
-          {product.sale && product.sale > '0' && (<div className="bg-[#EE1C25] p-2 rounded-sm text-white text-xs">
-            {product.sale}
+          {product.discountPrice && product.discountPrice > 0 && (<div className="bg-[#EE1C25] p-2 rounded-sm text-white text-xs">
+            {product.discountPrice/product.price * 100}% OFF
           </div>)}
           {product.stock > 0 ? (<div className="bg-[#56B400] p-2 rounded-sm text-white text-xs">
             IN STOCK { }
@@ -218,7 +219,7 @@ const ProductDetail = ({ params, isZoom, gap, swiperGap, detailsWidth, }: {
         )}
         {product?.discountPrice > 0 ? (
           <ProductPrice className="flex items-center gap-2">
-            AED {product?.discountPrice}
+            AED {product?.discountPrice} 
             <NormalText className="font-normal text-base text-slate-400 line-through">
               AED{product?.price}
             </NormalText>
@@ -243,19 +244,24 @@ const ProductDetail = ({ params, isZoom, gap, swiperGap, detailsWidth, }: {
         </p>
 
 
-        {product.sale_counter && (<>
-          <NormalText className="">Hurry Up! Sale ends in:</NormalText>
-          <div className="flex gap-2 mb-3 mt-2">
-            {Object.entries(timeLeft).map(([label, value], index) => (
-              <div
-                key={index}
-                className="bg-[#F5F5F5] p-2 rounded-md w-14 text-center font-normal text-14 text-lightdark flex flex-col"
-              >
-                <span>{value}</span> <span className='text-10'>{label.toUpperCase()}</span>
-              </div>
-            ))}
-          </div>
-        </>)}
+        {product.sale_counter && Object.values(timeLeft).some(value => value > 0) && (
+          <>
+            <NormalText className="">Hurry Up! Sale ends in:</NormalText>
+            <div className="flex gap-2 mb-3 mt-2">
+              {Object.entries(timeLeft).map(([label, value], index) => (
+                <div
+                  key={index}
+                  className="bg-[#F5F5F5] p-2 rounded-md w-14 text-center font-normal text-14 text-lightdark flex flex-col"
+                >
+                  <span>{value}</span>
+                  <span className="text-10">{label.toUpperCase()}</span>
+                </div>
+              ))}
+            </div>
+          </>
+        )}
+
+
 
         {/* <NormalText className="mb-2">
           Hurry Up! Only <span className="text-red-600">12</span> left in stock:
@@ -404,7 +410,7 @@ const ProductDetail = ({ params, isZoom, gap, swiperGap, detailsWidth, }: {
                     </DialogTitle>
                   </DialogHeader>
                   <div className="py-4 ps-5 xs:ps-10 md:ps-20 pe-4 me-4 xs:me-7 max-h-[80vh] overflow-y-auto custom-scroll">
-                    <Image src={tabbyLogo} alt="logo" />
+                    <Image src={tabbyLogo} alt="tabby logo" />
                     <h2 className="text-2xl xs:text-3xl  font-bold mt-8 leading-10 xs:leading-tight">
                       <span className="rounded-full bg-[#3BFFC1] px-4 py-0 text-nowrap">
                         Shop now,
@@ -472,7 +478,7 @@ const ProductDetail = ({ params, isZoom, gap, swiperGap, detailsWidth, }: {
                   </DialogHeader>
                   <div className="py-8 px-5 xs:px-10 md:px-20 me-4 xs:me-7 max-h-[80vh] overflow-y-auto custom-scroll">
                     <div className="text-center">
-                      <Image src={tamaraLogo} alt="logo" className="mx-auto" />
+                      <Image src={tamaraLogo} alt="tamara logo" className="mx-auto" />
                     </div>
                     <h2 className="text-center font-bold text-4xl mt-8">
                       Pay easier with Tamara

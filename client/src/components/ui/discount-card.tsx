@@ -119,7 +119,7 @@ const DiscountCard: React.FC<DiscountCardProps> = ({ productItems }) => {
                         <Image
                           src={product.productImages[0]?.imageUrl || ''}
                           alt={
-                            product.productImages[0]?.altText || 'product image'
+                            product.productImages[0]?.altText || product.name
                           }
                           className="rounded-xl object-cover w-full h-full"
                           layout="fill"

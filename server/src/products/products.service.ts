@@ -6,7 +6,7 @@ import { AddProductDto, UpdateProductDto } from './dto/product.dto';
 
 @Injectable()
 export class ProductsService {
-  constructor(private prisma: PrismaService) { }
+  constructor(private prisma: PrismaService) {}
 
   getProducts() {
     try {
@@ -25,7 +25,6 @@ export class ProductsService {
       throw new HttpException(error.message, HttpStatus.NOT_FOUND);
     }
   }
-  
 
   async addProduct(productData: AddProductDto) {
     console.log('Add product triggered');
@@ -90,17 +89,18 @@ export class ProductsService {
         };
       }
 
-
-
-      
-      const colors = productData.colors?.map((color: { colorName: string }) => color.colorName) ?? [];
+      const colors =
+        productData.colors?.map(
+          (color: { colorName: string }) => color.colorName,
+        ) ?? [];
 
       await this.prisma.products.update({
         where: { id: productData.id },
         data: {
           name: productData.name ?? existingProduct.name,
 
-          hoverImageAltText: productData.hoverImageAltText ?? existingProduct.hoverImageAltText,
+          hoverImageAltText:
+            productData.hoverImageAltText ?? existingProduct.hoverImageAltText,
           Images_Alt_Text:
             productData.Images_Alt_Text ?? existingProduct.Images_Alt_Text,
           posterImageAltText:
@@ -134,9 +134,14 @@ export class ProductsService {
             existingProduct.additionalInformation ??
             [],
           colors: colors ?? existingProduct.colors ?? [],
-          spacification: productData.spacification ?? existingProduct.spacification ?? [],
+          spacification:
+            productData.spacification ?? existingProduct.spacification ?? [],
           sections: productData.sections ?? existingProduct.sections ?? [],
-          sale_counter: productData.sale_counter ?? existingProduct.sale_counter ?? [],
+          sale_counter:
+            productData.sale_counter ?? existingProduct.sale_counter ?? [],
+            Canonical_Tag:
+            productData.Canonical_Tag ?? existingProduct.Canonical_Tag ?? null,
+
           categories: {
             set: productData.categories?.map((id) => ({ id })) ?? [],
           },
@@ -145,7 +150,6 @@ export class ProductsService {
           },
         },
       });
-
 
       return {
         message: 'Product updated successfully 🎉',
