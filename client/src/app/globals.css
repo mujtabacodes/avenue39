@@ -220,3 +220,44 @@ color: white;
 .custom-table .ant-spin-nested-loading {
   min-width: 1024px !important;
 }
+
+@media (min-height: 800px) and (max-height: 980px) and (min-width: 1024px) {
+  .login-form-wrapper {
+    padding: 20px !important;
+    margin-bottom: 0 !important;
+  }
+  .login-form-wrapper form .custom-login-input {
+    height: 45px !important;
+  }
+  .login-form-wrapper form {
+    margin-top: 15px !important;
+  }
+  .login-form-wrapper form .custom-login-input input {
+    padding-right: 2.5rem;
+    padding-left: 2.5rem !important;
+    font-size: 12px !important;
+  }
+  .login-form-wrapper form .custom-login-input input::placeholder {
+    font-size: 12px !important;
+  }
+  .login-form-wrapper form .custom-login-input .custom-login-input-icon {
+    left: 15px !important;
+  }
+  .login-form-wrapper form .custom-login-input .custom-input-password-icon {
+    right: 15px !important;
+  }
+  .login-form-wrapper form .custom-login-input .custom-login-input-icon svg {
+    font-size: 16px !important;
+  }
+  .login-form-wrapper form .custom-login-button {
+    height: 55px !important;
+  }
+  .login-form-wrapper form .custom-input-wrapper{
+    gap: 10px !important;
+    margin-bottom: 10px !important;
+  }
+  .custom-service-box {
+    padding-top: 1.5rem !important;
+    padding-bottom: 1.5rem !important;
+  }
+}

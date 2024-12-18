@@ -1,28 +1,23 @@
 
 "use client"
 import React, { Fragment, useState } from 'react';
-import loginBackground from '@assets/images/login.png';
-import Container from '@/components/ui/Container';
-import { CgCloseO } from "react-icons/cg";
-import Link from 'next/link';
-import logo from '@assets/icons/logo.png';
-import Image from 'next/image';
 import { LoginForm } from '@/components/register/login-form';
 import Services from '@/components/services/services';
+import { useRouter } from 'next/navigation';
 const Login = () => {
   const [activeTab, setActiveTab] = useState('login');
-
-  const handleTabChange = (value: string) => {
-    setActiveTab(value);
-  };
+    const router = useRouter();
+      const handleTabChange = (value: string) => {
+        router.push(`/${value}`);
+      };
   return (
     <Fragment>
-      <div className="grid grid-cols-1 justify-center px-2 py-5">
-        <div className={`${activeTab === 'login' ? 'max-w-screen-sm' : 'max-w-screen-md'} w-full mx-auto px-2 py-5 xs:p-5 sm:p-10 shadow-[0px_3px_6px_#00000029] rounded-md h-fit`}>
-          <LoginForm  onTabChange={handleTabChange} />
+      <div className="grid grid-cols-1 justify-center px-2 pt-5">
+        <div className={`${activeTab === 'login' ? 'max-w-screen-sm' : 'max-w-screen-md'} w-full mx-auto px-2 py-5 xs:p-5 sm:p-10 shadow-[0px_3px_6px_#00000029] rounded-md mb-5 h-fit login-form-wrapper`}>
+          <LoginForm  onTabChange={handleTabChange} activeTab={activeTab} />
         </div>
       </div>
-      <Services />
+      <Services className='custom-services-wrapper' />
     </Fragment>
   );
 };
