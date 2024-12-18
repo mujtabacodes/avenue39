@@ -168,7 +168,7 @@ const Card: React.FC<CardProps> = ({
             </div>
             <Image
               src={card.posterImageUrl}
-              alt={card.name}
+              alt={card.posterImageAltText || card.name}
               onClick={(e) => handleNavigation(e)}
               width={600}
               height={600}

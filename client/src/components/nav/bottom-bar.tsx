@@ -197,7 +197,7 @@ const BottomBar: React.FC = () => {
                     }
                     width={55}
                     height={55}
-                    alt="User"
+                    alt={loggedInUser.name}
                   />
                 </div>
           </div>

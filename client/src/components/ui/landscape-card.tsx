@@ -135,7 +135,7 @@ const LandscapeCard: React.FC<CardProps> = ({ card, isLoading }) => {
         ) : (
           <Image
             src={card.posterImageUrl}
-            alt={card.name}
+            alt={card.posterImageAltText || card.name}
             width={320}
             height={200}
             className="object-cover rounded-xl mx-auto w-full h-[250px] sm:h-[300px] xl:h-[400px]"
