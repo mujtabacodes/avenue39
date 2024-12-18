@@ -35,7 +35,7 @@ const SaleBanner: React.FC = () => {
           </div>
         </div>
         <div className="w-full md:w-1/2 h-full">
-          <Image src={Salebanner} alt="sale banner" className="w-full h-full" />
+          <Image src={Salebanner} alt="Torino Coffee Table" className="w-full h-full" />
         </div>
       </Container>
     </section>

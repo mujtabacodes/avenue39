@@ -81,7 +81,7 @@ const SideCard: React.FC<sideCardProps> = ({ isSlice }) => {
                 src={item.posterImageUrl}
                 width={180}
                 height={180}
-                alt={item.name}
+                alt={item.posterImageAltText || item.name}
                 className="w-44 h-44 rounded-2xl"
               />
             </div>

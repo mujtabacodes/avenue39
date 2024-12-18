@@ -27,6 +27,8 @@ import Loader from '@/components/Loader/Loader';
 import axios from 'axios';
 import showToast from '@/components/Toaster/Toaster';
 import { RiSecurePaymentFill } from 'react-icons/ri';
+import { IoBagOutline } from 'react-icons/io5';
+import Link from 'next/link';
 const Checkout = () => {
   const [selectedState, setSelectedState] = useState<string | null>(null);
   const [shippingfee, setShippingFee] = useState<number>(50);
@@ -150,193 +152,195 @@ const Checkout = () => {
           </div>
         ) : (
           <Container>
-            <form
-              onSubmit={formik.handleSubmit}
-              className="grid grid-cols-1 md:grid-cols-2 mt-10 gap-5 xl:gap-10 mb-10 px-2"
-            >
-              <div>
-                <h2 className="text-[33px]">Checkout</h2>
-                <div className="space-y-5 mt-10">
-                  <div className="flex flex-wrap sm:flex-nowrap md:flex-wrap  xl:flex-nowrap gap-5">
-                    <LabelInput
-                      label="First Name"
-                      id="first_name"
-                      name="first_name"
-                      type="text"
-                      required
-                      onChange={formik.handleChange}
-                      value={formik.values.first_name}
-                    />
-                    <LabelInput
-                      label="Last Name"
-                      id="last_name"
-                      name="last_name"
-                      type="text"
-                      required
-                      onChange={formik.handleChange}
-                      value={formik.values.last_name}
-                    />
-                  </div>
-                  <LabelInput
-                    label="Email Address"
-                    id="user_email"
-                    name="user_email"
-                    type="text"
-                    required
-                    onChange={formik.handleChange}
-                    value={formik.values.user_email}
-                  />
-
-                  <div className=" flex flex-wrap sm:flex-nowrap md:flex-wrap  xl:flex-nowrap gap-4">
-                    <LabelInput
-                      label="Phone Number"
-                      id="phone_number"
-                      name="phone_number"
-                      type="tel"
-                      required
-                      onChange={(e) => {
-                        const value = e.target.value;
-                        if (/^\d*$/.test(value)) {
-                          formik.handleChange(e);
-                        }
-                      }}
-                      value={formik.values.phone_number}
-                    />
-
-                    <LabelInput
-                      label="Street Address *"
-                      id="address"
-                      name="address"
-                      type="text"
-                      required
-                      onChange={formik.handleChange}
-                      value={formik.values.address}
-                    />
-                  </div>
-                  <div className="flex flex-wrap sm:flex-nowrap md:flex-wrap  xl:flex-nowrap gap-2">
-                    <div className="flex-1">
-                      <Label
-                        htmlFor="country"
-                        className="mb-1 px-8 text-sm font-semibold text-17 text-[#666666]"
-                      >
-                        Country/Region
-                      </Label>
-                      <Select
-                        onValueChange={(value: any) =>
-                          formik.setFieldValue('country', value)
-                        }
-                        defaultValue="United Arab Emirates"
+            {totalPrice !== 0 ? (
+              <form
+                onSubmit={formik.handleSubmit}
+                className="grid grid-cols-1 md:grid-cols-2 mt-10 gap-5 xl:gap-10 mb-10 px-2"
+              >
+                <div>
+                  <h2 className="text-[33px]">Checkout</h2>
+                  <div className="space-y-5 mt-10">
+                    <div className="flex flex-wrap sm:flex-nowrap md:flex-wrap  xl:flex-nowrap gap-5">
+                      <LabelInput
+                        label="First Name"
+                        id="first_name"
+                        name="first_name"
+                        type="text"
                         required
-                      >
-                        <SelectTrigger className="flex-grow h-[50px] mt-3 rounded-full border-0 bg-[#F6F6F6] pl-8 pr-10 py-2   focus-visible:outline-none focus-visible:ring-0 text-15 font-medium outline-none focus-visible:ring-ring focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-50 ">
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent className="rounded-3xl">
-                          <SelectGroup>
-                            <SelectItem
-                              value="United Arab Emirates"
-                              className="rounded-3xl"
-                            >
-                              United Arab Emirates
-                            </SelectItem>
-                          </SelectGroup>
-                        </SelectContent>
-                      </Select>
+                        onChange={formik.handleChange}
+                        value={formik.values.first_name}
+                      />
+                      <LabelInput
+                        label="Last Name"
+                        id="last_name"
+                        name="last_name"
+                        type="text"
+                        required
+                        onChange={formik.handleChange}
+                        value={formik.values.last_name}
+                      />
                     </div>
+                    <LabelInput
+                      label="Email Address"
+                      id="user_email"
+                      name="user_email"
+                      type="text"
+                      required
+                      onChange={formik.handleChange}
+                      value={formik.values.user_email}
+                    />
 
-                    <div className="flex-1 ">
-                      <Label
-                        htmlFor="cit"
-                        className="mb-1 px-8 text-sm font-semibold text-17 text-[#666666]"
-                      >
-                        State
-                      </Label>
-                      <Select
-                        onValueChange={(value: any) => {
-                          formik.setFieldValue('city', value);
-                          setSelectedState(value);
-                        }}
-                        defaultValue="Dubai"
+                    <div className=" flex flex-wrap sm:flex-nowrap md:flex-wrap  xl:flex-nowrap gap-4">
+                      <LabelInput
+                        label="Phone Number"
+                        id="phone_number"
+                        name="phone_number"
+                        type="tel"
                         required
-                      >
-                        <SelectTrigger className="flex-grow h-[50px]  mt-3 rounded-full border-0 bg-[#F6F6F6] pl-8 pr-10 py-2   focus-visible:outline-none focus-visible:ring-0 text-15 font-medium outline-none focus-visible:ring-ring focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-50 ">
-                          <SelectValue placeholder="Select your state" />
-                        </SelectTrigger>
-                        <SelectContent className="rounded-3xl">
-                          <SelectGroup>
-                            {selectOption.map((option, index) => (
+                        onChange={(e) => {
+                          const value = e.target.value;
+                          if (/^\d*$/.test(value)) {
+                            formik.handleChange(e);
+                          }
+                        }}
+                        value={formik.values.phone_number}
+                      />
+
+                      <LabelInput
+                        label="Street Address *"
+                        id="address"
+                        name="address"
+                        type="text"
+                        required
+                        onChange={formik.handleChange}
+                        value={formik.values.address}
+                      />
+                    </div>
+                    <div className="flex flex-wrap sm:flex-nowrap md:flex-wrap  xl:flex-nowrap gap-2">
+                      <div className="flex-1">
+                        <Label
+                          htmlFor="country"
+                          className="mb-1 px-8 text-sm font-semibold text-17 text-[#666666]"
+                        >
+                          Country/Region
+                        </Label>
+                        <Select
+                          onValueChange={(value: any) =>
+                            formik.setFieldValue('country', value)
+                          }
+                          defaultValue="United Arab Emirates"
+                          required
+                        >
+                          <SelectTrigger className="flex-grow h-[50px] mt-3 rounded-full border-0 bg-[#F6F6F6] pl-8 pr-10 py-2   focus-visible:outline-none focus-visible:ring-0 text-15 font-medium outline-none focus-visible:ring-ring focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-50 ">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent className="rounded-3xl">
+                            <SelectGroup>
                               <SelectItem
-                                value={option.title}
-                                key={index}
+                                value="United Arab Emirates"
                                 className="rounded-3xl"
                               >
-                                {option.title}
+                                United Arab Emirates
                               </SelectItem>
-                            ))}
-                          </SelectGroup>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                  </div>
+                            </SelectGroup>
+                          </SelectContent>
+                        </Select>
+                      </div>
 
-                  <div className=" mt-5 md:mt-10">
-                    <Label
-                      htmlFor="Notes"
-                      className="mb-1 px-8 text-sm font-semibold text-17 text-[#666666] mt-3 "
-                    >
-                      Order Notes
-                    </Label>
-                    <textarea
-                      className="custom-input-bg flex-grow h-32 w-full rounded-3xl bg-[#F6F6F6] mt-2 pt-4 pl-5  pr-4 outline-none py-2 focus:outline-none focus:ring-0 focus:ring-ring text-15 font-medium"
-                      id="note"
-                      name="note"
-                      onChange={formik.handleChange}
-                      value={formik.values.note}
-                    />
+                      <div className="flex-1 ">
+                        <Label
+                          htmlFor="cit"
+                          className="mb-1 px-8 text-sm font-semibold text-17 text-[#666666]"
+                        >
+                          State
+                        </Label>
+                        <Select
+                          onValueChange={(value: any) => {
+                            formik.setFieldValue('city', value);
+                            setSelectedState(value);
+                          }}
+                          defaultValue="Dubai"
+                          required
+                        >
+                          <SelectTrigger className="flex-grow h-[50px]  mt-3 rounded-full border-0 bg-[#F6F6F6] pl-8 pr-10 py-2   focus-visible:outline-none focus-visible:ring-0 text-15 font-medium outline-none focus-visible:ring-ring focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-50 ">
+                            <SelectValue placeholder="Select your state" />
+                          </SelectTrigger>
+                          <SelectContent className="rounded-3xl">
+                            <SelectGroup>
+                              {selectOption.map((option, index) => (
+                                <SelectItem
+                                  value={option.title}
+                                  key={index}
+                                  className="rounded-3xl"
+                                >
+                                  {option.title}
+                                </SelectItem>
+                              ))}
+                            </SelectGroup>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </div>
+
+                    <div className=" mt-5 md:mt-10">
+                      <Label
+                        htmlFor="Notes"
+                        className="mb-1 px-8 text-sm font-semibold text-17 text-[#666666] mt-3 "
+                      >
+                        Order Notes
+                      </Label>
+                      <textarea
+                        className="custom-input-bg flex-grow h-32 w-full rounded-3xl bg-[#F6F6F6] mt-2 pt-4 pl-5  pr-4 outline-none py-2 focus:outline-none focus:ring-0 focus:ring-ring text-15 font-medium"
+                        id="note"
+                        name="note"
+                        onChange={formik.handleChange}
+                        value={formik.values.note}
+                      />
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div>
-                <h2 className="text-[33px] mb-10">Promotional Code</h2>
-                <Coupan label="Have a coupon?" />
-                <div className="mt-10 space-y-6">
-                  <div className="bg-[#EEEEEE] px-4 py-4 space-y-3">
-                    <p className="text-center text-2xl font-extrabold">
-                      Your Order
-                    </p>
-                    <div className="mt-5 max-h-48 px-1 overflow-y-scroll custom-scrollbar">
-                      <CartItems isCartPage={true} isCheckoutPage={true} />
-                    </div>
-                    <div className="border-t-4 pt-6 flex justify-between items-center text-[#666666] text-sm">
-                      <p>Subtotal</p>
-                      <p>
-                        AED <span>{totalPrice}</span>
+
+                <div>
+                  <h2 className="text-[33px] mb-10">Promotional Code</h2>
+                  <Coupan label="Have a coupon?" />
+                  <div className="mt-10 space-y-6">
+                    <div className="bg-[#EEEEEE] px-4 py-4 space-y-3">
+                      <p className="text-center text-2xl font-extrabold">
+                        Your Order
                       </p>
+                      <div className="mt-5 max-h-48 px-1 overflow-y-scroll custom-scrollbar">
+                        <CartItems isCartPage={true} isCheckoutPage={true} />
+                      </div>
+                      <div className="border-t-4 pt-6 flex justify-between items-center text-[#666666] text-sm">
+                        <p>Subtotal</p>
+                        <p>
+                          AED <span>{totalPrice}</span>
+                        </p>
+                      </div>
+                      <div className="border-t-4 pt-6 flex justify-between items-center text-[#666666] text-sm">
+                        <p>Shipping fee</p>
+                        <p>
+                          <span>
+                            {totalPrice > 1000 || shippingfee === 0
+                              ? 'Free'
+                              : `AED ${shippingfee}`}
+                          </span>
+                        </p>
+                      </div>
+                      <div className="border-t-4 pt-6 flex justify-between items-center text-[#666666] text-18 font-bold">
+                        <p>Total</p>
+                        <p className="text-black text-[25px]">
+                          {' '}
+                          AED{' '}
+                          <span>
+                            {totalPrice > 1000
+                              ? totalPrice
+                              : totalPrice + shippingfee}
+                          </span>
+                        </p>
+                      </div>
                     </div>
-                    <div className="border-t-4 pt-6 flex justify-between items-center text-[#666666] text-sm">
-                      <p>Shipping fee</p>
-                      <p>
-                        <span>
-                          {totalPrice > 1000 || shippingfee === 0
-                            ? 'Free'
-                            : `AED ${shippingfee}`}
-                        </span>
-                      </p>
-                    </div>
-                    <div className="border-t-4 pt-6 flex justify-between items-center text-[#666666] text-18 font-bold">
-                      <p>Total</p>
-                      <p className="text-black text-[25px]">
-                        {' '}
-                        AED{' '}
-                        <span>
-                          {totalPrice > 1000
-                            ? totalPrice
-                            : totalPrice + shippingfee}
-                        </span>
-                      </p>
-                    </div>
-                  </div>
-                  {/* <div className="flex items-center space-x-2">
+                    {/* <div className="flex items-center space-x-2">
                     <Checkbox id="terms" />
                     <label
                       htmlFor="terms"
@@ -345,17 +349,17 @@ const Checkout = () => {
                       Direct Bank Transfer
                     </label>
                   </div> */}
-                  <div className="bg-[#EEEEEE] px-4 py-1 space-y-5">
-                    <p className="text-12">
-                      Make your payment directly into our bank account. Please
-                      use your Order ID as the payment reference. Your order
-                      won’t be shipped until the funds have cleared in our
-                      account.
-                    </p>
-                  </div>
+                    <div className="bg-[#EEEEEE] px-4 py-1 space-y-5">
+                      <p className="text-12">
+                        Make your payment directly into our bank account. Please
+                        use your Order ID as the payment reference. Your order
+                        won’t be shipped until the funds have cleared in our
+                        account.
+                      </p>
+                    </div>
 
-                  <div className="flex items-center justify-between flex-wrap sm:flex-nowrap gap-4 w-full">
-                    {/* <div className="flex gap-4 items-center">
+                    <div className="flex items-center justify-between flex-wrap sm:flex-nowrap gap-4 w-full">
+                      {/* <div className="flex gap-4 items-center">
                       <div className="flex items-center space-x-2">
                         <Checkbox id="terms" />
                         <Image width={80} height={80} src={tabby} alt="tabby" />
@@ -370,24 +374,40 @@ const Checkout = () => {
                         />
                       </div>
                     </div> */}
-                    <div className="flex gap-4 items-center">
-                      <div className="flex items-center gap-2">
-                        <RiSecurePaymentFill className="text-2xl" />
-                        Secure Payment System
+                      <div className="flex gap-4 items-center">
+                        <div className="flex items-center gap-2">
+                          <RiSecurePaymentFill className="text-2xl" />
+                          Secure Payment System
+                        </div>
                       </div>
-                    </div>
-                    <div className="w-full sm:w-auto">
-                      <button
-                        type="submit"
-                        className="bg-black custom-clr-btn !text-white hover:!text-black hover:bg-white text-sm rounded-md border-2 border-black h-[58px] py-5 text-16 px-16 !w-full "
-                      >
-                        {loading ? <Loader color="#fff" /> : 'NEXT'}
-                      </button>
+                      <div className="w-full sm:w-auto">
+                        <button
+                          type="submit"
+                          className="bg-black custom-clr-btn !text-white hover:!text-black hover:bg-white text-sm rounded-md border-2 border-black h-[58px] py-5 text-16 px-16 !w-full "
+                        >
+                          {loading ? <Loader color="#fff" /> : 'NEXT'}
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
+              </form>
+            ) : (
+              <div className="flex justify-center items-center w-full h-96">
+                <div className="flex flex-col gap-4 items-center">
+                  <IoBagOutline size={100} className="text-black" />
+                  <p className="font-medium text-2xl">No Items In Cart</p>
+                  <div className="">
+                    <Link
+                      href="/products"
+                      className="bg-[#F6F6F6] px-6 flex justify-center items-center  hover:border-[#666666] border-[#F6F6F6] text-[#666666] h-[73px]"
+                    >
+                      Continue Shopping
+                    </Link>
+                  </div>
+                </div>
               </div>
-            </form>
+            )}
           </Container>
         )}
       </div>

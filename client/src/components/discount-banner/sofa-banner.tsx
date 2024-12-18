@@ -49,7 +49,7 @@ const SofaBanner: React.FC = () => {
           {loading ? (
             <Skeleton className="w-full h-full rounded-md" />
           ) : (
-            <Image src={sofa1} width={900} height={500} alt="sofa image" className="w-full h-full" />
+            <Image src={sofa1} width={900} height={500} alt="Marlin Tub Swivel Chair" className="w-full h-full" />
           )}
         </div>
       </div>

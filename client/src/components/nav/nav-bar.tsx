@@ -300,7 +300,7 @@ const Navbar = (props: INav) => {
                         }
                         width={55}
                         height={55}
-                        alt="User"
+                        alt={loggedInUser.name}
                       />
                     </div>
                   </span>
