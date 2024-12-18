@@ -123,7 +123,7 @@ export interface IProduct {
   spacification?: specsDetails[];
   posterImageUrl: string | StaticImageData;
   posterImagePublicId: string;
-  posterImageAltText: string;
+  posterImageAltText?: string;
   hoverImageUrl: string;
   hoverImagePublicId: string;
   productImages: ProductImage[];
