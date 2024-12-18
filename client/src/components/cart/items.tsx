@@ -1,8 +1,6 @@
-
-
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { State, Dispatch } from '@redux/store';
 import {
@@ -108,14 +106,16 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
             className="bg-white opacity-80 z-[51]"
             onClick={handleCloseDrawer}
           />
-          <SheetContent className="w-[90%] xsm:max-w-lg z-[52] border-s border-b h-[70vh] border-black py-5 xsm:py-10 ps-5 xs:ps-10 pe-0 flex flex-col" onMouseEnter={handleenterDrawer} onMouseLeave={handleleaveDrawer}>
+          <SheetContent
+            className="w-[90%] xsm:max-w-lg z-[52] border-s border-b h-[70vh] border-black py-5 xsm:py-10 ps-5 xs:ps-10 pe-0 flex flex-col"
+            onMouseEnter={handleenterDrawer}
+            onMouseLeave={handleleaveDrawer}
+          >
             <SheetHeader className="space-y-0 flex flex-row items-center justify-between border-b-2 pb-6 relative pe-6">
               <SheetTitle className="font-medium text-3xl">
                 My Cart (<TotalProducts />)
               </SheetTitle>
-              <SheetClose
-                onClick={handleCloseDrawer}
-              >
+              <SheetClose onClick={handleCloseDrawer}>
                 <TfiClose size={25} />
               </SheetClose>
             </SheetHeader>
@@ -127,7 +127,7 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                     key={item.id}
                     className="relative flex items-center bg-slate-50 border-dotted gap-3 p-4 w-full rounded-md"
                   >
-                    <div className='w-[70px] h-[70px]'>
+                    <div className="w-[70px] h-[70px]">
                       <Image
                         src={item.posterImageUrl}
                         alt={item.posterImageAltText || item.name}
@@ -137,29 +137,29 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                       />
                     </div>
 
-                    <div className='grow'>
+                    <div className="grow">
                       <ProductName className="text-start !text-[16px]">
                         {item.name}
                       </ProductName>
                       <div className="flex justify-between flex-wrap gap-2">
                         <span> Qty: {item.quantity}</span>
-                        {item?.discountPrice > 0 ? (<ProductPrice className="flex gap-2 flex-wrap mb-4 !text-[15px] text-nowrap">
-                          <span>
-                            AED {item?.discountPrice * item.quantity}
-                          </span>
-                          <NormalText className="text-slate-400 line-through w-[70px] text-end text-nowrap !text-[15px]">
-                            AED {item?.price * item.quantity}
-                          </NormalText>
-                        </ProductPrice>) :
-                          (<ProductPrice className="flex gap-2 flex-wrap mb-4 !text-[15px] text-nowrap">
+                        {item?.discountPrice > 0 ? (
+                          <ProductPrice className="flex gap-2 flex-wrap mb-4 !text-[15px] text-nowrap">
                             <span>
-                              AED {item?.price * item.quantity}
+                              AED {item?.discountPrice * item.quantity}
                             </span>
+                            <NormalText className="text-slate-400 line-through w-[70px] text-end text-nowrap !text-[15px]">
+                              AED {item?.price * item.quantity}
+                            </NormalText>
+                          </ProductPrice>
+                        ) : (
+                          <ProductPrice className="flex gap-2 flex-wrap mb-4 !text-[15px] text-nowrap">
+                            <span>AED {item?.price * item.quantity}</span>
                             {/* <NormalText className="text-slate-400 line-through w-20 text-end text-nowrap !text-[15px]">
 
                             </NormalText> */}
-                          </ProductPrice>)}
-
+                          </ProductPrice>
+                        )}
                       </div>
                       <div
                         className="absolute top-2 right-2 cursor-pointer"
@@ -186,13 +186,23 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                     className="flex gap-4 items-center"
                     onClick={() => navigate.push('/cart')}
                   >
-                    <CustomButtom variant="light" onClick={handleCloseDrawer} className='border-[#EBEBEB] border'>VIEW CART</CustomButtom>
+                    <CustomButtom
+                      variant="light"
+                      onClick={handleCloseDrawer}
+                      className="border-[#EBEBEB] border"
+                    >
+                      VIEW CART
+                    </CustomButtom>
                   </SheetClose>
                   <SheetClose
                     className="flex gap-4 items-center"
                     onClick={() => navigate.push('/checkout')}
                   >
-                    <CustomButtom variant="dark" className="hover:text-white border-black border" onClick={handleCloseDrawer}>
+                    <CustomButtom
+                      variant="dark"
+                      className="hover:text-white border-black border"
+                      onClick={handleCloseDrawer}
+                    >
                       Check out
                     </CustomButtom>
                   </SheetClose>
@@ -210,15 +220,18 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
             >
               <div className="flex items-center gap-4 w-full">
                 <Link href={`/product/${generateSlug(item.name)}`}>
-                  <div className='w-24 h-24'>
+                  <div className="w-24 h-24">
                     <Image
                       width={isCheckoutPage ? 50 : 100}
                       height={isCheckoutPage ? 50 : 100}
                       src={item.posterImageUrl}
+
                       alt={item.posterImageAltText || item.name}
                       className='rounded-md object-cover w-full h-full'
+
                     />
-                  </div></Link>
+                  </div>
+                </Link>
                 <div className="w-full">
                   <Link href={`/product/${generateSlug(item.name)}`}>
                     <span className="text-16 xl:text-18">{item.name}</span>
@@ -235,28 +248,24 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                       </>
                     ) : (
                       <>
-
                         <p className="text-16 xs:text-18 font-bold text-nowrap">
                           AED <span>{item?.price * item.quantity}</span>
                         </p>
-                        <p className="text-[18px] font-bold w-16">
-
-                        </p>
+                        <p className="text-[18px] font-bold w-16"></p>
                       </>
                     )}
-                    <div className='flex items-center gap-4'>
-                      <Link href={`/product/${generateSlug(item.name)}`} >
-                        <MdModeEdit
+                    {!isCheckoutPage && (
+                      <div className="flex items-center gap-4">
+                        <Link href={`/product/${generateSlug(item.name)}`}>
+                          <MdModeEdit className="cursor-pointer" size={20} />
+                        </Link>
+                        <FaTrash
                           className="cursor-pointer"
-                          size={20}
+                          size={15}
+                          onClick={() => removeProductFromCart(item.id)}
                         />
-                      </Link>
-                      <FaTrash
-                        className="cursor-pointer"
-                        size={15}
-                        onClick={() => removeProductFromCart(item.id)}
-                      />
-                    </div>
+                      </div>
+                    )}
                     {!isCheckoutPage && (
                       <Counter
                         count={item.quantity}
@@ -303,22 +312,21 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                       <p className="text-14 xs:text-16 xl:text-[20px] font-bold text-nowrap">
                         AED <span>{item?.price * item.quantity}</span>
                       </p>
-                      <p className='w-16'></p>
+                      <p className="w-16"></p>
                     </>
                   )}
-                  <div className='flex items-center gap-2'>
-                    <Link href={`/product/${generateSlug(item.name)}`} >
-                      <MdModeEdit
+                  {!isCheckoutPage && (
+                    <div className="flex items-center gap-2">
+                      <Link href={`/product/${generateSlug(item.name)}`}>
+                        <MdModeEdit className="cursor-pointer" size={20} />
+                      </Link>
+                      <FaTrash
                         className="cursor-pointer"
-                        size={20}
+                        size={15}
+                        onClick={() => removeProductFromCart(item.id)}
                       />
-                    </Link>
-                    <FaTrash
-                      className="cursor-pointer"
-                      size={15}
-                      onClick={() => removeProductFromCart(item.id)}
-                    />
-                  </div>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

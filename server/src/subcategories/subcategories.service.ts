@@ -144,6 +144,7 @@ export class SubcategoriesService {
           name,
           posterImageUrl: posterImageUrl.imageUrl,
           posterImagePublicId: posterImageUrl.public_id,
+          ...subCategoryData,
           categories: {
             set: categoriesId.map((categoryId) => ({ id: categoryId })),
           },
