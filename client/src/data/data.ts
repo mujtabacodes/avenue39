@@ -114,7 +114,10 @@ export const categoryValidationSchema = Yup.object({
   name: Yup.string().required('Required'),
   description: Yup.string().required('required'),
 });
-
+export const subcategoryValidationSchema = Yup.object({
+  title: Yup.string().required('Required'),
+  CategoryId: Yup.number().required('required'),
+});
 export const initialValues: Product = {
   name: '',
   description: '',
@@ -131,10 +134,18 @@ export const initialValues: Product = {
 export const categoryInitialValues: Category = {
   name: '',
   description: '',
+  Meta_description:'',
+  Meta_Title:'',
+  Canonical_Tag:'',
+  Images_Alt_Text:'',
 };
 export const subcategoryInitialValues: SubCategory = {
   name: '',
   description: '',
+  Meta_Title: '',
+  Meta_description: '',
+  Canonical_Tag: '',
+  Images_Alt_Text: '',
   categoriesId: [],
 };
 
