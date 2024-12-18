@@ -10,8 +10,6 @@ import {
   isString,
 } from 'class-validator';
 
-
-
 export class AddProductDto {
   @IsNotEmpty()
   @IsString()
@@ -110,12 +108,27 @@ export class AddProductDto {
 
   @IsOptional()
   @IsArray()
-  sections: { heading: string; additionalInformation: {name?:string, detail: string}[] }[];
+  sections: {
+    heading: string;
+    additionalInformation: { name?: string; detail: string }[];
+  }[];
 
   @IsOptional()
   @IsString()
-  sale_counter:string
+  sale_counter: string;
 
+  @IsOptional()
+  @IsString()
+  meta_title: string;
+
+  @IsOptional()
+  @IsString()
+  meta_description: string;
+
+
+  @IsOptional()
+  @IsString()
+  images_alt_text: string;
 }
 
 export class UpdateProductDto extends AddProductDto {

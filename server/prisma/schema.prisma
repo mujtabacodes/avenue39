@@ -64,6 +64,10 @@ model Categories {
   description         String?
   subcategories       SubCategories[] @relation("CategorySubCategories")
   products            Products[]      @relation("ProductCategories")
+  meta_title          String?
+  meta_description    String?
+  canonical_tag       String?
+  images_alt_text     String?
 }
 
 model SubCategories {
@@ -74,6 +78,10 @@ model SubCategories {
   posterImagePublicId String?
   categories          Categories[] @relation("CategorySubCategories")
   products            Products[]   @relation("ProductSubCategories")
+  meta_title          String?
+  meta_description    String?
+  canonical_tag       String?
+  images_alt_text     String?
 }
 
 model Reviews {
