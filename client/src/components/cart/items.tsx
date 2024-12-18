@@ -35,6 +35,7 @@ import { closeDrawer, openDrawer } from '@/redux/slices/drawer';
 import { FaTrash } from 'react-icons/fa';
 import { MdModeEdit } from 'react-icons/md';
 import Link from 'next/link';
+import { IProduct } from '@/types/types';
 
 interface ICartItems {
   isCartPage?: boolean;
@@ -129,7 +130,7 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                     <div className='w-[70px] h-[70px]'>
                       <Image
                         src={item.posterImageUrl}
-                        alt={item.name}
+                        alt={item.posterImageAltText || item.name}
                         width={80}
                         height={80}
                         className="rounded-md w-full min-w-[70px] h-full"
@@ -214,7 +215,7 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                       width={isCheckoutPage ? 50 : 100}
                       height={isCheckoutPage ? 50 : 100}
                       src={item.posterImageUrl}
-                      alt={item.name}
+                      alt={item.posterImageAltText || item.name}
                       className='rounded-md object-cover w-full h-full'
                     />
                   </div></Link>

@@ -181,7 +181,7 @@ const FeatureCard: React.FC<CardProps> = ({
               width={400}
               height={400}
               src={card.posterImageUrl}
-              alt={card.name}
+              alt={card.posterImageAltText || card.name}
               className={`z-10 rounded-2xl ${cardHeight}`}
             />
           </div>

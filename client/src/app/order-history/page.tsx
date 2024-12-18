@@ -230,7 +230,7 @@ const OrderHistory: React.FC = () => {
                           product.productData.posterImageUrl ||
                           product.productData.hoverImageUrl
                         }
-                        alt={product.productData.name}
+                        alt={product.productData.posterImageAltText || product.productData.name}
                       />
                     ) : (
                       <p>Image not available</p>
