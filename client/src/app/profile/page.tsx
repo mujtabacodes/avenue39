@@ -29,13 +29,6 @@ function Profile() {
   const token = Cookies.get('user_token');
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   const token = Cookies.get('user_token');
-  //   if (!token) {
-  //     router.push('/login');
-  //   }
-  // }, [router]);
-
   const handlePhotoChange = async (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
@@ -173,10 +166,6 @@ function Profile() {
           <div className="p-4 rounded-md shadow w-full md:w-8/12">
             <div>
               <div className="mb-4 flex items-center gap-3">
-                {/* {profilePhoto.map((profilePhoto) => {
-                    return (
-                      <> */}
-
                 <div className="h-14 w-14 rounded-full overflow-hidden">
                   <Image
                     src={
