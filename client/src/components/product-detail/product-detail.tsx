@@ -193,8 +193,8 @@ const ProductDetail = ({ params, isZoom, gap, swiperGap, detailsWidth, }: {
               </div>
             ) : null;
           })()}
-          {product.sale && product.sale > '0' && (<div className="bg-[#EE1C25] p-2 rounded-sm text-white text-xs">
-            {product.sale}
+          {product.discountPrice && product.discountPrice > 0 && (<div className="bg-[#EE1C25] p-2 rounded-sm text-white text-xs">
+            {product.discountPrice/product.price * 100}% OFF
           </div>)}
           {product.stock > 0 ? (<div className="bg-[#56B400] p-2 rounded-sm text-white text-xs">
             IN STOCK { }
@@ -218,7 +218,7 @@ const ProductDetail = ({ params, isZoom, gap, swiperGap, detailsWidth, }: {
         )}
         {product?.discountPrice > 0 ? (
           <ProductPrice className="flex items-center gap-2">
-            AED {product?.discountPrice}
+            AED {product?.discountPrice} 
             <NormalText className="font-normal text-base text-slate-400 line-through">
               AED{product?.price}
             </NormalText>
