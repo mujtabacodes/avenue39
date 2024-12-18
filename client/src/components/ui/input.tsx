@@ -23,25 +23,25 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     const getIcon = () => {
       switch (type) {
         case 'text':
-          return <FaRegUser className="h-6 w-6 text-black" />;
+          return <FaRegUser className="text-20 text-black" />;
         case 'email':
-          return <FaRegEnvelopeOpen className="h-6 w-6 text-black" />;
+          return <FaRegEnvelopeOpen className="text-20 text-black" />;
           case 'search':
-            return <IoSearchSharp className="h-6 w-6 text-black" />;
+            return <IoSearchSharp className="text-20 text-black" />;
         case 'username':
-          return <FaRegUser className="h-6 w-6 text-black" />;
+          return <FaRegUser className="text-20 text-black" />;
         case 'phone':
-          return <IoPhonePortraitOutline className="h-6 w-6 text-black" />;
+          return <IoPhonePortraitOutline className="text-20 text-black" />;
         case 'password':
-          return <RiLockPasswordLine className="h-6 w-6 text-black" />;
+          return <RiLockPasswordLine className="text-20 text-black" />;
         default:
           return null;
       }
     };
 
     return (
-      <div className="relative flex items-center h-[76px] w-full rounded-full border-input bg-[#F6F6F6]">
-        <div className="absolute left-8">{getIcon()}</div>
+      <div className="relative flex items-center h-[76px] w-full rounded-full border-input custom-login-input bg-[#F6F6F6]">
+        <div className="absolute left-8 custom-login-input-icon">{getIcon()}</div>
         <input
           type={inputType}
           id={id}
@@ -57,13 +57,13 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         />
         {type === 'password' && (
           <span
-            className="absolute right-8 cursor-pointer"
+            className="absolute right-8 cursor-pointer custom-input-password-icon"
             onClick={toggleShowPassword}
           >
             {showPassword ? (
-              <AiFillEyeInvisible className="h-6 w-6 text-black" />
+              <AiFillEyeInvisible className="text-20 text-black" />
             ) : (
-              <AiFillEye className="h-6 w-6 text-black" />
+              <AiFillEye className="text-20 text-black" />
             )}
           </span>
         )}

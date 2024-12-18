@@ -18,9 +18,10 @@ import Cookies from 'js-cookie';
 
 interface TabsProps {
   onTabChange?: (value: string) => void;
+  activeTab?: string;
 }
 
-export function LoginForm({ onTabChange }: TabsProps) {
+export function LoginForm({ onTabChange, activeTab }: TabsProps) {
   const Navigate = useRouter();
   const dispatch = useDispatch();
   const SignupInitialValues = {
@@ -90,7 +91,7 @@ export function LoginForm({ onTabChange }: TabsProps) {
     initialValues: SignupInitialValues,
     onSubmit: (values) => {
       const { first_name, last_name, confirm_password, ...rest } = values;
-  
+
       if (!first_name || !last_name || !values.password || !values.email) {
         showToast('warn', 'Ensure name, email, and password are filled.');
       } else if (values.password !== confirm_password) {
@@ -100,7 +101,7 @@ export function LoginForm({ onTabChange }: TabsProps) {
           ...rest,
           name: `${first_name} ${last_name}`.trim(),
         };
-  
+
         signupMutation.mutate(modifiedValues);
       }
     },
@@ -118,19 +119,20 @@ export function LoginForm({ onTabChange }: TabsProps) {
   });
 
   return (
-    <Tabs defaultValue="login" onValueChange={onTabChange} className="p-2">
-      <TabsList className=" w-full text-center space-x-4  flex justify-center items-center">
-        <TabsTrigger className="sm:text-2xl whitespace-nowrap font-bold " value="login">
+    <Tabs defaultValue={`${activeTab ? activeTab : 'login'}`} onValueChange={onTabChange} className="p-2">
+      <TabsList className=" w-full text-center space-x-4 flex justify-center items-center">
+        <Link href={`/login`} className={`sm:text-2xl font-bold whitespace-nowrap flex items-center gap-2 ${activeTab === 'login' && 'text-black'}`}>
           <FaRegUser />
           Sign in
-        </TabsTrigger>
+        </Link>
         <span className="h-10 border border-black" />
-        <TabsTrigger className="sm:text-2xl font-bold whitespace-nowrap " value="register">
+        <Link href={`/register`} className={`sm:text-2xl font-bold whitespace-nowrap flex items-center gap-2 ${activeTab === 'register' && 'text-black'}`}>
           <FaRegUser />
           Sign up
-        </TabsTrigger>
+        </Link>
       </TabsList>
       <TabsContent value="login">
+        { }
         <form onSubmit={Signin.handleSubmit} className="space-y-5 mt-10">
           <Input
             id="email"
@@ -156,7 +158,7 @@ export function LoginForm({ onTabChange }: TabsProps) {
             type="submit"
             variant={'login'}
             disabled={signinMutation.isPending ? true : false}
-            className="w-full h-[76px] "
+            className="w-full h-[76px] custom-login-button"
           >
             {signinMutation.isPending ? (
               <Loader color="white" />
@@ -169,7 +171,7 @@ export function LoginForm({ onTabChange }: TabsProps) {
 
       <TabsContent value="register">
         <form onSubmit={Signup.handleSubmit} className="mt-10">
-          <div className='space-y-5 sm:space-y-0 sm:grid grid-cols-2 gap-5 mb-5'>
+          <div className='space-y-5 sm:space-y-0 sm:grid grid-cols-2 custom-input-wrapper gap-5 mb-5'>
             <Input
               id="first_name"
               name="first_name"
@@ -232,7 +234,7 @@ export function LoginForm({ onTabChange }: TabsProps) {
             type="submit"
             variant={'login'}
             disabled={signupMutation.isPending ? true : false}
-            className="w-full h-[76px] "
+            className="w-full h-[76px] custom-login-button"
           >
             {signupMutation.isPending ? (
               <Loader color="white" />
