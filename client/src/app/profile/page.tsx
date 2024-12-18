@@ -2,7 +2,7 @@
 import TopHero from '@/components/top-hero';
 import { profilebreadcrumbs } from '@/data/data';
 import Link from 'next/link';
-import React, {useState, Fragment, useEffect } from 'react';
+import React, { useState, Fragment, useEffect } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import Image from 'next/image';
@@ -17,29 +17,24 @@ import {
   uploadPhotosToBackend,
 } from '@/utils/helperFunctions';
 import { loggedInUserAction } from '@/redux/slices/user/userSlice';
+import UseAuth from '@/hooks/useAuth';
 
-export default function Profile() {
-  const { loggedInUser } = useSelector((state: State) => state.usrSlice)
+function Profile() {
+  const { loggedInUser } = useSelector((state: State) => state.usrSlice);
 
   const router = useRouter();
 
-
-  const [formData, setFormData] = useState({fullName: "", email: ""});
+  const [formData, setFormData] = useState({ fullName: '', email: '' });
   const [profilePhoto, setProfilePhoto] = useState<any>({});
   const token = Cookies.get('user_token');
-  const dispatch= useDispatch()
+  const dispatch = useDispatch();
 
-
-
-
-
-  useEffect(() => {
-    const token = Cookies.get('user_token');
-    if (!token) {
-      router.push('/login');
-    }
-  }, [router]);
-
+  // useEffect(() => {
+  //   const token = Cookies.get('user_token');
+  //   if (!token) {
+  //     router.push('/login');
+  //   }
+  // }, [router]);
 
   const handlePhotoChange = async (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -50,39 +45,38 @@ export default function Profile() {
       let imageUrl: any = await uploadPhotosToBackend([file]);
       console.log(file);
       console.log('response from image updload');
-      console.log(imageUrl,"imageUrlimageUrl");
-      imageUrl ? setProfilePhoto((pre:any)=>imageUrl) : null;
+      console.log(imageUrl, 'imageUrlimageUrl');
+      imageUrl ? setProfilePhoto((pre: any) => imageUrl) : null;
     }
   };
 
+  useEffect(() => {
+    console.log('function logged');
+    if (loggedInUser) {
+      setProfilePhoto({
+        imageUrl: loggedInUser?.userImageUrl,
+        public_id: loggedInUser.userPublicId,
+      });
+      setFormData({ fullName: loggedInUser.name, email: loggedInUser.email });
+    }
+  }, [loggedInUser]);
 
-useEffect(() => {
-  console.log("function logged")
-  if (loggedInUser) {
-    setProfilePhoto({imageUrl : loggedInUser?.userImageUrl, public_id : loggedInUser.userPublicId})
-    setFormData({fullName: loggedInUser.name, email: loggedInUser.email})
-  }
-
-}, [loggedInUser])
-
-
-const AddminProfileTriggerHandler = async () => {
-  try {
-    if (!token) return;
-    let user: any = await axios.get(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/getuserHandler`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
+  const AddminProfileTriggerHandler = async () => {
+    try {
+      if (!token) return;
+      let user: any = await axios.get(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/getuserHandler`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         },
-      },
-    );
-    dispatch(loggedInUserAction(user.data.user));
-  } catch (err: any) {
-    console.log(err, 'err');
-  } 
-};
-
+      );
+      dispatch(loggedInUserAction(user.data.user));
+    } catch (err: any) {
+      console.log(err, 'err');
+    }
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -101,17 +95,13 @@ const AddminProfileTriggerHandler = async () => {
       ...formData,
     };
 
+    userDetails = {
+      ...userDetails,
+      userImageUrl: profilePhoto.imageUrl || '',
+      userImagePublicId: profilePhoto.public_id || '',
+    };
 
-
-
-      userDetails = {
-        ...userDetails,
-        userImageUrl: profilePhoto.imageUrl || "",
-        userImagePublicId: profilePhoto.public_id || "",
-      };
-
-      console.log(userDetails);
-  
+    console.log(userDetails);
 
     try {
       const res = await axios.post(
@@ -120,13 +110,10 @@ const AddminProfileTriggerHandler = async () => {
       );
 
       showToast('success', res.data.message);
-      dispatch(loggedInUserAction(res.data.user))
-
+      dispatch(loggedInUserAction(res.data.user));
     } catch (error) {
       showToast('error', 'Their is something wrong!');
     }
-
-
   };
 
   const logoutHhandler = () => {
@@ -139,21 +126,22 @@ const AddminProfileTriggerHandler = async () => {
     }
   };
 
-  const handleDelete = async() => {
-      try {
-        await ImageRemoveHandler(loggedInUser.userImagePublicId, profilePhoto);
-        setProfilePhoto({});
-        showToast('success', 'Image removed successfully🎉');
-        console.log(profilePhoto);
-      } catch (err:any) {
-        showToast('error',(err?.response?.data?.message || err?.response  ||'Their is something wrong!'));
-  
-      }
+  const handleDelete = async () => {
+    try {
+      await ImageRemoveHandler(loggedInUser.userImagePublicId, profilePhoto);
+      setProfilePhoto({});
+      showToast('success', 'Image removed successfully🎉');
+      console.log(profilePhoto);
+    } catch (err: any) {
+      showToast(
+        'error',
+        err?.response?.data?.message ||
+          err?.response ||
+          'Their is something wrong!',
+      );
+    }
+  };
 
-
-        };
-
- 
   return (
     <Fragment>
       <TopHero breadcrumbs={profilebreadcrumbs} />
@@ -176,7 +164,7 @@ const AddminProfileTriggerHandler = async () => {
               </Link>
               <p
                 className="border border-gray p-2 max-w-full rounded-md hover:bg-primary hover:text-white md:text-lg font-medium md:font-semibold shadow cursor-pointer"
-                onClick={()=>logoutHhandler()}
+                onClick={() => logoutHhandler()}
               >
                 Log Out
               </p>
@@ -362,3 +350,4 @@ const AddminProfileTriggerHandler = async () => {
     </Fragment>
   );
 }
+export default UseAuth(Profile);
