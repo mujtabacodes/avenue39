@@ -117,9 +117,7 @@ export class AddProductDto {
   @IsString()
   sale_counter: string;
 
-  @IsOptional()
-  @IsString()
-  meta_title: string;
+
 
   @IsOptional()
   @IsString()
