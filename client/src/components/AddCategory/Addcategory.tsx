@@ -4,7 +4,6 @@ import Imageupload from '@components/ImageUpload/Imageupload';
 import { RxCross2 } from 'react-icons/rx';
 import Image from 'next/image';
 import { ImageRemoveHandler } from '@/utils/helperFunctions';
-
 import Toaster from '@components/Toaster/Toaster';
 import axios from 'axios';
 import { Formik, Form } from 'formik';
@@ -15,10 +14,6 @@ import { categoryInitialValues, categoryValidationSchema } from '@/data/data';
 import ProtectedRoute from '@/hooks/AuthHookAdmin';
 import Loader from '@components/Loader/Loader';
 
-interface editCategoryNameType {
-  name: string;
-  description: string;
-}
 
 interface editCategoryProps {
   seteditCategory: any;
@@ -40,9 +35,7 @@ const FormLayout = ({
     any[] | null | undefined
   >(CategorImageUrl ? [CategorImageUrl] : null);
   const [loading, setloading] = useState<boolean>(false);
-  const [editCategoryName, setEditCategoryName] = useState<
-    editCategoryNameType | null | undefined
-  >(CategoryName);
+  const [editCategoryName, setEditCategoryName] = useState<Category | null | undefined>(CategoryName);
 
   const onSubmit = async (values: Category, { resetForm }: any) => {
     try {
@@ -191,10 +184,106 @@ const FormLayout = ({
                           </div>
                         ) : null}
                       </div>
+                      <div className="flex gap-4 mt-4">
+                        <div className="w-2/4">
+                          <label className="mb-3 block text-sm font-medium text-black dark:text-white">
+                            Meta Title
+                          </label>
+                          <input
+                            type="text"
+                            name="meta_title"
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            value={formik.values.meta_title}
+                            placeholder="Meta Title"
+                            className={`w-full rounded-lg border-[1.5px] border-stroke placeholder:text-lightgrey bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${formik.touched.meta_title && formik.errors.meta_title
+                              ? 'border-red-500'
+                              : ''
+                              }`}
+                          />
+                          {formik.touched.meta_title &&
+                            formik.errors.meta_title ? (
+                            <div className="text-red text-sm">
+                              {formik.errors.meta_title as String}
+                            </div>
+                          ) : null}
+                        </div>
+                        <div className="w-2/4">
+                          <label className="mb-3 block text-sm font-medium text-black dark:text-white">
+                            Canonical Tag
+                          </label>
+                          <input
+                            onBlur={formik.handleBlur}
+                            type="text"
+                            name="canonical_tag"
+                            onChange={formik.handleChange}
+                            value={formik.values.canonical_tag}
+                            placeholder="Canonical Tag"
+                            className={`w-full rounded-lg border-[1.5px] border-stroke placeholder:text-lightgrey bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${formik.touched.canonical_tag && formik.errors.canonical_tag
+                              ? 'border-red-500'
+                              : ''
+                              }`}
+                          />
+
+                          {formik.touched.canonical_tag &&
+                            formik.errors.canonical_tag ? (
+                            <div className="text-red text-sm">
+                              {formik.errors.canonical_tag as String}
+                            </div>
+                          ) : null}
+                        </div>
+                        </div>
+                        <div className='mt-4'>
+                        <label className="mb-3 block text-sm font-medium text-black dark:text-white">
+                          Meta Description
+                        </label>
+                        <textarea
+                          name="meta_description"
+                          onChange={formik.handleChange}
+                          value={formik.values.meta_description}
+                          placeholder="Meta Description"
+                          className={`w-full rounded-lg border-[1.5px] border-stroke placeholder:text-lightgrey bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${formik.touched.description &&
+                            formik.errors.description
+                            ? 'border-red-500'
+                            : ''
+                            }`}
+                        />
+                        {formik.touched.meta_description &&
+                          formik.errors.meta_description ? (
+                          <div className="text-red text-sm">
+                            {formik.errors.meta_description as String}
+                          </div>
+                        ) : null}
+                      </div>
+                      <div className="flex gap-4 mt-2">
+                        <div className="w-full">
+                          <label className="mb-3 block text-sm font-medium text-black dark:text-white">
+                            Images Alt Text
+                          </label>
+                          <input
+                            type="text"
+                            name="images_alt_text"
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            value={formik.values.images_alt_text}
+                            placeholder="Images Alt Text"
+                            className={`w-full rounded-lg border-[1.5px] border-stroke placeholder:text-lightgrey bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${formik.touched.images_alt_text && formik.errors.images_alt_text
+                              ? 'border-red-500'
+                              : ''
+                              }`}
+                          />
+                          {formik.touched.images_alt_text &&
+                            formik.errors.images_alt_text ? (
+                            <div className="text-red text-sm">
+                              {formik.errors.images_alt_text as String}
+                            </div>
+                          ) : null}
+                        </div>
+                      </div>
+                      </div>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </div>
               <div className="flex justify-center">
                 <button
                   type="submit"
