@@ -28,12 +28,15 @@ const FormLayout = ({
 }: editCategoryProps) => {
   let CategoryName =
     editCategory && editCategory.name
-      ? { name: editCategory.name, description: editCategory.description }
+      ? { name: editCategory.name, description: editCategory.description,
+        meta_title: editCategory.meta_title || '',
+        meta_description: editCategory.meta_description || '',
+        canonical_tag: editCategory.canonical_tag || '',
+        images_alt_text: editCategory.images_alt_text || ''
+       }
       : null;
-  let CategorImageUrl = editCategory && editCategory.posterImageUrl;
-  const [posterimageUrl, setposterimageUrl] = useState<
-    any[] | null | undefined
-  >(CategorImageUrl ? [CategorImageUrl] : null);
+    const [posterimageUrl, setposterimageUrl] = useState<any | null | undefined>(editCategory ? [{imageUrl:editCategory.posterImageUrl,public_id:editCategory.posterImagePublicId}] : null);
+    
   const [loading, setloading] = useState<boolean>(false);
   const [editCategoryName, setEditCategoryName] = useState<Category | null | undefined>(CategoryName);
 
@@ -104,7 +107,7 @@ const FormLayout = ({
                       </div>
                       {posterimageUrl && posterimageUrl.length > 0 ? (
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4  dark:border-white dark:bg-black">
-                          {posterimageUrl.map((item: any, index) => {
+                          {posterimageUrl.map((item: any, index:number) => {
                             return (
                               <div
                                 className="relative group rounded-lg overflow-hidden shadow-md bg-white transform transition-transform duration-300 hover:scale-105"

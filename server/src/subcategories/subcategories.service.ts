@@ -24,6 +24,7 @@ export class SubcategoriesService {
     console.log(categoryData);
     try {
       const { name, categoriesId, posterImageUrl } = categoryData;
+      const { description,categories, ...Data } = categoryData;
 
       const existingSubCategory = await this.prisma.subCategories.findFirst({
         where: { name },
@@ -36,6 +37,8 @@ export class SubcategoriesService {
         };
       }
 
+      console.log("DATA")
+      console.log(Date)
       if (!Array.isArray(categoriesId) || categoriesId.length === 0) {
         return {
           message: 'You must provide at least one category ID!',
@@ -58,7 +61,7 @@ export class SubcategoriesService {
 
       const newSubCategory = await this.prisma.subCategories.create({
         data: {
-          name,
+          ...Data,
           posterImageUrl: posterImageUrl.imageUrl,
           posterImagePublicId: posterImageUrl.public_id,
           categories: {
@@ -90,7 +93,7 @@ export class SubcategoriesService {
   async updateSubCategory(subCategoryData: UpdateSubCategoryDto) {
     console.log('Update subcategory triggered!');
     try {
-      const { id, name, categoriesId, posterImageUrl } = subCategoryData;
+      const { id, name, categoriesId, posterImageUrl,description, ...Data } = subCategoryData; 
 
       const existingSubCategory = await this.prisma.subCategories.findUnique({
         where: { id },
@@ -137,14 +140,16 @@ export class SubcategoriesService {
           };
         }
       }
+      console.log("DATA")
+      console.log(Data)
 
       await this.prisma.subCategories.update({
         where: { id },
         data: {
+          ...Data,
           name,
           posterImageUrl: posterImageUrl.imageUrl,
           posterImagePublicId: posterImageUrl.public_id,
-          ...subCategoryData,
           categories: {
             set: categoriesId.map((categoryId) => ({ id: categoryId })),
           },

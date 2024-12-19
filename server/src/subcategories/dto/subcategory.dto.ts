@@ -13,6 +13,10 @@ export class AddSubCategoryDto {
   @IsString()
   name: string;
 
+  @IsOptional()
+  @IsString()
+  description: string;
+
   @IsNotEmpty()
   @IsArray()
   @ArrayNotEmpty()
@@ -20,6 +24,8 @@ export class AddSubCategoryDto {
   categoriesId: number[];
 
   posterImageUrl;
+
+  categories;
 }
 export class UpdateSubCategoryDto extends AddSubCategoryDto {
   @IsNotEmpty()
