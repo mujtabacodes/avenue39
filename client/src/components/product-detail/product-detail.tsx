@@ -1,12 +1,9 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import Thumbnail from '../carousel/thumbnail';
-// import { products } from '@/data/products';
 import { IProduct, IProductDetail, IReview } from '@/types/types';
-import { MdLocalFireDepartment, MdStar, MdStarBorder } from 'react-icons/md';
 import { NormalText, ProductName, ProductPrice } from '@/styles/typo';
 import { Button } from '../ui/button';
-import { FiShoppingCart } from 'react-icons/fi';
 import {
   Dialog,
   DialogContent,
@@ -28,14 +25,10 @@ import {
 } from '@/data';
 
 import { IoBagOutline } from 'react-icons/io5';
-import Link from 'next/link';
-import { BsWhatsapp } from 'react-icons/bs';
 import { useDispatch, useSelector } from 'react-redux';
 import { State } from '@/redux/store';
 import {
   addItem,
-  selectTotalPrice,
-  updateItemQuantity,
 } from '@/redux/slices/cart';
 import { Dispatch } from 'redux';
 import { HiMinusSm, HiPlusSm } from 'react-icons/hi';
@@ -45,14 +38,12 @@ import { CartItem } from '@/redux/slices/cart/types';
 import { useRouter } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 import { fetchProducts, fetchReviews } from '@/config/fetch';
-import { QRCode } from 'antd';
-import QRScanner from '../QR-reader/QR';
 import { calculateRatingsPercentage, renderStars } from '@/config';
-import Loader from '../Loader/Loader';
 import { TbCube3dSphere } from 'react-icons/tb';
 import Product3D from '../3DView/Product3D';
 import ARExperience from '../ARModelViewer';
 import { paymentIcons } from '@/data/products';
+import { ProductDetailSkeleton } from './skelton';
 
 
 
@@ -137,7 +128,7 @@ const ProductDetail = ({ params, isZoom, gap, swiperGap, detailsWidth, }: {
   const { averageRating, productReviews } =
     calculateRatingsPercentage(filteredReviews);
   if (!product) {
-    return <Loader />;
+    return <ProductDetailSkeleton />;
   }
 
   const onDecrement = () => {
@@ -188,8 +179,8 @@ const ProductDetail = ({ params, isZoom, gap, swiperGap, detailsWidth, }: {
           </div>) : (<div className="bg-[#EE1C25] p-2 rounded-sm text-white text-xs">
             OUT OF STOCK
           </div>)}
-          {product.discountPrice && product.discountPrice > 0 && (<div className="bg-[#EE1C25] p-2 rounded-sm text-white text-xs">
-            {(product.discountPrice/product.price * 100).toFixed(0)}% OFF
+          {product.discountPrice > 0 && (<div className="bg-[#EE1C25] p-2 rounded-sm text-white text-xs">
+            {(Math.round(((product.price - product.discountPrice) / product.price) * 100))}% OFF
           </div>)}
           {product.createdAt && (() => {
             const productDate = new Date(product.createdAt);

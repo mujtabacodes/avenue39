@@ -141,9 +141,9 @@ const LandscapeCard: React.FC<CardProps> = ({ card, isLoading }) => {
             className="object-cover rounded-xl mx-auto w-full h-[250px] sm:h-[300px] xl:h-[400px]"
           />
         )}
-        {card.sale !== '0' && !loading && (
+        {card.discountPrice > 0 && !loading && (
           <span className="absolute top-4 left-4 text-white text-xs font-light bg-red-500 rounded-full w-14 h-6 flex justify-center items-center">
-            {card.sale}%
+            {(Math.round(((card.price - card.discountPrice) / card.price) * 100))}%
           </span>
         )}
       </div>

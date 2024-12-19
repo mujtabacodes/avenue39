@@ -1,12 +1,10 @@
 import { Suspense } from 'react';
 import Product from '../product';
-import { IProductDetail } from '@/types/types';
-import Loader from '@/components/Loader/Loader';
+import { IProduct, IProductDetail } from '@/types/types';
 import { Metadata } from 'next';
-import { Props } from 'react-apexcharts';
 import { headers } from 'next/headers';
-// import { generateSlug } from '@/config';
 import axios from 'axios';
+import { ProductDetailSkeleton } from '@/components/product-detail/skelton';
 
 async function fetchProducts() {
   const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/product/get-all`, {
@@ -82,10 +80,14 @@ const {name} = params;
 const ProductPage = async ({ params }: { params: IProductDetail }) => {
   const products = await fetchProducts();
   const reviews = await fetchReviews();
+   const product = products.find((product: IProduct) => {
+      return generateSlug(product.name) === params.name
+    }
+    );
 
   return (
-    <Suspense fallback={<Loader />}>
-      <Product params={params} products={products} reviews={reviews} />
+    <Suspense fallback={<ProductDetailSkeleton />}>
+      <Product params={params} reviews={reviews} product={product} />
     </Suspense>
   );
 };

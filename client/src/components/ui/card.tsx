@@ -155,9 +155,9 @@ const Card: React.FC<CardProps> = ({
           <CardSkeleton skeletonHeight={skeletonHeight} />
         ) : (
           <>
-            {card.sale !== '0' && (
+            {card.discountPrice > 0 && (
               <span className="absolute top-4 left-4 text-white text-15 font-light bg-red-500 rounded-full w-[76px] h-9 flex justify-center items-center">
-                 {card.sale}
+                 {(Math.round(((card.price - card.discountPrice) / card.price) * 100))}%
               </span>
             )}
             <div

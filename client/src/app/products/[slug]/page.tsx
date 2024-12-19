@@ -1,20 +1,93 @@
-"use client"
-
-import ProductPage from "@/components/product-page/product";
-import { Fragment, useState } from "react";
+import { Suspense } from "react";
 import product from '../../../../public/images/product.jpg'
 import ProductBanner from "@/components/discount-banner/product-banner";
 
+import Shop from "../shop";
+import { headers } from "next/headers";
+import { Metadata } from "next";
+import { ProductDetailSkeleton } from "@/components/product-detail/skelton";
+
+
+async function fetchCategory() {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/category/get-all`, {
+    next: { tags: ['category'] },
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch category');
+  }
+  return response.json();
+}
+async function fetchSubCategory() {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/subcategories/get-all`, {
+    next: { tags: ['subcategories'] },
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch subcategories');
+  }
+  return response.json();
+}
+
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+  const { slug } = params;
+  const headersList = headers();
+  const domain = headersList.get('x-forwarded-host') || headersList.get('host') || '';
+  const protocol = headersList.get('x-forwarded-proto') || 'https'; // Default to HTTPS
+  const fullUrl = `${protocol}://${domain}/product/${slug}`;
+
+  const categories = await fetchCategory();
+  const subcategories = await fetchSubCategory();
+
+  const normalizedSlug = slug.toUpperCase().replace('-', ' ');
+
+  const category = categories?.find((item: any) => item.name === normalizedSlug);
+  const subcategory = !category
+    ? subcategories?.find((item: any) => item.name.toUpperCase() === normalizedSlug)
+    : null;
+
+  const source = category || subcategory;
+  const isCategory = !!category;
+
+  const defaultTitle = `Avenue 39 ${isCategory ? 'Category' : 'subcategory'}`;
+  const defaultDescription = `Welcome to Avenue 39 ${isCategory ? 'Category' : 'subcategory'}`;
+  const defaultImageUrl = 'Avenue39';
+  const defaultAltText = 'Avenue 39';
+
+  const title = source?.Meta_Title || defaultTitle;
+  const description = source?.Meta_Description || defaultDescription;
+  const imageUrl = source?.posterImageUrl?.imageUrl || defaultImageUrl;
+  const altText = source?.Images_Alt_Text || defaultAltText;
+  const canonicalTag = source?.Canonical_Tag || fullUrl;
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      url: fullUrl,
+      images: [
+        {
+          url: imageUrl,
+          alt: altText,
+        },
+      ],
+    },
+    alternates: {
+      canonical: canonicalTag,
+    },
+  };
+}
 
 
 const SingleProduct = () => {
-  const [layout , Setlayout] = useState<string>('grid');
-
   return (
-
-      <ProductPage sideBanner={product} sideBannerProduct='ashton-dining-chair' productBanner={<ProductBanner />}  layout={layout} Setlayout={Setlayout} />
+    <Suspense fallback={<ProductDetailSkeleton />}>
+      <Shop sideBannerProduct='ashton-dining-chair' productBanner={<ProductBanner />} sideBanner={product} />
+    </Suspense>
   );
-  };
-  
+};
+
 
 export default SingleProduct
