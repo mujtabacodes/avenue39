@@ -81,6 +81,7 @@ export class ProductsService {
       const existingProduct: any = await this.prisma.products.findFirst({
         where: { id: productData.id },
       });
+      const { id,imagesUrl,...Data } = productData;
 
       if (!existingProduct) {
         return {
@@ -97,50 +98,51 @@ export class ProductsService {
       await this.prisma.products.update({
         where: { id: productData.id },
         data: {
-          name: productData.name ?? existingProduct.name,
+          ...Data,
+          // name: productData.name ?? existingProduct.name,
 
-          hoverImageAltText:
-            productData.hoverImageAltText ?? existingProduct.hoverImageAltText,
-          Images_Alt_Text:
-            productData.Images_Alt_Text ?? existingProduct.Images_Alt_Text,
-          posterImageAltText:
-            productData.posterImageAltText ??
-            existingProduct.posterImageAltText,
-          Meta_Title: productData.Meta_Title ?? existingProduct.Meta_Title,
-          Meta_Description:
-            productData.Meta_Description ?? existingProduct.Meta_Description,
-          Og_title: productData.Og_title ?? existingProduct.Og_title,
-          Og_Image: productData.Og_Image ?? existingProduct.Og_Image,
-          Og_Url: productData.Og_Url ?? existingProduct.Og_Url,
-          description: productData.description ?? existingProduct.description,
-          stock: productData.stock ?? existingProduct.stock,
-          discountPrice:
-            productData.discountPrice ?? existingProduct.discountPrice ?? null,
-          posterImageUrl:
-            productData.posterImageUrl ?? existingProduct.posterImageUrl,
-          posterImagePublicId:
-            productData.posterImagePublicId ??
-            existingProduct.posterImagePublicId,
-          hoverImageUrl:
-            productData.hoverImageUrl ?? existingProduct.hoverImageUrl ?? null,
-          hoverImagePublicId:
-            productData.hoverImagePublicId ??
-            existingProduct.hoverImagePublicId ??
-            null,
-          productImages:
-            productData.productImages ?? existingProduct.productImages ?? [],
-          additionalInformation:
-            productData.additionalInformation ??
-            existingProduct.additionalInformation ??
-            [],
+          // hoverImageAltText:
+          //   productData.hoverImageAltText ?? existingProduct.hoverImageAltText,
+          // Images_Alt_Text:
+          //   productData.Images_Alt_Text ?? existingProduct.Images_Alt_Text,
+          // posterImageAltText:
+          //   productData.posterImageAltText ??
+          //   existingProduct.posterImageAltText,
+          // Meta_Title: productData.Meta_Title ?? existingProduct.Meta_Title,
+          // Meta_Description:
+          //   productData.Meta_Description ?? existingProduct.Meta_Description,
+          // Og_title: productData.Og_title ?? existingProduct.Og_title,
+          // Og_Image: productData.Og_Image ?? existingProduct.Og_Image,
+          // Og_Url: productData.Og_Url ?? existingProduct.Og_Url,
+          // description: productData.description ?? existingProduct.description,
+          // stock: productData.stock ?? existingProduct.stock,
+          // discountPrice:
+          //   productData.discountPrice ?? existingProduct.discountPrice ?? null,
+          // posterImageUrl:
+          //   productData.posterImageUrl ?? existingProduct.posterImageUrl,
+          // posterImagePublicId:
+          //   productData.posterImagePublicId ??
+          //   existingProduct.posterImagePublicId,
+          // hoverImageUrl:
+          //   productData.hoverImageUrl ?? existingProduct.hoverImageUrl ?? null,
+          // hoverImagePublicId:
+          //   productData.hoverImagePublicId ??
+          //   existingProduct.hoverImagePublicId ??
+          //   null,
+          // productImages:
+          //   productData.productImages ?? existingProduct.productImages ?? [],
+          // additionalInformation:
+          //   productData.additionalInformation ??
+          //   existingProduct.additionalInformation ??
+          //   [],
           colors: colors ?? existingProduct.colors ?? [],
-          spacification:
-            productData.spacification ?? existingProduct.spacification ?? [],
-          sections: productData.sections ?? existingProduct.sections ?? [],
-          sale_counter:
-            productData.sale_counter ?? existingProduct.sale_counter ?? [],
-            Canonical_Tag:
-            productData.Canonical_Tag ?? existingProduct.Canonical_Tag ?? null,
+          // spacification:
+          //   productData.spacification ?? existingProduct.spacification ?? [],
+          // sections: productData.sections ?? existingProduct.sections ?? [],
+          // sale_counter:
+          //   productData.sale_counter ?? existingProduct.sale_counter ?? [],
+          //   Canonical_Tag:
+          //   productData.Canonical_Tag ?? existingProduct.Canonical_Tag ?? null,
 
           categories: {
             set: productData.categories?.map((id) => ({ id })) ?? [],
