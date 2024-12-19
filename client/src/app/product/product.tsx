@@ -1,56 +1,32 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import { products } from '@/data/products';
-import Image from 'next/image';
-import { MdStar, MdStarBorder } from 'react-icons/md';
 import DetailTabs from '@/components/detail-tabs/detail-tabs';
-import { features } from '@/data';
 import Container from '@/components/ui/Container';
 import Services from '@/components/services/services';
 import { IProduct, IProductDetail, IReview } from '@/types/types';
-
 import ProductDetail from '@/components/product-detail/product-detail';
-import { Progress } from '@/components/ui/progress';
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
-import profileImg from '@icons/avator.png';
-import { useQuery } from '@tanstack/react-query';
-import { fetchProducts, fetchReviews } from '@/config/fetch';
 import {
   calculateRatingsPercentage,
-  formatDate,
   generateSlug,
-  renderStars,
 } from '@/config';
-import WriteReview from '@/components/write-review';
-import { Button } from '@/components/ui/button';
 import TopHero from '@/components/top-hero';
 import FeatureSlider from '@/components/card-slider/feature-slider';
 import { Table } from 'antd';
-import Loader from '@/components/Loader/Loader';
 import { Skeleton } from '@/components/ui/skeleton';
-import { ProductDetailSkeleton } from '@/components/product-detail/skelton';
 import NoProduct from '@/components/ui/no-product';
 
-const Product = ({ params , products , reviews }: { params: IProductDetail , products: IProduct[] , reviews:  IReview[]}) => {
+const Product = ({ params, reviews , product }: { params: IProductDetail, reviews: IReview[] , product: IProduct }) => {
   const slug = params.name;
   console.log(slug);
-  console.log(reviews,'reviews')
+  console.log(reviews, 'reviews')
   const additional_columns_handler = () => {
     const section = product?.sections;
     if (section && section.length > 0) {
-      const dynamicTabs = section.map((sec:any) => ({
+      const dynamicTabs = section.map((sec: any) => ({
         label: sec.heading,
         content: (
           <div className="space-y-2">
-            {sec.additionalInformation?.map((item:any, idx:number) => (
+            {sec.additionalInformation?.map((item: any, idx: number) => (
               <div key={idx} className="space-y-2">
                 <p className="text-black text-17 font-normal leading-7">{item.name}</p>
                 <p className="text-slate-400 text-17 font-normal leading-7">{item.detail}</p>
@@ -59,25 +35,12 @@ const Product = ({ params , products , reviews }: { params: IProductDetail , pro
           </div>
         ),
       }));
-      // Only set tabs if they don’t already include the new dynamic tabs
       setTabs((prevTabs) => [...prevTabs, ...dynamicTabs].filter(
         (tab, index, self) =>
           index === self.findIndex((t) => t.label === tab.label)
       ));
     }
   };
-
-
-  const product = products.find((product) => {
-
-return generateSlug(product.name) === slug
-  
-
-}
-  
-  );
-
-  console.log(product,"productproduct");
 
   const [sortOption, setSortOption] = useState<string>('default');
   const [visibleCount, setVisibleCount] = useState(3);
@@ -165,18 +128,18 @@ return generateSlug(product.name) === slug
               )}
             </p>
           </div>
-          {product?.spacification && product?.spacification.length > 0  && 
+          {product?.spacification && product?.spacification.length > 0 &&
 
-          <div className="w-full md:w-2/5 border-t-2 md:border-t-0 border-s-0 md:border-s-2 py-4 md:pb-10">
-            <h5 className="px-0 md:ps-12 font-bold text-15 uppercase">
-              specification
-            </h5>
-            <ul className="list-disc text-slate-400 text-14 px-4 md:ps-16 mt-4">
-              {product?.spacification?.map(({ specsDetails }, index) => (
-                <li key={index}>{specsDetails}</li>
-              ))}
-            </ul>
-          </div>    
+            <div className="w-full md:w-2/5 border-t-2 md:border-t-0 border-s-0 md:border-s-2 py-4 md:pb-10">
+              <h5 className="px-0 md:ps-12 font-bold text-15 uppercase">
+                specification
+              </h5>
+              <ul className="list-disc text-slate-400 text-14 px-4 md:ps-16 mt-4">
+                {product?.spacification?.map(({ specsDetails }, index) => (
+                  <li key={index}>{specsDetails}</li>
+                ))}
+              </ul>
+            </div>
           }
         </div>
       ),
@@ -295,23 +258,23 @@ return generateSlug(product.name) === slug
       label: 'Additional Information',
       content: (
         <>
-        {
-         dataSource && dataSource.length > 0 ?
-          <Table
-          columns={columns}
-          dataSource={dataSource}
-          pagination={false}
-          bordered
-          rowKey="name"
-          className="detail"
-          />
-          : null 
-        }
-       
-          </>
+          {
+            dataSource && dataSource.length > 0 ?
+              <Table
+                columns={columns}
+                dataSource={dataSource}
+                pagination={false}
+                bordered
+                rowKey="name"
+                className="detail"
+              />
+              : null
+          }
+
+        </>
       ),
     },
-  
+
   ])
 
   const cartpageBreadcrumbs = [
@@ -319,11 +282,11 @@ return generateSlug(product.name) === slug
     { label: 'Product', href: '/products' },
     { label: product?.name ?? 'Product Page' },
   ];
- 
 
-useEffect(()=>{
-  additional_columns_handler()
-},[product])
+
+  useEffect(() => {
+    additional_columns_handler()
+  }, [product])
 
 
 
@@ -331,19 +294,14 @@ useEffect(()=>{
     <div>
       <TopHero breadcrumbs={cartpageBreadcrumbs} />
       <Container>
-        {/* {!product ? (
-          !productIsLoading ? (
-            <NoProduct
-              cardHeight="2xl:h-[488px]"
-              iconSize={40}
-              title="No Product Found"
-              titleClass="font-medium text-2xl md:text-3xl"
-            />
-          ) : (
-            <ProductDetailSkeleton />
-          )
-        ) : ( */}
-        { product &&
+        {!product ? (
+          <NoProduct
+            cardHeight="2xl:h-[488px]"
+            iconSize={40}
+            title="No Product Found"
+            titleClass="font-medium text-2xl md:text-3xl"
+          />
+        ) : (product &&
           <ProductDetail
             params={product}
             isZoom={true}
@@ -351,7 +309,7 @@ useEffect(()=>{
             swiperGap="justify-between gap-2 xs:gap-6 md:gap-14"
             detailsWidth="w-full md:w-1/2 lg:w-1/4"
           />
-        }
+        )}
       </Container>
       {product && (
         <div className=''>

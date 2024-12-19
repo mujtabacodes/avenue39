@@ -168,10 +168,10 @@ const FeatureCard: React.FC<CardProps> = ({
             </Dialog>
           )}
           </div>
-          {card.sale !== '0' && (
-            <div className="bg-[#FF0000] h-auto py-2 px-4 rounded-3xl absolute top-8 left-2 flex justify-center items-center cursor-pointer">
+          {card.discountPrice > 0 && (
+            <div className="bg-[#FF0000] h-auto py-2 px-4 rounded-3xl absolute top-4 left-4 flex justify-center items-center cursor-pointer">
               <p className="text-15 text-white">
-                {card.sale}
+              {(Math.round(((card.price - card.discountPrice) / card.price) * 100))}%
               </p>
             </div>
           )}

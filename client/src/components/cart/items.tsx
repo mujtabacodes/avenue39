@@ -1,39 +1,26 @@
 'use client';
 
-import React, { Fragment, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { State, Dispatch } from '@redux/store';
 import {
-  addItem,
   removeItem,
   selectTotalPrice,
   updateItemQuantity,
 } from '@cartSlice/index';
-import { CartItem } from '@cartSlice/types';
 import { NormalText, ProductName, ProductPrice } from '@/styles/typo';
 import { RxCross2 } from 'react-icons/rx';
 import Image from 'next/image';
 import CustomButtom from '../ui/custom-button';
 import Counter from '../counter';
-import { IoBagOutline, IoCloseSharp } from 'react-icons/io5';
+import { IoBagOutline } from 'react-icons/io5';
 import { useRouter } from 'next/navigation';
-import {
-  Sheet,
-  SheetClose,
-  SheetContent,
-  SheetFooter,
-  SheetHeader,
-  SheetOverlay,
-  SheetTitle,
-  SheetTrigger,
-} from '../ui/sheet';
 import { TfiClose } from 'react-icons/tfi';
 import { generateSlug, TotalProducts } from '@/config';
 import { closeDrawer, openDrawer } from '@/redux/slices/drawer';
 import { FaTrash } from 'react-icons/fa';
 import { MdModeEdit } from 'react-icons/md';
 import Link from 'next/link';
-import { IProduct } from '@/types/types';
 
 interface ICartItems {
   isCartPage?: boolean;
@@ -48,8 +35,10 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
   const totalPrice = useSelector((state: State) =>
     selectTotalPrice(state.cart),
   );
+  const userDetails = useSelector(
+      (state: State) => state.usrSlice.loggedInUser,
+    );
   const drawerState = useSelector((state: State) => state.drawer);
-  const { loggedInUser } = useSelector((state: State) => state.usrSlice);
   const drawerRef = useRef<HTMLDivElement | null>(null);
 
   const removeProductFromCart = (id: number) => {
@@ -125,9 +114,9 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
               )}
             </div>
           </div>
-          <div className={`w-72 xsm:w-80 z-[52] border absolute top-[65px] -right-[135px] h-[500px] border-[#0000002e] rounded-md py-5 px-5 pe-0 flex flex-col bg-white ${drawerState ? 'block' : 'hidden'}`} onMouseEnter={handleEnterDrawer} onMouseLeave={handleLeaveDrawer}>
+          <div className={`w-72 xsm:w-80 z-[52] border absolute top-[65px] ${userDetails ? '-right-[140px] xl:-right-[135px]' : '-right-[30px]'}  -right-[135px] h-[500px] border-[#0000002e] rounded-md py-5 px-5 pe-0 flex flex-col bg-white ${drawerState ? 'block' : 'hidden'}`} onMouseEnter={handleEnterDrawer} onMouseLeave={handleLeaveDrawer}>
             <div className="space-y-0 flex flex-row items-center justify-between border-b-2 pb-6 relative pe-6">
-              <div className={`absolute -top-[23px] right-1/2`}>
+              <div className={`absolute -top-[23px] ${userDetails ? 'right-1/2' : 'right-[40px]'}`}>
                 <div className="w-0 h-0 border-l-[20px] border-l-transparent border-r-[20px] border-r-[#0000002e] border-b-[20px] border-b-transparent transform -rotate-45 relative">
                   <span className='w-0 h-0 border-l-[13px] border-l-transparent border-r-[19px] border-r-white border-b-[20px] border-b-transparent transform rotate-0 absolute top-[2px] -left-[13px] -translate-y-[1px]'></span>
                 </div>
@@ -138,6 +127,7 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
               </h3>
               <span
                 onClick={handleCloseDrawer}
+                className='cursor-pointer'
               >
                 <TfiClose size={25} />
               </span>
