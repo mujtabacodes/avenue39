@@ -134,18 +134,18 @@ export const initialValues: Product = {
 export const categoryInitialValues: Category = {
   name: '',
   description: '',
-  Meta_description:'',
-  Meta_Title:'',
-  Canonical_Tag:'',
-  Images_Alt_Text:'',
+  meta_description:'',
+  meta_title:'',
+  canonical_tag:'',
+  images_alt_text:'',
 };
 export const subcategoryInitialValues: SubCategory = {
   name: '',
   description: '',
-  Meta_Title: '',
-  Meta_description: '',
-  Canonical_Tag: '',
-  Images_Alt_Text: '',
+  meta_title: '',
+  meta_description: '',
+  canonical_tag: '',
+  images_alt_text: '',
   categoriesId: [],
 };
 

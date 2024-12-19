@@ -4,16 +4,11 @@ import Imageupload from '@components/ImageUpload/Imageupload';
 import { RxCross2 } from 'react-icons/rx';
 import Image from 'next/image';
 import { ImageRemoveHandler } from '@/utils/helperFunctions';
-import Toaster from '@components/Toaster/Toaster';
 import axios from 'axios';
 import { Formik, Form } from 'formik';
-import { Category, SubCategory } from '@/types/interfaces';
+import { SubCategory } from '@/types/interfaces';
 import { IoMdArrowRoundBack } from 'react-icons/io';
-import {
-  categoryInitialValues,
-  categoryValidationSchema,
-  subcategoryInitialValues,
-} from '@/data/data';
+import {categoryValidationSchema,subcategoryInitialValues,} from '@/data/data';
 import ProtectedRoute from '@/hooks/AuthHookAdmin';
 import Loader from '@components/Loader/Loader';
 import { ICategory } from '@/types/types';
@@ -28,8 +23,8 @@ interface editCategoryNameType {
   categoriesId: number[]; // Ensure this is a number array
   meta_title?: string;
   meta_description?: string;
-  Canonical_Tag?: string;
-  Images_Alt_Text?: string;
+  canonical_tag?: string;
+  images_alt_text?: string;
 }
 
 interface editCategoryProps {
@@ -263,20 +258,20 @@ const FormLayout = ({
                           <input
                             onBlur={formik.handleBlur}
                             type="text"
-                            name="Canonical_Tag"
+                            name="canonical_tag"
                             onChange={formik.handleChange}
-                            value={formik.values.Canonical_Tag}
+                            value={formik.values.canonical_tag}
                             placeholder="Canonical Tag"
-                            className={`w-full rounded-lg border-[1.5px] border-stroke placeholder:text-lightgrey bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${formik.touched.Canonical_Tag && formik.errors.Canonical_Tag
+                            className={`w-full rounded-lg border-[1.5px] border-stroke placeholder:text-lightgrey bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${formik.touched.canonical_tag  && formik.errors.canonical_tag 
                               ? 'border-red-500'
                               : ''
                               }`}
                           />
 
-                          {formik.touched.Canonical_Tag &&
-                            formik.errors.Canonical_Tag ? (
+                          {formik.touched.canonical_tag  &&
+                            formik.errors.canonical_tag  ? (
                             <div className="text-red text-sm">
-                              {formik.errors.Canonical_Tag as String}
+                              {formik.errors.canonical_tag  as String}
                             </div>
                           ) : null}
                         </div>
@@ -310,20 +305,20 @@ const FormLayout = ({
                           </label>
                           <input
                             type="text"
-                            name="Images_Alt_Text"
+                            name="images_alt_text"
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
-                            value={formik.values.Images_Alt_Text}
+                            value={formik.values.images_alt_text}
                             placeholder="Images Alt Text"
-                            className={`w-full rounded-lg border-[1.5px] border-stroke placeholder:text-lightgrey bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${formik.touched.Images_Alt_Text && formik.errors.Images_Alt_Text
+                            className={`w-full rounded-lg border-[1.5px] border-stroke placeholder:text-lightgrey bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${formik.touched.images_alt_text && formik.errors.images_alt_text
                               ? 'border-red-500'
                               : ''
                               }`}
                           />
-                          {formik.touched.Images_Alt_Text &&
-                            formik.errors.Images_Alt_Text ? (
+                          {formik.touched.images_alt_text &&
+                            formik.errors.images_alt_text? (
                             <div className="text-red text-sm">
-                              {formik.errors.Images_Alt_Text as String}
+                              {formik.errors.images_alt_text as String}
                             </div>
                           ) : null}
                         </div>
