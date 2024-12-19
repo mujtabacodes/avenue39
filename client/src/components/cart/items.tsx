@@ -49,17 +49,11 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
     selectTotalPrice(state.cart),
   );
   const drawerState = useSelector((state: State) => state.drawer);
+  const { loggedInUser } = useSelector((state: State) => state.usrSlice);
+  const drawerRef = useRef<HTMLDivElement | null>(null);
 
   const removeProductFromCart = (id: number) => {
     dispatch(removeItem(id));
-  };
-
-  const handleCloseDrawer = () => {
-    dispatch(closeDrawer());
-  };
-
-  const handleOpenDrawer = () => {
-    dispatch(openDrawer());
   };
 
   const updateProductQuantity = (id: number, quantity: number) => {
@@ -67,29 +61,58 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
       dispatch(updateItemQuantity({ id, quantity }));
     }
   };
-  const handleenterDrawer = () => {
+
+  const handleCloseDrawer = () => {
+    dispatch(closeDrawer());
+  };
+
+  const handleOpenDrawer = () => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+    if (!drawerState) {
+      dispatch(openDrawer());
+      timeoutRef.current = setTimeout(() => {
+        dispatch(closeDrawer());
+      }, 8000);
+    } else {
+      dispatch(closeDrawer());
+    }
+  };
+  const handleEnterDrawer = () => {
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
     }
   };
-  const handleleaveDrawer = () => {
-    if (timeoutRef.current) {
-      timeoutRef.current = setTimeout(() => {
-        dispatch(closeDrawer());
-      }, 3000);
-    }
-  };
-  useEffect(() => {
+
+  const handleLeaveDrawer = () => {
     timeoutRef.current = setTimeout(() => {
       dispatch(closeDrawer());
-    }, 3000);
-  }, [drawerState, dispatch]);
+    }, 8000);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (drawerRef.current && !drawerRef.current.contains(event.target as Node)) {
+        dispatch(closeDrawer());
+      }
+    };
+
+    window.addEventListener('click', handleClickOutside);
+    return () => {
+      window.removeEventListener('click', handleClickOutside);
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, [dispatch]);
+
 
   return (
     <React.Fragment>
       {!isCartPage ? (
-        <Sheet open={drawerState}>
-          <SheetTrigger asChild>
+        <div ref={drawerRef}>
+          <div>
             <div
               className={`xl:w-14 w-12 h-10 rounded-3xl relative flex justify-center items-center  cursor-pointer ${cartItems.length > 0 ? 'text-white bg-main' : 'text-black  border-black'}`}
               onClick={handleOpenDrawer}
@@ -101,24 +124,24 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                 </div>
               )}
             </div>
-          </SheetTrigger>
-          <SheetOverlay
-            className="bg-white opacity-80 z-[51]"
-            onClick={handleCloseDrawer}
-          />
-          <SheetContent
-            className="w-[90%] xsm:max-w-lg z-[52] border-s border-b h-[70vh] border-black py-5 xsm:py-10 ps-5 xs:ps-10 pe-0 flex flex-col"
-            onMouseEnter={handleenterDrawer}
-            onMouseLeave={handleleaveDrawer}
-          >
-            <SheetHeader className="space-y-0 flex flex-row items-center justify-between border-b-2 pb-6 relative pe-6">
-              <SheetTitle className="font-medium text-3xl">
+          </div>
+          <div className={`w-72 xsm:w-80 z-[52] border absolute top-[65px] -right-[135px] h-[500px] border-[#0000002e] rounded-md py-5 px-5 pe-0 flex flex-col bg-white ${drawerState ? 'block' : 'hidden'}`} onMouseEnter={handleEnterDrawer} onMouseLeave={handleLeaveDrawer}>
+            <div className="space-y-0 flex flex-row items-center justify-between border-b-2 pb-6 relative pe-6">
+              <div className={`absolute -top-[23px] right-1/2`}>
+                <div className="w-0 h-0 border-l-[20px] border-l-transparent border-r-[20px] border-r-[#0000002e] border-b-[20px] border-b-transparent transform -rotate-45 relative">
+                  <span className='w-0 h-0 border-l-[13px] border-l-transparent border-r-[19px] border-r-white border-b-[20px] border-b-transparent transform rotate-0 absolute top-[2px] -left-[13px] -translate-y-[1px]'></span>
+                </div>
+              </div>
+
+              <h3 className="font-medium text-3xl">
                 My Cart (<TotalProducts />)
-              </SheetTitle>
-              <SheetClose onClick={handleCloseDrawer}>
+              </h3>
+              <span
+                onClick={handleCloseDrawer}
+              >
                 <TfiClose size={25} />
-              </SheetClose>
-            </SheetHeader>
+              </span>
+            </div>
 
             <div className="flex-1 overflow-auto mr-6 scrollbar-hidden">
               <ul className="space-y-4">
@@ -173,7 +196,7 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
               </ul>
             </div>
 
-            <SheetFooter className="border-t-2 py-4 mr-6">
+            <div className="border-t-2 py-4 mr-6">
               <div className="flex flex-col gap-2 w-full">
                 <NormalText className="text-slate-400 flex justify-between">
                   Subtotal
@@ -182,21 +205,13 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                   </ProductPrice>
                 </NormalText>
                 <div className="flex flex-col gap-2">
-                  <SheetClose
+                  <Link href='/cart'
                     className="flex gap-4 items-center"
-                    onClick={() => navigate.push('/cart')}
                   >
-                    <CustomButtom
-                      variant="light"
-                      onClick={handleCloseDrawer}
-                      className="border-[#EBEBEB] border"
-                    >
-                      VIEW CART
-                    </CustomButtom>
-                  </SheetClose>
-                  <SheetClose
+                    <CustomButtom variant="light" onClick={handleCloseDrawer} className='border-[#EBEBEB] border'>VIEW CART</CustomButtom>
+                  </Link>
+                  <Link href='/checkout'
                     className="flex gap-4 items-center"
-                    onClick={() => navigate.push('/checkout')}
                   >
                     <CustomButtom
                       variant="dark"
@@ -205,12 +220,12 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                     >
                       Check out
                     </CustomButtom>
-                  </SheetClose>
+                  </Link>
                 </div>
               </div>
-            </SheetFooter>
-          </SheetContent>
-        </Sheet>
+            </div>
+          </div>
+        </div>
       ) : (
         <div>
           {cartItems.map((item: any) => (
