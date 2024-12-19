@@ -4,13 +4,14 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React, { useEffect, useRef, useState } from 'react';
 import logo from '@icons/logo_nav.png';
-import { IoSearchOutline, IoSearchSharp } from 'react-icons/io5';
+import { IoCloseOutline, IoSearchOutline, IoSearchSharp } from 'react-icons/io5';
 import Container from '../ui/Container';
 import {
   Drawer,
   DrawerContent,
   DrawerTitle,
   DrawerTrigger,
+  DrawerClose
 } from '@/components/ui/drawer';
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 import CartItems from '../cart/items';
@@ -62,13 +63,14 @@ const Navbar = (props: INav) => {
     queryFn: fetchProducts,
     enabled: isDrawerOpen,
   });
-  const [isProductListOpen, setIsProductListOpen] = useState(false);
+  const [isProductListOpen, setIsProductListOpen] = useState(false); 
 
   const { loggedInUser } = useSelector((state: State) => state.usrSlice);
 
   const initialFormData = {
     fullName: loggedInUser?.name,
   };
+  
   const [profilePhoto, setProfilePhoto] = useState<any>([]);
   useEffect(() => {
     if (loggedInUser) {
@@ -147,6 +149,7 @@ const Navbar = (props: INav) => {
       console.log(err);
     }
   };
+  
 
   return (
     <div
@@ -178,7 +181,7 @@ const Navbar = (props: INav) => {
         value={searchText}
         onChange={handleInputChange}
         onClick={() => setIsProductListOpen(true)}
-        className="h-[40px] border-2 border-black block w-full rounded-full custom-input-bg pl-12 z-[199] "
+        className="h-[40px] border focus-visible:outline-none focus-visible:ring-0 block w-full rounded-full custom-input-bg pl-12 z-[199] "
         placeholder="Search Here..."
       />
       <button
@@ -193,13 +196,20 @@ const Navbar = (props: INav) => {
 
       {isProductListOpen && (
         <>
-          <div className="absolute top-full w-full p-3 bg-white border mt-2 max-h-[600px] overflow-y-auto custom-scrollbar z-[999]">
+          <div className="absolute top-full w-full p-3 bg-white border rounded-t-2xl mt-2 max-h-[600px] overflow-y-auto custom-scrollbar z-[999]">
+          <div className="flex justify-end mb-2 sticky top-0">
+          <IoCloseOutline
+            size={24}
+            className="cursor-pointer bg-gray-400 rounded-full text-white p-1 "
+            onClick={() => setIsProductListOpen(false)}
+          />
+        </div>
             {filteredProducts.length > 0 ? (
               filteredProducts.map((product) => (
                 <div
                   key={product.id}
                   onClick={() => handleNavigation(product.name)}
-                  className="flex border p-2 rounded-md bg-white hover:shadow-md transition duration-300 gap-2 cursor-pointer "
+                  className="flex border p-2 my-2 rounded-md bg-white hover:shadow-md transition duration-300 gap-2 cursor-pointer "
                 >
                   <Image
                     width={100}
@@ -234,12 +244,12 @@ const Navbar = (props: INav) => {
               <div>No product is found</div>
             )}
           </div>
-          <div
-            onClick={() => setIsProductListOpen(false)}
-            className="fixed h-full inset-0  bg-black bg-opacity-0"
-          ></div>
+          <div onClick={() => setIsProductListOpen(false)} className='fixed inset-0 bg-black bg-opacity-0'></div>
+          
         </>
       )}
+      
+     
     </form>
         </div>
         </div>
@@ -313,7 +323,7 @@ const Navbar = (props: INav) => {
           </div>
           <div className="md:hidden flex gap-2 items-center">
             <form onSubmit={(e) => e.preventDefault()}>
-              <Drawer>
+              <Drawer direction='top' >
                 <DrawerTrigger asChild>
                   <button
                     type="submit"
@@ -323,7 +333,12 @@ const Navbar = (props: INav) => {
                   </button>
                 </DrawerTrigger>
                 <DrawerContent>
-                  <div className="max-w-screen-lg w-full mx-auto mt-10 space-y-5 p-2">
+                  <div className="max-w-screen-lg w-full mx-auto m-2 space-y-5 p-2">
+              
+            <DrawerClose asChild>
+            <IoCloseOutline size={24}
+              className="cursor-pointer bg-gray-400 rounded-full text-white p-1 absolute top-2 right-2 z-50 shadow-md hover:bg-gray-500 transition duration-300"/>      
+                  </DrawerClose>
                     <div className="relative rounded-md w-full">
                       <input
                         type="text"
@@ -340,7 +355,7 @@ const Navbar = (props: INav) => {
                       </button>
                     </div>
                     {isLoading && (
-                      <div className="border p-2">
+                      <div className="border p-2" >
                         <div className="flex border p-2 rounded-md bg-white hover:shadow-md transition duration-300 gap-2 mt-2 items-center">
                           <Skeleton className="w-[100px] h-[100px]"></Skeleton>
                           <div className="pt-1 flex flex-col gap-3">
@@ -352,25 +367,26 @@ const Navbar = (props: INav) => {
                       </div>
                     )}
                     {error && (
-                      <div>Error fetching products: {error.message}</div>
+                      <div >Error fetching products: {error.message}</div>
                     )}
                     {!isLoading && !error && filteredProducts.length > 0 && (
-                      <div className="border p-2 max-h-[600px] overflow-y-auto custom-scrollbar">
+                      <div className=" p-2 max-h-[600px] overflow-y-auto custom-scrollbar">
+                        <div className="flex flex-wrap justify-center gap-2 -m-2">
                         {filteredProducts.map((product: IProduct) => (
                           <DrawerTrigger asChild key={product.id}>
                             <div
                               onClick={() => handleNavigation(product.name)}
-                              className="flex border p-2 rounded-md bg-white hover:shadow-md transition duration-300 gap-2 mt-2 cursor-pointer"
+                              className="flex border p-2 rounded-md flex-col hover:shadow-md items-center transition duration-300 gap-2 w-[48%] mt-2 cursor-pointer bg-white"
                             >
                               <Image
                                 width={100}
                                 height={100}
                                 src={product.posterImageUrl}
                                 alt={product.name}
-                                className="min-h-[100px] min-w-[100px]"
+                                className="min-h-[100px] min-w-[150px]"
                               />
                               <div className="flex flex-col gap-2">
-                                <p className="text-21 font-normal capitalize">
+                                <p className="text-16 font-normal capitalize">
                                   {product.name}
                                 </p>
                                 <div className="flex items-center gap-4">
@@ -387,11 +403,15 @@ const Navbar = (props: INav) => {
                               </div>
                             </div>
                           </DrawerTrigger>
+                          
                         ))}
+                      </div>
+                      
                       </div>
                     )}
                     {filteredProducts.length < 1 && (
                       <div>No product is found</div>
+                      
                     )}
                   </div>
                 </DrawerContent>
