@@ -89,6 +89,8 @@ const Navbar = (props: INav) => {
 
   const handleNavigation = (name: string) => {
     Navigate.push(`/product/${generateSlug(name)}`);
+    setIsProductListOpen(false)
+
   };
 
   const filteredProducts = products.filter((product: IProduct) => {
