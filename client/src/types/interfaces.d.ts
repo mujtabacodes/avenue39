@@ -51,20 +51,18 @@ export interface Product {
 export interface Category {
   name: string;
   description: string;
-  Meta_description?:string;
-  Meta_Title?:string;
-  Canonical_Tag?:string;
-  Images_Alt_Text?: string;
-  Meta_description?:string
-
+  meta_description?:string;
+  meta_title?:string;
+  canonical_tag?:string;
+  images_alt_text?: string;
 }
 export interface SubCategory {
   name: string;
   description: string;
-  Meta_Title?: string;
-  Meta_description?: string;
-  Canonical_Tag?: string;
-  Images_Alt_Text?: string;
+  meta_title?: string;
+  meta_description?: string;
+  canonical_tag?: string;
+  images_alt_text?: string;
   categoriesId: number[];
 }
 

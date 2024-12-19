@@ -26,8 +26,8 @@ interface editCategoryNameType {
   name: string;
   description: string;
   categoriesId: number[]; // Ensure this is a number array
-  Meta_Title?: string;
-  Meta_description?: string;
+  meta_title?: string;
+  meta_description?: string;
   Canonical_Tag?: string;
   Images_Alt_Text?: string;
 }
@@ -239,20 +239,20 @@ const FormLayout = ({
                           </label>
                           <input
                             type="text"
-                            name="Meta_Title"
+                            name="meta_title"
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
-                            value={formik.values.Meta_Title}
+                            value={formik.values.meta_title    }
                             placeholder="Meta Title"
-                            className={`w-full rounded-lg border-[1.5px] border-stroke placeholder:text-lightgrey bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${formik.touched.Meta_Title && formik.errors.Meta_Title
+                            className={`w-full rounded-lg border-[1.5px] border-stroke placeholder:text-lightgrey bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${formik.touched.meta_title && formik.errors.meta_title    
                               ? 'border-red-500'
                               : ''
                               }`}
                           />
-                          {formik.touched.Meta_Title &&
-                            formik.errors.Meta_Title ? (
+                          {formik.touched.meta_title  &&
+                            formik.errors.meta_title ? (
                             <div className="text-red text-sm">
-                              {formik.errors.Meta_Title as String}
+                              {formik.errors.meta_title as String}
                             </div>
                           ) : null}
                         </div>
@@ -286,9 +286,9 @@ const FormLayout = ({
                           Meta Description
                         </label>
                         <textarea
-                          name="Meta_description"
+                          name="meta_description "
                           onChange={formik.handleChange}
-                          value={formik.values.Meta_description}
+                          value={formik.values.meta_description }
                           placeholder="Meta Description"
                           className={`w-full rounded-lg border-[1.5px] border-stroke placeholder:text-lightgrey bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${formik.touched.description &&
                             formik.errors.description
@@ -296,10 +296,10 @@ const FormLayout = ({
                             : ''
                             }`}
                         />
-                        {formik.touched.Meta_description &&
-                          formik.errors.Meta_description ? (
+                        {formik.touched.meta_description  &&
+                          formik.errors.meta_description  ? (
                           <div className="text-red text-sm">
-                            {formik.errors.Meta_description as String}
+                            {formik.errors.meta_description  as String}
                           </div>
                         ) : null}
                       </div>

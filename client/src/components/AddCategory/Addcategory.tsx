@@ -4,7 +4,6 @@ import Imageupload from '@components/ImageUpload/Imageupload';
 import { RxCross2 } from 'react-icons/rx';
 import Image from 'next/image';
 import { ImageRemoveHandler } from '@/utils/helperFunctions';
-
 import Toaster from '@components/Toaster/Toaster';
 import axios from 'axios';
 import { Formik, Form } from 'formik';
@@ -192,20 +191,20 @@ const FormLayout = ({
                           </label>
                           <input
                             type="text"
-                            name="Meta_Title"
+                            name="meta_title"
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
-                            value={formik.values.Meta_Title}
+                            value={formik.values.meta_title}
                             placeholder="Meta Title"
-                            className={`w-full rounded-lg border-[1.5px] border-stroke placeholder:text-lightgrey bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${formik.touched.Meta_Title && formik.errors.Meta_Title
+                            className={`w-full rounded-lg border-[1.5px] border-stroke placeholder:text-lightgrey bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${formik.touched.meta_title && formik.errors.meta_title
                               ? 'border-red-500'
                               : ''
                               }`}
                           />
-                          {formik.touched.Meta_Title &&
-                            formik.errors.Meta_Title ? (
+                          {formik.touched.meta_title &&
+                            formik.errors.meta_title ? (
                             <div className="text-red text-sm">
-                              {formik.errors.Meta_Title as String}
+                              {formik.errors.meta_title as String}
                             </div>
                           ) : null}
                         </div>
@@ -216,20 +215,20 @@ const FormLayout = ({
                           <input
                             onBlur={formik.handleBlur}
                             type="text"
-                            name="Canonical_Tag"
+                            name="canonical_tag"
                             onChange={formik.handleChange}
-                            value={formik.values.Canonical_Tag}
+                            value={formik.values.canonical_tag}
                             placeholder="Canonical Tag"
-                            className={`w-full rounded-lg border-[1.5px] border-stroke placeholder:text-lightgrey bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${formik.touched.Canonical_Tag && formik.errors.Canonical_Tag
+                            className={`w-full rounded-lg border-[1.5px] border-stroke placeholder:text-lightgrey bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${formik.touched.canonical_tag && formik.errors.canonical_tag
                               ? 'border-red-500'
                               : ''
                               }`}
                           />
 
-                          {formik.touched.Canonical_Tag &&
-                            formik.errors.Canonical_Tag ? (
+                          {formik.touched.canonical_tag &&
+                            formik.errors.canonical_tag ? (
                             <div className="text-red text-sm">
-                              {formik.errors.Canonical_Tag as String}
+                              {formik.errors.canonical_tag as String}
                             </div>
                           ) : null}
                         </div>
@@ -239,9 +238,9 @@ const FormLayout = ({
                           Meta Description
                         </label>
                         <textarea
-                          name="Meta_description"
+                          name="meta_description"
                           onChange={formik.handleChange}
-                          value={formik.values.Meta_description}
+                          value={formik.values.meta_description}
                           placeholder="Meta Description"
                           className={`w-full rounded-lg border-[1.5px] border-stroke placeholder:text-lightgrey bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${formik.touched.description &&
                             formik.errors.description
@@ -249,10 +248,10 @@ const FormLayout = ({
                             : ''
                             }`}
                         />
-                        {formik.touched.Meta_description &&
-                          formik.errors.Meta_description ? (
+                        {formik.touched.meta_description &&
+                          formik.errors.meta_description ? (
                           <div className="text-red text-sm">
-                            {formik.errors.Meta_description as String}
+                            {formik.errors.meta_description as String}
                           </div>
                         ) : null}
                       </div>
@@ -263,20 +262,20 @@ const FormLayout = ({
                           </label>
                           <input
                             type="text"
-                            name="Images_Alt_Text"
+                            name="images_alt_text"
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
-                            value={formik.values.Images_Alt_Text}
+                            value={formik.values.images_alt_text}
                             placeholder="Images Alt Text"
-                            className={`w-full rounded-lg border-[1.5px] border-stroke placeholder:text-lightgrey bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${formik.touched.Images_Alt_Text && formik.errors.Images_Alt_Text
+                            className={`w-full rounded-lg border-[1.5px] border-stroke placeholder:text-lightgrey bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${formik.touched.images_alt_text && formik.errors.images_alt_text
                               ? 'border-red-500'
                               : ''
                               }`}
                           />
-                          {formik.touched.Images_Alt_Text &&
-                            formik.errors.Images_Alt_Text ? (
+                          {formik.touched.images_alt_text &&
+                            formik.errors.images_alt_text ? (
                             <div className="text-red text-sm">
-                              {formik.errors.Images_Alt_Text as String}
+                              {formik.errors.images_alt_text as String}
                             </div>
                           ) : null}
                         </div>
