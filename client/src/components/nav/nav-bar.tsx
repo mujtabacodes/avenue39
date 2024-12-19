@@ -293,7 +293,7 @@ const Navbar = (props: INav) => {
           </form>
         </div>
         <div className="gap-3 lg:gap-3 flex justify-end items-center w-3/12">
-          <div className="hidden md:flex justify-between gap-3 lg:gap-1 items-center">
+          <div className="hidden md:flex justify-between gap-3 lg:gap-1 items-center relative">
             <Wishlist />
             <CartItems />
           </div>
