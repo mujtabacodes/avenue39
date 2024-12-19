@@ -26,7 +26,7 @@ import { fetchProducts } from '@/config/fetch';
 import { StaticImageData } from 'next/image';
 
 interface ProductPageProps {
-  sideBanner: StaticImageData;
+  sideBanner: StaticImageData | undefined;
   sideBannerProduct?: string;
   productBanner: ReactNode;
   layout: string;

@@ -175,7 +175,7 @@ function Profile() {
                     }
                     width={55}
                     height={55}
-                    alt={loggedInUser.name}
+                    alt={loggedInUser ? loggedInUser.name : 'Profile Photo'}
                   />
                 </div>
 
