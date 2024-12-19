@@ -183,6 +183,14 @@ const ProductDetail = ({ params, isZoom, gap, swiperGap, detailsWidth, }: {
 
       <div className={`${detailsWidth} flex flex-col gap-2 pt-2`}>
         <div className="flex gap-2">
+        {product.stock > 0 ? (<div className="bg-[#56B400] p-2 rounded-sm text-white text-xs">
+            IN STOCK { }
+          </div>) : (<div className="bg-[#EE1C25] p-2 rounded-sm text-white text-xs">
+            OUT OF STOCK
+          </div>)}
+          {product.discountPrice && product.discountPrice > 0 && (<div className="bg-[#EE1C25] p-2 rounded-sm text-white text-xs">
+            {(product.discountPrice/product.price * 100).toFixed(0)}% OFF
+          </div>)}
           {product.createdAt && (() => {
             const productDate = new Date(product.createdAt);
             const twoWeeksAgo = new Date();
@@ -194,14 +202,6 @@ const ProductDetail = ({ params, isZoom, gap, swiperGap, detailsWidth, }: {
               </div>
             ) : null;
           })()}
-          {product.discountPrice && product.discountPrice > 0 && (<div className="bg-[#EE1C25] p-2 rounded-sm text-white text-xs">
-            {product.discountPrice/product.price * 100}% OFF
-          </div>)}
-          {product.stock > 0 ? (<div className="bg-[#56B400] p-2 rounded-sm text-white text-xs">
-            IN STOCK { }
-          </div>) : (<div className="bg-[#EE1C25] p-2 rounded-sm text-white text-xs">
-            OUT OF STOCK
-          </div>)}
 
         </div>
         <ProductName>{product?.name}</ProductName>
