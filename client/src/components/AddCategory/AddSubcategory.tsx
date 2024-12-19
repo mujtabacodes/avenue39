@@ -1,5 +1,5 @@
 'use client';
-import React, { SetStateAction, useState } from 'react';
+import React, { SetStateAction, useLayoutEffect, useState } from 'react';
 import Imageupload from '@components/ImageUpload/Imageupload';
 import { RxCross2 } from 'react-icons/rx';
 import Image from 'next/image';
@@ -20,7 +20,7 @@ import showToast from '@components/Toaster/Toaster';
 interface editCategoryNameType {
   name: string;
   description: string;
-  categoriesId: number[]; // Ensure this is a number array
+  categoriesId: number[]; 
   meta_title?: string;
   meta_description?: string;
   canonical_tag?: string;
@@ -41,16 +41,18 @@ const FormLayout = ({
   let CategoryName =
     editCategory && editCategory.name
       ? {
-          name: editCategory.name,
-          description: editCategory.description,
-          categoriesId: editCategory.categoriesId || [],
-        }
+        name: editCategory.name,
+        description: editCategory.description,
+        categoriesId: editCategory.categories.map((category:any) => category.id) || [], 
+        meta_title: editCategory.meta_title || '',
+        meta_description: editCategory.meta_description || '',
+        canonical_tag: editCategory.canonical_tag || '',
+        images_alt_text: editCategory.images_alt_text || ''
+      }
       : null;
-  let CategorImageUrl = editCategory && editCategory.posterImageUrl;
-  const [posterimageUrl, setposterimageUrl] = useState<
-    any[] | null | undefined
-  >(CategorImageUrl ? [CategorImageUrl] : null);
+  const [posterimageUrl, setposterimageUrl] = useState<any | null | undefined>(editCategory ? [{imageUrl:editCategory.posterImageUrl,public_id:editCategory.posterImagePublicId}] : null);
   const [loading, setloading] = useState<boolean>(false);
+ 
   const [editCategoryName, setEditCategoryName] = useState<
     editCategoryNameType | null | undefined
   >(CategoryName);
@@ -79,6 +81,7 @@ const FormLayout = ({
       }`;
 
       console.log('dubuge 3');
+      console.log(newValue)
       const response = await axios.post(
         url,
         updateFlag ? { ...newValue, id: editCategory.id } : newValue,
@@ -113,8 +116,7 @@ const FormLayout = ({
   if (isLoading) {
     return <div>Loading...</div>;
   }
-  console.log('Categories List here...');
-  console.log(categoriesList);
+
 
   return (
     <>
@@ -147,7 +149,7 @@ const FormLayout = ({
                       </div>
                       {posterimageUrl && posterimageUrl.length > 0 ? (
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4 dark:bg-boxdark dark:bg-black dark:text-white dark:bg-boxdark dark:border-white">
-                          {posterimageUrl.map((item: any, index) => {
+                          {posterimageUrl.map((item: any, index:number) => {
                             return (
                               <div
                                 className="relative group rounded-lg overflow-hidden shadow-md bg-white transform transition-transform duration-300 hover:scale-105"
@@ -281,9 +283,9 @@ const FormLayout = ({
                           Meta Description
                         </label>
                         <textarea
-                          name="meta_description "
+                          name="meta_description"
                           onChange={formik.handleChange}
-                          value={formik.values.meta_description }
+                          value={formik.values.meta_description}
                           placeholder="Meta Description"
                           className={`w-full rounded-lg border-[1.5px] border-stroke placeholder:text-lightgrey bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${formik.touched.description &&
                             formik.errors.description
