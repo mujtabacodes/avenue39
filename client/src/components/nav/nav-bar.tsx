@@ -89,6 +89,8 @@ const Navbar = (props: INav) => {
 
   const handleNavigation = (name: string) => {
     Navigate.push(`/product/${generateSlug(name)}`);
+    setIsProductListOpen(false)
+
   };
 
   const filteredProducts = products.filter((product: IProduct) => {
@@ -181,7 +183,7 @@ const Navbar = (props: INav) => {
         value={searchText}
         onChange={handleInputChange}
         onClick={() => setIsProductListOpen(true)}
-        className="h-[40px] border focus-visible:outline-none focus-visible:ring-0 block w-full rounded-full custom-input-bg pl-12 z-[199] "
+        className="h-[40px] border focus-visible:outline-none focus-visible:ring-0 block w-full rounded-full custom-input-bg pl-12 z-[199] border-[#afa183] border-opacity-30 "
         placeholder="Search Here..."
       />
       <button
@@ -196,7 +198,7 @@ const Navbar = (props: INav) => {
 
       {isProductListOpen && (
         <>
-          <div className="absolute top-full w-full p-3 bg-white border rounded-t-2xl mt-2 max-h-[600px] overflow-y-auto custom-scrollbar z-[999]">
+          <div className="absolute top-full w-full p-3 bg-white border border-[#afa183] border-opacity-30 rounded-t-2xl mt-2 max-h-[600px] overflow-y-auto custom-scrollbar z-[999]">
           <div className="flex justify-end mb-2 sticky top-0">
           <IoCloseOutline
             size={24}
@@ -209,7 +211,7 @@ const Navbar = (props: INav) => {
                 <div
                   key={product.id}
                   onClick={() => handleNavigation(product.name)}
-                  className="flex border p-2 my-2 rounded-md bg-white hover:shadow-md transition duration-300 gap-2 cursor-pointer "
+                  className="flex border p-2 my-2 rounded-md bg-white hover:shadow-md transition duration-300 gap-2 cursor-pointer border-[#afa183] border-opacity-30"
                 >
                   <Image
                     width={100}
