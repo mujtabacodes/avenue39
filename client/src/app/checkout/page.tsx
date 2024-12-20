@@ -111,7 +111,7 @@ const Checkout = () => {
         console.log(proceedPayment, 'proceedPayment');
 
         if (proceedPayment.status === 201) {
-          showToast('success', 'Order Placed Successfully');
+          // showToast('success', 'Order Placed Successfully');
           setPaymentKey(
             `https://uae.paymob.com/unifiedcheckout/?publicKey=${process.env.NEXT_PUBLIC_PAYMOB_PUBLIC_KEY}&clientSecret=${proceedPayment.data.result.client_secret}`,
           );
