@@ -281,9 +281,9 @@ const FormLayout = ({
                           Meta Description
                         </label>
                         <textarea
-                          name="meta_description "
+                          name="meta_description"
                           onChange={formik.handleChange}
-                          value={formik.values.meta_description }
+                          value={formik.values.meta_description}
                           placeholder="Meta Description"
                           className={`w-full rounded-lg border-[1.5px] border-stroke placeholder:text-lightgrey bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${formik.touched.description &&
                             formik.errors.description
@@ -291,10 +291,10 @@ const FormLayout = ({
                             : ''
                             }`}
                         />
-                        {formik.touched.meta_description  &&
-                          formik.errors.meta_description  ? (
+                        {formik.touched.meta_description &&
+                          formik.errors.meta_description ? (
                           <div className="text-red text-sm">
-                            {formik.errors.meta_description  as String}
+                            {formik.errors.meta_description as String}
                           </div>
                         ) : null}
                       </div>
