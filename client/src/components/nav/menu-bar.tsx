@@ -24,7 +24,9 @@ const MenuBar = () => {
   const categoryId: string | any = searchParams.get('id');
   const [ActivatedMenu, setActivatedMenu] = useState<string | null>(null);
   const [isActiveMenu, setisActiveMenu] = useState<string | null>(null);
-  const userDetails = useSelector((state: State) => state.usrSlice.loggedInUser,);
+  const userDetails = useSelector(
+    (state: State) => state.usrSlice.loggedInUser,
+  );
 
   useEffect(() => {
     const handleScroll = () => {
@@ -142,9 +144,10 @@ const MenuBar = () => {
                     key={menu}
                     className={`
                       
-                      menu-item text-13 lg:text-15 pb-2 tracking-wide family-Helvetica uppercase whitespace-nowrap text-red-600 dark:text-red-600 flex flex-row gap-2 items-center cursor-pointer ${(isActiveMenu && isActiveMenu) == menu
-                        ? 'linkactive'
-                        : 'link-underline'
+                      menu-item text-13 lg:text-15 pb-2 tracking-wide family-Helvetica uppercase whitespace-nowrap text-red-600 dark:text-red-600 flex flex-row gap-2 items-center cursor-pointer ${
+                        (isActiveMenu && isActiveMenu) == menu
+                          ? 'linkactive'
+                          : 'link-underline'
                       }`}
                     onClick={handleMegaSaleClick}
                   >
@@ -159,10 +162,11 @@ const MenuBar = () => {
                   <Link
                     href={`/products/${generateSlug(menuData[menu][0]?.title || '')}`}
                     key={menu}
-                    className={`menu-item text-13 lg:text-15 pb-2 tracking-wide family-Helvetica uppercase whitespace-nowrap text-black dark:text-black flex flex-row gap-2 items-center cursor-pointer ${(isActiveMenu && isActiveMenu) == menu
+                    className={`menu-item text-13 lg:text-15 pb-2 tracking-wide family-Helvetica uppercase whitespace-nowrap text-black dark:text-black flex flex-row gap-2 items-center cursor-pointer ${
+                      (isActiveMenu && isActiveMenu) == menu
                         ? 'linkactive'
                         : 'link-underline'
-                      }`}
+                    }`}
                     onClick={() => handleCategoryMenuClick(menu)}
                   >
                     {menu.replace(/([A-Z])/g, ' $1').toUpperCase()}
@@ -183,7 +187,7 @@ const MenuBar = () => {
 
                   {activeMenu && !loading && activeMenu === menu && (
                     <div
-                      className={`megamenu-container w-[200px] bg-white shadow-lg p-10 z-20  absolute top-[28px]  rounded-xl`}
+                      className={`megamenu-container w-[200px] bg-white shadow-lg px-10 py-4 z-20  absolute top-[28px]  rounded-b-xl`}
                       onMouseEnter={() => setHoveringMenu(true)}
                       onMouseLeave={() => {
                         setHoveringMenu(false);

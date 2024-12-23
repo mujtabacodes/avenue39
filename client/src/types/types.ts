@@ -131,7 +131,7 @@ export interface IProduct {
   categoriesId: number;
   categories?: ICategory[];
   subcategories?: ICategory[];
-  sections?:[]
+  sections?: [];
   createdAt?: string;
   sale_counter?: string;
 }
@@ -155,11 +155,10 @@ export interface IProductAdd {
   additionalInformation: AdditionalInformation[];
   categories: number[];
   subcategories: number[];
-  Meta_Title:string;
-  Canonical_Tag:string;
-  Meta_Description:string;
-  Images_Alt_Text:string;
-  
+  Meta_Title: string;
+  Canonical_Tag: string;
+  Meta_Description: string;
+  Images_Alt_Text: string;
 }
 export interface ITestimonialCard {
   id: number;
@@ -245,7 +244,7 @@ export interface Feature {
 export interface IProductCategories {
   id: string;
   name: string;
-  totalItems?: number; 
+  totalItems?: number;
 }
 
 export interface IProductDetail {
@@ -279,6 +278,7 @@ export interface ICategory {
   createdAt?: string;
   posterImageUrl?: string;
   posterImagePublicId?: string;
+  categories?: any;
 }
 // Timer slider data type
 export type TSliderItem = {

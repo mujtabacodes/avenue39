@@ -1,5 +1,5 @@
+'use client';
 
-'use client'
 import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
@@ -28,23 +28,35 @@ const ProductBanner: React.FC = () => {
 
   const { slug } = useParams();
   const parent = { slug };
-  const mainparent = parent.slug;   
+  const mainparent = parent.slug;
 
-  const matchedCategory = categories.find((category: any) => category.maintitle === mainparent);
+  const matchedCategory = categories.find(
+    (category: any) => category.maintitle === mainparent,
+  );
   const sliderData = matchedCategory?.data;
 
   const swiperRefLeft = React.useRef<any>(null);
   const swiperRefRight = React.useRef<any>(null);
 
   const next = () => {
-    if (swiperRefLeft.current && swiperRefLeft.current.swiper && swiperRefRight.current && swiperRefRight.current.swiper) {
+    if (
+      swiperRefLeft.current &&
+      swiperRefLeft.current.swiper &&
+      swiperRefRight.current &&
+      swiperRefRight.current.swiper
+    ) {
       swiperRefLeft.current.swiper.slideNext();
       swiperRefRight.current.swiper.slideNext();
     }
   };
 
   const previous = () => {
-    if (swiperRefLeft.current && swiperRefLeft.current.swiper && swiperRefRight.current && swiperRefRight.current.swiper) {
+    if (
+      swiperRefLeft.current &&
+      swiperRefLeft.current.swiper &&
+      swiperRefRight.current &&
+      swiperRefRight.current.swiper
+    ) {
       swiperRefLeft.current.swiper.slidePrev();
       swiperRefRight.current.swiper.slidePrev();
     }
@@ -175,4 +187,3 @@ const ProductBanner: React.FC = () => {
 };
 
 export default ProductBanner;
-
