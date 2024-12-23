@@ -129,7 +129,7 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                 onClick={handleCloseDrawer}
                 className='cursor-pointer'
               >
-                <TfiClose size={25} />
+                <TfiClose size={20} />
               </span>
             </div>
 
