@@ -27,9 +27,7 @@ import {
 import { IoBagOutline } from 'react-icons/io5';
 import { useDispatch, useSelector } from 'react-redux';
 import { State } from '@/redux/store';
-import {
-  addItem,
-} from '@/redux/slices/cart';
+import { addItem } from '@/redux/slices/cart';
 import { Dispatch } from 'redux';
 import { HiMinusSm, HiPlusSm } from 'react-icons/hi';
 // import paymenticons from '@icons/payment-icons.png';
@@ -45,15 +43,23 @@ import ARExperience from '../ARModelViewer';
 import { paymentIcons } from '@/data/products';
 import { ProductDetailSkeleton } from './skelton';
 
-
-
-const ProductDetail = ({ params, isZoom, gap, swiperGap, detailsWidth, }: {
-  params: IProductDetail; isZoom?: Boolean; gap?: String; swiperGap?: String; detailsWidth?: String;
+const ProductDetail = ({
+  params,
+  isZoom,
+  gap,
+  swiperGap,
+  detailsWidth,
+}: {
+  params: IProductDetail;
+  isZoom?: Boolean;
+  gap?: String;
+  swiperGap?: String;
+  detailsWidth?: String;
 }) => {
-  const description: string = "";
+  const description: string = '';
   const [isExpanded, setIsExpanded] = useState(false);
   const truncateText = (text: any, limit: any) => {
-    return text.length > limit ? text.slice(0, limit) + "..." : text;
+    return text.length > limit ? text.slice(0, limit) + '...' : text;
   };
   const [hoveredImage, setHoveredImage] = useState<string | null>(null);
   const cartItems = useSelector((state: State) => state.cart.items);
@@ -174,26 +180,35 @@ const ProductDetail = ({ params, isZoom, gap, swiperGap, detailsWidth, }: {
 
       <div className={`${detailsWidth} flex flex-col gap-2 pt-2`}>
         <div className="flex gap-2">
-        {product.stock > 0 ? (<div className="bg-[#56B400] p-2 rounded-sm text-white text-xs">
-            IN STOCK { }
-          </div>) : (<div className="bg-[#EE1C25] p-2 rounded-sm text-white text-xs">
-            OUT OF STOCK
-          </div>)}
-          {product.discountPrice > 0 && (<div className="bg-[#EE1C25] p-2 rounded-sm text-white text-xs">
-            {(Math.round(((product.price - product.discountPrice) / product.price) * 100))}% OFF
-          </div>)}
-          {product.createdAt && (() => {
-            const productDate = new Date(product.createdAt);
-            const twoWeeksAgo = new Date();
-            twoWeeksAgo.setDate(twoWeeksAgo.getDate() - 14);
+          {product.stock > 0 ? (
+            <div className="bg-[#56B400] p-2 rounded-sm text-white text-xs">
+              IN STOCK {}
+            </div>
+          ) : (
+            <div className="bg-[#EE1C25] p-2 rounded-sm text-white text-xs">
+              OUT OF STOCK
+            </div>
+          )}
+          {product.discountPrice > 0 && (
+            <div className="bg-[#EE1C25] p-2 rounded-sm text-white text-xs">
+              {Math.round(
+                ((product.price - product.discountPrice) / product.price) * 100,
+              )}
+              % OFF
+            </div>
+          )}
+          {product.createdAt &&
+            (() => {
+              const productDate = new Date(product.createdAt);
+              const twoWeeksAgo = new Date();
+              twoWeeksAgo.setDate(twoWeeksAgo.getDate() - 14);
 
-            return productDate >= twoWeeksAgo ? (
-              <div className="bg-[#00AEEF] p-2 rounded-sm text-white text-xs">
-                New
-              </div>
-            ) : null;
-          })()}
-
+              return productDate >= twoWeeksAgo ? (
+                <div className="bg-[#00AEEF] p-2 rounded-sm text-white text-xs">
+                  New
+                </div>
+              ) : null;
+            })()}
         </div>
         <ProductName>{product?.name}</ProductName>
         {averageRating > 1 && (
@@ -210,7 +225,7 @@ const ProductDetail = ({ params, isZoom, gap, swiperGap, detailsWidth, }: {
         )}
         {product?.discountPrice > 0 ? (
           <ProductPrice className="flex items-center gap-2">
-            AED {product?.discountPrice} 
+            AED {product?.discountPrice}
             <NormalText className="font-normal text-base text-slate-400 line-through">
               AED{product?.price}
             </NormalText>
@@ -222,11 +237,11 @@ const ProductDetail = ({ params, isZoom, gap, swiperGap, detailsWidth, }: {
         )}
         <div className="flex gap-3 font-semibold">
           <span>AVAILABLE:</span>
-          {product.stock > 0 ? (<span className="text-[#56B400]">
-            In Stock
-          </span>) : (<span className="text-[#EE1C25]">
-            Out Of Stock
-          </span>)}
+          {product.stock > 0 ? (
+            <span className="text-[#56B400]">In Stock</span>
+          ) : (
+            <span className="text-[#EE1C25]">Out Of Stock</span>
+          )}
         </div>
         <p className="text-lightdark text-14 tracking-wide leading-6">
           {isExpanded
@@ -234,25 +249,23 @@ const ProductDetail = ({ params, isZoom, gap, swiperGap, detailsWidth, }: {
             : truncateText(product?.description, 120)}
         </p>
 
-
-        {product.sale_counter && Object.values(timeLeft).some(value => value > 0) && (
-          <>
-            <NormalText className="">Hurry Up! Sale ends in:</NormalText>
-            <div className="flex gap-2 mb-3 mt-2">
-              {Object.entries(timeLeft).map(([label, value], index) => (
-                <div
-                  key={index}
-                  className="bg-[#F5F5F5] p-2 rounded-md w-14 text-center font-normal text-14 text-lightdark flex flex-col"
-                >
-                  <span>{value}</span>
-                  <span className="text-10">{label.toUpperCase()}</span>
-                </div>
-              ))}
-            </div>
-          </>
-        )}
-
-
+        {product.sale_counter &&
+          Object.values(timeLeft).some((value) => value > 0) && (
+            <>
+              <NormalText className="">Hurry Up! Sale ends in:</NormalText>
+              <div className="flex gap-2 mb-3 mt-2">
+                {Object.entries(timeLeft).map(([label, value], index) => (
+                  <div
+                    key={index}
+                    className="bg-[#F5F5F5] p-2 rounded-md w-14 text-center font-normal text-14 text-lightdark flex flex-col"
+                  >
+                    <span>{value}</span>
+                    <span className="text-10">{label.toUpperCase()}</span>
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
 
         {/* <NormalText className="mb-2">
           Hurry Up! Only <span className="text-red-600">12</span> left in stock:
@@ -267,7 +280,11 @@ const ProductDetail = ({ params, isZoom, gap, swiperGap, detailsWidth, }: {
               <HiMinusSm size={20} />
             </button>
             <span className="mx-2">{count}</span>
-            <button onClick={onIncrement} disabled={product.stock <= count} className="px-2 text-gray-600 disabled:text-gray-300">
+            <button
+              onClick={onIncrement}
+              disabled={product.stock <= count}
+              className="px-2 text-gray-600 disabled:text-gray-300"
+            >
               <HiPlusSm size={20} />
             </button>
           </div>
@@ -469,7 +486,11 @@ const ProductDetail = ({ params, isZoom, gap, swiperGap, detailsWidth, }: {
                   </DialogHeader>
                   <div className="py-8 px-5 xs:px-10 md:px-20 me-4 xs:me-7 max-h-[80vh] overflow-y-auto custom-scroll">
                     <div className="text-center">
-                      <Image src={tamaraLogo} alt="tamara logo" className="mx-auto" />
+                      <Image
+                        src={tamaraLogo}
+                        alt="tamara logo"
+                        className="mx-auto"
+                      />
                     </div>
                     <h2 className="text-center font-bold text-4xl mt-8">
                       Pay easier with Tamara

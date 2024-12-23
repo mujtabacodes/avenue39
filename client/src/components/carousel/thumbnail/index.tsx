@@ -160,15 +160,15 @@ const Thumbnail: React.FC<ThumbProps> = ({
                 freeMode={true}
                 watchSlidesProgress={true}
                 modules={[FreeMode, Navigation, Thumbs]}
-                className=" column-swipper swiper-container product-swiper px-3 max-h-[280px] xs:max-h-[400px] sm:max-h-[550px] md:max-h-[400px] lg:max-h-[520px] xl:max-h-[600px] 2xl:max-h-[700px] overflow-y-scroll custom-scrollbar"
+                className="column-swipper swiper-container product-swiper px-3 max-h-[280px] xs:max-h-[400px] sm:max-h-[550px] md:max-h-[400px] lg:max-h-[520px] xl:max-h-[600px] 2xl:max-h-[700px] overflow-y-scroll custom-scrollbar"
               >
                 {thumbs.map((thumb, index) => (
                   <SwiperSlide
                     key={index}
-                    className="column-swiper-slider swiper-slide "
+                    className="column-swiper-slider swiper-slide"
                   >
                     <Image
-                      className={`rounded-lg shadow-md  aspect-square ${isZoom ? 'md:h-[120px] 2xl:h-[160px] md:w-[120px] 2xl:w-[160px]' : 'h-[130px] w-[130px]'}`}
+                      className={`rounded-lg shadow-md ${isZoom ? 'md:h-[120px] md:w-[120px] 2xl:!h-[140px] 2xl!:w-[140px]' : 'h-[100px] '} `}
                       src={thumb.imageUrl || '/default-image.jpg'}
                       width={150}
                       height={150}

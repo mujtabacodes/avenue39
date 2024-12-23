@@ -7,7 +7,10 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
-import { MdOutlineKeyboardArrowLeft, MdOutlineKeyboardArrowRight } from 'react-icons/md';
+import {
+  MdOutlineKeyboardArrowLeft,
+  MdOutlineKeyboardArrowRight,
+} from 'react-icons/md';
 
 interface TabsProps {
   slidersData: ISliderData[];
@@ -122,15 +125,18 @@ const Tabs: React.FC<TabsProps> = ({ slidersData, isLoading }) => {
             breakpoints={{
               320: { slidesPerView: 2, spaceBetween: 0 },
               380: { slidesPerView: 3, spaceBetween: 0 },
-              1024: { slidesPerView: 4 }, 
+              1024: { slidesPerView: 4 },
             }}
           >
             {slidersData.map((slider, index) => (
-              <SwiperSlide key={index} className='text-center'>
+              <SwiperSlide key={index} className="text-center">
                 <button
                   onClick={() => handleTabClick(index)}
-                  className={`font-medium text-nowrap px-4 xsm:px-3 xs:px-4 py-2 text-16 xsm:text-12 xs:text-14 sm:text-16 rounded-full transition-colors duration-300 ${index === activeTab ? 'bg-main text-white' : 'bg-white text-black'
-                    }`}
+                  className={`font-medium text-nowrap px-4 xsm:px-3 xs:px-4 py-2 text-16 xsm:text-12 xs:text-14 sm:text-16 rounded-full transition-colors duration-300 ${
+                    index === activeTab
+                      ? 'bg-main text-white'
+                      : 'bg-white text-black'
+                  }`}
                 >
                   {slider.tabTitle}
                 </button>
