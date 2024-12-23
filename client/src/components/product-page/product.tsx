@@ -222,17 +222,15 @@ const ProductPage = ({
                 </SheetContent>
               </Sheet>
             </div> */}
-            <p className="md:block hidden">Showing {!filterLoading && filteredCards.length > 0 ? filteredCards.length : 0} results</p>
-            <div className="flex items-center gap-2">
-              <MdWindow size={25} className="cursor-pointer" onClick={() => Setlayout('grid')} />
-              <ImList size={20} className="cursor-pointer" onClick={() => Setlayout('list')} />
+            <div className="flex items-center flex-wrap gap-2 w-fit max-sm:flex-col-reverse max-sm:items-start">
+             <div className='flex gap-2 items-center'>
+           
               <Select onValueChange={handleSortChange}>
                 <SelectTrigger>
                   <SelectValue placeholder="Sort by: Default" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectGroup>
-                    <SelectLabel>Sort Options</SelectLabel>
                     <SelectItem value="default">Default</SelectItem>
                     <SelectItem value="name">Name</SelectItem>
                     <SelectItem value="max">Price Max</SelectItem>
@@ -240,17 +238,22 @@ const ProductPage = ({
                   </SelectGroup>
                 </SelectContent>
               </Select>
+              <MdWindow  className="cursor-pointer text-3xl" onClick={() => Setlayout('grid')} />
+              <ImList  className="cursor-pointer text-2xl" onClick={() => Setlayout('list')} />
+             </div>
+              <p className="block whitespace-nowrap">Showing {!filterLoading && filteredCards.length > 0 ? filteredCards.length : 0} results</p>
             </div>
           </div>
           {(filterLoading || isProductsLoading) ? (
             <CardSkaleton />
           ) : (
-            <div className={`grid gap-4 mt-4 ${layout === 'grid' ? 'grid-cols-1 sm:grid-cols-2 xl:grid-cols-3' : 'grid-cols-1'}`}>
+            
+            <div className={`grid gap-4 mt-4 ${layout === 'grid' ? 'grid-cols-1 xs:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 2xl:grid-cols-5 ' : 'grid-cols-1'}`}>
               {filteredCards.length > 0 ? (
                 filteredCards.map(card => (
                   <div key={card.id}>
                     {layout === 'grid' ? (
-                      <Card card={card} category isLoading={false} cardImageHeight="h-[350px] xsm:h-[500px] sm:h-[400px] md:h-[350px] 2xl:h-[400px]" />
+                      <Card card={card} category isLoading={false} cardImageHeight="h-[300px] xsm:h-[220px] sm:h-[400px] md:h-[350px] xl:h-[220px] 2xl:h-[280px]" />
                     ) : (
                       <LandscapeCard card={card} isLoading={false} />
                     )}

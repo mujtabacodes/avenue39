@@ -80,7 +80,6 @@ const MenuBar = () => {
 
   let CategoryFunction = () => {
     let menu: string = ActivatedMenu || '';
-    // console.log(pathname, "pathname")
     if (pathname === '/products') {
       setisActiveMenu('SALE');
       return;
@@ -92,7 +91,6 @@ const MenuBar = () => {
 
     if (!categoryId) {
       let categoryName = pathname.split('/').pop()?.replaceAll('-', '');
-      // console.log(categoryName, "categoryName")
 
       for (const key in menuData) {
         const items = menuData[key];
@@ -124,9 +122,9 @@ const MenuBar = () => {
   // console.log(isActiveMenu, "isActiveMenu")
 
   return (
-    <div className={`${isSticky ? `sticky ${userDetails ? 'top-20' : 'top-16'} z-40` : 'relative md:pb-12'}`}>
+    <div className={`${isSticky ? `sticky ${userDetails ? 'top-20' : 'top-16'} z-20` : 'relative md:pb-12'}`}>
       <div
-        className={`bg-white shadow-md mb-1 pt-3 hidden md:block z-50 ${isSticky ? '' : 'absolute w-full top-0'
+        className={`bg-white shadow-md mb-1 pt-3 hidden md:block z-20 ${isSticky ? '' : 'absolute w-full top-0'
           }`}
       >
         <Container className="flex flex-wrap items-center justify-between">
@@ -185,7 +183,7 @@ const MenuBar = () => {
 
                   {activeMenu && !loading && activeMenu === menu && (
                     <div
-                      className={`megamenu-container w-[200px] bg-white shadow-lg p-10 z-50  absolute top-[28px] `}
+                      className={`megamenu-container w-[200px] bg-white shadow-lg p-10 z-20  absolute top-[28px]  rounded-xl`}
                       onMouseEnter={() => setHoveringMenu(true)}
                       onMouseLeave={() => {
                         setHoveringMenu(false);
