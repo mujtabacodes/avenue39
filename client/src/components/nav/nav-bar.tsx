@@ -266,7 +266,7 @@ const Navbar = (props: INav) => {
                 className="gap-2 flex items-center text-14 font-extralight hover:underline text-black dark:text-black"
                 href={'/login'}
               >
-                <CiUser size={30} />
+                <CiUser size={26} />
               </Link>
             ) : (
               <Popover
