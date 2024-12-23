@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { IProduct, IReview } from '@/types/types';
-import { HiOutlineShoppingBag } from 'react-icons/hi';
-import { MdStar, MdStarBorder } from 'react-icons/md';
-
-import { useSelector, useDispatch } from 'react-redux';
+import { HiOutlineViewfinderCircle } from "react-icons/hi2";
+import {  useDispatch } from 'react-redux';
 import { State, Dispatch } from '@redux/store';
 import { addItem } from '@cartSlice/index';
 import { CartItem } from '@cartSlice/types';
@@ -149,22 +147,22 @@ const Card: React.FC<CardProps> = ({
   //   console.log(card);
   // }
   return (
-    <div className="rounded-3xl text-center relative product-card mx-4 group hover:cursor-pointer mb-2">
-      <div className="relative w-full">
+    <div className="rounded-3xl text-center relative product-card group hover:cursor-pointer mb-2 flex flex-col justify-between h-full shadow p-1">
+      <div className="relative w-fit">
         {loading ? (
           <CardSkeleton skeletonHeight={skeletonHeight} />
         ) : (
           <>
             {card.discountPrice > 0 && (
-              <span className="absolute top-4 left-4 text-white text-15 font-light bg-red-500 rounded-full w-[76px] h-9 flex justify-center items-center">
+              <span className="absolute top-4 left-4 text-white text-15 font-light bg-red-500 rounded-full w-[56px] h-7 flex justify-center items-center">
                  {(Math.round(((card.price - card.discountPrice) / card.price) * 100))}%
               </span>
             )}
             <div
               onClick={() => handleAddToWishlist(card)}
-              className=" w-10 h-12 absolute right-2 top-2 rounded-xl  flex justify-center items-center border bg-white hover:border-main hover:bg-main hover:text-white  cursor-pointer"
+              className=" w-8 h-10 absolute right-2 top-2 rounded-xl  flex justify-center items-center border bg-white hover:border-main hover:bg-main hover:text-white  cursor-pointer"
             >
-              <IoIosHeartEmpty size={25} />
+              <IoIosHeartEmpty size={20} />
             </div>
             <Image
               src={card.posterImageUrl}
@@ -181,8 +179,7 @@ const Card: React.FC<CardProps> = ({
             />
           </>
         )}
-      </div>
-      {loading ? (
+              {loading ? (
         <>
           <Skeleton className="h-5 w-52 mx-auto mt-3" />
           <Skeleton className="h-3 w-40 mx-auto mt-2" />
@@ -194,9 +191,9 @@ const Card: React.FC<CardProps> = ({
         </>
       ) : (
         <div onClick={(e) => handleNavigation(e)}>
-          <h3 className="text-lg font-semibold mt-2">{card.name}</h3>
+          <h3 className=" text-14  2xl:text-lg font-semibold mt-2">{card.name}</h3>
           {card.discountPrice > 0 ? (
-            <p className="text-md font-semibold mt-1">
+            <p className="text-14 2xl:text-md font-semibold mt-1">
               <span className="line-through text-secondary-foreground ms-2 mr-2">
                 AED {card.price}
               </span>
@@ -207,34 +204,43 @@ const Card: React.FC<CardProps> = ({
               AED {card.price}
             </span>
           )}
-
-          <div className="flex gap-1 items-center justify-center mt-1 h-5">
-            {averageRating > 1 && renderStars({ star: averageRating })}
+          {
+            averageRating > 0 &&
+            <div className="flex gap-1 items-center justify-center mt-1 h-5">
+            {renderStars({ star: averageRating })}
           </div>
+          }
+          
         </div>
       )}
+      </div>
+
       {loading ? (
-        <div className="flex gap-3 justify-center mt-3">
+        <div className="flex gap-2 justify-center mt-2">
           <Skeleton className="w-32 h-8 rounded-full" />
           <Skeleton className="w-32 h-8 rounded-full" />
         </div>
       ) : isModel ? null : (
         <div
-          className="text-center flex flex-wrap justify-center md:gap-3 space-y-2 md:space-y-0 "
+          className="text-center flex flex-wrap md:flex-nowrap justify-center gap-1 md:space-y-0 w-full  mb-4"
           onClick={(e) => handleEventProbation(e)}
         >
           <button
-            className="md:my-4 w-full md:w-32 h-8 text-primary border border-primary rounded-full flex items-center justify-center gap-2 hover:bg-primary hover:text-white"
+            className=" my-1 px-2 w-full h-8 text-primary border border-primary rounded-full flex items-center justify-center whitespace-nowrap gap-2 hover:bg-primary hover:text-white"
             onClick={(e) => handleAddToCard(e)}
           >
             <TiShoppingCart />
             <span className="text-12 font-medium">Add to Cart</span>
           </button>
           <Dialog>
-            <DialogTrigger>
-              <button className="md:my-4 w-60 md:w-32 h-8 text-secondary border border-primary bg-primary rounded-full flex items-center justify-center gap-2 hover:bg-secondary hover:text-primary">
-                <span className="text-12 font-medium">Quick View</span>
-              </button>
+            <DialogTrigger className='w-full'>
+            <button
+            className=" my-1 px-2 w-full h-8 whitespace-nowrap text-secondary border border-primary bg-primary rounded-full flex items-center justify-center gap-2 hover:bg-secondary hover:text-primary" 
+          >
+            <HiOutlineViewfinderCircle />
+            <span className="text-12 font-medium">Quick View</span>
+          </button>
+           
             </DialogTrigger>
             <DialogOverlay />
             <DialogContent className="max-w-[1400px] w-11/12 bg-white px-0 sm:rounded-3xl border border-black shadow-none gap-0 pb-0">

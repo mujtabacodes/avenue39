@@ -139,8 +139,11 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
               }
 
               </h3>
-              <span onClick={handleCloseDrawer} className="cursor-pointer">
-                <TfiClose size={25} />
+              <span
+                onClick={handleCloseDrawer}
+                className='cursor-pointer'
+              >
+                <TfiClose size={20} />
               </span>
             </div>
             {totalPrice === 0 ? (
@@ -203,7 +206,7 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                           </div>
                           <div
                             className="absolute top-2 right-2 cursor-pointer"
-                            onClick={() => removeProductFromCart(item.id)}
+                            onClick={(e) => {e.stopPropagation(); removeProductFromCart(item.id);}}
                           >
                             <RxCross2 />
                           </div>
@@ -298,7 +301,7 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                         <FaTrash
                           className="cursor-pointer"
                           size={15}
-                          onClick={() => removeProductFromCart(item.id)}
+                          onClick={(e) => {e.stopPropagation(); removeProductFromCart(item.id);}}
                         />
                       </div>
                     )}
@@ -359,7 +362,7 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                       <FaTrash
                         className="cursor-pointer"
                         size={15}
-                        onClick={() => removeProductFromCart(item.id)}
+                        onClick={(e) => {e.stopPropagation(); removeProductFromCart(item.id);}}
                       />
                     </div>
                   )}
