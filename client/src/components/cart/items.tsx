@@ -122,7 +122,7 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                 </div>
               </div>
 
-              <h3 className="font-medium text-3xl">
+              <h3 className="font-medium text-xl">
                 My Cart (<TotalProducts />)
               </h3>
               <span
