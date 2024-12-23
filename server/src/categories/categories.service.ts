@@ -54,7 +54,6 @@ export class CategoriesService {
     try {
       const { id, name } = categoryData;
 
-      // Find the existing category by id
       const existingCategory = await this.prisma.categories.findFirst({
         where: { id },
       });
@@ -66,7 +65,6 @@ export class CategoriesService {
         };
       }
 
-      // Check if the name already exists and is not the current category
       const existingCategoryByName = await this.prisma.categories.findFirst({
         where: {
           name,
@@ -81,20 +79,12 @@ export class CategoriesService {
         };
       }
 
-      // Update category with new data or fallback to existing data
       await this.prisma.categories.update({
         where: { id },
         data: {
-          name: name ?? existingCategory.name,
-          description: categoryData.description ?? existingCategory.description,
-          posterImageUrl:
-            categoryData.posterImageUrl?.imageUrl ??
-            existingCategory.posterImageUrl ??
-            null,
-          posterImagePublicId:
-            categoryData.posterImageUrl?.public_id ??
-            existingCategory.posterImagePublicId ??
-            null,
+          ...categoryData,
+          posterImageUrl: categoryData.posterImageUrl.imageUrl ?? null,
+          posterImagePublicId: categoryData.posterImageUrl.public_id ?? null,
         },
       });
 
