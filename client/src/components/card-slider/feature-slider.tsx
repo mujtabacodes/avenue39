@@ -52,7 +52,11 @@ const FeatureSlider: React.FC = () => {
     onMouseLeave={handleMouseLeave}>
       {products.length > 0 ? (
         <>
-          <div className="text-end mb-3 px-4">
+          <div className="text-end mb-3 px-4 flex justify-between">
+          <p className="lg:text-3xl text-2xl text-left font-semibold ">
+            Similar Products
+          </p>
+            <div>
             <button
               className="button"
               onClick={previous}
@@ -63,6 +67,7 @@ const FeatureSlider: React.FC = () => {
             <button className="button" onClick={next}>
               <IoIosArrowForward size={30} />
             </button>
+            </div>
           </div>
           <Swiper
             ref={swiperRef}
@@ -83,10 +88,10 @@ const FeatureSlider: React.FC = () => {
             }}
             breakpoints={{
               1280: {
-                slidesPerView: 4,
+                slidesPerView: 5,
               },
               1024: {
-                slidesPerView: 3,
+                slidesPerView: 5,
               },
               768: {
                 slidesPerView: 2,
