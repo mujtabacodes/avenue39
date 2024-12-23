@@ -305,8 +305,8 @@ const Product = ({ params, reviews , product }: { params: IProductDetail, review
           <ProductDetail
             params={product}
             isZoom={true}
-            gap="gap-10 md:gap-40"
-            swiperGap="justify-between gap-2 xs:gap-6 md:gap-14"
+            gap="lg:gap-20 md:gap-20 sm:gap-10 gap-10"
+            swiperGap=" justify-between gap-2 xs:gap-6 md:gap-3"
             detailsWidth="w-full md:w-1/2 lg:w-1/4"
           />
         )}
@@ -319,9 +319,9 @@ const Product = ({ params, reviews , product }: { params: IProductDetail, review
 
       <div className="mt-10 pt-10 mb-20 border-t-2">
         <Container>
-          <p className="text-3xl sm:text-4xl md:text-[51px] font-medium text-center mb-4 sm:mb-0">
+          {/* <p className="text-2xl font-medium text-center mb-4 sm:mb-0">
             Similar Products
-          </p>
+          </p> */}
           <FeatureSlider />
         </Container>
       </div>
