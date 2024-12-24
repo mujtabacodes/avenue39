@@ -79,14 +79,20 @@ const BestSellingSlider: React.FC = () => {
               1500: {
                 slidesPerView: 5,
               },
-              1200: {
-                slidesPerView: 2,
+              1290: {
+                slidesPerView: 5,
               },
               1024: {
-                slidesPerView: 1.5,
+                slidesPerView: 4,
               },
               680: {
+                slidesPerView: 3,
+              },
+              500: {
                 slidesPerView: 2,
+              },
+              460: {
+                slidesPerView: 1.5,
               }
             }}
             modules={[Navigation, Pagination]}
@@ -97,7 +103,7 @@ const BestSellingSlider: React.FC = () => {
                 <FeatureCard
                   isLoading={isProductsLoading}
                   card={card}
-                  cardHeight="w-full h-[400px]"
+                  cardHeight="h-[280px] xsm:h-[220px] sm:h-[240px] md:h-[270px] xl:h-[220px] 2xl:h-[280px]"
                 />
               </SwiperSlide>
             ))}

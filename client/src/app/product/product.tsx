@@ -44,9 +44,7 @@ const Product = ({ params, reviews , product }: { params: IProductDetail, review
 
   const [sortOption, setSortOption] = useState<string>('default');
   const [visibleCount, setVisibleCount] = useState(3);
-  const loadMoreReviews = () => {
-    setVisibleCount((prevCount) => prevCount + 3);
-  };
+  const loadMoreReviews = () => {setVisibleCount((prevCount) => prevCount + 3);};
 
   const productId = product?.id;
   // const filteredReviews = reviews.filter(
@@ -307,7 +305,7 @@ const Product = ({ params, reviews , product }: { params: IProductDetail, review
             isZoom={true}
             gap="lg:gap-20 md:gap-20 sm:gap-10 gap-10"
             swiperGap=" justify-between gap-2 xs:gap-6 md:gap-3"
-            detailsWidth="w-full md:w-1/2 lg:w-1/4"
+            detailsWidth="w-full md:w-1/2 lg:w-9/12 2xl:w-2/6"
           />
         )}
       </Container>
@@ -322,7 +320,9 @@ const Product = ({ params, reviews , product }: { params: IProductDetail, review
           {/* <p className="text-2xl font-medium text-center mb-4 sm:mb-0">
             Similar Products
           </p> */}
-          <FeatureSlider />
+          <FeatureSlider 
+          
+          />
         </Container>
       </div>
       <Services />

@@ -3,11 +3,9 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { IoBagOutline, IoEyeOutline } from 'react-icons/io5';
-import { MdStar, MdStarBorder } from 'react-icons/md';
 import { useRouter } from 'next/navigation';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Dispatch } from 'redux';
-import { State } from '@/redux/store';
 import { CartItem } from '@/redux/slices/cart/types';
 import { addItem } from '@/redux/slices/cart';
 import { openDrawer } from '@/redux/slices/drawer';
@@ -90,43 +88,28 @@ const FeatureCard: React.FC<CardProps> = ({
   };
 
   const handleAddToWishlist = (product: IProduct) => {
-    // Create a new wishlist item
     const newWishlistItem = {
-      id: product.id, // Ensure you have the correct property here
+      id: product.id,
       name: product.name,
       price: product.price,
       posterImageUrl: product.posterImageUrl,
       discountPrice: product.discountPrice,
-      count: 1, // Initialize count to 1 for a new item
+      count: 1,
       totalPrice: product.discountPrice ? product.discountPrice : product.price,
     };
-
-    // Retrieve existing wishlist from local storage
     let existingWishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
-
-    // Check if the product is already in the wishlist
-    const existingItemIndex = existingWishlist.findIndex((item: any) => item.id === newWishlistItem.id); // Use newWishlistItem.id here
+    const existingItemIndex = existingWishlist.findIndex((item: any) => item.id === newWishlistItem.id); 
 
     if (existingItemIndex !== -1) {
-      // If it exists, increment the count and update the total price
       existingWishlist[existingItemIndex].count += 1;
       existingWishlist[existingItemIndex].totalPrice =
         existingWishlist[existingItemIndex].count * (existingWishlist[existingItemIndex].discountPrice || existingWishlist[existingItemIndex].price);
     } else {
-      // If it doesn't exist, add the new item to the wishlist
       existingWishlist.push(newWishlistItem);
     }
-
-    // Save updated wishlist back to local storage
     localStorage.setItem('wishlist', JSON.stringify(existingWishlist));
-
-    // Show success message
     message.success('Product added to Wishlist successfully!');
-
-    // Dispatch custom event to update the count in the navbar
     window.dispatchEvent(new Event('WishlistChanged'));
-
-    // Debugging: log the current state of the wishlist
     console.log(existingWishlist, "existingWishlist");
   };
 
@@ -136,18 +119,18 @@ const FeatureCard: React.FC<CardProps> = ({
         <Skeleton className={cardHeight} />
       ) : (
         <div className="relative group">
-          <div onClick={handleAddToCard} className=" w-10 h-12 absolute right-4 top-4 rounded-xl  flex justify-center items-center border bg-white hover:border-main hover:bg-main hover:text-white  cursor-pointer">
-            <IoBagOutline size={25} />
+          <div onClick={handleAddToCard} className=" w-10 h-10 absolute right-4 top-4 rounded-xl  flex justify-center items-center border bg-white hover:border-main hover:bg-main hover:text-white  cursor-pointer">
+            <IoBagOutline size={20} />
           </div>
           <div className='flex flex-col gap-4 opacity-0 group-hover:opacity-100 duration-300 transition-all absolute top-20 right-4'>
-          <div onClick={() => handleAddToWishlist(card)} className=" w-10 h-12 rounded-xl  flex justify-center items-center border bg-white hover:border-main hover:bg-main hover:text-white  cursor-pointer opacity-0 group-hover:opacity-100 duration-300 transition-all">
-            <IoIosHeartEmpty size={25} />
+          <div onClick={() => handleAddToWishlist(card)} className=" w-10 h-10 rounded-xl  flex justify-center items-center border bg-white hover:border-main hover:bg-main hover:text-white  cursor-pointer opacity-0 group-hover:opacity-100 duration-300 transition-all">
+            <IoIosHeartEmpty size={20} />
           </div>
           {!isModel && (
             <Dialog>
               <DialogTrigger>
-                <div className="h-auto py-3 z-20 w-10 rounded-xl flex justify-center items-center border bg-white hover:border-main hover:bg-main hover:text-white cursor-pointer opacity-0 group-hover:opacity-100 duration-300 transition-all">
-                  <IoEyeOutline size={25} />
+                <div className=" py-3 z-20 w-10 h-10 rounded-xl flex justify-center items-center border bg-white hover:border-main hover:bg-main hover:text-white cursor-pointer opacity-0 group-hover:opacity-100 duration-300 transition-all">
+                  <IoEyeOutline size={20} />
                 </div>
               </DialogTrigger>
               <DialogOverlay />

@@ -245,7 +245,7 @@
 }
 .column-swipper .swiper-wrapper {
   flex-direction: column !important;
-  gap: 26px;
+  gap: 16px;
   overflow: hidden !important;
   padding-bottom: 2px;
 }
