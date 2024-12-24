@@ -41,9 +41,11 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
   const drawerState = useSelector((state: State) => state.drawer);
   const drawerRef = useRef<HTMLDivElement | null>(null);
 
-  const removeProductFromCart = (id: number) => {
-    dispatch(removeItem(id));
+  const removeProductFromCart = (id: number, e: React.MouseEvent) => {
+    e.stopPropagation();  // Stop event bubbling
+    dispatch(removeItem(id));  // Remove product from the cart
   };
+  
 
   const updateProductQuantity = (id: number, quantity: number) => {
     if (quantity > 0) {
@@ -176,7 +178,7 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                       </div>
                       <div
                         className="absolute top-2 right-2 cursor-pointer"
-                        onClick={() => removeProductFromCart(item.id)}
+                        onClick={(e) => removeProductFromCart(item.id, e)}
                       >
                         <RxCross2 />
                       </div>
@@ -267,7 +269,7 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                         <FaTrash
                           className="cursor-pointer"
                           size={15}
-                          onClick={() => removeProductFromCart(item.id)}
+                          onClick={(e) => removeProductFromCart(item.id, e)}
                         />
                       </div>
                     )}
@@ -328,7 +330,7 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                       <FaTrash
                         className="cursor-pointer"
                         size={15}
-                        onClick={() => removeProductFromCart(item.id)}
+                        onClick={(e) => removeProductFromCart(item.id, e)}
                       />
                     </div>
                   )}
