@@ -87,18 +87,27 @@ const FeatureSlider: React.FC = () => {
               prevEl: '.button-prev',
             }}
             breakpoints={{
-              1280: {
+              2000: {
+                slidesPerView: 5,
+              },
+              1500: {
+                slidesPerView: 5,
+              },
+              1290: {
                 slidesPerView: 5,
               },
               1024: {
-                slidesPerView: 5,
+                slidesPerView: 4,
               },
-              768: {
+              680: {
+                slidesPerView: 3,
+              },
+              500: {
                 slidesPerView: 2,
               },
-              480: {
+              460: {
                 slidesPerView: 1.5,
-              },
+              }
             }}
             modules={[Navigation, Autoplay, Pagination]}
             className="mySwiper"
@@ -108,7 +117,7 @@ const FeatureSlider: React.FC = () => {
                 <FeatureCard
                   card={card}
                   isLoading={isProductsLoading}
-                  cardHeight="w-96 h-[400px]"
+                  cardHeight="h-[280px] xsm:h-[220px] sm:h-[240px] md:h-[270px] xl:h-[220px] 2xl:h-[280px]"
                 />
               </SwiperSlide>
             ))}

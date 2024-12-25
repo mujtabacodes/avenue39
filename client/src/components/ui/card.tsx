@@ -64,37 +64,23 @@ const Card: React.FC<CardProps> = ({
       count: 1, // Initialize count to 1 for a new item
       totalPrice: product.discountPrice ? product.discountPrice : product.price,
     };
-
-    // Retrieve existing wishlist from local storage
     let existingWishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
-
-    // Check if the product is already in the wishlist
     const existingItemIndex = existingWishlist.findIndex(
       (item: any) => item.id === newWishlistItem.id,
-    ); // Use newWishlistItem.id here
+    );
 
     if (existingItemIndex !== -1) {
-      // If it exists, increment the count and update the total price
       existingWishlist[existingItemIndex].count += 1;
       existingWishlist[existingItemIndex].totalPrice =
         existingWishlist[existingItemIndex].count *
         (existingWishlist[existingItemIndex].discountPrice ||
           existingWishlist[existingItemIndex].price);
     } else {
-      // If it doesn't exist, add the new item to the wishlist
       existingWishlist.push(newWishlistItem);
     }
-
-    // Save updated wishlist back to local storage
     localStorage.setItem('wishlist', JSON.stringify(existingWishlist));
-
-    // Show success message
     message.success('Product added to Wishlist successfully!');
-
-    // Dispatch custom event to update the count in the navbar
     window.dispatchEvent(new Event('WishlistChanged'));
-
-    // Debugging: log the current state of the wishlist
     console.log(existingWishlist, 'existingWishlist');
   };
 
@@ -148,7 +134,7 @@ const Card: React.FC<CardProps> = ({
   // }
   return (
     <div className="rounded-3xl text-center relative product-card group hover:cursor-pointer mb-2 flex flex-col justify-between h-full shadow p-1">
-      <div className="relative w-fit">
+      <div className="relative w-full">
         {loading ? (
           <CardSkeleton skeletonHeight={skeletonHeight} />
         ) : (
@@ -171,7 +157,7 @@ const Card: React.FC<CardProps> = ({
               width={600}
               height={600}
               className={cn(
-                'object-cover rounded-3xl',
+                'object-cover rounded-3xl w-full',
                 className,
                 skeletonHeight,
                 cardImageHeight,
@@ -184,7 +170,7 @@ const Card: React.FC<CardProps> = ({
           <Skeleton className="h-5 w-52 mx-auto mt-3" />
           <Skeleton className="h-3 w-40 mx-auto mt-2" />
           <div className="flex gap-1 items-center justify-center h-4 mt-2">
-            {Array.from({ length: 5 }).map((_, index) => (
+            {Array.from({ length: 5  }).map((_, index) => (
               <Skeleton key={index} className="h-3 w-3 rounded-full" />
             ))}
           </div>

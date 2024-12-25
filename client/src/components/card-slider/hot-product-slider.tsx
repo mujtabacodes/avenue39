@@ -118,7 +118,7 @@ const HotProductSlider: React.FC = () => {
                       <Card
                         isLoading={true}
                         className="w-full"
-                        skeletonHeight="h-[300px] md:h-[250px] lg:h-[400px] xl:h-[500px]"
+                        skeletonHeight="h-[300px] md:h-[250px] lg:h-[400px] xl:h-[500px] w-full"
                       />
                     </SwiperSlide>
                   ))}
