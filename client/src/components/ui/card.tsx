@@ -170,7 +170,7 @@ const Card: React.FC<CardProps> = ({
           <Skeleton className="h-5 w-52 mx-auto mt-3" />
           <Skeleton className="h-3 w-40 mx-auto mt-2" />
           <div className="flex gap-1 items-center justify-center h-4 mt-2">
-            {Array.from({ length: 5 }).map((_, index) => (
+            {Array.from({ length: 5  }).map((_, index) => (
               <Skeleton key={index} className="h-3 w-3 rounded-full" />
             ))}
           </div>
