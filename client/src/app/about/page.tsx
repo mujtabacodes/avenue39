@@ -11,9 +11,28 @@ import gold from '@icons/gold.png';
 import crosshair from "@icons/Icon-crosshair.png";
 import parkingSensors  from "@icons/parking-sensors.png";
 import CustomTestimonal from '@/components/testimonial/custom-testimonal';
+import { Metadata } from 'next';
 
 
+export const metadata: Metadata = {
+  title: 'About Page',
+  description: 'About description',
+  openGraph: {
+    title: 'About',
+    description: 'About description',
+    url: 'fullUrl',
+    images: [
+      {
+        url: 'imageUrl',
+        alt: 'altText',
+      },
+    ],
+  },
+  alternates: {
+    canonical: 'about',
+  },
 
+}
 const About= () => {
   return (
     <>

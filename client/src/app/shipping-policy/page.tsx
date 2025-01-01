@@ -1,11 +1,29 @@
-// ShippingPolicy.tsx
-'use client';
-
 import TopHero from '@/components/top-hero';
 import Link from 'next/link';
 import React from 'react';
 import { TShippingPolicybredcrumbs } from '@/data/data';
 import { ShippingPolicy as shippingPolicyData } from '@/data'; 
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Shipping Policy Page',
+  description: 'Shipping Policy description',
+  openGraph: {
+    title: 'Shipping Policy',
+    description: 'Shipping Policy description',
+    url: 'fullUrl',
+    images: [
+      {
+        url: 'imageUrl',
+        alt: 'altText',
+      },
+    ],
+  },
+  alternates: {
+    canonical: 'shipping-policy',
+  },
+} 
+
 const ShippingPolicy: React.FC = () => {
   return (
     <>
