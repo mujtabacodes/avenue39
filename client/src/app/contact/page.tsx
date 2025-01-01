@@ -5,7 +5,27 @@ import TopHero from '@/components/top-hero';
 import Container from '@/components/ui/Container';
 import { productData } from '@/data';
 import { breadcrumbs } from '@/data/data';
+import { Metadata } from 'next';
 import React from 'react';
+
+export const metadata: Metadata = {
+  title: 'Contact Page',
+  description: 'Contact description',
+  openGraph: {
+    title: 'Contact',
+    description: 'Contact description',
+    url: 'fullUrl',
+    images: [
+      {
+        url: 'imageUrl',
+        alt: 'altText',
+      },
+    ],
+  },
+  alternates: {
+    canonical: 'contact',
+  },
+}
 
 const Contact = () => {
   return (

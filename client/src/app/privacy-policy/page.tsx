@@ -1,11 +1,31 @@
-'use client';
+
 import TopHero from '@/components/top-hero';
 import Link from 'next/link';
 import React from 'react';
 // import { TPolicySection } from '@/types/types';
 import { PrivacyPolicybredcrumbs } from '@/data/data';
 import { policySections } from '@/data';
+import { Metadata } from 'next';
 
+
+export const metadata: Metadata = {
+  title: 'privacy-policy Page',
+  description: 'privacy-policy description',
+  openGraph: {
+    title: 'privacy-policy',
+    description: 'privacy-policy description',
+    url: 'fullUrl',
+    images: [
+      {
+        url: 'imageUrl',
+        alt: 'altText',
+      },
+    ],
+  },
+  alternates: {
+    canonical: 'privacy-policy',
+  },
+} 
 const PrivacyPolicy: React.FC = () => {
   return (
     <>

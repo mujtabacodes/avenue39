@@ -50,7 +50,7 @@ export interface Product {
 
 export interface Category {
   name: string;
-  description: string;
+  description?: string;
   meta_description?:string;
   meta_title?:string;
   canonical_tag?:string;
@@ -158,6 +158,8 @@ export interface ADDPRODUCTFORMPROPS {
   EditInitialValues?: any | undefined;
   EditProductValue?: Product | undefined;
   setEditProduct?: any;
+  subCategories?: ICategory[];
+  categoriesList?: ICategory[];
 }
 
 export interface Categories_Types {

@@ -12,6 +12,7 @@ import { LiaEdit } from 'react-icons/lia';
 import { useAppSelector } from '@components/Others/HelperRedux';
 import { generateSlug } from '@/config';
 import { product } from '@/types/interfaces';
+import revalidateTag from '@/components/ServerActons/ServerAction';
 
 interface Product {
   id: string;
@@ -25,7 +26,7 @@ interface CategoryProps {
   Categories: any;
   setCategory: any;
   setselecteMenu: (menu: string) => void;
-  loading: boolean;
+  loading?: boolean;
   setEditProduct: any;
 }
 
@@ -128,6 +129,7 @@ const ViewProduct: React.FC<CategoryProps> = ({
           },
         },
       );
+      revalidateTag('products');
       console.log(response);
       setCategory((prev: Product[]) => prev.filter((item) => item.id !== key));
       notification.success({
