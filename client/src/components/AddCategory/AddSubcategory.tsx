@@ -12,10 +12,9 @@ import {categoryValidationSchema,subcategoryInitialValues,} from '@/data/data';
 import ProtectedRoute from '@/hooks/AuthHookAdmin';
 import Loader from '@components/Loader/Loader';
 import { ICategory } from '@/types/types';
-import { useQuery } from '@tanstack/react-query';
-import { fetchCategories } from '@/config/fetch';
 import { Checkbox } from '../ui/checkbox';
 import showToast from '@components/Toaster/Toaster';
+import revalidateTag from '../ServerActons/ServerAction';
 
 interface editCategoryNameType {
   name: string;
@@ -31,12 +30,14 @@ interface editCategoryProps {
   seteditCategory: any;
   editCategory: any;
   setMenuType: React.Dispatch<SetStateAction<string>>;
+  categoriesList: ICategory[];
 }
 
 const FormLayout = ({
   seteditCategory,
   editCategory,
   setMenuType,
+  categoriesList
 }: editCategoryProps) => {
   let CategoryName =
     editCategory && editCategory.name
@@ -87,6 +88,7 @@ const FormLayout = ({
         updateFlag ? { ...newValue, id: editCategory.id } : newValue,
       );
       console.log(response, 'response');
+      revalidateTag('subcategories')
       setloading(false);
       showToast(
         'success',
@@ -104,18 +106,6 @@ const FormLayout = ({
     }
   };
 
-  const {
-    data: categoriesList = [],
-    error,
-    isLoading,
-  } = useQuery<ICategory[], Error>({
-    queryKey: ['products'],
-    queryFn: fetchCategories,
-  });
-
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
 
 
   return (

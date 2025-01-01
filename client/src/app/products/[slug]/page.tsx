@@ -43,7 +43,7 @@ export async function generateMetadata({
   const headersList = headers();
   const domain =
     headersList.get('x-forwarded-host') || headersList.get('host') || '';
-  const protocol = headersList.get('x-forwarded-proto') || 'https'; // Default to HTTPS
+  const protocol = headersList.get('x-forwarded-proto') || 'https';
   const fullUrl = `${protocol}://${domain}/product/${slug}`;
 
   const categories = await fetchCategory();
@@ -54,6 +54,7 @@ export async function generateMetadata({
   const category = categories?.find(
     (item: any) => item.name === normalizedSlug,
   );
+  console.log(category,'category')
   const subcategory = !category
     ? subcategories?.find(
         (item: any) => item.name.toUpperCase() === normalizedSlug,
@@ -68,11 +69,11 @@ export async function generateMetadata({
   const defaultImageUrl = 'Avenue39';
   const defaultAltText = 'Avenue 39';
 
-  const title = source?.Meta_Title || defaultTitle;
-  const description = source?.Meta_Description || defaultDescription;
+  const title = source?.meta_title || defaultTitle;
+  const description = source?.meta_description || defaultDescription;
   const imageUrl = source?.posterImageUrl?.imageUrl || defaultImageUrl;
-  const altText = source?.Images_Alt_Text || defaultAltText;
-  const canonicalTag = source?.Canonical_Tag || fullUrl;
+  const altText = source?.images_alt_text || defaultAltText;
+  const canonicalTag = source?.canonical_tag || fullUrl;
 
   return {
     title,

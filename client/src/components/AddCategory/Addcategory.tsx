@@ -13,6 +13,7 @@ import { IoMdArrowRoundBack } from 'react-icons/io';
 import { categoryInitialValues, categoryValidationSchema } from '@/data/data';
 import ProtectedRoute from '@/hooks/AuthHookAdmin';
 import Loader from '@components/Loader/Loader';
+import revalidateTag from '../ServerActons/ServerAction';
 
 
 interface editCategoryProps {
@@ -56,7 +57,7 @@ const FormLayout = ({
         url,
         updateFlag ? { ...newValue, id: editCategory.id } : newValue,
       );
-
+      revalidateTag('categories')
       console.log(response, 'response');
       setloading(false);
       Toaster(
@@ -245,8 +246,8 @@ const FormLayout = ({
                           onChange={formik.handleChange}
                           value={formik.values.meta_description}
                           placeholder="Meta Description"
-                          className={`w-full rounded-lg border-[1.5px] border-stroke placeholder:text-lightgrey bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${formik.touched.description &&
-                            formik.errors.description
+                          className={`w-full rounded-lg border-[1.5px] border-stroke placeholder:text-lightgrey bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${formik.touched.meta_description &&
+                            formik.errors.meta_description
                             ? 'border-red-500'
                             : ''
                             }`}
