@@ -1395,10 +1395,11 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                   <div className="text-red-500 pt-2 pb-2">{imgError}</div>
                 </div>
               ) : null}
-
+                
               <button
                 type="submit"
                 className="px-10 py-2 mt-2 bg-black text-white rounded-md shadow-md dark:bg-main dark:border-0"
+                disabled={loading}
               >
                 {loading ? <Loader color="white" /> : 'Submit'}
               </button>
