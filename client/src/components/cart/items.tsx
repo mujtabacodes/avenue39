@@ -105,10 +105,10 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
         <div ref={drawerRef}>
           <div>
             <div
-              className={`xl:w-14 w-12 h-10 rounded-3xl relative flex justify-center items-center  cursor-pointer ${cartItems.length > 0 ? 'text-white bg-main' : 'text-black  border-black'}`}
+              className={`xl:w-12 w-12 h-10 rounded-3xl relative flex justify-center items-center  cursor-pointer ${cartItems.length > 0 ? 'text-white bg-main' : 'text-black  border-black'}`}
               onClick={handleOpenDrawer}
             >
-              <IoBagOutline size={25} />
+              <IoBagOutline size={24} />
               {cartItems.length > 0 && (
                 <div className="w-4 h-4 rounded-full bg-black text-white flex justify-center items-center absolute top-2 right-2 text-10">
                   <TotalProducts />
@@ -139,8 +139,11 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
               }
 
               </h3>
-              <span onClick={handleCloseDrawer} className="cursor-pointer">
-                <TfiClose size={25} />
+              <span
+                onClick={handleCloseDrawer}
+                className='cursor-pointer'
+              >
+                <TfiClose size={20} />
               </span>
             </div>
             {totalPrice === 0 ? (
@@ -203,7 +206,7 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                           </div>
                           <div
                             className="absolute top-2 right-2 cursor-pointer"
-                            onClick={() => removeProductFromCart(item.id)}
+                            onClick={(e) => {e.stopPropagation(); removeProductFromCart(item.id);}}
                           >
                             <RxCross2 />
                           </div>
@@ -298,7 +301,7 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                         <FaTrash
                           className="cursor-pointer"
                           size={15}
-                          onClick={() => removeProductFromCart(item.id)}
+                          onClick={(e) => {e.stopPropagation(); removeProductFromCart(item.id);}}
                         />
                       </div>
                     )}
@@ -359,7 +362,7 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                       <FaTrash
                         className="cursor-pointer"
                         size={15}
-                        onClick={() => removeProductFromCart(item.id)}
+                        onClick={(e) => {e.stopPropagation(); removeProductFromCart(item.id);}}
                       />
                     </div>
                   )}

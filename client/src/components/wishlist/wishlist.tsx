@@ -27,12 +27,12 @@ const WishlistCount = () => {
 
   return (
     <div
-      className={`xl:w-14 w-12 h-10 rounded-3xl relative flex justify-center items-center cursor-pointer ${
+      className={`xl:w-12 w-12 h-10 rounded-3xl relative flex justify-center items-center cursor-pointer ${
         wishlistCount > 0 ? "bg-main border-main text-white" : "border-black"
       }`}
     >
       <Link href={'/wishlist'}>
-        <IoIosHeartEmpty size={25} />
+        <IoIosHeartEmpty size={26} className='font-bold' />
       </Link>
       {wishlistCount > 0 && (
         <div className='w-4 h-4 rounded-full flex justify-center items-center absolute right-2 top-2 bg-black text-white text-10'>
