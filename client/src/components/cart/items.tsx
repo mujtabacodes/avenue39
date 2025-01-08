@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
+import React, { Fragment, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { State, Dispatch } from '@redux/store';
 import {
@@ -36,8 +36,8 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
     selectTotalPrice(state.cart),
   );
   const userDetails = useSelector(
-      (state: State) => state.usrSlice.loggedInUser,
-    );
+    (state: State) => state.usrSlice.loggedInUser,
+  );
   const drawerState = useSelector((state: State) => state.drawer);
   const drawerRef = useRef<HTMLDivElement | null>(null);
 
@@ -82,7 +82,10 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (drawerRef.current && !drawerRef.current.contains(event.target as Node)) {
+      if (
+        drawerRef.current &&
+        !drawerRef.current.contains(event.target as Node)
+      ) {
         dispatch(closeDrawer());
       }
     };
@@ -96,17 +99,16 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
     };
   }, [dispatch]);
 
-
   return (
     <React.Fragment>
       {!isCartPage ? (
         <div ref={drawerRef}>
           <div>
             <div
-              className={`xl:w-14 w-12 h-10 rounded-3xl relative flex justify-center items-center  cursor-pointer ${cartItems.length > 0 ? 'text-white bg-main' : 'text-black  border-black'}`}
+              className={`xl:w-12 w-12 h-10 rounded-3xl relative flex justify-center items-center  cursor-pointer ${cartItems.length > 0 ? 'text-white bg-main' : 'text-black  border-black'}`}
               onClick={handleOpenDrawer}
             >
-              <IoBagOutline size={25} />
+              <IoBagOutline size={24} />
               {cartItems.length > 0 && (
                 <div className="w-4 h-4 rounded-full bg-black text-white flex justify-center items-center absolute top-2 right-2 text-10">
                   <TotalProducts />
@@ -114,106 +116,140 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
               )}
             </div>
           </div>
-          <div className={`w-72 xsm:w-80 z-[52] border absolute top-[65px] ${userDetails ? '-right-[140px] xl:-right-[135px]' : '-right-[30px]'}  -right-[135px] h-[500px] border-[#0000002e] rounded-md py-5 px-5 pe-0 flex flex-col bg-white ${drawerState ? 'block' : 'hidden'}`} onMouseEnter={handleEnterDrawer} onMouseLeave={handleLeaveDrawer}>
+          <div
+            className={`w-72 xsm:w-80 z-[52] border absolute top-[65px] ${userDetails ? '-right-[140px] xl:-right-[135px]' : '-right-[30px]'}  -right-[135px] h-[500px] border-[#0000002e] rounded-md py-5 px-5 pe-0 flex flex-col bg-white ${drawerState ? 'block' : 'hidden'}`}
+            onMouseEnter={handleEnterDrawer}
+            onMouseLeave={handleLeaveDrawer}
+          >
             <div className="space-y-0 flex flex-row items-center justify-between border-b-2 pb-6 relative pe-6">
-              <div className={`absolute -top-[23px] ${userDetails ? 'right-1/2' : 'right-[40px]'}`}>
+              <div
+                className={`absolute -top-[23px] ${userDetails ? 'right-1/2' : 'right-[40px]'}`}
+              >
                 <div className="w-0 h-0 border-l-[20px] border-l-transparent border-r-[20px] border-r-[#0000002e] border-b-[20px] border-b-transparent transform -rotate-45 relative">
-                  <span className='w-0 h-0 border-l-[13px] border-l-transparent border-r-[19px] border-r-white border-b-[20px] border-b-transparent transform rotate-0 absolute top-[2px] -left-[13px] -translate-y-[1px]'></span>
+                  <span className="w-0 h-0 border-l-[13px] border-l-transparent border-r-[19px] border-r-white border-b-[20px] border-b-transparent transform rotate-0 absolute top-[2px] -left-[13px] -translate-y-[1px]"></span>
                 </div>
               </div>
 
-              <h3 className="font-medium text-3xl">
-                My Cart (<TotalProducts />)
+              <h3 className="font-medium md:text-xl 2xl:text-2xl">
+              My Cart {totalPrice !== 0 && 
+              <span>
+                (<TotalProducts />)
+              </span>
+              
+              }
+
               </h3>
               <span
                 onClick={handleCloseDrawer}
                 className='cursor-pointer'
               >
-                <TfiClose size={25} />
+                <TfiClose size={20} />
               </span>
             </div>
-
-            <div className="flex-1 overflow-auto mr-6 scrollbar-hidden">
-              <ul className="space-y-4">
-                {cartItems.map((item: any) => (
-                  <li
-                    key={item.id}
-                    className="relative flex items-center bg-slate-50 border-dotted gap-3 p-4 w-full rounded-md"
-                  >
-                    <div className="w-[70px] h-[70px]">
-                      <Image
-                        src={item.posterImageUrl}
-                        alt={item.posterImageAltText || item.name}
-                        width={80}
-                        height={80}
-                        className="rounded-md w-full min-w-[70px] h-full"
-                      />
-                    </div>
-
-                    <div className="grow">
-                      <ProductName className="text-start !text-[16px]">
-                        {item.name}
-                      </ProductName>
-                      <div className="flex justify-between flex-wrap gap-2">
-                        <span> Qty: {item.quantity}</span>
-                        {item?.discountPrice > 0 ? (
-                          <ProductPrice className="flex gap-2 flex-wrap mb-4 !text-[15px] text-nowrap">
-                            <span>
-                              AED {item?.discountPrice * item.quantity}
-                            </span>
-                            <NormalText className="text-slate-400 line-through w-[70px] text-end text-nowrap !text-[15px]">
-                              AED {item?.price * item.quantity}
-                            </NormalText>
-                          </ProductPrice>
-                        ) : (
-                          <ProductPrice className="flex gap-2 flex-wrap mb-4 !text-[15px] text-nowrap">
-                            <span>AED {item?.price * item.quantity}</span>
-                            {/* <NormalText className="text-slate-400 line-through w-20 text-end text-nowrap !text-[15px]">
-
-                            </NormalText> */}
-                          </ProductPrice>
-                        )}
-                      </div>
-                      <div
-                        className="absolute top-2 right-2 cursor-pointer"
-                        onClick={() => removeProductFromCart(item.id)}
-                      >
-                        <RxCross2 />
-                      </div>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="border-t-2 py-4 mr-6">
-              <div className="flex flex-col gap-2 w-full">
-                <NormalText className="text-slate-400 flex justify-between">
-                  Subtotal
-                  <ProductPrice className="flex gap-2 mb-4">
-                    AED {totalPrice}
-                  </ProductPrice>
-                </NormalText>
-                <div className="flex flex-col gap-2">
-                  <Link href='/cart'
-                    className="flex gap-4 items-center"
-                  >
-                    <CustomButtom variant="light" onClick={handleCloseDrawer} className='border-[#EBEBEB] border'>VIEW CART</CustomButtom>
-                  </Link>
-                  <Link href='/checkout'
-                    className="flex gap-4 items-center"
-                  >
-                    <CustomButtom
-                      variant="dark"
-                      className="hover:text-white border-black border"
-                      onClick={handleCloseDrawer}
+            {totalPrice === 0 ? (
+              <div className="flex justify-center items-center w-full h-96">
+                <div className="flex flex-col gap-4 items-center">
+                  <IoBagOutline size={50} className="text-black" />
+                  <p className="font-medium text-2xl">No Items In Cart</p>
+                  <div className="">
+                    <Link
+                      href="/products"
+                      className="bg-[#F6F6F6] px-6 flex justify-center items-center  hover:border-[#666666] border-[#F6F6F6] text-[#666666] h-[50px]"
                     >
-                      Check out
-                    </CustomButtom>
-                  </Link>
+                      Continue Shopping
+                    </Link>
+                  </div>
                 </div>
               </div>
-            </div>
+            ) : (
+              <Fragment>
+                <div className="flex-1 overflow-auto mr-6 scrollbar-hidden">
+                  <ul className="space-y-4">
+                    {cartItems.map((item: any) => (
+                      <li
+                        key={item.id}
+                        className="relative flex items-center bg-slate-50 border-dotted gap-3 p-4 w-full rounded-md"
+                      >
+                        <div className="w-[70px] h-[70px]">
+                          <Image
+                            src={item.posterImageUrl}
+                            alt={item.posterImageAltText || item.name}
+                            width={80}
+                            height={80}
+                            className="rounded-md w-full min-w-[70px] h-full"
+                          />
+                        </div>
+
+                        <div className="grow">
+                          <ProductName className="text-start !text-[16px]">
+                            {item.name}
+                          </ProductName>
+                          <div className="flex justify-between flex-wrap gap-2">
+                            <span> Qty: {item.quantity}</span>
+                            {item?.discountPrice > 0 ? (
+                              <ProductPrice className="flex gap-2 flex-wrap mb-4 !text-[15px] text-nowrap">
+                                <span>
+                                  AED {item?.discountPrice * item.quantity}
+                                </span>
+                                <NormalText className="text-slate-400 line-through w-[70px] text-end text-nowrap !text-[15px]">
+                                  AED {item?.price * item.quantity}
+                                </NormalText>
+                              </ProductPrice>
+                            ) : (
+                              <ProductPrice className="flex gap-2 flex-wrap mb-4 !text-[15px] text-nowrap">
+                                <span>AED {item?.price * item.quantity}</span>
+                                {/* <NormalText className="text-slate-400 line-through w-20 text-end text-nowrap !text-[15px]">
+
+                            </NormalText> */}
+                              </ProductPrice>
+                            )}
+                          </div>
+                          <div
+                            className="absolute top-2 right-2 cursor-pointer"
+                            onClick={(e) => {e.stopPropagation(); removeProductFromCart(item.id);}}
+                          >
+                            <RxCross2 />
+                          </div>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="border-t-2 py-4 mr-6">
+                  <div className="flex flex-col gap-2 w-full">
+                    <NormalText className="text-slate-400 flex justify-between">
+                      Total
+                      <ProductPrice className="flex gap-2 mb-4">
+                        AED {totalPrice}
+                      </ProductPrice>
+                    </NormalText>
+                    <div className="flex flex-col gap-2">
+                      <Link href="/cart" className="flex gap-4 items-center">
+                        <CustomButtom
+                          variant="light"
+                          onClick={handleCloseDrawer}
+                          className="border-[#EBEBEB] border"
+                        >
+                          VIEW CART
+                        </CustomButtom>
+                      </Link>
+                      <Link
+                        href="/checkout"
+                        className="flex gap-4 items-center"
+                      >
+                        <CustomButtom
+                          variant="dark"
+                          className="hover:text-white border-black border"
+                          onClick={handleCloseDrawer}
+                        >
+                          Check out
+                        </CustomButtom>
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              </Fragment>
+            )}
           </div>
         </div>
       ) : (
@@ -230,10 +266,8 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                       width={isCheckoutPage ? 50 : 100}
                       height={isCheckoutPage ? 50 : 100}
                       src={item.posterImageUrl}
-
                       alt={item.posterImageAltText || item.name}
-                      className='rounded-md object-cover w-full h-full'
-
+                      className="rounded-md object-cover w-full h-full"
                     />
                   </div>
                 </Link>
@@ -267,7 +301,7 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                         <FaTrash
                           className="cursor-pointer"
                           size={15}
-                          onClick={() => removeProductFromCart(item.id)}
+                          onClick={(e) => {e.stopPropagation(); removeProductFromCart(item.id);}}
                         />
                       </div>
                     )}
@@ -328,7 +362,7 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                       <FaTrash
                         className="cursor-pointer"
                         size={15}
-                        onClick={() => removeProductFromCart(item.id)}
+                        onClick={(e) => {e.stopPropagation(); removeProductFromCart(item.id);}}
                       />
                     </div>
                   )}

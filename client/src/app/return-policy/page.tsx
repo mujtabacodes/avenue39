@@ -6,6 +6,27 @@ import TopHero from '@/components/top-hero';
 import { TReturnPolicybredcrumbs } from '@/data/data';
 import { ReturnPolicy as returnPolicyData } from '@/data'; // Rename the data import to avoid conflict
 import Link from 'next/link';
+import { Metadata } from 'next';
+
+
+export const metadata: Metadata = {
+  title: 'Return Policy Page',
+  description: 'Return Policy description',
+  openGraph: {
+    title: 'Return Policy',
+    description: 'Return Policy description',
+    url: 'fullUrl',
+    images: [
+      {
+        url: 'imageUrl',
+        alt: 'altText',
+      },
+    ],
+  },
+  alternates: {
+    canonical: 'return-policy',
+  },
+} 
 
 const ReturnPolicyPage: React.FC = () => {
   return (

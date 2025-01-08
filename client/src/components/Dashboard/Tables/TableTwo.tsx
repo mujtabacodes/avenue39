@@ -12,6 +12,8 @@ import { useAppSelector } from '@components/Others/HelperRedux';
 import useColorMode from '@/hooks/useColorMode';
 import { Skeleton } from '@/components/ui/skeleton';
 import showToast from '@/components/Toaster/Toaster';
+import { ICategory } from '@/types/types';
+import revalidateTag from '@/components/ServerActons/ServerAction';
 
 interface Product {
   id: string;
@@ -27,14 +29,16 @@ interface CategoryProps {
     SetStateAction<CategoriesType | undefined | null>
   >;
   editCategory?: CategoriesType | undefined | null;
+  cetagories?: ICategory[];
 }
 
 const TableTwo = ({
   setMenuType,
   seteditCategory,
   editCategory,
+  cetagories
 }: CategoryProps) => {
-  const [category, setCategory] = useState<any[]>([]);
+  const [category, setCategory] = useState<ICategory[] | undefined>(cetagories);
   const [loading, setLoading] = useState<boolean>(false);
   const [colorMode, toggleColorMode] = useColorMode();
   const [searchTerm, setSearchTerm] = useState<string>('');
@@ -42,17 +46,19 @@ const TableTwo = ({
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
   };
-  const filteredCategories: Category[] = category
-  .filter((category) =>
-    category.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    category.description.toLowerCase().includes(searchTerm.toLowerCase()) 
-  )
-  .sort((a, b) => {
-    const dateA = a.createdAt ? new Date(a.createdAt).getTime() : 0; 
-    const dateB = b.createdAt ? new Date(b.createdAt).getTime() : 0; 
-    return dateB - dateA; 
-  }) || [];
-  console.log(filteredCategories, "Filter Cetagories")
+  const filteredCategories: Category[] =
+    category && category
+      .filter(
+        (category) =>
+          category.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          category.description && category.description.toLowerCase().includes(searchTerm.toLowerCase()),
+      )
+      .sort((a, b) => {
+        const dateA = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+        const dateB = b.createdAt ? new Date(b.createdAt).getTime() : 0;
+        return dateB - dateA;
+      }) || [];
+  console.log(filteredCategories, 'Filter Cetagories');
 
   const { loggedInUser }: any = useAppSelector((state) => state.usersSlice);
 
@@ -68,27 +74,6 @@ const TableTwo = ({
   //   (loggedInUser.role == 'Admin' ? loggedInUser.canEditCategory : true);
   const canEditCategory = true;
 
-  useLayoutEffect(() => {
-    const CategoryHandler = async () => {
-      try {
-        setLoading(true);
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/api/category/get-all`,
-        );
-        const Categories = await response.json();
-        setCategory(Categories);
-        setLoading(false);
-      } catch (err) {
-        console.log('err', err);
-        setLoading(false);
-      }
-    };
-
-    CategoryHandler();
-  }, []);
-
-
-  
   const confirmDelete = (key: any) => {
     Modal.confirm({
       title: 'Are you sure you want to delete this category?',
@@ -98,23 +83,22 @@ const TableTwo = ({
       cancelText: 'No',
       okButtonProps: {
         style: {
-          backgroundColor: 'black', 
-          color: 'white', 
-          outlineColor: 'black', 
+          backgroundColor: 'black',
+          color: 'white',
+          outlineColor: 'black',
         },
       },
       cancelButtonProps: {
         style: {
           borderColor: 'black',
-          color: 'black', 
-          outlineColor: 'black', 
+          color: 'black',
+          outlineColor: 'black',
         },
       },
     });
   };
 
   const handleDelete = async (key: any) => {
-    alert(key);
     try {
       const response = await axios.delete(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/category/delete-category`,
@@ -125,6 +109,7 @@ const TableTwo = ({
         },
       );
       setCategory((prev: any) => prev.filter((item: any) => item.id != key));
+      revalidateTag('categories')
       notification.success({
         message: 'Category Deleted',
         description: 'The category has been successfully deleted.',
@@ -208,9 +193,8 @@ const TableTwo = ({
       key: 'action',
       render: (text: any, record: any) => (
         <RiDeleteBin6Line
-          className={`cursor-pointer ${canDeleteCategory && 'text-red-500 dark:text-red-700'} ${
-            !canDeleteCategory && 'cursor-not-allowed text-slate-300'
-          }`}
+          className={`cursor-pointer ${canDeleteCategory && 'text-red-500 dark:text-red-700'} ${!canDeleteCategory && 'cursor-not-allowed text-slate-300'
+            }`}
           // className="cursor-pointer text-red-500"
           size={20}
           onClick={() => {
@@ -242,7 +226,7 @@ const TableTwo = ({
       ) : (
         <>
           <div className="flex justify-between mb-4 items-center text-dark dark:text-white">
-          <input
+            <input
               className="peer lg:p-3 p-2 block outline-none border rounded-md border-gray-200 dark:bg-boxdark dark:bg-transparent dark:border-white text-11 xs:text-sm dark:focus:border-primary focus:border-dark focus:ring-dark-500 disabled:opacity-50 disabled:pointer-events-none dark:text-black"
               type="search"
               placeholder="Search Category"
@@ -251,14 +235,11 @@ const TableTwo = ({
             />
             <div>
               <p
-                className={`${
-                  canAddCategory && 'cursor-pointer'
-                } lg:p-2 md:p-2 ${
-                  canAddCategory &&
+                className={`${canAddCategory && 'cursor-pointer'
+                  } lg:p-2 md:p-2 ${canAddCategory &&
                   'bg-black dark:bg-main dark:border-0 text-white rounded-md border   '
-                } flex justify-center ${
-                  !canAddCategory && 'cursor-not-allowed '
-                }`}
+                  } flex justify-center ${!canAddCategory && 'cursor-not-allowed '
+                  }`}
                 onClick={() => {
                   seteditCategory && seteditCategory(null);
                   if (canAddCategory) {
@@ -271,7 +252,7 @@ const TableTwo = ({
             </div>
           </div>
 
-          { filteredCategories && filteredCategories.length > 0 ? (
+          {filteredCategories && filteredCategories.length > 0 ? (
             <Table
               className="overflow-x-scroll lg:overflow-auto"
               dataSource={filteredCategories}

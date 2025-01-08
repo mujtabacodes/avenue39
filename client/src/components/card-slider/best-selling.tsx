@@ -41,8 +41,10 @@ const BestSellingSlider: React.FC = () => {
     <div className="slider-container">
       {products.length > 0 ? (
         <>
-          <div className="text-end mb-3 px-4">
-            <button
+          <div className="text-end mb-3 px-4 flex justify-between">
+          <h1 className="lg:text-3xl text-2xl text-left font-semibold flex">Best Seller</h1>
+           <div>
+           <button
               className="button"
               onClick={previous}
               style={{ marginRight: '10px' }}
@@ -52,6 +54,7 @@ const BestSellingSlider: React.FC = () => {
             <button className="button" onClick={next}>
               <IoIosArrowForward size={30} />
             </button>
+           </div>
           </div>
 
           <Swiper
@@ -71,19 +74,25 @@ const BestSellingSlider: React.FC = () => {
             }}
             breakpoints={{
               2000: {
-                slidesPerView: 4,
+                slidesPerView: 5,
               },
               1500: {
-                slidesPerView: 3,
+                slidesPerView: 5,
               },
-              1200: {
-                slidesPerView: 2,
+              1290: {
+                slidesPerView: 5,
               },
               1024: {
-                slidesPerView: 1.5,
+                slidesPerView: 4,
               },
               680: {
+                slidesPerView: 3,
+              },
+              500: {
                 slidesPerView: 2,
+              },
+              460: {
+                slidesPerView: 1.5,
               }
             }}
             modules={[Navigation, Pagination]}
@@ -94,7 +103,7 @@ const BestSellingSlider: React.FC = () => {
                 <FeatureCard
                   isLoading={isProductsLoading}
                   card={card}
-                  cardHeight="w-full h-[350px]"
+                  cardHeight="h-[280px] xsm:h-[220px] sm:h-[240px] md:h-[270px] xl:h-[220px] 2xl:h-[280px]"
                 />
               </SwiperSlide>
             ))}

@@ -1,9 +1,28 @@
-'use client';
 import TopHero from '@/components/top-hero';
 import Link from 'next/link';
 import React from 'react';
 import { Tersmandcondition } from '@/data/data';
 import { TermsCondition } from '@/data';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Terms & Conditions Page',
+  description: 'Terms & Conditions description',
+  openGraph: {
+    title: 'Terms & Conditions',
+    description: 'Terms & Conditions description',
+    url: 'fullUrl',
+    images: [
+      {
+        url: 'imageUrl',
+        alt: 'altText',
+      },
+    ],
+  },
+  alternates: {
+    canonical: 'terms-condition',
+  },
+} 
 
 const TermsAndConitions: React.FC = () => {
   return (

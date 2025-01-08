@@ -32,12 +32,14 @@ import { useQuery } from '@tanstack/react-query';
 import { ICategory } from '@/types/types';
 import { fetchCategories, fetchSubCategories } from '@/config/fetch';
 import showToast from '@components/Toaster/Toaster';
+import revalidateTag from '@/components/ServerActons/ServerAction';
 
 const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
   EditInitialValues,
   EditProductValue,
   setselecteMenu,
   setEditProduct,
+  categoriesList,
 }) => {
   const [selectedOption, setSelectedOption] = useState<string>('');
   const [isOptionSelected, setIsOptionSelected] = useState<boolean>(false);
@@ -71,7 +73,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
     any | null | undefined
   >(EditProductValue);
   const [imgError, setError] = useState<string | null | undefined>();
-  const [Categories, setCategories] = useState<any[]>();
+  const [Categories, setCategories] = useState<any[]>(categoriesList);
   const [VariationOption, setVariationOption] =
     useState<string>('withoutVariation');
   const [selectedCategories, setSelectedCategories] = useState<number[]>([]);
@@ -141,7 +143,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
         hoverImageAltText: posterImageUrl.altText,
         productImages: imagesUrl,
         sale_counter:
-          (values.sale_counter ==null) || (EditInitialValues.sale_counter ==null)
+          (values.sale_counter === '') || (EditInitialValues.sale_counter ==null)
             ? ''
             : values.sale_counter
               ? values.sale_counter
@@ -158,6 +160,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
         newValues = { id: EditInitialValues.id, ...newValues };
       }
       const response = await axios.post(url, newValues);
+      revalidateTag('products');
       Toaster(
         'success',
         updateFlag
@@ -205,29 +208,6 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
     },
   });
 
-  useEffect(() => {
-    const CategoryHandler = async () => {
-      try {
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/api/category/get-all`,
-        );
-        const allCategories = await response.json();
-        setCategories(allCategories);
-      } catch (err) {
-        console.log(err, 'err');
-      }
-    };
-
-    CategoryHandler();
-  }, []);
-  const {
-    data: categoriesList = [],
-    error,
-    isLoading,
-  } = useQuery<ICategory[], Error>({
-    queryKey: ['categories'],
-    queryFn: fetchCategories,
-  });
 
   const [selectedCategoryIds, setSelectedCategoryIds] = useState<number[]>([]);
   const [selectedSubcategoryIds, setSelectedSubcategoryIds] = useState<
@@ -655,11 +635,6 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                           <label className="mb-3 block py-4 px-2 text-sm font-medium text-black dark:text-white">
                             Select Parent Category (at least one)
                           </label>
-                          {isLoading ? (
-                            <div>
-                              <Loader />
-                            </div>
-                          ) : (
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                               {categoriesList.map((category) => (
                                 <div
@@ -694,7 +669,6 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                                 </div>
                               ))}
                             </div>
-                          )}
                         </div>
 
                         <div className="mt-4">
@@ -1395,10 +1369,11 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                   <div className="text-red-500 pt-2 pb-2">{imgError}</div>
                 </div>
               ) : null}
-
+                
               <button
                 type="submit"
                 className="px-10 py-2 mt-2 bg-black text-white rounded-md shadow-md dark:bg-main dark:border-0"
+                disabled={loading}
               >
                 {loading ? <Loader color="white" /> : 'Submit'}
               </button>
