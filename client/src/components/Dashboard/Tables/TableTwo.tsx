@@ -7,19 +7,9 @@ import { RiDeleteBin6Line } from 'react-icons/ri';
 import axios from 'axios';
 import { LiaEdit } from 'react-icons/lia';
 import { Category } from '@/types/interfaces';
-import { useAppSelector } from '@components/Others/HelperRedux';
-import useColorMode from '@/hooks/useColorMode';
-import { Skeleton } from '@/components/ui/skeleton';
 import { ICategory } from '@/types/types';
 import revalidateTag from '@/components/ServerActons/ServerAction';
 
-interface Product {
-  id: string;
-  name: string;
-  category: string;
-  posterImageUrl: string;
-  createdAt: string;
-}
 
 interface CategoryProps {
   setMenuType: React.Dispatch<SetStateAction<string>>;
@@ -33,12 +23,11 @@ interface CategoryProps {
 const TableTwo = ({
   setMenuType,
   seteditCategory,
-  editCategory,
   cetagories
 }: CategoryProps) => {
   const [category, setCategory] = useState<ICategory[] | undefined>(cetagories);
-  const [loading, setLoading] = useState<boolean>(false);
-  const [colorMode, toggleColorMode] = useColorMode();
+  // const [loading, setLoading] = useState<boolean>(false);
+  // const [colorMode, toggleColorMode] = useColorMode();
   const [searchTerm, setSearchTerm] = useState<string>('');
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -57,8 +46,6 @@ const TableTwo = ({
         return dateB - dateA;
       }) || [];
   console.log(filteredCategories, 'Filter Cetagories');
-
-  const { loggedInUser }: any = useAppSelector((state) => state.usersSlice);
 
   const canDeleteCategory = true;
   // const canDeleteCategory =
@@ -98,7 +85,7 @@ const TableTwo = ({
 
   const handleDelete = async (key: any) => {
     try {
-      const response = await axios.delete(
+      await axios.delete(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/category/delete-category`,
         {
           params: {
@@ -206,22 +193,7 @@ const TableTwo = ({
   ];
 
   return (
-    <div className={colorMode === 'dark' ? 'dark' : ''}>
-      {loading ? (
-        <div className="space-y-4">
-          {Array(5)
-            .fill('')
-            .map((_, index) => (
-              <div key={index} className="flex justify-between items-center">
-                <Skeleton className="w-12 h-12 rounded-full" />
-                <Skeleton className="w-32 h-6" />
-                <Skeleton className="w-32 h-6" />
-                <Skeleton className="w-20 h-6" />
-                <Skeleton className="w-10 h-6" />
-              </div>
-            ))}
-        </div>
-      ) : (
+    <div>
         <>
           <div className="flex justify-between mb-4 items-center text-dark dark:text-white">
             <input
@@ -262,7 +234,6 @@ const TableTwo = ({
             'No Categories found'
           )}
         </>
-      )}
     </div>
   );
 };

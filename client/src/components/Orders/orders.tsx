@@ -6,7 +6,8 @@ interface IOrderList {
   orderData: any[];
   orderColumns: any[];
   visible: boolean;
-  setVisible: (_value: boolean) => void;
+  // eslint-disable-next-line no-unused-vars
+  setVisible: (value: boolean) => void;
   selectedProducts: any[];
 }
 

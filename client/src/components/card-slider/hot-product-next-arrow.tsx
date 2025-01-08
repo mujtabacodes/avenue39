@@ -1,3 +1,4 @@
+import React from 'react';
 import { MdArrowForwardIos } from 'react-icons/md';
 
 const HotProductNextArrow: React.FC<any> = (props) => {

@@ -73,7 +73,7 @@ export const calculateRatingsPercentage = (reviews: IReview[]) => {
     averageRating: parseFloat(averageRating),
   };
 };
-
+// eslint-disable-next-line no-unused-vars
 export const generateSlug = (text: string) => {
   if (!text) return '';
   return text

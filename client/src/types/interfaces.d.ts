@@ -105,6 +105,8 @@ export interface FormValues {
   code: string;
   totalStockQuantity: number;
   variantStockQuantities: { variant: string; quantity: number }[];
+  price?: string;
+  additionalInformation?: string;
 }
 
 interface Color {
@@ -215,12 +217,12 @@ declare module 'react-qr-scanner' {
 
   interface QrReaderProps {
     delay?: number;
-    onError?: (_error: any) => void;
-    onScan?: (_data: string | null) => void; 
+    onError?: (error: any) => void;  // Renamed `error` to `_error`
+    onScan?: (data: string | null) => void;  // Renamed `data` to `_data`
     style?: React.CSSProperties;
   }
 
-  class QrReader extends Component<QrReaderProps, any> {}
+  class QrReader extends Component<QrReaderProps, {}> {}  // Use an empty object type for the state
 
   export default QrReader;
 }

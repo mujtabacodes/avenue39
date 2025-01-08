@@ -1,10 +1,11 @@
 "use client";
-import React, { useEffect } from 'react';
+import React from 'react';
 import { HiMinusSm, HiPlusSm } from 'react-icons/hi';
 
 interface CounterProps {
   count: number; 
-  onChangeCount: (newCount: number) => void;
+  // eslint-disable-next-line unused-imports/no-unused-vars
+  onChangeCount: (count: number) => void;
 }
 
 const Counter: React.FC<CounterProps> = ({ count, onChangeCount }) => {
@@ -30,7 +31,7 @@ const Counter: React.FC<CounterProps> = ({ count, onChangeCount }) => {
       onChangeCount(0); // Set count to 0 on backspace
     }
   };
-
+console.log(count,"count")
   return (
     <div className="flex items-center border border-gray-300 rounded py-1 md:p-2 md:py-3 w-fit">
       <button

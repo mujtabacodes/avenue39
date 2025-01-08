@@ -14,7 +14,6 @@ import Image from 'next/image';
 import CustomButtom from '../ui/custom-button';
 import Counter from '../counter';
 import { IoBagOutline } from 'react-icons/io5';
-import { useRouter } from 'next/navigation';
 import { TfiClose } from 'react-icons/tfi';
 import { generateSlug, TotalProducts } from '@/config';
 import { closeDrawer, openDrawer } from '@/redux/slices/drawer';
@@ -28,10 +27,9 @@ interface ICartItems {
 }
 
 const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
-  const navigate = useRouter();
   const dispatch = useDispatch<Dispatch>();
   const cartItems = useSelector((state: State) => state.cart.items);
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const totalPrice = useSelector((state: State) =>
     selectTotalPrice(state.cart),
   );

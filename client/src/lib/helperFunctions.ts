@@ -1,4 +1,4 @@
-import axios, { AxiosResponse, AxiosRequestConfig } from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import React from 'react';
 
 type setTotalProducts = React.Dispatch<React.SetStateAction<any[]>>;

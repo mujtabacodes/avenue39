@@ -1,4 +1,4 @@
-import axios, { AxiosResponse, AxiosRequestConfig } from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import PRODUCTS_TYPES from '@/types/interfaces';
 import React from 'react';
 

@@ -25,8 +25,7 @@ import {
 } from '@/data';
 
 import { IoBagOutline } from 'react-icons/io5';
-import { useDispatch, useSelector } from 'react-redux';
-import { State } from '@/redux/store';
+import { useDispatch } from 'react-redux';
 import { addItem } from '@/redux/slices/cart';
 import { Dispatch } from 'redux';
 import { HiMinusSm, HiPlusSm } from 'react-icons/hi';

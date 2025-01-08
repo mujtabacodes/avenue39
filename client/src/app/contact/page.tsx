@@ -3,7 +3,6 @@ import ContactForm from '@/components/forms/contact-form';
 import SideCard from '@/components/side-card/side-card';
 import TopHero from '@/components/top-hero';
 import Container from '@/components/ui/Container';
-import { productData } from '@/data';
 import { breadcrumbs } from '@/data/data';
 import { Metadata } from 'next';
 import React from 'react';

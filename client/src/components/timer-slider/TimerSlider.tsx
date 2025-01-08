@@ -8,7 +8,6 @@ import Image from 'next/image';
 import { Button } from '../ui/button';
 import { timerSliderData } from '@/data';
 import { IProduct, TTimeRemainingArray } from '@/types/types';
-import { useRouter } from 'next/navigation';
 import { useDispatch } from 'react-redux';
 import { Dispatch } from 'redux';
 import { CartItem } from '@/redux/slices/cart/types';

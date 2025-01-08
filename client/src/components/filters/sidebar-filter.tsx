@@ -9,7 +9,8 @@ import { IProductCategories } from '@/types/types';
 import Link from 'next/link';
 
 interface SidebarFilterProps {
-  onCategoryChange: (_category: string, _isChecked: boolean, _isSubCategory: boolean) => void;
+  // eslint-disable-next-line no-unused-vars
+  onCategoryChange: (category: string, isChecked: boolean, isSubCategory: boolean) => void;
   onPriceChange: (range: [number, number]) => void;
   sideBanner: StaticImageData;
   category: any;

@@ -67,8 +67,6 @@ const FeatureCard: React.FC<CardProps> = ({
 
   const {
     data: reviews = [],
-    // error,
-    // isLoading: reviewLoading,
   } = useQuery<IReview[], Error>({
     queryKey: ['reviews'],
     queryFn: fetchReviews,

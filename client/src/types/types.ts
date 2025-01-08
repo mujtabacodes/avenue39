@@ -196,14 +196,14 @@ export interface BreadcrumbItem {
   href?: string;
 }
 
-interface Product {
-  image: string;
-  name: string;
-  price: number;
-  originalPrice?: number;
-  discount?: string;
-  rating: number;
-}
+// interface Product {
+//   image: string;
+//   name: string;
+//   price: number;
+//   originalPrice?: number;
+//   discount?: string;
+//   rating: number;
+// }
 
 export interface MissionData {
   title: string;

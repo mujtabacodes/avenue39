@@ -17,7 +17,8 @@ import Cookies from 'js-cookie';
 
 
 interface TabsProps {
-  onTabChange?: (_value: string) => void;
+  // eslint-disable-next-line no-unused-vars
+  onTabChange?: (value: string) => void;
   activeTab?: string;
 }
 

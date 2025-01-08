@@ -19,7 +19,7 @@ interface DiscountCardProps {
   }>;
 }
 
-const DiscountCard: React.FC<DiscountCardProps> = ({ productItems }) => {
+const DiscountCard: React.FC<DiscountCardProps> = () => {
   const {
     data: products = [],
     isLoading,

@@ -27,7 +27,8 @@ interface ProductPageProps {
   sideBannerProduct?: string;
   productBanner: ReactNode;
   layout: string;
-  Setlayout: (_layout: string) => void;
+  // eslint-disable-next-line no-unused-vars
+  Setlayout: (layout: string) => void;
   fullUrl?: string;
 }
 
@@ -181,16 +182,19 @@ const ProductPage = ({
     // })
     .sort((a, b) => {
       switch (sortOption) {
-        case 'name':
+        case 'name': {
           return a.name.trim().localeCompare(b.name.trim());
-        case 'max':
+        }
+        case 'max': {
           const priceA = a.discountPrice > 0 ? a.discountPrice : a.price;
           const priceB = b.discountPrice > 0 ? b.discountPrice : b.price;
           return priceB - priceA;
-        case 'min':
+        }
+        case 'min': {
           const minPriceA = a.discountPrice > 0 ? a.discountPrice : a.price;
           const minPriceB = b.discountPrice > 0 ? b.discountPrice : b.price;
           return minPriceA - minPriceB;
+        }
         default:
           return 0;
       }

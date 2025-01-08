@@ -63,10 +63,6 @@ const Navbar = () => {
 
   const { loggedInUser } = useSelector((state: State) => state.usrSlice);
 
-  const initialFormData = {
-    fullName: loggedInUser?.name,
-  };
-
   const [profilePhoto, setProfilePhoto] = useState<any>([]);
   useEffect(() => {
     if (loggedInUser) {

@@ -17,14 +17,12 @@ import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md';
 const HotProductSlider: React.FC = () => {
   const {
     data: products = [],
-    error: productsError,
     isLoading: isProductsLoading,
   } = useQuery<IProduct[], Error>({
     queryKey: ['products'],
     queryFn: fetchProducts,
   });
 
-  // Refs for the custom navigation buttons
   const prevButtonRef = useRef<HTMLButtonElement>(null);
   const nextButtonRef = useRef<HTMLButtonElement>(null);
 

@@ -6,7 +6,7 @@ import { useSearchParams } from 'next/navigation'
 export default function Page({ params }: { params: {imageurl:string} }) {
   const searchParams = useSearchParams()
   const Image_id:any = searchParams.get('Image_id')
-console.log(Image_id, "Image_id")
+console.log(params, "Image_id")
 
   return (
     <>

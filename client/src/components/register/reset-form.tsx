@@ -22,7 +22,7 @@ const ResetForm = () => {
     const verify_token = async () => {
         try {
             if (!token) return;
-            const response = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/user/getuserHandler`, {
+            await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/user/getuserHandler`, {
                 headers: { 'authorization': `Bearer ${token}` },
             });
             // setUserData(response.data.user);

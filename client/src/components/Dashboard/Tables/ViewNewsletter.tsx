@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import { Table, notification, Modal } from 'antd';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import axios from 'axios';
-import Loader from '@components/Loader/Loader';
 import { Button } from '@/components/ui/button';
 import showToast from '@/components/Toaster/Toaster';
 
@@ -17,14 +16,12 @@ interface CategoryProps {
   Categories: Product[];
   setCategory: React.Dispatch<React.SetStateAction<Product[]>>;
   setselecteMenu: (menu: string) => void;
-  loading: boolean;
 }
 
 const ViewNewsletter: React.FC<CategoryProps> = ({
   Categories,
   setCategory,
   setselecteMenu,
-  loading,
 }) => {
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
