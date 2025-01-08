@@ -32,7 +32,7 @@ const ReturnPolicyPage: React.FC = () => {
   return (
     <>
       <TopHero title="Return Policy" breadcrumbs={TReturnPolicybredcrumbs} />
-      <div>
+   
         <div className="max-w-5xl mx-auto p-4">
           {returnPolicyData.map((section: any, index: number) => (
             <div key={index} className="mb-6">
@@ -67,7 +67,6 @@ const ReturnPolicyPage: React.FC = () => {
             </div>
           ))}
         </div>
-      </div>
     </>
   );
 };
