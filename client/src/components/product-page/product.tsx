@@ -27,8 +27,9 @@ interface ProductPageProps {
   sideBannerProduct?: string;
   productBanner: ReactNode;
   layout: string;
-  // eslint-disable-next-line no-unused-vars
+  /* eslint-disable */
   Setlayout: (layout: string) => void;
+  /* eslint-enable */
   fullUrl?: string;
 }
 

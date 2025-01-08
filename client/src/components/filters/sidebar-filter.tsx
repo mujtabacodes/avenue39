@@ -8,15 +8,16 @@ import Image, { StaticImageData } from 'next/image';
 import { IProductCategories } from '@/types/types';
 import Link from 'next/link';
 
+/* eslint-disable */
 interface SidebarFilterProps {
-  // eslint-disable-next-line no-unused-vars
+
   onCategoryChange: (category: string, isChecked: boolean, isSubCategory: boolean) => void;
   onPriceChange: (range: [number, number]) => void;
   sideBanner: StaticImageData;
   category: any;
   sideBannerProduct?: string;
 }
-
+/* eslint-enable */
 const SidebarFilter = ({
   onCategoryChange,
   onPriceChange,

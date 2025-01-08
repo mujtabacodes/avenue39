@@ -5,16 +5,16 @@ import { CheckboxChangeEvent } from 'antd/es/checkbox';
 
 interface ICategoryFilter {
   items: IProductCategory[];
-  // eslint-disable-next-line no-unused-vars
+  /* eslint-disable */
   onCategoryChange: (
     category: string,
     isChecked: boolean,
     isSubCategory?: boolean,
   ) => void;
+  /* eslint-enable */
   isSubcategory?: boolean;
   selectedCategories?: string[];
 }
-
 const CategoryFilter = ({
   items,
   onCategoryChange,

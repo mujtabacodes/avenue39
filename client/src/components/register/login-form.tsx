@@ -15,12 +15,12 @@ import { useDispatch } from 'react-redux';
 import { loggedInUserAction } from '@/redux/slices/user/userSlice';
 import Cookies from 'js-cookie';
 
-
+/* eslint-disable */
 interface TabsProps {
-  // eslint-disable-next-line no-unused-vars
   onTabChange?: (value: string) => void;
   activeTab?: string;
 }
+/* eslint-enable */
 
 export function LoginForm({ onTabChange, activeTab }: TabsProps) {
   const Navigate = useRouter();

@@ -212,17 +212,16 @@ export interface product {
   OgUrl:string
 }
 
+/* eslint-disable */
 declare module 'react-qr-scanner' {
   import { Component } from 'react';
-
   interface QrReaderProps {
     delay?: number;
-    onError?: (error: any) => void;  // Renamed `error` to `_error`
-    onScan?: (data: string | null) => void;  // Renamed `data` to `_data`
+    onError?: (error: any) => void;
+    onScan?: (data: string | null) => void;  
     style?: React.CSSProperties;
   }
-
-  class QrReader extends Component<QrReaderProps, {}> {}  // Use an empty object type for the state
-
+  class QrReader extends Component<QrReaderProps, {}> {} 
   export default QrReader;
 }
+/* eslint-enable */

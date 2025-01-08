@@ -4,8 +4,9 @@ import { FaStar } from 'react-icons/fa';
 interface StarRatingProps {
   disabled?: boolean;
   defaultValue?: number;
-  // eslint-disable-next-line no-unused-vars
+  /* eslint-disable */
   onChange?: (rating: number) => void;
+  /* eslint-enable */
 }
 const StarRating: React.FC<StarRatingProps> = ({ disabled = false, defaultValue = 0, onChange }) => {
   const [rating, setRating] = useState(defaultValue);

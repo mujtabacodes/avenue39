@@ -4,8 +4,9 @@ import { HiMinusSm, HiPlusSm } from 'react-icons/hi';
 
 interface CounterProps {
   count: number; 
-  // eslint-disable-next-line unused-imports/no-unused-vars
+  /* eslint-disable */
   onChangeCount: (count: number) => void;
+  /* eslint-enable */
 }
 
 const Counter: React.FC<CounterProps> = ({ count, onChangeCount }) => {

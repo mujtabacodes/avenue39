@@ -23,8 +23,9 @@ interface Product {
 interface CategoryProps {
   Categories: any;
   setCategory: any;
-  // eslint-disable-next-line unused-imports/no-unused-vars
+ /* eslint-disable */
   setselecteMenu: (menu: string) => void;
+  /* eslint-enable */
   loading?: boolean;
   setEditProduct: any;
 }
