@@ -1,4 +1,6 @@
+
 'use client'
+import React from 'react';
 import dynamic from 'next/dynamic';
 
 const Chart = dynamic(() => import('@components/Dashboard/Charts/page'), { ssr: false });

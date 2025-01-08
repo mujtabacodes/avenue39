@@ -11,7 +11,7 @@ export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {}
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, id, name, onChange, style , value, ...props }, ref) => {
+  ({ className, type, id, name, onChange , value, ...props }, ref) => {
     const [showPassword, setShowPassword] = React.useState(false);
     const [inputType, setInputType] = React.useState(type);
 

@@ -4,7 +4,7 @@ import storage from 'redux-persist/lib/storage';
 import mainReducer, { productReducer } from '@mainSlice/index';
 import cartReducer from '@cartSlice/index';
 import drawerReducer from '@drawerSlice/index';
-import { initMainState, initProductState } from '@mainSlice/init';
+import { initMainState } from '@mainSlice/init';
 import { initCartState } from './slices/cart/init';
 import { initCartDrawerState } from './slices/drawer/init';
 import usrSlice from './slices/user/userSlice';

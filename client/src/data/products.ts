@@ -1,6 +1,5 @@
 import { IProduct } from '@/types/types';
 import productImg1 from '@images/products/imageeee.png';
-import { Description } from '@radix-ui/react-dialog';
 
 export const paymentIcons = [
   { src: '/images/paymentIcons/Mastercard-Logo.webp', alt: 'Mastercard' },

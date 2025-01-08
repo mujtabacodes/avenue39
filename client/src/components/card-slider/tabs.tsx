@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import SliderComponent from './card-slider';
 import { ISliderData } from '@/types/types';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination } from 'swiper/modules';
+import { Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import {
@@ -20,67 +20,17 @@ interface TabsProps {
 const Tabs: React.FC<TabsProps> = ({ slidersData, isLoading }) => {
   const [activeTab, setActiveTab] = useState(0);
   const tabMenuRef = useRef<HTMLDivElement | null>(null);
-  const [isDragging, setIsDragging] = useState(false);
-  const [startX, setStartX] = useState(0);
-  const [scrollLeft, setScrollLeft] = useState(0);
 
-  // Handle click navigation between tabs
   const handleTabClick = (index: number) => {
     setActiveTab(index);
   };
 
-  // Handle horizontal scroll button visibility
   const updateScrollIconsVisibility = () => {
     if (!tabMenuRef.current) return;
-
-    const tabMenu = tabMenuRef.current;
-    const scrollLeftValue = Math.ceil(tabMenu.scrollLeft);
-    const scrollableWidth = tabMenu.scrollWidth - tabMenu.clientWidth;
-  };
-
-  // Handle scroll left and right actions
-  const handleScroll = (direction: string) => {
-    if (!tabMenuRef.current) return;
-
-    const tabMenu = tabMenuRef.current;
-    const scrollAmount = 150;
-
-    if (direction === 'left') {
-      tabMenu.scrollLeft -= scrollAmount;
-    } else if (direction === 'right') {
-      tabMenu.scrollLeft += scrollAmount;
-    }
-
-    setTimeout(() => updateScrollIconsVisibility(), 50);
-  };
-
-  // Handle dragging functionality
-  const handleMouseDown = (e: React.MouseEvent) => {
-    if (!tabMenuRef.current) return;
-
-    setIsDragging(true);
-    setStartX(e.pageX - tabMenuRef.current.offsetLeft);
-    setScrollLeft(tabMenuRef.current.scrollLeft);
-  };
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!isDragging || !tabMenuRef.current) return;
-
-    const x = e.pageX - tabMenuRef.current.offsetLeft;
-    const walk = (x - startX) * 2; // Adjust the multiplier for faster/slower dragging
-    tabMenuRef.current.scrollLeft = scrollLeft - walk;
-    updateScrollIconsVisibility();
-  };
-
-  const handleMouseUpOrLeave = () => {
-    setIsDragging(false);
   };
 
   useEffect(() => {
     updateScrollIconsVisibility();
-    const tabMenu = tabMenuRef.current;
-
-    // Update on window resize
     const handleResize = () => {
       updateScrollIconsVisibility();
     };

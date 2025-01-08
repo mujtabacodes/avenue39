@@ -1,10 +1,4 @@
-import Container from '@/components/ui/Container'
-import Image from 'next/image'
-import Link from 'next/link'
 import React, { Fragment } from 'react'
-import loginBackground from '@assets/images/login.png';
-import { CgCloseO } from 'react-icons/cg'
-import logo from '@assets/icons/logo.png';
 import ResetForm from '@/components/register/reset-form';
 import Services from '@/components/services/services';
 

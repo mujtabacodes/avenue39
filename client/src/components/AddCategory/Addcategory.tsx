@@ -40,7 +40,7 @@ const FormLayout = ({
     
   const [loading, setloading] = useState<boolean>(false);
   const [editCategoryName, setEditCategoryName] = useState<Category | null | undefined>(CategoryName);
-
+console.log(setEditCategoryName)
   const onSubmit = async (values: Category, { resetForm }: any) => {
     try {
       setloading(true);

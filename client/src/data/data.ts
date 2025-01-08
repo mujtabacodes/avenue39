@@ -46,8 +46,8 @@ export const TShippingPolicybredcrumbs = [
 ];
 
 import * as Yup from 'yup';
-import { Product, Category, FormValues, SubCategory, TCategories } from '@/types/interfaces';
-import { IProduct, IProductAdd, IProductWithoutId } from '@/types/types';
+import { Product, Category, SubCategory } from '@/types/interfaces';
+import { IProductAdd } from '@/types/types';
 
 export const validateForm = (formData: {
   fullName: string;

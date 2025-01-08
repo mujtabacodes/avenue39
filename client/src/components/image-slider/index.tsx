@@ -7,7 +7,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import Image from 'next/image';
 import Link from 'next/link';
 
-interface Image {
+interface ImageType {
   imageUrl: string;
   src: string;
   alt: string;
@@ -16,7 +16,7 @@ interface Image {
 }
 
 interface CustomPagingProps {
-  images: Image[];
+  images: ImageType[];
   setting: object;
   className?: string;
   sliderBgClass?: string;

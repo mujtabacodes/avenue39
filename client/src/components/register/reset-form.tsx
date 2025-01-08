@@ -10,7 +10,7 @@ import showToast from '../Toaster/Toaster';
 const ResetForm = () => {
     const searchParams = useSearchParams();
     const [verifiedToken, setVerifiedToken] = useState(false);
-    const [userData, setUserData] = useState(null);
+    // const [userData, setUserData] = useState(null);
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState('');
@@ -22,10 +22,10 @@ const ResetForm = () => {
     const verify_token = async () => {
         try {
             if (!token) return;
-            const response = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/user/getuserHandler`, {
+            await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/user/getuserHandler`, {
                 headers: { 'authorization': `Bearer ${token}` },
             });
-            setUserData(response.data.user);
+            // setUserData(response.data.user);
             setVerifiedToken(true);
             setLoadingSkeleton(false);
         } catch (error: any) {

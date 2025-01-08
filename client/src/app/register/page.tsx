@@ -7,6 +7,7 @@ import React, { Fragment, useState } from 'react';
 
 const Register = () => {
   const [activeTab, setActiveTab] = useState('register');
+  console.log(setActiveTab,"setActiveTab")
   const router = useRouter();
   const handleTabChange = (value: string) => {
     router.push(`/${value}`);

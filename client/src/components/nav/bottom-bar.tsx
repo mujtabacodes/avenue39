@@ -1,8 +1,7 @@
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { AiOutlineHome } from 'react-icons/ai';
-import { BiLogInCircle, BiSolidToTop } from 'react-icons/bi';
-import { FaRegHeart } from 'react-icons/fa';
+import { BiLogInCircle } from 'react-icons/bi';
 import { IoBagOutline } from 'react-icons/io5';
 import { MdCategory } from 'react-icons/md';
 import { Sheet, SheetClose, SheetContent, SheetTrigger } from '../ui/sheet';
@@ -12,10 +11,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
-import { Avatar, Popover } from 'antd';
-import { UserOutlined } from '@ant-design/icons';
-import { CgLogIn } from 'react-icons/cg';
-import { BsShop } from 'react-icons/bs';
+import { Popover } from 'antd';
 import { useSelector } from 'react-redux';
 import { State } from '@/redux/store';
 import { menuData } from '@/data/menu';
@@ -56,7 +52,7 @@ const BottomBar: React.FC = () => {
   };
  
   const { loggedInUser } = useSelector((state: State) => state.usrSlice)
-  const [profilePhoto, setProfilePhoto] = useState<any>([]);;
+  const [profilePhoto, setProfilePhoto] = useState<any>([]);
   useEffect(() => {
     if (loggedInUser) {
       setProfilePhoto({imageUrl : loggedInUser?.userImageUrl, public_id : loggedInUser.userPublicId})

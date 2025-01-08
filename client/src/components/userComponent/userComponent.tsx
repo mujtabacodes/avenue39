@@ -2,8 +2,6 @@
 import React, { Fragment, useState } from 'react';
 import Link from 'next/link';
 import Loader from '@components/Loader/Loader';
-import { usePathname, useRouter } from 'next/navigation';
-import { Select } from 'antd';
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
 import { USRPROPS } from '@/types/types';
@@ -18,18 +16,13 @@ export default function UserComponent({
   loading,
   inputFields,
   title,
-  descrition,
   InstructionText,
   routingText,
   buttonTitle,
   navigationLink,
   navigationTxt,
-  SelectComonent,
   setadminType,
-  adminType,
 }: USRPROPS) {
-  const router = useRouter();
-  const pathname = usePathname();
 
   const [activeTab, setActiveTab] = useState('Admin');
 
@@ -38,7 +31,6 @@ export default function UserComponent({
     setadminType && setadminType(value);
   };
 
-  let adminFlag = pathname === '/dashboard/Admin-login';
   return (
     <>
       {/* {SelectComonent ? <SelectComonent /> : null} */}

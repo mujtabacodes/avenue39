@@ -24,10 +24,10 @@ function useLocalStorage(key: string,initialValue: any): any {
   useEffect(() => {
     try {
       // Allow value to be a function so we have same API as useState
-      const valueToStore =
-        typeof storedValue === "function"
-          ? storedValue(storedValue)
-          : storedValue;
+      // const valueToStore =
+      //   typeof storedValue === "function"
+      //     ? storedValue(storedValue)
+      //     : storedValue;
 
     } catch (error) {
       // A more advanced implementation would handle the error case

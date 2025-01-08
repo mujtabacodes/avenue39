@@ -8,14 +8,9 @@ import {
 } from '@/components/ui/dialog';
 
 import Container from '@/components/ui/Container';
-import Services from '@/components/services/services';
 import thankyou from '@icons/thankyou.png';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useQuery } from '@tanstack/react-query';
-import { IProduct } from '@/types/types';
-import { fetchProducts } from '@/config/fetch';
-import FeatureSlider from '@/components/card-slider/feature-slider';
 import BestSellingSlider from '@/components/card-slider/best-selling';
 import { useSearchParams } from 'next/navigation';
 import Confetti from '@/components/confetti/confetti';
@@ -47,15 +42,7 @@ const ThankYouPage = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  
-  const {
-    data: products = [],
-    error: productsError,
-    isLoading: isProductsLoading,
-  } = useQuery<IProduct[], Error>({
-    queryKey: ['products'],
-    queryFn: fetchProducts,
-  });
+
 
   const id = searchParams.get('id');
   const amount_cents = searchParams.get('amount_cents');
@@ -88,7 +75,7 @@ const ThankYouPage = () => {
   };
   const [payementDetails, setpayementDetails] =
     useState<PaymentQueryParams>(paymentObject);
-
+console.log(setpayementDetails,"setpayementDetails")
   const dbFunctionHandler = async () => {
     try {
       if (

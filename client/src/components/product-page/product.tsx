@@ -6,30 +6,16 @@ import Container from '@/components/ui/Container';
 import { productsbredcrumbs } from '@/data/data';
 import { ImList } from 'react-icons/im';
 import { MdWindow } from 'react-icons/md';
-import { BsFilterLeft } from 'react-icons/bs';
-import { IoIosClose } from 'react-icons/io';
 import {
   Select,
   SelectContent,
   SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import {
-  Sheet,
-  SheetClose,
-  SheetContent,
-  SheetOverlay,
-  SheetTrigger,
-} from '@/components/ui/sheet';
 import Card from '@/components/ui/card';
 import LandscapeCard from '@/components/ui/landscape-card';
-import Services from '@/components/services/services';
-import TopSelling from '@/components/top-selling/top-selling';
-import SidebarFilter from '@/components/filters/sidebar-filter';
-import { Button } from '@/components/ui/button';
 import CardSkaleton from '../Skaleton/productscard';
 import { IProduct } from '@/types/types';
 import { fetchProducts } from '@/config/fetch';
@@ -41,17 +27,16 @@ interface ProductPageProps {
   sideBannerProduct?: string;
   productBanner: ReactNode;
   layout: string;
+  /* eslint-disable */
   Setlayout: (layout: string) => void;
+  /* eslint-enable */
   fullUrl?: string;
 }
 
 const ProductPage = ({
-  sideBanner,
-  sideBannerProduct,
   productBanner,
   layout,
   Setlayout,
-  fullUrl,
 }: ProductPageProps) => {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [selectedSubCategories, setSelectedSubCategories] = useState<string[]>(
@@ -63,7 +48,7 @@ const ProductPage = ({
   const [selectedSubCategoriesName, setSelectedSubCategoriesName] = useState<
     string | undefined
   >();
-  const [priceRange, setPriceRange] = useState<[number, number]>([0, 10000]);
+  // const [priceRange, setPriceRange] = useState<[number, number]>([0, 10000]);
   const [sortOption, setSortOption] = useState<string>('default');
   const [category, setCategory] = useState<any[]>([]);
   const [filterLoading, setFilterLoading] = useState<boolean>(true);
@@ -159,8 +144,8 @@ const ProductPage = ({
     }, 200);
   };
 
-  const handlePriceChange = ([start, end]: [number, number]) =>
-    setPriceRange([start, end]);
+  // const handlePriceChange = ([start, end]: [number, number]) =>
+  //   setPriceRange([start, end]);
   const handleSortChange = (sort: string) => setSortOption(sort);
 
   const { data: products = [], isLoading: isProductsLoading } = useQuery<
@@ -191,23 +176,26 @@ const ProductPage = ({
         ? card.categories?.some((cat) => selectedCategories.includes(cat.name))
         : true;
     })
-    .filter((card) => {
-      const priceToCheck =
-        card.discountPrice > 0 ? card.discountPrice : card.price;
-      return priceToCheck >= priceRange[0] && priceToCheck <= priceRange[1];
-    })
+    // .filter((card) => {
+    //   const priceToCheck =
+    //     card.discountPrice > 0 ? card.discountPrice : card.price;
+    //   return priceToCheck >= priceRange[0] && priceToCheck <= priceRange[1];
+    // })
     .sort((a, b) => {
       switch (sortOption) {
-        case 'name':
+        case 'name': {
           return a.name.trim().localeCompare(b.name.trim());
-        case 'max':
+        }
+        case 'max': {
           const priceA = a.discountPrice > 0 ? a.discountPrice : a.price;
           const priceB = b.discountPrice > 0 ? b.discountPrice : b.price;
           return priceB - priceA;
-        case 'min':
+        }
+        case 'min': {
           const minPriceA = a.discountPrice > 0 ? a.discountPrice : a.price;
           const minPriceB = b.discountPrice > 0 ? b.discountPrice : b.price;
           return minPriceA - minPriceB;
+        }
         default:
           return 0;
       }

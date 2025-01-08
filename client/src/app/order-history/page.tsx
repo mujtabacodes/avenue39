@@ -1,48 +1,21 @@
 'use client';
-
-import FilterTable from '@/components/Dashboard/Tables/FilterTable';
 import TopHero from '@/components/top-hero';
-import { Button } from '@/components/ui/button';
 import Container from '@/components/ui/Container';
 import { Orderbreadcrumbs } from '@/data/data';
 import Cookies from 'js-cookie';
-import { useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
-import { FaRegUser } from 'react-icons/fa6';
 import { MdOutlineProductionQuantityLimits } from 'react-icons/md';
-import { Modal, Skeleton, Table } from 'antd';
+import { Modal, Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
-import { State } from '@/redux/store';
 import Image from 'next/image';
 import Link from 'next/link';
 import { generateSlug } from '@/config';
 import axios from 'axios';
 import { IOrder, IPaymentStatus } from '@/types/types';
 
-interface Product {
-  key: string;
-  title: string;
-  quantity: number;
-  price: number;
-  date: string;
-  image: string;
-}
-
-interface Order {
-  key: string;
-  OrderId: string;
-  Name: string;
-  Address: string;
-  Country: string;
-  Email: string;
-  PhoneNumber: string;
-  products: Product[];
-}
-
 const OrderHistory: React.FC = () => {
   const router = useRouter();
-  const { loggedInUser } = useSelector((state: State) => state.usrSlice);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState<IOrder | null>(null);
   const [ordersHistory, setOrdersHistory] = useState<IOrder[]>([]);

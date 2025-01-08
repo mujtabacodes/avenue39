@@ -6,10 +6,8 @@ import Image from 'next/image';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import axios from 'axios';
 import Loader from '@components/Loader/Loader';
-import { useRouter } from 'next/navigation';
 import { FaRegEye } from 'react-icons/fa';
 import { LiaEdit } from 'react-icons/lia';
-import { useAppSelector } from '@components/Others/HelperRedux';
 import { generateSlug } from '@/config';
 import { product } from '@/types/interfaces';
 import revalidateTag from '@/components/ServerActons/ServerAction';
@@ -25,7 +23,9 @@ interface Product {
 interface CategoryProps {
   Categories: any;
   setCategory: any;
+ /* eslint-disable */
   setselecteMenu: (menu: string) => void;
+  /* eslint-enable */
   loading?: boolean;
   setEditProduct: any;
 }
@@ -37,14 +37,12 @@ const ViewProduct: React.FC<CategoryProps> = ({
   loading,
   setEditProduct,
 }) => {
-  const router = useRouter();
   const [searchTerm, setSearchTerm] = useState<string>('');
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
   };
 
-  const { loggedInUser }: any = useAppSelector((state) => state.usersSlice);
 
   // const canAddProduct=loggedInUser && (loggedInUser.role =='Admin' ?   loggedInUser.canAddProduct : true )
   const canAddProduct = true;
