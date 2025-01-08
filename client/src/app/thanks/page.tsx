@@ -46,6 +46,8 @@ const ThankYouPage = () => {
 
     return () => clearTimeout(timer);
   }, []);
+
+  
   const {
     data: products = [],
     error: productsError,

@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import { Open_Sans } from 'next/font/google';
 import './globals.css';
 import '@styles/style.css';
 import localFont from 'next/font/local';
@@ -15,25 +14,6 @@ const Helvetica = localFont({
   ],
 });
 
-const belgium = localFont({
-  src: [
-    {
-      path: '../../public/font/belgium/Fonts/Belgium.ttf',
-      weight: '400',
-      style: 'normal',
-    },
-  ],
-});
-
-const jadyn = localFont({
-  src: [
-    {
-      path: '../../public/font/jadyn/Jadyn Maria.ttf',
-      weight: '400',
-      style: 'normal',
-    },
-  ],
-});
 
 export const metadata: Metadata = {
   title: 'Avenue 39',
