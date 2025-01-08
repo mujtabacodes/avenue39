@@ -159,6 +159,7 @@ export interface IProductAdd {
   Canonical_Tag: string;
   Meta_Description: string;
   Images_Alt_Text: string;
+  sale_counter?: string;
 }
 export interface ITestimonialCard {
   id: number;
@@ -178,11 +179,6 @@ export interface IDiscountProducts {
   title: string;
 }
 
-export interface IChairProducts {
-  id: number;
-  imageUrl: StaticImageData;
-  title: string;
-}
 
 export interface ISocialIcons {
   id: number;
@@ -279,6 +275,11 @@ export interface ICategory {
   posterImageUrl?: string;
   posterImagePublicId?: string;
   categories?: any;
+  description?: string;
+  Images_Alt_Text?: string;
+  Meta_Title?: string;
+  Meta_Description?: string;
+  Canonical_Tag?: string;
 }
 // Timer slider data type
 export type TSliderItem = {

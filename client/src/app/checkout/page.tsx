@@ -2,6 +2,10 @@
 import TopHero from '@/components/top-hero';
 import Container from '@/components/ui/Container';
 import { checkout } from '@/data/data';
+<<<<<<< HEAD
+=======
+
+>>>>>>> 66759bab64b741c29678c3b2d44fa84b5235b9a6
 import React, { Fragment, useEffect, useState } from 'react';
 import Coupan from '@/components/coupan-code';
 import CartItems from '@/components/cart/items';

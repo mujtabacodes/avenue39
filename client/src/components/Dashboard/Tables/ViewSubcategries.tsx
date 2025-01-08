@@ -11,6 +11,7 @@ import { CategoriesType, SubCategory } from '@/types/interfaces';
 import { useAppSelector } from '@components/Others/HelperRedux';
 import useColorMode from '@/hooks/useColorMode';
 import { Skeleton } from '@/components/ui/skeleton';
+import revalidateTag from '@/components/ServerActons/ServerAction';
 
 interface Product {
   id: string;
@@ -26,14 +27,16 @@ interface CategoryProps {
     SetStateAction<CategoriesType | undefined | null>
   >;
   editCategory?: CategoriesType | undefined | null;
+  subCategories?: SubCategory[];
 }
 
 const ViewSubcategries = ({
   setMenuType,
   seteditCategory,
   editCategory,
+  subCategories
 }: CategoryProps) => {
-  const [category, setCategory] = useState<any[]>([]);
+  const [category, setCategory] = useState<SubCategory[] | undefined>(subCategories);
   const [loading, setLoading] = useState<boolean>(false);
   const [colorMode, toggleColorMode] = useColorMode();
   const [searchTerm, setSearchTerm] = useState<string>('');
@@ -41,7 +44,7 @@ const ViewSubcategries = ({
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
   };
-  const filteredSubCategories: SubCategory[] = category.filter((category) =>
+  const filteredSubCategories: SubCategory[] | undefined = category?.filter((category) =>
     category.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
   const { loggedInUser }: any = useAppSelector((state) => state.usersSlice);
@@ -57,27 +60,6 @@ const ViewSubcategries = ({
   // const canEditCategory =
   //   loggedInUser &&
   //   (loggedInUser.role == 'Admin' ? loggedInUser.canEditCategory : true);
-
-  useLayoutEffect(() => {
-    const CategoryHandler = async () => {
-      try {
-        setLoading(true);
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/api/subcategories/get-all`,
-        );
-        const Categories = await response.json();
-        console.log('Sub categories are here....');
-        console.log(Categories);
-        setCategory(Categories);
-        setLoading(false);
-      } catch (err) {
-        console.log('err', err);
-        setLoading(false);
-      }
-    };
-
-    CategoryHandler();
-  }, []);
 
   const confirmDelete = (key: any) => {
     Modal.confirm({
@@ -114,6 +96,7 @@ const ViewSubcategries = ({
         },
       );
       setCategory((prev: any) => prev.filter((item: any) => item.id != key));
+      revalidateTag('subcategories')
       notification.success({
         message: 'Category Deleted',
         description: 'The category has been successfully deleted.',

@@ -23,8 +23,8 @@ export class SubcategoriesService {
     console.log('Add sub category triggered!');
     console.log(categoryData);
     try {
-      const { name, categoriesId, posterImageUrl } = categoryData;
-      const { description,categories, ...Data } = categoryData;
+      const { name, posterImageUrl } = categoryData;
+      const { description, categories, categoriesId, ...Data } = categoryData;
 
       const existingSubCategory = await this.prisma.subCategories.findFirst({
         where: { name },
@@ -37,8 +37,8 @@ export class SubcategoriesService {
         };
       }
 
-      console.log("DATA")
-      console.log(Date)
+      console.log('DATA');
+      console.log(Data);
       if (!Array.isArray(categoriesId) || categoriesId.length === 0) {
         return {
           message: 'You must provide at least one category ID!',
@@ -65,7 +65,7 @@ export class SubcategoriesService {
           posterImageUrl: posterImageUrl.imageUrl,
           posterImagePublicId: posterImageUrl.public_id,
           categories: {
-            connect: { id: categoriesId[0] },
+            connect: categoriesId.map((id) => ({ id })),
           },
         },
       });
@@ -90,10 +90,12 @@ export class SubcategoriesService {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }
   }
+
   async updateSubCategory(subCategoryData: UpdateSubCategoryDto) {
     console.log('Update subcategory triggered!');
     try {
-      const { id, name, categoriesId, posterImageUrl,description, ...Data } = subCategoryData; 
+      const { id, name, categoriesId, posterImageUrl, description, ...Data } =
+        subCategoryData;
 
       const existingSubCategory = await this.prisma.subCategories.findUnique({
         where: { id },
@@ -140,8 +142,8 @@ export class SubcategoriesService {
           };
         }
       }
-      console.log("DATA")
-      console.log(Data)
+      console.log('DATA');
+      console.log(Data);
 
       await this.prisma.subCategories.update({
         where: { id },

@@ -112,7 +112,7 @@ export const loginValidationSchema = Yup.object({
 
 export const categoryValidationSchema = Yup.object({
   name: Yup.string().required('Required'),
-  description: Yup.string().required('required'),
+  // description: Yup.string().required('required'),
 });
 export const subcategoryValidationSchema = Yup.object({
   title: Yup.string().required('Required'),
@@ -197,6 +197,7 @@ export const AddproductsinitialValues: IProductAdd = {
   Canonical_Tag:'',
   Meta_Description:'',
   Images_Alt_Text:'',
+  sale_counter: '',
 };
 
 export const options = [
