@@ -2,12 +2,11 @@
 
 import { ApexOptions } from "apexcharts";
 import axios, { AxiosResponse } from "axios";
-import React, { useEffect, useLayoutEffect, useState } from "react";
+import React, { useLayoutEffect, useState } from "react";
 import ReactApexChart from "react-apexcharts";
 import Cookies from 'js-cookie';
 import { useAppSelector } from "@/components/Others/HelperRedux";
 import { Skeleton } from 'antd';
-import { report } from "process";
 
 let baseColorArray =  ["#80CAEE", "#3C50E0",]
 
@@ -67,11 +66,6 @@ const options: ApexOptions = {
     opacity: 1,
   },
 };
-
-interface DataType {
-  day: string;
-  totalProductCount: number;
-}
 
 interface ChartTwoState {
   series: {

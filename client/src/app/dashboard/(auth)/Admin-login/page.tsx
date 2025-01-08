@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, {useState } from 'react';
 
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
@@ -9,7 +9,6 @@ import { useAppDispatch } from '@components/Others/HelperRedux';
 import { loggedInAdminAction } from '@/redux/slices/Admin/AdminsSlice';
 import USRcomponent from '@components/userComponent/userComponent';
 import { IoIosLock, IoMdMail } from 'react-icons/io';
-import DefaultLayout from '@components/Dashboard/Layouts/DefaultLayout';
 import NoneAuth from '@/hooks/None-AuthHook';
 
 import Cookies from 'js-cookie';
@@ -32,7 +31,6 @@ const DashboardLogin = () => {
   };
 
   const [formData, setFormData] = useState(intialvalue);
-  const [test, settest] = useState<number>(0);
 
   const [error, setError] = useState<string | null | undefined>();
   const [loading, setloading] = useState<boolean | null | undefined>(false);

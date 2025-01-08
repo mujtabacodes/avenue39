@@ -17,15 +17,6 @@ import { useParams } from 'next/navigation';
 import Image from 'next/image';
 
 const ProductBanner: React.FC = () => {
-  const {
-    data: products = [],
-    error: productsError,
-    isLoading: isProductsLoading,
-  } = useQuery<IProduct[], Error>({
-    queryKey: ['products'],
-    queryFn: fetchProducts,
-  });
-
   const { slug } = useParams();
   const parent = { slug };
   const mainparent = parent.slug;

@@ -1,7 +1,6 @@
 'use client';
 import React, { useLayoutEffect, useState } from 'react';
 import ChartOne from './Charts/ChartOne';
-import ChartThree from './Charts/ChartThree';
 import ChartTwo from './Charts/ChartTwo';
 import CardDataStats from './CardDataStats';
 import Cookies from 'js-cookie';
@@ -11,7 +10,6 @@ import { FiShoppingCart } from 'react-icons/fi';
 import { PiUsersThreeFill } from 'react-icons/pi';
 import { IoBagOutline } from 'react-icons/io5';
 import { Skeleton } from 'antd';
-import SuperAdmin from '@/app/dashboard/super-admin/page';
 import { BiCategory } from 'react-icons/bi';
 import { GrDocumentPerformance } from 'react-icons/gr';
 import axios from 'axios';

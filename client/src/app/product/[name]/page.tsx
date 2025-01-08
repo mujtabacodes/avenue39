@@ -3,7 +3,6 @@ import Product from '../product';
 import { IProduct, IProductDetail } from '@/types/types';
 import { Metadata } from 'next';
 import { headers } from 'next/headers';
-import axios from 'axios';
 import { ProductDetailSkeleton } from '@/components/product-detail/skelton';
 
 async function fetchProducts() {

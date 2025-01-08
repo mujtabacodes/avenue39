@@ -4,14 +4,12 @@ import DarkModeSwitcher from "./DarkModeSwitcher";
 import DropdownUser from "./DropdownUser";
 import Image from "next/image";
 import logoimage from "@assets/icons/whitelogo.png"
-import { useAppSelector } from "@components/Others/HelperRedux";
 import { FaBars } from "react-icons/fa";
 
 const Header = (props: {
   sidebarOpen: string | boolean | undefined;
-  setSidebarOpen: (arg0: boolean) => void;
+  setSidebarOpen: any;
 }) => {
-  const { loggedInUser }: any = useAppSelector(state => state.usersSlice);
 
   return (
     <header className="sticky top-0 z-40 flex w-full bg-main dark:bg-black text-white drop-shadow-1 dark:bg-boxdark dark:drop-shadow-none border dark:border-blue-50 border-t-0 border-l-0">

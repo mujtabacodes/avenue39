@@ -1,19 +1,11 @@
 'use client';
 import React from 'react';
 import Container from '../ui/Container';
-import { Button } from '../ui/button';
 import Image from 'next/image';
 import Salebanner from '@assets/images/banners/dsffsdf.png';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 
 const SaleBanner: React.FC = () => {
-  const router = useRouter();
-
-  const handleBuyNowClick = () => {
-    router.push('/checkout');
-  };
-
   return (
     <section className="bg-lightbackground mt-4">
       <Container className="flex flex-wrap-reverse justify-center md:justify-between gap-4 md:gap-0 items-center ">

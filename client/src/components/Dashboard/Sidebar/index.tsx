@@ -1,5 +1,4 @@
 'use client';
-
 import React, { useEffect, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
@@ -13,11 +12,10 @@ import { IoSettingsOutline } from 'react-icons/io5';
 import logoimage from '@assets/icons/whitelogo.png';
 import { TfiShoppingCartFull } from 'react-icons/tfi';
 import { TbGardenCartOff } from 'react-icons/tb';
-import { FaEnvelope } from 'react-icons/fa';
 
 interface SidebarProps {
   sidebarOpen: boolean;
-  setSidebarOpen: (arg: boolean) => void;
+  setSidebarOpen: any;
 }
 
 const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
@@ -35,7 +33,6 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
     storedSidebarExpanded === null ? false : storedSidebarExpanded === 'true',
   );
 
-  // close on click outside
   useEffect(() => {
     const clickHandler = ({ target }: MouseEvent) => {
       if (!sidebar.current || !trigger.current) return;

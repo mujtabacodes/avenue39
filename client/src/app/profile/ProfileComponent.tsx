@@ -26,7 +26,7 @@ function ProfileComponent() {
 
   const [formData, setFormData] = useState({ fullName: '', email: '' });
   const [profilePhoto, setProfilePhoto] = useState<any>({});
-  const token = Cookies.get('user_token');
+  // const token = Cookies.get('user_token');
   const dispatch = useDispatch();
 
   const handlePhotoChange = async (
@@ -39,7 +39,7 @@ function ProfileComponent() {
       console.log(file);
       console.log('response from image updload');
       console.log(imageUrl, 'imageUrlimageUrl');
-      imageUrl ? setProfilePhoto((pre: any) => imageUrl) : null;
+      imageUrl ? setProfilePhoto(() => imageUrl) : null;
     }
   };
 
@@ -54,22 +54,22 @@ function ProfileComponent() {
     }
   }, [loggedInUser]);
 
-  const AddminProfileTriggerHandler = async () => {
-    try {
-      if (!token) return;
-      let user: any = await axios.get(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/getuserHandler`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
-      );
-      dispatch(loggedInUserAction(user.data.user));
-    } catch (err: any) {
-      console.log(err, 'err');
-    }
-  };
+  // const AddminProfileTriggerHandler = async () => {
+  //   try {
+  //     if (!token) return;
+  //     let user: any = await axios.get(
+  //       `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/getuserHandler`,
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${token}`,
+  //         },
+  //       },
+  //     );
+  //     dispatch(loggedInUserAction(user.data.user));
+  //   } catch (err: any) {
+  //     console.log(err, 'err');
+  //   }
+  // };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -87,7 +87,7 @@ function ProfileComponent() {
       name: formData.fullName,
       ...formData,
     };
-
+    console.log(fullName, 'fullName');
     userDetails = {
       ...userDetails,
       userImageUrl: profilePhoto.imageUrl || '',

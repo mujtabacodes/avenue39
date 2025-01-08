@@ -5,7 +5,6 @@ import Container from '../ui/Container';
 import { useQuery } from '@tanstack/react-query';
 import { ICategory, IProduct } from '@/types/types';
 import { fetchCategories, fetchProducts } from '@/config/fetch';
-import { slidersData } from '@/data';
 
 const CardsTabes: React.FC = () => {
   const {

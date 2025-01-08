@@ -1,4 +1,4 @@
-// @ts-nocheck
+//@ts-nocheck
 'use client';
 import React, { useState, useEffect, useLayoutEffect } from 'react';
 import * as Yup from 'yup';
@@ -7,12 +7,9 @@ import {
   FieldArray,
   FormikErrors,
   Form,
-  ErrorMessage,
   useFormik,
-  Field,
 } from 'formik';
 
-import SelectGroupTwo from '@components/Dashboard/SelectGroup/SelectGroupTwo';
 import Imageupload from '@components/ImageUpload/Imageupload';
 import { RxCross2 } from 'react-icons/rx';
 import Image from 'next/image';
@@ -25,12 +22,8 @@ import { ADDPRODUCTFORMPROPS, FormValues } from '@/types/interfaces';
 import {
   AddproductsinitialValues,
   AddProductvalidationSchema,
-  withoutVariation,
 } from '@/data/data';
 import { Checkbox } from 'antd';
-import { useQuery } from '@tanstack/react-query';
-import { ICategory } from '@/types/types';
-import { fetchCategories, fetchSubCategories } from '@/config/fetch';
 import showToast from '@components/Toaster/Toaster';
 import revalidateTag from '@/components/ServerActons/ServerAction';
 
@@ -41,7 +34,6 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
   setEditProduct,
   categoriesList,
 }) => {
-  const [selectedOption, setSelectedOption] = useState<string>('');
   const [isOptionSelected, setIsOptionSelected] = useState<boolean>(false);
   const [imagesUrl, setImagesUrl] = useState<any[]>(
     EditInitialValues ? EditInitialValues.productImages : [],
@@ -73,21 +65,11 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
     any | null | undefined
   >(EditProductValue);
   const [imgError, setError] = useState<string | null | undefined>();
-  const [Categories, setCategories] = useState<any[]>(categoriesList);
   const [VariationOption, setVariationOption] =
     useState<string>('withoutVariation');
   const [selectedCategories, setSelectedCategories] = useState<number[]>([]);
-  const [selectedSubcategories, setSelectedSubcategories] = useState<number[]>(
-    [],
-  );
 
-  const handleOptionChange = (e: any) => {
-    setVariationOption(e.target.value);
-  };
 
-  const changeTextColor = () => {
-    setIsOptionSelected(true);
-  };
 
   useLayoutEffect(() => {
     const CategoryHandler = async () => {
@@ -102,7 +84,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
           __v,
           ...EditInitialProductValues
         } = EditInitialValues as any;
-
+          console.log(EditInitialProductValues, "EditInitialProductValues")
         const categoryIds =
           EditInitialValues.categories?.map((category: any) => category.id) ||
           [];
@@ -213,15 +195,13 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
   const [selectedSubcategoryIds, setSelectedSubcategoryIds] = useState<
     number[]
   >([]);
-  const [filteredSubcategories, setFilteredSubcategories] = useState<
-    ISubcategory[]
-  >([]);
+  const [filteredSubcategories, setFilteredSubcategories] = useState<[]>([]);
 
   useEffect(() => {
-    const selectedCategories = categoriesList.filter((category) =>
+    const selectedCategories = categoriesList?.filter((category) =>
       selectedCategoryIds.includes(category.id),
     );
-    const subcategories = selectedCategories.flatMap(
+    const subcategories = selectedCategories?.flatMap(
       (category) => category.subcategories,
     );
     setFilteredSubcategories(subcategories);
@@ -250,13 +230,13 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
     setImagesUrl(updatedImagesUrl);
   };
   const handlealtTextHover = (index: number, newaltText: string) => {
-    const updatedImagesUrl = hoverImage.map((item, i) =>
+    const updatedImagesUrl = hoverImage?.map((item, i) =>
       i === index ? { ...item, altText: newaltText } : item,
     );
     sethoverImage(updatedImagesUrl);
   };
   const handlealtTextposterimageUrl = (index: number, newaltText: string) => {
-    const updatedImagesUrl = posterimageUrl.map((item, i) =>
+    const updatedImagesUrl = posterimageUrl?.map((item, i) =>
       i === index ? { ...item, altText: newaltText } : item,
     );
     setposterimageUrl(updatedImagesUrl);
