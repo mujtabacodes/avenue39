@@ -11,7 +11,6 @@ import { paymentIcons } from '@/data/products';
 import { menuData } from '@/data/menu';
 import { generateSlug } from '@/config';
 import { CiHeadphones } from 'react-icons/ci';
-import { BsTelephone } from 'react-icons/bs';
 import { PiPhoneCallLight } from 'react-icons/pi';
 
 const Footer: React.FC = () => {

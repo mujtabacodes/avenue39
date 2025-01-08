@@ -1,7 +1,6 @@
-import { useSelector, useDispatch } from 'react-redux';
-import { State, Dispatch } from '../store';
+import { useDispatch } from 'react-redux';
+import { Dispatch } from '../store';
 import { closeDrawer, openDrawer } from '../slices/drawer';
-import { CartDrawer } from '../slices/drawer/types';
 
 export const useDrawer = () => {
   const dispatch = useDispatch<Dispatch>();

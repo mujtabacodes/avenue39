@@ -1,5 +1,5 @@
 'use client';
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 const HeroVideo: React.FC = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   // const [isPlaying, setIsPlaying] = useState<boolean>(true);

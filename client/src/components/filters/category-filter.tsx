@@ -1,14 +1,14 @@
-import { IProductCategories } from '@/types/types';
+import { IProductCategory } from '@/types/types';
 import React, { useEffect, useState } from 'react';
 import { Checkbox } from 'antd';
 import { CheckboxChangeEvent } from 'antd/es/checkbox';
 
 interface ICategoryFilter {
-  items: IProductCategories[];
+  items: IProductCategory[];
   onCategoryChange: (
-    category: string,
-    isChecked: boolean,
-    isSubCategory?: boolean,
+    _category: string,
+    _isChecked: boolean,
+    _isSubCategory?: boolean,
   ) => void;
   isSubcategory?: boolean;
   selectedCategories?: string[];

@@ -4,7 +4,6 @@ import Image from 'next/image';
 import React from 'react';
 import { Button } from './button';
 import { useRouter } from 'next/navigation';
-import { Inder } from 'next/font/google';
 
 interface CardProps {
   cards: ISaleItems;

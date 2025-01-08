@@ -3,7 +3,6 @@
 import Image from 'next/image';
 import React from 'react';
 import Link from 'next/link';
-import { MdStar, MdStarBorder } from 'react-icons/md';
 import { Skeleton } from '@/components/ui/skeleton';
 import {
   calculateRatingsPercentage,
@@ -18,7 +17,7 @@ interface sideCardProps {
   isSlice?: boolean;
 }
 
-const SideCard: React.FC<sideCardProps> = ({ isSlice }) => {
+const SideCard: React.FC<sideCardProps> = () => {
   const {
     data: products = [],
     error: productsError,

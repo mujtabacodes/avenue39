@@ -3,18 +3,14 @@ import { Table } from 'antd';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import axios from 'axios';
 import Loader from '@components/Loader/Loader';
-import Cookies from 'js-cookie';
 import { FaEdit } from 'react-icons/fa';
 import { Button } from '@/components/ui/button';
-
-const superAdmintoken = Cookies.get('superAdminToken');
 
 function Admins({ setselecteMenu, setEditAdmin }: any) {
   const [admins, setAdmins] = useState([]);
   const [loading, setloading] = useState<boolean>(false);
   const [delLoading, setDelLoading] = useState<string | null>(null);
-  const [editLoading, setEditLoading] = useState<string | null>(null);
-  const superAdmintoken = Cookies.get('superAdminToken');
+  // const [editLoading, setEditLoading] = useState<string | null>(null);
 
   useEffect(() => {
     const getAllAdmins = async () => {
@@ -141,9 +137,9 @@ function Admins({ setselecteMenu, setEditAdmin }: any) {
       title: 'Edit',
       key: 'edit',
       render: (text: any, record: any) =>
-        editLoading === record.id ? (
-          <Loader />
-        ) : (
+        // editLoading === record.id ? (
+        //   <Loader />
+        // ) : (
           <FaEdit
             className="cursor-pointer text-slate-500"
             size={20}
@@ -152,7 +148,7 @@ function Admins({ setselecteMenu, setEditAdmin }: any) {
               setselecteMenu('');
             }}
           />
-        ),
+        // ),
     },
     {
       title: 'Actions',

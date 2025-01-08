@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { IProduct, IReview } from '@/types/types';
 import { HiOutlineViewfinderCircle } from "react-icons/hi2";
 import {  useDispatch } from 'react-redux';
-import { State, Dispatch } from '@redux/store';
+import { Dispatch } from '@redux/store';
 import { addItem } from '@cartSlice/index';
 import { CartItem } from '@cartSlice/types';
 import { openDrawer } from '@/redux/slices/drawer';
@@ -46,7 +46,6 @@ const Card: React.FC<CardProps> = ({
   className,
   skeletonHeight,
   isLoading,
-  category,
   cardImageHeight,
 }) => {
   const [loading, setLoading] = useState(true);
@@ -106,8 +105,6 @@ const Card: React.FC<CardProps> = ({
 
   const {
     data: reviews = [],
-    error,
-    isLoading: reviewLoading,
   } = useQuery<IReview[], Error>({
     queryKey: ['reviews'],
     queryFn: fetchReviews,
@@ -120,9 +117,8 @@ const Card: React.FC<CardProps> = ({
   //   (review) => review.productId === productId,
   // );
   const { averageRating } = calculateRatingsPercentage(filteredReviews);
-  const handleNavigation = (e: any) => {
-    //@ts-ignore
-    Navigate.push(`/product/${generateSlug(card.name)}`);
+  const handleNavigation = () => {
+    Navigate.push(`/product/${generateSlug(card?.name || '')}`);
   };
 
   if (!card) {
@@ -153,7 +149,7 @@ const Card: React.FC<CardProps> = ({
             <Image
               src={card.posterImageUrl}
               alt={card.posterImageAltText || card.name}
-              onClick={(e) => handleNavigation(e)}
+              onClick={() => handleNavigation()}
               width={600}
               height={600}
               className={cn(
@@ -176,7 +172,7 @@ const Card: React.FC<CardProps> = ({
           </div>
         </>
       ) : (
-        <div onClick={(e) => handleNavigation(e)}>
+        <div onClick={() => handleNavigation()}>
           <h3 className=" text-14  2xl:text-lg font-semibold mt-2">{card.name}</h3>
           {card.discountPrice > 0 ? (
             <p className="text-14 2xl:text-md font-semibold mt-1">

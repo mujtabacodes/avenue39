@@ -6,9 +6,6 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
-import { useQuery } from '@tanstack/react-query';
-import { fetchProducts } from '@/config/fetch';
-import { IProduct } from '@/types/types';
 import { Navigation, Pagination } from 'swiper/modules';
 import banner8 from '@/assets/images/banners/banner8.png'; 
 import { HiOutlineShoppingBag } from 'react-icons/hi';
@@ -17,14 +14,6 @@ import { useParams } from 'next/navigation';
 import Image from 'next/image';
 
 const ProductBanner: React.FC = () => {
-  const {
-    data: products = [],
-    error: productsError,
-    isLoading: isProductsLoading,
-  } = useQuery<IProduct[], Error>({
-    queryKey: ['products'],
-    queryFn: fetchProducts,
-  });
 
   const { slug } = useParams();
   const parent = { slug };

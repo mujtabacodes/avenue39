@@ -1,4 +1,5 @@
 import React, { FormEventHandler, SetStateAction } from 'react';
+import { ICategory } from './types';
 
 React.FormEvent<HTMLFormElement>;
 export interface USRPROPS {
@@ -55,6 +56,7 @@ export interface Category {
   meta_title?:string;
   canonical_tag?:string;
   images_alt_text?: string;
+  posterImageUrl?: IMAGE_INTERFACE;
 }
 export interface SubCategory {
   name: string;
@@ -66,10 +68,6 @@ export interface SubCategory {
   categoriesId: number[];
 }
 
-interface CategoriesType {
-  posterImageUrl: IMAGE_INTERFACE;
-}
-export interface CategoriesType extends Category {}
 
 interface CloudinaryImage {
   public_id: string | undefined;
@@ -217,8 +215,8 @@ declare module 'react-qr-scanner' {
 
   interface QrReaderProps {
     delay?: number;
-    onError?: (error: any) => void;
-    onScan?: (data: string | null) => void;
+    onError?: (_error: any) => void;
+    onScan?: (_data: string | null) => void; 
     style?: React.CSSProperties;
   }
 

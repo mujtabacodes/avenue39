@@ -4,9 +4,7 @@ import { Col, Form, Row } from 'antd';
 import { IoMdArrowRoundBack } from 'react-icons/io';
 import { Checkbox, CheckboxProps } from 'antd';
 import axios from 'axios';
-import Toaster from '@components/Toaster/Toaster';
 import Loader from '@components/Loader/Loader';
-import Cookies from 'js-cookie';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import showToast from '@components/Toaster/Toaster';
@@ -55,7 +53,6 @@ const CreateAdmin = ({
   setselecteMenu,
   EditAdminValue,
   EditInitialValues,
-  setEditProduct,
 }: any) => {
   let updateFlag = EditAdminValue && EditAdminValue ? true : false;
 
@@ -118,6 +115,7 @@ const CreateAdmin = ({
       }
     } finally {
       setLoading(false);
+      console.log(error)
     }
   };
 

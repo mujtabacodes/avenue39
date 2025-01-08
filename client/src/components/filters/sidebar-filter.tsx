@@ -9,7 +9,7 @@ import { IProductCategories } from '@/types/types';
 import Link from 'next/link';
 
 interface SidebarFilterProps {
-  onCategoryChange: (category: string, isChecked: boolean, isSubCategory: boolean) => void;
+  onCategoryChange: (_category: string, _isChecked: boolean, _isSubCategory: boolean) => void;
   onPriceChange: (range: [number, number]) => void;
   sideBanner: StaticImageData;
   category: any;

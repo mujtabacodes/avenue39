@@ -1,12 +1,8 @@
 
 import React from 'react';
-import TextIcon from '../text-icon';
 import Container from '../ui/Container';
-import { IoMailOutline, IoPhonePortraitOutline } from 'react-icons/io5';
-import { P14 } from '@/styles/typo';
 import SocialLink from '../social-link';
 import Link from 'next/link';
-import { products } from '@/data';
 
 const TopNav = () => {
   return (

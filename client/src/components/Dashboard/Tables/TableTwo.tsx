@@ -1,17 +1,15 @@
 'use client';
 
-import React, { SetStateAction, useLayoutEffect, useState } from 'react';
+import React, { SetStateAction, useState } from 'react';
 import { Table, notification, Modal } from 'antd';
 import Image from 'next/image';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import axios from 'axios';
-import Loader from '@components/Loader/Loader';
 import { LiaEdit } from 'react-icons/lia';
-import { CategoriesType, Category } from '@/types/interfaces';
+import { Category } from '@/types/interfaces';
 import { useAppSelector } from '@components/Others/HelperRedux';
 import useColorMode from '@/hooks/useColorMode';
 import { Skeleton } from '@/components/ui/skeleton';
-import showToast from '@/components/Toaster/Toaster';
 import { ICategory } from '@/types/types';
 import revalidateTag from '@/components/ServerActons/ServerAction';
 
@@ -26,9 +24,9 @@ interface Product {
 interface CategoryProps {
   setMenuType: React.Dispatch<SetStateAction<string>>;
   seteditCategory?: React.Dispatch<
-    SetStateAction<CategoriesType | undefined | null>
+    SetStateAction<Category | undefined | null>
   >;
-  editCategory?: CategoriesType | undefined | null;
+  editCategory?: Category | undefined | null;
   cetagories?: ICategory[];
 }
 
@@ -46,7 +44,7 @@ const TableTwo = ({
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
   };
-  const filteredCategories: Category[] =
+  const filteredCategories: ICategory[] =
     category && category
       .filter(
         (category) =>

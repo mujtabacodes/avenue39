@@ -2,10 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { IProduct, IReview } from '@/types/types';
 import { HiOutlineShoppingBag } from 'react-icons/hi';
-import { MdStar, MdStarBorder } from 'react-icons/md';
-import { CiHeart } from 'react-icons/ci';
-import { PiEyeThin } from 'react-icons/pi';
-import { Skeleton } from '@/components/ui/skeleton'; // Adjust path as necessary
+import { Skeleton } from '@/components/ui/skeleton';
 import { useDispatch } from 'react-redux';
 import { Dispatch } from '@/redux/store';
 import { useRouter } from 'next/navigation';
@@ -101,8 +98,6 @@ const LandscapeCard: React.FC<CardProps> = ({ card, isLoading }) => {
 
   const {
     data: reviews = [],
-    error,
-    isLoading: reviewLoading,
   } = useQuery<IReview[], Error>({
     queryKey: ['reviews'],
     queryFn: fetchReviews,
@@ -112,15 +107,14 @@ const LandscapeCard: React.FC<CardProps> = ({ card, isLoading }) => {
     (review) => review.productId === productId,
   );
   const { averageRating } = calculateRatingsPercentage(filteredReviews);
-  const handleNavigation = (e: any) => {
-    //@ts-ignore
+  const handleNavigation = () => {
     Navigate.push(`/product/${generateSlug(card.name)}`);
   };
 
   return (
     <div
       className="rounded-2xl text-center relative product-card mx-2 group flex gap-4 items-center flex-col sm:flex-row cursor-pointer"
-      onClick={(e) => handleNavigation(e)}
+      onClick={() => handleNavigation()}
     >
       <div className="relative w-fit mx-auto sm:w-5/12 md:w-4/12 lg:w-5/12">
         {/* <div className="bg-white rounded-full absolute top-4 right-6 flex flex-col gap-2 py-2 px-1 product-hover-icons z-[1] opacity-0 group-hover:opacity-100 transition-opacity">

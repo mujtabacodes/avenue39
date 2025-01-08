@@ -1,4 +1,4 @@
-import Image, { StaticImageData } from 'next/image';
+import { StaticImageData } from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import { Skeleton } from './ui/skeleton';
@@ -14,7 +14,7 @@ export interface MenuItem {
 interface MenuLinkProps {
   menudata: MenuItem[];
   onLinkClick: () => void;
-  loading: boolean;
+  loading?: boolean;
   pathname: string;
 }
 
@@ -22,7 +22,7 @@ const MenuLink: React.FC<MenuLinkProps> = ({
   menudata,
   onLinkClick,
   loading,
-  pathname,
+  // pathname,
 }) => {
   return (
     <>
@@ -33,9 +33,9 @@ const MenuLink: React.FC<MenuLinkProps> = ({
             </div>
           ))
         : menudata.map((item, index) => {
-            const isActive = pathname.includes(
-              `${item.link}/${generateSlug(item.title)}`,
-            );
+            // const isActive = pathname.includes(
+            //   `${item.link}/${generateSlug(item.title)}`,
+            // );
 
             return (
               <Link
@@ -43,27 +43,28 @@ const MenuLink: React.FC<MenuLinkProps> = ({
                   item.title === 'Sale'
                     ? '/products'
                     : `${item.link}/${generateSlug(item.title)}${
-                        true
-                          ? // [
-                            //   'Accessories',
-                            //   'Dining Tables',
-                            //   'Dining Chairs',
-                            //   'Sofas',
-                            //   'Armchairs',
-                            //   'Accent Chairs',
-                            //   'TV Cabinets',
-                            //   'Side Table',
-                            //   'Sofa Beds',
-                            //   'Table Lamps',
-                            //   'Bedside Tables',
-                            //   'Office Tables',
-                            //   'Coffee Tables',
-                            //   'Side Tables',
-                            //   'accessories',
+                        `?id=${item.categoryId}`
+                          // ? 
+                          // [
+                          //     'Accessories',
+                          //     'Dining Tables',
+                          //     'Dining Chairs',
+                          //     'Sofas',
+                          //     'Armchairs',
+                          //     'Accent Chairs',
+                          //     'TV Cabinets',
+                          //     'Side Table',
+                          //     'Sofa Beds',
+                          //     'Table Lamps',
+                          //     'Bedside Tables',
+                          //     'Office Tables',
+                          //     'Coffee Tables',
+                          //     'Side Tables',
+                          //     'accessories',
 
-                            // ].includes(item.title)
-                            `?id=${item.categoryId}`
-                          : ''
+                          //   ].includes(item.title)
+                          //   `?id=${item.categoryId}`
+                          // : ''
                       }`
                 }
                 className={`flex gap-1 items-center  `}

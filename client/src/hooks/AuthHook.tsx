@@ -4,8 +4,6 @@ import { useRouter } from 'next/navigation';
 import Loader from '@components/Loader/Loader';
 import Cookies from 'js-cookie';
 import axios from 'axios';
-
-import { useAppSelector } from '@components/Others/HelperRedux';
 import { loggedInUserAction } from '@redux/slices/user/userSlice';
 import { useAppDispatch } from '@components/Others/HelperRedux';
 

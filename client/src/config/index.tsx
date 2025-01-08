@@ -1,10 +1,8 @@
 'use client';
 import { selectTotalPrice, totalProductsInCart } from '@/redux/slices/cart';
 import { State } from '@/redux/store';
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
-import axios from 'axios';
-import { GetServerSideProps } from 'next';
 import { IReview } from '@/types/types';
 import { MdStar, MdStarBorder } from 'react-icons/md';
 
@@ -77,15 +75,14 @@ export const calculateRatingsPercentage = (reviews: IReview[]) => {
 };
 
 export const generateSlug = (text: string) => {
-  const formatedSlug = text
+  if (!text) return '';
+  return text
     .toString()
     .toLowerCase()
     .trim()
     .replace(/\s+/g, '-')
     .replace(/[^\w\-]+/g, '')
     .replace(/\-\-+/g, '-');
-
-  return formatedSlug;
 };
 
 export const renderStars = ({ star = 0 }: { star?: number }) => {

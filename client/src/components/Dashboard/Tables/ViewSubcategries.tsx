@@ -5,9 +5,8 @@ import { Table, notification, Modal } from 'antd';
 import Image from 'next/image';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import axios from 'axios';
-import Loader from '@components/Loader/Loader';
 import { LiaEdit } from 'react-icons/lia';
-import { CategoriesType, SubCategory } from '@/types/interfaces';
+import { Category, SubCategory } from '@/types/interfaces';
 import { useAppSelector } from '@components/Others/HelperRedux';
 import useColorMode from '@/hooks/useColorMode';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -24,9 +23,9 @@ interface Product {
 interface CategoryProps {
   setMenuType: React.Dispatch<SetStateAction<string>>;
   seteditCategory?: React.Dispatch<
-    SetStateAction<CategoriesType | undefined | null>
+    SetStateAction<Category | undefined | null>
   >;
-  editCategory?: CategoriesType | undefined | null;
+  editCategory?: Category | undefined | null;
   subCategories?: SubCategory[];
 }
 
@@ -47,7 +46,7 @@ const ViewSubcategries = ({
   const filteredSubCategories: SubCategory[] | undefined = category?.filter((category) =>
     category.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
-  const { loggedInUser }: any = useAppSelector((state) => state.usersSlice);
+  // const { loggedInUser }: any = useAppSelector((state) => state.usersSlice);
 
   const canDeleteCategory = true;
   // const canDeleteCategory =

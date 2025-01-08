@@ -6,7 +6,7 @@ interface IOrderList {
   orderData: any[];
   orderColumns: any[];
   visible: boolean;
-  setVisible: (value: boolean) => void;
+  setVisible: (_value: boolean) => void;
   selectedProducts: any[];
 }
 

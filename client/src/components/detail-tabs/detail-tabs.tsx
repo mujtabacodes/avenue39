@@ -1,7 +1,6 @@
-import { useState, FC } from 'react';
+import React, { useState, FC } from 'react';
 import Container from '../ui/Container';
 import { TiArrowSortedUp } from 'react-icons/ti';
-import SideCard from '@/components/side-card/side-card';
 import BestSellingSlider from '../card-slider/best-selling';
 
 interface Tab {

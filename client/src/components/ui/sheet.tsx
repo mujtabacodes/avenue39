@@ -5,7 +5,6 @@ import * as SheetPrimitive from "@radix-ui/react-dialog"
 import { cva, type VariantProps } from "class-variance-authority"
 
 import { cn } from "@/lib/utils"
-import { IoIosClose } from "react-icons/io"
 
 const Sheet = SheetPrimitive.Root
 
@@ -56,13 +55,12 @@ interface SheetContentProps
 const SheetContent = React.forwardRef<
   React.ElementRef<typeof SheetPrimitive.Content>,
   SheetContentProps
->(({ side = "right", className,closeClass, children, ...props }:any, ref) => (
+>(({ side = "right", className, children, ...props }:any, ref) => (
   <SheetPortal>
     {/* <SheetOverlay /> */}
     <SheetPrimitive.Content
       ref={ref}
       className={cn(sheetVariants({ side }), className)}
-      closeClass
       {...props}
     >
       {children}

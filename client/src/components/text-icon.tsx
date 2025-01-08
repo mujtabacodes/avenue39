@@ -1,4 +1,4 @@
-import { H1, P14 } from '@/styles/typo';
+import { P14 } from '@/styles/typo';
 import { ITextIcon } from '@/types/types';
 import Link from 'next/link';
 import React from 'react';

@@ -1,4 +1,5 @@
 import axios, { AxiosResponse, AxiosRequestConfig } from 'axios';
+import React from 'react';
 
 type setTotalProducts = React.Dispatch<React.SetStateAction<any[]>>;
 type setTotalPage = React.Dispatch<React.SetStateAction<string | undefined>>;
@@ -37,13 +38,13 @@ export const ImageRemoveHandler = async (
   imagePublicId: string,
   setterFunction: any,
 ) => {
-  const requestConfig: AxiosRequestConfig = {
-    data: { imageUrl: imagePublicId },
-  };
-  console.log('function calleddd');
-  console.log('Public ID' + imagePublicId);
-  console.log(imagePublicId);
-  console.log(imagePublicId);
+  // const requestConfig: AxiosRequestConfig = {
+  //   data: { imageUrl: imagePublicId },
+  // };
+  // console.log('function calleddd');
+  // console.log('Public ID' + imagePublicId);
+  // console.log(imagePublicId);
+  // console.log(imagePublicId);
   try {
     const response = await axios.delete(
       `${process.env.NEXT_PUBLIC_PRODUCT_IMAGE}/api/file-upload/DelImage/${imagePublicId}`,
@@ -93,7 +94,7 @@ export let getPRODUCTS = async (
 ) => {
   try {
     setLoading(true);
-    const { products, totalPages, currentPage, totalProducts }: any =
+    const { products, totalPages, totalProducts }: any =
       await getPaginatedproducts(pageNumber);
     setTotalProducts(products);
     setTotalPage && setTotalPage(totalPages);

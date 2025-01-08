@@ -1,6 +1,6 @@
 'use client';
 import { Input } from '@/components/ui/input';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Tabs, TabsContent, TabsList } from '@/components/ui/tabs';
 import { FaRegUser } from 'react-icons/fa';
 import { Button } from '../ui/button';
 import { useFormik } from 'formik';
@@ -17,7 +17,7 @@ import Cookies from 'js-cookie';
 
 
 interface TabsProps {
-  onTabChange?: (value: string) => void;
+  onTabChange?: (_value: string) => void;
   activeTab?: string;
 }
 

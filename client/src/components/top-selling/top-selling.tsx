@@ -1,22 +1,15 @@
 import React from 'react';
 import { Button } from '../ui/button';
 import SliderComponent from '../card-slider/card-slider';
-import { cards } from '@/data';
-import { products } from '@/data/products';
 import { IProduct } from '@/types/types';
 import { useQuery } from '@tanstack/react-query';
 import { fetchProducts } from '@/config/fetch';
 import { useRouter } from 'next/navigation';
-interface SliderProps {
-  cards: IProduct[];
-  isModel?: boolean;
-}
 
 const TopSelling: React.FC = () => {
   const route = useRouter();
   const {
     data: products = [],
-    error: productsError,
     isLoading: isProductsLoading,
   } = useQuery<IProduct[], Error>({
     queryKey: ['products'],
