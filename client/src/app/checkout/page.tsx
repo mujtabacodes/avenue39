@@ -1,12 +1,9 @@
 'use client';
 import TopHero from '@/components/top-hero';
-import { Checkbox } from '@/components/ui/checkbox';
 import Container from '@/components/ui/Container';
 import { checkout } from '@/data/data';
-import Image from 'next/image';
+
 import React, { Fragment, useEffect, useState } from 'react';
-import tabby from '@assets/icons/tabby-logo.png';
-import tamara from '@assets/icons/tamara-logo.png';
 import Coupan from '@/components/coupan-code';
 import CartItems from '@/components/cart/items';
 import { useSelector } from 'react-redux';

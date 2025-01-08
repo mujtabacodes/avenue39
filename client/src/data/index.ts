@@ -1,5 +1,4 @@
 import {
-  IChairProducts,
   ISliderData,
   BannerImage,
   IDiscountProducts,
@@ -713,19 +712,6 @@ export const discountProducts: IDiscountProducts[] = [
     id: 9,
     imageUrl: opal,
     title: 'Extra 20% off Clearance*',
-  },
-];
-
-export const chairProducts: IChairProducts[] = [
-  {
-    id: 1,
-    imageUrl: armChair,
-    title: 'ARMCHAIRS',
-  },
-  {
-    id: 2,
-    imageUrl: armChair,
-    title: 'ARMCHAIRS',
   },
 ];
 

@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next lint && next build",
     "start": "next start",
     "lint": "next lint",
     "prepare": "husky",
@@ -32,6 +32,7 @@
     "axios": "^1.7.3",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "eslint-plugin-unused-imports": "^4.1.4",
     "flatpickr": "^4.6.13",
     "formik": "^2.4.6",
     "js-cookie": "^3.0.5",
