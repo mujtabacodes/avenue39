@@ -18,7 +18,6 @@ import 'slick-carousel/slick/slick-theme.css';
 import { BsArrowLeft, BsArrowRight } from 'react-icons/bs';
 import Catalogue from '@/components/Catalogue/Catalogue';
 import ColorBanner from '@/components/ColorBanner/ColorBanner';
-import ProductBanner from '@/components/discount-banner/product-banner';
 
 
 
