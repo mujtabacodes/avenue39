@@ -7,11 +7,8 @@ import SocialLink from '../social-link';
 import Link from 'next/link';
 import axios from 'axios';
 import showToast from '../Toaster/Toaster';
-import { paymentIcons } from '@/data/products';
 import { menuData } from '@/data/menu';
 import { generateSlug } from '@/config';
-import { CiHeadphones } from 'react-icons/ci';
-import { PiPhoneCallLight } from 'react-icons/pi';
 
 const Footer: React.FC = () => {
   const [email, setEmail] = useState<string>('');
