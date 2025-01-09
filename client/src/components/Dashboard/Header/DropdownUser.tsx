@@ -83,7 +83,7 @@ const DropdownUser = () => {
               }
               width={55}
               height={55}
-              alt={loggedInUser.name}
+              alt={loggedInUser?.name}
             />
           </div>
           <MdKeyboardArrowDown className='text-white' />
