@@ -304,11 +304,7 @@ const FormLayout = ({
                           }`}
                         />
                         {formik.touched.meta_description &&
-<<<<<<< HEAD
-                          formik.errors.meta_description ? (
-=======
                         formik.errors.meta_description ? (
->>>>>>> 66759bab64b741c29678c3b2d44fa84b5235b9a6
                           <div className="text-red text-sm">
                             {formik.errors.meta_description as String}
                           </div>

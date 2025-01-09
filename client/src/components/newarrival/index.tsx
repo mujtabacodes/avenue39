@@ -10,7 +10,7 @@ import { SaleBannerData } from '@/data/data';
 
 const NewArrival = () => {
   return (
-    <section className="bg-lightbackground my-4">
+    <section className="bg-lightbackground my-8">
       <Swiper
         modules={[Pagination]}
         pagination={{ clickable: true }}
