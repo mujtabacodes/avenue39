@@ -5,11 +5,11 @@ import DefaultLayout from '@/components/Dashboard/Layouts/DefaultLayout';
 import { formatDate } from '@/config';
 import OrderList from '@/components/Orders/orders';
 import { LuView } from 'react-icons/lu';
-import { IOrder } from '@/types/types';
+import { IOrder, IProduct } from '@/types/types';
 
 
 const Orders = ({orderData}: {orderData: IOrder[]}) => {
-  const [selectedProducts, setSelectedProducts] = useState<any[]>([]);
+  const [selectedProducts, setSelectedProducts] = useState<IProduct[]>([]);
   const [visible, setVisible] = useState(false);
 
   const orderColumns = [
@@ -39,7 +39,7 @@ const Orders = ({orderData}: {orderData: IOrder[]}) => {
     },
   ];
 
-  const handleViewProducts = (products: any[]) => {
+  const handleViewProducts = (products: IProduct[]) => {
     setSelectedProducts(products);
     setVisible(true);
   };

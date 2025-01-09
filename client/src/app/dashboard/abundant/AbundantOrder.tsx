@@ -5,10 +5,10 @@ import React, { useState } from 'react';
 import { formatDate } from '@/config';
 import { LuView } from 'react-icons/lu';
 import OrderList from '@/components/Orders/orders';
-import { IOrder } from '@/types/types';
+import { IOrder, IProduct } from '@/types/types';
 const AbundantOrder = ({abundantOrderData}: {abundantOrderData: IOrder[]}) => {
   const [visible, setVisible] = useState(false);
-  const [selectedProducts, setSelectedProducts] = useState<any[]>([]);
+  const [selectedProducts, setSelectedProducts] = useState<IProduct[]>([]);
 
   const ordercolumns = [
     {
@@ -54,7 +54,7 @@ const AbundantOrder = ({abundantOrderData}: {abundantOrderData: IOrder[]}) => {
     },
   ];
 
-  const handleViewProducts = (products: any[]) => {
+  const handleViewProducts = (products: IProduct[]) => {
     setSelectedProducts(products);
     setVisible(true);
   };
