@@ -9,7 +9,6 @@ import axios from 'axios';
 import { Formik, Form } from 'formik';
 import { Category } from '@/types/interfaces';
 import { IoMdArrowRoundBack } from 'react-icons/io';
-
 import { categoryInitialValues, categoryValidationSchema } from '@/data/data';
 import ProtectedRoute from '@/hooks/AuthHookAdmin';
 import Loader from '@components/Loader/Loader';
