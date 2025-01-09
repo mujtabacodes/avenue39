@@ -1,6 +1,5 @@
 import { ICategory, IProduct, IReview } from '@/types/types';
 import axios from 'axios';
-import { cookies } from 'next/headers';
 
 export const fetchProducts = async (): Promise<IProduct[]> => {
   const result = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/product/get-all`, {
