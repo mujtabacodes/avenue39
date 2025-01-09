@@ -57,8 +57,8 @@ const Footer: React.FC = () => {
   };
 
   return (
-    <section className="pt-16 border-t border-[#EEEEEE] bg-white text-black dark:text-black">
-      <div className="container w-1/2 flex flex-col items-center mx-auto mb-3">
+    <section className="pt-16 border-t border-[#EEEEEE] bg-[#D5D5D5]   dark:text-black text-[#686868] ">
+      <div className="container w-1/2 flex flex-col items-center mx-auto md:mb-[110px]">
         <Image src={logo} alt="logo" className="w-40" />
 
         <p className="mt-6 tracking-wide family-Helvetica text-13 lg:text-15">
@@ -69,14 +69,14 @@ const Footer: React.FC = () => {
             <input
               type="email"
               placeholder="Enter your mail address"
-              className="bg-black text-white w-full ps-3 py-5 pe-[156px] lg:pe-[126px] xl:pe-[156px] rounded-2xl text-xs"
+              className="bg-white text-black w-full ps-3 py-5 pe-[156px] lg:pe-[126px] xl:pe-[156px] rounded-2xl text-xs"
               value={email}
               onChange={handleChange}
               disabled={isLoading}
             />
             <Button
               variant={'secondary'}
-              className="text-black absolute top-2 right-3 rounded-2xl px-2"
+              className="text-white bg-black hover:bg-slate-700 absolute top-2 right-3 rounded-2xl px-2"
               disabled={isLoading}
             >
               {isLoading ? 'Subscribing...' : 'Subscribe Now'}
@@ -84,12 +84,13 @@ const Footer: React.FC = () => {
           </div>
         </form>
       </div>
-      <Container className="grid grid-cols-12 sm:gap-x-4 md:gap-x-5 lg:gap-x-8 gap-y-8 px-4 mx-auto  items-center justify-center">
-        <div className="col-span-12 sm:col-span-4 md:col-span-3 lg:col-span-2 px-2">
+      {/* <Container className="grid grid-cols-5 sm:gap-x-4 md:gap-x-5 lg:gap-x-8 gap-y-8 px-4 mx-auto  items-center justify-between bg-green-300"> */}
+      <Container className="flex flex-wrap justify-between gap-10 ">
+        <div className=" px-2">
           <h5 className="font-medium tracking-wide family-Helvetica sm:text-lg xl:text-xl">
             Shop by Rooms
           </h5>
-          <ul className=" leading-8 xl:leading-[45px] tracking-wide family-Helvetica text-13 lg:text-15 text-black mt-6 capitalize">
+          <ul className=" leading-8 xl:leading-[38px] tracking-wide family-Helvetica text-13 lg:text-15  mt-6 capitalize">
             {Object.keys(menuData)
               .filter((menu) =>
                 ['dining', 'living', 'bedroom', 'homeOffice'].includes(menu),
@@ -116,12 +117,11 @@ const Footer: React.FC = () => {
               ))}
           </ul>
         </div>
-
-        <div className="col-span-12 sm:col-span-4 md:col-span-3 lg:col-span-2 px-2">
+        <div className="  px-2">
           <h5 className="font-medium tracking-wide family-Helvetica sm:text-lg xl:text-xl">
             Shop by Item
           </h5>
-          <ul className=" leading-8 xl:leading-[45px] tracking-wide family-Helvetica text-13 lg:text-15 text-black mt-6 capitalize">
+          <ul className=" leading-8 xl:leading-[38px] tracking-wide family-Helvetica text-13 lg:text-15  mt-6 capitalize">
             {Object.keys(menuData)
               .filter((menu) =>
                 ['chairs', 'tables', 'Lighting', 'Accessories'].includes(menu),
@@ -148,12 +148,11 @@ const Footer: React.FC = () => {
               ))}
           </ul>
         </div>
-
-        <div className="col-span-12 sm:col-span-4 md:col-span-3 lg:col-span-2 px-2">
+        <div className="  px-2">
           <h5 className="font-medium tracking-wide family-Helvetica sm:text-lg xl:text-xl">
             Terms & Policies
           </h5>
-          <ul className=" leading-8 xl:leading-[45px] tracking-wide family-Helvetica text-13 lg:text-15 text-black mt-6">
+          <ul className=" leading-8 xl:leading-[38px] tracking-wide family-Helvetica text-13 lg:text-15  mt-6">
             <li>
               <Link href="/shipping-policy" className="hover:underline">
                 Shipping Policy
@@ -177,11 +176,11 @@ const Footer: React.FC = () => {
           </ul>
         </div>
 
-        <div className="col-span-12 sm:col-span-4 md:col-span-3 lg:col-span-2">
+        <div className=" ">
           <h5 className="font-medium tracking-wide family-Helvetica sm:text-lg xl:text-xl">
             About
           </h5>
-          <ul className="leading-8 xl:leading-[45px] tracking-wide family-Helvetica text-13 lg:text-15 text-black mt-6 capitalize">
+          <ul className="leading-8 xl:leading-[38px] tracking-wide family-Helvetica text-13 lg:text-15 mt-6 capitalize">
             <li>
               <Link href="/profile" target="_self" className="hover:underline">
                 My Account
@@ -208,12 +207,11 @@ const Footer: React.FC = () => {
             </li>
           </ul>
         </div>
-
-        <div className="col-span-12 sm:col-span-4 md:col-span-3 lg:col-span-2">
-          <h5 className="font-medium tracking-wide family-Helvetica sm:text-lg xl:text-xl">
+        <div className=" flex flex-col md:items-center">
+          <h5 className="font-medium tracking-wide family-Helvetica sm:text-lg xl:text-xl ">
             Get in Touch
           </h5>
-          <div className="mt-8">
+          <div className="mt-8 w-fit">
             <Link href="tel:+971505974495" target="_blank" rel="noreferrer">
               <div className=" w-full max-w-56 rounded-sm">
                 <div className="flex items-center gap-2 py-2 px-2">
@@ -235,27 +233,23 @@ const Footer: React.FC = () => {
               </Link>
             </div>
           </div>
-          <div className="pt-5">
+          <div className="pt-5 text-black">
             <SocialLink socialSize="md:text-[25px]" />
           </div>
         </div>
       </Container>
       <div className="bg-main mt-10 py-3 px-4">
-        <Container className="flex flex-wrap justify-center sm:justify-between items-center gap-x-8 gap-y-4 pb-16 md:pb-0">
-          <p className="text-white text-17 font-light text-center">
+        <Container className="flex flex-wrap justify-center sm:justify-between items-center gap-x-8 gap-y-4 pb-10 md:pb-0 ">
+          <p className="text-white text-17 font-light text-center md:w-full">
             Copyright © 2024 avenue39 All rights reserved.
           </p>
-          <div className="flex items-center gap-4">
-            {/* <SiVisa className="text-white" size={40} />
-            <FaPaypal className="text-white" size={20} />
-            <SiMastercard className="text-white" size={25} />
-            <FaStripe className="text-white" size={40} /> */}
+          {/* <div className="flex items-center gap-4">
             <div className="flex justify-between space-x-4">
-              {paymentIcons.map((icon, index) => (
-                <div key={index} className="w-14 h-auto p-1">
-                  <Image
-                    src={icon.src}
-                    alt={icon.alt}
+            {paymentIcons.map((icon, index) => (
+              <div key={index} className="w-14 h-auto p-1">
+              <Image
+              src={icon.src}
+              alt={icon.alt}
                     width={64}
                     height={60}
                     className="object-contain shadow"
@@ -263,7 +257,7 @@ const Footer: React.FC = () => {
                 </div>
               ))}
             </div>
-          </div>
+          </div> */}
         </Container>
       </div>
     </section>
