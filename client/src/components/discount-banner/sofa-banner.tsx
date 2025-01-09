@@ -40,15 +40,17 @@ const sliderDataa_sofa = [
     slides: [
       {
         backgroundImage: banner2.src,
-        pro_price: 'Home Office',
+        pro_price: 'Home Office', 
         subtitle: 'Magia Office Desk',
         link: '/product/magia-office-desk',
+        buttonPosition: 'top', 
       },
       {
         backgroundImage: banner3.src,
-        pro_price: 'Bedroom',
+        pro_price: 'Bedroom', 
         subtitle: 'Mila TV Cabinet/TV Stand',
-        link: '/product/mila-tv-cabinettv-stand',
+        link: '/products',
+        buttonPosition: 'bottom', 
       },
     ],
   },
@@ -57,19 +59,24 @@ const sliderDataa_sofa = [
     slides: [
       {
         backgroundImage: banner2.src,
-        pro_price: 'Living Room',
+        pro_price: 'Living Room', 
         subtitle: 'Modern Sofa Set',
         link: '/product/modern-sofa-set',
+        buttonPosition: 'top', 
       },
       {
         backgroundImage: banner3.src,
-        pro_price: 'Dining Room',
+        pro_price: 'Dining Room', 
         subtitle: 'Elegant Dining Table',
-        link: '/product/elegant-dining-table',
+        link: '/products',
+        buttonPosition: 'bottom', 
       },
     ],
   },
 ];
+
+
+
 const SofaBanner: React.FC = () => {
 
   return (
@@ -95,7 +102,7 @@ const SofaBanner: React.FC = () => {
               <div className="w-1/2 xs:w-1/3">
                 <div className="space-y-3">
                 <Link href={slide.link}
-                      className="bg-black py-2 px-6 rounded-full text-white hover:bg-main font-Helveticalight" >
+                      className="py-1 px-3 bg-white text-2xl rounded-full text-black border border-gray-500 hover:bg-main font-Helveticalight" >
                      Shop Best Sellers
                     </Link>
                   <h3 className="font-semibold text-xl sm:text-2xl mt-1">
@@ -139,43 +146,66 @@ const SofaBanner: React.FC = () => {
   >
     {sliderDataa_sofa.map((item) => (
       <SwiperSlide key={item.id}>
-<div className="grid grid-cols-1 gap-4 min-h-[530px]">
-  {item.slides.map((slide, index) => (
-    <div
-      key={index}
-      className="w-full h-full rounded-2xl"
-      style={{
-        backgroundImage: `url(${slide.backgroundImage})`,
-        backgroundSize: 'cover',
-        backgroundRepeat: 'no-repeat',
-        backgroundPosition: 'center',
-      }}
-    >
-      <div className="flex justify-center items-center bg-[#0000004d] w-full h-full rounded-2xl">
-        <div className="text-center space-y-3">
-        <Link     href={slide.link}
-              className="bg-black py-2 px-6 rounded-full text-white hover:bg-main"
+        <div className="grid grid-cols-1 gap-4 min-h-[530px]">
+          {item.slides.map((slide, index) => (
+            <div
+              key={index}
+              className="w-full h-full rounded-2xl"
+              style={{
+                backgroundImage: `url(${slide.backgroundImage})`,
+                backgroundSize: 'cover',
+                backgroundRepeat: 'no-repeat',
+                backgroundPosition: 'center',
+              }}
             >
-             Shop Home Office
-            </Link>
-         
-          <h3 className="font-semibold text-xl sm:text-2xl mt-1 text-white">
-            {slide.subtitle}
-          </h3>
-          <div className="lg:pt-0">
-          <p className="text-xs sm:text-14 font-normal text-white">
-            {slide.pro_price}
-          </p>
-          </div>
+              <div className="flex justify-center items-center bg-[#0000004d] w-full h-full rounded-2xl">
+                <div className="text-center space-y-3">
+                  {/* Top Block Button */}
+                  {slide.buttonPosition === 'top' && (
+                    <div className="mb-4">
+                      <Link
+                        href={slide.link}
+                        className="bg-white py-1 px-3 text-2xl rounded-full text-black hover:bg-main font-Helveticalight"
+                      >
+                        Shop {slide.pro_price}
+                      </Link>
+                    </div>
+                  )}
+
+                  {/* Bottom Block Button */}
+                  {slide.buttonPosition === 'bottom' && (
+                    <div className="mt-auto">
+                      <Link
+                        href={slide.link}
+                        className="bg-white py-1 px-3 text-2xl rounded-full text-black hover:bg-main font-Helveticalight"
+                      >
+                        Shop <span className='text-red-600'>Sale</span>
+                      </Link>
+                    </div>
+                  )}
+
+                  <h3 className="font-semibold text-xl sm:text-2xl mt-1 text-white">
+                    {slide.subtitle}
+                  </h3>
+                  <div className="lg:pt-0">
+                    <p className="text-xs sm:text-14 font-normal text-white">
+                      {slide.pro_price} {/* Using pro_price as description */}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
-      </div>
-    </div>
-  ))}
-</div>
       </SwiperSlide>
     ))}
   </Swiper>
 </div>
+
+
+
+
+
     </section>
   );
 };
