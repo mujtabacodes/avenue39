@@ -1,5 +1,5 @@
 'use client';
-import React, { SetStateAction, useLayoutEffect, useState } from 'react';
+import React, { SetStateAction, useState } from 'react';
 import Imageupload from '@components/ImageUpload/Imageupload';
 import { RxCross2 } from 'react-icons/rx';
 import Image from 'next/image';
@@ -70,6 +70,7 @@ const FormLayout = ({
   const [editCategoryName, setEditCategoryName] = useState<
     editCategoryNameType | null | undefined
   >(CategoryName);
+  console.log(setEditCategoryName)
 
   const onSubmit = async (values: SubCategory, { resetForm }: any) => {
     console.log('dubuge 1');

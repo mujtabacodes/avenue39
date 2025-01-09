@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import React from 'react';
-import { FaFacebookF, FaInstagram, FaLinkedinIn } from 'react-icons/fa';
-import { FaPinterestP, FaXTwitter } from 'react-icons/fa6';
+import { FaInstagram } from 'react-icons/fa';
 import { PiPinterestLogoBold } from 'react-icons/pi';
 import { RiFacebookLine } from 'react-icons/ri';
 

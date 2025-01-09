@@ -46,8 +46,8 @@ export const TShippingPolicybredcrumbs = [
 ];
 
 import * as Yup from 'yup';
-import { Product, Category, FormValues, SubCategory, TCategories } from '@/types/interfaces';
-import { IProduct, IProductAdd, IProductWithoutId } from '@/types/types';
+import { Product, Category, SubCategory } from '@/types/interfaces';
+import { IProductAdd } from '@/types/types';
 
 export const validateForm = (formData: {
   fullName: string;
@@ -474,6 +474,31 @@ export const categories: any = [
       ],
       
     },
+  },
+];
+
+//SaleBannerData
+export const SaleBannerData = [
+  {
+    title: "Shop New Arrivals",
+    link: "/products/new-arrivals",
+    productName: "Skanda Coffee Table",
+    price: "AED150",
+    imageSrc: "/images/catalogue/bannerChirs.png",
+  },
+  {
+    title: "Shop Featured Products",
+    link: "/products/featured",
+    productName: "Torino Coffee Table",
+    price: "AED250",
+    imageSrc: "/images/catalogue/bannerChirs.png",
+  },
+  {
+    title: "Shop Best Sellers",
+    link: "/products/best-sellers",
+    productName: "Apollo Coffee Table",
+    price: "AED300",
+    imageSrc: "/images/catalogue/bannerChirs.png",
   },
 ];
 

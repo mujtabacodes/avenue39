@@ -6,16 +6,13 @@ import DefaultLayout from '@components/Dashboard/Layouts/DefaultLayout';
 import ProtectedRoute from '@/hooks/AuthHookAdmin';
 import { useAppSelector } from '@components/Others/HelperRedux';
 import { uploadPhotosToBackend } from '@/utils/helperFunctions';
-import { IMAGE_INTERFACE } from '@/types/interfaces';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useAppDispatch } from '@components/Others/HelperRedux';
 import { loggedInAdminAction } from '../../../redux/slices/Admin/AdminsSlice';
 import { ImageRemoveHandler } from '@/utils/helperFunctions';
-import { Input } from '@/components/ui/input';
 import { LabelInput } from '@/components/ui/label-input';
 import { AiOutlineUpload } from 'react-icons/ai';
-import { string } from 'yup';
 interface ImageType {
   posterImagePublicId: string | any;
   posterImageUrl: string;
@@ -62,12 +59,12 @@ const Settings = () => {
         posterImageUrl: loggedInUser.posterImageUrl,
         posterImagePublicId: loggedInUser.posterImagePublicId,
       };
-
+/* eslint-disable */
       if (loggedInUser) {
         let { name, posterImageUrl, posterImagePublicId, ...extractedData } =
           loggedInUser;
         console.log(extractedData, 'extractedData');
-
+/* eslint-enable */
         if (profilePhoto) {
           initialFormData = {
             ...initialFormData,

@@ -10,8 +10,6 @@ interface starProps {
 const RenderStars: React.FC<starProps> = ({ card }) => {
   const {
     data: reviews = [],
-    error,
-    isLoading: reviewLoading,
   } = useQuery<IReview[], Error>({
     queryKey: ['reviews'],
     queryFn: fetchReviews,

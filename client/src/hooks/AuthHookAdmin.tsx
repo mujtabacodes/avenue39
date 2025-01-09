@@ -71,7 +71,6 @@ function ProtectedRoute(WrappedComponent: any) {
           <Loader />
         </div>
       );
-    } else {
     }
     return <WrappedComponent {...props} />;
   };

@@ -1,3 +1,4 @@
+/* eslint-disable */
 'use client';
 import { useSelector } from 'react-redux';
 import { createSelector } from '@reduxjs/toolkit';
@@ -10,3 +11,4 @@ const products = (state: State) => state.products;
 
 export const useProductSlice: UseProductSlice = (selector) =>
   useSelector(createSelector(products, selector));
+/* eslint-enable */

@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import { Table, notification, Modal } from 'antd';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import axios from 'axios';
-import Loader from '@components/Loader/Loader';
 import { Button } from '@/components/ui/button';
 import showToast from '@/components/Toaster/Toaster';
 
@@ -16,15 +15,17 @@ interface Product {
 interface CategoryProps {
   Categories: Product[];
   setCategory: React.Dispatch<React.SetStateAction<Product[]>>;
+  /* eslint-disable */
   setselecteMenu: (menu: string) => void;
-  loading: boolean;
+  /* eslint-enable */
+  loading:Boolean;
 }
 
 const ViewNewsletter: React.FC<CategoryProps> = ({
   Categories,
   setCategory,
   setselecteMenu,
-  loading,
+  loading
 }) => {
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
@@ -136,7 +137,7 @@ const ViewNewsletter: React.FC<CategoryProps> = ({
           className="bg-primary text-white px-4 py-2 rounded-md"
           disabled={selectedRowKeys.length === 0 || sendingLoading}
         >
-          {!sendingLoading ? 'Broadcast Email' : 'Sending'}
+          {!loading ? 'Broadcast Email' : 'Sending'}
         </Button>
       </div>
       <Table

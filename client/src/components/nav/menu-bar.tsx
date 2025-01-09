@@ -1,12 +1,8 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import Container from '../ui/Container';
-import { MdOutlineKeyboardArrowDown } from 'react-icons/md';
-import Image from 'next/image';
 import MenuLink from '../menu-link';
-import megamenu from '@icons/megamenu.png';
 import { menuData } from '@/data/menu';
-import { Skeleton } from '@/components/ui/skeleton';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import { generateSlug } from '@/config';
 import Link from 'next/link';
@@ -16,13 +12,13 @@ import { useSelector } from 'react-redux';
 const MenuBar = () => {
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const [isSticky, setIsSticky] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(false);
+  // const [loading, setLoading] = useState<boolean>(false);
   const [hoveringMenu, setHoveringMenu] = useState<boolean>(false);
   const route = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const categoryId: string | any = searchParams.get('id');
-  const [ActivatedMenu, setActivatedMenu] = useState<string | null>(null);
+  // const [ActivatedMenu, setActivatedMenu] = useState<string | null>(null);
   const [isActiveMenu, setisActiveMenu] = useState<string | null>(null);
   const userDetails = useSelector(
     (state: State) => state.usrSlice.loggedInUser,
@@ -60,7 +56,7 @@ const MenuBar = () => {
 
   const handleCategoryMenuClick = (menu: string) => {
     setActiveMenu(menu);
-    setActivatedMenu(menu);
+    // setActivatedMenu(menu);
     if (menu === 'homeOffice') {
       route.push(`/products/home-office`);
     } else if (menu === 'NewArrivals') {
@@ -81,7 +77,6 @@ const MenuBar = () => {
   };
 
   let CategoryFunction = () => {
-    let menu: string = ActivatedMenu || '';
     if (pathname === '/products') {
       setisActiveMenu('SALE');
       return;
@@ -95,8 +90,6 @@ const MenuBar = () => {
       let categoryName = pathname.split('/').pop()?.replaceAll('-', '');
 
       for (const key in menuData) {
-        const items = menuData[key];
-
         if (categoryName?.toLowerCase() === generateSlug(key).toLowerCase()) {
           setisActiveMenu(key);
           return key;
@@ -130,14 +123,15 @@ const MenuBar = () => {
           }`}
       >
         <Container className="flex flex-wrap items-center justify-between">
-          {loading ? (
-            <div className="flex gap-4">
-              {Array.from({ length: 9 }).map((_, index) => (
-                <Skeleton key={index} className="h-6 w-36" />
-              ))}
-            </div>
-          ) : (
-            Object.keys(menuData).map((menu, index) => {
+          {
+          // loading ? (
+          //   <div className="flex gap-4">
+          //     {Array.from({ length: 9 }).map((_, index) => (
+          //       <Skeleton key={index} className="h-6 w-36" />
+          //     ))}
+          //   </div>
+          // ) : (
+            Object.keys(menuData).map((menu) => {
               if (menu === 'SALE') {
                 return (
                   <button
@@ -185,7 +179,7 @@ const MenuBar = () => {
                     {menu.replace(/([A-Z])/g, ' $1').toUpperCase()}
                   </div>
 
-                  {activeMenu && !loading && activeMenu === menu && (
+                  {activeMenu && activeMenu === menu && (
                     <div
                       className={`megamenu-container w-[200px] bg-white shadow-lg px-10 py-4 z-20  absolute top-[28px]  rounded-b-xl`}
                       onMouseEnter={() => setHoveringMenu(true)}
@@ -200,7 +194,7 @@ const MenuBar = () => {
                             <MenuLink
                               menudata={menuData[activeMenu]}
                               onLinkClick={() => setActiveMenu(null)}
-                              loading={loading}
+                              // loading={loading}
                               pathname={pathname}
                             />
                           </div>
@@ -210,7 +204,8 @@ const MenuBar = () => {
                   )}
                 </div>
               );
-            })
+            }
+          // )
           )}
         </Container>
       </div>

@@ -1,20 +1,7 @@
 'use client';
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 const HeroVideo: React.FC = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
-  // const [isPlaying, setIsPlaying] = useState<boolean>(true);
-
-  // const handleVideoClick = () => {
-  //   if (videoRef.current) {
-  //     if (isPlaying) {
-  //       videoRef.current.pause();
-  //     } else {
-  //       videoRef.current.play();
-  //     }
-  //     setIsPlaying(!isPlaying);
-  //   }
-  // };
-
   return (
     <div className="relative w-full">
       <video

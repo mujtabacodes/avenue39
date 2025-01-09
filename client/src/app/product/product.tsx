@@ -5,10 +5,6 @@ import Container from '@/components/ui/Container';
 import Services from '@/components/services/services';
 import { IProduct, IProductDetail, IReview } from '@/types/types';
 import ProductDetail from '@/components/product-detail/product-detail';
-import {
-  calculateRatingsPercentage,
-  generateSlug,
-} from '@/config';
 import TopHero from '@/components/top-hero';
 import FeatureSlider from '@/components/card-slider/feature-slider';
 import { Table } from 'antd';
@@ -42,59 +38,10 @@ const Product = ({ params, reviews , product }: { params: IProductDetail, review
     }
   };
 
-  const [sortOption, setSortOption] = useState<string>('default');
-  const [visibleCount, setVisibleCount] = useState(3);
-  const loadMoreReviews = () => {setVisibleCount((prevCount) => prevCount + 3);};
-
-  const productId = product?.id;
-  // const filteredReviews = reviews.filter(
-  //   (review) => review.productId === productId,
-  // );
-  const filteredReviews = Array.isArray(reviews)
-    ? reviews.filter((review) => review.productId === productId)
-    : [];
-
-  const sortedReviews = [...filteredReviews].sort((a, b) => {
-    switch (sortOption) {
-      case 'name':
-        return a.name.localeCompare(b.name);
-      case 'review':
-        return b.star - a.star;
-      case 'recent':
-        return (
-          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-        );
-      default:
-        return 0;
-    }
-  });
-  const reviewsToDisplay = sortedReviews.slice(0, visibleCount);
-
-  // if (!product) {
-  //   return <Loader />;
-  // }
-
-  const { productReviews, averageRating } =
-    calculateRatingsPercentage(filteredReviews);
-
   const dataSource = product?.additionalInformation.map((info, index) => ({
     key: index,
     ...info,
   }));
-  // const dataSource2 = [
-  //   {
-  //     key: '1',
-  //     name: 'Mike',
-  //     age: 32,
-  //     address: '10 Downing Street',
-  //   },
-  //   {
-  //     key: '2',
-  //     name: 'John',
-  //     age: 42,
-  //     address: '10 Downing Street',
-  //   },
-  // ];
 
   const columns = [
     {

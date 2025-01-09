@@ -67,8 +67,6 @@ const FeatureCard: React.FC<CardProps> = ({
 
   const {
     data: reviews = [],
-    error,
-    isLoading: reviewLoading,
   } = useQuery<IReview[], Error>({
     queryKey: ['reviews'],
     queryFn: fetchReviews,
@@ -83,7 +81,7 @@ const FeatureCard: React.FC<CardProps> = ({
     : [];
   const { averageRating } = calculateRatingsPercentage(filteredReviews);
 
-  const handleNavigation = (e: any) => {
+  const handleNavigation = () => {
     Navigate.push(`/product/${generateSlug(card.name)}`);
   };
 
@@ -159,7 +157,7 @@ const FeatureCard: React.FC<CardProps> = ({
             </div>
           )}
 
-          <div onClick={(e) => handleNavigation(e)} className="cursor-pointer">
+          <div onClick={() => handleNavigation()} className="cursor-pointer">
             <Image
               width={400}
               height={400}

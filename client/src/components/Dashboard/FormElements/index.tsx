@@ -1,18 +1,12 @@
-// @ts-nocheck
 'use client';
 import React, { useState, useEffect, useLayoutEffect } from 'react';
-import * as Yup from 'yup';
 import {
   Formik,
   FieldArray,
   FormikErrors,
   Form,
-  ErrorMessage,
-  useFormik,
-  Field,
 } from 'formik';
 
-import SelectGroupTwo from '@components/Dashboard/SelectGroup/SelectGroupTwo';
 import Imageupload from '@components/ImageUpload/Imageupload';
 import { RxCross2 } from 'react-icons/rx';
 import Image from 'next/image';
@@ -25,14 +19,11 @@ import { ADDPRODUCTFORMPROPS, FormValues } from '@/types/interfaces';
 import {
   AddproductsinitialValues,
   AddProductvalidationSchema,
-  withoutVariation,
 } from '@/data/data';
 import { Checkbox } from 'antd';
-import { useQuery } from '@tanstack/react-query';
-import { ICategory } from '@/types/types';
-import { fetchCategories, fetchSubCategories } from '@/config/fetch';
 import showToast from '@components/Toaster/Toaster';
 import revalidateTag from '@/components/ServerActons/ServerAction';
+import { ICategory } from '@/types/types';
 
 const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
   EditInitialValues,
@@ -41,12 +32,10 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
   setEditProduct,
   categoriesList,
 }) => {
-  const [selectedOption, setSelectedOption] = useState<string>('');
-  const [isOptionSelected, setIsOptionSelected] = useState<boolean>(false);
   const [imagesUrl, setImagesUrl] = useState<any[]>(
     EditInitialValues ? EditInitialValues.productImages : [],
   );
-  const [posterimageUrl, setposterimageUrl] = useState<any[] | null>(
+  const [posterimageUrl, setposterimageUrl] = useState<any[] | undefined>(
     EditInitialValues
       ? [
           {
@@ -73,21 +62,9 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
     any | null | undefined
   >(EditProductValue);
   const [imgError, setError] = useState<string | null | undefined>();
-  const [Categories, setCategories] = useState<any[]>(categoriesList);
-  const [VariationOption, setVariationOption] =
-    useState<string>('withoutVariation');
-  const [selectedCategories, setSelectedCategories] = useState<number[]>([]);
-  const [selectedSubcategories, setSelectedSubcategories] = useState<number[]>(
-    [],
-  );
+  // const [selectedCategories, setSelectedCategories] = useState<number[]>([]);
 
-  const handleOptionChange = (e: any) => {
-    setVariationOption(e.target.value);
-  };
 
-  const changeTextColor = () => {
-    setIsOptionSelected(true);
-  };
 
   useLayoutEffect(() => {
     const CategoryHandler = async () => {
@@ -102,7 +79,13 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
           __v,
           ...EditInitialProductValues
         } = EditInitialValues as any;
-
+          console.log(EditInitialProductValues, "EditInitialProductValues")
+          console.log(posterImageUrl,
+            imageUrl,
+            _id,
+            createdAt,
+            updatedAt,
+            __v, "EditInitialValues")
         const categoryIds =
           EditInitialValues.categories?.map((category: any) => category.id) ||
           [];
@@ -129,7 +112,6 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
       setError(null);
       let posterImageUrl = posterimageUrl && posterimageUrl[0];
       let hoverImageUrl = hoverImage && hoverImage[0];
-      let createdAt = Date.now();
       if (!posterImageUrl || !(imagesUrl.length > 0)) {
         return showToast('warn', 'Please select relevant Images');
       }
@@ -171,9 +153,8 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
       resetForm();
       setloading(false);
       sethoverImage(null);
-      setposterimageUrl(null);
+      setposterimageUrl(undefined);
       setImagesUrl([]);
-      setSelectedCategories([]);
       setSelectedSubcategoryIds([]);
       setSelectedCategoryIds([]);
 
@@ -193,37 +174,20 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
     }
   };
 
-  const validationSchema = Yup.object().shape({
-    price: Yup.number()
-      .min(0, 'Price cannot be negative')
-      .required('Price is required'),
-  });
-  const formik = useFormik({
-    initialValues: {
-      price: '',
-    },
-    validationSchema,
-    onSubmit: (values) => {
-      console.log('Form values:', values);
-    },
-  });
-
-
   const [selectedCategoryIds, setSelectedCategoryIds] = useState<number[]>([]);
   const [selectedSubcategoryIds, setSelectedSubcategoryIds] = useState<
     number[]
   >([]);
-  const [filteredSubcategories, setFilteredSubcategories] = useState<
-    ISubcategory[]
-  >([]);
+  const [filteredSubcategories, setFilteredSubcategories] = useState<any>([]);
 
   useEffect(() => {
-    const selectedCategories = categoriesList.filter((category) =>
+    const selectedCategories = categoriesList?.filter((category) =>
       selectedCategoryIds.includes(category.id),
     );
-    const subcategories = selectedCategories.flatMap(
-      (category) => category.subcategories,
+    const subcategories = selectedCategories?.flatMap(
+      (category: any) => category.subcategories,
     );
+    console.log(subcategories,'subcategories')
     setFilteredSubcategories(subcategories);
   }, [selectedCategoryIds, categoriesList]);
 
@@ -250,13 +214,13 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
     setImagesUrl(updatedImagesUrl);
   };
   const handlealtTextHover = (index: number, newaltText: string) => {
-    const updatedImagesUrl = hoverImage.map((item, i) =>
+    const updatedImagesUrl = hoverImage?.map((item, i) =>
       i === index ? { ...item, altText: newaltText } : item,
     );
     sethoverImage(updatedImagesUrl);
   };
   const handlealtTextposterimageUrl = (index: number, newaltText: string) => {
-    const updatedImagesUrl = posterimageUrl.map((item, i) =>
+    const updatedImagesUrl = posterimageUrl?.map((item, i) =>
       i === index ? { ...item, altText: newaltText } : item,
     );
     setposterimageUrl(updatedImagesUrl);
@@ -636,7 +600,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                             Select Parent Category (at least one)
                           </label>
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                              {categoriesList.map((category) => (
+                              {categoriesList?.map((category) => (
                                 <div
                                   key={category.id}
                                   className="flex items-center space-x-2"
@@ -676,7 +640,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                             Subcategories
                           </h2>
                           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            {filteredSubcategories.map((subcategory) => (
+                            {filteredSubcategories.map((subcategory: ICategory) => (
                               <div
                                 key={subcategory.id}
                                 className="flex items-center space-x-2 p-2 border rounded"
@@ -854,7 +818,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                         {({ push: pushSection, remove: removeSection }) => (
                           <>
                             {(formik.values.sections || []).map(
-                              (section, sectionIndex) => (
+                              (section : any, sectionIndex: number) => (
                                 <div
                                   key={sectionIndex}
                                   className="rounded-sm border border-stroke bg-white dark:bg-black mt-2"
@@ -893,7 +857,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                                         <div className="flex flex-col gap-2">
                                           {(
                                             section.additionalInformation || []
-                                          ).map((model, modelIndex) => (
+                                          ).map((model:any, modelIndex:number) => (
                                             <div
                                               key={modelIndex}
                                               className="flex items-center"
@@ -982,7 +946,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                           <div className="flex flex-col gap-2">
                             {formik.values.additionalInformation &&
                               formik.values.additionalInformation.map(
-                                (model: any, index: any) => (
+                                (model: any, index: number) => (
                                   <div
                                     key={index}
                                     className="flex items-center"
@@ -999,15 +963,13 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                                       }
                                       placeholder="Model Name"
                                       className={`w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${
-                                        formik.touched.additionalInformation?.[
-                                          index
-                                        ]?.name &&
+                                        model.name &&
                                         (
                                           formik.errors
                                             .additionalInformation as FormikErrors<
                                             FormValues['additionalInformation']
                                           >
-                                        )?.[index]?.name
+                                        )?.[index]
                                           ? 'border-red-500 dark:border-white'
                                           : ''
                                       }`}
@@ -1024,15 +986,13 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                                       }
                                       placeholder="Model Detail"
                                       className={`w-full rounded-lg ml-2 border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${
-                                        formik.touched.additionalInformation?.[
-                                          index
-                                        ]?.detail &&
+                                        model.detail &&
                                         (
                                           formik.errors
                                             .additionalInformation as FormikErrors<
                                             FormValues['additionalInformation']
                                           >
-                                        )?.[index]?.detail
+                                        )?.[index]
                                           ? 'border-red-500 dark:border-white'
                                           : ''
                                       }`}
@@ -1087,8 +1047,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                                     }
                                     placeholder="Specification Details"
                                     className={`w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${
-                                      formik.touched.spacification?.[index]
-                                        ?.specsDetails &&
+                                      spec.specsDetails &&
                                       (
                                         formik.errors
                                           .spacification as FormikErrors<

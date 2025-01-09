@@ -6,13 +6,13 @@ import DefaultLayout from '@components/Dashboard/Layouts/DefaultLayout';
 import ProtectedRoute from '@/hooks/AuthHookAdmin';
 import { useState } from 'react';
 import Addcategory from '@components/AddCategory/Addcategory';
-import { CategoriesType } from '@/types/interfaces';
+import { Category as Categorytype } from '@/types/interfaces';
 import { ICategory } from '@/types/types';
 
 const Category = ({cetagories}: {cetagories : ICategory[]}) => {
    const [menuType, setMenuType] = useState<string>('Categories');
    const [editCategory, seteditCategory] = useState<
-     CategoriesType | undefined | null
+   Categorytype | undefined | null
    >();
    return (
      <DefaultLayout>

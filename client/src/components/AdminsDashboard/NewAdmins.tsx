@@ -1,9 +1,6 @@
 "use client"
-
 import React, { useState } from "react";
-
 import axios from "axios";
-import { useRouter } from "next/navigation";
 import Loader from "@components/Loader/Loader";
 import Toaster from "@components/Toaster/Toaster";
 import { IoMdArrowRoundBack } from "react-icons/io";
@@ -12,7 +9,6 @@ import { Button } from "../ui/button";
 
 
 const AddAdmin = ({setselecteMenu}:any) => {
-  const router = useRouter();
   const [error, setError] = useState<string | null | undefined>();
   const [loading, setLoading] = useState<boolean>(false);
 

@@ -1,4 +1,5 @@
 import React, { FormEventHandler, SetStateAction } from 'react';
+import { ICategory } from './types';
 
 React.FormEvent<HTMLFormElement>;
 export interface USRPROPS {
@@ -55,6 +56,7 @@ export interface Category {
   meta_title?:string;
   canonical_tag?:string;
   images_alt_text?: string;
+  posterImageUrl?: IMAGE_INTERFACE;
 }
 export interface SubCategory {
   name: string;
@@ -66,10 +68,6 @@ export interface SubCategory {
   categoriesId: number[];
 }
 
-interface CategoriesType {
-  posterImageUrl: IMAGE_INTERFACE;
-}
-export interface CategoriesType extends Category {}
 
 interface CloudinaryImage {
   public_id: string | undefined;
@@ -107,6 +105,8 @@ export interface FormValues {
   code: string;
   totalStockQuantity: number;
   variantStockQuantities: { variant: string; quantity: number }[];
+  price?: string;
+  additionalInformation?: string;
 }
 
 interface Color {
@@ -212,17 +212,16 @@ export interface product {
   OgUrl:string
 }
 
+/* eslint-disable */
 declare module 'react-qr-scanner' {
   import { Component } from 'react';
-
   interface QrReaderProps {
     delay?: number;
     onError?: (error: any) => void;
-    onScan?: (data: string | null) => void;
+    onScan?: (data: string | null) => void;  
     style?: React.CSSProperties;
   }
-
-  class QrReader extends Component<QrReaderProps, any> {}
-
+  class QrReader extends Component<QrReaderProps, {}> {} 
   export default QrReader;
 }
+/* eslint-enable */

@@ -8,7 +8,7 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
-import { Rate, Spin } from 'antd';
+import { Rate } from 'antd';
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
 import showToast from './Toaster/Toaster';

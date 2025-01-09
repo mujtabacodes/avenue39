@@ -1,6 +1,5 @@
 //@ts-nocheck
 'use client';
-
 import React, { useState, useRef, useEffect, SetStateAction } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
@@ -17,12 +16,12 @@ import Image from 'next/image';
 import { FaSortDown } from 'react-icons/fa';
 import { Skeleton } from '@/components/ui/skeleton';
 import { CiZoomIn } from 'react-icons/ci';
-import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 
 export interface IMAGE_INTERFACE {
   public_id?: string;
   imageUrl?: string;
   name?: string;
+  altText?: string;
 }
 
 interface ThumbProps {
@@ -41,9 +40,7 @@ const Thumbnail: React.FC<ThumbProps> = ({
   isLoading,
 }) => {
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
-  const [imageThumbsSwiper, setImageThumbsSwiper] = useState<SwiperType | null>(
-    null,
-  );
+
   const [hoveredImage, setHoveredImage] = useState<string | null>(null);
   const [backgroundPosition, setBackgroundPosition] = useState<string>('0% 0%');
   const [loading, setLoading] = useState(true);
@@ -115,25 +112,7 @@ const Thumbnail: React.FC<ThumbProps> = ({
     }
   };
 
-  const scrollToSlide = (direction: 'up' | 'down') => {
-    if (swiperRef.current) {
-      if (direction === 'up') {
-        swiperRef.current.slidePrev();
-      } else if (direction === 'down') {
-        swiperRef.current.slideNext();
-      }
-    }
-  };
-
-  const HoverImgToSlide = (direction: 'up' | 'down') => {
-    if (swiperImageRef.current) {
-      if (direction === 'up') {
-        swiperImageRef.current.slidePrev();
-      } else if (direction === 'down') {
-        swiperImageRef.current.slideNext();
-      }
-    }
-  };
+ 
 
   return (
     <div>
@@ -217,7 +196,6 @@ const Thumbnail: React.FC<ThumbProps> = ({
                   swiper.params.navigation.nextEl = nextRef.current;
                 }}
                 onSwiper={(swiper) => {
-                  setImageThumbsSwiper(swiper);
                   swiperImageRef.current = swiper;
                 }}
               >
@@ -225,13 +203,7 @@ const Thumbnail: React.FC<ThumbProps> = ({
                   <SwiperSlide key={index}>
                     <div
                       className={`relative w-full h-full ${isZoom ? (zoomEnabled ? 'cursor-none' : 'cursor-zoom-in') : 'cursor-default'}`}
-                      // onClick={(e) =>
-                      //   handleClick(
-                      //     thumb.imageUrl || '',
-                      //     thumb.public_id || '',
-                      //     e,
-                      //   )
-                      // }
+                    
                       onMouseMove={handleMouseMove}
                       onMouseLeave={handleMouseLeave}
                       onMouseEnter={(e) =>
@@ -267,31 +239,13 @@ const Thumbnail: React.FC<ThumbProps> = ({
                             : undefined
                         }
                         onMouseMove={handleMouseMove}
-                        // onMouseLeave={handleMouseLeave}
                       />
                     </div>
                   </SwiperSlide>
                 ))}
               </Swiper>
             )}
-            {/* {zoomEnabled && (
-              <div className="relative w-full h-8 my-2">
-                <div className="flex gap-2 items-center justify-end absolute top-0 right-2">
-                  <span
-                    className="w-8 h-8 flex justify-center items-center cursor-pointer bg-[#F6F6F6] shadow"
-                    onClick={() => HoverImgToSlide('up')}
-                  >
-                    <IoIosArrowBack size={20} />
-                  </span>
-                  <span
-                    className="w-8 h-8 flex justify-center items-center cursor-pointer bg-[#F6F6F6] shadow"
-                    onClick={() => HoverImgToSlide('down')}
-                  >
-                    <IoIosArrowForward size={20} />
-                  </span>
-                </div>
-              </div>
-            )} */}
+          
           </div>
         </div>
         {cursorVisible && zoomEnabled && (

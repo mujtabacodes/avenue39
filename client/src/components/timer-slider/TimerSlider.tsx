@@ -8,8 +8,6 @@ import Image from 'next/image';
 import { Button } from '../ui/button';
 import { timerSliderData } from '@/data';
 import { IProduct, TTimeRemainingArray } from '@/types/types';
-import { useRouter } from 'next/navigation';
-import Link from 'next/link';
 import { useDispatch } from 'react-redux';
 import { Dispatch } from 'redux';
 import { CartItem } from '@/redux/slices/cart/types';
@@ -28,13 +26,10 @@ const settings = {
 
 const TimerSlider: React.FC = () => {
   const [timeRemaining, setTimeRemaining] = useState<TTimeRemainingArray>([]);
-  const router = useRouter();
   const dispatch = useDispatch<Dispatch>();
   const [cartProduct, setCartProduct] = useState<CartItem | undefined>();
   const {
     data: products = [],
-    error: productsError,
-    isLoading: isProductsLoading,
   } = useQuery<IProduct[], Error>({
     queryKey: ['products'],
     queryFn: fetchProducts,

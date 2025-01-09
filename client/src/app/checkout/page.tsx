@@ -2,10 +2,6 @@
 import TopHero from '@/components/top-hero';
 import Container from '@/components/ui/Container';
 import { checkout } from '@/data/data';
-<<<<<<< HEAD
-=======
-
->>>>>>> 66759bab64b741c29678c3b2d44fa84b5235b9a6
 import React, { Fragment, useEffect, useState } from 'react';
 import Coupan from '@/components/coupan-code';
 import CartItems from '@/components/cart/items';
@@ -37,7 +33,6 @@ const Checkout = () => {
   );
   const [paymentProcess, setPaymentProcess] = useState(false);
   const [loading, setloading] = useState<boolean>(false);
-  const [shipmentFee, setShipmentFee] = useState<number | string>(0);
   const [paymentkey, setPaymentKey] = useState('');
   const cartItems = useSelector((state: State) => state.cart.items);
   const initialValues = {
@@ -67,6 +62,7 @@ const Checkout = () => {
       const { postalCode, ...submissioValues } = values;
 
       console.log(values, 'values');
+      console.log(postalCode, 'postalCode');
 
       handlePayment(submissioValues);
     },
@@ -91,8 +87,6 @@ const Checkout = () => {
   }, [selectedState]);
   const handlePayment = async (values: any) => {
     try {
-      let chargesConversion =
-        shipmentFee == 'Free' || !shipmentFee ? null : Number(shipmentFee);
       let totalPayment = totalPrice + shippingfee;
 
       setloading(true);

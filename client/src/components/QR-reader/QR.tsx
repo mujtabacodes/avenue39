@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 import QRCode from 'qrcode.react';
-import { generateSlug } from '@/config';
 
 interface QRPROPS{
   hoveredImage:string,

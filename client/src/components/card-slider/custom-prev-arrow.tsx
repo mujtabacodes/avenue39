@@ -1,3 +1,4 @@
+import React from "react";
 import { GoArrowLeft } from "react-icons/go";
 
 const CustomPrevArrow: React.FC<any> = (props) => {
