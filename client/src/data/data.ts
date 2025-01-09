@@ -477,3 +477,28 @@ export const categories: any = [
   },
 ];
 
+//SaleBannerData
+export const SaleBannerData = [
+  {
+    title: "Shop New Arrivals",
+    link: "/products/new-arrivals",
+    productName: "Skanda Coffee Table",
+    price: "AED150",
+    imageSrc: "/images/catalogue/bannerChirs.png",
+  },
+  {
+    title: "Shop Featured Products",
+    link: "/products/featured",
+    productName: "Torino Coffee Table",
+    price: "AED250",
+    imageSrc: "/images/catalogue/bannerChirs.png",
+  },
+  {
+    title: "Shop Best Sellers",
+    link: "/products/best-sellers",
+    productName: "Apollo Coffee Table",
+    price: "AED300",
+    imageSrc: "/images/catalogue/bannerChirs.png",
+  },
+];
+

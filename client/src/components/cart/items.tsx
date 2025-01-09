@@ -1,5 +1,4 @@
 'use client';
-
 import React, { Fragment, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { State, Dispatch } from '@redux/store';
@@ -26,7 +25,6 @@ interface ICartItems {
   isCartPage?: boolean;
   isCheckoutPage?: boolean;
 }
-
 const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
   const dispatch = useDispatch<Dispatch>();
   const cartItems = useSelector((state: State) => state.cart.items);
@@ -39,21 +37,17 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
   );
   const drawerState = useSelector((state: State) => state.drawer);
   const drawerRef = useRef<HTMLDivElement | null>(null);
-
   const removeProductFromCart = (id: number) => {
     dispatch(removeItem(id));
   };
-
   const updateProductQuantity = (id: number, quantity: number) => {
     if (quantity > 0) {
       dispatch(updateItemQuantity({ id, quantity }));
     }
   };
-
   const handleCloseDrawer = () => {
     dispatch(closeDrawer());
   };
-
   const handleOpenDrawer = () => {
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
@@ -72,13 +66,11 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
       clearTimeout(timeoutRef.current);
     }
   };
-
   const handleLeaveDrawer = () => {
     timeoutRef.current = setTimeout(() => {
       dispatch(closeDrawer());
     }, 8000);
   };
-
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -88,7 +80,6 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
         dispatch(closeDrawer());
       }
     };
-
     window.addEventListener('click', handleClickOutside);
     return () => {
       window.removeEventListener('click', handleClickOutside);
@@ -97,7 +88,6 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
       }
     };
   }, [dispatch]);
-
   return (
     <React.Fragment>
       {!isCartPage ? (
@@ -128,7 +118,6 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                   <span className="w-0 h-0 border-l-[13px] border-l-transparent border-r-[19px] border-r-white border-b-[20px] border-b-transparent transform rotate-0 absolute top-[2px] -left-[13px] -translate-y-[1px]"></span>
                 </div>
               </div>
-
               <h3 className="font-medium md:text-xl 2xl:text-2xl">
                 My Cart{' '}
                 {totalPrice !== 0 && (
@@ -157,7 +146,7 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                 </div>
               </div>
             ) : (
-              <Fragment>
+<Fragment>
                 <div className="flex-1 overflow-auto mr-6 scrollbar-hidden">
                   <ul className="space-y-4">
                     {cartItems.map((item: any) => (
@@ -174,7 +163,6 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                             className="rounded-md w-full min-w-[70px] h-full"
                           />
                         </div>
-
                         <div className="grow">
                           <ProductName className="text-start !text-[16px]">
                             {item.name}
@@ -194,7 +182,6 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                               <ProductPrice className="flex gap-2 flex-wrap mb-4 !text-[15px] text-nowrap">
                                 <span>AED {item?.price * item.quantity}</span>
                                 {/* <NormalText className="text-slate-400 line-through w-20 text-end text-nowrap !text-[15px]">
-
                             </NormalText> */}
                               </ProductPrice>
                             )}
@@ -321,7 +308,6 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                   </div>
                 </div>
               </div>
-
               <div className="hidden lg:flex items-center justify-between gap-2 xl:gap-6 pr-4 w-full">
                 <div className="hidden lg:block">
                   {!isCheckoutPage && (
@@ -379,5 +365,10 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
     </React.Fragment>
   );
 };
-
 export default CartItems;
+
+
+
+
+
+
