@@ -1,8 +1,10 @@
 'use client';
 import React, { useRef } from 'react';
+import ProductBanner from '../discount-banner/product-banner';
 const HeroVideo: React.FC = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   return (
+   <>
     <div className="relative w-full">
       <video
         ref={videoRef}
@@ -32,6 +34,8 @@ const HeroVideo: React.FC = () => {
         </div>
       </div>
     </div>
+    {/* </> */}
+   </>
   );
 };
 

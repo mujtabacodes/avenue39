@@ -43,8 +43,7 @@ const DiscountBanner = () => {
             <h3
               className="font-semibold text-[24px] sm:text-28 lg:text-[49px] sm:text-2xl mt-1 text-white"
               data-aos="fade-up"
-              data-aos-duration="900"
-            >
+              data-aos-duration="900" >
               Blue Modern Stylish Sofa
             </h3>
 

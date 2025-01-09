@@ -263,3 +263,40 @@ color: white;
     padding-bottom: 1.5rem !important;
   }
 }
+.categorySlider .swiper-button-prev, .categorySlider .swiper-button-next {
+  display: none;
+}
+.customs-dot {
+  background-color: white !important;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin: 0 5px;
+  display: block !important;
+}
+/* Pagination bullets */
+.swiper-pagination-bullet {
+  background: #ffffff ;
+  opacity: 0.7;
+}
+
+.swiper-pagination-bullet-active {
+  background: #000000 ;
+  opacity: 1;
+}
+.sofa_slider2 .swiper-pagination-bullet{
+  background: #ffffff ;
+  opacity: 0.7;
+}
+.sofa_slider2 .swiper-pagination-bullet-active{
+  background: #ffffff !important; 
+  opacity: 1;
+}
+.sofa_slider1 .swiper-pagination-bullet {
+  background: #6e6e6e ;
+  opacity: 0.7;
+}
+.sofa_slider1 .swiper-pagination-bullet-active{
+  background: #000000 ;
+  opacity: 1;
+}

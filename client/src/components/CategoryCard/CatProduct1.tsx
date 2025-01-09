@@ -25,11 +25,11 @@ const CatProduct1 = ({ reverse, CategoryName,products }: ICatProduct) => {
         <div className={`grid grid-cols-12 sm:gap-8 ${reverse ? "hidden" : " block"}`}>
         <div className={`col-span-12 md:col-span-6 xl:col-span-7 `}>
             <div className="grid grid-cols-1 xs:grid-cols-2 xl:grid-cols-3 sm:gap-8">
-              <ProductGrid products={products.slice(0, 3)} CardComponent={Card} imageHeight="h-[210px] xl:h-[356.64px] w-ful" />
+              <ProductGrid products={products.slice(0, 3)} CardComponent={Card} imageHeight="h-[210px] xl:h-[496.5px] w-full" />
             </div>
           </div>
           <div className={`col-span-12 md:col-span-6 xl:col-span-5`}>
-              <ProductGrid products={products.slice(26, 27)} CardComponent={Multicard} imageHeight="h-[200px] xl:h-[345.15px] w-full" />
+              <ProductGrid products={products.slice(26, 27)} CardComponent={Multicard} imageHeight="h-[210px] xl:h-[496.5px] w-full" />
           </div>
         </div>
         <div className={`grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 sm:gap-8`}>

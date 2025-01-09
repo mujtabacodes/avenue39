@@ -19,6 +19,8 @@ import { closeDrawer, openDrawer } from '@/redux/slices/drawer';
 import { FaTrash } from 'react-icons/fa';
 import { MdModeEdit } from 'react-icons/md';
 import Link from 'next/link';
+import { GiShoppingCart } from 'react-icons/gi';
+
 interface ICartItems {
   isCartPage?: boolean;
   isCheckoutPage?: boolean;
@@ -95,7 +97,7 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
               className={`xl:w-12 w-12 h-10 rounded-3xl relative flex justify-center items-center  cursor-pointer ${cartItems.length > 0 ? 'text-white bg-main' : 'text-black  border-black'}`}
               onClick={handleOpenDrawer}
             >
-              <IoBagOutline size={24} />
+              <GiShoppingCart size={27} style={{ transform: 'scaleX(-1)' }} />
               {cartItems.length > 0 && (
                 <div className="w-4 h-4 rounded-full bg-black text-white flex justify-center items-center absolute top-2 right-2 text-10">
                   <TotalProducts />
@@ -117,16 +119,14 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                 </div>
               </div>
               <h3 className="font-medium md:text-xl 2xl:text-2xl">
-              My Cart {totalPrice !== 0 &&
-              <span>
-                (<TotalProducts />)
-              </span>
-              }
+                My Cart{' '}
+                {totalPrice !== 0 && (
+                  <span>
+                    (<TotalProducts />)
+                  </span>
+                )}
               </h3>
-              <span
-                onClick={handleCloseDrawer}
-                className='cursor-pointer'
-              >
+              <span onClick={handleCloseDrawer} className="cursor-pointer">
                 <TfiClose size={20} />
               </span>
             </div>
@@ -188,7 +188,10 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                           </div>
                           <div
                             className="absolute top-2 right-2 cursor-pointer"
-                            onClick={(e) => {e.stopPropagation(); removeProductFromCart(item.id);}}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              removeProductFromCart(item.id);
+                            }}
                           >
                             <RxCross2 />
                           </div>
@@ -283,7 +286,10 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                         <FaTrash
                           className="cursor-pointer"
                           size={15}
-                          onClick={(e) => {e.stopPropagation(); removeProductFromCart(item.id);}}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            removeProductFromCart(item.id);
+                          }}
                         />
                       </div>
                     )}
@@ -343,7 +349,10 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                       <FaTrash
                         className="cursor-pointer"
                         size={15}
-                        onClick={(e) => {e.stopPropagation(); removeProductFromCart(item.id);}}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          removeProductFromCart(item.id);
+                        }}
                       />
                     </div>
                   )}

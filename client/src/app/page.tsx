@@ -1,7 +1,7 @@
 
 'use client';
 import React from 'react';
-import {testimonialcards } from '@/data';
+import {discountProducts, testimonialcards } from '@/data';
 import SofaBanner from '@/components/discount-banner/sofa-banner';
 import Testimonial from '@/components/testimonial/testimonial';
 import HeroVideo from '@/components/Home/hero-video';
@@ -11,14 +11,14 @@ import 'slick-carousel/slick/slick-theme.css';
 import Catalogue from '@/components/Catalogue/Catalogue';
 import AllCategory from '@/components/CategoryCard/AllCategory';
 import NewArrival from '@/components/newarrival';
-
-
+import ColorBanner from '@/components/ColorBanner/ColorBanner';
 
 export default function Home() {
   return (
     <>
       <WhatsIcon />
       <HeroVideo />
+      <ColorBanner/>
       <SofaBanner />
       <NewArrival/>
      <AllCategory/>

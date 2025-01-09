@@ -1605,3 +1605,4 @@ export const ShippingPolicy = [
     ],
   },
 ];
+
