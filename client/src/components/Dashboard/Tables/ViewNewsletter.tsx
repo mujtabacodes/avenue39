@@ -18,14 +18,12 @@ interface CategoryProps {
   /* eslint-disable */
   setselecteMenu: (menu: string) => void;
   /* eslint-enable */
-  loading:Boolean;
 }
 
 const ViewNewsletter: React.FC<CategoryProps> = ({
   Categories,
   setCategory,
-  setselecteMenu,
-  loading
+  setselecteMenu
 }) => {
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
@@ -137,7 +135,7 @@ const ViewNewsletter: React.FC<CategoryProps> = ({
           className="bg-primary text-white px-4 py-2 rounded-md"
           disabled={selectedRowKeys.length === 0 || sendingLoading}
         >
-          {!loading ? 'Broadcast Email' : 'Sending'}
+          {!sendingLoading ? 'Broadcast Email' : 'Sending'}
         </Button>
       </div>
       <Table
