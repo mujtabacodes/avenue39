@@ -1,7 +1,7 @@
 
 'use client';
 import React from 'react';
-import {discountProducts, testimonialcards } from '@/data';
+import {testimonialcards } from '@/data';
 import SofaBanner from '@/components/discount-banner/sofa-banner';
 import Testimonial from '@/components/testimonial/testimonial';
 import HeroVideo from '@/components/Home/hero-video';

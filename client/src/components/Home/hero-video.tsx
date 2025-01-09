@@ -1,6 +1,5 @@
 'use client';
 import React, { useRef } from 'react';
-import ProductBanner from '../discount-banner/product-banner';
 const HeroVideo: React.FC = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   return (
