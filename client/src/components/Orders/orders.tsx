@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { Modal, Table } from 'antd';
 import Image from 'next/image';
+import { IOrder } from '@/types/types';
 
 interface IOrderList {
-  orderData: any[];
+  orderData: IOrder[];
   orderColumns: any[];
   visible: boolean;
   /* eslint-disable */
@@ -27,7 +28,7 @@ const OrderList = ({
   const filteredData = searchTerm
     ? orderData.filter((order) =>
         ['user_email', 'address', 'phoneNumber', 'orderId']
-          .map((key) => order[key]?.toString().toLowerCase() || '')
+          .map((key) => order[key as keyof IOrder]?.toString().toLowerCase() || '')
           .some((value) => value.includes(searchTerm.toLowerCase())),
       )
     : orderData;
