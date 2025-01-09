@@ -55,7 +55,7 @@ export default function Home() {
     <>
       <WhatsIcon />
       <HeroVideo />
-      {/* <ProductBanner/> */}
+      <ColorBanner/>
       <DiscountCard productItems={discountProducts} />
       <SofaBanner />
       <SaleBanner />
@@ -69,7 +69,7 @@ export default function Home() {
       </div>     
       <HotProductSlider />
       <Catalogue/>
-      <ColorBanner/>
+      
       {/* <DiscountBanner /> */}
       {testimonialcards && testimonialcards.length > 50 && (
         <Testimonial testimonialitems={testimonialcards} />
