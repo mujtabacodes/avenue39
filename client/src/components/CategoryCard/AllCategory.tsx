@@ -19,7 +19,7 @@ const AllCategory = () => {
   };
 
   return (
-    <>
+    <div className='pt-1'>
       <CatProduct
         products={filterByCategory(products, "Dining")}
         CategoryName="Shop Your Dining"
@@ -38,7 +38,7 @@ const AllCategory = () => {
         CategoryName="Complement your design with accessories"
         reverse
       />
-    </>
+    </div>
   );
 };
 

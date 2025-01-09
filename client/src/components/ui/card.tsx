@@ -26,8 +26,6 @@ import {
 import { useQuery } from '@tanstack/react-query';
 import { fetchReviews } from '@/config/fetch';
 import CardSkeleton from '../cardSkelton';
-import { IoIosHeartEmpty } from 'react-icons/io';
-import { message } from 'antd';
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 import { TiShoppingCart } from 'react-icons/ti';
 interface CardProps {

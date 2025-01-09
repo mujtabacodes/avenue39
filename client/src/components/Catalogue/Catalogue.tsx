@@ -40,27 +40,18 @@ const Catalogue: React.FC = () => {
 
 <div className='lg:w-fit flex flex-col items-center justify-center h-full md:w-fit w-[50%] lg:m-0 m-auto'>
 <div className="w-full flex flex-col items-center justify-center h-full ">
-   <h2 className="md:text-3xl text-3xl lg:text-6xl font-extralight lg:mb-8 mb-4 text-black tracking-[6px]">{title}</h2> 
-   <a
-      href={fileUrl}
-      download
-      target="_blank"
-      rel="noopener noreferrer" 
-      className="bg-black text-white font-extralight px-8 md:px-10 py-2 rounded-full tracking-[6px] hover:bg-gray-800 transition text-lg md:text-xl"
-    >
-      {buttonText}
-    </a>
-  </div>
-
-</div>
-
-
-</section>
-
-
-
-
-
+  <h2
+  className="text-center text-[#707070] md:text-3xl font-thin text-3xl lg:text-6xl font-Helveticalight lg:mb-7 mb-4 uppercase">
+  {title}</h2>
+  <a
+  href={fileUrl}
+  download
+  target="_blank"
+  rel="noopener noreferrer"
+  className="bg-black font-Helveticalight text-white text-opacity-80 font-thin px-8 md:px-10 py-2 rounded-full tracking-[4px] hover:bg-gray-800 transition text-lg md:text-xl uppercase">
+  {buttonText}</a>
+  </div></div>
+  </section>
   );
 };
 
