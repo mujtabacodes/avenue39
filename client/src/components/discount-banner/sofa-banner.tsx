@@ -14,21 +14,21 @@ const sofaData_slides = [
   {
     id: 1,
     title: 'Marlin Tub Swivel Chair',
-    category: 'Chair',
+    product_price: 'AED150',
     image: sofa1,
     link: '/product/marlin-tub-swivel-chair-brown-cream',
   },
   {
     id: 2,
     title: 'Modern Office Desk',
-    category: 'Desk',
+    product_price: 'AED150',
     image: sofa1,
     link: '/product/modern-office-desk',
   },
   {
     id: 3,
     title: 'Luxury Sofa Set',
-    category: 'Sofa',
+    product_price: 'AED150',
     image: sofa1,
     link: '/product/luxury-sofa-set',
   },
@@ -40,13 +40,13 @@ const sliderDataa_sofa = [
     slides: [
       {
         backgroundImage: banner2.src,
-        title: 'Home Office',
+        pro_price: 'Home Office',
         subtitle: 'Magia Office Desk',
         link: '/product/magia-office-desk',
       },
       {
         backgroundImage: banner3.src,
-        title: 'Bedroom',
+        pro_price: 'Bedroom',
         subtitle: 'Mila TV Cabinet/TV Stand',
         link: '/product/mila-tv-cabinettv-stand',
       },
@@ -57,13 +57,13 @@ const sliderDataa_sofa = [
     slides: [
       {
         backgroundImage: banner2.src,
-        title: 'Living Room',
+        pro_price: 'Living Room',
         subtitle: 'Modern Sofa Set',
         link: '/product/modern-sofa-set',
       },
       {
         backgroundImage: banner3.src,
-        title: 'Dining Room',
+        pro_price: 'Dining Room',
         subtitle: 'Elegant Dining Table',
         link: '/product/elegant-dining-table',
       },
@@ -94,19 +94,17 @@ const SofaBanner: React.FC = () => {
               {/* Text Content */}
               <div className="w-1/2 xs:w-1/3">
                 <div className="space-y-3">
-                  <p className="text-xs sm:text-14 font-normal text-black">
-                    {slide.category}
-                  </p>
+                <Link href={slide.link}
+                      className="bg-black py-2 px-6 rounded-full text-white hover:bg-main font-Helveticalight" >
+                     Shop Best Sellers
+                    </Link>
                   <h3 className="font-semibold text-xl sm:text-2xl mt-1">
                     {slide.title}
                   </h3>
-                  <div className="lg:pt-2">
-                    <Link
-                      href={slide.link}
-                      className="bg-black py-2 px-6 rounded-full text-white hover:bg-main"
-                    >
-                      Buy Now
-                    </Link>
+                  <div className="lg:pt-0">
+                    <p className="text-xs sm:text-14 font-normal text-black">
+                    {slide.product_price}
+                  </p>
                   </div>
                 </div>
               </div>
@@ -155,19 +153,19 @@ const SofaBanner: React.FC = () => {
     >
       <div className="flex justify-center items-center bg-[#0000004d] w-full h-full rounded-2xl">
         <div className="text-center space-y-3">
-          <p className="text-xs sm:text-14 font-normal text-white">
-            {slide.title}
-          </p>
+        <Link     href={slide.link}
+              className="bg-black py-2 px-6 rounded-full text-white hover:bg-main"
+            >
+             Shop Home Office
+            </Link>
+         
           <h3 className="font-semibold text-xl sm:text-2xl mt-1 text-white">
             {slide.subtitle}
           </h3>
-          <div className="lg:pt-2">
-            <Link
-              href={slide.link}
-              className="bg-black py-2 px-6 rounded-full text-white hover:bg-main"
-            >
-              Buy Now
-            </Link>
+          <div className="lg:pt-0">
+          <p className="text-xs sm:text-14 font-normal text-white">
+            {slide.pro_price}
+          </p>
           </div>
         </div>
       </div>
