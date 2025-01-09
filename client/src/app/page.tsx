@@ -7,7 +7,6 @@ import SofaBanner from '@/components/discount-banner/sofa-banner';
 import SaleBanner from '@/components/discount-banner/sale-banner';
 import HotProductSlider from '@/components/card-slider/hot-product-slider';
 import Testimonial from '@/components/testimonial/testimonial';
-import CardsTabes from '@/components/card-tabs/card-slider';
 import HeroVideo from '@/components/Home/hero-video';
 import WhatsIcon from '@/components/whatsapp';
 import CustomPaging from '@/components/image-slider';
@@ -18,6 +17,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import { BsArrowLeft, BsArrowRight } from 'react-icons/bs';
 import Catalogue from '@/components/Catalogue/Catalogue';
 import ColorBanner from '@/components/ColorBanner/ColorBanner';
+import AllCategory from '@/components/CategoryCard/AllCategory';
 
 
 
@@ -49,7 +49,6 @@ export default function Home() {
     ),
     
   };
-
   return (
     <>
       <WhatsIcon />
@@ -57,7 +56,7 @@ export default function Home() {
       <DiscountCard productItems={discountProducts} />
       <SofaBanner />
       <SaleBanner />
-      <CardsTabes />
+     <AllCategory/>
       <div className='bg-transparent slider-container lg:mt-10'>
       <CustomPaging images={transformedSliderImages} setting={customSettings}  
       className="w-full h-full bg-none overflow-hidden border-0 gap-10 space-x-6" 
@@ -68,7 +67,6 @@ export default function Home() {
       <HotProductSlider />
       <Catalogue/>
       <ColorBanner/>
-      {/* <DiscountBanner /> */}
       {testimonialcards && testimonialcards.length > 50 && (
         <Testimonial testimonialitems={testimonialcards} />
       )}

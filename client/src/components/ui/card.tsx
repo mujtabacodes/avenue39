@@ -51,38 +51,6 @@ const Card: React.FC<CardProps> = ({
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch<Dispatch>();
   const Navigate = useRouter();
-
-  const handleAddToWishlist = (product: IProduct) => {
-    // Create a new wishlist item
-    const newWishlistItem = {
-      id: product.id, // Ensure you have the correct property here
-      name: product.name,
-      price: product.price,
-      posterImageUrl: product.posterImageUrl,
-      discountPrice: product.discountPrice,
-      count: 1, // Initialize count to 1 for a new item
-      totalPrice: product.discountPrice ? product.discountPrice : product.price,
-    };
-    let existingWishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
-    const existingItemIndex = existingWishlist.findIndex(
-      (item: any) => item.id === newWishlistItem.id,
-    );
-
-    if (existingItemIndex !== -1) {
-      existingWishlist[existingItemIndex].count += 1;
-      existingWishlist[existingItemIndex].totalPrice =
-        existingWishlist[existingItemIndex].count *
-        (existingWishlist[existingItemIndex].discountPrice ||
-          existingWishlist[existingItemIndex].price);
-    } else {
-      existingWishlist.push(newWishlistItem);
-    }
-    localStorage.setItem('wishlist', JSON.stringify(existingWishlist));
-    message.success('Product added to Wishlist successfully!');
-    window.dispatchEvent(new Event('WishlistChanged'));
-    console.log(existingWishlist, 'existingWishlist');
-  };
-
   useEffect(() => {
     if (isLoading == false) {
       setLoading(false);
@@ -113,9 +81,7 @@ const Card: React.FC<CardProps> = ({
   const filteredReviews = Array.isArray(reviews)
     ? reviews.filter((review) => review.productId === productId)
     : [];
-  // const filteredReviews = reviews.filter(
-  //   (review) => review.productId === productId,
-  // );
+
   const { averageRating } = calculateRatingsPercentage(filteredReviews);
   const handleNavigation = () => {
     Navigate.push(`/product/${generateSlug(card?.name || '')}`);
@@ -125,27 +91,19 @@ const Card: React.FC<CardProps> = ({
     return <CardSkeleton skeletonHeight={skeletonHeight} />;
   }
 
-  // if (category) {
-  //   console.log(card);
-  // }
   return (
-    <div className="rounded-3xl text-center relative product-card group hover:cursor-pointer mb-2 flex flex-col justify-between h-full shadow p-1">
-      <div className="relative w-full">
+    <div className="text-center relative product-card group hover:cursor-pointer mb-2 flex flex-col justify-between h-full  p-1 rounded-[35px]">
+      <div className="relative w-full overflow-hidden rounded-[35px]">
         {loading ? (
           <CardSkeleton skeletonHeight={skeletonHeight} />
         ) : (
           <>
             {card.discountPrice > 0 && (
-              <span className="absolute top-4 left-4 text-white text-15 font-light bg-red-500 rounded-full w-[56px] h-7 flex justify-center items-center">
+              <span className="absolute top-[2px] -right-[30px] px-7 bg-[#FF0000] text-white font-bold rotate-45 w-[105px] h-[40px] flex justify-center items-center">
                  {(Math.round(((card.price - card.discountPrice) / card.price) * 100))}%
               </span>
             )}
-            <div
-              onClick={() => handleAddToWishlist(card)}
-              className=" w-8 h-10 absolute right-2 top-2 rounded-xl  flex justify-center items-center border bg-white hover:border-main hover:bg-main hover:text-white  cursor-pointer"
-            >
-              <IoIosHeartEmpty size={20} />
-            </div>
+          
             <Image
               src={card.posterImageUrl}
               alt={card.posterImageAltText || card.name}
@@ -153,7 +111,7 @@ const Card: React.FC<CardProps> = ({
               width={600}
               height={600}
               className={cn(
-                'object-cover rounded-3xl w-full',
+                'object-cover rounded-[35px] w-full',
                 className,
                 skeletonHeight,
                 cardImageHeight,
@@ -172,20 +130,24 @@ const Card: React.FC<CardProps> = ({
           </div>
         </>
       ) : (
-        <div onClick={() => handleNavigation()}>
-          <h3 className=" text-14  2xl:text-lg font-semibold mt-2">{card.name}</h3>
-          {card.discountPrice > 0 ? (
-            <p className="text-14 2xl:text-md font-semibold mt-1">
-              <span className="line-through text-secondary-foreground ms-2 mr-2">
-                AED {card.price}
-              </span>
-              AED {card.discountPrice}
-            </p>
+        <div className='space-y-3' onClick={() => handleNavigation()}>
+          <h3 className="text-sm md:text-[22px] text-gray-600 font-Helveticalight mt-2">{card.name}</h3>
+         <div>
+         {card.discountPrice > 0 ? (
+             <div className="flex gap-2 justify-center">
+             <p className="text-sm md:text-18 font-bold line-through font-Helveticalight">
+               AED<span>{card.price}</span>
+             </p>
+             <p className="text-sm md:text-18 font-bold text-[#FF0000]">
+               AED<span>{card.discountPrice}</span>
+             </p>
+           </div>
           ) : (
-            <span className="text-md text-black font-semibold">
+            <span className="text-sm md:text-18 font-bold ">
               AED {card.price}
             </span>
           )}
+         </div>
           {
             averageRating > 0 &&
             <div className="flex gap-1 items-center justify-center mt-1 h-5">

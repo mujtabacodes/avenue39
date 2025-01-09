@@ -1,5 +1,5 @@
-import React from 'react';
 import type { Metadata } from 'next';
+import { Open_Sans } from 'next/font/google';
 import './globals.css';
 import '@styles/style.css';
 import localFont from 'next/font/local';
@@ -7,6 +7,7 @@ import Providers from '@/redux/provider';
 import PathnameWrapper from '@/components/PathnameWrapper';
 import { ToastContainer } from 'react-toastify';
 
+// const inter = Open_Sans({ subsets: ['latin'], style:"normal", weight:"400", variable: '--font-inter' });
 const Helvetica = localFont({
   src: [
     {
@@ -15,7 +16,34 @@ const Helvetica = localFont({
   ],
 });
 
+const belgium = localFont({
+  src: [
+    {
+      path: '../../public/font/belgium/Fonts/Belgium.ttf',
+      weight: '400',
+      style: 'normal',
+    },
+  ],
+});
 
+const jadyn = localFont({
+  src: [
+    {
+      path: '../../public/font/jadyn/Jadyn Maria.ttf',
+      weight: '400',
+      style: 'normal',
+    },
+  ],
+});
+const Helveticalight = localFont({
+  src: [
+    {
+      path: '../../public/font/HelveticaNeueRegular.ttf',
+      weight: '300',
+      style: 'normal',
+    },
+  ],
+});
 export const metadata: Metadata = {
   title: 'Avenue 39',
   description: 'Best ecommerce website',
