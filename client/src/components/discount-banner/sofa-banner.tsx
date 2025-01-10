@@ -97,12 +97,12 @@ const SofaBanner: React.FC = () => {
       >
         {sofaData_slides.map((slide) => (
           <SwiperSlide key={slide.id}>
-            <div className="bg-lightforeground rounded-r-2xl flex items-center ps-5 xs:px-10 sm:ps-20 2xl:ps-32 min-h-[530px]">
+            <div className="bg-lightforeground rounded-r-2xl flex flex-wrap items-center ps-5 xs:px-10 sm:ps-20 2xl:ps-32 min-h-[530px]">
               {/* Text Content */}
-              <div className="w-1/2 xs:w-1/3">
+              <div className="w-full xs:w-1/3 max-xs:text-center">
                 <div className="space-y-3">
                 <Link href={slide.link}
-                      className="py-1 px-3 bg-white text-2xl rounded-full text-black border border-gray-500 hover:bg-main font-Helveticalight" >
+                      className="py-1 px-3 bg-white text-2xl xl:text-3xl rounded-full text-black border border-gray-500 hover:bg-main font-Helveticalight" >
                      Shop Best Sellers
                     </Link>
                   <h3 className="font-semibold text-xl sm:text-2xl mt-1">
@@ -116,7 +116,7 @@ const SofaBanner: React.FC = () => {
                 </div>
               </div>
               {/* Image */}
-              <div className="w-1/2 xs:w-2/3 relative">
+              <div className="w-full xs:w-2/3 relative">
                 <Image
                   src={slide.image}
                   width={900}
@@ -165,7 +165,7 @@ const SofaBanner: React.FC = () => {
                     <div className="mb-4">
                       <Link
                         href={slide.link}
-                        className="bg-white py-1 px-3 text-2xl rounded-full text-black hover:bg-main font-Helveticalight"
+                        className="bg-white py-1 px-3 text-2xl xl:text-3xl rounded-full text-black hover:bg-main font-Helveticalight"
                       >
                         Shop {slide.pro_price}
                       </Link>
@@ -177,7 +177,7 @@ const SofaBanner: React.FC = () => {
                     <div className="mt-auto">
                       <Link
                         href={slide.link}
-                        className="bg-white py-1 px-3 text-2xl rounded-full text-black hover:bg-main font-Helveticalight"
+                        className="bg-white py-1 px-3 text-2xl xl:text-3xl rounded-full text-black hover:bg-main font-Helveticalight"
                       >
                         Shop <span className='text-red-600'>Sale</span>
                       </Link>

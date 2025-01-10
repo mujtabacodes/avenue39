@@ -21,7 +21,7 @@ export default function Home() {
       <ColorBanner/>
       <SofaBanner />
       <NewArrival/>
-     <AllCategory/>
+      <AllCategory/>
       <Catalogue/>
       {testimonialcards && testimonialcards.length > 50 && (
         <Testimonial testimonialitems={testimonialcards} />

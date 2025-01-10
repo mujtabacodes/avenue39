@@ -140,13 +140,14 @@ body {
 .swiper-pagination-bullet {
   height: 12px !important;
   width: 12px !important;
+  background-color: #BFBFBF !important;
 }
 .swiper-pagination-bullet-active {
-  background-color: black !important;
+  background-color: #949494 !important;
 }
 
 .anticon.anticon-exclamation-circle {
-  color: black !important;
+  color: #949494 !important;
 }
 
 .ant-checkbox:hover .ant-checkbox-inner {
@@ -228,6 +229,10 @@ color: white;
     padding: 20px !important;
     margin-bottom: 0 !important;
   }
+  .custom-swiper .swiper-pagination {
+    bottom: 5% !important;
+    left: 10% !important;
+   }
   .login-form-wrapper form .custom-login-input {
     height: 45px !important;
   }
