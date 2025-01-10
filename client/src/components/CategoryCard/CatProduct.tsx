@@ -33,8 +33,13 @@ const CatProduct = ({ reverse, CategoryName, products }: ICatProduct) => {
               <ProductGrid products={products.slice(25, 26)} CardComponent={Card} slider={true} imageHeight="h-[300px] xs:h-[580px] lg:h-[600px] xl:h-[834.46px]" />
             </div>
             <div className={`col-span-12 md:col-span-6 xl:col-span-7 ${reverse ? 'order-1' : 'order-2'}`}>
+              {products.length < 1 && (
+                <ProductSkeleton imageHeight="h-[200px] xl:h-[345.15px]" />)}
               <ProductGrid products={products.slice(26, 27)} CardComponent={Card} slider={true} imageHeight="h-[200px] xl:h-[345.15px]" />
               <div className="grid grid-cols-1 xs:grid-cols-2 xl:grid-cols-3 sm:gap-8">
+                {products.length < 1 && Array(3).fill(null).map((_, index) => (
+                  <ProductSkeleton imageHeight="h-[210px] xl:h-[356.64px]" key={index} />
+                ))}
                 <ProductGrid products={products.slice(0, 3)} CardComponent={Card} imageHeight="h-[210px] xl:h-[356.64px]" />
               </div>
             </div>
