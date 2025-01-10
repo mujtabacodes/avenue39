@@ -84,7 +84,7 @@ const Card: React.FC<CardProps> = ({
   }
   return (
     <div
-      className={`text-center relative product-card  hover:cursor-pointer mb-2  ${slider ? '' : 'flex flex-col justify-between'} h-full  p-1 rounded-[35px]`}
+      className={`text-center relative product-card  hover:cursor-pointer mb-2  ${slider ? '' : 'flex flex-col justify-between'} h-auto  p-1 rounded-[35px]`}
     >
       <div className="relative w-full overflow-hidden rounded-[35px]">
         {slider ? (
