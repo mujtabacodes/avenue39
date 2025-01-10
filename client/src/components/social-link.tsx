@@ -1,8 +1,8 @@
 import Link from 'next/link';
 import React from 'react';
 import { FaInstagram } from 'react-icons/fa';
-import { PiPinterestLogoBold } from 'react-icons/pi';
-import { RiFacebookLine } from 'react-icons/ri';
+import { FaPinterestP } from 'react-icons/fa6';
+import { FaFacebookF } from 'react-icons/fa';
 
 interface LinkSocial {
   className?: string;
@@ -18,25 +18,34 @@ const SocialLink: React.FC<LinkSocial> = ({
   return (
     <div className={`flex justify-start gap-3 md:gap-7 ${className}`}>
       <Link
-        href="https://instagram.com/avenue39home"
-        target="_blank"
-        className={`${linkClass}`}
-      >
-        <FaInstagram className={`text-[16px] md:text-[23px] ${socialSize}`} />
-      </Link>
-      <Link
         href="https://facebook.com/avenue39home"
         target="_blank"
         className={`${linkClass}`}
       >
-        <RiFacebookLine className={`text-[16px] md:text-[25px] ${socialSize} `} />
+        <FaFacebookF
+          className={`text-[16px] md:text-[25px] ${socialSize} text-black `}
+          style={{ strokeWidth: 1 }}
+        />
+      </Link>
+      <Link
+        href="https://instagram.com/avenue39home"
+        target="_blank"
+        className={`${linkClass}`}
+      >
+        <FaInstagram
+          className={`text-[16px] md:text-[23px] ${socialSize} text-black`}
+          style={{ strokeWidth: 2 }}
+        />
       </Link>
       <Link
         href="https://www.pinterest.com/avenue39home"
         target="_blank"
         className={`${linkClass}`}
       >
-        <PiPinterestLogoBold className={`text-[16px] md:text-[23px] ${socialSize} `} />
+        <FaPinterestP
+          className={`text-[16px] md:text-[23px] ${socialSize} text-black`}
+          style={{ strokeWidth: 2 }}
+        />
       </Link>
       {/* <Link
         href="https://twitter.com/avenue39home"

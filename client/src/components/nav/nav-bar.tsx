@@ -4,14 +4,18 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React, { useEffect, useRef, useState } from 'react';
 import logo from '@icons/logo_nav.png';
-import { IoCloseOutline, IoSearchOutline, IoSearchSharp } from 'react-icons/io5';
+import {
+  IoCloseOutline,
+  IoSearchOutline,
+  IoSearchSharp,
+} from 'react-icons/io5';
 import Container from '../ui/Container';
 import {
   Drawer,
   DrawerContent,
   DrawerTitle,
   DrawerTrigger,
-  DrawerClose
+  DrawerClose,
 } from '@/components/ui/drawer';
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 import CartItems from '../cart/items';
@@ -81,8 +85,7 @@ const Navbar = () => {
 
   const handleNavigation = (name: string) => {
     Navigate.push(`/product/${generateSlug(name)}`);
-    setIsProductListOpen(false)
-
+    setIsProductListOpen(false);
   };
 
   const filteredProducts = products.filter((product: IProduct) => {
@@ -144,7 +147,6 @@ const Navbar = () => {
     }
   };
 
-
   return (
     <div
       className={`bg-white dark:text-black ${isSticky ? 'sticky top-0 z-[199]' : ''}`}
@@ -164,7 +166,7 @@ const Navbar = () => {
           </div>
         </div>
         <div className="w-full max-w-[35%] lg:max-w-[40%] ">
-          <div className='bg-whtie'>
+          <div className="bg-whtie">
             <form
               className="relative w-full lg:block hidden bg-white z-[1099]"
               onSubmit={(e) => e.preventDefault()}
@@ -175,7 +177,7 @@ const Navbar = () => {
                 value={searchText}
                 onChange={handleInputChange}
                 onClick={() => setIsProductListOpen(true)}
-                className="h-[40px] border focus-visible:outline-none focus-visible:ring-0 block w-full rounded-full custom-input-bg pl-12 z-[199] border-[#afa183] border-opacity-30 "
+                className="h-[40px] border focus-visible:outline-none focus-visible:ring-0 block w-full rounded-full custom-input-bg pl-12 z-[199] border-[#afa183] border-opacity-30 font-extralight"
                 placeholder="Search Here..."
               />
               <button
@@ -183,7 +185,7 @@ const Navbar = () => {
                 className="absolute inset-y-0 left-0 flex items-center z-20 pl-4 cursor-pointer"
               >
                 <IoSearchOutline
-                  className="cursor-pointer font-extralight"
+                  className="cursor-pointer font-extralight text-[#A6A6A6]"
                   size={18}
                 />
               </button>
@@ -213,7 +215,9 @@ const Navbar = () => {
                             className="min-h-[100px] min-w-[100px]"
                           />
                           <div className="pt-1 flex flex-col gap-2">
-                            <p className="text-18 xsm:text-21 font-normal capitalize">{product.name}</p>
+                            <p className="text-18 xsm:text-21 font-normal capitalize">
+                              {product.name}
+                            </p>
                             <div className="flex items-center gap-4">
                               {product.discountPrice > 0 ? (
                                 <>
@@ -238,12 +242,12 @@ const Navbar = () => {
                       <div>No product is found</div>
                     )}
                   </div>
-                  <div onClick={() => setIsProductListOpen(false)} className='fixed inset-0 bg-black bg-opacity-0'></div>
-
+                  <div
+                    onClick={() => setIsProductListOpen(false)}
+                    className="fixed inset-0 bg-black bg-opacity-0"
+                  ></div>
                 </>
               )}
-
-
             </form>
           </div>
         </div>
@@ -317,7 +321,7 @@ const Navbar = () => {
           </div>
           <div className="md:hidden flex gap-2 items-center">
             <form onSubmit={(e) => e.preventDefault()}>
-              <Drawer direction='top' >
+              <Drawer direction="top">
                 <DrawerTrigger asChild>
                   <button
                     type="submit"
@@ -331,10 +335,11 @@ const Navbar = () => {
                     <DrawerTitle>Navbar</DrawerTitle>
                   </VisuallyHidden>
                   <div className="max-w-screen-lg w-full mx-auto m-2 space-y-5 p-2">
-
                     <DrawerClose asChild>
-                      <IoCloseOutline size={24}
-                        className="cursor-pointer bg-gray-400 rounded-full text-white p-1 absolute top-2 right-2 z-50 shadow-md hover:bg-gray-500 transition duration-300" />
+                      <IoCloseOutline
+                        size={24}
+                        className="cursor-pointer bg-gray-400 rounded-full text-white p-1 absolute top-2 right-2 z-50 shadow-md hover:bg-gray-500 transition duration-300"
+                      />
                     </DrawerClose>
                     <div className="relative rounded-md w-full">
                       <input
@@ -352,7 +357,7 @@ const Navbar = () => {
                       </button>
                     </div>
                     {isLoading && (
-                      <div className="border p-2" >
+                      <div className="border p-2">
                         <div className="flex border p-2 rounded-md bg-white hover:shadow-md transition duration-300 gap-2 mt-2 items-center">
                           <Skeleton className="w-[100px] h-[100px]"></Skeleton>
                           <div className="pt-1 flex flex-col gap-3">
@@ -364,7 +369,7 @@ const Navbar = () => {
                       </div>
                     )}
                     {error && (
-                      <div >Error fetching products: {error.message}</div>
+                      <div>Error fetching products: {error.message}</div>
                     )}
                     {!isLoading && !error && filteredProducts.length > 0 && (
                       <div className=" p-2 max-h-[600px] overflow-y-auto custom-scrollbar">
@@ -400,15 +405,12 @@ const Navbar = () => {
                                 </div>
                               </div>
                             </DrawerTrigger>
-
                           ))}
                         </div>
-
                       </div>
                     )}
                     {filteredProducts.length < 1 && (
                       <div>No product is found</div>
-
                     )}
                   </div>
                 </DrawerContent>
