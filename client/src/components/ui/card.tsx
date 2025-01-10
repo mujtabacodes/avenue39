@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Image from 'next/image';
 import { IProduct, IReview } from '@/types/types';
 import { HiOutlineViewfinderCircle } from "react-icons/hi2";
@@ -17,7 +17,6 @@ import {
 } from './dialog';
 import ProductDetail from '../product-detail/product-detail';
 import { cn } from '@/lib/utils';
-import { Skeleton } from './skeleton';
 import {
   calculateRatingsPercentage,
   generateSlug,
@@ -43,17 +42,10 @@ const Card: React.FC<CardProps> = ({
   isModel,
   className,
   skeletonHeight,
-  isLoading,
   cardImageHeight,
 }) => {
-  const [loading, setLoading] = useState(true);
   const dispatch = useDispatch<Dispatch>();
   const Navigate = useRouter();
-  useEffect(() => {
-    if (isLoading == false) {
-      setLoading(false);
-    }
-  }, [isLoading]);
 
   const handleEventProbation = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
@@ -92,10 +84,7 @@ const Card: React.FC<CardProps> = ({
   return (
     <div className="text-center relative product-card group hover:cursor-pointer mb-2 flex flex-col justify-between h-full  p-1 rounded-[35px]">
       <div className="relative w-full overflow-hidden rounded-[35px]">
-        {loading ? (
-          <CardSkeleton skeletonHeight={skeletonHeight} />
-        ) : (
-          <>
+
             {card.discountPrice > 0 && (
               <span className="absolute top-[2px] -right-[30px] px-7 bg-[#FF0000] text-white font-bold rotate-45 w-[105px] h-[40px] flex justify-center items-center">
                  {(Math.round(((card.price - card.discountPrice) / card.price) * 100))}%
@@ -115,20 +104,7 @@ const Card: React.FC<CardProps> = ({
                 cardImageHeight,
               )}
             />
-          </>
-        )}
-              {loading ? (
-        <>
-          <Skeleton className="h-5 w-52 mx-auto mt-3" />
-          <Skeleton className="h-3 w-40 mx-auto mt-2" />
-          <div className="flex gap-1 items-center justify-center h-4 mt-2">
-            {Array.from({ length: 5  }).map((_, index) => (
-              <Skeleton key={index} className="h-3 w-3 rounded-full" />
-            ))}
-          </div>
-        </>
-      ) : (
-        <div className='space-y-3' onClick={() => handleNavigation()}>
+          <div className='space-y-3' onClick={() => handleNavigation()}>
           <h3 className="text-sm md:text-[22px] text-gray-600 font-Helveticalight mt-2">{card.name}</h3>
          <div>
          {card.discountPrice > 0 ? (
@@ -154,15 +130,9 @@ const Card: React.FC<CardProps> = ({
           }
           
         </div>
-      )}
       </div>
 
-      {loading ? (
-        <div className="flex gap-2 justify-center mt-2">
-          <Skeleton className="w-32 h-8 rounded-full" />
-          <Skeleton className="w-32 h-8 rounded-full" />
-        </div>
-      ) : isModel ? null : (
+      {isModel ? null : (
         <div
           className="text-center flex flex-wrap md:flex-nowrap justify-center gap-1 md:space-y-0 w-full  mb-4"
           onClick={(e) => handleEventProbation(e)}

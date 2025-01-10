@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import Image from 'next/image';
@@ -22,7 +22,6 @@ import { fetchReviews } from '@/config/fetch';
 import CardSkeleton from '../cardSkelton';
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 import { TiShoppingCart } from 'react-icons/ti';
-import { Skeleton } from '../ui/skeleton';
 import 'swiper/css/pagination';
 import { Pagination } from 'swiper/modules';
 import {
@@ -47,18 +46,11 @@ const Card: React.FC<CardProps> = ({
   isModel,
   className,
   skeletonHeight,
-  isLoading,
   cardImageHeight,
 }) => {
-  const [loading, setLoading] = useState(true);
   const dispatch = useDispatch<Dispatch>();
   const Navigate = useRouter();
 
-  useEffect(() => {
-    if (isLoading == false) {
-      setLoading(false);
-    }
-  }, [isLoading]);
 
   const handleEventProbation = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
@@ -92,12 +84,8 @@ const Card: React.FC<CardProps> = ({
     return <CardSkeleton skeletonHeight={skeletonHeight} />;
   }
   return (
-    <div className="text-center relative product-card group hover:cursor-pointer mb-2  h-full  p-1 rounded-[35px]">
+    <div className="text-center relative product-card group hover:cursor-pointer mb-2 p-1 rounded-[35px]">
       <div className="relative w-full overflow-hidden rounded-[35px] pb-2">
-        {loading ? (
-          <CardSkeleton skeletonHeight={skeletonHeight} />
-        ) : (
-          <>
             <Swiper className="mySwiper overflow-hidden w-full" pagination={true} modules={[Pagination]}>
               {card.productImages.map((array, index) => (
                 <SwiperSlide key={index} className='w-full'>
@@ -125,19 +113,6 @@ const Card: React.FC<CardProps> = ({
                 </SwiperSlide>
               ))}
             </Swiper>
-          </>
-        )}
-        {loading ? (
-          <>
-            <Skeleton className="h-5 w-52 mx-auto mt-3" />
-            <Skeleton className="h-3 w-40 mx-auto mt-2" />
-            <div className="flex gap-1 items-center justify-center h-4 mt-2">
-              {Array.from({ length: 5 }).map((_, index) => (
-                <Skeleton key={index} className="h-3 w-3 rounded-full" />
-              ))}
-            </div>
-          </>
-        ) : (
           <div className="space-y-3" onClick={() => handleNavigation()}>
             <h3 className="text-sm md:text-[22px] text-gray-600 font-Helveticalight mt-2">
               {card.name}
@@ -164,15 +139,9 @@ const Card: React.FC<CardProps> = ({
               </div>
             )}
           </div>
-        )}
       </div>
 
-      {loading ? (
-        <div className="flex gap-2 justify-center mt-2">
-          <Skeleton className="w-32 h-8 rounded-full" />
-          <Skeleton className="w-32 h-8 rounded-full" />
-        </div>
-      ) : isModel ? null : (
+      {isModel ? null : (
         <div
           className="text-center flex flex-wrap md:flex-nowrap justify-center gap-1 md:space-y-0 w-full sm:w-fit mx-auto"
           onClick={(e) => handleEventProbation(e)}
