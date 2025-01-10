@@ -75,8 +75,6 @@ const sliderDataa_sofa = [
   },
 ];
 
-
-
 const SofaBanner: React.FC = () => {
 
   return (
@@ -98,7 +96,7 @@ const SofaBanner: React.FC = () => {
         {sofaData_slides.map((slide) => (
           <SwiperSlide key={slide.id}>
             <div className="bg-lightforeground rounded-r-2xl flex items-center ps-5 xs:px-10 sm:ps-20 2xl:ps-32 min-h-[530px]">
-              {/* Text Content */}
+           
               <div className="w-1/2 xs:w-1/3">
                 <div className="space-y-3">
                 <Link href={slide.link}
@@ -160,7 +158,6 @@ const SofaBanner: React.FC = () => {
             >
               <div className="flex justify-center items-center bg-[#0000004d] w-full h-full rounded-2xl">
                 <div className="text-center space-y-3">
-                  {/* Top Block Button */}
                   {slide.buttonPosition === 'top' && (
                     <div className="mb-4">
                       <Link
@@ -171,8 +168,6 @@ const SofaBanner: React.FC = () => {
                       </Link>
                     </div>
                   )}
-
-                  {/* Bottom Block Button */}
                   {slide.buttonPosition === 'bottom' && (
                     <div className="mt-auto">
                       <Link
@@ -189,7 +184,7 @@ const SofaBanner: React.FC = () => {
                   </h3>
                   <div className="lg:pt-0">
                     <p className="text-xs sm:text-14 font-normal text-white">
-                      {slide.pro_price} {/* Using pro_price as description */}
+                      {slide.pro_price} 
                     </p>
                   </div>
                 </div>
