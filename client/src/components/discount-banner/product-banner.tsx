@@ -12,6 +12,7 @@ import { HiOutlineShoppingBag } from 'react-icons/hi';
 import { categories } from '@/data/data';
 import { useParams } from 'next/navigation';
 import Image from 'next/image';
+import Container from '../ui/Container';
 
 interface ProductBannerProps {
   showArrows?: boolean;
@@ -49,9 +50,9 @@ const ProductBanner: React.FC<ProductBannerProps> = ({
   return (
     <>
       {sliderData ? (
-        <div className="h-[500px] overflow-hidden ">
-          <section className="categorySlider grid grid-cols-1 lg:grid-cols-1 sm:items-start xsm:items-center justify-center items-center text-black pb-10 gap-6">
-            <div className="md:w-full w-full text-center mx-auto">
+       <div className="overflow-hidden">
+       <Container className="categorySlider flex flex-col justify-center items-center text-black pb-10 gap-6">
+         <div className="md:w-full w-full text-center mx-auto">
               <Swiper
                 slidesPerView={1}
                 spaceBetween={20}
@@ -60,7 +61,6 @@ const ProductBanner: React.FC<ProductBannerProps> = ({
                 pagination={{ clickable: true }}
                 ref={swiperRef}
                 modules={[Navigation, Pagination]}
-                className="mySwiper"
               >
                 {sliderData?.LeftSideImage?.map((image: any, index: number) => (
                   <SwiperSlide key={index} className="slider-image px-10">
@@ -114,7 +114,7 @@ const ProductBanner: React.FC<ProductBannerProps> = ({
                 </div>
               </>
             )}
-          </section>
+          </Container>
         </div>
       ) : (
         showFallback && (
