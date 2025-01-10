@@ -97,12 +97,12 @@ const SofaBanner: React.FC = () => {
       >
         {sofaData_slides.map((slide) => (
           <SwiperSlide key={slide.id}>
-            <div className="bg-lightforeground rounded-r-2xl flex items-center ps-5 xs:px-10 sm:ps-20 2xl:ps-32 min-h-[530px]">
+            <div className="bg-lightforeground rounded-r-2xl flex items-center ps-5 xs:px-10 sm:ps-20 2xl:ps-32 min-h-[530px] 2xl:h-[740px]">
               {/* Text Content */}
               <div className="w-1/2 xs:w-1/3">
                 <div className="space-y-3">
                 <Link href={slide.link}
-                      className="py-1 px-3 bg-white text-2xl rounded-full text-black border border-gray-500 hover:bg-main font-Helveticalight" >
+                      className="py-1 px-3 bg-white text-base xs:text-2xl lg:text-sm xl:text-2xl rounded-full text-black border border-gray-500 hover:bg-main font-Helveticalight" >
                      Shop Best Sellers
                     </Link>
                   <h3 className="font-semibold text-xl sm:text-2xl mt-1">
@@ -132,7 +132,7 @@ const SofaBanner: React.FC = () => {
     </div>
 
 
-    <div className="sofa_slider2">
+  <div className="sofa_slider2">
   <Swiper
     modules={[Autoplay, Pagination]}
     spaceBetween={30}
@@ -151,21 +151,21 @@ const SofaBanner: React.FC = () => {
             <div
               key={index}
               className="w-full h-full rounded-2xl"
-              style={{
+               style={{
                 backgroundImage: `url(${slide.backgroundImage})`,
                 backgroundSize: 'cover',
                 backgroundRepeat: 'no-repeat',
                 backgroundPosition: 'center',
               }}
             >
-              <div className="flex justify-center items-center bg-[#0000004d] w-full h-full rounded-2xl">
+              <div className="flex justify-center items-center bg-[#0000004d] w-full h-full rounded-2xl 2xl:h-[360px]">
                 <div className="text-center space-y-3">
                   {/* Top Block Button */}
                   {slide.buttonPosition === 'top' && (
                     <div className="mb-4">
                       <Link
                         href={slide.link}
-                        className="bg-white py-1 px-3 text-2xl rounded-full text-black hover:bg-main font-Helveticalight"
+                        className="bg-white py-1 px-3 text-xl xs:text-2xl rounded-full text-black hover:bg-main font-Helveticalight"
                       >
                         Shop {slide.pro_price}
                       </Link>
@@ -177,14 +177,14 @@ const SofaBanner: React.FC = () => {
                     <div className="mt-auto">
                       <Link
                         href={slide.link}
-                        className="bg-white py-1 px-3 text-2xl rounded-full text-black hover:bg-main font-Helveticalight"
+                        className="bg-white py-1 px-3 text-xl xs:text-2xl rounded-full text-black hover:bg-main font-Helveticalight"
                       >
                         Shop <span className='text-red-600'>Sale</span>
                       </Link>
                     </div>
                   )}
 
-                  <h3 className="font-semibold text-xl sm:text-2xl mt-1 text-white">
+                  <h3 className="font-semibold text-xl xs:text-2xl mt-1 text-white">
                     {slide.subtitle}
                   </h3>
                   <div className="lg:pt-0">

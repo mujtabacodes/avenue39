@@ -70,7 +70,7 @@ const Card: React.FC<CardProps> = ({
   };
 
   const {
-    data: reviews = [],
+data: reviews = [],
   } = useQuery<IReview[], Error>({
     queryKey: ['reviews'],
     queryFn: fetchReviews,
