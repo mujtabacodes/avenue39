@@ -22,7 +22,7 @@ const CatProduct = ({ reverse, CategoryName, products }: ICatProduct) => {
         </div>
         <div className={`my-10 flex ${reverse ? 'flex-col-reverse' : 'flex-col'}`}>
           <div className={`grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 sm:gap-8`}>
-            {products.length > 1 && Array(5).fill(null).map((_, index) => (
+            {products.length < 1 && Array(5).fill(null).map((_, index) => (
               <ProductSkeleton imageHeight="h-[270px] xl:h-[290px]" key={index} />
             ))}
             <ProductGrid products={products.slice(0, 5)} CardComponent={Card} imageHeight="h-[270px] xl:h-[290px]" />
