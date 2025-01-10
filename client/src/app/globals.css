@@ -305,3 +305,11 @@ color: white;
   background: #000000 ;
   opacity: 1;
 }
+.sofa_swiper .swiper-pagination-bullet {
+  background: #949494 !important;;
+  opacity: 1;
+}
+.sofa_swiper .swiper-pagination-bullet-active{
+  background:  #BFBFBF !important;
+  opacity: 1;
+}
