@@ -30,8 +30,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '../ui/dialog';
-import { GiShoppingCart } from 'react-icons/gi';
-import { LuEye } from 'react-icons/lu';
 interface CardProps {
   card?: IProduct;
   isModel?: boolean;
