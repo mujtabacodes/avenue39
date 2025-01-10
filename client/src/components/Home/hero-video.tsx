@@ -3,6 +3,7 @@ import React, { useRef } from 'react';
 const HeroVideo: React.FC = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   return (
+   <>
     <div className="relative w-full">
       <video
         ref={videoRef}
@@ -32,6 +33,8 @@ const HeroVideo: React.FC = () => {
         </div>
       </div>
     </div>
+    {/* </> */}
+   </>
   );
 };
 
