@@ -20,7 +20,6 @@ import { useQuery } from '@tanstack/react-query';
 import { fetchReviews } from '@/config/fetch';
 import CardSkeleton from '../cardSkelton';
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
-import { TiShoppingCart } from 'react-icons/ti';
 import { Skeleton } from '../ui/skeleton';
 import 'swiper/css/pagination';
 import { Pagination } from 'swiper/modules';
@@ -95,7 +94,6 @@ const Card: React.FC<CardProps> = ({
   if (!card) {
     return <CardSkeleton skeletonHeight={skeletonHeight} />;
   }
-
   return (
     <div className={`text-center relative product-card group hover:cursor-pointer mb-2  ${slider ? '':'flex flex-col justify-between'} h-full  p-1 rounded-[35px]`}>
       <div className="relative w-full overflow-hidden rounded-[35px]">
@@ -140,7 +138,6 @@ const Card: React.FC<CardProps> = ({
                      {(Math.round(((card.price - card.discountPrice) / card.price) * 100))}%
                   </span>
                 )}
-              
                 <Image
                   src={card.posterImageUrl}
                   alt={card.posterImageAltText || card.name}
@@ -157,7 +154,6 @@ const Card: React.FC<CardProps> = ({
                 </>
             )
           }
-          
           </>
         )}
               {loading ? (
