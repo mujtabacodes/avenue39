@@ -55,11 +55,11 @@ const Footer: React.FC = () => {
   };
 
   return (
-    <section className="pt-16 border-t border-[#EEEEEE] bg-[#D5D5D5]   dark:text-black ">
+    <section className="pt-16 border-t border-[#EEEEEE] bg-[#D5D5D5]   dark:text-black font-Helveticalight">
       <div className="container w-1/2 flex flex-col items-center mx-auto md:mb-[110px]">
         <Image src={logo} alt="logo" className="w-40" />
 
-        <p className="mt-6 tracking-wide font-Helveticalight text-13 lg:text-15">
+        <p className="mt-6 tracking-wide font-Helveticalight text-13 lg:text-15 text-[#686868]">
           Get updates by subscribe our weekly newsletter
         </p>
         <form className="mt-6" onSubmit={handleNewsLetter}>
@@ -221,7 +221,7 @@ const Footer: React.FC = () => {
             </Link>
           </div>
           <div className="mt-4 text-[#686868]">
-            <div className=" w-full max-w-56 rounded-sm">
+            <div className=" w-full max-w-56 rounded-sm ">
               <Link
                 href="mailto:cs@avenue.com"
                 rel="noreferrer"
@@ -238,7 +238,7 @@ const Footer: React.FC = () => {
       </Container>
       <div className="bg-main mt-10 py-3 px-4">
         <Container className="flex flex-wrap justify-center sm:justify-between items-center gap-x-8 gap-y-4 pb-10 md:pb-0 ">
-          <p className="text-white text-17 font-extralight text-center md:w-full">
+          <p className="text-white text-17 font-extralight text-center md:w-full font-Helveticaligh">
             Copyright © 2024 avenue39 All rights reserved.
           </p>
           {/* <div className="flex items-center gap-4">
