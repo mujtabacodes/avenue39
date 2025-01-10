@@ -2,7 +2,6 @@
 import React from 'react';
 import Container from '../ui/Container';
 import Card from '../ui/card';
-import Multicard from './multicard';
 import ProductGrid from './ProductGrid';
 import { IProduct } from '@/types/types';
 interface ICatProduct {
@@ -26,14 +25,14 @@ const CatProduct = ({ reverse, CategoryName,products }: ICatProduct) => {
         </div>
         <div className="grid grid-cols-12 sm:gap-8">
           <div className={`col-span-12 md:col-span-6 xl:col-span-5 ${reverse ? 'order-2' : 'order-1'}`}>
-            <ProductGrid products={products.slice(25, 26)} CardComponent={Multicard} imageHeight="h-[300px] xs:h-[580px] lg:h-[600px] xl:h-[834.46px]" />
+            <ProductGrid products={products.slice(25, 26)} CardComponent={Card} slider={true} imageHeight="h-[300px] xs:h-[580px] lg:h-[600px] xl:h-[821px]" />
           </div>
           <div className={`col-span-12 md:col-span-6 xl:col-span-7 ${reverse ? 'order-1' : 'order-2'}`}>
             <div>
-              <ProductGrid products={products.slice(26, 27)} CardComponent={Multicard} imageHeight="h-[200px] xl:h-[345.15px]" />
+              <ProductGrid products={products.slice(26, 27)} CardComponent={Card} slider={true} imageHeight="h-[200px] xl:h-[345.15px]" />
             </div>
             <div className="grid grid-cols-1 xs:grid-cols-2 xl:grid-cols-3 sm:gap-8">
-              <ProductGrid products={products.slice(0, 3)} CardComponent={Card} imageHeight="h-[210px] xl:h-[356.64px]" />
+              <ProductGrid products={products.slice(0, 3)} CardComponent={Card} imageHeight="h-[210px] xl:h-[330px]" />
             </div>
           </div>
         </div>

@@ -1,23 +1,16 @@
 import React, { useEffect, useState } from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
 import Image from 'next/image';
 import { IProduct, IReview } from '@/types/types';
-import { HiOutlineViewfinderCircle } from "react-icons/hi2";
-import {  useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Dispatch } from '@redux/store';
 import { addItem } from '@cartSlice/index';
 import { CartItem } from '@cartSlice/types';
 import { openDrawer } from '@/redux/slices/drawer';
 import { useRouter } from 'next/navigation';
-import {
-  Dialog,
-  DialogContent,
-  DialogOverlay,
-  DialogTitle,
-  DialogTrigger,
-} from './dialog';
 import ProductDetail from '../product-detail/product-detail';
 import { cn } from '@/lib/utils';
-import { Skeleton } from './skeleton';
 import {
   calculateRatingsPercentage,
   generateSlug,
@@ -28,6 +21,18 @@ import { fetchReviews } from '@/config/fetch';
 import CardSkeleton from '../cardSkelton';
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 import { TiShoppingCart } from 'react-icons/ti';
+import { Skeleton } from '../ui/skeleton';
+import 'swiper/css/pagination';
+import { Pagination } from 'swiper/modules';
+import {
+  Dialog,
+  DialogContent,
+  DialogOverlay,
+  DialogTitle,
+  DialogTrigger,
+} from '../ui/dialog';
+import { GiShoppingCart } from 'react-icons/gi';
+import { LuEye } from 'react-icons/lu';
 interface CardProps {
   card?: IProduct;
   isModel?: boolean;
@@ -36,6 +41,7 @@ interface CardProps {
   isLoading?: boolean;
   category?: boolean;
   cardImageHeight?: string;
+  slider?: boolean;
 }
 
 const Card: React.FC<CardProps> = ({
@@ -45,6 +51,7 @@ const Card: React.FC<CardProps> = ({
   skeletonHeight,
   isLoading,
   cardImageHeight,
+  slider
 }) => {
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch<Dispatch>();
@@ -90,31 +97,67 @@ const Card: React.FC<CardProps> = ({
   }
 
   return (
-    <div className="text-center relative product-card group hover:cursor-pointer mb-2 flex flex-col justify-between h-full  p-1 rounded-[35px]">
+    <div className={`text-center relative product-card group hover:cursor-pointer mb-2  ${slider ? '':'flex flex-col justify-between'} h-full  p-1 rounded-[35px]`}>
       <div className="relative w-full overflow-hidden rounded-[35px]">
         {loading ? (
           <CardSkeleton skeletonHeight={skeletonHeight} />
         ) : (
           <>
-            {card.discountPrice > 0 && (
-              <span className="absolute top-[2px] -right-[30px] px-7 bg-[#FF0000] text-white font-bold rotate-45 w-[105px] h-[40px] flex justify-center items-center">
-                 {(Math.round(((card.price - card.discountPrice) / card.price) * 100))}%
-              </span>
-            )}
+          {
+            slider ? (
+              <Swiper className="mySwiper overflow-hidden w-full" pagination={true} modules={[Pagination]}>
+              {card.productImages.map((array, index) => (
+                <SwiperSlide key={index} className='w-full'>
+                  <Image
+                    src={array.imageUrl}
+                    alt={array.altText || 'image'}
+                    onClick={() => handleNavigation()}
+                    width={600}
+                    height={600}
+                    className={cn(
+                      'object-cover rounded-[35px] w-full',
+                      className,
+                      skeletonHeight,
+                      cardImageHeight,
+                    )}
+                  />
+                  {card.discountPrice > 1 && (
+                    <span className="absolute top-[3px] -right-[29px] px-7 bg-[#FF0000] text-white font-bold rounded-t-full rounded-tl-full rounded-br-lg rotate-45 w-[105px] h-[40px] flex justify-center items-center">
+                      {Math.round(
+                        ((card.price - card.discountPrice) / card.price) * 100,
+                      )}
+                      %
+                    </span>
+                  )}
+                </SwiperSlide>
+              ))}
+            </Swiper>
+            ):
+            (
+                <>
+                {card.discountPrice > 0 && (
+                  <span className="absolute top-[2px] -right-[30px] px-7 bg-[#FF0000] text-white font-bold rotate-45 w-[105px] h-[40px] flex justify-center items-center">
+                     {(Math.round(((card.price - card.discountPrice) / card.price) * 100))}%
+                  </span>
+                )}
+              
+                <Image
+                  src={card.posterImageUrl}
+                  alt={card.posterImageAltText || card.name}
+                  onClick={() => handleNavigation()}
+                  width={600}
+                  height={600}
+                  className={cn(
+                    'object-cover rounded-[35px] w-full',
+                    className,
+                    skeletonHeight,
+                    cardImageHeight,
+                  )}
+                />
+                </>
+            )
+          }
           
-            <Image
-              src={card.posterImageUrl}
-              alt={card.posterImageAltText || card.name}
-              onClick={() => handleNavigation()}
-              width={600}
-              height={600}
-              className={cn(
-                'object-cover rounded-[35px] w-full',
-                className,
-                skeletonHeight,
-                cardImageHeight,
-              )}
-            />
           </>
         )}
               {loading ? (
@@ -164,22 +207,22 @@ const Card: React.FC<CardProps> = ({
         </div>
       ) : isModel ? null : (
         <div
-          className="text-center flex flex-wrap md:flex-nowrap justify-center gap-1 md:space-y-0 w-full  mb-4"
+          className={`text-center flex flex-wrap md:flex-nowrap justify-center gap-1 md:space-y-0 mb-4 ${slider ?"w-fit mx-auto pt-3":"w-full"}`}
           onClick={(e) => handleEventProbation(e)}
         >
           <button
-            className=" my-1 px-2 w-full h-8 text-primary border border-primary rounded-full flex items-center justify-center whitespace-nowrap gap-2 hover:bg-primary hover:text-white"
+            className={` my-1 w-full h-8 text-primary border border-primary rounded-full flex items-center justify-center whitespace-nowrap gap-2 hover:bg-primary hover:text-white ${slider ? "px-6":"px-2"}`}
             onClick={(e) => handleAddToCard(e)}
           >
-            <TiShoppingCart />
+            <GiShoppingCart className='-scale-x-100'/>
             <span className="text-12 font-medium">Add to Cart</span>
           </button>
           <Dialog>
             <DialogTrigger className='w-full'>
             <button
-            className=" my-1 px-2 w-full h-8 whitespace-nowrap text-secondary border border-primary bg-primary rounded-full flex items-center justify-center gap-2 hover:bg-secondary hover:text-primary" 
+            className={`my-1 w-full h-8 whitespace-nowrap text-secondary border border-primary bg-primary rounded-full flex items-center justify-center gap-2 hover:bg-secondary hover:text-primary ${slider ? "px-6":"px-2"}`} 
           >
-            <HiOutlineViewfinderCircle />
+            <LuEye />
             <span className="text-12 font-medium">Quick View</span>
           </button>
            

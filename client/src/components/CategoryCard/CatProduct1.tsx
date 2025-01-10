@@ -2,7 +2,6 @@
 import React from 'react';
 import Container from '../ui/Container';
 import Card from '../ui/card';
-import Multicard from './multicard';
 import ProductGrid from './ProductGrid';
 import { IProduct } from '@/types/types';
 interface ICatProduct {
@@ -29,7 +28,7 @@ const CatProduct1 = ({ reverse, CategoryName,products }: ICatProduct) => {
             </div>
           </div>
           <div className={`col-span-12 md:col-span-6 xl:col-span-5`}>
-              <ProductGrid products={products.slice(26, 27)} CardComponent={Multicard} imageHeight="h-[210px] xl:h-[496.5px] w-full" />
+              <ProductGrid products={products.slice(26, 27)} CardComponent={Card} slider={true} imageHeight="h-[210px] xl:h-[496.5px] w-full" />
           </div>
         </div>
         <div className={`grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 sm:gap-8`}>
