@@ -22,17 +22,22 @@ export const bannerData = {
 };
 export const ColorBannerData = [
   {
-    imageUrl: '/images/catalogue/bannerChirs.png', 
-    imageUrl2: '/images/catalogue/bannerchirs2.png', 
-    TopTitle: 'avenue39',
+    imageUrl: '/images/catalogue/design_chair1.png',  
+    imageUrl2: '/images/catalogue/design_chair12.png',
     Heading: 'Design Chair',
     ShortText: 'is simply dummy text',
     Description: 'Lorem Ipsum has been the industry`s standard dummy text ever since the 1500s, when an unknown printer took',
   },
   {
-    imageUrl: '/images/catalogue/bannerChirs.png', 
-    imageUrl2: '/images/catalogue/bannerchirs2.png', 
-    TopTitle: 'avenue39',
+    imageUrl: '/images/catalogue/design_chair1.png',  
+    imageUrl2: '/images/catalogue/design_chair12.png',
+    Heading: 'Design Chair',
+    ShortText: 'is simply dummy text',
+    Description: 'Lorem Ipsum has been the industry`s standard dummy text ever since the 1500s, when an unknown printer took',
+  },
+  {
+    imageUrl: '/images/catalogue/design_chair1.png',  
+    imageUrl2: '/images/catalogue/design_chair12.png',
     Heading: 'Design Chair',
     ShortText: 'is simply dummy text',
     Description: 'Lorem Ipsum has been the industry`s standard dummy text ever since the 1500s, when an unknown printer took',

@@ -5,12 +5,12 @@ import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination } from 'swiper/modules';
 
-import 'swiper/css'; // Import Swiper styles
-import 'swiper/css/pagination'; // Import Swiper pagination styles
+import 'swiper/css'; 
+import 'swiper/css/pagination';
 
 const ColorBanner: React.FC = () => {
   return (
-    <section className="py-10 w-full bg-[#EBEBEB]">
+    <section className=" py-3 xs:py-5 md:py-10 w-full bg-white sofa_swiper">
       <Swiper
         modules={[Autoplay, Pagination]}
         spaceBetween={0}
@@ -24,15 +24,14 @@ const ColorBanner: React.FC = () => {
       >
         {ColorBannerData.map((slide, index) => (
           <SwiperSlide key={index}>
-            <div className="flex flex-col lg:flex-row items-center justify-center w-full">
+            <div className="flex flex-col lg:flex-row items-end justify-center w-full ">
               <div className="flex flex-col justify-center items-center lg:w-[30%] w-full pb-2 text-center mx-auto">
-                <div className="px-14">
-                  <p className="text-lg font-medium pb-1">{slide.TopTitle}</p>
-                  <h2 className="text-2xl font-semibold pb-1">{slide.Heading}</h2>
+                <div className="px-14 font-Helveticalight">
+                  <h2 className="text-2xl pb-1">{slide.Heading}</h2>
                   <p className="text-sm font-normal pb-2">{slide.ShortText}</p>
                   <p className="text-18 font-extralight">{slide.Description}</p>
                 </div>
-                <div className="w-fit lg:h-full lg:mt-20 md:mt-10 mt-10">
+                <div className="w-fit lg:h-full lg:mt-20 md:mt-10 mt-10 px-2">
                   <Image
                     src={slide.imageUrl2}
                     className="w-full h-auto object-cover"
