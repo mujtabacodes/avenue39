@@ -95,19 +95,19 @@ const SofaBanner: React.FC = () => {
       >
         {sofaData_slides.map((slide) => (
           <SwiperSlide key={slide.id}>
-            <div className="bg-lightforeground rounded-r-2xl flex flex-wrap items-center ps-5 xs:px-10 sm:ps-20 2xl:ps-32 min-h-[530px] 2xl:h-[740px]">
+            <div className="bg-lightforeground max-xs:rounded-2xl xs:rounded-r-2xl flex flex-wrap items-center ps-5 xs:px-10 sm:ps-20 2xl:ps-32 min-h-[530px] 2xl:h-[740px]">
               {/* Text Content */}
-              <div className="w-full xs:w-1/3 max-xs:text-center">
+              <div className="w-full xs:w-1/3 max-xs:text-center max-xs:pt-5">
                 <div className="space-y-3">
                 <Link href={slide.link}
-                      className="py-1 px-3 bg-white text-[15px] md:text-2xl lg:text-sm xl:text-xl 2xl:text-3xl rounded-full text-black border border-gray-500 hover:bg-main font-Helveticalight" >
+                      className="py-1 px-3 bg-white text-[14px] md:text-2xl lg:text-sm xl:text-xl 2xl:text-3xl rounded-full text-black border border-gray-500 hover:bg-main font-Helveticalight" >
                      Shop Best Sellers
                     </Link>
                   <h3 className="font-semibold text-xl sm:text-2xl mt-1">
                     {slide.title}
                   </h3>
                   <div className="lg:pt-0">
-                    <p className="text-xs sm:text-14 font-normal text-black">
+                    <p className="sm:text-14 font-normal text-black">
                     {slide.product_price}
                   </p>
                   </div>
