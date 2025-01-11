@@ -94,7 +94,7 @@ const Card: React.FC<CardProps> = ({
             modules={[Pagination]}
           >
             {card.productImages.map((array, index) => (
-              <SwiperSlide key={index} className="w-full">
+              <SwiperSlide key={index} className="w-full bg-[#E3E4E6] rounded-[35px]">
                 <Image
                   src={array.imageUrl}
                   alt={array.altText || 'image'}
@@ -120,7 +120,7 @@ const Card: React.FC<CardProps> = ({
             ))}
           </Swiper>
         ) : (
-          <>
+          <div className='bg-[#E3E4E6] rounded-[35px]'>
             {card.discountPrice > 0 && (
               <span className="absolute top-[2px] -right-[30px] px-7 bg-[#FF0000] text-white font-bold rotate-45 w-[105px] h-[40px] flex justify-center items-center">
                 {Math.round(
@@ -143,7 +143,7 @@ const Card: React.FC<CardProps> = ({
                 cardImageHeight,
               )}
             />
-          </>
+          </div>
         )}
 
         <div className="space-y-3" onClick={() => handleNavigation()}>
