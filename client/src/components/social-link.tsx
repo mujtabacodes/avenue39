@@ -23,7 +23,7 @@ const SocialLink: React.FC<LinkSocial> = ({
         className={`${linkClass}`}
       >
         <FaFacebookF
-          className={`text-[16px] md:text-[25px] ${socialSize} text-black `}
+          className={`text-[16px] md:text-[25px] ${socialSize} text-white `}
           style={{ strokeWidth: 1 }}
         />
       </Link>
@@ -33,7 +33,7 @@ const SocialLink: React.FC<LinkSocial> = ({
         className={`${linkClass}`}
       >
         <FaInstagram
-          className={`text-[16px] md:text-[23px] ${socialSize} text-black`}
+          className={`text-[16px] md:text-[23px] ${socialSize} text-white`}
           style={{ strokeWidth: 2 }}
         />
       </Link>
@@ -43,7 +43,7 @@ const SocialLink: React.FC<LinkSocial> = ({
         className={`${linkClass}`}
       >
         <FaPinterestP
-          className={`text-[16px] md:text-[23px] ${socialSize} text-black`}
+          className={`text-[16px] md:text-[23px] ${socialSize} text-white`}
           style={{ strokeWidth: 2 }}
         />
       </Link>

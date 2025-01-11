@@ -165,10 +165,10 @@ const Navbar = () => {
             </Link>
           </div>
         </div>
-        <div className="w-full max-w-[35%] lg:max-w-[40%] ">
+        <div className="w-full max-w-[35%] lg:max-w-[62%] xl:max-w-[58%] 2xl:max-w-[45%] ">
           <div className="bg-whtie">
             <form
-              className="relative w-full lg:block hidden bg-white z-[1099]"
+              className="relative w-full md:block hidden bg-white z-[1099]"
               onSubmit={(e) => e.preventDefault()}
             >
               <input
@@ -251,7 +251,7 @@ const Navbar = () => {
             </form>
           </div>
         </div>
-        <div className="gap-3 lg:gap-3 flex justify-end items-center w-3/12">
+        <div className="gap-3 lg:gap-3 flex justify-end items-center w-2/12">
           <div className="hidden md:flex justify-between gap-3 lg:gap-1 items-center relative">
             <Wishlist />
             <CartItems />
