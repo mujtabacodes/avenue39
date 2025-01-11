@@ -252,12 +252,12 @@ const ProductPage = ({
             <CardSkaleton />
           ) : (
             
-            <div className={`grid gap-4 mt-4 ${layout === 'grid' ? 'grid-cols-1 xs:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 2xl:grid-cols-5 ' : 'grid-cols-1'}`}>
+            <div className={`grid gap-4 md:gap-8 mt-4 ${layout === 'grid' ? 'grid-cols-1 xs:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 2xl:grid-cols-5 ' : 'grid-cols-1'}`}>
               {filteredCards.length > 0 ? (
                 filteredCards.map((card) => (
-                  <div key={card.id}>
+                  <div key={card.id} className='flex'>
                     {layout === 'grid' ? (
-                      <Card card={card} category isLoading={false} cardImageHeight="h-[300px] xsm:h-[220px] sm:h-[400px] md:h-[350px] xl:h-[220px] 2xl:h-[280px]" />
+                      <Card card={card} category isLoading={false} cardImageHeight="h-[300px] xsm:h-[220px] sm:h-[400px] md:h-[350px] xl:h-[220px] 2xl:h-[280px] w-full" />
                     ) : (
                       <LandscapeCard card={card} isLoading={false} />
                     )}
