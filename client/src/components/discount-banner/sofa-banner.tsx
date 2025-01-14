@@ -100,7 +100,7 @@ const SofaBanner: React.FC = () => {
               <div className="w-full xs:w-1/3 max-xs:text-center max-xs:pt-5">
                 <div className="space-y-3">
                 <Link href={slide.link}
-                      className="py-1 px-3 bg-white text-[14px] md:text-2xl lg:text-sm xl:text-xl 2xl:text-3xl rounded-full text-black border border-gray-500 hover:bg-main font-Helveticalight" >
+                      className="py-1 px-3 bg-white text-[14px] md:text-2xl lg:text-sm xl:text-xl 2xl:text-2xl rounded-full text-black border border-gray-500 hover:bg-main font-Helveticalight" >
                      Shop Best Sellers
                     </Link>
                   <h3 className="font-semibold text-xl sm:text-2xl mt-1">
