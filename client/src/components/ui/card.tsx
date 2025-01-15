@@ -96,7 +96,6 @@ const Card: React.FC<CardProps> = ({
           <Swiper
             className="mySwiper overflow-hidden w-full bg-[#E3E4E6] rounded-[35px]"
             pagination={{
-              dynamicBullets: true,
               clickable: true,
             }}
             loop={true}
@@ -116,7 +115,7 @@ const Card: React.FC<CardProps> = ({
                         'object-contain rounded-[35px] w-full',
                         className,
                       )}
-                      style={{ height: 'calc(100% - 40px)' }}
+                      style={{ height: 'calc(100% - 60px)' }}
                     />
                   </div>
                 ) : (
