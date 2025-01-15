@@ -8,12 +8,14 @@ interface LinkSocial {
   className?: string;
   linkClass?: string;
   socialSize?: string;
+  iconColor?: string;
 }
 
 const SocialLink: React.FC<LinkSocial> = ({
   className,
   linkClass,
   socialSize,
+  iconColor
 }) => {
   return (
     <div className={`flex justify-start gap-3 md:gap-7 ${className}`}>
@@ -23,7 +25,7 @@ const SocialLink: React.FC<LinkSocial> = ({
         className={`${linkClass}`}
       >
         <FaFacebookF
-          className={`text-[16px] md:text-[25px] ${socialSize} text-white `}
+          className={`text-[16px] md:text-[25px] ${socialSize} ${iconColor ? iconColor : 'text-white'}`}
           style={{ strokeWidth: 1 }}
         />
       </Link>
@@ -33,7 +35,7 @@ const SocialLink: React.FC<LinkSocial> = ({
         className={`${linkClass}`}
       >
         <FaInstagram
-          className={`text-[16px] md:text-[23px] ${socialSize} text-white`}
+          className={`text-[16px] md:text-[23px] ${socialSize} ${iconColor ? iconColor : 'text-white'}`}
           style={{ strokeWidth: 2 }}
         />
       </Link>
@@ -43,7 +45,7 @@ const SocialLink: React.FC<LinkSocial> = ({
         className={`${linkClass}`}
       >
         <FaPinterestP
-          className={`text-[16px] md:text-[23px] ${socialSize} text-white`}
+          className={`text-[16px] md:text-[23px] ${socialSize} ${iconColor ? iconColor : 'text-white'}`}
           style={{ strokeWidth: 2 }}
         />
       </Link>

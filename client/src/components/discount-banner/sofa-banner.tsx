@@ -98,19 +98,17 @@ const SofaBanner: React.FC = () => {
             <div className="bg-lightforeground max-xs:rounded-2xl xs:rounded-r-2xl flex flex-wrap items-center ps-5 xs:px-10 sm:ps-20 2xl:ps-32 min-h-[530px] 2xl:h-[740px]">
               {/* Text Content */}
               <div className="w-full xs:w-1/3 max-xs:text-center max-xs:pt-5">
-                <div className="space-y-3">
+                <div>
                 <Link href={slide.link}
-                      className="py-1 px-3 bg-white text-[14px] md:text-2xl lg:text-sm xl:text-xl 2xl:text-3xl rounded-full text-black border border-gray-500 hover:bg-main font-Helveticalight" >
+                      className="py-1 px-3 block w-fit bg-white text-[14px] md:text-2xl lg:text-sm xl:text-xl 2xl:text-3xl rounded-2xl text-black border border-gray-500 hover:bg-main font-Helveticalight" >
                      Shop Best Sellers
                     </Link>
-                  <h3 className="font-semibold text-xl sm:text-2xl mt-1">
+                  <h3 className="font-bold text-16 mt-3">
                     {slide.title}
                   </h3>
-                  <div className="lg:pt-0">
-                    <p className="text-21  font-normal text-black">
+                    <p className="text-18 font-bold mt-1 text-black">
                     {slide.product_price}
                   </p>
-                  </div>
                 </div>
               </div>
               {/* Image */}
@@ -157,36 +155,30 @@ const SofaBanner: React.FC = () => {
               }}
             >
               <div className="flex justify-center items-center bg-[#0000004d] w-full h-full rounded-2xl 2xl:h-[360px]">
-                <div className="text-center space-y-3">
+                <div className="text-center">
                   {slide.buttonPosition === 'top' && (
-                    <div className="mb-4">
                       <Link
                         href={slide.link}
-                        className="bg-white py-1 px-3 text-base md:text-3xl rounded-full text-black hover:bg-main font-Helveticalight"
+                        className="bg-white py-1 px-3 text-base md:text-3xl rounded-2xl text-black hover:bg-main font-Helveticalight"
                       >
                         Shop {slide.pro_price}
                       </Link>
-                    </div>
                   )}
                   {slide.buttonPosition === 'bottom' && (
-                    <div className="mt-auto">
                       <Link
                         href={slide.link}
-                        className="bg-white py-1 px-3 text-base md:text-3xl rounded-full text-black hover:bg-main font-Helveticalight"
+                        className="bg-white py-1 px-3 text-base md:text-3xl rounded-2xl text-black hover:bg-main font-Helveticalight"
                       >
                         Shop <span className='text-red-600'>Sale</span>
                       </Link>
-                    </div>
                   )}
 
-                  <h3 className="font-semibold text-xl xs:text-2xl mt-1 text-white">
+                  <h3 className="font-bold text-16 mt-4 text-white">
                     {slide.subtitle}
                   </h3>
-                  <div className="lg:pt-0">
-                    <p className="text-xs sm:text-21 font-normal text-white">
+                    <p className="text-18 font-bold text-white mt-2">
                       {slide.pro_price} 
                     </p>
-                  </div>
                 </div>
               </div>
             </div>

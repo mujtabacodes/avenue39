@@ -28,7 +28,7 @@ const CatProduct1 = ({ reverse, CategoryName,products }: ICatProduct) => {
             {products.length < 1 && Array(3).fill(null).map((_, index) => (
               <ProductSkeleton imageHeight="h-[210px] xl:h-[496.5px]" key={index} />
             ))}
-              <ProductGrid products={products.slice(6, 9)} CardComponent={Card} imageHeight="h-[210px] xl:h-[496.5px] w-full" />
+              <ProductGrid products={products.slice(6, 9)} CardComponent={Card} isHomepage={true} imageHeight="h-[210px] xl:h-[496.5px] w-full" />
             </div>
           </div>
           <div className={`col-span-12 md:col-span-6 xl:col-span-5`}>
@@ -42,7 +42,7 @@ const CatProduct1 = ({ reverse, CategoryName,products }: ICatProduct) => {
         {products.length < 1 && Array(5).fill(null).map((_, index) => (
               <ProductSkeleton imageHeight="h-[270px] xl:h-[290px]" key={index} />
             ))}
-          <ProductGrid products={products.slice(0, 5)} CardComponent={Card} imageHeight="h-[270px] xl:h-[290px]" />
+          <ProductGrid products={products.slice(0, 5)} CardComponent={Card} isHomepage={true} imageHeight="h-[270px] xl:h-[290px]" />
         </div>
       </div>
     </div>

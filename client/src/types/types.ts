@@ -109,6 +109,7 @@ interface ProductImage {
   imageUrl: string;
   public_id: string;
   altText?: string;
+  imageIndex?: number;
 }
 export interface IProduct {
   id: number;
