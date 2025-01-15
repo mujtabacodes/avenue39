@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useRef } from 'react';
 import Image from 'next/image';
 import sofa1 from '@assets/images/banners/fdsdf.webp';
 import banner2 from '@assets/images/banners/laptop-table.jpg';
@@ -9,6 +9,7 @@ import { Autoplay ,Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import Link from 'next/link';
+import { Swiper as SwiperType } from 'swiper';
 
 const sofaData_slides = [
   {
@@ -77,10 +78,28 @@ const sliderDataa_sofa = [
 
 const SofaBanner: React.FC = () => {
 
+  const swiperRef = useRef<any>(null);
+
+  const handleMouseEnter = () => {
+    if (swiperRef.current && swiperRef.current.swiper) {
+      swiperRef.current.swiper.autoplay.stop();
+
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (swiperRef.current && swiperRef.current.swiper) {
+      swiperRef.current.swiper.autoplay.start();
+    }
+  };
+
   return (
     <section className="grid grid-cols-1 lg:grid-cols-2  gap-4 relative px-2 md:px-0 mt-3 md:mt-10">
-    <div className="sofa_slider1">
+    <div className="sofa_slider1" 
+        onMouseEnter={handleMouseEnter} 
+        onMouseLeave={handleMouseLeave}>
     <Swiper
+        ref={swiperRef}
         modules={[Autoplay, Pagination]}
         spaceBetween={20} 
         slidesPerView={1} 
@@ -91,7 +110,7 @@ const SofaBanner: React.FC = () => {
         pagination={{
           clickable: true, 
         }}
-        loop={true} 
+        loop={true}  
       >
         {sofaData_slides.map((slide) => (
           <SwiperSlide key={slide.id}>
