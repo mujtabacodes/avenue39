@@ -483,7 +483,7 @@ export const SaleBannerData = [
     title: "Shop New Arrivals",
     link: "/products/new-arrivals",
     productName: "Skanda Coffee Table",
-    price: "AED150",
+    price: "AED 2,450",
     imageSrc: "/images/salebanner/nostream.png",
   },
   {
@@ -502,3 +502,45 @@ export const SaleBannerData = [
   },
 ];
 
+export const Dining= [
+  'Trulli Dining Chair',
+  'Korla Dining Chair',
+  'Parisio Dining Chair',
+  'Savio Dining Chair',
+  'Flavia Dining Chair',
+  'Sapori Dining Table',
+  'Fiori Side Console',
+  'Floki Barstool',
+  'Venice Barstool',
+  'Trattori Barstool',
+]
+export const Living= [
+  'Marlin Tub Swivel Chair (Brown & cream)',
+  'Marlin Tub Swivel Chair',
+  'Marlin Tub Chair',
+  'Marlin Rocking Chair (White& Grey)',
+  'Marlin Rocking Chair (White & Black)',
+  'The Lisbon Sofa Set',
+  'Lucius Coffee Table Set',
+  'Finestra Side Table',
+  'Vaunchy Side Table',
+  'Arti Side Table',
+]
+export const Bedroom= [
+  'Yakuba Side Table',
+  'Tavola Bedside Table',
+  'Moderno Bedside Table',
+  'Ombra Bedside Table',
+  'Accenti Bedside Table',
+  'Vista Sofa Bed',
+  'Sexton Floor Lamp',
+  'Florento Floor Lamp',
+  'Cipriani Floor Lamp',
+]
+export const Accessories= [
+  'A Pair of Droplet Stands',
+  'A Pair of Monolith Sphere Towers',
+  'A Pair of Layered Elegance',
+  'A Pair of Rooted Egg Stands',
+  'Abstract Vase',
+]

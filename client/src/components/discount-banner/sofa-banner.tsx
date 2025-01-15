@@ -14,21 +14,21 @@ const sofaData_slides = [
   {
     id: 1,
     title: 'Marlin Tub Swivel Chair',
-    product_price: 'AED150',
+    product_price: 'AED 1,800',
     image: sofa1,
     link: '/product/marlin-tub-swivel-chair-brown-cream',
   },
   {
     id: 2,
     title: 'Modern Office Desk',
-    product_price: 'AED150',
+    product_price: 'AED 1,800',
     image: sofa1,
     link: '/product/modern-office-desk',
   },
   {
     id: 3,
     title: 'Luxury Sofa Set',
-    product_price: 'AED150',
+    product_price: 'AED 1,800',
     image: sofa1,
     link: '/product/luxury-sofa-set',
   },
@@ -40,14 +40,14 @@ const sliderDataa_sofa = [
     slides: [
       {
         backgroundImage: banner2.src,
-        pro_price: 'Home Office', 
+        pro_price: 'AED 4,800', 
         subtitle: 'Magia Office Desk',
         link: '/product/magia-office-desk',
         buttonPosition: 'top', 
       },
       {
         backgroundImage: banner3.src,
-        pro_price: 'Bedroom', 
+        pro_price: 'AED 4,800', 
         subtitle: 'Mila TV Cabinet/TV Stand',
         link: '/products',
         buttonPosition: 'bottom', 
@@ -59,14 +59,14 @@ const sliderDataa_sofa = [
     slides: [
       {
         backgroundImage: banner2.src,
-        pro_price: 'Living Room', 
+        pro_price: 'AED 4,800', 
         subtitle: 'Modern Sofa Set',
         link: '/product/modern-sofa-set',
         buttonPosition: 'top', 
       },
       {
         backgroundImage: banner3.src,
-        pro_price: 'Dining Room', 
+        pro_price: 'AED 4,800', 
         subtitle: 'Elegant Dining Table',
         link: '/products',
         buttonPosition: 'bottom', 
@@ -107,7 +107,7 @@ const SofaBanner: React.FC = () => {
                     {slide.title}
                   </h3>
                   <div className="lg:pt-0">
-                    <p className="sm:text-14 font-normal text-black">
+                    <p className="text-21  font-normal text-black">
                     {slide.product_price}
                   </p>
                   </div>
@@ -183,7 +183,7 @@ const SofaBanner: React.FC = () => {
                     {slide.subtitle}
                   </h3>
                   <div className="lg:pt-0">
-                    <p className="text-xs sm:text-14 font-normal text-white">
+                    <p className="text-xs sm:text-21 font-normal text-white">
                       {slide.pro_price} 
                     </p>
                   </div>
