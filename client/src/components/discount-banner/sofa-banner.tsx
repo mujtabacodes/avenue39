@@ -9,8 +9,6 @@ import { Autoplay ,Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import Link from 'next/link';
-import { Swiper as SwiperType } from 'swiper';
-
 const sofaData_slides = [
   {
     id: 1,
