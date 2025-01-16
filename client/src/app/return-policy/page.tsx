@@ -1,13 +1,9 @@
-
-'use client';
-
 import React from 'react';
 import TopHero from '@/components/top-hero';
 import { TReturnPolicybredcrumbs } from '@/data/data';
-import { ReturnPolicy as returnPolicyData } from '@/data';
+import { ReturnPolicy as returnPolicyData } from '@/data'; 
 import Link from 'next/link';
 import { Metadata } from 'next';
-
 
 export const metadata: Metadata = {
   title: 'Return Policy Page',

@@ -8,7 +8,7 @@
 }
 @layer base {
   :root {
-    /* --inter: '__Helvetica_074375', '__Helvetica_Fallback_074375'; */
+    --Helveticalight: '__Helveticalight_29a3f3', '__Helveticalight_Fallback_29a3f3';
     --Helvetica: '__Helvetica_f381f2, __Helvetica_Fallback_f380f2;';
 
     --jadyn: '__jadyn_d94376', '__jadyn_Fallback_d94376';
@@ -53,7 +53,9 @@ html {
 body {
   /* font-family: var(--inter); */
 }
-
+.font-Helveticalight {
+  font-family: var(--Helveticalight);
+}
 .font-jadyn {
   font-family: var(--jadyn);
 }
@@ -138,13 +140,14 @@ body {
 .swiper-pagination-bullet {
   height: 12px !important;
   width: 12px !important;
+  background-color: #BFBFBF !important;
 }
 .swiper-pagination-bullet-active {
-  background-color: black !important;
+  background-color: #949494 !important;
 }
 
 .anticon.anticon-exclamation-circle {
-  color: black !important;
+  color: #949494 !important;
 }
 
 .ant-checkbox:hover .ant-checkbox-inner {
@@ -226,6 +229,10 @@ color: white;
     padding: 20px !important;
     margin-bottom: 0 !important;
   }
+  .custom-swiper .swiper-pagination {
+    bottom: 5% !important;
+    left: 10% !important;
+   }
   .login-form-wrapper form .custom-login-input {
     height: 45px !important;
   }
@@ -261,3 +268,58 @@ color: white;
     padding-bottom: 1.5rem !important;
   }
 }
+.categorySlider .swiper-button-prev, .categorySlider .swiper-button-next {
+  display: none;
+}
+.customs-dot {
+  background-color: white !important;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin: 0 5px;
+  display: block !important;
+}
+/* Pagination bullets */
+.swiper-pagination-bullet {
+  background: #ffffff ;
+  opacity: 0.7;
+}
+
+.swiper-pagination-bullet-active {
+  background: #000000 ;
+  opacity: 1;
+}
+.sofa_slider2 .swiper-pagination-bullet{
+  background: #ffffff ;
+  opacity: 0.7;
+}
+.sofa_slider2 .swiper-pagination-bullet-active{
+  background: #ffffff !important; 
+  opacity: 1;
+}
+.sofa_slider1 .swiper-pagination-bullet {
+  background: #6e6e6e ;
+  opacity: 0.7;
+}
+.sofa_slider1 .swiper-pagination-bullet-active{
+  background: #000000 ;
+  opacity: 1;
+}
+.sofa_swiper .swiper-pagination-bullet {
+  background: #949494 !important;;
+  opacity: 1;
+}
+.sofa_swiper .swiper-pagination-bullet-active{
+  background:  #BFBFBF !important;
+  opacity: 1;
+}
+.sofa_swiper .swiper-pagination {
+  bottom: 0.5% !important;
+  left: 15% !important;
+ }
+ @media (max-width: 1018px) {
+  .sofa_swiper .swiper-pagination {
+    bottom: 0.5% !important;
+    left: 0 !important;
+   }
+ }

@@ -1,6 +1,6 @@
 'use client';
 import { Input } from '@/components/ui/input';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Tabs, TabsContent, TabsList } from '@/components/ui/tabs';
 import { FaRegUser } from 'react-icons/fa';
 import { Button } from '../ui/button';
 import { useFormik } from 'formik';
@@ -15,11 +15,12 @@ import { useDispatch } from 'react-redux';
 import { loggedInUserAction } from '@/redux/slices/user/userSlice';
 import Cookies from 'js-cookie';
 
-
+/* eslint-disable */
 interface TabsProps {
   onTabChange?: (value: string) => void;
   activeTab?: string;
 }
+/* eslint-enable */
 
 export function LoginForm({ onTabChange, activeTab }: TabsProps) {
   const Navigate = useRouter();

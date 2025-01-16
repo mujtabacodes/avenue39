@@ -1,6 +1,4 @@
 import icon3 from '@icons/3.png';
-import icon2 from '@icons/2.png';
-import icon5 from '@icons/5.png';
 import diningTable from '@assets/menu-icons/dining-table.png';
 import diningChair from '@assets/menu-icons/dining-chair.png';
 import accessories from '@assets/menu-icons/furnitures.png';
@@ -120,6 +118,22 @@ export const menuData: MenuData = {
     { link: '/products', title: 'Sale', icon: "/images/sale.png" }
 
   ],
+  homeOffice: [
+    {
+      categoryId: 8,
+      link: '/products',
+      title: 'Office Tables',
+      icon: officeTables,
+    },
+    {
+      categoryId: 8,
+      link: '/products',
+      title: 'Office Chairs',
+      icon: officeChair,
+    },
+    { link: '/products', title: 'Sale', icon: "/images/sale.png" }
+
+  ],
   chairs: [
     { categoryId: 6, link: '/products', title: 'Armchairs', icon: armchair },
     {
@@ -168,22 +182,7 @@ export const menuData: MenuData = {
     { link: '/products', title: 'Sale', icon: "/images/sale.png" }
 
   ],
-  homeOffice: [
-    {
-      categoryId: 8,
-      link: '/products',
-      title: 'Office Tables',
-      icon: officeTables,
-    },
-    {
-      categoryId: 8,
-      link: '/products',
-      title: 'Office Chairs',
-      icon: officeChair,
-    },
-    { link: '/products', title: 'Sale', icon: "/images/sale.png" }
-
-  ],
+  
   Lighting: [
     {
       categoryId: 9,
@@ -201,6 +200,6 @@ export const menuData: MenuData = {
   ],
   Accessories: [{ link: '/products', title: 'Accessories', icon: icon3 }],
   "New Arrivals": [{ link: '/products', title: 'New Arrivals', icon: icon3 }],
-  Clearance: [{ link: '/products', title: 'Clearance', icon: icon3 }],
+  // Clearance: [{ link: '/products', title: 'Clearance', icon: icon3 }],
   SALE: [{ link: '/products', title: '', icon: icon3 }],
 };

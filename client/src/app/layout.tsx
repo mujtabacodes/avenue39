@@ -1,19 +1,11 @@
+import React from 'react';
 import type { Metadata } from 'next';
 import './globals.css';
 import '@styles/style.css';
-import localFont from 'next/font/local';
 import Providers from '@/redux/provider';
 import PathnameWrapper from '@/components/PathnameWrapper';
 import { ToastContainer } from 'react-toastify';
-
-const Helvetica = localFont({
-  src: [
-    {
-      path: '../../public/font/HelveticaNeueRoman.otf',
-    },
-  ],
-});
-
+import { Helvetica } from '@/components/language';
 
 export const metadata: Metadata = {
   title: 'Avenue 39',

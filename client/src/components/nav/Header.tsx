@@ -5,7 +5,6 @@ import MenuBar from './menu-bar';
 import BottomBar from './bottom-bar';
 
 const Header = () => {
-  const [loading, setLoading] = useState<boolean>(true);
   const [menuData, setMenuData] = useState<any[]>([]);
 
   useEffect(() => {
@@ -19,9 +18,8 @@ const Header = () => {
         }
         const data = await response.json();
         setMenuData(data);
-        setLoading(false);
       } catch (error: any) {
-        setLoading(false);
+        console.error(error);
       }
     };
 

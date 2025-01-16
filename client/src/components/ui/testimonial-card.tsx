@@ -3,18 +3,12 @@ import React from 'react';
 import { MdStar, MdStarBorder } from 'react-icons/md';
 import testimonialIcon from '@icons/Group1425.png';
 import { ITestimonialCard } from '@/types/types';
-import { useRouter } from 'next/navigation';
 
 interface CardProps {
   card: ITestimonialCard;
 }
 
 const TestimonialCard: React.FC<CardProps> = ({ card }) => {
-  const router = useRouter();
-
-  const handleBuyNowClick = () => {
-    router.push('/checkout');
-  };
 
   const renderStars = () => {
     const stars = [];

@@ -7,7 +7,6 @@ import 'swiper/css/pagination';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import { useQuery } from '@tanstack/react-query';
 import { fetchProducts } from '@/config/fetch';
-import NoProduct from '../ui/no-product';
 import FeatureCard from '../feature-card/feature-card';
 import { IProduct } from '@/types/types';
 import { Navigation, Pagination } from 'swiper/modules';
@@ -16,7 +15,6 @@ import CardSkaleton from '../Skaleton/productscard';
 const BestSellingSlider: React.FC = () => {
   const {
     data: products = [],
-    error: productsError,
     isLoading: isProductsLoading,
   } = useQuery<IProduct[], Error>({
     queryKey: ['products'],

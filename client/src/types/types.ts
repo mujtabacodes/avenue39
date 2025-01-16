@@ -1,6 +1,5 @@
 import { StaticImageData } from 'next/image';
-import { FormEventHandler, ReactNode, SetStateAction } from 'react';
-import { IconType } from 'react-icons';
+import React, { FormEventHandler, ReactNode, SetStateAction } from 'react';
 export type TPolicySections = TPolicySection[];
 export type TReturnPolicy = TReturnPolicy[];
 export type TShippingPolicy = TShippingPolicy[];
@@ -110,6 +109,7 @@ interface ProductImage {
   imageUrl: string;
   public_id: string;
   altText?: string;
+  imageIndex?: number;
 }
 export interface IProduct {
   id: number;
@@ -197,22 +197,15 @@ export interface BreadcrumbItem {
   href?: string;
 }
 
-interface TopHeroProps {
-  title?: string;
-  breadcrumbs: BreadcrumbItem[];
-}
-interface Product {
-  image: string;
-  name: string;
-  price: number;
-  originalPrice?: number;
-  discount?: string;
-  rating: number;
-}
+// interface Product {
+//   image: string;
+//   name: string;
+//   price: number;
+//   originalPrice?: number;
+//   discount?: string;
+//   rating: number;
+// }
 
-interface SideCardProps {
-  data: Product[];
-}
 export interface MissionData {
   title: string;
   description: string;
@@ -237,7 +230,7 @@ export interface Feature {
   discount: number;
 }
 
-export interface IProductCategories {
+export interface IProductCategory {
   id: string;
   name: string;
   totalItems?: number;
@@ -322,11 +315,6 @@ export interface IReview {
 }
 
 export type IProductWithoutId = Omit<IProduct, 'id'>;
-interface ProductImage {
-  imageUrl: string;
-  public_id: string;
-  altText?: string;
-}
 
 export interface AdditionalInformation {
   key?: string;

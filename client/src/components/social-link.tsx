@@ -1,43 +1,53 @@
 import Link from 'next/link';
 import React from 'react';
-import { FaFacebookF, FaInstagram, FaLinkedinIn } from 'react-icons/fa';
-import { FaPinterestP, FaXTwitter } from 'react-icons/fa6';
-import { PiPinterestLogoBold } from 'react-icons/pi';
-import { RiFacebookLine } from 'react-icons/ri';
+import { FaInstagram } from 'react-icons/fa';
+import { FaPinterestP } from 'react-icons/fa6';
+import { FaFacebookF } from 'react-icons/fa';
 
 interface LinkSocial {
   className?: string;
   linkClass?: string;
   socialSize?: string;
+  iconColor?: string;
 }
 
 const SocialLink: React.FC<LinkSocial> = ({
   className,
   linkClass,
   socialSize,
+  iconColor
 }) => {
   return (
     <div className={`flex justify-start gap-3 md:gap-7 ${className}`}>
-      <Link
-        href="https://instagram.com/avenue39home"
-        target="_blank"
-        className={`${linkClass}`}
-      >
-        <FaInstagram className={`text-[16px] md:text-[23px] ${socialSize}`} />
-      </Link>
       <Link
         href="https://facebook.com/avenue39home"
         target="_blank"
         className={`${linkClass}`}
       >
-        <RiFacebookLine className={`text-[16px] md:text-[25px] ${socialSize} `} />
+        <FaFacebookF
+          className={`text-[16px] md:text-[25px] ${socialSize} ${iconColor ? iconColor : 'text-white'}`}
+          style={{ strokeWidth: 1 }}
+        />
+      </Link>
+      <Link
+        href="https://instagram.com/avenue39home"
+        target="_blank"
+        className={`${linkClass}`}
+      >
+        <FaInstagram
+          className={`text-[16px] md:text-[23px] ${socialSize} ${iconColor ? iconColor : 'text-white'}`}
+          style={{ strokeWidth: 2 }}
+        />
       </Link>
       <Link
         href="https://www.pinterest.com/avenue39home"
         target="_blank"
         className={`${linkClass}`}
       >
-        <PiPinterestLogoBold className={`text-[16px] md:text-[23px] ${socialSize} `} />
+        <FaPinterestP
+          className={`text-[16px] md:text-[23px] ${socialSize} ${iconColor ? iconColor : 'text-white'}`}
+          style={{ strokeWidth: 2 }}
+        />
       </Link>
       {/* <Link
         href="https://twitter.com/avenue39home"

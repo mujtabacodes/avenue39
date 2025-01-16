@@ -2,7 +2,6 @@
 
 import * as React from "react";
 import * as SelectPrimitive from "@radix-ui/react-select";
-import { useFormik } from 'formik';
 
 import { cn } from "@/lib/utils";
 import { BiCheck, BiChevronDown, BiChevronUp } from "react-icons/bi";

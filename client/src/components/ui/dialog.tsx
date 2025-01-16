@@ -5,7 +5,6 @@ import * as DialogPrimitive from '@radix-ui/react-dialog';
 
 import { cn } from '@/lib/utils';
 import { TfiClose } from 'react-icons/tfi';
-import { BiX } from 'react-icons/bi';
 
 const Dialog = DialogPrimitive.Root;
 

@@ -1,19 +1,16 @@
 'use client';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
-import image from '@assets/images/Big image.png';
 import TopHero from '@/components/top-hero';
 import { wishbredcrumbs } from '@/data/data';
 import Container from '@/components/ui/Container';
-import { IoCloseSharp } from 'react-icons/io5';
 import Counter from '@/components/Counter/Counter';
 import { message, Modal } from 'antd';
 import { addItem } from '@cartSlice/index';
 import { CartItem } from '@cartSlice/types';
 import { openDrawer } from '@/redux/slices/drawer';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Dispatch } from 'redux';
-import { State } from '@/redux/store';
 import { IoIosHeartEmpty } from 'react-icons/io';
 import Link from 'next/link';
 import { generateSlug } from '@/config';
@@ -29,7 +26,6 @@ interface IProduct {
 }
 const Wishlist = () => {
   const dispatch = useDispatch<Dispatch>();
-  const cartItems = useSelector((state: State) => state.cart.items);
   const [wishlist, setWishlist] = useState<IProduct[]>([]);
   useEffect(() => {
     const storedWishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');

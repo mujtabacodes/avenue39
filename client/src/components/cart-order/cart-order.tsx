@@ -1,27 +1,16 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import { useFormik } from 'formik';
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
-import { LabelInput } from '../ui/label-input';
-import { Button } from '../ui/button';
-import { cities, countries } from '@/data';
+import { cities } from '@/data';
 import { City } from '@/types/types';
-import { SubTotal, TotalProducts } from '@/config';
+import { SubTotal } from '@/config';
 import { useRouter } from 'next/navigation';
-import CustomButtom from '../ui/custom-button';
 import Link from 'next/link';
 
 const CartOrder: React.FC = () => {
   const [filteredCities, setFilteredCities] = useState<City[]>([]);
   const Navigate = useRouter();
-
+  console.log(filteredCities,"filteredCities")
   const formik = useFormik({
     initialValues: {
       country: '',
@@ -52,57 +41,6 @@ const CartOrder: React.FC = () => {
           AED <span><SubTotal /></span>
         </p>
       </div>
-      {/* <div className="flex flex-wrap md:flex-nowrap justify-between border-t-2 pt-4">
-        <p className="text-[#666666] text-20">Subtotal</p>
-        <form className="w-full md:w-6/12" onSubmit={formik.handleSubmit}>
-          <Select
-            onValueChange={(value) => formik.setFieldValue('country', value)}
-          >
-            <SelectTrigger className="rounded-none border">
-              <SelectValue placeholder="Select a country" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                {countries.map((country) => (
-                  <SelectItem key={country.code} value={country.code}>
-                    {country.name}
-                  </SelectItem>
-                ))}
-              </SelectGroup>
-            </SelectContent>
-          </Select>
-
-          <Select
-            onValueChange={(value) => formik.setFieldValue('city', value)}
-          >
-            <SelectTrigger className="rounded-none border">
-              <SelectValue placeholder="Select a city" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                {filteredCities.map((city) => (
-                  <SelectItem key={city.name} value={city.name}>
-                    {city.name}
-                  </SelectItem>
-                ))}
-              </SelectGroup>
-            </SelectContent>
-          </Select>
-
-          <LabelInput
-            className="rounded-none border"
-            type="text"
-            placeholder="Postcode/Zip"
-            name="postalCode"
-            id="postalCode"
-            value={formik.values.postalCode}
-            onChange={formik.handleChange}
-          />
-          <CustomButtom variant="dark" className="capitalize">
-            Update Total
-          </CustomButtom>
-        </form>
-      </div> */}
       <div className="flex justify-between items-center pt-4">
         <p className="text-[#666666] font-bold text-20">Total</p>
         <p className="font-medium text-[26px]">

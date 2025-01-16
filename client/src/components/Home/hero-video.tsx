@@ -1,21 +1,9 @@
 'use client';
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 const HeroVideo: React.FC = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
-  // const [isPlaying, setIsPlaying] = useState<boolean>(true);
-
-  // const handleVideoClick = () => {
-  //   if (videoRef.current) {
-  //     if (isPlaying) {
-  //       videoRef.current.pause();
-  //     } else {
-  //       videoRef.current.play();
-  //     }
-  //     setIsPlaying(!isPlaying);
-  //   }
-  // };
-
   return (
+   <>
     <div className="relative w-full">
       <video
         ref={videoRef}
@@ -33,7 +21,7 @@ const HeroVideo: React.FC = () => {
 
       <div className="absolute bottom-2 sm:bottom-8 right-4 sm:right-8 bg-black bg-opacity-40 text-white px-4 py-3 rounded-xl shadow-lg">
         <div className="relative">
-          <p className="font-belgium drop-shadow-md text-[20px] sm:text-[40px] md:text-[50px] lg:text-[53px] leading-tight">
+          <p className="drop-shadow-md text-[20px] sm:text-[40px] md:text-[50px] lg:text-[53px] leading-tight font-Helveticalight">
             Discover The Luxury{' '}
             <span className="font-jadyn text-[30px] sm:text-[90px] md:text-[80px] lg:text-[101px] relative right-3 sm:right-10 lg:right-12 top-2">
               Style
@@ -45,6 +33,8 @@ const HeroVideo: React.FC = () => {
         </div>
       </div>
     </div>
+    {/* </> */}
+   </>
   );
 };
 

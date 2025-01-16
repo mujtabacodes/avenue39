@@ -1,19 +1,20 @@
-import { IProductCategories } from '@/types/types';
+import { IProductCategory } from '@/types/types';
 import React, { useEffect, useState } from 'react';
 import { Checkbox } from 'antd';
 import { CheckboxChangeEvent } from 'antd/es/checkbox';
 
 interface ICategoryFilter {
-  items: IProductCategories[];
+  items: IProductCategory[];
+  /* eslint-disable */
   onCategoryChange: (
     category: string,
     isChecked: boolean,
     isSubCategory?: boolean,
   ) => void;
+  /* eslint-enable */
   isSubcategory?: boolean;
   selectedCategories?: string[];
 }
-
 const CategoryFilter = ({
   items,
   onCategoryChange,

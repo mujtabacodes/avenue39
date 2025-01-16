@@ -1,5 +1,4 @@
 'use client';
-
 import React, { Fragment, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { State, Dispatch } from '@redux/store';
@@ -14,24 +13,22 @@ import Image from 'next/image';
 import CustomButtom from '../ui/custom-button';
 import Counter from '../counter';
 import { IoBagOutline } from 'react-icons/io5';
-import { useRouter } from 'next/navigation';
 import { TfiClose } from 'react-icons/tfi';
 import { generateSlug, TotalProducts } from '@/config';
 import { closeDrawer, openDrawer } from '@/redux/slices/drawer';
 import { FaTrash } from 'react-icons/fa';
 import { MdModeEdit } from 'react-icons/md';
 import Link from 'next/link';
+import { GiShoppingCart } from 'react-icons/gi';
 
 interface ICartItems {
   isCartPage?: boolean;
   isCheckoutPage?: boolean;
 }
-
 const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
-  const navigate = useRouter();
   const dispatch = useDispatch<Dispatch>();
   const cartItems = useSelector((state: State) => state.cart.items);
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const totalPrice = useSelector((state: State) =>
     selectTotalPrice(state.cart),
   );
@@ -40,21 +37,17 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
   );
   const drawerState = useSelector((state: State) => state.drawer);
   const drawerRef = useRef<HTMLDivElement | null>(null);
-
   const removeProductFromCart = (id: number) => {
     dispatch(removeItem(id));
   };
-
   const updateProductQuantity = (id: number, quantity: number) => {
     if (quantity > 0) {
       dispatch(updateItemQuantity({ id, quantity }));
     }
   };
-
   const handleCloseDrawer = () => {
     dispatch(closeDrawer());
   };
-
   const handleOpenDrawer = () => {
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
@@ -73,13 +66,11 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
       clearTimeout(timeoutRef.current);
     }
   };
-
   const handleLeaveDrawer = () => {
     timeoutRef.current = setTimeout(() => {
       dispatch(closeDrawer());
     }, 8000);
   };
-
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -89,7 +80,6 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
         dispatch(closeDrawer());
       }
     };
-
     window.addEventListener('click', handleClickOutside);
     return () => {
       window.removeEventListener('click', handleClickOutside);
@@ -98,7 +88,6 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
       }
     };
   }, [dispatch]);
-
   return (
     <React.Fragment>
       {!isCartPage ? (
@@ -108,7 +97,7 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
               className={`xl:w-12 w-12 h-10 rounded-3xl relative flex justify-center items-center  cursor-pointer ${cartItems.length > 0 ? 'text-white bg-main' : 'text-black  border-black'}`}
               onClick={handleOpenDrawer}
             >
-              <IoBagOutline size={24} />
+              <GiShoppingCart size={27} style={{ transform: 'scaleX(-1)' }} />
               {cartItems.length > 0 && (
                 <div className="w-4 h-4 rounded-full bg-black text-white flex justify-center items-center absolute top-2 right-2 text-10">
                   <TotalProducts />
@@ -129,20 +118,15 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                   <span className="w-0 h-0 border-l-[13px] border-l-transparent border-r-[19px] border-r-white border-b-[20px] border-b-transparent transform rotate-0 absolute top-[2px] -left-[13px] -translate-y-[1px]"></span>
                 </div>
               </div>
-
               <h3 className="font-medium md:text-xl 2xl:text-2xl">
-              My Cart {totalPrice !== 0 && 
-              <span>
-                (<TotalProducts />)
-              </span>
-              
-              }
-
+                My Cart{' '}
+                {totalPrice !== 0 && (
+                  <span>
+                    (<TotalProducts />)
+                  </span>
+                )}
               </h3>
-              <span
-                onClick={handleCloseDrawer}
-                className='cursor-pointer'
-              >
+              <span onClick={handleCloseDrawer} className="cursor-pointer">
                 <TfiClose size={20} />
               </span>
             </div>
@@ -162,7 +146,7 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                 </div>
               </div>
             ) : (
-              <Fragment>
+<Fragment>
                 <div className="flex-1 overflow-auto mr-6 scrollbar-hidden">
                   <ul className="space-y-4">
                     {cartItems.map((item: any) => (
@@ -179,7 +163,6 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                             className="rounded-md w-full min-w-[70px] h-full"
                           />
                         </div>
-
                         <div className="grow">
                           <ProductName className="text-start !text-[16px]">
                             {item.name}
@@ -199,14 +182,16 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                               <ProductPrice className="flex gap-2 flex-wrap mb-4 !text-[15px] text-nowrap">
                                 <span>AED {item?.price * item.quantity}</span>
                                 {/* <NormalText className="text-slate-400 line-through w-20 text-end text-nowrap !text-[15px]">
-
                             </NormalText> */}
                               </ProductPrice>
                             )}
                           </div>
                           <div
                             className="absolute top-2 right-2 cursor-pointer"
-                            onClick={(e) => {e.stopPropagation(); removeProductFromCart(item.id);}}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              removeProductFromCart(item.id);
+                            }}
                           >
                             <RxCross2 />
                           </div>
@@ -301,7 +286,10 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                         <FaTrash
                           className="cursor-pointer"
                           size={15}
-                          onClick={(e) => {e.stopPropagation(); removeProductFromCart(item.id);}}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            removeProductFromCart(item.id);
+                          }}
                         />
                       </div>
                     )}
@@ -320,7 +308,6 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                   </div>
                 </div>
               </div>
-
               <div className="hidden lg:flex items-center justify-between gap-2 xl:gap-6 pr-4 w-full">
                 <div className="hidden lg:block">
                   {!isCheckoutPage && (
@@ -362,7 +349,10 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                       <FaTrash
                         className="cursor-pointer"
                         size={15}
-                        onClick={(e) => {e.stopPropagation(); removeProductFromCart(item.id);}}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          removeProductFromCart(item.id);
+                        }}
                       />
                     </div>
                   )}
@@ -375,5 +365,10 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
     </React.Fragment>
   );
 };
-
 export default CartItems;
+
+
+
+
+
+

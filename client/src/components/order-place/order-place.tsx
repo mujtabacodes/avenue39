@@ -3,7 +3,6 @@ import React from 'react';
 import { IoCloseSharp } from 'react-icons/io5';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import Counter from '../counter';
 
 interface Product {
   id: number;

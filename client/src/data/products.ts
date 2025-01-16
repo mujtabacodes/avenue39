@@ -1,6 +1,5 @@
 import { IProduct } from '@/types/types';
 import productImg1 from '@images/products/imageeee.png';
-import { Description } from '@radix-ui/react-dialog';
 
 export const paymentIcons = [
   { src: '/images/paymentIcons/Mastercard-Logo.webp', alt: 'Mastercard' },
@@ -21,15 +20,29 @@ export const bannerData = {
   buttonText: 'DOWNLOAD ',
   fileUrl: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',    
 };
-export const ColorBannerData = {
-  imageUrl: '/images/catalogue/bannerChirs.png', 
-  imageUrl2: '/images/catalogue/bannerchirs2.png', 
-  TopTitle: 'avenue39',
-  Heading: 'Design Chair',
-  ShortText: 'is simply dummy text',
-  Description: 'Lorem Ipsum has been the industry`s standard dummy text ever since the 1500s, when an unknown printer took',
-
-};
+export const ColorBannerData = [
+  {
+    imageUrl: '/images/catalogue/design_chair1.png',  
+    imageUrl2: '/images/catalogue/design_chair12.png',
+    Heading: 'Design Chair',
+    ShortText: 'is simply dummy text',
+    Description: 'Lorem Ipsum has been the industry`s standard dummy text ever since the 1500s, when an unknown printer took',
+  },
+  {
+    imageUrl: '/images/catalogue/design_chair1.png',  
+    imageUrl2: '/images/catalogue/design_chair12.png',
+    Heading: 'Design Chair',
+    ShortText: 'is simply dummy text',
+    Description: 'Lorem Ipsum has been the industry`s standard dummy text ever since the 1500s, when an unknown printer took',
+  },
+  {
+    imageUrl: '/images/catalogue/design_chair1.png',  
+    imageUrl2: '/images/catalogue/design_chair12.png',
+    Heading: 'Design Chair',
+    ShortText: 'is simply dummy text',
+    Description: 'Lorem Ipsum has been the industry`s standard dummy text ever since the 1500s, when an unknown printer took',
+  }
+];
 
 export interface AdditionalInformation {
   key?: string;

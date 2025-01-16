@@ -11,12 +11,10 @@ import {
   ISocialIcons,
   Feature,
   ISaleItems,
-  IProductCategories,
   ITabbyPayList,
   ITabbyList,
   ITamaraList,
   TimerSliderItem,
-  TPolicySection,
   IProduct,
 } from '@/types/types';
 
@@ -32,7 +30,6 @@ import privacy from '@icons/privacy.png';
 import support from '@icons/chat-46.png';
 import opal from '@images/products/OPALdiningtable_900x900S.png';
 import living from '@images/products/armchair.png';
-import armChair from '@images/products/armchair.png';
 import profileimage1 from '@images/profile/Ellipse 4.png';
 import profileimage2 from '@images/profile/Ellipse 5.png';
 
@@ -47,8 +44,6 @@ import viseCard from '@icons/card.png';
 import gPayCard from '@icons/pngwing.png';
 // import TSImage from '@images/banners/banner1.png';
 import timerImage from '@assets/images/sofa1.png';
-import { TPolicySections } from '@/types/types';
-import { TTermsCondition } from '@/types/types';
 
 export const timerSliderData: TimerSliderItem[] = [
   {
@@ -1156,16 +1151,6 @@ export const features: Feature[] = [
   // Add more feature objects here
 ];
 
-// export const productcetagories: IProductCategories[] = [
-//   { id: 1, name: 'DINNER', totalItems: 12 },
-//   { id: 2, name: 'LIVING', totalItems: 12 },
-//   { id: 3, name: 'BEDROOM', totalItems: 12 },
-//   { id: 4, name: 'CHAIRS', totalItems: 12 },
-//   { id: 5, name: 'TABLES', totalItems: 12 },
-//   { id: 6, name: 'Home OFFICE', totalItems: 12 },
-//   { id: 7, name: 'Home', totalItems: 12 },
-// ];
-
 export const bestSellerProducts: IProduct[] = [
   {
     id: 8,
@@ -1620,3 +1605,4 @@ export const ShippingPolicy = [
     ],
   },
 ];
+

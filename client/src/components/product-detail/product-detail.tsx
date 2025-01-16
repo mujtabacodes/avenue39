@@ -25,8 +25,7 @@ import {
 } from '@/data';
 
 import { IoBagOutline } from 'react-icons/io5';
-import { useDispatch, useSelector } from 'react-redux';
-import { State } from '@/redux/store';
+import { useDispatch } from 'react-redux';
 import { addItem } from '@/redux/slices/cart';
 import { Dispatch } from 'redux';
 import { HiMinusSm, HiPlusSm } from 'react-icons/hi';
@@ -56,13 +55,13 @@ const ProductDetail = ({
   swiperGap?: String;
   detailsWidth?: String;
 }) => {
-  const description: string = '';
-  const [isExpanded, setIsExpanded] = useState(false);
+  // const description: string = '';
+  // const [isExpanded, setIsExpanded] = useState(false);
   const truncateText = (text: any, limit: any) => {
     return text.length > limit ? text.slice(0, limit) + '...' : text;
   };
-  const [hoveredImage, setHoveredImage] = useState<string | null>(null);
-  const cartItems = useSelector((state: State) => state.cart.items);
+  // const [hoveredImage, setHoveredImage] = useState<string | null>(null);
+  // const cartItems = useSelector((state: State) => state.cart.items);
 
   const [count, setCount] = useState(1);
   const dispatch = useDispatch<Dispatch>();
@@ -76,7 +75,6 @@ const ProductDetail = ({
 
   const {
     data: products = [],
-    error,
     isLoading,
   } = useQuery<IProduct[], Error>({
     queryKey: ['products'],
@@ -118,8 +116,6 @@ const ProductDetail = ({
 
   const {
     data: reviews = [],
-    error: reviewError,
-    isLoading: reviewLoading,
   } = useQuery<IReview[], Error>({
     queryKey: ['reviews'],
     queryFn: fetchReviews,
@@ -173,7 +169,7 @@ const ProductDetail = ({
           thumbs={product?.productImages}
           isZoom={isZoom}
           swiperGap={swiperGap}
-          HoverImage={setHoveredImage}
+          // HoverImage={setHoveredImage}
           isLoading={isLoading}
         />
       </div>
@@ -244,9 +240,11 @@ const ProductDetail = ({
           )}
         </div>
         <p className="text-lightdark text-14 tracking-wide leading-6">
-          {isExpanded
-            ? product?.description
-            : truncateText(product?.description, 120)}
+          {
+          // isExpanded
+          //   ? product?.description
+          //   : 
+            truncateText(product?.description, 120)}
         </p>
 
         {product.sale_counter &&

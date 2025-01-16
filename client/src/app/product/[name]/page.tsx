@@ -3,7 +3,6 @@ import Product from '../product';
 import { IProduct, IProductDetail } from '@/types/types';
 import { Metadata } from 'next';
 import { headers } from 'next/headers';
-import axios from 'axios';
 import { ProductDetailSkeleton } from '@/components/product-detail/skelton';
 
 async function fetchProducts() {
@@ -33,15 +32,14 @@ async function fetchReviews() {
   }
   return response.json();
 }
-
 const generateSlug = (text: string) => {
   const formatedSlug = text
     .toString()
     .toLowerCase()
     .trim()
-    .replace(/\s+/g, '-')
-    .replace(/[^\w\-]+/g, '')
-    .replace(/\-\-+/g, '-');
+    .replace(/\s+/g, '-')        
+    .replace(/[^\w-]+/g, '')       
+    .replace(/--+/g, '-');   
 
   return formatedSlug;
 };

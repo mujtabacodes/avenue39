@@ -9,7 +9,6 @@ import axios from 'axios';
 import { Formik, Form } from 'formik';
 import { Category } from '@/types/interfaces';
 import { IoMdArrowRoundBack } from 'react-icons/io';
-
 import { categoryInitialValues, categoryValidationSchema } from '@/data/data';
 import ProtectedRoute from '@/hooks/AuthHookAdmin';
 import Loader from '@components/Loader/Loader';
@@ -40,7 +39,7 @@ const FormLayout = ({
     
   const [loading, setloading] = useState<boolean>(false);
   const [editCategoryName, setEditCategoryName] = useState<Category | null | undefined>(CategoryName);
-
+console.log(setEditCategoryName)
   const onSubmit = async (values: Category, { resetForm }: any) => {
     try {
       setloading(true);
