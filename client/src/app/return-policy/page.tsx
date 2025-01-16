@@ -4,7 +4,7 @@
 import React from 'react';
 import TopHero from '@/components/top-hero';
 import { TReturnPolicybredcrumbs } from '@/data/data';
-import { ReturnPolicy as returnPolicyData } from '@/data'; // Rename the data import to avoid conflict
+import { ReturnPolicy as returnPolicyData } from '@/data';
 import Link from 'next/link';
 import { Metadata } from 'next';
 
