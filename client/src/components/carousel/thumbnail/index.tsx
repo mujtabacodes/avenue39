@@ -203,7 +203,7 @@ const Thumbnail: React.FC<ThumbProps> = ({
                   <SwiperSlide key={index}>
                     <div
                       className={`relative w-full h-full ${isZoom ? (zoomEnabled ? 'cursor-none' : 'cursor-zoom-in') : 'cursor-default'}`}
-                    
+    
                       onMouseMove={handleMouseMove}
                       onMouseLeave={handleMouseLeave}
                       onMouseEnter={(e) =>

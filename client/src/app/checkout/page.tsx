@@ -156,7 +156,7 @@ const Checkout = () => {
                   <div className="space-y-5 mt-10">
                     <div className="flex flex-wrap sm:flex-nowrap md:flex-wrap  xl:flex-nowrap gap-5">
                       <LabelInput
-                        label="First Name"
+                        label="First Name *"
                         id="first_name"
                         name="first_name"
                         type="text"
@@ -165,7 +165,7 @@ const Checkout = () => {
                         value={formik.values.first_name}
                       />
                       <LabelInput
-                        label="Last Name"
+                        label="Last Name *"
                         id="last_name"
                         name="last_name"
                         type="text"
@@ -175,7 +175,7 @@ const Checkout = () => {
                       />
                     </div>
                     <LabelInput
-                      label="Email Address"
+                      label="Email Address *"
                       id="user_email"
                       name="user_email"
                       type="text"
@@ -186,7 +186,7 @@ const Checkout = () => {
 
                     <div className=" flex flex-wrap sm:flex-nowrap md:flex-wrap  xl:flex-nowrap gap-4">
                       <LabelInput
-                        label="Phone Number"
+                        label="Phone Number *"
                         id="phone_number"
                         name="phone_number"
                         type="tel"
@@ -213,10 +213,10 @@ const Checkout = () => {
                     <div className="flex flex-wrap sm:flex-nowrap md:flex-wrap  xl:flex-nowrap gap-2">
                       <div className="flex-1">
                         <Label
-                          htmlFor="country"
+                          htmlFor="country *"
                           className="mb-1 px-8 text-sm font-semibold text-17 text-[#666666]"
                         >
-                          Country/Region
+                          Country/Region *
                         </Label>
                         <Select
                           onValueChange={(value: any) =>
@@ -246,7 +246,7 @@ const Checkout = () => {
                           htmlFor="cit"
                           className="mb-1 px-8 text-sm font-semibold text-17 text-[#666666]"
                         >
-                          State
+                          State *
                         </Label>
                         <Select
                           onValueChange={(value: any) => {
@@ -281,7 +281,7 @@ const Checkout = () => {
                         htmlFor="Notes"
                         className="mb-1 px-8 text-sm font-semibold text-17 text-[#666666] mt-3 "
                       >
-                        Order Notes
+                        Order Notes *
                       </Label>
                       <textarea
                         className="custom-input-bg flex-grow h-32 w-full rounded-3xl bg-[#F6F6F6] mt-2 pt-4 pl-5  pr-4 outline-none py-2 focus:outline-none focus:ring-0 focus:ring-ring text-15 font-medium"

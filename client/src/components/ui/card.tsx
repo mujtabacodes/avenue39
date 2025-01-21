@@ -149,7 +149,7 @@ const Card: React.FC<CardProps> = ({
         ) : (
           <div className='bg-[#E3E4E6] rounded-[35px]'>
             {card.discountPrice > 0 && (
-              <span className="absolute top-[2px] -right-[30px] px-7 bg-[#FF0000] text-white font-bold rotate-45 w-[105px] h-[40px] flex justify-center items-center">
+              <span className="absolute top-[15px] left-3 px-7 bg-[#FF0000] text-white font-bold w-[50px] h-[33px] flex justify-center items-center rounded-full">
                 {Math.round(
                   ((card.price - card.discountPrice) / card.price) * 100,
                 )}
