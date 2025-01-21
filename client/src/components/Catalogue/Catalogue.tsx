@@ -1,10 +1,9 @@
 import { bannerData } from '@/data/products';
-import Image from 'next/image';
 import React from 'react';
 import DemoBook from '../FlipBook/DemoBook';
 
 const Catalogue: React.FC = () => {
-  const { imageUrl, title, buttonText, fileUrl  } = bannerData; 
+  const {  title, buttonText, fileUrl  } = bannerData; 
 
   return (
 //     <section
