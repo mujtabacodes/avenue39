@@ -38,6 +38,8 @@ interface CardProps {
   category?: boolean;
   cardImageHeight?: string;
   slider?: boolean;
+  isHomepage?: boolean;
+  isLandscape?: boolean;
 }
 
 const Card: React.FC<CardProps> = ({
@@ -47,6 +49,8 @@ const Card: React.FC<CardProps> = ({
   skeletonHeight,
   cardImageHeight,
   slider,
+  isHomepage,
+  isLandscape
 }) => {
   const dispatch = useDispatch<Dispatch>();
   const Navigate = useRouter();
@@ -82,6 +86,7 @@ const Card: React.FC<CardProps> = ({
   if (!card) {
     return <CardSkeleton skeletonHeight={skeletonHeight} />;
   }
+  const imgIndex = card.productImages.slice(-1)[0];
   return (
     <div
       className={`text-center product-card  hover:cursor-pointer mb-2 flex flex-col ${slider ? '' : ' justify-between'} h-auto  p-1 rounded-[35px] w-full`}
@@ -89,25 +94,46 @@ const Card: React.FC<CardProps> = ({
       <div className="relative w-full overflow-hidden rounded-[35px]">
         {slider ? (
           <Swiper
-            className="mySwiper overflow-hidden w-full"
-            pagination={true}
+            className="mySwiper overflow-hidden w-full bg-[#E3E4E6] rounded-[35px]"
+            pagination={{
+              clickable: true,
+            }}
+            loop={true}
             modules={[Pagination]}
           >
-            {card.productImages.map((array, index) => (
-              <SwiperSlide key={index} className="w-full bg-[#E3E4E6] rounded-[35px]">
-                <Image
-                  src={array.imageUrl}
-                  alt={array.altText || 'image'}
-                  onClick={() => handleNavigation()}
-                  width={600}
-                  height={600}
-                  className={cn(
-                    'object-cover rounded-[35px] w-full',
-                    className,
-                    skeletonHeight,
-                    cardImageHeight,
-                  )}
-                />
+            {Array(3).fill(null).map((_, index) => (
+              <SwiperSlide key={index} className="w-full">
+                {imgIndex && isLandscape ? (
+                  <div className={`${cardImageHeight} flex justify-center items-center px-2`}>
+                    <Image
+                      src={imgIndex.imageUrl}
+                      alt={imgIndex.altText || 'image'}
+                      onClick={() => handleNavigation()}
+                      width={600}
+                      height={600}
+                      className={cn(
+                        'object-contain rounded-[35px] w-full',
+                        className,
+                      )}
+                      style={{ height: 'calc(100% - 60px)' }}
+                    />
+                  </div>
+                ) : (
+                  <div className={`${cardImageHeight} bg-[#E3E4E6] flex justify-center items-center rounded-[35px] px-4`}>
+                    <Image
+                      src={imgIndex?.imageUrl || ''}
+                      alt={imgIndex?.altText || 'image'}
+                      onClick={() => handleNavigation()}
+                      width={600}
+                      height={600}
+                      className={cn(
+                        'object-contain rounded-[35px] w-full',
+                        className,
+                      )}
+                    />
+                  </div>
+                )}
+
                 {card.discountPrice > 1 && (
                   <span className="absolute top-[3px] -right-[29px] px-7 bg-[#FF0000] text-white font-bold rounded-t-full rounded-tl-full rounded-br-lg rotate-45 w-[105px] h-[40px] flex justify-center items-center">
                     {Math.round(
@@ -118,6 +144,7 @@ const Card: React.FC<CardProps> = ({
                 )}
               </SwiperSlide>
             ))}
+
           </Swiper>
         ) : (
           <div className='bg-[#E3E4E6] rounded-[35px]'>
@@ -129,20 +156,34 @@ const Card: React.FC<CardProps> = ({
                 %
               </span>
             )}
+            {isHomepage ? (
+              <div className={` ${cardImageHeight} flex justify-center items-center`}>
+                <Image
+                  src={card.posterImageUrl}
+                  alt={card.posterImageAltText || card.name}
+                  onClick={() => handleNavigation()}
+                  width={600}
+                  height={600}
+                  className={
+                    'rounded-[35px] w-full px-2 object-contain'
+                  }
+                  style={{ height: 'calc(100% - 40px)'}}
+                />
+              </div>) : (<Image
+                src={card.posterImageUrl}
+                alt={card.posterImageAltText || card.name}
+                onClick={() => handleNavigation()}
+                width={600}
+                height={600}
+                className={cn(
+                  'object-cover rounded-[35px] w-full',
+                  className,
+                  skeletonHeight,
+                  cardImageHeight,
+                )}
+              />)}
 
-            <Image
-              src={card.posterImageUrl}
-              alt={card.posterImageAltText || card.name}
-              onClick={() => handleNavigation()}
-              width={600}
-              height={600}
-              className={cn(
-                'object-cover rounded-[35px] w-full',
-                className,
-                skeletonHeight,
-                cardImageHeight,
-              )}
-            />
+
           </div>
         )}
 
@@ -176,7 +217,7 @@ const Card: React.FC<CardProps> = ({
 
       {isModel ? null : (
         <div
-          className={`text-center flex flex-wrap md:flex-nowrap justify-center gap-1 md:space-y-0 mb-4 ${slider ? 'w-fit mx-auto pt-3' : 'w-full'}`}
+          className={`text-center flex flex-wrap md:flex-nowrap justify-center gap-1 md:space-y-0 mb-4 ${slider ? 'w-fit mx-auto' : 'w-full'}`}
           onClick={(e) => handleEventProbation(e)}
         >
           <button

@@ -232,7 +232,7 @@ const Footer: React.FC = () => {
             </div>
           </div>
           <div className="pt-5 text-black">
-            <SocialLink socialSize="md:text-[25px]" />
+            <SocialLink socialSize="md:text-[25px]" iconColor={'text-black'} />
           </div>
         </div>
       </Container>

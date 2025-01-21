@@ -26,23 +26,23 @@ const CatProduct = ({ reverse, CategoryName, products }: ICatProduct) => {
             {products.length < 1 && Array(5).fill(null).map((_, index) => (
               <ProductSkeleton imageHeight="h-[270px] xl:h-[290px]" key={index} />
             ))}
-            <ProductGrid products={products.slice(0, 5)} CardComponent={Card} imageHeight="h-[270px] xl:h-[290px]" />
+            <ProductGrid products={products.slice(0, 5)} CardComponent={Card} imageHeight="h-[270px] xl:h-[290px]" isHomepage={true} />
           </div>
           <div className="grid grid-cols-12 sm:gap-8">
             <div className={`col-span-12 md:col-span-6 xl:col-span-5 ${reverse ? 'order-2' : 'order-1'}`}>
               {products.length < 5 && (
                 <ProductSkeleton imageHeight="h-[300px] xs:h-[580px] lg:h-[600px] xl:h-[834.46px]" />)}
-              <ProductGrid products={products.slice(5, 6)} CardComponent={Card} slider={true} imageHeight="h-[300px] xs:h-[580px] lg:h-[600px] xl:h-[834.46px]" />
+              <ProductGrid products={products.slice(5, 6)} CardComponent={Card} slider={true} isLandscape={false} imageHeight="h-[300px] xs:h-[580px] lg:h-[600px] xl:h-[834.46px]" />
             </div>
             <div className={`col-span-12 md:col-span-6 xl:col-span-7 ${reverse ? 'order-1' : 'order-2'}`}>
               {products.length < 6 && (
                 <ProductSkeleton imageHeight="h-[200px] xl:h-[345.15px]" />)}
-              <ProductGrid products={products.slice(6, 7)} CardComponent={Card} slider={true} imageHeight="h-[200px] xl:h-[345.15px]" />
+              <ProductGrid products={products.slice(6, 7)} CardComponent={Card} slider={true} isLandscape={true} imageHeight="h-[200px] xl:h-[345.15px]" />
               <div className="grid grid-cols-1 xs:grid-cols-2 xl:grid-cols-3 sm:gap-8">
                 {products.length < 7 && Array(3).fill(null).map((_, index) => (
-                  <ProductSkeleton imageHeight="h-[210px] xl:h-[356.64px]" key={index} />
+                  <ProductSkeleton imageHeight="h-[210px] xl:h-[353.64px]" key={index} />
                 ))}
-                <ProductGrid products={products.slice(7, 10)} CardComponent={Card} imageHeight="h-[210px] xl:h-[356.64px]" />
+                <ProductGrid products={products.slice(7, 10)} CardComponent={Card} isHomepage={true} imageHeight="h-[210px] xl:h-[356.64px]" />
               </div>
             </div>
           </div>
