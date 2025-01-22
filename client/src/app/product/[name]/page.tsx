@@ -4,6 +4,7 @@ import { IProduct, IProductDetail } from '@/types/types';
 import { Metadata } from 'next';
 import { headers } from 'next/headers';
 import { ProductDetailSkeleton } from '@/components/product-detail/skelton';
+import NotFound from '@/app/not-found';
 
 async function fetchProducts() {
   const response = await fetch(
@@ -92,13 +93,23 @@ export async function generateMetadata({
 const ProductPage = async ({ params }: { params: IProductDetail }) => {
   const products = await fetchProducts();
   const reviews = await fetchReviews();
-  const product = products.find((product: IProduct) => {
+  const product: IProduct | undefined = products.find((product: IProduct) => {
     return generateSlug(product.name) === params.name;
   });
-
+  if (!product) {
+   return <NotFound />;
+  }
+  const similarProducts: IProduct[] = products.filter((prod: IProduct) => {
+    const hasMatchingCategory = (prod.categories ?? []).some((prodCategory) =>
+      (product.categories ?? []).some((productCategory) => 
+        prodCategory.name === productCategory.name
+      )
+    );
+    return hasMatchingCategory && prod.id !== product.id;
+  });
   return (
     <Suspense fallback={<ProductDetailSkeleton />}>
-      <Product params={params} reviews={reviews} product={product} />
+      <Product params={params} similarProducts={similarProducts} reviews={reviews} product={product} />
     </Suspense>
   );
 };

@@ -26,7 +26,9 @@ interface ProductPageProps {
   sideBannerProduct?: string;
   productBanner: ReactNode;
   layout: string;
+/* eslint-disable */
   Setlayout: (layout: string) => void;
+  /* eslint-enable */
   fullUrl?: string;
 }
 
@@ -161,10 +163,12 @@ const ProductPage = ({
     }
   }, 200);
 
+
+
   const filteredCards = products
   .filter((card) => {
     if (pathname === '/products') {
-      return card.discountPrice > 0;
+      return card.discountPrice > 0 && card.stock > 0;
     }
     return true;
   })
@@ -197,7 +201,7 @@ const ProductPage = ({
         return 0;
     }
   });
-
+  console.log(filteredCards,"filteredCards")
   return (
     <>
       <TopHero

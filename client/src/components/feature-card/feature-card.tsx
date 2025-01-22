@@ -112,11 +112,11 @@ const FeatureCard: React.FC<CardProps> = ({
   };
 
   return (
-    <div className="space-y-3 px-4 relative ">
+    <div className="space-y-3 px-4 relative">
       {loading ? (
         <Skeleton className={cardHeight} />
       ) : (
-        <div className="relative group">
+        <div className="relative group overflow-hidden rounded-2xl">
           <div onClick={handleAddToCard} className=" w-10 h-10 absolute right-4 top-4 rounded-xl  flex justify-center items-center border bg-white hover:border-main hover:bg-main hover:text-white  cursor-pointer">
             <IoBagOutline size={20} />
           </div>
@@ -150,11 +150,8 @@ const FeatureCard: React.FC<CardProps> = ({
           )}
           </div>
           {card.discountPrice > 0 && (
-            <div className="bg-[#FF0000] h-auto py-2 px-4 rounded-3xl absolute top-4 left-4 flex justify-center items-center cursor-pointer">
-              <p className="text-15 text-white">
-              {(Math.round(((card.price - card.discountPrice) / card.price) * 100))}%
-              </p>
-            </div>
+            <div className="absolute -top-1 -left-11 px-7 transform -rotate-45 bg-[#FF0000] text-white text-14 font-bold w-[120px] h-[40px] flex justify-center items-center">
+              {(Math.round(((card.price - card.discountPrice) / card.price) * 100))}%</div>
           )}
 
           <div onClick={() => handleNavigation()} className="cursor-pointer">
