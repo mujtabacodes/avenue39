@@ -11,7 +11,7 @@ import { Table } from 'antd';
 import { Skeleton } from '@/components/ui/skeleton';
 import NoProduct from '@/components/ui/no-product';
 
-const Product = ({ params, reviews , product }: { params: IProductDetail, reviews: IReview[] , product: IProduct }) => {
+const Product = ({ params, similarProducts , reviews , product }: { params: IProductDetail, reviews: IReview[] , product: IProduct , similarProducts: IProduct[] }) => {
   const slug = params.name;
   console.log(slug);
   console.log(reviews, 'reviews')
@@ -267,9 +267,7 @@ const Product = ({ params, reviews , product }: { params: IProductDetail, review
           {/* <p className="text-2xl font-medium text-center mb-4 sm:mb-0">
             Similar Products
           </p> */}
-          <FeatureSlider 
-          
-          />
+          <FeatureSlider similarProducts={similarProducts} />
         </Container>
       </div>
       <Services />

@@ -55,9 +55,9 @@ const Cart = () => {
           </div>
         )}
       </Container>
-      <Container className="mt-10 mb-20">
+      <Container className="my-10">
         <p className="text-[51px] font-medium text-center">Similar Products</p>
-        <FeatureSlider />
+        <FeatureSlider title={false} />
       </Container>
       <Services />
     </>
