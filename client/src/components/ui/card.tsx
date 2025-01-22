@@ -95,7 +95,7 @@ const Card: React.FC<CardProps> = ({
     <div
       className={`text-center product-card  hover:cursor-pointer mb-2 flex flex-col ${slider ? '' : ' justify-between'} h-auto  p-1 rounded-[35px] w-full`}
     >
-      <div className="relative w-full overflow-hidden rounded-[35px]">
+      <div className="relative w-full overflow-hidden rounded-[35px] group">
         {slider ? (
           <Swiper
             className="mySwiper overflow-hidden w-full bg-[#E3E4E6] rounded-[35px]"
@@ -105,7 +105,7 @@ const Card: React.FC<CardProps> = ({
             loop={true}
             modules={[Pagination]}
           >
-            {Array(3).fill(null).map((_, index) => (
+            {Array(2).fill(null).map((_, index) => (
               <SwiperSlide key={index} className="w-full">
                 {imgIndex && isLandscape ? (
                   <div className={`${cardImageHeight} flex justify-center items-center px-2`}>
@@ -153,7 +153,7 @@ const Card: React.FC<CardProps> = ({
         ) : (
           <div className='bg-[#E3E4E6] rounded-[35px]'>
             {card.discountPrice > 0 && (
-              <span className="absolute top-[2px] -right-[30px] px-7 bg-[#FF0000] text-white font-bold rotate-45 w-[105px] h-[40px] flex justify-center items-center">
+              <span className="absolute top-[15px] left-3 px-7 bg-[#FF0000] text-white font-bold w-[50px] h-[33px] flex justify-center items-center rounded-full">
                 {Math.round(
                   ((card.price - card.discountPrice) / card.price) * 100,
                 )}
@@ -186,23 +186,21 @@ const Card: React.FC<CardProps> = ({
                   cardImageHeight,
                 )}
               />)}
-
-
           </div>
         )}
 
         <div className="space-y-3" onClick={() => handleNavigation()}>
-          <h3 className="text-sm md:text-[22px] text-gray-600 font-Helveticalight mt-2">
+          <h3 className="text-sm md:text-[22px] text-gray-600 font-Helveticalight mt-2 group-hover:font-bold group-hover:text-black">
             {card.name}
           </h3>
           <div>
             {card.discountPrice > 0 ? (
               <div className="flex gap-2 justify-center">
                 <p className="text-sm md:text-18 font-bold line-through font-Helveticalight">
-                  AED<span>{card.price}</span>
+                  AED <span>{card.price}</span>
                 </p>
                 <p className="text-sm md:text-18 font-bold text-[#FF0000]">
-                  AED<span>{card.discountPrice}</span>
+                  AED <span>{card.discountPrice}</span>
                 </p>
               </div>
             ) : (
