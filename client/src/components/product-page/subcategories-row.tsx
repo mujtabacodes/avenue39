@@ -77,12 +77,11 @@ const SubCategoriesRow = () => {
         {subCategory.map((category, index) => (
           <SwiperSlide
             key={index}
-            className="text-center bg-[#afa183] rounded-lg py-2 px-2 text-white whitespace-nowrap w-full "
           >
             <Link
               href={`${generateSlug(category.title) === 'sale' ? '/products' : `/products/${generateSlug(category.title)}/?id=${category.categoryId}`}`}
               key={category.categoryId}
-              className="w-full "
+              className="w-full text-center whitespace-nowrap bg-[#afa183] rounded-lg py-2 px-2 text-white block"
             >
               <span>{category.title}</span>
             </Link>
