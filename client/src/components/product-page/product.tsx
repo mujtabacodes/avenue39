@@ -21,15 +21,12 @@ import { IProduct } from '@/types/types';
 import { fetchProducts } from '@/config/fetch';
 import { StaticImageData } from 'next/image';
 import SubCategoriesRow from './subcategories-row';
-
 interface ProductPageProps {
   sideBanner: StaticImageData | undefined;
   sideBannerProduct?: string;
   productBanner: ReactNode;
   layout: string;
-  /* eslint-disable */
   Setlayout: (layout: string) => void;
-  /* eslint-enable */
   fullUrl?: string;
 }
 
@@ -48,7 +45,6 @@ const ProductPage = ({
   const [selectedSubCategoriesName, setSelectedSubCategoriesName] = useState<
     string | undefined
   >();
-  // const [priceRange, setPriceRange] = useState<[number, number]>([0, 10000]);
   const [sortOption, setSortOption] = useState<string>('default');
   const [category, setCategory] = useState<any[]>([]);
   const [filterLoading, setFilterLoading] = useState<boolean>(true);
@@ -166,40 +162,41 @@ const ProductPage = ({
   }, 200);
 
   const filteredCards = products
-    .filter((card) => {
-      if (selectedSubCategories.length > 0) {
-        return card.subcategories?.some((sub) =>
-          selectedSubCategories.includes(`SUB_${sub.name.toUpperCase()}`),
-        );
+  .filter((card) => {
+    if (pathname === '/products') {
+      return card.discountPrice > 0;
+    }
+    return true;
+  })
+  .filter((card) => {
+    if (selectedSubCategories.length > 0) {
+      return card.subcategories?.some((sub) =>
+        selectedSubCategories.includes(`SUB_${sub.name.toUpperCase()}`),
+      );
+    }
+    return selectedCategories.length > 0
+      ? card.categories?.some((cat) => selectedCategories.includes(cat.name))
+      : true;
+  })
+  .sort((a, b) => {
+    switch (sortOption) {
+      case 'name': {
+        return a.name.trim().localeCompare(b.name.trim());
       }
-      return selectedCategories.length > 0
-        ? card.categories?.some((cat) => selectedCategories.includes(cat.name))
-        : true;
-    })
-    // .filter((card) => {
-    //   const priceToCheck =
-    //     card.discountPrice > 0 ? card.discountPrice : card.price;
-    //   return priceToCheck >= priceRange[0] && priceToCheck <= priceRange[1];
-    // })
-    .sort((a, b) => {
-      switch (sortOption) {
-        case 'name': {
-          return a.name.trim().localeCompare(b.name.trim());
-        }
-        case 'max': {
-          const priceA = a.discountPrice > 0 ? a.discountPrice : a.price;
-          const priceB = b.discountPrice > 0 ? b.discountPrice : b.price;
-          return priceB - priceA;
-        }
-        case 'min': {
-          const minPriceA = a.discountPrice > 0 ? a.discountPrice : a.price;
-          const minPriceB = b.discountPrice > 0 ? b.discountPrice : b.price;
-          return minPriceA - minPriceB;
-        }
-        default:
-          return 0;
+      case 'max': {
+        const priceA = a.discountPrice > 0 ? a.discountPrice : a.price;
+        const priceB = b.discountPrice > 0 ? b.discountPrice : b.price;
+        return priceB - priceA;
       }
-    });
+      case 'min': {
+        const minPriceA = a.discountPrice > 0 ? a.discountPrice : a.price;
+        const minPriceB = b.discountPrice > 0 ? b.discountPrice : b.price;
+        return minPriceA - minPriceB;
+      }
+      default:
+        return 0;
+    }
+  });
 
   return (
     <>

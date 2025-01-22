@@ -251,8 +251,8 @@ const Navbar = () => {
             </form>
           </div>
         </div>
-        <div className="gap-3 lg:gap-3 flex justify-end items-center w-2/12">
-          <div className="hidden md:flex justify-between gap-3 lg:gap-1 items-center relative">
+        <div className="gap-3 lg:gap-3 flex justify-end items-center w-2/12 px-2">
+          <div className="hidden md:flex justify-between gap-1 lg:gap-1 items-center relative">
             <Wishlist />
             <CartItems />
           </div>
