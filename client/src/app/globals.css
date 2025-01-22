@@ -323,3 +323,7 @@ color: white;
     left: 0 !important;
    }
  }
+
+ .ant-progress.ant-progress-status-success .ant-progress-bg{
+  height: 25px !important;
+ }
