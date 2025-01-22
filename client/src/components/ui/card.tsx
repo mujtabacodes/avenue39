@@ -139,7 +139,7 @@ const Card: React.FC<CardProps> = ({
                 )}
 
                 {card.discountPrice > 1 && (
-                  <span className="absolute top-[3px] -right-[29px] px-7 bg-[#FF0000] text-white font-bold rounded-t-full rounded-tl-full rounded-br-lg rotate-45 w-[105px] h-[40px] flex justify-center items-center">
+                  <span className="absolute top-1 -left-9 px-7 transform -rotate-45 bg-[#FF0000] text-white text-14 font-bold w-[120px] h-[40px] flex justify-center items-center">
                     {Math.round(
                       ((card.price - card.discountPrice) / card.price) * 100,
                     )}
@@ -153,7 +153,7 @@ const Card: React.FC<CardProps> = ({
         ) : (
           <div className='bg-[#E3E4E6] rounded-[35px]'>
             {card.discountPrice > 0 && (
-              <span className="absolute top-[15px] left-3 px-7 bg-[#FF0000] text-white font-bold w-[50px] h-[33px] flex justify-center items-center rounded-full">
+              <span className="absolute top-1 -left-9 px-7 transform -rotate-45 bg-[#FF0000] text-white text-14 font-bold w-[120px] h-[40px] flex justify-center items-center">
                 {Math.round(
                   ((card.price - card.discountPrice) / card.price) * 100,
                 )}
