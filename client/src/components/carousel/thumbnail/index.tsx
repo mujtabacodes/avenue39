@@ -28,7 +28,6 @@ interface ThumbProps {
   thumbs: IMAGE_INTERFACE[];
   isZoom?: Boolean;
   swiperGap?: String;
-  imageUrl: string;
   altText?: string;
   isLoading: boolean;
 }
@@ -37,7 +36,8 @@ const Thumbnail: React.FC<ThumbProps> = ({
   thumbs,
   isZoom,
   swiperGap,
-  isLoading, altText
+  isLoading,
+   altText
 }) => {
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
   const [loading, setLoading] = useState(true);
