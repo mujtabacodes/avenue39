@@ -11,7 +11,7 @@ import { Table } from 'antd';
 import { Skeleton } from '@/components/ui/skeleton';
 import NoProduct from '@/components/ui/no-product';
 
-const Product = ({ params, reviews , product }: { params: IProductDetail, reviews: IReview[] , product: IProduct }) => {
+const Product = ({ params, similarProducts , reviews , product }: { params: IProductDetail, reviews: IReview[] , product: IProduct , similarProducts: IProduct[] }) => {
   const slug = params.name;
   console.log(slug);
   console.log(reviews, 'reviews')
@@ -62,9 +62,9 @@ const Product = ({ params, reviews , product }: { params: IProductDetail, review
     {
       label: 'Description',
       content: (
-        <div className="p-2 flex flex-col md:flex-row gap-6 md:gap-10">
-          <div className="w-full md:w-3/5">
-            <p className="text-slate-400 text-17 font-normal leading-7">
+        <div className=" flex flex-col md:flex-row gap-6 md:gap-10 border shadow-sm rounded-2xl max-w-screen-sm ">
+          <div className="w-full p-2">
+            <p className="text-slate-400 text-14 md:text-17 font-normal leading-7">
               <Skeleton className="text-slate-400 text-17 font-normal leading-7" />
               {product?.description ? (
                 product.description
@@ -267,9 +267,7 @@ const Product = ({ params, reviews , product }: { params: IProductDetail, review
           {/* <p className="text-2xl font-medium text-center mb-4 sm:mb-0">
             Similar Products
           </p> */}
-          <FeatureSlider 
-          
-          />
+          <FeatureSlider similarProducts={similarProducts} />
         </Container>
       </div>
       <Services />

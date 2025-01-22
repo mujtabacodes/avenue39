@@ -15,7 +15,7 @@ function CustomButtom({
   return (
     <Button
       onClick={onClick}
-      className={` w-full rounded-none uppercase py-7  ${variant == 'light' ? 'bg-[#EBEBEB] text-[#000000] hover:bg-[#e4e4e4ce]' : 'bg-[#000000] text-[#FFFFFF] hover:bg-[#000000ef]'} ${className}`}
+      className={` w-full rounded-none uppercase py-6  ${variant == 'light' ? 'bg-[#EBEBEB] text-[#000000] hover:bg-[#e4e4e4ce]' : 'bg-[#000000] text-[#FFFFFF] hover:bg-[#000000ef]'} ${className}`}
     >
       {children}
     </Button>
