@@ -8,9 +8,12 @@ interface ProductGridProps {
   slider?: boolean; // Whether
   isHomepage?: boolean;
   isLandscape?: boolean;
+  calculateHeight?: string;
+  portSpace?: string
+
 }
 
-const ProductGrid: React.FC<ProductGridProps> = ({ products, CardComponent, imageHeight,slider , isHomepage , isLandscape }) => {
+const ProductGrid: React.FC<ProductGridProps> = ({ products, CardComponent, imageHeight,slider , isHomepage, calculateHeight , portSpace , isLandscape }) => {
   return (
     <>
       {products.map((product, index) => (
@@ -23,6 +26,8 @@ const ProductGrid: React.FC<ProductGridProps> = ({ products, CardComponent, imag
           cardImageHeight={imageHeight}
           isHomepage={isHomepage}
           isLandscape={isLandscape}
+          calculateHeight={calculateHeight}
+          portSpace={portSpace}
         />
       ))}
     </>

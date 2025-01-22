@@ -40,6 +40,8 @@ interface CardProps {
   slider?: boolean;
   isHomepage?: boolean;
   isLandscape?: boolean;
+  calculateHeight?: string;
+  portSpace?: string;
 }
 
 const Card: React.FC<CardProps> = ({
@@ -50,7 +52,9 @@ const Card: React.FC<CardProps> = ({
   cardImageHeight,
   slider,
   isHomepage,
-  isLandscape
+  isLandscape,
+  calculateHeight,
+  portSpace
 }) => {
   const dispatch = useDispatch<Dispatch>();
   const Navigate = useRouter();
@@ -115,11 +119,11 @@ const Card: React.FC<CardProps> = ({
                         'object-contain rounded-[35px] w-full',
                         className,
                       )}
-                      style={{ height: 'calc(100% - 60px)' }}
+                      style={{ height: calculateHeight ? calculateHeight : 'calc(100% - 20px)' }}
                     />
                   </div>
                 ) : (
-                  <div className={`${cardImageHeight} bg-[#E3E4E6] flex justify-center items-center rounded-[35px] px-4`}>
+                  <div className={`${cardImageHeight} bg-[#E3E4E6] flex justify-center items-center rounded-[35px] ${portSpace ? portSpace : 'px-2'}`}>
                     <Image
                       src={imgIndex?.imageUrl || ''}
                       alt={imgIndex?.altText || 'image'}
@@ -167,7 +171,7 @@ const Card: React.FC<CardProps> = ({
                   className={
                     'rounded-[35px] w-full px-2 object-contain'
                   }
-                  style={{ height: 'calc(100% - 40px)'}}
+                  style={{ height: calculateHeight ? calculateHeight : 'calc(100% - 20px)'}}
                 />
               </div>) : (<Image
                 src={card.posterImageUrl}
