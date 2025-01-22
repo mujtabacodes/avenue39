@@ -22,7 +22,6 @@ export interface IMAGE_INTERFACE {
   imageUrl?: string;
   name?: string;
   altText?: string;
-  className?: string;
 }
 
 interface ThumbProps {
@@ -31,7 +30,6 @@ interface ThumbProps {
   swiperGap?: String;
   HoverImage?: React.Dispatch<SetStateAction<string | null>>;
   isLoading: boolean;
-  className?: string;
 }
 
 const Thumbnail: React.FC<ThumbProps> = ({
@@ -40,7 +38,6 @@ const Thumbnail: React.FC<ThumbProps> = ({
   swiperGap,
   HoverImage,
   isLoading,
-  className,
 }) => {
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
 
