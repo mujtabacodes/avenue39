@@ -3,6 +3,7 @@ import HTMLFlipBook from "react-pageflip";
 import PageCover from "./PageCover";
 import { bookData as originalBookData } from "@/data/bookData"; 
 import FlipsPage from "./FlipsPage";
+import Image from "next/image";
 // import { BsFillArrowLeftCircleFill, BsFillArrowRightCircleFill } from "react-icons/bs";
 
 interface DemoBookState {
@@ -93,11 +94,11 @@ class DemoBook extends Component<{}, DemoBookState> {
           {bookData.map((page: any, index: number) =>
             page.type === "cover" ? (
               <PageCover key={index}>
-                <img width={450} height={600} src={page.image} alt={page.content} className="shadow-md" /> 
+                <Image width={450} height={600} src={page.image} alt={page.content} className="shadow-md" /> 
               </PageCover>
             ) : (
               <FlipsPage key={index} number={page.number}>
-                <img width={450} height={600} src={page.image} alt={page.content} /> 
+                <Image width={450} height={600} src={page.image} alt={page.content} /> 
               </FlipsPage>
             )
           )}
