@@ -69,7 +69,7 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
   const handleLeaveDrawer = () => {
     timeoutRef.current = setTimeout(() => {
       dispatch(closeDrawer());
-    }, 8000000);
+    }, 8000);
   };
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
