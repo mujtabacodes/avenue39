@@ -63,7 +63,7 @@ const Product = ({ params, reviews , product }: { params: IProductDetail, review
       label: 'Description',
       content: (
         <div className="p-2 flex flex-col md:flex-row gap-6 md:gap-10">
-          <div className="w-full md:w-3/5">
+          <div className="w-full md:w-3/5 border rounded-2xl shadow-sm p-2">
             <p className="text-slate-400 text-17 font-normal leading-7">
               <Skeleton className="text-slate-400 text-17 font-normal leading-7" />
               {product?.description ? (

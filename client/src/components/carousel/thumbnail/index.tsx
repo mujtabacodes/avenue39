@@ -158,7 +158,7 @@ const Thumbnail: React.FC<ThumbProps> = ({
               </Swiper>
             )}
             <div
-              className="absolute -bottom-5 right-36 md:right-1/2 z-10 cursor-pointer bg-[#F6F6F6] w-12 h-12 flex justify-center items-center"
+              className="absolute -bottom-5 !right-36 md:!right-10 z-10 cursor-pointer bg-[#F6F6F6] w-12 h-12 flex justify-center items-center"
               // onClick={() => scrollToSlide('up')}
               onClick={scrollToNextImage}
             >
@@ -203,7 +203,7 @@ const Thumbnail: React.FC<ThumbProps> = ({
                   <SwiperSlide key={index}>
                     <div
                       className={`relative w-full h-full ${isZoom ? (zoomEnabled ? 'cursor-none' : 'cursor-zoom-in') : 'cursor-default'}`}
-                    
+    
                       onMouseMove={handleMouseMove}
                       onMouseLeave={handleMouseLeave}
                       onMouseEnter={(e) =>

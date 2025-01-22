@@ -38,9 +38,9 @@ const NewArrival = () => {
                 <Image
                   src={item.imageSrc}
                   alt={item.productName}
-                  className="w-full h-full"
-                  height={400}
-                  width={400}
+                  className="w-full h-full object-contain md:h-[400px]"
+                  height={600}
+                  width={600}
                 />
               </div>
             </Container>
