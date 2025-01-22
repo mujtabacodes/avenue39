@@ -48,7 +48,7 @@ const ProductPage = ({
   const [sortOption, setSortOption] = useState<string>('default');
   const [category, setCategory] = useState<any[]>([]);
   const [filterLoading, setFilterLoading] = useState<boolean>(true);
-
+  console.log(layout,"layout")
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const fetchCategoryData = async () => {
