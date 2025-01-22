@@ -10,7 +10,7 @@ import { SaleBannerData } from '@/data/data';
 
 const NewArrival = () => {
   return (
-    <section className="bg-lightbackground my-8">
+    <section className="bg-lightbackground my-8 rounded-2xl">
       <Swiper
         modules={[Pagination]}
         pagination={{ clickable: true }}
@@ -26,7 +26,7 @@ const NewArrival = () => {
                   <Link
                     href={item.link}
                     target="_blank"
-                    className="border border-[#707070] text-[#707070] font-thin font-Helveticalight px-2 py-1 rounded-full hover:bg-main hover:text-white transition text-base sm:text-2xl lg:text-3xl bg-white"
+                    className="border border-[#707070] text-[#707070] font-thin font-Helveticalight px-2 py-1 rounded-2xl hover:bg-main hover:text-white transition text-base sm:text-2xl lg:text-3xl bg-white"
                   >
                     {item.title}
                   </Link>

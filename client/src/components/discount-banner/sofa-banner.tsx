@@ -1,7 +1,7 @@
 'use client';
 import React, { useRef } from 'react';
 import Image from 'next/image';
-import sofa1 from '@assets/images/banners/fdsdf.webp';
+import sofa1 from '@assets/images/banners/fdsdf.png';
 import banner2 from '@assets/images/banners/laptop-table.jpg';
 import banner3 from '@assets/images/banners/freepik__enhance__60779.webp';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -92,8 +92,10 @@ const SofaBanner: React.FC = () => {
   };
 
   return (
-    <section className="grid grid-cols-1 lg:grid-cols-2  gap-4 relative px-2 md:px-0 md:mt-10">
-    <div className="sofa_slider1">
+    <section className="grid grid-cols-1 lg:grid-cols-2  gap-4 relative px-2 md:px-0 mt-2">
+    <div className="sofa_slider1 bg-lightforeground max-xs:rounded-2xl xs:rounded-r-2xl" 
+        onMouseEnter={handleMouseEnter} 
+        onMouseLeave={handleMouseLeave}>
     <Swiper
         ref={swiperRef}
         modules={[Autoplay, Pagination]}
@@ -110,12 +112,12 @@ const SofaBanner: React.FC = () => {
       >
         {sofaData_slides.map((slide) => (
           <SwiperSlide key={slide.id}>
-            <div className="bg-lightforeground max-xs:rounded-2xl xs:rounded-r-2xl flex flex-wrap items-center ps-5 xs:px-10 sm:ps-20 2xl:ps-32 min-h-[530px] 2xl:h-[740px]">
+            <div className="flex flex-wrap items-center ps-5 xs:px-10 sm:ps-20 md:ps-6 lg:ps-8 3xl:ps-32 h-[600px]">
               {/* Text Content */}
               <div className="w-full xs:w-1/3 max-xs:text-center max-xs:pt-5">
                 <div>
                 <Link href={slide.link}
-                      className="py-1 px-3 bg-white text-[14px] md:text-2xl lg:text-sm xl:text-xl 2xl:text-2xl rounded-full text-black border border-gray-500 hover:bg-main font-Helveticalight" >
+                      className="py-1 px-3 block w-fit mx-auto xs:mx-0 bg-white text-[14px] md:text-2xl lg:text-sm xl:text-xl 2xl:text-3xl rounded-2xl text-black border border-gray-500 hover:bg-main font-Helveticalight" >
                      Shop Best Sellers
                     </Link>
                   <h3 className="font-bold text-16 mt-3">
@@ -157,7 +159,7 @@ const SofaBanner: React.FC = () => {
   >
     {sliderDataa_sofa.map((item) => (
       <SwiperSlide key={item.id}>
-        <div className="grid grid-cols-1 gap-4 min-h-[530px]">
+        <div className="grid grid-cols-1 gap-4 h-[600px]">
           {item.slides.map((slide, index) => (
             <div
               key={index}
@@ -169,7 +171,7 @@ const SofaBanner: React.FC = () => {
                 backgroundPosition: 'center',
               }}
             >
-              <div className="flex justify-center items-center bg-[#0000004d] w-full h-full rounded-2xl 2xl:h-[360px]">
+              <div className="flex justify-center items-center bg-[#0000004d] w-full h-full rounded-2xl">
                 <div className="text-center">
                   {slide.buttonPosition === 'top' && (
                       <Link
