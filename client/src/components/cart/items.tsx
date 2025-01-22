@@ -338,6 +338,7 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                       <p className="text-14 xs:text-16 xl:text-[20px] font-bold text-center w-full pl-20">AED <span>{item?.price * item.quantity}</span></p>
                     </>
                   )}
+                  <div>
                   {!isCheckoutPage && (
                     <div className="flex items-center gap-2">
                       {/* <Link href={`/product/${generateSlug(item.name)}`}>
@@ -353,6 +354,7 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                       />
                     </div>
                   )}
+                    </div>
                 </div>
               </div>
             </div>
