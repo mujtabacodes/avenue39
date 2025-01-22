@@ -24,7 +24,7 @@ const DetailTabs: FC<DetailTabsProps> = ({ tabs }) => {
               key={index}
               className={`focus:outline-none whitespace-nowrap text-16 xs:text-lg ${
                 activeTab === index
-                  ? 'text-black relative font-medium'
+                  ? 'text-slate-400 rounded-t-md relative font-medium'
                   : 'text-slate-400'
               }`}
               onClick={() => setActiveTab(index)}
@@ -32,7 +32,7 @@ const DetailTabs: FC<DetailTabsProps> = ({ tabs }) => {
               {activeTab === index && (
                 <TiArrowSortedUp
                   size={30}
-                  className="absolute -bottom-12 left-1/2 -translate-x-1/2 hidden xs:block"
+                  className="absolute rounded-t-md -bottom-12 left-1/2 -translate-x-1/2 hidden xs:block"
                 />
               )}
             </button>
@@ -40,9 +40,9 @@ const DetailTabs: FC<DetailTabsProps> = ({ tabs }) => {
         </div>
       </Container>
       {/* Tab Content */}
-      <div className="border-t-[1px] pt-6">
+      <div className="border-t-[1px]">
         <Container className="px-4">
-          <div className="w-full sm:w-2/3 lg:w-3/4 px-4">
+          <div className="w-full sm:w-2/3 lg:w-3/4 sm:px-4">
             {tabs[activeTab].content}            
           </div>
           <div className="w-full relative mt-10">

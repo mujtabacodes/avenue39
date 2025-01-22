@@ -479,13 +479,6 @@ export const categories: any = [
 
 export const SaleBannerData = [
   {
-    title: "Shop New Arrivals",
-    link: "/product/skanda-coffee-table",
-    productName: "Skanda Coffee Table",
-    price: "AED 2,450",
-    imageSrc: "/images/salebanner/nostream.png",
-  },
-  {
     title: "Shop Featured Products",
     link: "/product/lucius-coffee-table-set",
     productName: "Lucius Coffee Table Set",
