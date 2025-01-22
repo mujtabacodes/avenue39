@@ -113,10 +113,10 @@ const LandscapeCard: React.FC<CardProps> = ({ card, isLoading }) => {
 
   return (
     <div
-      className="rounded-2xl text-center relative product-card mx-2 group flex gap-4 items-center flex-col sm:flex-row cursor-pointer"
+      className="rounded-2xl text-center relative product-card mx-2 group flex gap-4 items-center flex-col sm:flex-row cursor-pointer w-full"
       onClick={() => handleNavigation()}
     >
-      <div className="relative w-fit mx-auto sm:w-5/12 md:w-4/12 lg:w-5/12">
+      <div className="relative w-fit mx-auto sm:w-5/12 md:w-4/12 lg:w-5/12 overflow-hidden rounded-xl">
         {/* <div className="bg-white rounded-full absolute top-4 right-6 flex flex-col gap-2 py-2 px-1 product-hover-icons z-[1] opacity-0 group-hover:opacity-100 transition-opacity">
           <PiEyeThin size={17} className="cursor-pointer" />
           <CiHeart size={18} className="cursor-pointer" />
@@ -136,7 +136,7 @@ const LandscapeCard: React.FC<CardProps> = ({ card, isLoading }) => {
           />
         )}
         {card.discountPrice > 0 && !loading && (
-          <span className="absolute top-4 left-4 text-white text-xs font-light bg-red-500 rounded-full w-14 h-6 flex justify-center items-center">
+          <span className="absolute -top-1 -left-11 px-7 transform -rotate-45 bg-[#FF0000] text-white text-14 font-bold w-[120px] h-[40px] flex justify-center items-center">
             {(Math.round(((card.price - card.discountPrice) / card.price) * 100))}%
           </span>
         )}
