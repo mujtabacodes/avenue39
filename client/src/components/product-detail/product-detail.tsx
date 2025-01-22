@@ -40,6 +40,7 @@ import Product3D from '../3DView/Product3D';
 import ARExperience from '../ARModelViewer';
 import { paymentIcons } from '@/data/products';
 import { ProductDetailSkeleton } from './skelton';
+import { message } from 'antd';
 
 const ProductDetail = ({
   params,
@@ -144,7 +145,11 @@ const ProductDetail = ({
   };
 
   const onIncrement = () => {
-    setCount((prevCount) => prevCount + 1);
+    if (count < product.stock) {
+      setCount((prevCount) => prevCount + 1);
+    } else {
+      message.info(`Only ${product.stock} items in stock!`, 1); // Show warning for 2 seconds
+    }
   };
   const itemToAdd: CartItem = {
     ...product,
@@ -287,7 +292,6 @@ const ProductDetail = ({
             <span className="mx-2">{count}</span>
             <button
               onClick={onIncrement}
-              disabled={product.stock <= count}
               className="px-2 text-gray-600 disabled:text-gray-300"
             >
               <HiPlusSm size={20} />
@@ -553,7 +557,7 @@ const ProductDetail = ({
             </p>
           </div>
         </div>
-        <div className="flex justify-between space-x-4">
+        <div className="flex justify-center space-x-4">
           {paymentIcons.map((icon, index) => (
             <div key={index} className="w-14 h-auto p-1">
               <Image

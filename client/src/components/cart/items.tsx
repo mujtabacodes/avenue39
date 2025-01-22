@@ -69,7 +69,7 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
   const handleLeaveDrawer = () => {
     timeoutRef.current = setTimeout(() => {
       dispatch(closeDrawer());
-    }, 8000);
+    }, 8000000);
   };
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -146,8 +146,8 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                 </div>
               </div>
             ) : (
-<Fragment>
-                <div className="flex-1 overflow-auto mr-6 scrollbar-hidden">
+          <Fragment>
+                <div className="flex-1 overflow-x-auto mr-6 custom-scroll">
                   <ul className="space-y-4">
                     {cartItems.map((item: any) => (
                       <li

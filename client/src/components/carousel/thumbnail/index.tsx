@@ -22,6 +22,7 @@ export interface IMAGE_INTERFACE {
   imageUrl?: string;
   name?: string;
   altText?: string;
+  className?: string;
 }
 
 interface ThumbProps {
@@ -30,6 +31,7 @@ interface ThumbProps {
   swiperGap?: String;
   HoverImage?: React.Dispatch<SetStateAction<string | null>>;
   isLoading: boolean;
+  className?: string;
 }
 
 const Thumbnail: React.FC<ThumbProps> = ({
@@ -38,6 +40,7 @@ const Thumbnail: React.FC<ThumbProps> = ({
   swiperGap,
   HoverImage,
   isLoading,
+  className,
 }) => {
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
 
@@ -145,6 +148,7 @@ const Thumbnail: React.FC<ThumbProps> = ({
                   <SwiperSlide
                     key={index}
                     className="column-swiper-slider swiper-slide"
+                    
                   >
                     <Image
                       className={`rounded-lg shadow-md aspect-square ${isZoom ? 'md:h-[120px] 2xl:h-[160px] md:w-[120px] 2xl:w-[160px]' : 'h-[130px] w-[130px]'}`}
@@ -158,7 +162,7 @@ const Thumbnail: React.FC<ThumbProps> = ({
               </Swiper>
             )}
             <div
-              className="absolute -bottom-5 !right-36 md:!right-10 z-10 cursor-pointer bg-[#F6F6F6] w-12 h-12 flex justify-center items-center"
+              className={`absolute -bottom-3   transform -translate-x-1/2  z-20 cursor-pointer bg-[#F6F6F6] w-12 h-12 flex justify-center items-center ${isZoom == false ? "!left-1/2" : "!left-[40%]"}`}
               // onClick={() => scrollToSlide('up')}
               onClick={scrollToNextImage}
             >
