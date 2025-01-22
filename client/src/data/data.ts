@@ -477,28 +477,20 @@ export const categories: any = [
   },
 ];
 
-//SaleBannerData
 export const SaleBannerData = [
   {
-    title: "Shop New Arrivals",
-    link: "/products/new-arrivals",
-    productName: "Skanda Coffee Table",
-    price: "AED 2,450",
-    imageSrc: "/images/salebanner/nostream.png",
-  },
-  {
     title: "Shop Featured Products",
-    link: "/products/featured",
-    productName: "Torino Coffee Table",
-    price: "AED250",
-    imageSrc: "/images/salebanner/nostream.png",
+    link: "/product/lucius-coffee-table-set",
+    productName: "Lucius Coffee Table Set",
+    price: "AED 3,000",
+    imageSrc: "/images/salebanner/lucis.png",
   },
   {
     title: "Shop Best Sellers",
-    link: "/products/best-sellers",
-    productName: "Apollo Coffee Table",
-    price: "AED300",
-    imageSrc: "/images/salebanner/nostream.png",
+    link: "/product/fiori-side-console",
+    productName: "Fiori Side Console",
+    price: "AED 7,400",
+    imageSrc: "/images/salebanner/fiori.png",
   },
 ];
 

@@ -114,12 +114,12 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
               <div
                 className={`absolute -top-[23px] ${userDetails ? 'right-1/2' : 'right-[40px]'}`}
               >
-                <div className="w-0 h-0 border-l-[20px] border-l-transparent border-r-[20px] border-r-[#0000002e] border-b-[20px] border-b-transparent transform -rotate-45 relative">
-                  <span className="w-0 h-0 border-l-[13px] border-l-transparent border-r-[19px] border-r-white border-b-[20px] border-b-transparent transform rotate-0 absolute top-[2px] -left-[13px] -translate-y-[1px]"></span>
+                <div className="w-0 h-0 border-l-[20px] border-l-transparent rounded-t-md border-r-[20px] border-r-[#0000002e] border-b-[20px] border-b-transparent transform -rotate-45 relative">
+                  <span className="w-0 h-0 border-l-[13px] border-l-transparent border-r-[19px] border-r-white border-b-[20px] border-b-transparent transform rotate-0 absolute top-[2px] -left-[13px] -translate-y-[1px] rounded-t-md"></span>
                 </div>
               </div>
-              <h3 className="font-medium md:text-xl 2xl:text-2xl">
-                My Cart{' '}
+              <h3 className="font-medium md:text-xl  flex items-center gap-2">
+              <GiShoppingCart size={25} /> My Cart{' '}
                 {totalPrice !== 0 && (
                   <span>
                     (<TotalProducts />)
@@ -138,7 +138,7 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                   <div className="">
                     <Link
                       href="/products"
-                      className="bg-[#F6F6F6] px-6 flex justify-center items-center  hover:border-[#666666] border-[#F6F6F6] text-[#666666] h-[50px]"
+                      className="bg-[#F6F6F6] px-6 flex justify-center items-center rounded-2xl  hover:border-[#666666] border-[#F6F6F6] text-[#666666] h-[40px]"
                     >
                       Continue Shopping
                     </Link>
@@ -213,18 +213,18 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                         <CustomButtom
                           variant="light"
                           onClick={handleCloseDrawer}
-                          className="border-[#EBEBEB] border"
+                          className="border-[#EBEBEB] border rounded-2xl"
                         >
                           VIEW CART
                         </CustomButtom>
                       </Link>
                       <Link
                         href="/checkout"
-                        className="flex gap-4 items-center"
+                        className="flex gap-4 items-center rounded-2xl"
                       >
                         <CustomButtom
                           variant="dark"
-                          className="hover:text-white border-black border"
+                          className="hover:text-white border-black border rounded-2xl"
                           onClick={handleCloseDrawer}
                         >
                           Check out

@@ -306,13 +306,13 @@ const ProductDetail = ({
         </div>
 
         <Button
-          className="bg-primary text-white flex gap-3 justify-center sm:w-1/2 items-center lg:w-full h-12 rounded-2xl mb-3 font-light md:w-full"
+          className="bg-primary text-white flex gap-3 justify-center w-full sm:w-1/2 items-center md:w-full h-12 rounded-2xl mb-3 font-light "
           onClick={(e) => handleBuyNow(e)}
         >
           <CiShoppingCart size={20} /> BUY IT NOW
         </Button>
 
-        <div className="flex gap-2 mb-4 lg:w-full sm:w-1/2  md:w-full">
+        <div className="flex gap-2 mb-4 w-full sm:w-1/2  md:w-full">
           <Button
             variant={'outline'}
             className="text-primary w-full h-12 rounded-2xl flex gap-3"
@@ -340,7 +340,7 @@ const ProductDetail = ({
                 </DialogContent>
           </Dialog> */}
 
-          <div className="w-full  md:w-full">
+          <div className="w-full mx-auto md:w-full">
             <ARExperience ImageUrl={'/3dmodel/carpet.glb'} />
           </div>
           {/* <Dialog>
@@ -373,7 +373,7 @@ const ProductDetail = ({
         <Dialog>
           <DialogTrigger asChild>
             <Button
-              className="bg-[#afa183] text-white flex gap-3 justify-center sm:w-1/2 items-center lg:w-full h-12 rounded-2xl mb-3 font-light  md:w-full"
+              className="bg-[#afa183] text-white flex gap-3 justify-center w-full sm:w-1/2 items-center lg:w-full h-12 rounded-2xl mb-3 font-light  md:w-full"
               onClick={(e) => handle3D(e)}
             >
               <TbCube3dSphere size={20} /> View 3D
