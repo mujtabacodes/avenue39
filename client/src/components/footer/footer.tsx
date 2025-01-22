@@ -151,6 +151,11 @@ const Footer: React.FC = () => {
             Terms & Policies
           </h5>
           <ul className=" leading-8 xl:leading-[38px] tracking-wide font-Helveticalight text-13 lg:text-15  mt-6 text-[#686868]">
+          <li>
+              <Link href="/terms-condition" className="hover:underline">
+                Terms & Conditions
+              </Link>
+            </li>
             <li>
               <Link href="/shipping-policy" className="hover:underline">
                 Shipping Policy
@@ -160,12 +165,7 @@ const Footer: React.FC = () => {
               <Link href="/privacy-policy" className="hover:underline">
                 Privacy Policy
               </Link>
-            </li>
-            <li>
-              <Link href="/terms-condition" className="hover:underline">
-                Terms & Conditions
-              </Link>
-            </li>
+            </li>  
             <li>
               <Link href="/return-policy" className="hover:underline">
                 Return Policy

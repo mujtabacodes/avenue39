@@ -326,26 +326,23 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                 <div className="w-52 xl:w-64 flex gap-2 xl:gap-4 items-center justify-between">
                   {item.discountPrice > 0 ? (
                     <>
-                      <p className="text-14 xs:text-16 xl:text-[20px] font-bold text-nowrap">
-                        AED <span>{item?.discountPrice * item.quantity}</span>
-                      </p>
                       <p className="text-12 xl:text-14 text-nowrap font-normal text-end w-16 line-through text-[#A5A5A5]">
                         AED <span>{item?.price * item.quantity}</span>
+                      </p>
+                      <p className="text-14 xs:text-16 xl:text-[20px] font-bold text-nowrap">
+                        AED <span>{item?.discountPrice * item.quantity}</span>
                       </p>
                     </>
                   ) : (
                     <>
-                      <p className="text-14 xs:text-16 xl:text-[20px] font-bold text-nowrap">
-                        AED <span>{item?.price * item.quantity}</span>
-                      </p>
-                      <p className="w-16"></p>
+                      <p className="text-14 xs:text-16 xl:text-[20px] font-bold text-center w-full pl-20">AED <span>{item?.price * item.quantity}</span></p>
                     </>
                   )}
                   {!isCheckoutPage && (
                     <div className="flex items-center gap-2">
-                      <Link href={`/product/${generateSlug(item.name)}`}>
+                      {/* <Link href={`/product/${generateSlug(item.name)}`}>
                         <MdModeEdit className="cursor-pointer" size={20} />
-                      </Link>
+                      </Link> */}
                       <FaTrash
                         className="cursor-pointer"
                         size={15}

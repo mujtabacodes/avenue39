@@ -1,6 +1,7 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import Thumbnail from '../carousel/thumbnail';
+import { CiShoppingCart } from "react-icons/ci";
 import { IProduct, IProductDetail, IReview } from '@/types/types';
 import { NormalText, ProductName, ProductPrice } from '@/styles/typo';
 import { Button } from '../ui/button';
@@ -23,8 +24,6 @@ import {
   tamaralist,
   tamarawhy,
 } from '@/data';
-
-import { IoBagOutline } from 'react-icons/io5';
 import { useDispatch } from 'react-redux';
 import { addItem } from '@/redux/slices/cart';
 import { Dispatch } from 'redux';
@@ -80,6 +79,13 @@ const ProductDetail = ({
     queryKey: ['products'],
     queryFn: fetchProducts,
   });
+
+  function formatPrice(price:any) {
+  if (!price) return 0; // Handle undefined or null price
+  return price > 1000
+    ? price.toLocaleString('en-US') // Adds commas for prices above 1,000
+    : price; // Leaves the price as is for lower values
+}
 
   console.log(slug, 'slug');
   const product = products.find((product) => product.name === slug);
@@ -228,17 +234,18 @@ const ProductDetail = ({
           </ProductPrice>
         ) : (
           <ProductPrice className="flex items-center gap-2">
-            AED {product?.price}
-          </ProductPrice>
+          AED {formatPrice(product?.price)}
+        </ProductPrice>
+        
         )}
-        <div className="flex gap-3 font-semibold">
+        {/* <div className="flex gap-3 font-semibold">
           <span>AVAILABLE:</span>
           {product.stock > 0 ? (
             <span className="text-[#56B400]">In Stock</span>
           ) : (
             <span className="text-[#EE1C25]">Out Of Stock</span>
           )}
-        </div>
+        </div> */}
         <p className="text-lightdark text-14 tracking-wide leading-6">
           {
           // isExpanded
@@ -302,7 +309,7 @@ const ProductDetail = ({
           className="bg-primary text-white flex gap-3 justify-center w-full sm:w-1/2 items-center md:w-full h-12 rounded-2xl mb-3 font-light "
           onClick={(e) => handleBuyNow(e)}
         >
-          <IoBagOutline size={20} /> BUY IT NOW
+          <CiShoppingCart size={20} /> BUY IT NOW
         </Button>
 
         <div className="flex gap-2 mb-4 w-full sm:w-1/2  md:w-full">
