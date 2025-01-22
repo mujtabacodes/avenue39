@@ -12,6 +12,7 @@ import Catalogue from '@/components/Catalogue/Catalogue';
 import AllCategory from '@/components/CategoryCard/AllCategory';
 import NewArrival from '@/components/newarrival';
 import ColorBanner from '@/components/ColorBanner/ColorBanner';
+import FlipBookSlider from './FlipBook/page';
 
 export default function Home() {
   return (
