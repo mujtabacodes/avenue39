@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import HTMLFlipBook from "react-pageflip";
 import PageCover from "./PageCover";
-import { bookData } from "@/data/bookData"; 
+import { bookData as originalBookData } from "@/data/bookData"; 
 import FlipsPage from "./FlipsPage";
 // import { BsFillArrowLeftCircleFill, BsFillArrowRightCircleFill } from "react-icons/bs";
-
 
 interface DemoBookState {
   page: number;  
@@ -22,6 +21,19 @@ class DemoBook extends Component<{}, DemoBookState> {
       totalPage: 0,
     };
   }
+
+  
+  adjustBookData = (data: typeof originalBookData) => {
+    if (data.length % 2 !== 0) {
+      data.push({
+        type: "page",
+        number: data.length,
+        content: "The End", 
+        image: '/images/catalogue/catelog1.jpg',   
+      });
+    }
+    return data;
+  };
 
   nextButtonClick = () => {
     if (this.flipBook.current) {
@@ -49,20 +61,21 @@ class DemoBook extends Component<{}, DemoBookState> {
   }
 
   render() {
+    const bookData = this.adjustBookData([...originalBookData]);
     return (
       <div className="relative">
-          <HTMLFlipBook 
-          width={350} height={600}
+        <HTMLFlipBook 
+          width={450} height={600}
           size="stretch"
-          minWidth={350}
-          maxWidth={350}
+          minWidth={450}
+          maxWidth={450}
           minHeight={600}
           maxHeight={600}
           maxShadowOpacity={0.5}
           showCover={true}
           mobileScrollSupport={true}
           onFlip={this.onPage}
-          className="h-[100%] w-[100%]"
+          className="h-[100%] w-[100%] object-fill"
           ref={this.flipBook}
           startPage={0}
           drawShadow={true}
@@ -70,7 +83,7 @@ class DemoBook extends Component<{}, DemoBookState> {
           useMouseEvents={true}
           style={{ margin: "0 auto" }}
           usePortrait={true}
-          startZIndex={0.5}
+          startZIndex={0}
           autoSize={true}
           clickEventForward={true}
           showPageCorners={true}
@@ -80,26 +93,23 @@ class DemoBook extends Component<{}, DemoBookState> {
           {bookData.map((page: any, index: number) =>
             page.type === "cover" ? (
               <PageCover key={index}>
-                <img width={350} height={600} src={page.image} alt={page.content} className="shadow-md" /> 
-                <h2 className="py-4">{page.content}</h2>
+                <img width={450} height={600} src={page.image} alt={page.content} className="shadow-md" /> 
               </PageCover>
             ) : (
               <FlipsPage key={index} number={page.number}>
-                <img width={350} height={600} src={page.image} alt={page.content} /> 
-                <p className="py-4">{page.content}</p>
+                <img width={450} height={600} src={page.image} alt={page.content} /> 
               </FlipsPage>
             )
           )}
         </HTMLFlipBook>
 
+        {/* Uncomment below code for navigation */}
         {/* <div className="container absolute bottom-10 md:px-40 ">
           <div className="flex justify-between">
-         
             <button type="button" onClick={this.prevButtonClick}>
-            <BsFillArrowLeftCircleFill size={25} className="border border-white rounded-full" />
+              <BsFillArrowLeftCircleFill size={25} className="border border-white rounded-full" />
             </button>
             [<span>{this.state.page + 1}</span> of <span>{this.state.totalPage}</span>]
-
             <button type="button"  onClick={this.nextButtonClick}>
               <BsFillArrowRightCircleFill size={25} className="border border-white rounded-full" />
             </button>
