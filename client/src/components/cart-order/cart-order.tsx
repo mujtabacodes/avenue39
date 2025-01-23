@@ -66,7 +66,7 @@ const CartOrder: React.FC = () => {
         style={{ width: "100%" }}
       >
         <p className="text-white font-medium absolute inset-0 flex justify-center items-center px-2 text-xs xl:text-14 md:text-sm">
-          Congratulations! You've got free shipping!
+          Congratulations! You&apos;ve got free shipping!
         </p>
       </div>
     </div>
