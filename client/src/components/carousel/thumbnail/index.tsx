@@ -150,14 +150,12 @@ console.log(zoomPosition,zoomPosition)
         </Swiper>
       )}
       <div
-className="absolute hidden lg:flex bottom-0 right-0 md:right-auto md:left-1/2 transform md:translate-x-[-50%] z-10 cursor-pointer bg-[#F6F6F6] w-12 h-12  justify-center items-center"
-onClick={() => swiperImageRef.current?.slideNext()}
-      >
+        className={`absolute hidden lg:flex bottom-0 right-0 md:right-auto  transform md:translate-x-[-50%] z-10 cursor-pointer bg-[#F6F6F6] w-12 h-12  justify-center items-center ${isZoom ? "md:left-[40%]" : "md:left-[50%]"}`}
+        onClick={() => swiperImageRef.current?.slideNext()}>
         <FaSortDown size={25} className="text-black flex items-center mb-2" />
       </div>
     </div>
 
-    {/* Main image section */}
     <div
       className={`w-full md:w-9/12 2xl:w-4/5 md:flex-grow relative border-2 border-gray-100 shadow rounded-lg md:!max-h-[700px] lg:!max-h-[570px] xl:!max-h-[637px] 2xl:!max-h-[750px] 3xl:!max-h-[650px]`}
     >

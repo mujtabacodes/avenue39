@@ -22,14 +22,14 @@ const sofaData_slides = [
     title: 'Modern Office Desk',
     product_price: 'AED 1,800',
     image: sofa1,
-    link: '/product/modern-office-desk',
+    link: '/product/ariana-sintered-stone-desk-display-item',
   },
   {
     id: 3,
     title: 'Luxury Sofa Set',
     product_price: 'AED 1,800',
     image: sofa1,
-    link: '/product/luxury-sofa-set',
+    link: '/product/modern-sofa',
   },
 ];
 

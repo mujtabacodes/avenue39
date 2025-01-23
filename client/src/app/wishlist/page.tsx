@@ -9,13 +9,14 @@ import { message, Modal } from 'antd';
 import { addItem } from '@cartSlice/index';
 import { CartItem } from '@cartSlice/types';
 import { openDrawer } from '@/redux/slices/drawer';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch } from 'redux';
 import { IoIosHeartEmpty } from 'react-icons/io';
 import Link from 'next/link';
 import { generateSlug } from '@/config';
 import { MdModeEdit } from 'react-icons/md';
 import { FaTrash } from 'react-icons/fa';
+import { State } from '@/redux/store';
 interface IProduct {
   id: string;
   name: string;
@@ -23,9 +24,11 @@ interface IProduct {
   discountPrice?: number | any;
   posterImageUrl: string;
   count: number;
+  stock: number;
 }
 const Wishlist = () => {
   const dispatch = useDispatch<Dispatch>();
+  const cartItems = useSelector((state: State) => state.cart.items);
   const [wishlist, setWishlist] = useState<IProduct[]>([]);
   useEffect(() => {
     const storedWishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
@@ -33,9 +36,19 @@ const Wishlist = () => {
   }, []);
 
   const handleCountChange = (id: string, newCount: number) => {
-    const updatedWishlist = wishlist.map(item =>
-      item.id === id ? { ...item, count: newCount } : item
-    );
+    const updatedWishlist = wishlist.map((item) => {
+      if (item.id === id) {
+        if (newCount > (item.stock || 0)) {
+          message.info(
+            `Only ${item.stock} items are in stock. Please reduce the quantity.`
+          );
+          return item;
+        }
+        return { ...item, count: newCount };
+      }
+      return item;
+    });
+  
     setWishlist(updatedWishlist);
     localStorage.setItem('wishlist', JSON.stringify(updatedWishlist));
   };
@@ -55,44 +68,35 @@ const Wishlist = () => {
       },
     });
   };
-
   const handleAddToCart = (product: IProduct) => {
     const cart = JSON.parse(localStorage.getItem('cart') || '[]');
     const existingItemIndex = cart.findIndex((item: IProduct) => item.id === product.id);
-
-    // Check if the product already exists in the cart
     if (existingItemIndex !== -1) {
-      // If it exists, just update the quantity
-      cart[existingItemIndex].count += product.count;
-    } else {
-      // If it doesn't exist, add the product to the cart
-      const value = { ...product, posterposterImageUrl: product.posterImageUrl }
-      const newItem = { ...value, count: product.count }; // Ensure count is set
-      cart.push(newItem);
+      message.info('Product already exists in the cart.');
+      const updatedWishlist = wishlist.filter((item) => item.id !== product.id);
+      setWishlist(updatedWishlist);
+      localStorage.setItem('wishlist', JSON.stringify(updatedWishlist));
+      window.dispatchEvent(new Event('WishlistChanged'));
+      return;
     }
-
-    // Update local storage with the new cart
+    const newItem = { ...product, count: product.count };
+    cart.push(newItem);
     localStorage.setItem('cart', JSON.stringify(cart));
-
-    // Update wishlist by removing the added product
-    const updatedWishlist = wishlist.filter(item => item.id !== product.id);
+    const updatedWishlist = wishlist.filter((item) => item.id !== product.id);
     setWishlist(updatedWishlist);
     localStorage.setItem('wishlist', JSON.stringify(updatedWishlist));
     window.dispatchEvent(new Event('WishlistChanged'));
-
-    // Add the item to the card through the dispatch
     //@ts-ignore
     const itemToAdd: CartItem = {
       ...product,
-      quantity: product.count, // Set the quantity based on the product's count
+      quantity: product.count,
     };
     dispatch(addItem(itemToAdd));
     dispatch(openDrawer());
-
+  
     message.success('Product added to Cart successfully!');
   };
-
-
+  
   return (
     <>
       <TopHero breadcrumbs={wishbredcrumbs} />

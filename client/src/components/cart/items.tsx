@@ -40,9 +40,13 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
   const removeProductFromCart = (id: number) => {
     dispatch(removeItem(id));
   };
-  const updateProductQuantity = (id: number, quantity: number) => {
+  const updateProductQuantity = (id: number, quantity: number , stock:number) => {
     if (quantity > 0) {
-      dispatch(updateItemQuantity({ id, quantity }));
+      if(quantity > stock){
+        alert('Insufficient stock. Please reduce quantity.')
+      } else {
+        dispatch(updateItemQuantity({ id, quantity }));
+      }
     }
   };
   const handleCloseDrawer = () => {
@@ -97,6 +101,7 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
               className={`xl:w-12 w-12 h-10 rounded-3xl relative flex justify-center items-center  cursor-pointer ${cartItems.length > 0 ? 'text-white bg-main' : 'text-black  border-black'}`}
               onClick={handleOpenDrawer}
             >
+    
               <GiShoppingCart size={27} style={{ transform: 'scaleX(-1)' }} />
               {cartItems.length > 0 && (
                 <div className="w-4 h-4 rounded-full bg-black text-white flex justify-center items-center absolute top-2 right-2 text-10">
@@ -298,10 +303,10 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                         count={item.quantity}
                         stock={item.stock}
                         onIncrement={() =>
-                          updateProductQuantity(item.id, item.quantity + 1)
+                          updateProductQuantity(item.id, item.quantity + 1 , item.stock)
                         }
                         onDecrement={() =>
-                          updateProductQuantity(item.id, item.quantity - 1)
+                          updateProductQuantity(item.id, item.quantity - 1 , item.stock)
                         }
                       />
                     )}
@@ -315,10 +320,10 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                       count={item.quantity}
                       stock={item.stock}
                       onIncrement={() =>
-                        updateProductQuantity(item.id, item.quantity + 1)
+                        updateProductQuantity(item.id, item.quantity + 1 ,item.stock )
                       }
                       onDecrement={() =>
-                        updateProductQuantity(item.id, item.quantity - 1)
+                        updateProductQuantity(item.id, item.quantity - 1 , item.stock)
                       }
                     />
                   )}
