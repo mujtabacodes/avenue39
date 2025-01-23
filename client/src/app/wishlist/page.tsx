@@ -70,18 +70,45 @@ const Wishlist = () => {
   };
   const handleAddToCart = (product: IProduct) => {
     const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-    const existingItemIndex = cart.findIndex((item: IProduct) => item.id === product.id);
-    if (existingItemIndex !== -1) {
-      message.info('Product already exists in the cart.');
-      const updatedWishlist = wishlist.filter((item) => item.id !== product.id);
-      setWishlist(updatedWishlist);
-      localStorage.setItem('wishlist', JSON.stringify(updatedWishlist));
-      window.dispatchEvent(new Event('WishlistChanged'));
-      return;
-    }
-    const newItem = { ...product, count: product.count };
-    cart.push(newItem);
-    localStorage.setItem('cart', JSON.stringify(cart));
+    //@ts-ignore
+    const existingItem = cartItems.find((item: CartItem) => item.id === product.id);
+    if (existingItem) {
+      const totalQuantity = existingItem.quantity + product.count;
+      if (totalQuantity > (product.stock || 0)) {
+        message.info(
+          `Product already exists in the cart. You cannot add more than ${product.stock} units. Please reduce the quantity.`
+        );
+        return;
+      }
+      const updatedCart = cart.map((item: IProduct) =>
+        item.id === product.id
+          ? {
+              ...item,
+              count: totalQuantity,
+              totalPrice: (product.discountPrice || product.price) * totalQuantity,
+            }: item
+      );
+      localStorage.setItem('cart', JSON.stringify(updatedCart));
+      window.dispatchEvent(new Event('cartChanged'));
+      message.success('Quantity updated in the cart!');
+    } else {
+      const totalQuantityInCart = cart.reduce((accum: number, item: IProduct) => {
+        if (item.id === product.id) {
+          return accum + item.count;
+        }
+        return accum;}, 0);
+      if (totalQuantityInCart + product.count > (product.stock || 0)) {
+        message.info(`You cannot add more of this product. Total stock is ${product.stock}, and you already have ${totalQuantityInCart} in your cart.`);
+        return;
+      }
+      if (product.count > (product.stock || 0)) {
+        message.info(`Cannot add to cart. Total stock for this product is ${product.stock}.`);return;
+      }
+      const newItem = { ...product, count: product.count };
+      cart.push(newItem);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      window.dispatchEvent(new Event('cartChanged'));
+      message.success('Product added to Cart successfully!');}
     const updatedWishlist = wishlist.filter((item) => item.id !== product.id);
     setWishlist(updatedWishlist);
     localStorage.setItem('wishlist', JSON.stringify(updatedWishlist));
@@ -93,9 +120,9 @@ const Wishlist = () => {
     };
     dispatch(addItem(itemToAdd));
     dispatch(openDrawer());
-  
-    message.success('Product added to Cart successfully!');
   };
+  
+  
   
   return (
     <>

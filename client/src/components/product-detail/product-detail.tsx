@@ -240,12 +240,18 @@ const ProductDetail = ({
           </>
         )}
         {product?.discountPrice > 0 ? (
-          <ProductPrice className="flex items-center gap-2">
-            AED {product?.discountPrice}
-            <NormalText className="font-normal text-base text-slate-400 line-through">
-              AED{product?.price}
-            </NormalText>
-          </ProductPrice>
+         <ProductPrice className="flex items-center gap-2">
+         AED {product?.discountPrice > 1000 
+           ? product.discountPrice.toLocaleString() 
+           : product?.discountPrice}
+         <NormalText className="font-normal text-base text-slate-400 line-through">
+           AED
+           {product?.price > 1000 
+             ? product.price.toLocaleString() 
+             : product?.price}
+         </NormalText>
+       </ProductPrice>
+       
         ) : (
           <ProductPrice className="flex items-center gap-2">
           AED {formatPrice(product?.price)}
