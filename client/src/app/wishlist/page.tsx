@@ -75,7 +75,7 @@ const Wishlist = () => {
     if (existingItem) {
       const totalQuantity = existingItem.quantity + product.count;
       if (totalQuantity > (product.stock || 0)) {
-        message.info(
+        message.error(
           `Product already exists in the cart. You cannot add more than ${product.stock} units. Please reduce the quantity.`
         );
         return;
