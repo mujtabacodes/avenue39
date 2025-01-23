@@ -24,7 +24,7 @@ import {
   tamaralist,
   tamarawhy,
 } from '@/data';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addItem } from '@/redux/slices/cart';
 import { Dispatch } from 'redux';
 import { HiMinusSm, HiPlusSm } from 'react-icons/hi';
@@ -41,6 +41,7 @@ import ARExperience from '../ARModelViewer';
 import { paymentIcons } from '@/data/products';
 import { ProductDetailSkeleton } from './skelton';
 import { message } from 'antd';
+import { State } from '@/redux/store';
 
 const ProductDetail = ({
   params,
@@ -65,6 +66,7 @@ const ProductDetail = ({
 
   const [count, setCount] = useState(1);
   const dispatch = useDispatch<Dispatch>();
+  const cartItems = useSelector((state: State) => state.cart.items);
   const slug = String(params.name);
   const [timeLeft, setTimeLeft] = useState({
     day: 0,
@@ -148,7 +150,7 @@ const ProductDetail = ({
     if (count < product.stock) {
       setCount((prevCount) => prevCount + 1);
     } else {
-      message.info(`Only ${product.stock} items in stock!`, 1); // Show warning for 2 seconds
+      message.error(`Only ${product.stock} items in stock!`, 1); // Show warning for 2 seconds
     }
   };
   const itemToAdd: CartItem = {
@@ -158,6 +160,13 @@ const ProductDetail = ({
 
   const handleAddToCard = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
+    const existingCartItem = cartItems.find((item) => item.id === product?.id);
+    const currentQuantity = existingCartItem?.quantity || 0;
+    const newQuantity = currentQuantity + count;
+    if (product?.stock && newQuantity > product.stock) {
+      message.error(`Only ${product.stock} items are in stock. You cannot add more than that.`);
+      return;
+    }
     dispatch(addItem(itemToAdd));
     dispatch(openDrawer());
   };
@@ -231,12 +240,18 @@ const ProductDetail = ({
           </>
         )}
         {product?.discountPrice > 0 ? (
-          <ProductPrice className="flex items-center gap-2">
-            AED {product?.discountPrice}
-            <NormalText className="font-normal text-base text-slate-400 line-through">
-              AED{product?.price}
-            </NormalText>
-          </ProductPrice>
+         <ProductPrice className="flex items-center gap-2">
+         AED {product?.discountPrice > 1000 
+           ? product.discountPrice.toLocaleString() 
+           : product?.discountPrice}
+         <NormalText className="font-normal text-base text-slate-400 line-through">
+           AED
+           {product?.price > 1000 
+             ? product.price.toLocaleString() 
+             : product?.price}
+         </NormalText>
+       </ProductPrice>
+       
         ) : (
           <ProductPrice className="flex items-center gap-2">
           AED {formatPrice(product?.price)}

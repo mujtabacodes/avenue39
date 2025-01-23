@@ -115,7 +115,7 @@ const Thumbnail: React.FC<ThumbProps> = ({
               </Swiper>
             )}
             <div
-              className="absolute hidden lg:flex bottom-0 right-0 md:right-auto md:left-1/2 transform md:translate-x-[-50%] z-10 cursor-pointer bg-[#F6F6F6] w-12 h-12  justify-center items-center"
+              className={`absolute hidden lg:flex bottom-0 right-0 md:right-auto  transform md:translate-x-[-50%] z-10 cursor-pointer bg-[#F6F6F6] w-12 h-12  justify-center items-center ${isZoom ? "md:left-[40%]" : "md:left-[50%]"}`}
               onClick={() => swiperImageRef.current?.slideNext()}
             >
               <FaSortDown size={25} className="text-black flex items-center mb-2" />

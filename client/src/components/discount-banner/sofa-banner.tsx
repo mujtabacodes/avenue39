@@ -19,17 +19,17 @@ const sofaData_slides = [
   },
   {
     id: 2,
-    title: 'Modern Office Desk',
-    product_price: 'AED 1,800',
+    title: 'Rafael Office Desk',
+    product_price: 'AED 5,500',
     image: sofa1,
-    link: '/product/modern-office-desk',
+    link: '/product/rafael-office-desk',
   },
   {
     id: 3,
-    title: 'Luxury Sofa Set',
-    product_price: 'AED 1,800',
+    title: 'The Lisbon Sofa Set',
+    product_price: 'AED 5,995',
     image: sofa1,
-    link: '/product/luxury-sofa-set',
+    link: '/product/the-lisbon-sofa-set',
   },
 ];
 
@@ -39,16 +39,16 @@ const sliderDataa_sofa = [
     slides: [
       {
         backgroundImage: banner2.src,
-        pro_price: 'AED 4,800', 
+        pro_price: 'AED 6,250', 
         subtitle: 'Magia Office Desk',
         link: '/product/magia-office-desk',
         buttonPosition: 'top', 
       },
       {
         backgroundImage: banner3.src,
-        pro_price: 'AED 4,800', 
+        pro_price: 'AED 1,950', 
         subtitle: 'Mila TV Cabinet/TV Stand',
-        link: '/products',
+        link: '/product/mila-tv-cabinettv-stand',
         buttonPosition: 'bottom', 
       },
     ],
@@ -58,16 +58,16 @@ const sliderDataa_sofa = [
     slides: [
       {
         backgroundImage: banner2.src,
-        pro_price: 'AED 4,800', 
+        pro_price: 'AED 799', 
         subtitle: 'Modern Sofa Set',
-        link: '/product/modern-sofa-set',
+        link: '/product/modern-sofa',
         buttonPosition: 'top', 
       },
       {
         backgroundImage: banner3.src,
-        pro_price: 'AED 4,800', 
-        subtitle: 'Elegant Dining Table',
-        link: '/products',
+        pro_price: 'AED 3,500', 
+        subtitle: 'Bergen Sintered Stone Dining Table',
+        link: '/product/bergen-sintered-stone-dining-table',
         buttonPosition: 'bottom', 
       },
     ],

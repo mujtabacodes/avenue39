@@ -3,8 +3,8 @@ import Image from 'next/image';
 import { IProduct, IReview } from '@/types/types';
 import { HiOutlineShoppingBag } from 'react-icons/hi';
 import { Skeleton } from '@/components/ui/skeleton';
-import { useDispatch } from 'react-redux';
-import { Dispatch } from '@/redux/store';
+import { useDispatch, useSelector } from 'react-redux';
+import { Dispatch, State } from '@/redux/store';
 import { useRouter } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 import { fetchReviews } from '@/config/fetch';
@@ -29,6 +29,7 @@ interface CardProps {
 const LandscapeCard: React.FC<CardProps> = ({ card, isLoading }) => {
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch<Dispatch>();
+  const cartItems = useSelector((state: State) => state.cart.items);
   const Navigate = useRouter();
 
   useEffect(() => {
@@ -46,6 +47,7 @@ const LandscapeCard: React.FC<CardProps> = ({ card, isLoading }) => {
       posterImageUrl: product.posterImageUrl,
       discountPrice: product.discountPrice,
       count: 1, // Initialize count to 1 for a new item
+      stock: product.stock,
       totalPrice: product.discountPrice ? product.discountPrice : product.price,
     };
 
@@ -90,11 +92,18 @@ const LandscapeCard: React.FC<CardProps> = ({ card, isLoading }) => {
     ...card,
     quantity: 1,
   };
-  const handleAddToCard = (e: React.MouseEvent<HTMLElement>) => {
-    e.stopPropagation();
-    dispatch(addItem(itemToAdd));
-    dispatch(openDrawer());
-  };
+   const handleAddToCard = (e: React.MouseEvent<HTMLElement>) => {
+      e.stopPropagation();
+      const existingCartItem = cartItems.find((item) => item.id === card?.id);
+      const currentQuantity = existingCartItem?.quantity || 0;
+      const newQuantity = currentQuantity + itemToAdd.quantity;
+      if (newQuantity > (card?.stock || 0)) {
+        message.error(`Only ${card?.stock} items are in stock. You cannot add more than that.`);
+        return;
+      }
+      dispatch(addItem(itemToAdd));
+      dispatch(openDrawer());
+    };
 
   const {
     data: reviews = [],
