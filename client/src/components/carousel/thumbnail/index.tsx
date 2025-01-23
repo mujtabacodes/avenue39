@@ -1,6 +1,6 @@
 //@ts-nocheck
 'use client';
-import React, { useState, useRef, useEffect, SetStateAction } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/free-mode';
@@ -15,7 +15,6 @@ import {
 import Image from 'next/image';
 import { FaSortDown } from 'react-icons/fa';
 import { Skeleton } from '@/components/ui/skeleton';
-import { CiZoomIn } from 'react-icons/ci';
 import SideBySideMagnifier from '../SideBySideMagnifier';
 
 export interface IMAGE_INTERFACE {
@@ -29,9 +28,6 @@ interface ThumbProps {
   thumbs: IMAGE_INTERFACE[];
   isZoom?: Boolean;
   swiperGap?: String;
-  HoverImage?: React.Dispatch<SetStateAction<string | null>>;
-  imageUrl: string;
-  altText?: string;
   isLoading: boolean;
 }
 
@@ -39,21 +35,12 @@ const Thumbnail: React.FC<ThumbProps> = ({
   thumbs,
   isZoom,
   swiperGap,
-  HoverImage,
   isLoading,
-  imageUrl, altText
+   altText
 }) => {
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
 
-  const [hoveredImage, setHoveredImage] = useState<string | null>(null);
-  const [backgroundPosition, setBackgroundPosition] = useState<string>('0 0%');
   const [loading, setLoading] = useState(true);
-  const [zoomEnabled, setZoomEnabled] = useState<boolean>(false);
-  const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
-  const [cursorVisible, setCursorVisible] = useState<boolean>(false);
-  const [isZoomedIn, setIsZoomedIn] = useState(false);
-  const [zoomPosition, setZoomPosition] = useState({ x: 0, y: 0 });
-
   const prevRef = useRef<HTMLDivElement>(null);
   const nextRef = useRef<HTMLDivElement>(null);
   const swiperRef = useRef<SwiperType | null>(null);

@@ -14,5 +14,5 @@ const FlipsPage = React.forwardRef<HTMLDivElement, PageProps>((props, ref) => {
     </div>
   );
 });
-
+FlipsPage.displayName = 'FlipsPage';
 export default FlipsPage;

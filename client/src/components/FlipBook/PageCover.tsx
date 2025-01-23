@@ -11,5 +11,5 @@ const PageCover = React.forwardRef<HTMLDivElement, PageCoverProps>((props, ref) 
     </div>
   );
 });
-
+PageCover.displayName = 'PageCover';
 export default PageCover;
