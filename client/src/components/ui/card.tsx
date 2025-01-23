@@ -76,7 +76,7 @@ const Card: React.FC<CardProps> = ({
     const newQuantity = currentQuantity + itemToAdd.quantity;
 
     if (newQuantity > (card?.stock || 0)) {
-      message.info(`Only ${card?.stock} items are in stock. You cannot add more than that.`);
+      message.error(`Only ${card?.stock} items are in stock. You cannot add more than that.`);
       return;
     }
     dispatch(addItem(itemToAdd));

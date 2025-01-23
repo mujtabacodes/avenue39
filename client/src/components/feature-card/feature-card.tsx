@@ -66,7 +66,7 @@ const FeatureCard: React.FC<CardProps> = ({
       const currentQuantity = existingCartItem?.quantity || 0;
       const newQuantity = currentQuantity + itemToAdd.quantity;
       if (newQuantity > (card?.stock || 0)) {
-        message.info(`Only ${card?.stock} items are in stock. You cannot add more than that.`);
+        message.error(`Only ${card?.stock} items are in stock. You cannot add more than that.`);
         return;
       }
       dispatch(addItem(itemToAdd));
@@ -109,7 +109,7 @@ const FeatureCard: React.FC<CardProps> = ({
     if (existingItemIndex !== -1) {
       const currentCount = existingWishlist[existingItemIndex].count;
       if (product.stock && currentCount + 1 > product.stock) {
-        message.info(`Only ${product.stock} items are in stock. You cannot add more to your wishlist.`);
+        message.error(`Only ${product.stock} items are in stock. You cannot add more to your wishlist.`);
         return;
       }
       existingWishlist[existingItemIndex].count += 1;
@@ -118,7 +118,7 @@ const FeatureCard: React.FC<CardProps> = ({
         (existingWishlist[existingItemIndex].discountPrice || existingWishlist[existingItemIndex].price);
     } else {
       if (product.stock && newWishlistItem.count > product.stock) {
-        message.info(`Only ${product.stock} items are in stock. You cannot add more to your wishlist.`);
+        message.error(`Only ${product.stock} items are in stock. You cannot add more to your wishlist.`);
         return;
       }
       existingWishlist.push(newWishlistItem);

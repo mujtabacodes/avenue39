@@ -150,7 +150,7 @@ const ProductDetail = ({
     if (count < product.stock) {
       setCount((prevCount) => prevCount + 1);
     } else {
-      message.info(`Only ${product.stock} items in stock!`, 1); // Show warning for 2 seconds
+      message.error(`Only ${product.stock} items in stock!`, 1); // Show warning for 2 seconds
     }
   };
   const itemToAdd: CartItem = {
@@ -164,7 +164,7 @@ const ProductDetail = ({
     const currentQuantity = existingCartItem?.quantity || 0;
     const newQuantity = currentQuantity + count;
     if (product?.stock && newQuantity > product.stock) {
-      message.info(`Only ${product.stock} items are in stock. You cannot add more than that.`);
+      message.error(`Only ${product.stock} items are in stock. You cannot add more than that.`);
       return;
     }
     dispatch(addItem(itemToAdd));

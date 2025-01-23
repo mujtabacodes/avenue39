@@ -19,12 +19,12 @@ const cartSlice = createSlice({
       if (existingItem) {
         const newQuantity = existingItem.quantity + item.quantity;
         if (newQuantity > (item.stock || 0)) {
-          message.info(`Only ${item?.stock} items are in stock. You cannot add more.`);
+          message.error(`Only ${item?.stock} items are in stock. You cannot add more.`);
         }
         existingItem.quantity = newQuantity;
       } else {
         if (item.quantity > (item.stock || 0)) {
-          message.info(`Cannot add more than ${item.stock} items to the cart.`);
+          message.error(`Cannot add more than ${item.stock} items to the cart.`);
         }
         state.items.push(item);
       }

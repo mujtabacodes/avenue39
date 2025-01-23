@@ -39,7 +39,7 @@ const Wishlist = () => {
     const updatedWishlist = wishlist.map((item) => {
       if (item.id === id) {
         if (newCount > (item.stock || 0)) {
-          message.info(
+          message.error(
             `Only ${item.stock} items are in stock. Please reduce the quantity.`
           );
           return item;
@@ -98,11 +98,11 @@ const Wishlist = () => {
         }
         return accum;}, 0);
       if (totalQuantityInCart + product.count > (product.stock || 0)) {
-        message.info(`You cannot add more of this product. Total stock is ${product.stock}, and you already have ${totalQuantityInCart} in your cart.`);
+        message.error(`You cannot add more of this product. Total stock is ${product.stock}, and you already have ${totalQuantityInCart} in your cart.`);
         return;
       }
       if (product.count > (product.stock || 0)) {
-        message.info(`Cannot add to cart. Total stock for this product is ${product.stock}.`);return;
+        message.error(`Cannot add to cart. Total stock for this product is ${product.stock}.`);return;
       }
       const newItem = { ...product, count: product.count };
       cart.push(newItem);
