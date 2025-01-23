@@ -267,7 +267,7 @@ const Product = ({ params, similarProducts , reviews , product }: { params: IPro
           {/* <p className="text-2xl font-medium text-center mb-4 sm:mb-0">
             Similar Products
           </p> */}
-          <FeatureSlider similarProducts={similarProducts} />
+          <FeatureSlider similarProducts={similarProducts} title={true} />
         </Container>
       </div>
       <Services />
