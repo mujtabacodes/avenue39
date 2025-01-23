@@ -1,5 +1,5 @@
+"use client";
 
-"use client"; 
 import React, {  useRef } from "react";
 import HTMLFlipBook from "react-pageflip";
 import PageCover from "./PageCover";

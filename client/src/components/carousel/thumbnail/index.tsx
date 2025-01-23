@@ -37,6 +37,7 @@ const Thumbnail: React.FC<ThumbProps> = ({
   swiperGap,
   isLoading,
    altText
+   
 }) => {
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
 

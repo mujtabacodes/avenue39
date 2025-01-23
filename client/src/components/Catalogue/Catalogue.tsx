@@ -32,7 +32,7 @@ const Catalogue: React.FC = () => {
 
 <section className='  flex items-center lg:justify-start md:justify-start sm:justify-start justify-center gap-4 md:flex-nowrap flex-wrap w-full bg-[#E2E3E5] h-full lg:pb-0 pb-8'>
 
-<div className='lg:w-[65%] md:w-[50%] object-fill '>
+<div className='lg:w-[65%] md:w-[50%] w-full object-fill overflow-hidden'>
 {/* <Image src={imageUrl} className='w-full h-[80vh] object-contain p-8'  alt='categlog' width={1200} height={1200} quality={100}/> */}
 <DemoBook/>
 
