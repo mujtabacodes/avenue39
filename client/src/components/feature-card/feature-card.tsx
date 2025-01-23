@@ -169,7 +169,7 @@ const FeatureCard: React.FC<CardProps> = ({
           )}
           </div>
           {card.discountPrice > 0 && (
-            <div className="absolute -top-1 -left-11 px-7 transform -rotate-45 bg-[#FF0000] text-white text-14 font-bold w-[120px] h-[40px] flex justify-center items-center">
+            <div className="absolute -top-1 -left-[56px] px-7 transform -rotate-45 bg-[#FF0000] text-white text-14 font-bold w-[150px] h-[45px] flex justify-center items-center">
               {(Math.round(((card.price - card.discountPrice) / card.price) * 100))}%</div>
           )}
 
