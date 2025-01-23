@@ -1,4 +1,6 @@
-import React, { useState, useRef, useEffect } from "react";
+
+"use client"; 
+import React, {  useRef } from "react";
 import HTMLFlipBook from "react-pageflip";
 import PageCover from "./PageCover";
 import { bookData as originalBookData } from "@/data/bookData";
@@ -6,8 +8,6 @@ import FlipsPage from "./FlipsPage";
 import Image from "next/image";
 
 const DemoBook: React.FC = () => {
-  const [page, setPage] = useState<number>(0);
-  const [totalPage, setTotalPage] = useState<number>(0);
   const flipBook = useRef<any>(null);
 
   // Adjust the book data to ensure it's an even number of pages
@@ -22,36 +22,6 @@ const DemoBook: React.FC = () => {
     }
     return data;
   };
-
-  // Go to the next page
-  const nextButtonClick = () => {
-    if (flipBook.current) {
-      flipBook.current.pageFlip().flipNext();
-    }
-  };
-
-  // Go to the previous page
-  const prevButtonClick = () => {
-    if (flipBook.current) {
-      flipBook.current.pageFlip().flipPrev();
-    }
-  };
-
-  // Handle page flip event
-  const onPage = (e: { data: number }) => {
-    setPage(e.data);
-  };
-
-  // Set total page count when the component mounts
-  useEffect(() => {
-    setTimeout(() => {
-      if (flipBook.current) {
-        const total = flipBook.current.pageFlip().getPageCount() || 0;
-        setTotalPage(total);
-      }
-    }, 0); // Timeout to wait for the flip book to initialize
-  }, []);
-
   // Adjust the book data
   const bookData = adjustBookData([...originalBookData]);
 
@@ -67,7 +37,6 @@ const DemoBook: React.FC = () => {
         maxShadowOpacity={0.5}
         showCover={true}
         mobileScrollSupport={true}
-        onFlip={onPage}
         className="h-[100%] w-[100%] object-cover"
         ref={flipBook}
         startPage={0}
