@@ -72,7 +72,7 @@ const Thumbnail: React.FC<ThumbProps> = ({
     <div>
       <div className="relative w-full">
         <div className={`w-full flex flex-col-reverse md:flex-row gap-2 sm:gap-3 md:gap-4 lg:gap-5 ${swiperGap}`}>
-          {/* Left thumbnail swiper */}
+        
           <div className="w-full md:w-3/12 lg:w-1/5 relative h-fit max-h-[300px] xs:max-h-[355px] sm:max-h-[550px] md:max-h-[400px] lg:max-h-[520px] xl:max-h-[420px] 2xl:max-h-[590px] 3xl:max-h-[650px]">
             {loading ? (
               <div className="flex flex-col space-y-4 pb-2">
