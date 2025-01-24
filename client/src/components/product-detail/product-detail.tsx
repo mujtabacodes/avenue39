@@ -392,7 +392,7 @@ const ProductDetail = ({
             </span>
             <p className="text-12">
               Pay 4 interest-free payments of AED{' '}
-              {Math.round((product?.discountPrice ? product?.discountPrice  :  product?.price ) / 4)}{' '}
+              {((product?.discountPrice ? product?.discountPrice  :  product?.price ) / 4).toFixed(1)}
               <Dialog>
                 <DialogTrigger asChild>
                   <span className="text-red-600 underline cursor-pointer">
@@ -459,7 +459,7 @@ const ProductDetail = ({
             </span>
             <p className="text-12">
               Pay 4 interest-free payments of AED{' '}
-              {Math.round((product?.discountPrice ? product?.discountPrice  :  product?.price ) / 4)}{' '}
+              {((product?.discountPrice ? product?.discountPrice  :  product?.price ) / 4).toFixed(1)}
               <Dialog>
                 <DialogTrigger asChild>
                   <span className="text-red-600 underline cursor-pointer">
