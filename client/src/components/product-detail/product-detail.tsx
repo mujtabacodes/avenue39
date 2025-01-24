@@ -42,6 +42,8 @@ import { paymentIcons } from '@/data/products';
 import { ProductDetailSkeleton } from './skelton';
 import { message } from 'antd';
 import { State } from '@/redux/store';
+import { BsWhatsapp } from 'react-icons/bs';
+import Link from 'next/link';
 
 const ProductDetail = ({
   params,
@@ -295,7 +297,21 @@ const ProductDetail = ({
         {/* <NormalText className="mb-2">
           Hurry Up! Only <span className="text-red-600">12</span> left in stock:
         </NormalText> */}
-        <div className="flex items-center gap-4 justify-between mb-2">
+        {product.stock == 0 ? 
+        <>
+            <Link
+            href="https://wa.me/971505974495"
+            target='_blank'
+            rel='noreferrer'
+            className=" ps-5 pe-10 h-12 w-full mt-5 mb-5 text-white bg-[#64B161] rounded-2xl flex justify-center items-center gap-2 hover:bg-[#56B400]"
+          >
+            <BsWhatsapp size={25} />
+            <span className="font-light text-sm">PRE-ORDER ONLY</span>
+          </Link>
+        </>
+        :
+        <>
+          <div className="flex items-center gap-4 justify-between mb-2">
           <div className="flex items-center border border-gray-300 rounded py-1 md:p-2 md:py-3">
             <button
               onClick={onDecrement}
@@ -313,15 +329,7 @@ const ProductDetail = ({
             </button>
           </div>
 
-          {/* <Link
-            href="https://wa.me/971505974495"
-            target='_blank'
-            rel='noreferrer'
-            className="w-fit ps-5 pe-10 h-12 text-white bg-[#64B161] rounded-full flex justify-center items-center gap-2 hover:bg-[#56B400]"
-          >
-            <BsWhatsapp size={35} />
-            <span className="font-light text-sm">PRE-ORDER ONLY</span>
-          </Link> */}
+      
         </div>
 
         <Button
@@ -340,54 +348,9 @@ const ProductDetail = ({
             Add to cart
           </Button>
 
-          {/* <Dialog>
-
-          <DialogTrigger asChild>
-          <Button className="bg-warning w-1/2 text-white flex gap-3 h-12 rounded-2xl">
-            TRY AT HOME
-          </Button>
-                </DialogTrigger>
-      
-                <DialogOverlay className="bg-white/80" />
-                <DialogContent className="sm:max-w-[80%] lg:max-w-[60%] bg-white px-0 sm:rounded-none border border-gray shadow-sm gap-0 pb-0">
-                  <DialogHeader>
-                    <DialogTitle className="text-xl xs:text-xl sm:text-2xl md:text-3xl font-bold tracking-wide border-b-2 pb-3 sm:ps-5 md:ps-10 pe-10">
-                   SCAN QR
-                    </DialogTitle>
-                  </DialogHeader>
-                 SCAN qr
-                </DialogContent>
-          </Dialog> */}
-
           <div className="w-full mx-auto md:w-full">
             <ARExperience ImageUrl={'/3dmodel/carpet.glb'} />
           </div>
-          {/* <Dialog>
-            <DialogTrigger asChild>
-              <Button className="bg-warning w-1/2 text-white flex gap-3 h-12 rounded-2xl">
-                TRY AT HOME
-              </Button>
-            </DialogTrigger>
-            
-            <DialogOverlay className="bg-white/80" />
-            <DialogContent className="sm:max-w-[80%] lg:max-w-[30%] bg-white px-0 pt-0 sm:rounded-none border border-gray shadow-sm gap-0 pb-0">
-              <DialogHeader className="flex items-start px-5 pt-0 py-5 border-b-2">
-                <DialogTitle className="text-xl xs:text-xl sm:text-2xl md:text-3xl font-bold tracking-wide">
-                  SCAN QR
-                </DialogTitle>
-              </DialogHeader>
-              <QRScanner
-                hoveredImage={
-                  hoveredImage
-                    ? hoveredImage
-                    : product?.productImages[0].imageUrl
-                      ? product?.productImages[0].imageUrl
-                      : 'not found'
-                }
-                url={slug}
-              />
-            </DialogContent>
-          </Dialog> */}
         </div>
         <Dialog>
           <DialogTrigger asChild>
@@ -411,6 +374,9 @@ const ProductDetail = ({
             </div>
           </DialogContent>
         </Dialog>
+        </>
+        }
+       
         <div className="flex items-center justify-center relative mb-2">
           <span className="absolute left-0 w-1/6 border-t border-gray-300"></span>
           <p className="text-center px-3 w-4/6 whitespace-nowrap font-semibold text-sm xs:text-base lg:text-xs xl:text-base">

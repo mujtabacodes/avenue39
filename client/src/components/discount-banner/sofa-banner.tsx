@@ -92,7 +92,7 @@ const SofaBanner: React.FC = () => {
   };
 
   return (
-    <section className="grid grid-cols-1 lg:grid-cols-2  gap-4 relative px-2 md:px-0 mt-2">
+    <section className="grid grid-cols-1 lg:grid-cols-2  gap-4 relative px-2 md:px-0 mt-7">
     <div className="sofa_slider1 bg-lightforeground max-xs:rounded-2xl xs:rounded-r-2xl" 
         onMouseEnter={handleMouseEnter} 
         onMouseLeave={handleMouseLeave}>
@@ -112,12 +112,12 @@ const SofaBanner: React.FC = () => {
       >
         {sofaData_slides.map((slide) => (
           <SwiperSlide key={slide.id}>
-            <div className="flex flex-wrap items-center px-2 pb-4 xs:pb-0 xs:px-5 sm:ps-20 md:ps-6 lg:ps-8 3xl:ps-32 h-full xs:h-[400px] sm:h-[500px] md:h-[600px]">
+            <div className="flex flex-wrap items-center px-2 pb-4 xs:pb-0  sm:ps-20 md:ps-6 lg:ps-8 3xl:ps-[123px] h-full xs:h-[400px] sm:h-[500px] md:h-[600px]">
               {/* Text Content */}
               <div className="w-full xs:w-1/3 max-xs:text-center max-xs:pt-5">
                 <div>
                 <Link href={slide.link}
-                      className="py-1 px-3 block w-fit bg-white text-[14px] md:text-2xl lg:text-sm xl:text-xl 2xl:text-3xl rounded-full text-black border border-gray-500 hover:bg-main font-Helveticalight 2xl:whitespace-nowrap max-xs:mx-auto" >
+                      className="py-1 px-3 block w-fit bg-white text-[14px] md:text-2xl lg:text-sm xl:text-xl 2xl:text-3xl rounded-2xl text-black border border-gray-500 hover:bg-main font-Helveticalight 2xl:whitespace-nowrap max-xs:mx-auto" >
                      Shop Best Sellers
                     </Link>
                   <h3 className="font-bold text-16 mt-3">
