@@ -22,8 +22,8 @@ export const bannerData = {
 };
 export const ColorBannerData = [
   {
-    imageUrl: '/images/catalogue/design_chair1.png',  
-    imageUrl2: '/images/catalogue/design_chair12.png',
+    imageUrl: '/images/ave1.jpg',  
+    imageUrl2: '/images/ave2.png',
     Heading: 'Design Chair',
     ShortText: 'is simply dummy text',
     Description: 'Lorem Ipsum has been the industry`s standard dummy text ever since the 1500s, when an unknown printer took',
@@ -35,13 +35,6 @@ export const ColorBannerData = [
     ShortText: 'is simply dummy text',
     Description: 'Lorem Ipsum has been the industry`s standard dummy text ever since the 1500s, when an unknown printer took',
   },
-  {
-    imageUrl: '/images/catalogue/design_chair1.png',  
-    imageUrl2: '/images/catalogue/design_chair12.png',
-    Heading: 'Design Chair',
-    ShortText: 'is simply dummy text',
-    Description: 'Lorem Ipsum has been the industry`s standard dummy text ever since the 1500s, when an unknown printer took',
-  }
 ];
 
 export interface AdditionalInformation {

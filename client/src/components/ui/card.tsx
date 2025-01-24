@@ -3,8 +3,8 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import Image from 'next/image';
 import { IProduct, IReview } from '@/types/types';
-import { useDispatch } from 'react-redux';
-import { Dispatch } from '@redux/store';
+import { useDispatch, useSelector } from 'react-redux';
+import { Dispatch, State } from '@redux/store';
 import { addItem } from '@cartSlice/index';
 import { CartItem } from '@cartSlice/types';
 import { openDrawer } from '@/redux/slices/drawer';
@@ -29,6 +29,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '../ui/dialog';
+import { message } from 'antd';
 interface CardProps {
   card?: IProduct;
   isModel?: boolean;
@@ -40,6 +41,8 @@ interface CardProps {
   slider?: boolean;
   isHomepage?: boolean;
   isLandscape?: boolean;
+  calculateHeight?: string;
+  portSpace?: string;
 }
 
 const Card: React.FC<CardProps> = ({
@@ -50,9 +53,12 @@ const Card: React.FC<CardProps> = ({
   cardImageHeight,
   slider,
   isHomepage,
-  isLandscape
+  isLandscape,
+  calculateHeight,
+  portSpace
 }) => {
   const dispatch = useDispatch<Dispatch>();
+  const cartItems = useSelector((state: State) => state.cart.items);
   const Navigate = useRouter();
 
   const handleEventProbation = (e: React.MouseEvent<HTMLElement>) => {
@@ -65,6 +71,14 @@ const Card: React.FC<CardProps> = ({
   };
   const handleAddToCard = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
+    const existingCartItem = cartItems.find((item) => item.id === card?.id);
+    const currentQuantity = existingCartItem?.quantity || 0;
+    const newQuantity = currentQuantity + itemToAdd.quantity;
+
+    if (newQuantity > (card?.stock || 0)) {
+      message.error(`Only ${card?.stock} items are in stock. You cannot add more than that.`);
+      return;
+    }
     dispatch(addItem(itemToAdd));
     dispatch(openDrawer());
   };
@@ -91,7 +105,7 @@ const Card: React.FC<CardProps> = ({
     <div
       className={`text-center product-card  hover:cursor-pointer mb-2 flex flex-col ${slider ? '' : ' justify-between'} h-auto  p-1 rounded-[35px] w-full`}
     >
-      <div className="relative w-full overflow-hidden rounded-[35px]">
+      <div className="relative w-full overflow-hidden rounded-[35px] group">
         {slider ? (
           <Swiper
             className="mySwiper overflow-hidden w-full bg-[#E3E4E6] rounded-[35px]"
@@ -101,7 +115,7 @@ const Card: React.FC<CardProps> = ({
             loop={true}
             modules={[Pagination]}
           >
-            {Array(3).fill(null).map((_, index) => (
+            {Array(2).fill(null).map((_, index) => (
               <SwiperSlide key={index} className="w-full">
                 {imgIndex && isLandscape ? (
                   <div className={`${cardImageHeight} flex justify-center items-center px-2`}>
@@ -115,11 +129,11 @@ const Card: React.FC<CardProps> = ({
                         'object-contain rounded-[35px] w-full',
                         className,
                       )}
-                      style={{ height: 'calc(100% - 60px)' }}
+                      style={{ height: calculateHeight ? calculateHeight : 'calc(100% - 20px)' }}
                     />
                   </div>
                 ) : (
-                  <div className={`${cardImageHeight} bg-[#E3E4E6] flex justify-center items-center rounded-[35px] px-4`}>
+                  <div className={`${cardImageHeight} bg-[#E3E4E6] flex justify-center items-center rounded-[35px] ${portSpace ? portSpace : 'px-2'}`}>
                     <Image
                       src={imgIndex?.imageUrl || ''}
                       alt={imgIndex?.altText || 'image'}
@@ -135,7 +149,7 @@ const Card: React.FC<CardProps> = ({
                 )}
 
                 {card.discountPrice > 1 && (
-                  <span className="absolute top-[3px] -right-[29px] px-7 bg-[#FF0000] text-white font-bold rounded-t-full rounded-tl-full rounded-br-lg rotate-45 w-[105px] h-[40px] flex justify-center items-center">
+                  <span className="absolute top-1 -left-9 px-7 transform -rotate-45 bg-[#FF0000] text-white text-14 font-bold w-[120px] h-[40px] flex justify-center items-center">
                     {Math.round(
                       ((card.price - card.discountPrice) / card.price) * 100,
                     )}
@@ -149,7 +163,7 @@ const Card: React.FC<CardProps> = ({
         ) : (
           <div className='bg-[#E3E4E6] rounded-[35px]'>
             {card.discountPrice > 0 && (
-              <span className="absolute top-[2px] -right-[30px] px-7 bg-[#FF0000] text-white font-bold rotate-45 w-[105px] h-[40px] flex justify-center items-center">
+              <span className="absolute top-1 -left-9 px-7 transform -rotate-45 bg-[#FF0000] text-white text-14 font-bold w-[120px] h-[40px] flex justify-center items-center">
                 {Math.round(
                   ((card.price - card.discountPrice) / card.price) * 100,
                 )}
@@ -167,7 +181,7 @@ const Card: React.FC<CardProps> = ({
                   className={
                     'rounded-[35px] w-full px-2 object-contain'
                   }
-                  style={{ height: 'calc(100% - 40px)'}}
+                  style={{ height: calculateHeight ? calculateHeight : 'calc(100% - 20px)'}}
                 />
               </div>) : (<Image
                 src={card.posterImageUrl}
@@ -182,23 +196,21 @@ const Card: React.FC<CardProps> = ({
                   cardImageHeight,
                 )}
               />)}
-
-
           </div>
         )}
 
         <div className="space-y-3" onClick={() => handleNavigation()}>
-          <h3 className="text-sm md:text-[22px] text-gray-600 font-Helveticalight mt-2">
+          <h3 className="text-sm md:text-[22px] text-gray-600 font-Helveticalight mt-2 group-hover:font-bold group-hover:text-black">
             {card.name}
           </h3>
           <div>
             {card.discountPrice > 0 ? (
               <div className="flex gap-2 justify-center">
                 <p className="text-sm md:text-18 font-bold line-through font-Helveticalight">
-                  AED<span>{card.price}</span>
+                  AED <span>{card.price}</span>
                 </p>
                 <p className="text-sm md:text-18 font-bold text-[#FF0000]">
-                  AED<span>{card.discountPrice}</span>
+                  AED <span>{card.discountPrice}</span>
                 </p>
               </div>
             ) : (

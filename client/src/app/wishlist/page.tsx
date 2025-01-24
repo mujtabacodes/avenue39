@@ -9,13 +9,14 @@ import { message, Modal } from 'antd';
 import { addItem } from '@cartSlice/index';
 import { CartItem } from '@cartSlice/types';
 import { openDrawer } from '@/redux/slices/drawer';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch } from 'redux';
 import { IoIosHeartEmpty } from 'react-icons/io';
 import Link from 'next/link';
 import { generateSlug } from '@/config';
 import { MdModeEdit } from 'react-icons/md';
 import { FaTrash } from 'react-icons/fa';
+import { State } from '@/redux/store';
 interface IProduct {
   id: string;
   name: string;
@@ -23,9 +24,11 @@ interface IProduct {
   discountPrice?: number | any;
   posterImageUrl: string;
   count: number;
+  stock: number;
 }
 const Wishlist = () => {
   const dispatch = useDispatch<Dispatch>();
+  const cartItems = useSelector((state: State) => state.cart.items);
   const [wishlist, setWishlist] = useState<IProduct[]>([]);
   useEffect(() => {
     const storedWishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
@@ -33,9 +36,19 @@ const Wishlist = () => {
   }, []);
 
   const handleCountChange = (id: string, newCount: number) => {
-    const updatedWishlist = wishlist.map(item =>
-      item.id === id ? { ...item, count: newCount } : item
-    );
+    const updatedWishlist = wishlist.map((item) => {
+      if (item.id === id) {
+        if (newCount > (item.stock || 0)) {
+          message.error(
+            `Only ${item.stock} items are in stock. Please reduce the quantity.`
+          );
+          return item;
+        }
+        return { ...item, count: newCount };
+      }
+      return item;
+    });
+  
     setWishlist(updatedWishlist);
     localStorage.setItem('wishlist', JSON.stringify(updatedWishlist));
   };
@@ -55,44 +68,62 @@ const Wishlist = () => {
       },
     });
   };
-
   const handleAddToCart = (product: IProduct) => {
     const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-    const existingItemIndex = cart.findIndex((item: IProduct) => item.id === product.id);
-
-    // Check if the product already exists in the cart
-    if (existingItemIndex !== -1) {
-      // If it exists, just update the quantity
-      cart[existingItemIndex].count += product.count;
+    //@ts-ignore
+    const existingItem = cartItems.find((item: CartItem) => item.id === product.id);
+    if (existingItem) {
+      const totalQuantity = existingItem.quantity + product.count;
+      if (totalQuantity > (product.stock || 0)) {
+        message.error(
+          `Product already exists in the cart. You cannot add more than ${product.stock} units. Please reduce the quantity.`
+        );
+        return;
+      }
+      const updatedCart = cart.map((item: IProduct) =>
+        item.id === product.id
+          ? {
+              ...item,
+              count: totalQuantity,
+              totalPrice: (product.discountPrice || product.price) * totalQuantity,
+            }: item
+      );
+      localStorage.setItem('cart', JSON.stringify(updatedCart));
+      window.dispatchEvent(new Event('cartChanged'));
+      message.success('Quantity updated in the cart!');
     } else {
-      // If it doesn't exist, add the product to the cart
-      const value = { ...product, posterposterImageUrl: product.posterImageUrl }
-      const newItem = { ...value, count: product.count }; // Ensure count is set
+      const totalQuantityInCart = cart.reduce((accum: number, item: IProduct) => {
+        if (item.id === product.id) {
+          return accum + item.count;
+        }
+        return accum;}, 0);
+      if (totalQuantityInCart + product.count > (product.stock || 0)) {
+        message.error(`You cannot add more of this product. Total stock is ${product.stock}, and you already have ${totalQuantityInCart} in your cart.`);
+        return;
+      }
+      if (product.count > (product.stock || 0)) {
+        message.error(`Cannot add to cart. Total stock for this product is ${product.stock}.`);return;
+      }
+      const newItem = { ...product, count: product.count };
       cart.push(newItem);
-    }
-
-    // Update local storage with the new cart
-    localStorage.setItem('cart', JSON.stringify(cart));
-
-    // Update wishlist by removing the added product
-    const updatedWishlist = wishlist.filter(item => item.id !== product.id);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      window.dispatchEvent(new Event('cartChanged'));
+      message.success('Product added to Cart successfully!');}
+    const updatedWishlist = wishlist.filter((item) => item.id !== product.id);
     setWishlist(updatedWishlist);
     localStorage.setItem('wishlist', JSON.stringify(updatedWishlist));
     window.dispatchEvent(new Event('WishlistChanged'));
-
-    // Add the item to the card through the dispatch
     //@ts-ignore
     const itemToAdd: CartItem = {
       ...product,
-      quantity: product.count, // Set the quantity based on the product's count
+      quantity: product.count,
     };
     dispatch(addItem(itemToAdd));
     dispatch(openDrawer());
-
-    message.success('Product added to Cart successfully!');
   };
-
-
+  
+  
+  
   return (
     <>
       <TopHero breadcrumbs={wishbredcrumbs} />

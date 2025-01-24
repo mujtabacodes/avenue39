@@ -93,7 +93,7 @@
   z-index: 1;
 }
 .custom-scrollbar {
-  overflow-y: scroll;
+  overflow-x: scroll;
 }
 
 .custom-scrollbar::-webkit-scrollbar {
@@ -245,11 +245,10 @@
 }
 .column-swipper .swiper-wrapper {
   flex-direction: column !important;
-  gap: 16px;
+  gap: 5px;
   overflow: hidden !important;
   padding-bottom: 2px;
 }
-
 .text-outline-border {
   text-shadow:
     -3px 3px 0 #000,
@@ -267,6 +266,18 @@
   svg {
     width: 33px;
     height: 30px;
+  }
+}
+@media (min-width:300px) and  (max-width: 893px) {
+  .column-swipper .swiper-wrapper {
+    flex-direction: row !important; /* Change direction to row for mobile/tablets */
+    gap: 10px; /* Adjust gap as needed */
+    overflow: unset !important;
+    width: 100% !important;
+  }
+  .column-swiper-slider {
+    width: auto !important;
+    height: fit-content !important;
   }
 }
 
