@@ -17,7 +17,7 @@ const CatProduct1 = ({ reverse, CategoryName,products,redirect }: ICatProduct) =
   return (
     <Container className="my-10">
     <div className='relative px-2 md:px-6 border-2 border-[#707070] rounded-[40px] sm:rounded-[87px]'>
-    <Link href={`/products/${redirect}`} className="absolute -top-7 xs:-top-5 left-1/2 transform -translate-x-1/2 min-w-[180px] rounded-xl border bg-white xs:left-20 xs:transform-none hover:bg-black hover:text-white hover:border-black">
+    <Link href={`/products/${redirect}`} className="absolute -top-7 xs:-top-5 left-1/2 transform -translate-x-1/2 min-w-[180px] rounded-xl border bg-white xs:left-20 xs:transform-none hover:hover:font-bold">
         <p className="px-2 md:text-3xl font-Helveticalight capitalize text-center">
             {CategoryName}
         </p>
