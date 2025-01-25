@@ -56,18 +56,18 @@ const Footer: React.FC = () => {
 
   return (
     <section className="pt-16 border-t border-[#EEEEEE] bg-[#D5D5D5]   dark:text-black font-Helveticalight">
-      <div className="container w-1/2 flex flex-col items-center mx-auto md:mb-[110px]">
+      <div className="container w-full sm:w-1/2 flex flex-col items-center mx-auto md:mb-[110px]">
         <Image src={logo} alt="logo" className="w-40" />
 
-        <p className="mt-6 tracking-wide font-Helveticalight text-13 lg:text-15 text-[#686868]">
+        <p className="mt-6 tracking-wide font-Helveticalight text-13 lg:text-15 text-[#686868] max-sm:text-center">
           Get updates by subscribe our weekly newsletter
         </p>
-        <form className="mt-6" onSubmit={handleNewsLetter}>
+        <form className="mt-6 max-md:mb-5" onSubmit={handleNewsLetter}>
           <div className="relative">
             <input
               type="email"
               placeholder="Enter your mail address"
-              className="bg-white text-black w-full ps-3 py-5 pe-[156px] lg:pe-[126px] xl:pe-[156px] rounded-2xl text-xs"
+              className="bg-white text-black w-full ps-3 py-5 pe-[156px] lg:pe-[185px] xl:pe-[185px] rounded-2xl text-xs"
               value={email}
               onChange={handleChange}
               disabled={isLoading}
@@ -151,6 +151,11 @@ const Footer: React.FC = () => {
             Terms & Policies
           </h5>
           <ul className=" leading-8 xl:leading-[38px] tracking-wide font-Helveticalight text-13 lg:text-15  mt-6 text-[#686868]">
+          <li>
+              <Link href="/terms-condition" className="hover:underline">
+                Terms & Conditions
+              </Link>
+            </li>
             <li>
               <Link href="/shipping-policy" className="hover:underline">
                 Shipping Policy
@@ -160,12 +165,7 @@ const Footer: React.FC = () => {
               <Link href="/privacy-policy" className="hover:underline">
                 Privacy Policy
               </Link>
-            </li>
-            <li>
-              <Link href="/terms-condition" className="hover:underline">
-                Terms & Conditions
-              </Link>
-            </li>
+            </li>  
             <li>
               <Link href="/return-policy" className="hover:underline">
                 Return Policy
@@ -176,7 +176,7 @@ const Footer: React.FC = () => {
 
         <div className=" ">
           <h5 className="font-extralight font-Helveticalight sm:text-lg xl:text-xl text=[#121A25]">
-            About
+            Quick Links
           </h5>
           <ul className="leading-8 xl:leading-[38px] tracking-wide font-Helveticalight text-13 lg:text-15 mt-6 capitalize text-[#686868]">
             <li>
@@ -223,16 +223,16 @@ const Footer: React.FC = () => {
           <div className="mt-4 text-[#686868]">
             <div className=" w-full max-w-56 rounded-sm ">
               <Link
-                href="mailto:cs@avenue.com"
+                href="mailto:cs@avenue39.com"
                 rel="noreferrer"
                 target="_blank"
               >
-                cs@avenue.com
+                cs@avenue39.com
               </Link>
             </div>
           </div>
           <div className="pt-5 text-black">
-            <SocialLink socialSize="md:text-[25px]" />
+            <SocialLink socialSize="md:text-[25px]" iconColor={'text-black'} />
           </div>
         </div>
       </Container>

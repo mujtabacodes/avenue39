@@ -1,7 +1,7 @@
 'use client';
-import React from 'react';
+import React, { useRef } from 'react';
 import Image from 'next/image';
-import sofa1 from '@assets/images/banners/fdsdf.webp';
+import sofa1 from '@assets/images/banners/fdsdf.png';
 import banner2 from '@assets/images/banners/laptop-table.jpg';
 import banner3 from '@assets/images/banners/freepik__enhance__60779.webp';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -9,28 +9,27 @@ import { Autoplay ,Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import Link from 'next/link';
-
 const sofaData_slides = [
   {
     id: 1,
     title: 'Marlin Tub Swivel Chair',
-    product_price: 'AED150',
+    product_price: 'AED 1,800',
     image: sofa1,
     link: '/product/marlin-tub-swivel-chair-brown-cream',
   },
   {
     id: 2,
-    title: 'Modern Office Desk',
-    product_price: 'AED150',
+    title: 'Rafael Office Desk',
+    product_price: 'AED 5,500',
     image: sofa1,
-    link: '/product/modern-office-desk',
+    link: '/product/rafael-office-desk',
   },
   {
     id: 3,
-    title: 'Luxury Sofa Set',
-    product_price: 'AED150',
+    title: 'The Lisbon Sofa Set',
+    product_price: 'AED 5,995',
     image: sofa1,
-    link: '/product/luxury-sofa-set',
+    link: '/product/the-lisbon-sofa-set',
   },
 ];
 
@@ -40,16 +39,16 @@ const sliderDataa_sofa = [
     slides: [
       {
         backgroundImage: banner2.src,
-        pro_price: 'Home Office', 
+        pro_price: 'AED 6,250', 
         subtitle: 'Magia Office Desk',
         link: '/product/magia-office-desk',
         buttonPosition: 'top', 
       },
       {
         backgroundImage: banner3.src,
-        pro_price: 'Bedroom', 
+        pro_price: 'AED 1,950', 
         subtitle: 'Mila TV Cabinet/TV Stand',
-        link: '/products',
+        link: '/product/mila-tv-cabinettv-stand',
         buttonPosition: 'bottom', 
       },
     ],
@@ -59,30 +58,46 @@ const sliderDataa_sofa = [
     slides: [
       {
         backgroundImage: banner2.src,
-        pro_price: 'Living Room', 
+        pro_price: 'AED 799', 
         subtitle: 'Modern Sofa Set',
-        link: '/product/modern-sofa-set',
+        link: '/product/modern-sofa',
         buttonPosition: 'top', 
       },
       {
         backgroundImage: banner3.src,
-        pro_price: 'Dining Room', 
-        subtitle: 'Elegant Dining Table',
-        link: '/products',
+        pro_price: 'AED 3,500', 
+        subtitle: 'Bergen Sintered Stone Dining Table',
+        link: '/product/bergen-sintered-stone-dining-table',
         buttonPosition: 'bottom', 
       },
     ],
   },
 ];
 
-
-
 const SofaBanner: React.FC = () => {
 
+  const swiperRef = useRef<any>(null);
+
+  const handleMouseEnter = () => {
+    if (swiperRef.current && swiperRef.current.swiper) {
+      swiperRef.current.swiper.autoplay.stop();
+
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (swiperRef.current && swiperRef.current.swiper) {
+      swiperRef.current.swiper.autoplay.start();
+    }
+  };
+
   return (
-    <section className="grid grid-cols-1 lg:grid-cols-2  gap-4 relative px-2 md:px-0 mt-10">
-    <div className="sofa_slider1">
+    <section className="grid grid-cols-1 lg:grid-cols-2  gap-3 relative px-2 md:px-0 mt-3">
+    <div className="sofa_slider1 bg-lightforeground rounded-2xl" 
+        onMouseEnter={handleMouseEnter} 
+        onMouseLeave={handleMouseLeave}>
     <Swiper
+        ref={swiperRef}
         modules={[Autoplay, Pagination]}
         spaceBetween={20} 
         slidesPerView={1} 
@@ -93,30 +108,28 @@ const SofaBanner: React.FC = () => {
         pagination={{
           clickable: true, 
         }}
-        loop={true} 
+        loop={true}  
       >
         {sofaData_slides.map((slide) => (
           <SwiperSlide key={slide.id}>
-            <div className="bg-lightforeground rounded-r-2xl flex items-center ps-5 xs:px-10 sm:ps-20 2xl:ps-32 min-h-[530px]">
+            <div className="flex flex-wrap items-center px-2 pb-4 xs:pb-0  sm:ps-20 md:ps-6 lg:ps-8 3xl:ps-[123px] h-full xs:h-[400px] sm:h-[500px] md:h-[600px]">
               {/* Text Content */}
-              <div className="w-1/2 xs:w-1/3">
-                <div className="space-y-3">
+              <div className="w-full xs:w-1/3 max-xs:text-center max-xs:pt-5">
+                <div>
                 <Link href={slide.link}
-                      className="py-1 px-3 bg-white text-2xl rounded-full text-black border border-gray-500 hover:bg-main font-Helveticalight" >
+                      className="py-1 px-3 block w-fit bg-white text-[14px] md:text-2xl lg:text-sm xl:text-xl 2xl:text-3xl rounded-2xl text-black border border-gray-500 hover:bg-main font-Helveticalight 2xl:whitespace-nowrap max-xs:mx-auto" >
                      Shop Best Sellers
                     </Link>
-                  <h3 className="font-semibold text-xl sm:text-2xl mt-1">
+                  <h3 className="font-bold text-16 mt-3">
                     {slide.title}
                   </h3>
-                  <div className="lg:pt-0">
-                    <p className="text-xs sm:text-14 font-normal text-black">
+                    <p className="text-18 font-bold mt-1 text-black">
                     {slide.product_price}
                   </p>
-                  </div>
                 </div>
               </div>
               {/* Image */}
-              <div className="w-1/2 xs:w-2/3 relative">
+              <div className="w-full xs:w-2/3 relative">
                 <Image
                   src={slide.image}
                   width={900}
@@ -132,7 +145,7 @@ const SofaBanner: React.FC = () => {
     </div>
 
 
-    <div className="sofa_slider2">
+  <div className="sofa_slider2">
   <Swiper
     modules={[Autoplay, Pagination]}
     spaceBetween={30}
@@ -146,12 +159,12 @@ const SofaBanner: React.FC = () => {
   >
     {sliderDataa_sofa.map((item) => (
       <SwiperSlide key={item.id}>
-        <div className="grid grid-cols-1 gap-4 min-h-[530px]">
+        <div className="grid grid-cols-1 gap-4 h-[600px]">
           {item.slides.map((slide, index) => (
             <div
               key={index}
               className="w-full h-full rounded-2xl"
-              style={{
+               style={{
                 backgroundImage: `url(${slide.backgroundImage})`,
                 backgroundSize: 'cover',
                 backgroundRepeat: 'no-repeat',
@@ -159,39 +172,30 @@ const SofaBanner: React.FC = () => {
               }}
             >
               <div className="flex justify-center items-center bg-[#0000004d] w-full h-full rounded-2xl">
-                <div className="text-center space-y-3">
-                  {/* Top Block Button */}
+                <div className="text-center">
                   {slide.buttonPosition === 'top' && (
-                    <div className="mb-4">
                       <Link
                         href={slide.link}
-                        className="bg-white py-1 px-3 text-2xl rounded-full text-black hover:bg-main font-Helveticalight"
+                        className="bg-white py-1 px-3 text-base md:text-3xl rounded-2xl text-black hover:bg-main font-Helveticalight"
                       >
-                        Shop {slide.pro_price}
+                        Shop
                       </Link>
-                    </div>
                   )}
-
-                  {/* Bottom Block Button */}
                   {slide.buttonPosition === 'bottom' && (
-                    <div className="mt-auto">
                       <Link
                         href={slide.link}
-                        className="bg-white py-1 px-3 text-2xl rounded-full text-black hover:bg-main font-Helveticalight"
+                        className="bg-white py-1 px-3 text-base md:text-3xl rounded-2xl text-black hover:bg-main font-Helveticalight"
                       >
                         Shop <span className='text-red-600'>Sale</span>
                       </Link>
-                    </div>
                   )}
 
-                  <h3 className="font-semibold text-xl sm:text-2xl mt-1 text-white">
+                  <h3 className="font-bold text-16 mt-4 text-white">
                     {slide.subtitle}
                   </h3>
-                  <div className="lg:pt-0">
-                    <p className="text-xs sm:text-14 font-normal text-white">
-                      {slide.pro_price} {/* Using pro_price as description */}
+                    <p className="text-18 font-bold text-white mt-2">
+                      {slide.pro_price} 
                     </p>
-                  </div>
                 </div>
               </div>
             </div>

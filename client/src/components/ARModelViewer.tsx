@@ -15,8 +15,8 @@ const ARExperience: React.FC<ARExperienceProps> = ({ ImageUrl }) => {
 
   return (
     <div>
-      <Link href={intentUri} target="_blank" rel="noopener noreferrer" className="bg-warning hover:bg-white hover:text-black hover:border hover:border-black w-full text-white flex justify-center items-center gap-3 h-12 rounded-2xl">
-          View in AR
+      <Link href={intentUri} target="_blank" rel="noopener noreferrer" className="text-12 md:text-base bg-warning hover:bg-white hover:text-black hover:border hover:border-black w-full text-white flex justify-center items-center gap-3 h-12 rounded-2xl">
+        View It In Your Room
       </Link>
     </div>
   );

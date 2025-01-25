@@ -1,4 +1,5 @@
 "use client";
+import { message } from 'antd';
 import React from 'react';
 import { HiMinusSm, HiPlusSm } from 'react-icons/hi';
 
@@ -15,8 +16,10 @@ const Counter: React.FC<CounterProps> = ({ count, onChangeCount }) => {
   };
 
   const onDecrement = () => {
-    if (count > 0) {
+    if (count > 1) {
       onChangeCount(count - 1);
+    } else {
+      message.error('At least 1 quantity is required!');
     }
   };
 
@@ -28,8 +31,8 @@ const Counter: React.FC<CounterProps> = ({ count, onChangeCount }) => {
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Backspace' && count >= 1 && count <= 9) {
-      onChangeCount(0); // Set count to 0 on backspace
+    if (e.key === 'Backspace' && count === 1) {
+      message.error('Cannot go below 1!');
     }
   };
 console.log(count,"count")
@@ -38,7 +41,7 @@ console.log(count,"count")
       <button
         onClick={onDecrement}
         className="px-2 text-gray-600"
-        disabled={count <= 0} // Disable if count is 0
+        disabled={count <= 0} 
       >
         <HiMinusSm size={20} />
       </button>

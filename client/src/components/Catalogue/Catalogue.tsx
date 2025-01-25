@@ -1,9 +1,9 @@
 import { bannerData } from '@/data/products';
-import Image from 'next/image';
 import React from 'react';
+import DemoBook from '../FlipBook/DemoBook';
 
 const Catalogue: React.FC = () => {
-  const { imageUrl, title, buttonText, fileUrl  } = bannerData; 
+  const {  title, buttonText, fileUrl  } = bannerData; 
 
   return (
 //     <section
@@ -30,10 +30,11 @@ const Catalogue: React.FC = () => {
 
 // </section>
 
-<section className='flex items-center lg:justify-start md:justify-start sm:justify-start justify-center gap-4 md:flex-nowrap flex-wrap w-full bg-[#E2E3E5] h-full lg:pb-0 pb-8'>
+<section className='  flex items-center lg:justify-start md:justify-start sm:justify-start justify-center gap-4 md:flex-nowrap flex-wrap w-full bg-[#E2E3E5] h-full lg:pb-0 pb-8'>
 
-<div className='lg:w-[65%] md:w-[50%] object-fill'>
-<Image src={imageUrl} className='w-full h-[80vh] object-contain p-8'  alt='categlog' width={1200} height={1200} quality={100}/>
+<div className='lg:w-[65%] md:w-[50%] w-full object-fill overflow-hidden'>
+{/* <Image src={imageUrl} className='w-full h-[80vh] object-contain p-8'  alt='categlog' width={1200} height={1200} quality={100}/> */}
+<DemoBook/>
 
 </div>
 

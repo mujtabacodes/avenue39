@@ -29,7 +29,6 @@ import RenderStars from '../ui/renderstars';
 import { Skeleton } from '../ui/skeleton';
 import Wishlist from '../wishlist/wishlist';
 import Cookies from 'js-cookie';
-
 import { useRouter } from 'next/navigation';
 import { loggedInUserAction } from '@redux/slices/user/userSlice';
 import { useAppDispatch } from '@components/Others/HelperRedux';
@@ -152,7 +151,7 @@ const Navbar = () => {
       className={`bg-white dark:text-black ${isSticky ? 'sticky top-0 z-[199]' : ''}`}
     >
       <Container className="flex items-center justify-between p-2 md:p-4 gap-4 dark:bg-white ">
-        <div className="w-3/12 min-w-32">
+        <div className="w-3/12 min-w-24">
           <div className="w-fit">
             <Link className="relative" href={'/'}>
               <Image
@@ -165,10 +164,10 @@ const Navbar = () => {
             </Link>
           </div>
         </div>
-        <div className="w-full max-w-[35%] lg:max-w-[40%] ">
+        <div className="w-full max-w-[35%] lg:max-w-[58%] xl:max-w-[43%] 2xl:max-w-[40%] 2xl:mr-[40px]">
           <div className="bg-whtie">
             <form
-              className="relative w-full lg:block hidden bg-white z-[1099]"
+              className="relative w-full md:block hidden bg-white z-[1099]"
               onSubmit={(e) => e.preventDefault()}
             >
               <input
@@ -251,8 +250,8 @@ const Navbar = () => {
             </form>
           </div>
         </div>
-        <div className="gap-3 lg:gap-3 flex justify-end items-center w-3/12">
-          <div className="hidden md:flex justify-between gap-3 lg:gap-1 items-center relative">
+        <div className="gap-3 lg:gap-3 flex justify-end items-center w-2/12 ps-2">
+          <div className="hidden md:flex justify-between gap-1 lg:gap-1 items-center relative">
             <Wishlist />
             <CartItems />
           </div>

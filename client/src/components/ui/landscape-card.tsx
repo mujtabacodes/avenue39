@@ -3,8 +3,8 @@ import Image from 'next/image';
 import { IProduct, IReview } from '@/types/types';
 import { HiOutlineShoppingBag } from 'react-icons/hi';
 import { Skeleton } from '@/components/ui/skeleton';
-import { useDispatch } from 'react-redux';
-import { Dispatch } from '@/redux/store';
+import { useDispatch, useSelector } from 'react-redux';
+import { Dispatch, State } from '@/redux/store';
 import { useRouter } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 import { fetchReviews } from '@/config/fetch';
@@ -29,6 +29,7 @@ interface CardProps {
 const LandscapeCard: React.FC<CardProps> = ({ card, isLoading }) => {
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch<Dispatch>();
+  const cartItems = useSelector((state: State) => state.cart.items);
   const Navigate = useRouter();
 
   useEffect(() => {
@@ -46,6 +47,7 @@ const LandscapeCard: React.FC<CardProps> = ({ card, isLoading }) => {
       posterImageUrl: product.posterImageUrl,
       discountPrice: product.discountPrice,
       count: 1, // Initialize count to 1 for a new item
+      stock: product.stock,
       totalPrice: product.discountPrice ? product.discountPrice : product.price,
     };
 
@@ -90,11 +92,18 @@ const LandscapeCard: React.FC<CardProps> = ({ card, isLoading }) => {
     ...card,
     quantity: 1,
   };
-  const handleAddToCard = (e: React.MouseEvent<HTMLElement>) => {
-    e.stopPropagation();
-    dispatch(addItem(itemToAdd));
-    dispatch(openDrawer());
-  };
+   const handleAddToCard = (e: React.MouseEvent<HTMLElement>) => {
+      e.stopPropagation();
+      const existingCartItem = cartItems.find((item) => item.id === card?.id);
+      const currentQuantity = existingCartItem?.quantity || 0;
+      const newQuantity = currentQuantity + itemToAdd.quantity;
+      if (newQuantity > (card?.stock || 0)) {
+        message.error(`Only ${card?.stock} items are in stock. You cannot add more than that.`);
+        return;
+      }
+      dispatch(addItem(itemToAdd));
+      dispatch(openDrawer());
+    };
 
   const {
     data: reviews = [],
@@ -113,10 +122,10 @@ const LandscapeCard: React.FC<CardProps> = ({ card, isLoading }) => {
 
   return (
     <div
-      className="rounded-2xl text-center relative product-card mx-2 group flex gap-4 items-center flex-col sm:flex-row cursor-pointer"
+      className="rounded-2xl text-center relative product-card mx-2 group flex gap-4 items-center flex-col sm:flex-row cursor-pointer w-full"
       onClick={() => handleNavigation()}
     >
-      <div className="relative w-fit mx-auto sm:w-5/12 md:w-4/12 lg:w-5/12">
+      <div className="relative w-fit mx-auto sm:w-5/12 md:w-4/12 lg:w-5/12 overflow-hidden rounded-xl">
         {/* <div className="bg-white rounded-full absolute top-4 right-6 flex flex-col gap-2 py-2 px-1 product-hover-icons z-[1] opacity-0 group-hover:opacity-100 transition-opacity">
           <PiEyeThin size={17} className="cursor-pointer" />
           <CiHeart size={18} className="cursor-pointer" />
@@ -136,7 +145,7 @@ const LandscapeCard: React.FC<CardProps> = ({ card, isLoading }) => {
           />
         )}
         {card.discountPrice > 0 && !loading && (
-          <span className="absolute top-4 left-4 text-white text-xs font-light bg-red-500 rounded-full w-14 h-6 flex justify-center items-center">
+          <span className="absolute -top-1 -left-11 px-7 transform -rotate-45 bg-[#FF0000] text-white text-14 font-bold w-[120px] h-[40px] flex justify-center items-center">
             {(Math.round(((card.price - card.discountPrice) / card.price) * 100))}%
           </span>
         )}

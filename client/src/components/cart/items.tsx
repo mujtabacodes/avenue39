@@ -40,9 +40,13 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
   const removeProductFromCart = (id: number) => {
     dispatch(removeItem(id));
   };
-  const updateProductQuantity = (id: number, quantity: number) => {
+  const updateProductQuantity = (id: number, quantity: number , stock:number) => {
     if (quantity > 0) {
-      dispatch(updateItemQuantity({ id, quantity }));
+      if(quantity > stock){
+        alert('Insufficient stock. Please reduce quantity.')
+      } else {
+        dispatch(updateItemQuantity({ id, quantity }));
+      }
     }
   };
   const handleCloseDrawer = () => {
@@ -97,6 +101,7 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
               className={`xl:w-12 w-12 h-10 rounded-3xl relative flex justify-center items-center  cursor-pointer ${cartItems.length > 0 ? 'text-white bg-main' : 'text-black  border-black'}`}
               onClick={handleOpenDrawer}
             >
+    
               <GiShoppingCart size={27} style={{ transform: 'scaleX(-1)' }} />
               {cartItems.length > 0 && (
                 <div className="w-4 h-4 rounded-full bg-black text-white flex justify-center items-center absolute top-2 right-2 text-10">
@@ -114,12 +119,12 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
               <div
                 className={`absolute -top-[23px] ${userDetails ? 'right-1/2' : 'right-[40px]'}`}
               >
-                <div className="w-0 h-0 border-l-[20px] border-l-transparent border-r-[20px] border-r-[#0000002e] border-b-[20px] border-b-transparent transform -rotate-45 relative">
-                  <span className="w-0 h-0 border-l-[13px] border-l-transparent border-r-[19px] border-r-white border-b-[20px] border-b-transparent transform rotate-0 absolute top-[2px] -left-[13px] -translate-y-[1px]"></span>
+                <div className="w-0 h-0 border-l-[20px] border-l-transparent rounded-t-md border-r-[20px] border-r-[#0000002e] border-b-[20px] border-b-transparent transform -rotate-45 relative">
+                  <span className="w-0 h-0 border-l-[13px] border-l-transparent border-r-[19px] border-r-white border-b-[20px] border-b-transparent transform rotate-0 absolute top-[2px] -left-[13px] -translate-y-[1px] rounded-t-md"></span>
                 </div>
               </div>
-              <h3 className="font-medium md:text-xl 2xl:text-2xl">
-                My Cart{' '}
+              <h3 className="font-medium md:text-xl  flex items-center gap-2">
+              <GiShoppingCart size={25} /> My Cart{' '}
                 {totalPrice !== 0 && (
                   <span>
                     (<TotalProducts />)
@@ -138,7 +143,7 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                   <div className="">
                     <Link
                       href="/products"
-                      className="bg-[#F6F6F6] px-6 flex justify-center items-center  hover:border-[#666666] border-[#F6F6F6] text-[#666666] h-[50px]"
+                      className="bg-[#F6F6F6] px-6 flex justify-center items-center rounded-2xl  hover:border-[#666666] border-[#F6F6F6] text-[#666666] h-[40px]"
                     >
                       Continue Shopping
                     </Link>
@@ -146,8 +151,8 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                 </div>
               </div>
             ) : (
-<Fragment>
-                <div className="flex-1 overflow-auto mr-6 scrollbar-hidden">
+          <Fragment>
+                <div className="flex-1 overflow-x-auto mr-6 custom-scroll">
                   <ul className="space-y-4">
                     {cartItems.map((item: any) => (
                       <li
@@ -213,18 +218,18 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                         <CustomButtom
                           variant="light"
                           onClick={handleCloseDrawer}
-                          className="border-[#EBEBEB] border"
+                          className="border-[#EBEBEB] border rounded-2xl"
                         >
                           VIEW CART
                         </CustomButtom>
                       </Link>
                       <Link
                         href="/checkout"
-                        className="flex gap-4 items-center"
+                        className="flex gap-4 items-center rounded-2xl"
                       >
                         <CustomButtom
                           variant="dark"
-                          className="hover:text-white border-black border"
+                          className="hover:text-white border-black border rounded-2xl"
                           onClick={handleCloseDrawer}
                         >
                           Check out
@@ -298,10 +303,10 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                         count={item.quantity}
                         stock={item.stock}
                         onIncrement={() =>
-                          updateProductQuantity(item.id, item.quantity + 1)
+                          updateProductQuantity(item.id, item.quantity + 1 , item.stock)
                         }
                         onDecrement={() =>
-                          updateProductQuantity(item.id, item.quantity - 1)
+                          updateProductQuantity(item.id, item.quantity - 1 , item.stock)
                         }
                       />
                     )}
@@ -315,10 +320,10 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                       count={item.quantity}
                       stock={item.stock}
                       onIncrement={() =>
-                        updateProductQuantity(item.id, item.quantity + 1)
+                        updateProductQuantity(item.id, item.quantity + 1 ,item.stock )
                       }
                       onDecrement={() =>
-                        updateProductQuantity(item.id, item.quantity - 1)
+                        updateProductQuantity(item.id, item.quantity - 1 , item.stock)
                       }
                     />
                   )}
@@ -326,26 +331,24 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                 <div className="w-52 xl:w-64 flex gap-2 xl:gap-4 items-center justify-between">
                   {item.discountPrice > 0 ? (
                     <>
-                      <p className="text-14 xs:text-16 xl:text-[20px] font-bold text-nowrap">
-                        AED <span>{item?.discountPrice * item.quantity}</span>
-                      </p>
                       <p className="text-12 xl:text-14 text-nowrap font-normal text-end w-16 line-through text-[#A5A5A5]">
                         AED <span>{item?.price * item.quantity}</span>
+                      </p>
+                      <p className="text-14 xs:text-16 xl:text-[20px] font-bold text-nowrap">
+                        AED <span>{item?.discountPrice * item.quantity}</span>
                       </p>
                     </>
                   ) : (
                     <>
-                      <p className="text-14 xs:text-16 xl:text-[20px] font-bold text-nowrap">
-                        AED <span>{item?.price * item.quantity}</span>
-                      </p>
-                      <p className="w-16"></p>
+                      <p className="text-14 xs:text-16 xl:text-[20px] font-bold text-center w-full pl-20">AED <span>{item?.price * item.quantity}</span></p>
                     </>
                   )}
+                  <div>
                   {!isCheckoutPage && (
                     <div className="flex items-center gap-2">
-                      <Link href={`/product/${generateSlug(item.name)}`}>
+                      {/* <Link href={`/product/${generateSlug(item.name)}`}>
                         <MdModeEdit className="cursor-pointer" size={20} />
-                      </Link>
+                      </Link> */}
                       <FaTrash
                         className="cursor-pointer"
                         size={15}
@@ -356,6 +359,7 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                       />
                     </div>
                   )}
+                    </div>
                 </div>
               </div>
             </div>

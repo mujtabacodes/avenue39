@@ -5,6 +5,7 @@ import { fetchProducts } from '@/config/fetch';
 import { IProduct } from '@/types/types';
 import CatProduct1 from './CatProduct1';
 import { generateSlug } from '@/config';
+import { Accessories, Bedroom, Dining, Living } from '@/data/data';
 
 const AllCategory = () => {
   const { data: products = [] } = useQuery<IProduct[], Error>({
@@ -12,32 +13,31 @@ const AllCategory = () => {
     queryFn: fetchProducts,
   });
 
-  const filterByCategory = (products: IProduct[], categoryName: string) => {
-    return products.filter((product) =>
-      product.categories?.some((category) => generateSlug(category.name.toLowerCase()) === generateSlug(categoryName.toLowerCase()))
+  const filterByCategoryAndTitle = (
+    products: IProduct[],
+    categoryName: string,
+    titles: string[]
+  ) => {
+    const filteredProducts = products.filter(
+      (product) =>
+        product.categories?.some(
+          (category) =>
+            generateSlug(category.name.toLowerCase()) ===
+            generateSlug(categoryName.toLowerCase())
+        ) && titles.includes(product.name)
+    );
+    return filteredProducts.sort(
+      (a, b) => titles.indexOf(a.name) - titles.indexOf(b.name)
     );
   };
 
   return (
     <div className='pt-1'>
-      <CatProduct
-        products={filterByCategory(products, "Dining")}
-        CategoryName="Shop Your Dining"
-      />
-      <CatProduct
-        products={filterByCategory(products, "Living")}
-        CategoryName="Shop Your Living"
-        reverse
-      />
-      <CatProduct1
-        products={filterByCategory(products, "Bedroom")}
-        CategoryName="Shop your Bedroom"
-      />
-      <CatProduct1
-        products={filterByCategory(products, "Accessories")}
-        CategoryName="Complement your design with accessories"
-        reverse
-      />
+      <CatProduct products={filterByCategoryAndTitle(products, 'Dining', Dining)} CategoryName='Shop Your Dining' redirect='dining'/>
+      <CatProduct products={filterByCategoryAndTitle(products, 'Living', Living)} CategoryName='Shop Your Living'  reverse landHeight={'calc(100% - 80px)'} portSpace='px-8' sofaHeight={'calc(100% - 60px)'} sideTableHeight={'calc(100% - 20px)'} redirect='living' />
+      <CatProduct1 products={filterByCategoryAndTitle(products, 'Bedroom', Bedroom)} CategoryName='Shop your Bedroom'  redirect='bedroom'/>
+      <CatProduct1 products={filterByCategoryAndTitle(products, 'Accessories', Accessories)} CategoryName='Complement your design with accessories' reverse
+       redirect='accessories' />
     </div>
   );
 };
