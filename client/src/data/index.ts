@@ -1524,8 +1524,8 @@ export const ReturnPolicy = [
   {
     title: '',
     description: [
-      'Avege39 is a brand people can trust as we keep their experience of our products beyond their expectations. However, we come to terms with the fact that occasionally, it is just impossible to prevent returns.',
-      'Avenue39 has a fair and logical return and refund policy. As we make our payment policy quite transparent to everyone, possible returns within 7 days of acceptance or purchase of your item for a full refund or exchange. Comprise the rule that you are supposed to bring only the items that are unworn and new just as they were delivered for you.',
+      'Avenue39 is a brand people can trust as we keep their experience of our products beyond their expectations. However, we come to terms with the fact that occasionally, it is just impossible to prevent returns.',
+      'Avenue39 has a fair and logical return and refund policy. As we make our payment policy quite transparent to everyone, possible returns within 7 days of acceptance or purchase of your item for a full refund or exchange. The policy requires that you return items that are unworn and in the same new condition as when they were delivered to you.',
       'All rights, the initiators of returns are asked to return the products to their usual store when they do not achieve the expected result.',
       'To start the return procedure, follow these steps:',
       '1. Send an email to us with your concerns and complaints due to which you made the decision to return the product.',
@@ -1535,7 +1535,7 @@ export const ReturnPolicy = [
     ],
   },
   {
-    title: 'Condition for returning item; what items can be returned?',
+    title: 'Conditions for returning items; what items can be returned?',
     description: [
       'To qualify for a full refund of your purchase with Avenue39, you need to check the following conditions, to find whether your product is eligible or not:',
       '1. These provided items must not have been worn and nor altered by the customer.',
@@ -1592,7 +1592,7 @@ export const ShippingPolicy = [
   {
     title: 'Additional Services and Charges',
     description: [
-      "After you have successfully placed an order on our website, we will make sure to ship the product immediately. Once your order is shipped by Avenue39, a tracking number will be shared with you via email or order confirmation page. This number will help you to track your order's progress via the courier company’s website.",
+      "After you have successfully placed an order on our website, we will make sure to ship the product immediately. Once your order is shipped by Avenue39, you can track its progress through the courier company's website using the tracking details available on the order confirmation page.",
     ],
   },
   {
