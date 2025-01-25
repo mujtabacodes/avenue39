@@ -12,12 +12,13 @@ async function bootstrap() {
     origin: [
       'http://localhost:3000',
       'http://localhost:3001',
-      'https://avenue39.vercel.app',
+      'https://avenue39-eight.vercel.app',
+      'https://avenue39-eight.vercel.app/',
       'http://192.168.1.18:3000',
     ],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     preflightContinue: false,
-    credentials: true,
+    credentials: false,
   });
 
 
