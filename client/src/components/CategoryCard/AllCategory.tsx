@@ -33,11 +33,11 @@ const AllCategory = () => {
 
   return (
     <div className='pt-1'>
-      <CatProduct products={filterByCategoryAndTitle(products, 'Dining', Dining)} CategoryName='Shop Your Dining' />
-      <CatProduct products={filterByCategoryAndTitle(products, 'Living', Living)} CategoryName='Shop Your Living'  reverse landHeight={'calc(100% - 80px)'} portSpace='px-8' sofaHeight={'calc(100% - 60px)'} sideTableHeight={'calc(100% - 20px)'}  />
-      <CatProduct1 products={filterByCategoryAndTitle(products, 'Bedroom', Bedroom)} CategoryName='Shop your Bedroom' />
+      <CatProduct products={filterByCategoryAndTitle(products, 'Dining', Dining)} CategoryName='Shop Your Dining' redirect='dining'/>
+      <CatProduct products={filterByCategoryAndTitle(products, 'Living', Living)} CategoryName='Shop Your Living'  reverse landHeight={'calc(100% - 80px)'} portSpace='px-8' sofaHeight={'calc(100% - 60px)'} sideTableHeight={'calc(100% - 20px)'} redirect='living' />
+      <CatProduct1 products={filterByCategoryAndTitle(products, 'Bedroom', Bedroom)} CategoryName='Shop your Bedroom'  redirect='bedroom'/>
       <CatProduct1 products={filterByCategoryAndTitle(products, 'Accessories', Accessories)} CategoryName='Complement your design with accessories' reverse
-      />
+       redirect='accessories' />
     </div>
   );
 };
