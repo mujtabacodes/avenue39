@@ -10,7 +10,7 @@ import { State } from '@/redux/store';
 import Link from 'next/link';
 import React from 'react';
 import { IoBagOutline } from 'react-icons/io5';
-import {  useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 const Cart = () => {
   const cartItems = useSelector((state: State) => state.cart.items);
@@ -56,7 +56,7 @@ const Cart = () => {
         )}
       </Container>
       <Container className="my-10">
-        <p className="text-[51px] font-medium text-center">Similar Products</p>
+        <p className="text-xl  md:text-[40px] font-Helveticalight text-center">Similar Products</p>
         <FeatureSlider title={false} />
       </Container>
       <Services />
