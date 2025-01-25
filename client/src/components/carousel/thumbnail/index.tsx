@@ -149,9 +149,7 @@ console.log(zoomPosition,zoomPosition)
           ))}
         </Swiper>
       )}
-      <div
-className="absolute hidden lg:flex bottom-0 right-0 md:right-auto md:left-1/2 transform md:translate-x-[-50%] z-10 cursor-pointer bg-[#F6F6F6] w-12 h-12  justify-center items-center"
-onClick={() => swiperImageRef.current?.slideNext()}
+      <div className="absolute hidden lg:flex bottom-0 right-0 md:right-auto md:left-1/2 transform md:translate-x-[-50%] z-10 cursor-pointer bg-[#F6F6F6] w-12 h-12  justify-center items-center" onClick={() => swiperImageRef.current?.slideNext()}
       >
         <FaSortDown size={25} className="text-black flex items-center mb-2" />
       </div>
