@@ -109,7 +109,7 @@ const ProductPage = async ({ params }: { params: IProductDetail }) => {
   });
   return (
     <Suspense fallback={<ProductDetailSkeleton />}>
-      <Product params={params} similarProducts={similarProducts} reviews={reviews} product={product} />
+      <Product params={params} similarProducts={similarProducts} reviews={reviews} product={product} products={products} />
     </Suspense>
   );
 };

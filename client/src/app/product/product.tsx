@@ -11,7 +11,7 @@ import { Table } from 'antd';
 import { Skeleton } from '@/components/ui/skeleton';
 import NoProduct from '@/components/ui/no-product';
 
-const Product = ({ params, similarProducts , reviews , product }: { params: IProductDetail, reviews: IReview[] , product: IProduct , similarProducts: IProduct[] }) => {
+const Product = ({ params, similarProducts , reviews , product , products }: { params: IProductDetail, reviews: IReview[] , product: IProduct , similarProducts: IProduct[] , products:IProduct[] }) => {
   const slug = params.name;
   console.log(slug);
   console.log(reviews, 'reviews')
@@ -253,6 +253,7 @@ const Product = ({ params, similarProducts , reviews , product }: { params: IPro
             gap="lg:gap-20 md:gap-20 sm:gap-10 gap-10"
             swiperGap=" justify-between gap-2 xs:gap-6 md:gap-3"
             detailsWidth="w-full md:w-1/2 lg:w-9/12 2xl:w-2/6"
+            products={products}
           />
         )}
       </Container>
