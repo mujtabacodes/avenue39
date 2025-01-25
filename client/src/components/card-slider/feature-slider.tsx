@@ -5,26 +5,17 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
-import { useQuery } from '@tanstack/react-query';
-import { fetchProducts } from '@/config/fetch';
-import FeatureCard from '../feature-card/feature-card';
 import { IProduct } from '@/types/types';
 import { Navigation, Autoplay, Pagination } from 'swiper/modules';
 import CardSkaleton from '../Skaleton/productscard';
+import Card from '../ui/card';
 
 interface FeatureProps {
   similarProducts?: IProduct[];
   title?: boolean;
 }
 
-const FeatureSlider: React.FC<FeatureProps> = ({similarProducts ,title}) => {
-  const {
-    data: products = [],
-    // isLoading: isProductsLoading,
-  } = useQuery<IProduct[], Error>({
-    queryKey: ['products'],
-    queryFn: fetchProducts,
-  });
+const FeatureSlider: React.FC<FeatureProps> = ({ similarProducts, title }) => {
 
   const swiperRef = useRef<any>(null);
 
@@ -52,31 +43,31 @@ const FeatureSlider: React.FC<FeatureProps> = ({similarProducts ,title}) => {
   };
   return (
     <div className="slider-container" onMouseEnter={handleMouseEnter}
-    onMouseLeave={handleMouseLeave}>
-      {similarProducts?.length || products.length > 0 ? (
+      onMouseLeave={handleMouseLeave}>
+      {similarProducts?.length ? (
         <>
           <div className={`text-end mb-3 px-4 flex ${title ? 'justify-between' : 'justify-end'}`}>
-            { title && <p className="lg:text-3xl text-2xl text-left font-semibold ">
-            Similar Products
-          </p>}
+            {title && <p className="lg:text-3xl text-2xl text-left font-semibold ">
+              Similar Products
+            </p>}
             <div>
-            <button
-              className="button"
-              onClick={previous}
-              style={{ marginRight: '10px' }}
-            >
-              <IoIosArrowBack size={30} />
-            </button>
-            <button className="button" onClick={next}>
-              <IoIosArrowForward size={30} />
-            </button>
+              <button
+                className="button"
+                onClick={previous}
+                style={{ marginRight: '10px' }}
+              >
+                <IoIosArrowBack size={30} />
+              </button>
+              <button className="button" onClick={next}>
+                <IoIosArrowForward size={30} />
+              </button>
             </div>
           </div>
           <Swiper
             ref={swiperRef}
             slidesPerView={1}
             spaceBetween={30}
-            loop={true}
+            loop={false}
             autoplay={{
               delay: 2500,
               disableOnInteraction: false,
@@ -115,30 +106,20 @@ const FeatureSlider: React.FC<FeatureProps> = ({similarProducts ,title}) => {
             modules={[Navigation, Autoplay, Pagination]}
             className="mySwiper"
           >
-            {similarProducts ? 
-            similarProducts.map((card: IProduct) => (
-              <SwiperSlide className='mb-10' key={card.id}>
-                <FeatureCard
-                  card={card}
-                  isLoading={false}
-                  cardHeight="h-[280px] xsm:h-[220px] sm:h-[240px] md:h-[270px] xl:h-[220px] 2xl:h-[280px]"
-                />
-              </SwiperSlide>
-            ))
-             : products.map((card: IProduct) => (
-              <SwiperSlide className='mb-10' key={card.id}>
-                <FeatureCard
-                  card={card}
-                  isLoading={false}
-                  cardHeight="h-[280px] xsm:h-[220px] sm:h-[240px] md:h-[270px] xl:h-[220px] 2xl:h-[280px]"
-                />
-              </SwiperSlide>
-            ))}
-            {}
+            {
+              similarProducts.map((card: IProduct) => (
+                <SwiperSlide className='mb-10' key={card.id}>
+                  <Card
+                    card={card}
+                    isLoading={false}
+                    cardImageHeight="h-[280px] xsm:h-[220px] sm:h-[240px] md:h-[270px] xl:h-[220px] 2xl:h-[280px]"
+                  />
+                </SwiperSlide>
+              ))}
           </Swiper>
         </>
       ) : (
-        <CardSkaleton/>
+        <CardSkaleton />
       )}
     </div>
   );
