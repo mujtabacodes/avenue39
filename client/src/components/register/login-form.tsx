@@ -14,6 +14,8 @@ import { useRouter } from 'next/navigation';
 import { useDispatch } from 'react-redux';
 import { loggedInUserAction } from '@/redux/slices/user/userSlice';
 import Cookies from 'js-cookie';
+import { useState } from 'react';
+import { CheckedState } from '@radix-ui/react-checkbox';
 
 /* eslint-disable */
 interface TabsProps {
@@ -23,9 +25,11 @@ interface TabsProps {
 /* eslint-enable */
 
 export function LoginForm({ onTabChange, activeTab }: TabsProps) {
+const [terms, setterms] = useState<CheckedState>(false)
+
   const Navigate = useRouter();
   const dispatch = useDispatch();
-  const SignupInitialValues = {
+  const SignupInitialValues:any = {
     first_name: '',
     last_name: '',
     email: '',
@@ -55,7 +59,7 @@ export function LoginForm({ onTabChange, activeTab }: TabsProps) {
       }
     },
     onError: (error: any) => {
-      showToast('error', 'Ensure name, email and password filled.');
+      showToast('error', error.message || 'An error occurred while signing up. Please try again later.');
       console.error('Error signing up:', error);
     },
   });
@@ -92,12 +96,20 @@ export function LoginForm({ onTabChange, activeTab }: TabsProps) {
     initialValues: SignupInitialValues,
     onSubmit: (values) => {
       const { first_name, last_name, confirm_password, ...rest } = values;
+      console.log(first_name, last_name, confirm_password, 'values', values, values.email);
 
-      if (!first_name || !last_name || !values.password || !values.email) {
-        showToast('warn', 'Ensure name, email, and password are filled.');
-      } else if (values.password !== confirm_password) {
-        showToast('warn', 'Passwords do not match.');
-      } else {
+      if (!first_name || !last_name || values.password.trim() === "" || values.email.trim() === "") {
+        showToast('error', 'Ensure name, email, and password are filled.');
+      }
+      
+      else if (values.password !== confirm_password) {
+        showToast('error', 'Passwords do not match.');
+      }
+      else if (!terms) {
+        showToast('error', 'Please agree to the terms and conditions.');
+      }
+      
+      else {
         const modifiedValues: any = {
           ...rest,
           name: `${first_name} ${last_name}`.trim(),
@@ -222,10 +234,10 @@ export function LoginForm({ onTabChange, activeTab }: TabsProps) {
               value={Signup.values.confirm_password}
             />
             <div className="flex items-center space-x-2 px-2 col-span-2">
-              <Checkbox id="terms" />
+              <Checkbox id="terms" value={terms as any} onCheckedChange={(check:CheckedState)=>setterms(check)} />
               <label
                 htmlFor="terms"
-                className="text-sm text-gray-400 flex flex-col gap-1 font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                className="text-sm text-gray-400 space-x-1 font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
               >
                 <span>By creating your account you agree to our</span><span className='text-black'>Terms and Conditions</span>
               </label>
