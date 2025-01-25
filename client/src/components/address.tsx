@@ -24,10 +24,10 @@ const Address = () => {
         <ul>
           <li>
             <Link
-              href="mailto:cs@avenue.com" target='_blank'
+              href="mailto:cs@avenue39.com" target='_blank'
               className="text-[19px] text-[#666666] font-medium"
             >
-              Email :<span>cs@avenue.com</span>
+              Email :<span>cs@avenue39.com</span>
             </Link>
           </li>
           <li>

@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { IoBagOutline, IoEyeOutline } from 'react-icons/io5';
 import { useRouter } from 'next/navigation';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch } from 'redux';
 import { CartItem } from '@/redux/slices/cart/types';
 import { addItem } from '@/redux/slices/cart';
@@ -29,6 +29,7 @@ import {
 import { IoIosHeartEmpty } from 'react-icons/io';
 import { message } from 'antd';
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
+import { State } from '@/redux/store';
 
 interface CardProps {
   card: IProduct;
@@ -53,17 +54,24 @@ const FeatureCard: React.FC<CardProps> = ({
 
   const Navigate = useRouter();
   const dispatch = useDispatch<Dispatch>();
-
+  const cartItems = useSelector((state: State) => state.cart.items);
   const itemToAdd: CartItem = {
     ...card,
     quantity: 1,
   };
 
-  const handleAddToCard = (e: React.MouseEvent<HTMLElement>) => {
-    e.stopPropagation();
-    dispatch(addItem(itemToAdd));
-    dispatch(openDrawer());
-  };
+   const handleAddToCard = (e: React.MouseEvent<HTMLElement>) => {
+      e.stopPropagation();
+      const existingCartItem = cartItems.find((item) => item.id === card?.id);
+      const currentQuantity = existingCartItem?.quantity || 0;
+      const newQuantity = currentQuantity + itemToAdd.quantity;
+      if (newQuantity > (card?.stock || 0)) {
+        message.error(`Only ${card?.stock} items are in stock. You cannot add more than that.`);
+        return;
+      }
+      dispatch(addItem(itemToAdd));
+      dispatch(openDrawer());
+    };
 
   const {
     data: reviews = [],
@@ -93,16 +101,26 @@ const FeatureCard: React.FC<CardProps> = ({
       posterImageUrl: product.posterImageUrl,
       discountPrice: product.discountPrice,
       count: 1,
+      stock: product.stock,
       totalPrice: product.discountPrice ? product.discountPrice : product.price,
     };
     let existingWishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
-    const existingItemIndex = existingWishlist.findIndex((item: any) => item.id === newWishlistItem.id); 
-
+    const existingItemIndex = existingWishlist.findIndex((item: any) => item.id === newWishlistItem.id);
     if (existingItemIndex !== -1) {
+      const currentCount = existingWishlist[existingItemIndex].count;
+      if (product.stock && currentCount + 1 > product.stock) {
+        message.error(`Only ${product.stock} items are in stock. You cannot add more to your wishlist.`);
+        return;
+      }
       existingWishlist[existingItemIndex].count += 1;
       existingWishlist[existingItemIndex].totalPrice =
-        existingWishlist[existingItemIndex].count * (existingWishlist[existingItemIndex].discountPrice || existingWishlist[existingItemIndex].price);
+        existingWishlist[existingItemIndex].count *
+        (existingWishlist[existingItemIndex].discountPrice || existingWishlist[existingItemIndex].price);
     } else {
+      if (product.stock && newWishlistItem.count > product.stock) {
+        message.error(`Only ${product.stock} items are in stock. You cannot add more to your wishlist.`);
+        return;
+      }
       existingWishlist.push(newWishlistItem);
     }
     localStorage.setItem('wishlist', JSON.stringify(existingWishlist));
@@ -110,6 +128,7 @@ const FeatureCard: React.FC<CardProps> = ({
     window.dispatchEvent(new Event('WishlistChanged'));
     console.log(existingWishlist, "existingWishlist");
   };
+  
 
   return (
     <div className="space-y-3 px-4 relative">
@@ -150,7 +169,7 @@ const FeatureCard: React.FC<CardProps> = ({
           )}
           </div>
           {card.discountPrice > 0 && (
-            <div className="absolute -top-1 -left-11 px-7 transform -rotate-45 bg-[#FF0000] text-white text-14 font-bold w-[120px] h-[40px] flex justify-center items-center">
+            <div className="absolute -top-1 -left-[56px] px-7 transform -rotate-45 bg-[#FF0000] text-white text-14 font-bold w-[150px] h-[45px] flex justify-center items-center">
               {(Math.round(((card.price - card.discountPrice) / card.price) * 100))}%</div>
           )}
 

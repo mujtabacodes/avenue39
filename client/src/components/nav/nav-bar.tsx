@@ -151,7 +151,7 @@ const Navbar = () => {
       className={`bg-white dark:text-black ${isSticky ? 'sticky top-0 z-[199]' : ''}`}
     >
       <Container className="flex items-center justify-between p-2 md:p-4 gap-4 dark:bg-white ">
-        <div className="w-3/12 min-w-32">
+        <div className="w-3/12 min-w-24">
           <div className="w-fit">
             <Link className="relative" href={'/'}>
               <Image
@@ -164,7 +164,7 @@ const Navbar = () => {
             </Link>
           </div>
         </div>
-        <div className="w-full max-w-[35%] lg:max-w-[62%] xl:max-w-[58%] 2xl:max-w-[45%] ">
+        <div className="w-full max-w-[35%] lg:max-w-[58%] xl:max-w-[43%] 2xl:max-w-[40%] 2xl:mr-[40px]">
           <div className="bg-whtie">
             <form
               className="relative w-full md:block hidden bg-white z-[1099]"

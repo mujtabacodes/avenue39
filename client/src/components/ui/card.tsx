@@ -3,8 +3,8 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import Image from 'next/image';
 import { IProduct, IReview } from '@/types/types';
-import { useDispatch } from 'react-redux';
-import { Dispatch } from '@redux/store';
+import { useDispatch, useSelector } from 'react-redux';
+import { Dispatch, State } from '@redux/store';
 import { addItem } from '@cartSlice/index';
 import { CartItem } from '@cartSlice/types';
 import { openDrawer } from '@/redux/slices/drawer';
@@ -29,6 +29,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '../ui/dialog';
+import { message } from 'antd';
 interface CardProps {
   card?: IProduct;
   isModel?: boolean;
@@ -57,6 +58,7 @@ const Card: React.FC<CardProps> = ({
   portSpace
 }) => {
   const dispatch = useDispatch<Dispatch>();
+  const cartItems = useSelector((state: State) => state.cart.items);
   const Navigate = useRouter();
 
   const handleEventProbation = (e: React.MouseEvent<HTMLElement>) => {
@@ -69,6 +71,14 @@ const Card: React.FC<CardProps> = ({
   };
   const handleAddToCard = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
+    const existingCartItem = cartItems.find((item) => item.id === card?.id);
+    const currentQuantity = existingCartItem?.quantity || 0;
+    const newQuantity = currentQuantity + itemToAdd.quantity;
+
+    if (newQuantity > (card?.stock || 0)) {
+      message.error(`Only ${card?.stock} items are in stock. You cannot add more than that.`);
+      return;
+    }
     dispatch(addItem(itemToAdd));
     dispatch(openDrawer());
   };
