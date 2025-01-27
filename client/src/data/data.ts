@@ -509,7 +509,7 @@ export const Dining= [
 export const Living= [
   'Marlin Tub Chair (Cream & Brown)',
   'Marlin Tub Swivel Chair (Brown & cream)',
-  'Marlin Tub Swivel Chair',
+  'Marlin Tub Swivel Chair (Mustard yellow and black)',
   // 'Marlin Tub Chair',
   'Marlin Rocking Chair (White & Black)',
   'Marlin Rocking Chair (White& Grey)',
