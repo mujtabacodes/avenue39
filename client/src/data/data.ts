@@ -30,7 +30,7 @@ export const wishbredcrumbs = [
 ];
 export const Tersmandcondition = [
   { label: 'Home', href: '/' },
-  { label: 'Terms-Condition' },
+  { label: 'Terms & Conditions' },
 ];
 export const PrivacyPolicybredcrumbs = [
   { label: 'Home', href: '/' },
