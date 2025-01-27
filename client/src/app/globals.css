@@ -340,7 +340,7 @@ color: white;
  .slick-slider.product-slider.custom-Slick .slick-arrow.slick-next {
   position: absolute;
   bottom: 1px;
-  left: 8%;
+  left: 7%;
   z-index: 1;
   box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
   width: 40px;

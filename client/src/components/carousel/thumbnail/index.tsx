@@ -1,6 +1,6 @@
 //@ts-nocheck
 'use client';
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/free-mode';
@@ -44,29 +44,55 @@ const Thumbnail: React.FC<ThumbProps> = ({
 /* eslint-disable */
   const [currentSlide, setCurrentSlide] = useState<number>(0);
   /* eslint-enable */
-  const [currentSlideIndex, setCurrentSlideIndex] = useState<number>(0);
   
+  const [imagesLoaded, setImagesLoaded] = useState(false);
+
+  // Preload images
+  const preloadImages = (images: string[]) => {
+    return Promise.all(
+      images.map((src) => {
+        return new Promise((resolve, reject) => {
+          const img = new Image();
+          img.src = src;
+          img.onload = resolve;
+          img.onerror = reject;
+        });
+      })
+    );
+  };
+
+  useEffect(() => {
+    preloadImages(thumbs.map((thumb) => thumb.imageUrl || '')).then(() => {
+      setImagesLoaded(true);
+    });
+  }, [thumbs]);
 
   const handleSlideChange = (index: number) => {
     if (swiperImageRef.current) {
       swiperImageRef.current.slideTo(index);
-      console.log(index,'index')
     }
   };
+
+  if (!imagesLoaded) {
+    return <Skeleton className="h-[90px] w-full" />;
+  }
 
   return (
     <div>
       <div className="relative w-full">
         <div className={`w-full flex flex-col-reverse md:flex-row gap-2 sm:gap-3 md:gap-4 lg:gap-5 overflow-hidden ${swiperGap}`}>
-          <CustomThumbnailSlickSlider thumbs={thumbs} isZoom={isZoom} onSlideChange={handleSlideChange} currentSlideIndex={currentSlideIndex} />
+          <CustomThumbnailSlickSlider 
+            thumbs={thumbs} 
+            isZoom={isZoom} 
+            onSlideChange={handleSlideChange}  
+          />
           <div
-            className={`w-full md:w-9/12 2xl:w-4/5 md:flex-grow relative border-2 border-gray-100 shadow rounded-lg md:!max-h-[700px] lg:!max-h-[570px] xl:!max-h-[637px] 2xl:!max-h-[750px] 3xl:!max-h-[650px]`}
+            className={`w-full md:w-9/12 2xl:w-4/5 md:flex-grow relative border-2 border-gray-100 shadow rounded-lg md:!max-h-[700px]`}
           >
             {isLoading ? (
               <Skeleton className="h-[90px] w-full" />
             ) : (
               <Swiper
-                thumbs={{ swiper: currentSlide }}
                 loop={false}
                 spaceBetween={10}
                 modules={[FreeMode, Navigation, Thumbs]}
@@ -78,9 +104,7 @@ const Thumbnail: React.FC<ThumbProps> = ({
                 onSwiper={(swiper) => {
                   swiperImageRef.current = swiper;
                 }}
-                onSlideChange={(swiper) => {
-                  setCurrentSlideIndex(swiper.realIndex)
-                }}
+                
               >
                 {thumbs.map((thumb, index) => (
                   <SwiperSlide key={index}>
@@ -99,7 +123,6 @@ const Thumbnail: React.FC<ThumbProps> = ({
           </div>
         </div>
       </div>
-
     </div>
   );
 };
