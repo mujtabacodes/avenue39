@@ -26,13 +26,12 @@ interface ProductPageProps {
   sideBannerProduct?: string;
   productBanner: ReactNode;
   layout: string;
-/* eslint-disable */
-  Setlayout: (layout: string) => void;
-  /* eslint-enable */
+  Setlayout: React.Dispatch<React.SetStateAction<string>>;
   fullUrl?: string;
   sortProducts: IProduct[]
-  categoryName: string;
+  categoryName?: string;
   products: IProduct[]
+  homeProd?: IProduct[]
 }
 
 const ProductPage = ({
@@ -41,38 +40,28 @@ const ProductPage = ({
   Setlayout,
   sortProducts,
   categoryName,
-  // products
+  products,
+  homeProd
 }: ProductPageProps) => {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-  const [selectedSubCategories, setSelectedSubCategories] = useState<string[]>(
-    [],
-  );
+  const [selectedSubCategories, setSelectedSubCategories] = useState<string[]>([]);
   const [selectedCategoriesName, setSelectedCategoriesName] = useState<
     string | undefined
   >();
-  const [selectedSubCategoriesName, setSelectedSubCategoriesName] = useState<
-    string | undefined
-  >();
+  const [selectedSubCategoriesName, setSelectedSubCategoriesName] = useState<string | undefined>();
   const [sortOption, setSortOption] = useState<string>('default');
   const [category, setCategory] = useState<any[]>([]);
   const [filterLoading, setFilterLoading] = useState<boolean>(true);
-  console.log(layout,"layout")
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
 
-  const normalizedSlug = categoryName.toUpperCase().replace('-', ' ');
+  const normalizedSlug = categoryName?.toUpperCase().replace('-', ' ');
 
   const isCategory: boolean = category?.some(
     (item: any) => item.name === normalizedSlug,
   );
-  const { data: products = [], isLoading: isProductsLoading } = useQuery<
-  IProduct[],
-  Error
->({
-  queryKey: ['products'],
-  queryFn: fetchProducts,
-});
+
   const fetchCategoryData = async () => {
     try {
       const response = await fetch(
@@ -162,8 +151,6 @@ const ProductPage = ({
     }, 200);
   };
 
-  // const handlePriceChange = ([start, end]: [number, number]) =>
-  //   setPriceRange([start, end]);
   const handleSortChange = (sort: string) => setSortOption(sort);
 
  
@@ -176,12 +163,9 @@ const ProductPage = ({
       setSelectedCategoriesName(selectedCategories.at(0));
     }
   }, 200);
-
-
   const productdata = isCategory ? sortProducts : products
-  console.log(productdata,'productdata',selectedSubCategories )
-  const filteredCards = productdata
-  .filter((card) => {
+
+  const filteredCards = productdata.filter((card) => {
     if (pathname === '/products') {
       return card.discountPrice > 0 && card.stock > 0;
     }
@@ -189,12 +173,13 @@ const ProductPage = ({
   })
   .filter((card) => {
     if (selectedSubCategories.length > 0) {
+
       return card.subcategories?.some((sub) =>
         selectedSubCategories.includes(`SUB_${sub.name.toUpperCase()}`),
       );
-    } else {
-    return card.categories?.some((cat) => selectedCategories.includes(cat.name))
-    }
+    } 
+    return selectedCategories.length > 0 ? card.categories?.some((cat) => selectedCategories.includes(cat.name)) : true
+  
   })
   .sort((a, b) => {
     switch (sortOption) {
@@ -215,7 +200,8 @@ const ProductPage = ({
         return 0;
     }
   });
-  console.log(filteredCards,"filteredCards")
+
+  console.log(filteredCards,"filteredCards", productdata)
   return (
     <>
       <TopHero
@@ -263,7 +249,11 @@ const ProductPage = ({
 
             <SubCategoriesRow />
           </div>
-          {filterLoading || isProductsLoading ? (
+          {filterLoading 
+          // || 
+          // isProductsLoading
+          
+          ? (
             <CardSkaleton />
           ) : (
             

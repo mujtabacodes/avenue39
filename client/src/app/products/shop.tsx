@@ -1,6 +1,6 @@
 'use client';
 import ProductPage from '@/components/product-page/product';
-import React, { Fragment, ReactNode, useState } from 'react';
+import React, { ReactNode, useState } from 'react';
 import { StaticImageData } from 'next/image';
 import { ICategory, IProduct } from '@/types/types';
 
@@ -17,15 +17,18 @@ const Shop = ({
   sideBannerProduct?: string;
   productBanner?: ReactNode;
   sideBanner?: StaticImageData;
-  subcategories: ICategory[];
-  categories: ICategory[];
+  subcategories?: ICategory[];
+  categories?: ICategory[];
   products: IProduct[];
-  sortProducts: IProduct[];
-  categoryName: string
+  sortProducts?: IProduct[];
+  categoryName?: string
 }) => {
   const [layout, Setlayout] = useState<string>('grid');
+
+console.log('products', products);
   return (
-    <Fragment>
+    <>
+    
       <ProductPage
         sideBanner={sideBanner}
         productBanner={productBanner}
@@ -35,10 +38,11 @@ const Shop = ({
         products={products}
         // category={categories}
         // subcategories={subcategories}
-        sortProducts={sortProducts}
-        categoryName={categoryName}
+        sortProducts={sortProducts ? sortProducts : products}
+        categoryName={categoryName || ''}
+        homeProd = {products}
       />
-    </Fragment>
+    </>
   );
 };
 
