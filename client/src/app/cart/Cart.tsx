@@ -13,7 +13,7 @@ import React from 'react';
 import { IoBagOutline } from 'react-icons/io5';
 import { useSelector } from 'react-redux';
 
-const Cart = ({similarProducts}: {similarProducts: IProduct[]}) => {
+const Cart = ({ similarProducts }: { similarProducts: IProduct[] }) => {
   const cartItems = useSelector((state: State) => state.cart.items);
   return (
     <>
