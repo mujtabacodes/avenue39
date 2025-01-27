@@ -123,7 +123,7 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                   <span className="w-0 h-0 border-l-[13px] border-l-transparent border-r-[19px] border-r-white border-b-[20px] border-b-transparent transform rotate-0 absolute top-[2px] -left-[13px] -translate-y-[1px] rounded-t-md"></span>
                 </div>
               </div>
-              <h3 className="font-medium md:text-xl  flex items-center gap-2">
+              <h3 className="font-medium md:text-xl uppercase flex items-center gap-2">
               <GiShoppingCart size={25} /> My Cart{' '}
                 {totalPrice !== 0 && (
                   <span>
@@ -143,7 +143,7 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                   <div className="">
                     <Link
                       href="/products"
-                      className="bg-[#F6F6F6] px-6 flex justify-center items-center rounded-2xl  hover:border-[#666666] border-[#F6F6F6] text-[#666666] h-[40px]"
+                      className="bg-main px-6 flex justify-center items-center rounded-2xl text-white hover:border-[#666666] border border-[#F6F6F6] h-[40px]"
                     >
                       Continue Shopping
                     </Link>
