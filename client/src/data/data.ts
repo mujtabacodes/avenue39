@@ -524,7 +524,7 @@ export const Bedroom= [
   'Tavola Bedside Table',
   'Moderno Bedside Table',
   'Ombra Bedside Table',
-  'Accenti Bedside Table',
+  'Accenti Bedside Table1',
   'Vista Sofa Bed',
   'Sexton Floor Lamp',
   'Florento Floor Lamp',
