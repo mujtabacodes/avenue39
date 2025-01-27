@@ -147,7 +147,7 @@ const ProductDetail = ({
     if (count < product.stock) {
       setCount((prevCount) => prevCount + 1);
     } else {
-      message.error(`Only ${product.stock} items in stock!`, 1); // Show warning for 2 seconds
+      message.error(`Only ${product.stock} items in stock!`, 1);
     }
   };
   const itemToAdd: CartItem = {

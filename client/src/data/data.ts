@@ -30,7 +30,7 @@ export const wishbredcrumbs = [
 ];
 export const Tersmandcondition = [
   { label: 'Home', href: '/' },
-  { label: 'Terms-Condition' },
+  { label: 'Terms & Conditions' },
 ];
 export const PrivacyPolicybredcrumbs = [
   { label: 'Home', href: '/' },
@@ -38,7 +38,7 @@ export const PrivacyPolicybredcrumbs = [
 ];
 export const TReturnPolicybredcrumbs = [
   { label: 'Home', href: '/' },
-  { label: 'Return-Policy' },
+  { label: 'Return - Policy' },
 ];
 export const TShippingPolicybredcrumbs = [
   { label: 'Home', href: '/' },

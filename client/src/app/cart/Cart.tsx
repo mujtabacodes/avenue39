@@ -11,7 +11,7 @@ import { IProduct } from '@/types/types';
 import Link from 'next/link';
 import React from 'react';
 import { IoBagOutline } from 'react-icons/io5';
-import {  useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 const Cart = ({similarProducts}: {similarProducts: IProduct[]}) => {
   const cartItems = useSelector((state: State) => state.cart.items);
@@ -58,7 +58,7 @@ const Cart = ({similarProducts}: {similarProducts: IProduct[]}) => {
       </Container>
       <Container className="my-10">
         <p className="text-[51px] font-medium text-center">Similar Products</p>
-        <FeatureSlider title={false} similarProducts={similarProducts} />
+        <FeatureSlider similarProducts={similarProducts} title={false} />
       </Container>
       <Services />
     </>
