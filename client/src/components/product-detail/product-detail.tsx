@@ -33,7 +33,7 @@ import { openDrawer } from '@/redux/slices/drawer';
 import { CartItem } from '@/redux/slices/cart/types';
 import { useRouter } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
-import { fetchProducts, fetchReviews } from '@/config/fetch';
+import { fetchReviews } from '@/config/fetch';
 import { calculateRatingsPercentage, renderStars } from '@/config';
 import { TbCube3dSphere } from 'react-icons/tb';
 import Product3D from '../3DView/Product3D';
@@ -51,12 +51,14 @@ const ProductDetail = ({
   gap,
   swiperGap,
   detailsWidth,
+  products
 }: {
   params: IProductDetail;
   isZoom?: Boolean;
   gap?: String;
   swiperGap?: String;
   detailsWidth?: String;
+  products?: IProduct[]
 }) => {
   // const description: string = '';
   // const [isExpanded, setIsExpanded] = useState(false);
@@ -77,13 +79,6 @@ const ProductDetail = ({
     sec: 0,
   });
 
-  const {
-    data: products = [],
-    isLoading,
-  } = useQuery<IProduct[], Error>({
-    queryKey: ['products'],
-    queryFn: fetchProducts,
-  });
 
   function formatPrice(price:any) {
   if (!price) return 0; // Handle undefined or null price
@@ -93,7 +88,7 @@ const ProductDetail = ({
 }
 
   console.log(slug, 'slug');
-  const product = products.find((product) => product.name === slug);
+  const product = products?.find((product) => product.name === slug);
   const Navigate = useRouter();
   useEffect(() => {
     if (product) {
@@ -192,7 +187,7 @@ const ProductDetail = ({
           isZoom={isZoom}
           swiperGap={swiperGap}
           // HoverImage={setHoveredImage}
-          isLoading={isLoading}
+          isLoading={false}
         />
       </div>
 
