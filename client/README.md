@@ -1,15 +1,5 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-
-Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process
-
-const handleRatingChange = (newRating:any) => {
-        console.log('New Rating:', newRating);
-      };
- <StarRating defaultValue={2} onChange={handleRatingChange} />
-
-
-
 ## Getting Started
 
 First, run the development server:
