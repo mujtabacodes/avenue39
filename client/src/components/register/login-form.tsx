@@ -253,7 +253,7 @@ const [terms, setterms] = useState<CheckedState>(false)
             {signupMutation.isPending ? (
               <Loader color="white" />
             ) : (
-              'Signup to Continue'
+              'Sign up'
             )}
           </Button>
         </form>
