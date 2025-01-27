@@ -54,7 +54,7 @@
     "redux": "^5.0.1",
     "redux-persist": "^6.0.0",
     "shadcn-ui": "^0.2.3",
-    "sharp": "^0.33.4",
+    "sharp": "^0.33.5",
     "slick-carousel": "^1.8.1",
     "swiper": "^11.1.8",
     "tailwind-merge": "^2.4.0",

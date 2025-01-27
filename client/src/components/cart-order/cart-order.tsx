@@ -73,7 +73,7 @@ const CartOrder: React.FC = () => {
     </div>
   ) : (
     <>
-      <p className="text-[#666666] text-xs font-medium">Spend AED. {remainingAmount} for free shipping</p>
+      <p className="text-[#666666] text-xs font-medium">AED {remainingAmount} away from free delivery</p>
       <div className="w-full bg-gray-200 h-10 rounded-full ">
       <div className="bg-green-500 h-10 rounded-full flex justify-center items-center w-full" style={{ width: `${progressBarPercentage}%` }}>
       <p className="text-white font-medium text-center">{Math.round(progressBarPercentage)}%</p><BsTruck className='text-20 ms-2 text-white' /></div></div>

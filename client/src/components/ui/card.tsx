@@ -105,7 +105,7 @@ const Card: React.FC<CardProps> = ({
     <div
       className={`text-center product-card  hover:cursor-pointer mb-2 flex flex-col ${slider ? '' : ' justify-between'} h-auto  p-1 rounded-[35px] w-full`}
     >
-      <div className="relative w-full overflow-hidden rounded-[35px] group">
+      <div className="relative w-full overflow-hidden rounded-t-[35px] group">
         {slider ? (
           <Swiper
             className="mySwiper overflow-hidden w-full bg-[#E3E4E6] rounded-[35px]"
@@ -208,18 +208,21 @@ const Card: React.FC<CardProps> = ({
             {card.discountPrice > 0 ? (
               <div className="flex gap-2 justify-center">
                 <p className="text-sm md:text-18 font-bold line-through font-Helveticalight">
-                  AED <span>{card.price}</span>
-                </p>
-                <p className="text-sm md:text-18 font-bold text-[#FF0000]">
-                  AED <span>{card.discountPrice}</span>
-                </p>
-              </div>
-            ) : (
-              <span className="text-sm md:text-18 font-bold ">
-                AED {card.price}
-              </span>
-            )}
-          </div>
+        AED{" "}
+        <span>{new Intl.NumberFormat().format(card.price)}</span>
+        </p>
+        <p className="text-sm md:text-18 font-bold text-[#FF0000]">
+        AED{" "}
+        <span>{new Intl.NumberFormat().format(card.discountPrice)}</span>
+        </p>
+        </div>
+        ) : (
+        <span className="text-sm md:text-18 font-bold">
+        AED {new Intl.NumberFormat().format(card.price)}
+        </span>
+        )}
+        </div>
+
           {averageRating > 0 && (
             <div className="flex gap-1 items-center justify-center mt-1 h-5">
               {renderStars({ star: averageRating })}
