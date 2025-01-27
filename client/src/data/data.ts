@@ -38,7 +38,7 @@ export const PrivacyPolicybredcrumbs = [
 ];
 export const TReturnPolicybredcrumbs = [
   { label: 'Home', href: '/' },
-  { label: 'Return-Policy' },
+  { label: 'Return - Policy' },
 ];
 export const TShippingPolicybredcrumbs = [
   { label: 'Home', href: '/' },

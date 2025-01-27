@@ -1525,7 +1525,7 @@ export const ReturnPolicy = [
     title: '',
     description: [
       'Avenue39 is a brand people can trust as we keep their experience of our products beyond their expectations. However, we come to terms with the fact that occasionally, it is just impossible to prevent returns.',
-      'Avenue39 has a fair and logical return and refund policy. As we make our payment policy quite transparent to everyone, possible returns within 7 days of acceptance or purchase of your item for a full refund or exchange. Comprise the rule that you are supposed to bring only the items that are unworn and new just as they were delivered for you.',
+      'Avenue39 has a fair and logical return and refund policy. As we make our payment policy quite transparent to everyone, possible returns within 7 days of acceptance or purchase of your item for a full refund or exchange. The policy requires that you return items that are unworn and in the same new condition as when they were delivered to you.',
       'All rights, the initiators of returns are asked to return the products to their usual store when they do not achieve the expected result.',
       'To start the return procedure, follow these steps:',
       '1. Send an email to us with your concerns and complaints due to which you made the decision to return the product.',
@@ -1589,12 +1589,12 @@ export const ShippingPolicy = [
       '8.  If a product is found to be faulty, damaged, not the same product ordered by customers upon delivery, notify our customer service at [[EMAIL_LINK]].',
     ],
   },
-  // {
-  //   title: 'Additional Services and Charges',
-  //   description: [
-  //     "After you have successfully placed an order on our website, we will make sure to ship the product immediately. Once your order is shipped by Avenue39, a tracking number will be shared with you via email or order confirmation page. This number will help you to track your order's progress via the courier company’s website.",
-  //   ],
-  // },
+  {
+    title: 'Additional Services and Charges',
+    description: [
+      "After you have successfully placed an order on our website, we will make sure to ship the product immediately. Once your order is shipped by Avenue39, you can track its progress through the courier company's website using the tracking details available on the order confirmation page.",
+    ],
+  },
   {
     title: 'Questions',
     description: [
