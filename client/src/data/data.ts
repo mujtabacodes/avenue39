@@ -507,11 +507,12 @@ export const Dining= [
   'Trattori Barstool',
 ]
 export const Living= [
+  'Marlin Tub Chair (Cream & Brown)',
   'Marlin Tub Swivel Chair (Brown & cream)',
   'Marlin Tub Swivel Chair',
-  'Marlin Tub Chair',
-  'Marlin Rocking Chair (White& Grey)',
+  // 'Marlin Tub Chair',
   'Marlin Rocking Chair (White & Black)',
+  'Marlin Rocking Chair (White& Grey)',
   'The Lisbon Sofa Set',
   'Lucius Coffee Table Set',
   'Finestra Side Table',
