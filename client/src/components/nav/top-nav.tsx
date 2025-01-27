@@ -2,29 +2,29 @@ import React from 'react';
 import Container from '../ui/Container';
 import SocialLink from '../social-link';
 import Link from 'next/link';
-import { FaRegMoon } from 'react-icons/fa';
-import { GiLantern } from 'react-icons/gi';
+import Image from 'next/image';
+import ramadan1 from '../../../public/images/ramadan12.png';
 
 const TopNav = () => {
   return (
-    <div className="bg-main text-secondary p-2 hidden md:block">
+    <div className="bg-main text-secondary p-2 hidden md:block ">
       <Container className="flex justify-between items-center gap-2">
         <div className="max-lg:hidden lg:w-3/12 min-w-24">
           <div className="w-fit"></div>
         </div>
-        <div className="w-full lg:max-w-[58%] xl:max-w-[43%] 2xl:max-w-[40%] max-sm:pl-1 2xl:mr-6">
+        <div className="w-full lg:max-w-[58%] xl:max-w-[43%] 2xl:max-w-[40%] max-sm:pl-1 2xl:mr-6 relative">
           <p className="flex justify-center gap-2 items-center font-medium text-12 2xl:text-13 xl:whitespace-nowrap">   
-            <FaRegMoon size={22} className="text-white relative top-[1px]" />
-            <span>
-              This Ramadan elevate your home’s style with the best offers.
+          <Image className='absolute z-40 -left-32 -top-8' src={ramadan1} alt='ramadan1'/>
+            <p className='uppercase tracking-widest '>
+              This Ramadan elevate your home’s style with the best offers.{' '}
               <Link
                 className="text-red-600 border-b border-red-600 hover:text-red-800"
                 href={'products'}
               >
                 SHOP SALE
               </Link>
-            </span>        
-            <GiLantern size={22} className="text-white relative top-[1px]" />
+            </p>        
+            <Image className='absolute z-40 -right-28 -top-8' src={ramadan1} alt='ramadan1'/>
           </p>
         </div>
         <div className="gap-3 lg:gap-3 flex justify-end items-center w-2/12">
