@@ -6,6 +6,8 @@ import Shop from '../shop';
 import { headers } from 'next/headers';
 import { Metadata } from 'next';
 import { ProductDetailSkeleton } from '@/components/product-detail/skelton';
+import { fetchProducts } from '@/config/fetch';
+import { menuData } from '@/data/menu';
 
 async function fetchCategory() {
   const response = await fetch(
@@ -46,19 +48,18 @@ export async function generateMetadata({
   const protocol = headersList.get('x-forwarded-proto') || 'https';
   const fullUrl = `${protocol}://${domain}/product/${slug}`;
 
-  const categories = await fetchCategory();
-  const subcategories = await fetchSubCategory();
+  const [categories, subcategories] = await Promise.all([fetchCategory(), fetchSubCategory()])
 
   const normalizedSlug = slug.toUpperCase().replace('-', ' ');
 
   const category = categories?.find(
     (item: any) => item.name === normalizedSlug,
   );
-  console.log(category,'category')
+  console.log(category, 'category')
   const subcategory = !category
     ? subcategories?.find(
-        (item: any) => item.name.toUpperCase() === normalizedSlug,
-      )
+      (item: any) => item.name.toUpperCase() === normalizedSlug,
+    )
     : null;
 
   const source = category || subcategory;
@@ -95,13 +96,54 @@ export async function generateMetadata({
   };
 }
 
-const SingleProduct = () => {
+const SingleProduct = async ({ params }: { params: { slug: string } }) => {
+  const { slug } = params;
+  const [products, categories, subcategories] = await Promise.all([fetchProducts(), fetchCategory(), fetchSubCategory()])
+
+  const categoryName =
+    slug === 'lighting'
+      ? 'Lighting'
+      : slug === 'home-office'
+        ? 'homeOffice'
+        : slug;
+        const subcategory = menuData[categoryName] || [];
+
+        const sortProducts = products.map((prod) => {
+          const matchingSubcategories = prod.subcategories?.map((sub) => {
+            const foundSubcategory = subcategory.find((item) => item.title === sub.name);
+
+            if (foundSubcategory) {
+              return { id: 0, name: foundSubcategory.title };
+            }
+            return undefined;
+          }).filter((item) => item !== undefined);
+          
+          prod.subcategories = matchingSubcategories;
+        
+          return prod;
+        }).sort((a, b) => {
+          if (!a.subcategories || a.subcategories.length === 0) return 1;
+          if (!b.subcategories || b.subcategories.length === 0) return -1;
+          
+          const subcategoryA = a.subcategories?.[0]?.name || '';
+          const subcategoryB = b.subcategories?.[0]?.name || '';
+        
+          const indexA = subcategory.findIndex((item) => item.title === subcategoryA);
+          const indexB = subcategory.findIndex((item) => item.title === subcategoryB);
+        
+          return indexA - indexB;
+        });
   return (
     <Suspense fallback={<ProductDetailSkeleton />}>
       <Shop
         sideBannerProduct="ashton-dining-chair"
         productBanner={<ProductBanner />}
         sideBanner={product}
+        products={products}
+        categories={categories}
+        subcategories={subcategories}
+        sortProducts={sortProducts}
+        categoryName={slug}
       />
     </Suspense>
   );

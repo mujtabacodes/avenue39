@@ -30,12 +30,18 @@ interface ProductPageProps {
   Setlayout: (layout: string) => void;
   /* eslint-enable */
   fullUrl?: string;
+  sortProducts: IProduct[]
+  categoryName: string;
+  products: IProduct[]
 }
 
 const ProductPage = ({
   productBanner,
   layout,
   Setlayout,
+  sortProducts,
+  categoryName,
+  // products
 }: ProductPageProps) => {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [selectedSubCategories, setSelectedSubCategories] = useState<string[]>(
@@ -53,6 +59,20 @@ const ProductPage = ({
   console.log(layout,"layout")
   const pathname = usePathname();
   const searchParams = useSearchParams();
+
+
+  const normalizedSlug = categoryName.toUpperCase().replace('-', ' ');
+
+  const isCategory: boolean = category?.some(
+    (item: any) => item.name === normalizedSlug,
+  );
+  const { data: products = [], isLoading: isProductsLoading } = useQuery<
+  IProduct[],
+  Error
+>({
+  queryKey: ['products'],
+  queryFn: fetchProducts,
+});
   const fetchCategoryData = async () => {
     try {
       const response = await fetch(
@@ -146,13 +166,7 @@ const ProductPage = ({
   //   setPriceRange([start, end]);
   const handleSortChange = (sort: string) => setSortOption(sort);
 
-  const { data: products = [], isLoading: isProductsLoading } = useQuery<
-    IProduct[],
-    Error
-  >({
-    queryKey: ['products'],
-    queryFn: fetchProducts,
-  });
+ 
 
   setTimeout(() => {
     if (selectedSubCategories) {
@@ -164,8 +178,9 @@ const ProductPage = ({
   }, 200);
 
 
-
-  const filteredCards = products
+  const productdata = isCategory ? sortProducts : products
+  console.log(productdata,'productdata',selectedSubCategories )
+  const filteredCards = productdata
   .filter((card) => {
     if (pathname === '/products') {
       return card.discountPrice > 0 && card.stock > 0;
@@ -177,10 +192,9 @@ const ProductPage = ({
       return card.subcategories?.some((sub) =>
         selectedSubCategories.includes(`SUB_${sub.name.toUpperCase()}`),
       );
+    } else {
+    return card.categories?.some((cat) => selectedCategories.includes(cat.name))
     }
-    return selectedCategories.length > 0
-      ? card.categories?.some((cat) => selectedCategories.includes(cat.name))
-      : true;
   })
   .sort((a, b) => {
     switch (sortOption) {

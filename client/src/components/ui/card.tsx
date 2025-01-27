@@ -162,6 +162,7 @@ const Card: React.FC<CardProps> = ({
           </Swiper>
         ) : (
           <div className='bg-[#E3E4E6] rounded-[35px]'>
+            <span className='pb-10'>{card.subcategories?.map((item) => item.name)}</span>
             {card.discountPrice > 0 && (
               <p className="absolute top-1 -left-9 px-7 transform -rotate-45 bg-[#FF0000] text-white text-14 font-bold w-[120px] h-[40px] flex justify-center items-center">
                 {Math.round(
