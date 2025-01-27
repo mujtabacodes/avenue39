@@ -10,7 +10,9 @@ const CustomThumbnailSlickSlider = ({
 }: {
   thumbs: { imageUrl: string; altText: string }[];
   isZoom: boolean;
+  /* eslint-disable */
   onSlideChange: (index: number) => void;
+   /* eslint-enable */
 }) => {
   const slickRef = useRef<Slider | null>(null);  
   const settings = {

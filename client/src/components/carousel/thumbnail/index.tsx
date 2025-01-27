@@ -46,8 +46,6 @@ const Thumbnail: React.FC<ThumbProps> = ({
   /* eslint-enable */
   
   const [imagesLoaded, setImagesLoaded] = useState(false);
-
-  // Preload images
   const preloadImages = (images: string[]) => {
     return Promise.all(
       images.map((src) => {
