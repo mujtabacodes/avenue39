@@ -237,10 +237,11 @@ const [terms, setterms] = useState<CheckedState>(false)
               <Checkbox id="terms" value={terms as any} onCheckedChange={(check:CheckedState)=>setterms(check)} />
               <label
                 htmlFor="terms"
-                className="text-sm text-gray-400 space-x-1 font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                className="text-sm text-gray-400 space-x-1 font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer "
               >
-                <span>By creating your account you agree to our</span><span className='text-black'>Terms and Conditions</span>
+                <span>By creating your account you agree to our</span>
               </label>
+              <Link href='/terms-condition' className='text-black cursor-pointer'>Terms and Conditions</Link>
             </div>
           </div>
           <Button
