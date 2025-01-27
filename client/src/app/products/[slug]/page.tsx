@@ -8,7 +8,6 @@ import { Metadata } from 'next';
 import { ProductDetailSkeleton } from '@/components/product-detail/skelton';
 import { fetchProducts } from '@/config/fetch';
 import { menuData } from '@/data/menu';
-import { ICategory, IProduct } from '@/types/types';
 
 async function fetchCategory() {
   const response = await fetch(

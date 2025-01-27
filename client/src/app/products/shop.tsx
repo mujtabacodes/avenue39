@@ -9,8 +9,8 @@ const Shop = ({
   productBanner,
   sideBanner,
   products,
-  subcategories,
-  categories,
+  // subcategories,
+  // categories,
   sortProducts,
   categoryName
 }: {

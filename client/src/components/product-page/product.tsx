@@ -17,7 +17,7 @@ import {
 import Card from '@/components/ui/card';
 import LandscapeCard from '@/components/ui/landscape-card';
 import CardSkaleton from '../Skaleton/productscard';
-import { ICategory, IProduct } from '@/types/types';
+import { IProduct } from '@/types/types';
 import { fetchProducts } from '@/config/fetch';
 import { StaticImageData } from 'next/image';
 import SubCategoriesRow from './subcategories-row';
@@ -263,7 +263,7 @@ const ProductPage = ({
 
             <SubCategoriesRow />
           </div>
-          {filterLoading ? (
+          {filterLoading || isProductsLoading ? (
             <CardSkaleton />
           ) : (
             
