@@ -43,8 +43,7 @@
 }
 html {
   scroll-behavior: smooth;
-  /* font-family: var(--font-helvetica); */
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-family: var(--font-helvetica);
 }
 
 .font-helvetica {
