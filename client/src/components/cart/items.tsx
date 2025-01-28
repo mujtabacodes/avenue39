@@ -173,19 +173,19 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                             {item.name}
                           </ProductName>
                           <div className="flex justify-between flex-wrap gap-2">
-                            <span> Qty: {item.quantity}</span>
+                            <span> Qty: {item.quantity.toLocaleString()}</span>
                             {item?.discountPrice > 0 ? (
                               <ProductPrice className="flex gap-2 flex-wrap mb-4 !text-[15px] text-nowrap">
                                 <span>
-                                  AED {item?.discountPrice * item.quantity}
+                                AED {(item?.discountPrice * item.quantity).toLocaleString()}
                                 </span>
                                 <NormalText className="text-slate-400 line-through w-[70px] text-end text-nowrap !text-[15px]">
-                                  AED {item?.price * item.quantity}
+                                AED {(item?.price * item.quantity).toLocaleString()}
                                 </NormalText>
                               </ProductPrice>
                             ) : (
                               <ProductPrice className="flex gap-2 flex-wrap mb-4 !text-[15px] text-nowrap">
-                                <span>AED {item?.price * item.quantity}</span>
+                                <span>AED {(item?.price * item.quantity).toLocaleString()}</span>
                                 {/* <NormalText className="text-slate-400 line-through w-20 text-end text-nowrap !text-[15px]">
                             </NormalText> */}
                               </ProductPrice>
@@ -210,7 +210,7 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                     <NormalText className="text-slate-400 flex justify-between">
                       Total
                       <ProductPrice className="flex gap-2 mb-4">
-                        AED {totalPrice}
+                        AED {totalPrice.toLocaleString()}
                       </ProductPrice>
                     </NormalText>
                     <div className="flex flex-col gap-2">
@@ -329,38 +329,40 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                   )}
                 </div>
                 <div className="w-52 xl:w-64 flex gap-2 xl:gap-4 items-center justify-between">
-                  {item.discountPrice > 0 ? (
-                    <>
-                      <p className="text-12 xl:text-14 text-nowrap font-normal text-end w-16 line-through text-[#A5A5A5]">
-                        AED <span>{item?.price * item.quantity}</span>
-                      </p>
-                      <p className="text-14 xs:text-16 xl:text-[20px] font-bold text-nowrap">
-                        AED <span>{item?.discountPrice * item.quantity}</span>
-                      </p>
-                    </>
-                  ) : (
-                    <>
-                      <p className="text-14 xs:text-16 xl:text-[20px] font-bold text-center w-full pl-20">AED <span>{item?.price * item.quantity}</span></p>
-                    </>
-                  )}
-                  <div>
-                  {!isCheckoutPage && (
-                    <div className="flex items-center gap-2">
-                      {/* <Link href={`/product/${generateSlug(item.name)}`}>
-                        <MdModeEdit className="cursor-pointer" size={20} />
-                      </Link> */}
-                      <FaTrash
-                        className="cursor-pointer"
-                        size={15}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          removeProductFromCart(item.id);
-                        }}
-                      />
-                    </div>
-                  )}
-                    </div>
-                </div>
+  {item.discountPrice > 0 ? (
+    <>
+      <p className="text-12 xl:text-14 text-nowrap font-normal text-end w-16 line-through text-[#A5A5A5]">
+        AED <span>{(item?.price * item.quantity).toLocaleString()}</span>
+      </p>
+      <p className="text-14 xs:text-16 xl:text-[20px] font-bold text-nowrap">
+        AED <span>{(item?.discountPrice * item.quantity).toLocaleString()}</span>
+      </p>
+    </>
+  ) : (
+    <>
+      <p className="text-14 xs:text-16 xl:text-[20px] font-bold text-center w-full pl-20">
+        AED <span>{(item?.price * item.quantity).toLocaleString()}</span>
+      </p>
+    </>
+  )}
+  <div>
+    {!isCheckoutPage && (
+      <div className="flex items-center gap-2">
+        {/* <Link href={`/product/${generateSlug(item.name)}`}>
+          <MdModeEdit className="cursor-pointer" size={20} />
+        </Link> */}
+        <FaTrash
+          className="cursor-pointer"
+          size={15}
+          onClick={(e) => {
+            e.stopPropagation();
+            removeProductFromCart(item.id);
+          }}
+        />
+      </div>
+    )}
+  </div>
+</div>
               </div>
             </div>
           ))}
