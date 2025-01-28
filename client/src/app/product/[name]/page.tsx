@@ -44,13 +44,9 @@ const generateSlug = (text: string) => {
 
   return formatedSlug;
 };
-export async function generateMetadata({
-  params,
-}: {
-  params: { name: string };
-}): Promise<Metadata> {
-  const { name } = params;
-  const headersList = headers();
+export async function generateMetadata({params}: {params: Promise<{ name: string }>}): Promise<Metadata> {
+  const { name } = (await params);
+  const headersList = await headers();
   const domain =
     headersList.get('x-forwarded-host') || headersList.get('host') || '';
   const protocol = headersList.get('x-forwarded-proto') || 'https';
@@ -90,11 +86,13 @@ export async function generateMetadata({
   };
 }
 
-const ProductPage = async ({ params }: { params: IProductDetail }) => {
+const ProductPage = async ({ params }: { params: Promise<IProductDetail> }) => {
   const products = await fetchProducts();
   const reviews = await fetchReviews();
+let product_name = (await params).name;
+let param = await params
   const product: IProduct | undefined = products.find((product: IProduct) => {
-    return generateSlug(product.name) === params.name;
+    return generateSlug(product.name) === product_name;
   });
   if (!product) {
    return <NotFound />;
@@ -107,9 +105,10 @@ const ProductPage = async ({ params }: { params: IProductDetail }) => {
     );
     return hasMatchingCategory && prod.id !== product.id;
   });
+
   return (
     <Suspense fallback={<ProductDetailSkeleton />}>
-      <Product params={params} similarProducts={similarProducts} reviews={reviews} product={product} products={products} />
+      <Product params={param} similarProducts={similarProducts} reviews={reviews} product={product} products={products} />
     </Suspense>
   );
 };

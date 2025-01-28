@@ -9,41 +9,9 @@ import { ProductDetailSkeleton } from '@/components/product-detail/skelton';
 import { fetchCategories, fetchProducts, fetchSubCategories } from '@/config/fetch';
 import { menuData } from '@/data/menu';
 
-// async function fetchCategory() {
-//   const response = await fetch(
-//     `${process.env.NEXT_PUBLIC_BASE_URL}/api/category/get-all`,
-//     {
-//       next: { tags: ['category'] },
-//     },
-//   );
-
-//   if (!response.ok) {
-//     throw new Error('Failed to fetch category');
-//   }
-//   return response.json();
-// }
-
-// async function fetchSubCategory() {
-//   const response = await fetch(
-//     `${process.env.NEXT_PUBLIC_BASE_URL}/api/subcategories/get-all`,
-//     {
-//       next: { tags: ['subcategories'] },
-//     },
-//   );
-
-//   if (!response.ok) {
-//     throw new Error('Failed to fetch subcategories');
-//   }
-//   return response.json();
-// }
-
-export async function generateMetadata({
-  params,
-}: {
-  params: { slug: string };
-}): Promise<Metadata> {
-  const { slug } = params;
-  const headersList = headers();
+export async function generateMetadata({params}: {params: Promise<{ slug: string }>}): Promise<Metadata> {
+  const { slug } = (await params);
+  const headersList = await headers();
   const domain =
     headersList.get('x-forwarded-host') || headersList.get('host') || '';
   const protocol = headersList.get('x-forwarded-proto') || 'https';
@@ -95,8 +63,8 @@ export async function generateMetadata({
 }
 
 
-const SingleProduct = async ({ params }: { params: { slug: string } }) => {
-  const { slug } = params;
+const SingleProduct = async ({ params }: { params: Promise<{ slug: string }> }) => {
+  const { slug } = await params;
   const [products, categories, subcategories] = await Promise.all([fetchProducts(), fetchCategories(), fetchSubCategories()])
 
   const categoryName = slug === 'lighting' ? 'Lighting' : slug === 'home-office' ? 'homeOffice' : slug;
