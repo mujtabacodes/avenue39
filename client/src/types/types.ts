@@ -274,6 +274,7 @@ export interface ICategory {
   Meta_Title?: string;
   Meta_Description?: string;
   Canonical_Tag?: string;
+  subcategories?: { name: string }[];
 }
 // Timer slider data type
 export type TSliderItem = {
