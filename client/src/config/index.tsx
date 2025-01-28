@@ -11,7 +11,7 @@ export const SubTotal = () => {
     selectTotalPrice(state.cart),
   );
 
-  return <Fragment>{totalPrice}</Fragment>;
+  return <Fragment>{totalPrice.toLocaleString()}</Fragment>;
 };
 
 export const TotalProducts = () => {
