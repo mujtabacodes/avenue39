@@ -6,7 +6,9 @@ import Image from 'next/image';
 import React from 'react';
 import aboutimage from '@assets/images/AboutImage.png';
 import Mission from '@/components/mission';
-import {  customtestimonialcards, data } from '@/data';
+import {
+    // customtestimonialcards, 
+    data } from '@/data';
 import gold from '@icons/gold.png';
 import crosshair from "@icons/Icon-crosshair.png";
 import parkingSensors  from "@icons/parking-sensors.png";
