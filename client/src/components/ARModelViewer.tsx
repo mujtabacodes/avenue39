@@ -121,7 +121,7 @@ const ARExperience: React.FC<ARExperienceProps> = ({ ImageUrl }) => {
 
       const textureLoader = new THREE.TextureLoader();
       if (!ImageUrl) return;
-      const texture = textureLoader.load(ImageUrl);
+      const texture = textureLoader.load('/3dmodel/carpet.glb');
 
       // Adjust the plane geometry to be 200x200 (as requested)
       const geometry = new THREE.PlaneGeometry(0.2, 0.2); // Size in meters (0.2m = 200mm)
