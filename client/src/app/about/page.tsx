@@ -10,8 +10,7 @@ import {  customtestimonialcards, data } from '@/data';
 import gold from '@icons/gold.png';
 import crosshair from "@icons/Icon-crosshair.png";
 import parkingSensors  from "@icons/parking-sensors.png";
-import CustomTestimonal from '@/components/testimonial/custom-testimonal';
-import { Metadata } from 'next';
+ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'About Page',
@@ -76,7 +75,7 @@ const About= () => {
           />
       </Container>
     </div>
-    <CustomTestimonal testimonialitems={customtestimonialcards} />
+    {/* <CustomTestimonal testimonialitems={customtestimonialcards} /> */}
 
 
 
