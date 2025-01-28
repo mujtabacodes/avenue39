@@ -25,7 +25,9 @@ const CustomThumbnailSlickSlider = ({
     vertical: true,
     verticalSwiping: true,
     arrows: thumbs.length > 1,
-    nextArrow: <div id="nextArrow" className="slick-next-arrow"><FaSortDown size={25} className="text-black"/></div>,
+    nextArrow: <div id="nextArrow" className="slick-next-arrow !flex !justify-center !items-center">
+        <FaSortDown  size={25} className="text-black "/>
+    </div>,
     responsive: [
       {
         breakpoint: 895,
