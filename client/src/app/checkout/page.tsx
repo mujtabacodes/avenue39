@@ -308,7 +308,7 @@ const Checkout = () => {
                       <div className="border-t-4 pt-6 flex justify-between items-center text-[#666666] text-sm">
                         <p>Subtotal</p>
                         <p>
-                          AED <span>{totalPrice}</span>
+                          AED <span>{totalPrice.toLocaleString()}</span>
                         </p>
                       </div>
                       <div className="border-t-4 pt-6 flex justify-between items-center text-[#666666] text-sm">
@@ -327,10 +327,11 @@ const Checkout = () => {
                           {' '}
                           AED{' '}
                           <span>
-                            {totalPrice > 1000
-                              ? totalPrice
-                              : totalPrice + shippingfee}
-                          </span>
+                            {(totalPrice > 1000
+                            ? totalPrice
+                            : totalPrice + shippingfee
+                            ).toLocaleString()}
+                            </span>
                         </p>
                       </div>
                     </div>

@@ -13,7 +13,7 @@ import React from 'react';
 import { IoBagOutline } from 'react-icons/io5';
 import { useSelector } from 'react-redux';
 
-const Cart = ({similarProducts}: {similarProducts: IProduct[]}) => {
+const Cart = ({ similarProducts }: { similarProducts: IProduct[] }) => {
   const cartItems = useSelector((state: State) => state.cart.items);
   return (
     <>
@@ -28,7 +28,7 @@ const Cart = ({similarProducts}: {similarProducts: IProduct[]}) => {
                 <div className="">
                   <Link
                     href="/products"
-                    className="bg-main px-6 flex justify-center items-center rounded-2xl text-white h-[73px] hover:border-[#666666] border border-[#F6F6F6]"
+                    className="bg-main px-6 flex justify-center items-center rounded-2xl text-white h-[60px] hover:border-[#666666] border border-[#F6F6F6]"
                   >
                     Continue Shopping
                   </Link>
@@ -47,7 +47,7 @@ const Cart = ({similarProducts}: {similarProducts: IProduct[]}) => {
               <div className="">
                 <Link
                   href="/products"
-                  className="bg-main px-6 flex justify-center items-center rounded-2xl text-white h-[73px] hover:border-[#666666] border border-[#F6F6F6]"
+                  className="bg-main px-6 flex justify-center items-center rounded-2xl text-white h-[60px] hover:border-[#666666] border border-[#F6F6F6]"
                 >
                   Continue Shopping
                 </Link>
@@ -57,7 +57,7 @@ const Cart = ({similarProducts}: {similarProducts: IProduct[]}) => {
         )}
       </Container>
       <Container className="my-10">
-        <p className="text-[51px] font-medium text-center">Similar Products</p>
+        <p className="text-xl  md:text-[40px] font-Helveticalight text-center">Similar Products</p>
         <FeatureSlider similarProducts={similarProducts} title={false} />
       </Container>
       <Services />

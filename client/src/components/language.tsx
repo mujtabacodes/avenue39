@@ -27,6 +27,7 @@ export const Helvetica = localFont({
       },
     ],
   });
+
   export  const Helveticalight = localFont({
     src: [
       {
@@ -36,3 +37,6 @@ export const Helvetica = localFont({
       },
     ],
   });
+
+
+  
