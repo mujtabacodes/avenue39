@@ -39,22 +39,15 @@ const DetailTabs: FC<DetailTabsProps> = ({ tabs }) => {
           ))}
         </div>
       </Container>
-      {/* Tab Content */}
       <div className="border-t-[1px]">
         <Container className="px-4">
           <div className="w-full sm:w-2/3 lg:w-3/4 sm:px-4">
             {tabs[activeTab].content}            
           </div>
           <div className="w-full relative mt-10">
-              {/* <h1 className="text-2xl py-3 text-left font-semibold flex">Best Seller</h1> */}
               <BestSellingSlider />
             </div>
-          {/* <div className="w-1/3 lg:w-1/4 hidden sm:block ">
-            <h2 className="text-2xl font-medium mb-5">
-              Match With
-            </h2>
-            <SideCard isSlice={true} />
-          </div> */}
+
         </Container>
       </div>
     </div>
