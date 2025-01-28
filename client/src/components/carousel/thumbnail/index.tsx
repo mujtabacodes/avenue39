@@ -85,7 +85,7 @@ const Thumbnail: React.FC<ThumbProps> = ({
             onSlideChange={handleSlideChange}  
           />
           <div
-            className={`w-full md:w-9/12 2xl:w-4/5 md:flex-grow relative border-2 border-gray-100 shadow rounded-lg md:!max-h-[700px]`}
+            className={`w-full md:w-9/12 2xl:w-4/5 md:flex-grow relative border-2 border-gray-100 shadow rounded-lg md:!max-h-[640px]`}
           >
             {isLoading ? (
               <Skeleton className="h-[90px] w-full" />
