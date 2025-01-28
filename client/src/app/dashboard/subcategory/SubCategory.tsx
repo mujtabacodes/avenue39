@@ -4,11 +4,12 @@ import DefaultLayout from '@components/Dashboard/Layouts/DefaultLayout';
 import ProtectedRoute from '@/hooks/AuthHookAdmin';
 import { useState } from 'react';
 import AddSubcategory from '@components/AddCategory/AddSubcategory';
-import type { Category , SubCategory } from '@/types/interfaces';
+import type { Category} from '@/types/interfaces';
 import ViewSubcategries from '@/components/Dashboard/Tables/ViewSubcategries';
-import { ICategory } from '@/types/types';
+import { SubCategoryComponentProps_dashboard } from '@/types/Pages_props';
 
-const SubCategoryComponent = ({subCategories , cetagories}: {subCategories: SubCategory[] , cetagories: ICategory[]}) => {
+
+const SubCategoryComponent = ({subCategories , cetagories}: SubCategoryComponentProps_dashboard) => {
   const [menuType, setMenuType] = useState<string>('Sub Categories');
   const [editCategory, seteditCategory] = useState<
   Category | undefined | null
