@@ -26,6 +26,12 @@
   border-radius: 100%;
   border: white;
 }
+.no-select {
+  user-select: none;
+}
+.slick-list{
+  height: auto !important;
+}
 .hero-slider-wrapper .slick-list {
   position: relative;
   height: 100%;

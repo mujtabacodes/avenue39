@@ -41,7 +41,7 @@ const About= () => {
       <Container className="flex flex-wrap md:flex-nowrap items-center md:gap-10 mt-4">
         <div className="w-full md:w-7/12">
           <h2 className="text-14 text-[#999999]">OUR STORY</h2>
-          <h1 className="text-[48px]">WELCOME TO AVENUE39</h1>
+          <h1 className="text-[48px]">WELCOME TO a v e n u e 3 9</h1>
           <div className="text-14 space-y-4">
           {data.paragraphs.map((paragraph, index) => (
         <p key={index}>{paragraph}</p>
