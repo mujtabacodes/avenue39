@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import product from '../../../../public/images/product.jpg';
+// import product from '../../../../public/images/product.jpg';
 import ProductBanner from '@/components/discount-banner/product-banner';
 
 import Shop from '../shop';
@@ -8,6 +8,7 @@ import { Metadata } from 'next';
 import { ProductDetailSkeleton } from '@/components/product-detail/skelton';
 import { fetchCategories, fetchProducts, fetchSubCategories } from '@/config/fetch';
 import { menuData } from '@/data/menu';
+import { ICategory } from '@/types/types';
 
 export async function generateMetadata({params}: {params: Promise<{ slug: string }>}): Promise<Metadata> {
   const { slug } = (await params);
@@ -65,7 +66,7 @@ export async function generateMetadata({params}: {params: Promise<{ slug: string
 
 const SingleProduct = async ({ params }: { params: Promise<{ slug: string }> }) => {
   const { slug } = await params;
-  const [products, categories, subcategories] = await Promise.all([fetchProducts(), fetchCategories(), fetchSubCategories()])
+  const [products, categories] = await Promise.all([fetchProducts(), fetchCategories()])
 
   const categoryName = slug === 'lighting' ? 'Lighting' : slug === 'home-office' ? 'homeOffice' : slug;
   console.log(slug, "slug")
@@ -100,19 +101,19 @@ const SingleProduct = async ({ params }: { params: Promise<{ slug: string }> }) 
     return indexA - indexB;
   });
 
-
-  console.log(sortProducts, "products")
+    const normalizedSlug = categoryName?.toUpperCase().replace('-', ' ');
+  
+    const isCategory: boolean = categories?.some(
+      (item: ICategory) => item.name === normalizedSlug,
+    );
+    const ProductData = isCategory ? sortProducts : products;
   return (
     <Suspense fallback={<ProductDetailSkeleton />}>
       <Shop
-        sideBannerProduct="ashton-dining-chair"
         productBanner={<ProductBanner />}
-        sideBanner={product}
-        products={products}
         categories={categories}
-        subcategories={subcategories}
-        sortProducts={sortProducts}
-        categoryName={slug}
+        ProductData={ProductData}
+        isCategory={isCategory}
       />
     </Suspense>
   );
