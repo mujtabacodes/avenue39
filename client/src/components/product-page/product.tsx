@@ -1,5 +1,4 @@
-import { useState, useEffect, ReactNode } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import React, { useState, useEffect, ReactNode } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
 import TopHero from '@/components/top-hero';
 import Container from '@/components/ui/Container';
@@ -18,7 +17,6 @@ import Card from '@/components/ui/card';
 import LandscapeCard from '@/components/ui/landscape-card';
 import CardSkaleton from '../Skaleton/productscard';
 import { IProduct } from '@/types/types';
-import { fetchProducts } from '@/config/fetch';
 import { StaticImageData } from 'next/image';
 import SubCategoriesRow from './subcategories-row';
 interface ProductPageProps {
@@ -55,6 +53,7 @@ const ProductPage = ({
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
+  console.log(homeProd, "homeProd")
 
   const normalizedSlug = categoryName?.toUpperCase().replace('-', ' ');
 

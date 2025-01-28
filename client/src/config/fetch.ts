@@ -1,4 +1,4 @@
-import { ICategory, IProduct, IReview } from '@/types/types';
+import { ICategory,IReview } from '@/types/types';
 import axios from 'axios';
 
 export const fetchProducts = async () => {
