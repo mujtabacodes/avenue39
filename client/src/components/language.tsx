@@ -1,7 +1,5 @@
 // src/fonts.js
 import localFont from 'next/font/local';
-
-// Default Helvetica font
 export const Helvetica = localFont({
   src: [
     {
@@ -12,8 +10,6 @@ export const Helvetica = localFont({
   ],
   variable: '--font-helvetica',
 });
-
-// Helveticalight font
 export const Helveticalight = localFont({
   src: [
     {
@@ -24,8 +20,6 @@ export const Helveticalight = localFont({
   ],
   variable: '--font-helvetica-light',
 });
-
-// Belgium font
 export const belgium = localFont({
   src: [
     {
@@ -36,8 +30,6 @@ export const belgium = localFont({
   ],
   variable: '--font-belgium',
 });
-
-// Jadyn font
 export const jadyn = localFont({
   src: [
     {
