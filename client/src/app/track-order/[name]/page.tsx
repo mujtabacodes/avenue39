@@ -5,8 +5,9 @@ import axios from "axios";
 import Container from "@/components/ui/Container";
 import { IOrder, IOrderProduct } from "@/types/types";
 
-const ViewOrder = async ({ params: { name } }: { params: { name: string } }) => {
+const ViewOrder = async ({ params }: { params: Promise<{ name: string }> }) => {
   let userDetail: IOrder | null = null;
+  let name = (await params).name;
 
   try {
     const response = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/sales-record/trackorder/${name}`);
@@ -27,6 +28,7 @@ const ViewOrder = async ({ params: { name } }: { params: { name: string } }) => 
       );
     }
   } catch (error) {
+    console.error(error);
     return (
       <Container className="text-center py-20">
         <h2 className="text-xl font-semibold">Error Fetching Order</h2>

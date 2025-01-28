@@ -136,6 +136,7 @@ const ViewProduct: React.FC<CategoryProps> = ({
         placement: 'topRight',
       });
     } catch (err) {
+      console.log(err)
       notification.error({
         message: 'Deletion Failed',
         description: 'There was an error deleting the product.',
