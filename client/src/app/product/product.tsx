@@ -13,6 +13,7 @@ import NoProduct from '@/components/ui/no-product';
 
 const Product = ({ params, similarProducts , reviews , product , products }: { params: IProductDetail, reviews: IReview[] , product: IProduct , similarProducts: IProduct[] , products:IProduct[] }) => {
   const slug = params.name;
+  console.log(slug, 'slug')
   console.log(reviews, 'reviews')
   const additional_columns_handler = () => {
     const section = product?.sections;

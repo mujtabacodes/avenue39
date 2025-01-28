@@ -10,10 +10,18 @@ export default function Page({ params }: { params: Promise<{ imageurl: string }>
   return (
     <>
       {
-        !Image_id ? 'Unexpected error' :
-          <>
+        // !Image_id ? 'Unexpected error' :
+        <>
+          <div className="block md:hidden">
+
             <ARExperience ImageUrl={Image_id} />
-          </>
+          </div>
+          <div className="hidden md:block">
+            <div className="flex justify-center items-center h-screen">
+              <h1 className="text-2xl">Please open this page on a mobile device to view the AR experience</h1>
+            </div>
+          </div>
+        </>
 
       }
     </>
