@@ -1,12 +1,17 @@
-import { ICategory, IProduct, IReview } from '@/types/types';
+import { ICategory,IReview } from '@/types/types';
 import axios from 'axios';
 
-export const fetchProducts = async (): Promise<IProduct[]> => {
-  const result = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/product/get-all`, {
-    next: { tags: ['products'] },
-  });
-  const response = await result.json();
-  return response;
+export const fetchProducts = async () => {
+  try {
+    const result = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/product/get-all`, {
+      next: { tags: ['products'] },
+    });
+    const response = await result.json();
+    return response;
+  } catch (error) {
+    console.log(error, "error")
+  }
+
 };
 
 export const fetchCategories = async (): Promise<ICategory[]> => {

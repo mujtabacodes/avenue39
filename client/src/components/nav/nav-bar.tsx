@@ -87,7 +87,7 @@ const Navbar = () => {
     setIsProductListOpen(false);
   };
 
-  const filteredProducts = products.filter((product: IProduct) => {
+  const filteredProducts = products?.filter((product: IProduct) => {
     const searchTerm = searchText.trim().toLowerCase();
 
     return (

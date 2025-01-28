@@ -41,7 +41,7 @@ const MenuLink: React.FC<MenuLinkProps> = ({
               <Link
                 href={
                   item.title === 'Sale'
-                    ? '/products'
+                    ? '/products' : item.title === 'Accessories' ? '/products/accessories'
                     : `${item.link}/${generateSlug(item.title)}${
                         `?id=${item.categoryId}`
                           // ? 

@@ -1,5 +1,4 @@
-import { useState, useEffect, ReactNode } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import React, { useState, useEffect, ReactNode } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
 import TopHero from '@/components/top-hero';
 import Container from '@/components/ui/Container';
@@ -18,7 +17,6 @@ import Card from '@/components/ui/card';
 import LandscapeCard from '@/components/ui/landscape-card';
 import CardSkaleton from '../Skaleton/productscard';
 import { IProduct } from '@/types/types';
-import { fetchProducts } from '@/config/fetch';
 import { StaticImageData } from 'next/image';
 import SubCategoriesRow from './subcategories-row';
 interface ProductPageProps {
@@ -26,33 +24,43 @@ interface ProductPageProps {
   sideBannerProduct?: string;
   productBanner: ReactNode;
   layout: string;
-/* eslint-disable */
-  Setlayout: (layout: string) => void;
-  /* eslint-enable */
+  Setlayout: React.Dispatch<React.SetStateAction<string>>;
   fullUrl?: string;
+  sortProducts: IProduct[]
+  categoryName?: string;
+  products: IProduct[]
+  homeProd?: IProduct[]
 }
 
 const ProductPage = ({
   productBanner,
   layout,
   Setlayout,
+  sortProducts,
+  categoryName,
+  products,
+  homeProd
 }: ProductPageProps) => {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-  const [selectedSubCategories, setSelectedSubCategories] = useState<string[]>(
-    [],
-  );
+  const [selectedSubCategories, setSelectedSubCategories] = useState<string[]>([]);
   const [selectedCategoriesName, setSelectedCategoriesName] = useState<
     string | undefined
   >();
-  const [selectedSubCategoriesName, setSelectedSubCategoriesName] = useState<
-    string | undefined
-  >();
+  const [selectedSubCategoriesName, setSelectedSubCategoriesName] = useState<string | undefined>();
   const [sortOption, setSortOption] = useState<string>('default');
   const [category, setCategory] = useState<any[]>([]);
   const [filterLoading, setFilterLoading] = useState<boolean>(true);
-  console.log(layout,"layout")
   const pathname = usePathname();
   const searchParams = useSearchParams();
+
+  console.log(homeProd, "homeProd")
+
+  const normalizedSlug = categoryName?.toUpperCase().replace('-', ' ');
+
+  const isCategory: boolean = category?.some(
+    (item: any) => item.name === normalizedSlug,
+  );
+
   const fetchCategoryData = async () => {
     try {
       const response = await fetch(
@@ -142,17 +150,9 @@ const ProductPage = ({
     }, 200);
   };
 
-  // const handlePriceChange = ([start, end]: [number, number]) =>
-  //   setPriceRange([start, end]);
   const handleSortChange = (sort: string) => setSortOption(sort);
 
-  const { data: products = [], isLoading: isProductsLoading } = useQuery<
-    IProduct[],
-    Error
-  >({
-    queryKey: ['products'],
-    queryFn: fetchProducts,
-  });
+ 
 
   setTimeout(() => {
     if (selectedSubCategories) {
@@ -162,11 +162,9 @@ const ProductPage = ({
       setSelectedCategoriesName(selectedCategories.at(0));
     }
   }, 200);
+  const productdata = isCategory ? sortProducts : products
 
-
-
-  const filteredCards = products
-  .filter((card) => {
+  const filteredCards = productdata.filter((card) => {
     if (pathname === '/products') {
       return card.discountPrice > 0 && card.stock > 0;
     }
@@ -174,13 +172,13 @@ const ProductPage = ({
   })
   .filter((card) => {
     if (selectedSubCategories.length > 0) {
+
       return card.subcategories?.some((sub) =>
         selectedSubCategories.includes(`SUB_${sub.name.toUpperCase()}`),
       );
-    }
-    return selectedCategories.length > 0
-      ? card.categories?.some((cat) => selectedCategories.includes(cat.name))
-      : true;
+    } 
+    return selectedCategories.length > 0 ? card.categories?.some((cat) => selectedCategories.includes(cat.name)) : true
+  
   })
   .sort((a, b) => {
     switch (sortOption) {
@@ -201,7 +199,8 @@ const ProductPage = ({
         return 0;
     }
   });
-  console.log(filteredCards,"filteredCards")
+
+  console.log(filteredCards,"filteredCards", productdata)
   return (
     <>
       <TopHero
@@ -249,7 +248,11 @@ const ProductPage = ({
 
             <SubCategoriesRow />
           </div>
-          {filterLoading || isProductsLoading ? (
+          {filterLoading 
+          // || 
+          // isProductsLoading
+          
+          ? (
             <CardSkaleton />
           ) : (
             

@@ -6,33 +6,36 @@ import Shop from '../shop';
 import { headers } from 'next/headers';
 import { Metadata } from 'next';
 import { ProductDetailSkeleton } from '@/components/product-detail/skelton';
+import { fetchCategories, fetchProducts, fetchSubCategories } from '@/config/fetch';
+import { menuData } from '@/data/menu';
 
-async function fetchCategory() {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/category/get-all`,
-    {
-      next: { tags: ['category'] },
-    },
-  );
+// async function fetchCategory() {
+//   const response = await fetch(
+//     `${process.env.NEXT_PUBLIC_BASE_URL}/api/category/get-all`,
+//     {
+//       next: { tags: ['category'] },
+//     },
+//   );
 
-  if (!response.ok) {
-    throw new Error('Failed to fetch category');
-  }
-  return response.json();
-}
-async function fetchSubCategory() {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/subcategories/get-all`,
-    {
-      next: { tags: ['subcategories'] },
-    },
-  );
+//   if (!response.ok) {
+//     throw new Error('Failed to fetch category');
+//   }
+//   return response.json();
+// }
 
-  if (!response.ok) {
-    throw new Error('Failed to fetch subcategories');
-  }
-  return response.json();
-}
+// async function fetchSubCategory() {
+//   const response = await fetch(
+//     `${process.env.NEXT_PUBLIC_BASE_URL}/api/subcategories/get-all`,
+//     {
+//       next: { tags: ['subcategories'] },
+//     },
+//   );
+
+//   if (!response.ok) {
+//     throw new Error('Failed to fetch subcategories');
+//   }
+//   return response.json();
+// }
 
 export async function generateMetadata({
   params,
@@ -46,20 +49,16 @@ export async function generateMetadata({
   const protocol = headersList.get('x-forwarded-proto') || 'https';
   const fullUrl = `${protocol}://${domain}/product/${slug}`;
 
-  const categories = await fetchCategory();
-  const subcategories = await fetchSubCategory();
+  const [categories, subcategories] = await Promise.all([fetchCategories(), fetchSubCategories()])
 
   const normalizedSlug = slug.toUpperCase().replace('-', ' ');
 
-  const category = categories?.find(
+  const category: any = categories?.find(
     (item: any) => item.name === normalizedSlug,
   );
-  console.log(category,'category')
-  const subcategory = !category
-    ? subcategories?.find(
-        (item: any) => item.name.toUpperCase() === normalizedSlug,
-      )
+  const subcategory = !category ? subcategories?.find((item: any) => item.name.toUpperCase() === normalizedSlug,)
     : null;
+
 
   const source = category || subcategory;
   const isCategory = !!category;
@@ -95,13 +94,57 @@ export async function generateMetadata({
   };
 }
 
-const SingleProduct = () => {
+
+const SingleProduct = async ({ params }: { params: { slug: string } }) => {
+  const { slug } = params;
+  const [products, categories, subcategories] = await Promise.all([fetchProducts(), fetchCategories(), fetchSubCategories()])
+
+  const categoryName = slug === 'lighting' ? 'Lighting' : slug === 'home-office' ? 'homeOffice' : slug;
+  console.log(slug, "slug")
+  const subcategory = menuData[categoryName] || []
+
+  const sortProducts = [...products].map((prod) => {
+    const clonedProd = { ...prod, subcategories: [...prod.subcategories] };
+    const clonedSubcategories = clonedProd.subcategories ? JSON.parse(JSON.stringify(clonedProd.subcategories)) : [];
+
+    const matchingSubcategories = clonedSubcategories?.map((sub: any) => {
+      const foundSubcategory = subcategory?.find((item) => item.title === sub.name);
+
+      if (foundSubcategory) {
+        return { id: 0, name: foundSubcategory.title };
+      }
+      return undefined;
+    }).filter((item: any) => item !== undefined);
+
+    clonedProd.subcategories = matchingSubcategories;
+
+    return clonedProd;
+  }).sort((a, b) => {
+    if (!a.subcategories || a.subcategories.length === 0) return 1;
+    if (!b.subcategories || b.subcategories.length === 0) return -1;
+
+    const subcategoryA = a.subcategories?.[0]?.name || '';
+    const subcategoryB = b.subcategories?.[0]?.name || '';
+
+    const indexA = subcategory.findIndex((item) => item.title === subcategoryA);
+    const indexB = subcategory.findIndex((item) => item.title === subcategoryB);
+
+    return indexA - indexB;
+  });
+
+
+  console.log(sortProducts, "products")
   return (
     <Suspense fallback={<ProductDetailSkeleton />}>
       <Shop
         sideBannerProduct="ashton-dining-chair"
         productBanner={<ProductBanner />}
         sideBanner={product}
+        products={products}
+        categories={categories}
+        subcategories={subcategories}
+        sortProducts={sortProducts}
+        categoryName={slug}
       />
     </Suspense>
   );
