@@ -2,17 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-@font-face {
-  font-family: 'Helvetica'; 
-  src: url('../../public/font/HelveticaNeueRegular.ttf') format('ttf');
-}
 @layer base {
   :root {
-    --Helveticalight: '__Helveticalight_29a3f3', '__Helveticalight_Fallback_29a3f3';
-    --Helvetica: '__Helvetica_f381f2, __Helvetica_Fallback_f380f2;';
-
-    --jadyn: '__jadyn_d94376', '__jadyn_Fallback_d94376';
-    --belgium: '__belgium_d61fef', '__belgium_Fallback_d61fef';
+    --font-helvetica: 'Helvetica', sans-serif;
+    --font-helvetica-light: 'HelveticaLight', sans-serif;
+    --font-belgium: 'Belgium', serif;
+    --font-jadyn: 'Jadyn', serif;
     --main: #afa183;
     --background: #fbfbfb;
     --foreground: #e2e3e5;
@@ -48,19 +43,23 @@
 }
 html {
   scroll-behavior: smooth;
+  font-family: var(--font-helvetica);
 }
 
-body {
-  /* font-family: var(--inter); */
+.font-helvetica {
+  font-family: var(--font-helvetica);
 }
+
 .font-Helveticalight {
-  font-family: var(--Helveticalight);
+  font-family: var(--font-helvetica-light);
 }
-.font-jadyn {
-  font-family: var(--jadyn);
-}
+
 .font-belgium {
-  font-family: var(--belgium);
+  font-family: var(--font-belgium);
+}
+
+.font-jadyn {
+  font-family: var(--font-jadyn);
 }
 .triangle-shape {
   position: absolute;

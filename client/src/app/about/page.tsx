@@ -13,7 +13,6 @@ import parkingSensors  from "@icons/parking-sensors.png";
 import CustomTestimonal from '@/components/testimonial/custom-testimonal';
 import { Metadata } from 'next';
 
-
 export const metadata: Metadata = {
   title: 'About Page',
   description: 'About description',
@@ -45,7 +44,7 @@ const About= () => {
           <div className="text-14 space-y-4">
           {data.paragraphs.map((paragraph, index) => (
         <p key={index}>{paragraph}</p>
-      ))}
+        ))}
           </div>
         </div>
         <div className="w-full md:w-5/12 mt-5 md:mt-0">
@@ -59,9 +58,8 @@ const About= () => {
         </div>
       </Container>
       <div className="bg-lightbackground mt-8">
-      <Container className='grid grid-cols-2 md:flex md:justify-between  py-20'>
-     
-          <Mission
+      <Container className='grid grid-cols-1 gap-5 md:gap-7 sm:flex sm:justify-between py-10  md:py-20'>
+       <Mission
             icon={gold}
             title={"Our Value"}
             description={"Every week, millions of savvy customers enjoy the fun and exciting shopping experience of Poundland in hundreds of stores nationwide."}
@@ -76,7 +74,6 @@ const About= () => {
             title={"Our Vision"}
             description={"From Amazing TOP BRANDS and daily ESSENTIAL items, to fantastic NEW lines and stunning WOW deals, we hope our quality and variety gives you irresistible value each visit!"}
           />
-      
       </Container>
     </div>
     <CustomTestimonal testimonialitems={customtestimonialcards} />
