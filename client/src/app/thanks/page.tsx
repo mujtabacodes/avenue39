@@ -153,7 +153,6 @@ console.log(setpayementDetails,"setpayementDetails")
                   </Link>
                 </div>
                 <div className="mt-16 mb-4">
-                  {/* <SliderComponent cards={tankyousildercards} isModel={true} /> */}
                   <BestSellingSlider />
                 </div>
               </div>

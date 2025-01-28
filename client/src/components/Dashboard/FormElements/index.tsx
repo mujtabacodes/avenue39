@@ -668,25 +668,6 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                             ))}
                           </div>
                         </div>
-
-                        {/* <div className="w-2/4">
-                          <SelectGroupTwo
-                            name="category"
-                            changeHandler={formik.handleChange}
-                            value={formik.values.category}
-                            Categories={Categories}
-                            selectedOption={selectedOption}
-                            setSelectedOption={setSelectedOption}
-                            changeTextColor={changeTextColor}
-                            isOptionSelected={isOptionSelected}
-                          />
-
-                          <ErrorMessage
-                            name="category"
-                            component="div"
-                            className="text-red-500 dark:text-white"
-                          />
-                        </div> */}
                       </div>
                     </div>
                   </div>
