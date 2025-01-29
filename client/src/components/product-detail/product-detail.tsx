@@ -52,15 +52,15 @@ const ProductDetail = ({
   gap,
   swiperGap,
   detailsWidth,
-  products
-}: {
-  params: IProductDetail;
-  isZoom?: Boolean;
-  gap?: String;
-  swiperGap?: String;
-  detailsWidth?: String;
-  products?: IProduct[]
-}) => {
+  products }
+  : {
+    params: IProductDetail;
+    isZoom?: Boolean;
+    gap?: String;
+    swiperGap?: String;
+    detailsWidth?: String;
+    products?: IProduct[]
+  }) => {
   // const description: string = '';
   // const [isExpanded, setIsExpanded] = useState(false);
   const truncateText = (text: any, limit: any) => {
@@ -158,7 +158,7 @@ const ProductDetail = ({
 
   const handleAddToCard = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
-    const existingCartItem = cartItems.find((item) => item.id === product?.id);
+    const existingCartItem = cartItems.find((item: any) => item.id === product?.id);
     const currentQuantity = existingCartItem?.quantity || 0;
     const newQuantity = currentQuantity + count;
     if (product?.stock && newQuantity > product.stock) {
@@ -180,7 +180,7 @@ const ProductDetail = ({
 
   return (
     <div
-      className={`flex flex-col md:flex-row w-full justify-between overflow-hidden ${gap} my-6 relative`}
+      className={`flex flex-col md:flex-row w-full justify-between font-helvetica-light overflow-hidden ${gap} my-6 relative`}
     >
       <div className="flex-grow  md:w-1/2 lg:w-7/12 w-full no-select">
         <Thumbnail
@@ -192,8 +192,8 @@ const ProductDetail = ({
         />
       </div>
 
-      <div className={`${detailsWidth} flex flex-col gap-2 pt-2`}>
-        <div className="flex gap-2">
+      <div className={`${detailsWidth} flex flex-col gap-2 pt-2 font-helvetica-light`}>
+        <div className="flex gap-2 font-helvetica ">
           {product.stock > 0 ? (
             <div className="bg-[#56B400] p-2 rounded-sm text-white text-xs">
               IN STOCK { }
@@ -227,7 +227,7 @@ const ProductDetail = ({
         <ProductName>{product?.name}</ProductName>
         {averageRating > 1 && (
           <>
-            <div className="flex gap-2 items-center">
+            <div className="flex gap-2 items-center font-helvetica">
               <span className="flex items-center">
                 {renderStars({ star: averageRating })}
               </span>

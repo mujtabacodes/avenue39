@@ -60,27 +60,28 @@ const TableTwo = ({
   const canEditCategory = true;
 
   const confirmDelete = (key: any) => {
-    Modal.confirm({
-      title: 'Are you sure you want to delete this category?',
-      content: 'Once deleted, the category cannot be recovered.',
-      onOk: () => handleDelete(key),
-      okText: 'Yes',
-      cancelText: 'No',
-      okButtonProps: {
-        style: {
-          backgroundColor: 'black',
-          color: 'white',
-          outlineColor: 'black',
-        },
-      },
-      cancelButtonProps: {
-        style: {
-          borderColor: 'black',
-          color: 'black',
-          outlineColor: 'black',
-        },
-      },
-    });
+    handleDelete(key)
+    // Modal.confirm({
+    //   title: 'Are you sure you want to delete this category?',
+    //   content: 'Once deleted, the category cannot be recovered.',
+    //   onOk: () => handleDelete(key),
+    //   okText: 'Yes',
+    //   cancelText: 'No',
+    //   okButtonProps: {
+    //     style: {
+    //       backgroundColor: 'black',
+    //       color: 'white',
+    //       outlineColor: 'black',
+    //     },
+    //   },
+    //   cancelButtonProps: {
+    //     style: {
+    //       borderColor: 'black',
+    //       color: 'black',
+    //       outlineColor: 'black',
+    //     },
+    //   },
+    // });
   };
 
   const handleDelete = async (key: any) => {
