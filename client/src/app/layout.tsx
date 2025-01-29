@@ -1,3 +1,4 @@
+// src/app/layout.js
 import React from 'react';
 import type { Metadata } from 'next';
 import './globals.css';
@@ -5,7 +6,7 @@ import '@styles/style.css';
 import Providers from '@/redux/provider';
 import PathnameWrapper from '@/components/PathnameWrapper';
 import { ToastContainer } from 'react-toastify';
-import { Helvetica } from '@/components/language';
+import { belgium, Helvetica, Helveticalight, jadyn } from '@/components/language';
 
 export const metadata: Metadata = {
   title: 'Avenue 39',
@@ -31,10 +32,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-       className={` ${Helvetica.className}`}
-      >
+    <html
+      lang="en"
+      className={` ${Helveticalight.variable} ${Helvetica.variable}  ${belgium.variable} ${jadyn.variable}`}
+    >
+      <body>
         <Providers>
           <PathnameWrapper>
             {children}

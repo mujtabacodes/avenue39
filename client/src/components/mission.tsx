@@ -10,7 +10,7 @@ interface CardProps {
 
 const Mission: React.FC<CardProps> = ({ title, description, icon  }) => {
   return (
-    <div className={`p-10 rounded-lg shadow-lg hover:bg-black bg-white text-black  text-center max-w-96 group`}>
+    <div className={`p-10 rounded-lg shadow-lg hover:bg-black bg-white text-black  text-center w-full sm:max-w-96 group`}>
     <div className="flex justify-center ">
      <Image src={icon} alt='icon' className='group-hover:invert-[1]' />
     </div>

@@ -279,7 +279,7 @@ const Checkout = () => {
                     <div className=" mt-5 md:mt-10">
                       <Label
                         htmlFor="Notes"
-                        className="mb-1 px-8 text-sm font-semibold text-17 text-[#666666] mt-3 "
+                        className="mb-1 px-8 text-sm font-semibold text-17 text-[#666666] mt-3"
                       >
                         Order Notes
                       </Label>

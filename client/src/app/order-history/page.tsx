@@ -47,7 +47,7 @@ const OrderHistory: React.FC = () => {
           setOrdersHistory(res.data);
         }
       } catch (error) {
-        console.error('Error fetching order history:', error);
+        console.error('Error fetching order history:',error);
       } finally {
         setOrdersHistoryLoading(false);
       }

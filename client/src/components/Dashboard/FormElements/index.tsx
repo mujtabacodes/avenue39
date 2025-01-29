@@ -36,7 +36,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
   const [imagesUrl, setImagesUrl] = useState<any[]>(
     EditInitialValues ? EditInitialValues.productImages : [],
   );
-  const [posterimageUrl, setposterimageUrl] = useState<any[] | undefined>(
+  const [posterimageUrl, setposterimageUrl] = useState<any[] | undefined | null>(
     EditInitialValues
       ? [
         {
@@ -63,7 +63,6 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
     any | null | undefined
   >(EditProductValue);
   const [imgError, setError] = useState<string | null | undefined>();
-  // const [selectedCategories, setSelectedCategories] = useState<number[]>([]);
 
 
 
@@ -667,25 +666,6 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                             ))}
                           </div>
                         </div>
-
-                        {/* <div className="w-2/4">
-                          <SelectGroupTwo
-                            name="category"
-                            changeHandler={formik.handleChange}
-                            value={formik.values.category}
-                            Categories={Categories}
-                            selectedOption={selectedOption}
-                            setSelectedOption={setSelectedOption}
-                            changeTextColor={changeTextColor}
-                            isOptionSelected={isOptionSelected}
-                          />
-
-                          <ErrorMessage
-                            name="category"
-                            component="div"
-                            className="text-red-500 dark:text-white"
-                          />
-                        </div> */}
                       </div>
                     </div>
                   </div>

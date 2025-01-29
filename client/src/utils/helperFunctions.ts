@@ -8,30 +8,30 @@ type setError = React.Dispatch<React.SetStateAction<any>>;
 type setLoading = React.Dispatch<React.SetStateAction<boolean>>;
 
 export const uploadPhotosToBackend = async (files: File[]): Promise<any[]> => {
-  const formData = new FormData();
 
   if (files.length === 0) throw new Error('No files found');
 
-
+let Response_data:any[] = [];
   
   try {
     for (const file of files) {
-      console.log('hello from files');
+      const formData = new FormData();
       formData.append('file', file);
+      const response: AxiosResponse<any> = await axios.post(`${process.env.NEXT_PUBLIC_PRODUCT_IMAGE}/api/file-upload`,
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        },
+      );
+  
+      console.log(response.data, 'response.data');
+      Response_data.push(response.data)
+      console.log('Response_data', Response_data);
     }
 
-    const response: AxiosResponse<any> = await axios.post(
-      `${process.env.NEXT_PUBLIC_PRODUCT_IMAGE}/api/file-upload`,
-      formData,
-      {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      },
-    );
-
-    console.log(response);
-    return response.data;
+return Response_data
   } catch (error) {
     console.log('Error:', error);
     throw error;
@@ -48,9 +48,7 @@ export const ImageRemoveHandler = async (
   // console.log('function called');
   // console.log(imagePublicId);
   try {
-    const response = await axios.delete(
-      `${process.env.NEXT_PUBLIC_PRODUCT_IMAGE}/api/file-upload/DelImage/${imagePublicId}`,
-    );
+    const response = await axios.delete(`${process.env.NEXT_PUBLIC_PRODUCT_IMAGE}/api/file-upload/DelImage/${imagePublicId}`,);
     console.log('Image removed successfully:', response.data);
     setterFunction((prev: any) =>
       prev.filter((item: any) => item.public_id != imagePublicId),

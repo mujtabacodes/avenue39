@@ -11,9 +11,7 @@ import { uploadPhotosToBackend } from '@/utils/helperFunctions';
 
 interface PROPS {
   setImagesUrl?: React.Dispatch<SetStateAction<any[]>>;
-  setposterimageUrl?:
-    | React.Dispatch<SetStateAction<any[] | null | undefined>>
-    | any;
+  setposterimageUrl?:| React.Dispatch<SetStateAction<any[] | null | undefined>>;
   sethoverImage?: React.Dispatch<SetStateAction<any[] | null | undefined>>;
 }
 
@@ -24,26 +22,19 @@ const UploadFile = ({
 }: PROPS) => {
   const [isDraggableArea, setIsDraggableArea] = useState<boolean>(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  let fileFlage = setposterimageUrl || sethoverImage ? true : false;
 
   const handleDrop = async (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     e.stopPropagation();
     const files = Array.from(e.dataTransfer.files) as File[];
-    let file;
-    if (setposterimageUrl || sethoverImage) {
-      file = e.dataTransfer.files[0];
-    }
 
-    console.log('file', file);
     try {
-      const response = await uploadPhotosToBackend(file ? [file] : files);
-      setImagesUrl && setImagesUrl((prev) => [...prev, response]);
+      const response = await uploadPhotosToBackend(fileFlage ? [files[0]] : files);
+      setImagesUrl && setImagesUrl((prev) => [...prev, ...response]);
       setposterimageUrl && setposterimageUrl(response);
       sethoverImage && sethoverImage(response);
-      console.log('Debuge 2');
-      console.log(response);
-      console.log('Photos uploaded successfully');
-      console.log(response);
+     
     } catch (error) {
       console.error('Failed to upload photos:', error);
     } finally {
@@ -54,15 +45,13 @@ const UploadFile = ({
   const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     const files = e.target.files ? Array.from(e.target.files) : [];
+    
     try {
-      const response = await uploadPhotosToBackend(files);
-      setImagesUrl && setImagesUrl((prev) => [...prev, response]);
+      const response = await uploadPhotosToBackend(fileFlage ? [files[0]]: files);
+      setImagesUrl && setImagesUrl((prev) => [...prev, ...response]);
       //@ts-ignore
-      setposterimageUrl && setposterimageUrl([response]);
-      sethoverImage && sethoverImage([response]);
-      console.log('Debuge 1');
-      console.log(response);
-      console.log('Photos uploaded successfully');
+      setposterimageUrl && setposterimageUrl(response);
+      sethoverImage && sethoverImage(response);
     } catch (error) {
       console.error('Failed to upload photos:', error);
     }
@@ -98,6 +87,7 @@ const UploadFile = ({
           className="hidden"
           id="fileInput"
           ref={fileInputRef}
+          multiple={fileFlage ? false : true}
         />
         {isDraggableArea ? (
           <BsCloudDownload className="inline-block mb-2 text-4xl text-gray-500" />

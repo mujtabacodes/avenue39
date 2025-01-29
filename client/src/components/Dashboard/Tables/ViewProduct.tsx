@@ -1,7 +1,10 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Table, notification, Modal } from 'antd';
+import {
+  Table, notification,
+
+} from 'antd';
 import Image from 'next/image';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import axios from 'axios';
@@ -93,27 +96,28 @@ const ViewProduct: React.FC<CategoryProps> = ({
 
 
   const confirmDelete = (key: any) => {
-    Modal.confirm({
-      title: 'Are you sure you want to delete this product?',
-      content: 'Once deleted, the product cannot be recovered.',
-      onOk: () => handleDelete(key),
-      okText: 'Yes',
-      cancelText: 'No',
-      okButtonProps: {
-        style: {
-          backgroundColor: 'black',
-          color: 'white',
-          outlineColor: 'black',
-        },
-      },
-      cancelButtonProps: {
-        style: {
-          borderColor: 'black',
-          color: 'black',
-          outlineColor: 'black',
-        },
-      },
-    });
+    handleDelete(key)
+    // Modal.confirm({
+    //   title: 'Are you sure you want to delete this product?',
+    //   content: 'Once deleted, the product cannot be recovered.',
+    //   onOk: () => handleDelete(key),
+    //   okText: 'Yes',
+    //   cancelText: 'No',
+    //   okButtonProps: {
+    //     style: {
+    //       backgroundColor: 'black', 
+    //       color: 'white', 
+    //       outlineColor: 'black', 
+    //     },
+    //   },
+    //   cancelButtonProps: {
+    //     style: {
+    //       borderColor: 'black',
+    //       color: 'black', 
+    //       outlineColor: 'black', 
+    //     },
+    //   },
+    // });
   };
 
   const handleDelete = async (key: string) => {
@@ -255,10 +259,9 @@ const ViewProduct: React.FC<CategoryProps> = ({
             }`}
           size={20}
           onClick={() => {
-            console.log(record);
-            if (canDeleteProduct) {
-              confirmDelete(record.id);
-            }
+            // if (canDeleteProduct) {
+            confirmDelete(record.id);
+            // }
           }}
         />
       ),

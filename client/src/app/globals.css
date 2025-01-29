@@ -2,17 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-@font-face {
-  font-family: 'Helvetica'; 
-  src: url('../../public/font/HelveticaNeueRegular.ttf') format('ttf');
-}
 @layer base {
   :root {
-    --Helveticalight: '__Helveticalight_29a3f3', '__Helveticalight_Fallback_29a3f3';
-    --Helvetica: '__Helvetica_f381f2, __Helvetica_Fallback_f380f2;';
-
-    --jadyn: '__jadyn_d94376', '__jadyn_Fallback_d94376';
-    --belgium: '__belgium_d61fef', '__belgium_Fallback_d61fef';
+    --font-helvetica: 'Helvetica', sans-serif;
+    --font-helvetica-light: 'HelveticaLight', sans-serif;
+    --font-belgium: 'Belgium', serif;
+    --font-jadyn: 'Jadyn', serif;
     --main: #afa183;
     --background: #fbfbfb;
     --foreground: #e2e3e5;
@@ -48,19 +43,23 @@
 }
 html {
   scroll-behavior: smooth;
+  font-family: var(--font-helvetica);
 }
 
-body {
-  /* font-family: var(--inter); */
+.font-helvetica {
+  font-family: var(--font-helvetica);
 }
+
 .font-Helveticalight {
-  font-family: var(--Helveticalight);
+  font-family: var(--font-helvetica-light);
 }
-.font-jadyn {
-  font-family: var(--jadyn);
-}
+
 .font-belgium {
-  font-family: var(--belgium);
+  font-family: var(--font-belgium);
+}
+
+.font-jadyn {
+  font-family: var(--font-jadyn);
 }
 .triangle-shape {
   position: absolute;
@@ -338,24 +337,35 @@ color: white;
   display: none !important;
  }
  .slick-slider.product-slider.custom-Slick .slick-arrow.slick-next {
-  position: absolute;
-  bottom: 1px !important;
-  left: 7%;
-  /* top: 100% !important; */
-  z-index: 1;
+  position: absolute !important;
+  left: 7% !important;
+  top: 93% !important;
+  bottom: 0% !important;
   box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-  width: 40px;
-  height: 40px;
-  background-color: white;
+  width: 40px !important;
+  height: 40px !important;
+  background-color: white !important;
   display: flex !important;
-  justify-content: center;
-  align-items: center;
-  padding-bottom: 4px;
-  cursor: pointer;
+  justify-content: center !important;
+  align-items: center !important;
+  cursor: pointer !important;
+  padding-bottom: 4px !important;
+  z-index: 150!important;
+  transform: none !important;
+ }
+ .slick-next:before{
+  content: none !important;
  }
 
  @media (max-width: 895px) {
   .slick-slider.product-slider.custom-Slick .slick-arrow.slick-next {
     display: none !important;
   }
+ }
+
+
+
+
+ .detail{
+  font-family:var(--font-helvetica) !important;
  }
