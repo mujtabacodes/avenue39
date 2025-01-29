@@ -202,3 +202,19 @@ export const menuData: MenuData = {
   "New Arrivals": [{ link: '/products', title: 'New Arrivals', icon: icon3 }],
   SALE: [{ link: '/products', title: '', icon: icon3 }],
 };
+
+
+export const staticHeaderCategories: string[] = [
+  'Dining',
+  'living',
+  'Bedroom',
+  'Home Office',
+  'Chairs',
+  'Tables',
+  'Lighting',
+  'Tv Cabinets',
+  'Clearance',
+  'New Arrivals',
+  'Accessories',
+  'Sale'
+]

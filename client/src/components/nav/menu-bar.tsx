@@ -8,7 +8,7 @@ import Link from 'next/link';
 import { State } from '@/redux/store';
 import { useSelector } from 'react-redux';
 import { ICategory } from '@/types/types';
-import { Skeleton } from '../ui/skeleton';
+import { staticHeaderCategories } from '@/data/menu';
 
 const MenuBar = ({ categories, loading }: { categories?: ICategory[], loading: boolean }) => {
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
@@ -78,11 +78,9 @@ const MenuBar = ({ categories, loading }: { categories?: ICategory[], loading: b
       >
         <Container className="flex flex-wrap items-center justify-between">
           {loading ? (
-            <div className='flex items-center gap-6 justify-between w-full pb-3'>
-              {Array(10).fill(null).map((_, index) => (
-                <Skeleton key={index} className='w-full h-8' />
-              ))}
-            </div>
+            staticHeaderCategories.map((item, index) => (
+              <Link href={`/products/${generateSlug(item)}`} key={index} className={`menu-item text-13 lg:text-15 pb-2 tracking-wide family-Helvetica uppercase whitespace-nowrap ${item === 'Sale' ? 'text-red-500' : 'text-black'}`}>{item}</Link>
+            ))
           ) : (
             <>
               {categories?.map((item) => (
