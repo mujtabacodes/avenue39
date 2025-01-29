@@ -212,7 +212,6 @@ const ProductPage = ({
               </div>
               <p className="block whitespace-nowrap ">Showing {!filterLoading && filteredCards.length > 0 ? filteredCards.length : 0} results</p>
             </div>
-
             <SubCategoriesRow />
           </div>
           {filterLoading ? (

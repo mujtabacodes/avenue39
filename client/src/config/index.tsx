@@ -1,4 +1,3 @@
-'use client';
 import { selectTotalPrice, totalProductsInCart } from '@/redux/slices/cart';
 import { State } from '@/redux/store';
 import React, { Fragment } from 'react';
