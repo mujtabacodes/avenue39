@@ -500,7 +500,7 @@ export const Dining= [
   'Parisio Dining Chair',
   'Savio Dining Chair',
   'Flavia Dining Chair',
-  'Sapori Dining Table',
+  'Sapori Dining Table (d:130 cm)',
   'Fiori Side Console',
   'Floki Barstool',
   'Venice Barstool',

@@ -34,7 +34,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${Helvetica.variable} ${Helveticalight.variable} ${belgium.variable} ${jadyn.variable}`}
+      className={`${Helvetica.variable} ${Helveticalight.variable} ${belgium.variable} ${jadyn.variable} ${jadyn.variable}`}
     >
       <body>
         <Providers>
