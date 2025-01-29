@@ -157,9 +157,9 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                     {cartItems.map((item: any) => (
                       <li
                         key={item.id}
-                        className="relative flex items-center bg-slate-50 border-dotted gap-3 p-4 w-full rounded-md"
+                        className="relative flex items-center bg-slate-50 border-dotted gap-3 p-4 w-full rounded-md font-helvetica"
                       >
-                        <div className="w-[70px] h-[70px]">
+                        <div className="w-[70px] h-[70px] font-helvetica">
                           <Image
                             src={item.posterImageUrl}
                             alt={item.posterImageAltText || item.name}
@@ -172,7 +172,7 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                           <ProductName className="text-start !text-[16px]">
                             {item.name}
                           </ProductName>
-                          <div className="flex justify-between flex-wrap gap-2">
+                          <div className="flex justify-between flex-wrap gap-2 font-helvetica">
                             <span> Qty: {item.quantity.toLocaleString()}</span>
                             {item?.discountPrice > 0 ? (
                               <ProductPrice className="flex gap-2 flex-wrap mb-4 !text-[15px] text-nowrap">

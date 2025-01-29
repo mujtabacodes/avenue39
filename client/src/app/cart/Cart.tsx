@@ -28,7 +28,7 @@ const Cart = ({ similarProducts }: { similarProducts: IProduct[] }) => {
                 <div className="">
                   <Link
                     href="/products"
-                    className="bg-main px-6 flex justify-center items-center rounded-2xl text-white h-[60px] hover:border-[#666666] border border-[#F6F6F6]"
+                    className="bg-main px-6 flex justify-center items-center rounded-2xl text-white h-[60px] hover:border-[#666666] border border-[#F6F6F6] font-helvetica"
                   >
                     Continue Shopping
                   </Link>
@@ -43,11 +43,11 @@ const Cart = ({ similarProducts }: { similarProducts: IProduct[] }) => {
           <div className="flex justify-center items-center w-full h-96">
             <div className="flex flex-col gap-4 items-center">
               <IoBagOutline size={100} className="text-black" />
-              <p className="font-medium text-2xl">No Items In Cart</p>
+              <p className="font-medium text-2xl font-helvetica">No Items In Cart</p>
               <div className="">
                 <Link
                   href="/products"
-                  className="bg-main px-6 flex justify-center items-center rounded-2xl text-white h-[60px] hover:border-[#666666] border border-[#F6F6F6]"
+                  className="bg-main px-6 flex justify-center items-center rounded-2xl text-white h-[60px] hover:border-[#666666] border border-[#F6F6F6] font-helvetica"
                 >
                   Continue Shopping
                 </Link>

@@ -7,6 +7,7 @@ export const fetchProducts = async () => {
       next: { tags: ['products'] },
     });
     const response = await result.json();
+    
     return response;
   } catch (error) {
     console.log(error, "error")

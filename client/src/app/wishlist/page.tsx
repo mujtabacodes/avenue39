@@ -5,7 +5,7 @@ import TopHero from '@/components/top-hero';
 import { wishbredcrumbs } from '@/data/data';
 import Container from '@/components/ui/Container';
 import Counter from '@/components/Counter/Counter';
-import { message, Modal } from 'antd';
+import { message,} from 'antd';
 import { addItem } from '@cartSlice/index';
 import { CartItem } from '@cartSlice/types';
 import { openDrawer } from '@/redux/slices/drawer';
@@ -53,20 +53,27 @@ const Wishlist = () => {
     localStorage.setItem('wishlist', JSON.stringify(updatedWishlist));
   };
   const handleDeleteItem = (id: string) => {
-    Modal.confirm({
-      title: 'Confirm Deletion',
-      content: 'Are you sure you want to remove this product from your wishlist?',
-      okText: 'Yes',
-      okType: 'danger',
-      cancelText: 'No',
-      onOk: () => {
-        const updatedWishlist = wishlist.filter(item => item.id !== id);
-        setWishlist(updatedWishlist);
-        localStorage.setItem('wishlist', JSON.stringify(updatedWishlist));
-        message.success('Product removed from Wishlist successfully!');
-        window.dispatchEvent(new Event('WishlistChanged'));
-      },
-    });
+
+    const updatedWishlist = wishlist.filter(item => item.id !== id);
+    setWishlist(updatedWishlist);
+    localStorage.setItem('wishlist', JSON.stringify(updatedWishlist));
+    message.success('Product removed from Wishlist successfully!');
+    window.dispatchEvent(new Event('WishlistChanged'));
+
+    // Modal.confirm({
+    //   title: 'Confirm Deletion',
+    //   content: 'Are you sure you want to remove this product from your wishlist?',
+    //   okText: 'Yes',
+    //   okType: 'danger',
+    //   cancelText: 'No',
+    //   onOk: () => {
+    //     const updatedWishlist = wishlist.filter(item => item.id !== id);
+    //     setWishlist(updatedWishlist);
+    //     localStorage.setItem('wishlist', JSON.stringify(updatedWishlist));
+    //     message.success('Product removed from Wishlist successfully!');
+    //     window.dispatchEvent(new Event('WishlistChanged'));
+    //   },
+    // });
   };
   const handleAddToCart = (product: IProduct) => {
     const cart = JSON.parse(localStorage.getItem('cart') || '[]');

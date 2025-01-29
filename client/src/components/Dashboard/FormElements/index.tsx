@@ -35,7 +35,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
   const [imagesUrl, setImagesUrl] = useState<any[]>(
     EditInitialValues ? EditInitialValues.productImages : [],
   );
-  const [posterimageUrl, setposterimageUrl] = useState<any[] | undefined>(
+  const [posterimageUrl, setposterimageUrl] = useState<any[] | undefined | null>(
     EditInitialValues
       ? [
           {
@@ -62,7 +62,6 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
     any | null | undefined
   >(EditProductValue);
   const [imgError, setError] = useState<string | null | undefined>();
-  // const [selectedCategories, setSelectedCategories] = useState<number[]>([]);
 
 
 

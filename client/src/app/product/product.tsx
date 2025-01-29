@@ -11,7 +11,7 @@ import { Table } from 'antd';
 import { Skeleton } from '@/components/ui/skeleton';
 import NoProduct from '@/components/ui/no-product';
 
-const Product = ({ params, similarProducts , reviews , product , products }: { params: IProductDetail, reviews: IReview[] , product: IProduct , similarProducts: IProduct[] , products:IProduct[] }) => {
+const Product = ({ params, similarProducts, reviews, product, products }: { params: IProductDetail, reviews: IReview[], product: IProduct, similarProducts: IProduct[], products: IProduct[] }) => {
   const slug = params.name;
   console.log(slug, 'slug')
   console.log(reviews, 'reviews')
@@ -60,27 +60,26 @@ const Product = ({ params, similarProducts , reviews , product , products }: { p
     {
       label: 'Description',
       content: (
-        <div className=" flex flex-col md:flex-row gap-6 md:gap-10 border shadow-sm rounded-2xl max-w-screen-sm ">
-            <p className="text-slate-400 text-14 md:text-17 font-normal leading-7 w-full p-2">
+        <div className=" flex flex-col md:flex-row gap-6 md:gap-10 border shadow-sm rounded-2xl max-w-screen-sm  font-helvetica ">
+          <p className="text-slate-400 text-14 md:text-17 font-normal leading-7 w-full p-2">
+            <Skeleton className="text-slate-400 text-17 font-normal leading-7 font-helvetica" />
+            {product?.description ? <span className='font-helvetica'>{product.description}</span>  : (
               <Skeleton className="text-slate-400 text-17 font-normal leading-7" />
-              {product?.description ? (
-                product.description
-              ) : (
-                <Skeleton className="text-slate-400 text-17 font-normal leading-7" />
-              )}
-            </p>
+            )}
+          </p>
           {product?.spacification && product?.spacification.length > 0 &&
 
-            <div className="w-full md:w-2/5 border-t-2 md:border-t-0 border-s-0 md:border-s-2 py-4 md:pb-10">
+            <div className="w-full md:w-2/5 border-t-2 md:border-t-0 border-s-0 md:border-s-2 py-4 md:pb-10 font-helvetica">
               <h5 className="px-0 md:ps-12 font-bold text-15 uppercase">
                 specification
               </h5>
-              <ul className="list-disc text-slate-400 text-14 px-4 md:ps-16 mt-4">
+              <ul className="list-disc text-slate-400 text-14 px-4 md:ps-16 mt-4 font-Helveticalight">
                 {product?.spacification?.map(({ specsDetails }, index) => (
                   <li key={index}>{specsDetails}</li>
                 ))}
               </ul>
             </div>
+
           }
         </div>
       ),
@@ -207,7 +206,7 @@ const Product = ({ params, similarProducts , reviews , product , products }: { p
                 pagination={false}
                 bordered
                 rowKey="name"
-                className="detail"
+                className="detail font-helvetica"
               />
               : null
           }

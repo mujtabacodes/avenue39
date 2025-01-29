@@ -11,9 +11,7 @@ import { uploadPhotosToBackend } from '@/utils/helperFunctions';
 
 interface PROPS {
   setImagesUrl?: React.Dispatch<SetStateAction<any[]>>;
-  setposterimageUrl?:
-    | React.Dispatch<SetStateAction<any[] | null | undefined>>
-    | any;
+  setposterimageUrl?:| React.Dispatch<SetStateAction<any[] | null | undefined>>;
   sethoverImage?: React.Dispatch<SetStateAction<any[] | null | undefined>>;
 }
 
@@ -38,8 +36,8 @@ const UploadFile = ({
     try {
       const response = await uploadPhotosToBackend(file ? [file] : files);
       setImagesUrl && setImagesUrl((prev) => [...prev, response]);
-      setposterimageUrl && setposterimageUrl(response);
-      sethoverImage && sethoverImage(response);
+      setposterimageUrl && setposterimageUrl([response]);
+      sethoverImage && sethoverImage([response]);
       console.log('Debuge 2');
       console.log(response);
       console.log('Photos uploaded successfully');
