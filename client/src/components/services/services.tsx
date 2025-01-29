@@ -11,7 +11,7 @@ const Services: React.FC<servicesProps> = ({className}) => {
   return (
     <section className={`py-10 ${className ? className : ''}`}>
       <Container>
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 xs:gap-6 md:gap-10 ">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 xs:gap-6 md:gap-10 font-helvetica ">
           {serviceItems.map((item) => (
             <div
               key={item.id}

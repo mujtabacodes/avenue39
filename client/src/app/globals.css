@@ -362,3 +362,10 @@ color: white;
     display: none !important;
   }
  }
+
+
+
+
+ .detail{
+  font-family:var(--font-helvetica) !important;
+ }
