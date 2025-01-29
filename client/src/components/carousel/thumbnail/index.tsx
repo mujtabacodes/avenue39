@@ -78,7 +78,7 @@ const Thumbnail: React.FC<ThumbProps> = ({
   return (
     <div>
       <div className="relative w-full">
-        <div className={`w-full flex flex-col-reverse md:flex-row gap-2 sm:gap-3 md:gap-4 lg:gap-5 overflow-hidden ${swiperGap}`}>
+        <div className={`w-full flex flex-col-reverse md:flex-row gap-2 sm:gap-3 md:gap-4 lg:gap-5 overflow-hidden relative ${swiperGap}`}>
           <CustomThumbnailSlickSlider 
             thumbs={thumbs} 
             isZoom={isZoom} 
