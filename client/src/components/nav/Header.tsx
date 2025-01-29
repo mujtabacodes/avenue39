@@ -1,40 +1,48 @@
 import React, { useEffect, useState } from 'react';
 import TopNav from './top-nav';
-import Navbar from './nav-bar';
 import MenuBar from './menu-bar';
 import BottomBar from './bottom-bar';
+import { fetchCategories } from '@/config/fetch';
+import { ICategory } from '@/types/types';
+import { useQuery } from '@tanstack/react-query';
+import { menuData } from '@/data/menu';
 
 const Header = () => {
-  const [menuData, setMenuData] = useState<any[]>([]);
-
+  const [sortedCategories, setSortedCategories] = useState<ICategory[]>([]);
+  const { data: categories = [] , isLoading: loading} = useQuery<ICategory[], Error>({
+    queryKey: ['categories'],
+    queryFn: fetchCategories,
+  });
   useEffect(() => {
-    const fetchMenuData = async () => {
-      try {
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/api/category/get-all`,
+    if (categories.length > 0) {
+      const customSortedCategories: ICategory[] = [];
+      const categoriesNotInMenuData: ICategory[] = [];
+
+      Object.keys(menuData).forEach((categoryKey) => {
+        const categoryItems = menuData[categoryKey];
+        const matchingCategories = categories.filter((category) =>
+          categoryItems.some((item) => item.categoryId === category.id)
         );
-        if (!response.ok) {
-          throw new Error('Failed to fetch data');
-        }
-        const data = await response.json();
-        setMenuData(data);
-      } catch (error: any) {
-        console.error(error);
-      }
-    };
-
-    fetchMenuData();
-  }, []);
-
-  console.log(menuData, 'menuDatamenuData');
+        customSortedCategories.push(...matchingCategories);
+      });
+      const remainingCategories = categories.filter((category) =>
+        !customSortedCategories.some((sortedCategory) => sortedCategory.id === category.id)
+      );
+      categoriesNotInMenuData.push(...remainingCategories);
+      const finalSortedCategories = [
+        ...customSortedCategories,
+        ...categoriesNotInMenuData,
+      ];
+      setSortedCategories(finalSortedCategories);
+    }
+  }, [categories]);
   return (
     <>
       <TopNav />
-      <Navbar />
-      <MenuBar
+      <MenuBar categories={sortedCategories} loading={loading}
       //  menuData={menuData} loading={loading} error={error}
       />
-      <BottomBar />
+      <BottomBar categories={sortedCategories} />
     </>
   );
 };
