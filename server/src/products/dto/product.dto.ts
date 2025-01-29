@@ -100,10 +100,10 @@ export class AddProductDto {
   @IsInt({ each: true })
   categories: number[];
 
-  @IsOptional()
-  @IsArray()
-  @ArrayNotEmpty()
-  @IsInt({ each: true })
+  // @IsOptional()
+  // @IsArray()
+  // @ArrayNotEmpty()
+  // @IsInt({ each: true })
   subcategories: number[];
 
   @IsOptional()
