@@ -56,7 +56,7 @@ const OrderList = ({
           />
           <Modal
             title="Order Detail"
-            visible={visible}
+            open={visible}
             onOk={handleOk}
             onCancel={handleCancel}
             footer={null}

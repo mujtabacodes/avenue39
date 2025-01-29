@@ -66,13 +66,15 @@ const ViewNewsletter: React.FC<CategoryProps> = ({
   };
 
   const confirmDelete = (key: string) => {
-    Modal.confirm({
-      title: 'Are you sure you want to delete this Email?',
-      content: 'Once deleted, the Email cannot be recovered.',
-      onOk: () => handleDelete(key),
-      okText: 'Yes',
-      cancelText: 'No',
-    });
+    handleDelete(key)
+
+    // Modal.confirm({
+    //   title: 'Are you sure you want to delete this Email?',
+    //   content: 'Once deleted, the Email cannot be recovered.',
+    //   onOk: () => handleDelete(key),
+    //   okText: 'Yes',
+    //   cancelText: 'No',
+    // });
   };
 
   const columns = [
