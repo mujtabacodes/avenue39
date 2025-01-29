@@ -13,7 +13,7 @@ import { categoryInitialValues, categoryValidationSchema } from '@/data/data';
 import ProtectedRoute from '@/hooks/AuthHookAdmin';
 import Loader from '@components/Loader/Loader';
 import revalidateTag from '../ServerActons/ServerAction';
-
+import Cookies from 'js-cookie';
 
 interface editCategoryProps {
   seteditCategory: any;
@@ -28,18 +28,24 @@ const FormLayout = ({
 }: editCategoryProps) => {
   let CategoryName =
     editCategory && editCategory.name
-      ? { name: editCategory.name, description: editCategory.description,
+      ? {
+        name: editCategory.name, description: editCategory.description,
         meta_title: editCategory.meta_title || '',
         meta_description: editCategory.meta_description || '',
         canonical_tag: editCategory.canonical_tag || '',
         images_alt_text: editCategory.images_alt_text || ''
-       }
+      }
       : null;
-    const [posterimageUrl, setposterimageUrl] = useState<any | null | undefined>(editCategory ? [{imageUrl:editCategory.posterImageUrl,public_id:editCategory.posterImagePublicId}] : null);
-    
+  const [posterimageUrl, setposterimageUrl] = useState<any | null | undefined>(editCategory ? [{ imageUrl: editCategory.posterImageUrl, public_id: editCategory.posterImagePublicId }] : null);
+
   const [loading, setloading] = useState<boolean>(false);
   const [editCategoryName, setEditCategoryName] = useState<Category | null | undefined>(CategoryName);
-console.log(setEditCategoryName)
+  console.log(setEditCategoryName)
+
+  const token = Cookies.get('2guysAdminToken');
+  const superAdminToken = Cookies.get('superAdminToken');
+  let finalToken = token ? token : superAdminToken;
+
   const onSubmit = async (values: Category, { resetForm }: any) => {
     try {
       setloading(true);
@@ -49,12 +55,16 @@ console.log(setEditCategoryName)
 
       let updateFlag = editCategoryName ? true : false;
       let addProductUrl = updateFlag ? `/api/category/update-category` : null;
-      let url = `${process.env.NEXT_PUBLIC_BASE_URL}${
-        updateFlag ? addProductUrl : '/api/category/add-category'
-      }`;
+      let url = `${process.env.NEXT_PUBLIC_BASE_URL}${updateFlag ? addProductUrl : '/api/category/add-category'
+        }`;
       const response = await axios.post(
         url,
         updateFlag ? { ...newValue, id: editCategory.id } : newValue,
+        {
+          headers: {
+            'token': finalToken,
+          },
+        }
       );
       revalidateTag('categories')
       console.log(response, 'response');
@@ -107,7 +117,7 @@ console.log(setEditCategoryName)
                       </div>
                       {posterimageUrl && posterimageUrl.length > 0 ? (
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4  dark:border-white dark:bg-black">
-                          {posterimageUrl.map((item: any, index:number) => {
+                          {posterimageUrl.map((item: any, index: number) => {
                             return (
                               <div
                                 className="relative group rounded-lg overflow-hidden shadow-md bg-white transform transition-transform duration-300 hover:scale-105"
@@ -153,11 +163,10 @@ console.log(setEditCategoryName)
                           onChange={formik.handleChange}
                           value={formik.values.name}
                           placeholder="Title"
-                          className={`w-full rounded-lg border-[1.5px]  px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whitebg-black dark:text-white ${
-                            formik.touched.name && formik.errors.name
-                              ? 'border-red-500'
-                              : ''
-                          }`}
+                          className={`w-full rounded-lg border-[1.5px]  px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whitebg-black dark:text-white ${formik.touched.name && formik.errors.name
+                            ? 'border-red-500'
+                            : ''
+                            }`}
                         />
                         {formik.touched.name && formik.errors.name ? (
                           <div className="text-red-500 text-sm">
@@ -175,11 +184,10 @@ console.log(setEditCategoryName)
                           onChange={formik.handleChange}
                           value={formik.values.description}
                           placeholder="Description"
-                          className={`w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter  dark:text-white dark:focus:border-primary ${
-                            formik.touched.name && formik.errors.name
-                              ? 'border-red-500'
-                              : ''
-                          }`}
+                          className={`w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter  dark:text-white dark:focus:border-primary ${formik.touched.name && formik.errors.name
+                            ? 'border-red-500'
+                            : ''
+                            }`}
                         />
                         {formik.touched.name && formik.errors.name ? (
                           <div className="text-red-500 text-sm">
@@ -235,8 +243,8 @@ console.log(setEditCategoryName)
                             </div>
                           ) : null}
                         </div>
-                        </div>
-                        <div className='mt-4'>
+                      </div>
+                      <div className='mt-4'>
                         <label className="mb-3 block text-sm font-medium text-black dark:text-white">
                           Meta Description
                         </label>
@@ -283,10 +291,10 @@ console.log(setEditCategoryName)
                           ) : null}
                         </div>
                       </div>
-                      </div>
-                      </div>
                     </div>
                   </div>
+                </div>
+              </div>
               <div className="flex justify-center">
                 <button
                   type="submit"

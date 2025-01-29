@@ -23,7 +23,7 @@ interface Product {
 interface CategoryProps {
   Categories: any;
   setCategory: any;
- /* eslint-disable */
+  /* eslint-disable */
   setselecteMenu: (menu: string) => void;
   /* eslint-enable */
   loading?: boolean;
@@ -57,40 +57,40 @@ const ViewProduct: React.FC<CategoryProps> = ({
 
 
   const filteredProducts: Product[] =
-  
-  Categories?.filter((product: any) =>{
-    const searchtext = searchTerm.trim().toLowerCase();
 
-    return (
-      product.name.toLowerCase().includes(searchtext) ||
-      product.description.toLowerCase().includes(searchtext) ||
-      product.price.toString().includes(searchtext) || 
-      product.discountPrice.toString().includes(searchtext) ||
-      (product.colors && product.colors.some((color: string) => color.toLowerCase().includes(searchtext))) || 
-      (product.spacification && product.spacification.some((spec:any) =>
-        Object.values(spec).some((value:any) =>
-          value.toString().toLowerCase().includes(searchtext)
-        )
-      )) || 
-      product.additionalInformation.some((info:any) =>
-        Object.values(info).some((value:any) =>
-          value.toString().toLowerCase().includes(searchtext)
-        )
-      ) || 
-      (product.categories && product.categories.some((category:any) =>
-        category.name.toLowerCase().includes(searchtext) 
-      )) ||
-      (product.subcategories && product.subcategories.some((subcategory:any) =>
-        subcategory.name.toLowerCase().includes(searchtext)
-      ))
-    );
-  })
-  .sort((a: product, b: product) => {
-    const dateA = a.createdAt ? new Date(a.createdAt).getTime() : 0;
-    const dateB = b.createdAt ? new Date(b.createdAt).getTime() : 0;
-    return dateB - dateA; 
-  }) || [];
- 
+    Categories?.filter((product: any) => {
+      const searchtext = searchTerm.trim().toLowerCase();
+
+      return (
+        product.name.toLowerCase().includes(searchtext) ||
+        product.description.toLowerCase().includes(searchtext) ||
+        product.price.toString().includes(searchtext) ||
+        product.discountPrice.toString().includes(searchtext) ||
+        (product.colors && product.colors.some((color: string) => color.toLowerCase().includes(searchtext))) ||
+        (product.spacification && product.spacification.some((spec: any) =>
+          Object.values(spec).some((value: any) =>
+            value.toString().toLowerCase().includes(searchtext)
+          )
+        )) ||
+        product.additionalInformation.some((info: any) =>
+          Object.values(info).some((value: any) =>
+            value.toString().toLowerCase().includes(searchtext)
+          )
+        ) ||
+        (product.categories && product.categories.some((category: any) =>
+          category.name.toLowerCase().includes(searchtext)
+        )) ||
+        (product.subcategories && product.subcategories.some((subcategory: any) =>
+          subcategory.name.toLowerCase().includes(searchtext)
+        ))
+      );
+    })
+      .sort((a: product, b: product) => {
+        const dateA = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+        const dateB = b.createdAt ? new Date(b.createdAt).getTime() : 0;
+        return dateB - dateA;
+      }) || [];
+
 
   const confirmDelete = (key: any) => {
     Modal.confirm({
@@ -101,16 +101,16 @@ const ViewProduct: React.FC<CategoryProps> = ({
       cancelText: 'No',
       okButtonProps: {
         style: {
-          backgroundColor: 'black', 
-          color: 'white', 
-          outlineColor: 'black', 
+          backgroundColor: 'black',
+          color: 'white',
+          outlineColor: 'black',
         },
       },
       cancelButtonProps: {
         style: {
           borderColor: 'black',
-          color: 'black', 
-          outlineColor: 'black', 
+          color: 'black',
+          outlineColor: 'black',
         },
       },
     });
@@ -174,15 +174,27 @@ const ViewProduct: React.FC<CategoryProps> = ({
       key: 'stock',
     },
     {
-      title: 'Date',
+      title: 'Create At',
       dataIndex: 'createdAt',
       key: 'date',
-      width: 150,
-      render: (text: any, record: Product) => {
+      render: (text: any, record: any) => {
         const createdAt = new Date(record.createdAt);
-        const formattedDate = `${createdAt.getFullYear()}-${String(
-          createdAt.getMonth() + 1,
-        ).padStart(2, '0')}-${String(createdAt.getDate()).padStart(2, '0')}`;
+        const formattedDate = `${createdAt.getFullYear()}-${String(createdAt.getMonth() + 1).padStart(2, '0')}-${String(
+          createdAt.getDate(),
+        ).padStart(2, '0')}`;
+        return <span>{formattedDate}</span>;
+      },
+    },
+
+    {
+      title: 'Updated At',
+      dataIndex: 'createdAt',
+      key: 'date',
+      render: (text: any, record: any) => {
+        const createdAt = new Date(record.updatedAt);
+        const formattedDate = `${createdAt.getFullYear()}-${String(createdAt.getMonth() + 1).padStart(2, '0')}-${String(
+          createdAt.getDate(),
+        ).padStart(2, '0')}`;
         return <span>{formattedDate}</span>;
       },
     },
@@ -190,14 +202,18 @@ const ViewProduct: React.FC<CategoryProps> = ({
       title: 'Time',
       dataIndex: 'createdAt',
       key: 'time',
-      width: 120,
-      render: (text: any, record: Product) => {
-        const createdAt = new Date(record.createdAt);
+      render: (text: any, record: any) => {
+        const createdAt = new Date(record.updatedAt);
         const formattedTime = `${String(createdAt.getHours()).padStart(2, '0')}:${String(
           createdAt.getMinutes(),
         ).padStart(2, '0')}`;
         return <span>{formattedTime}</span>;
       },
+    },
+    {
+      title: 'Edited By',
+      dataIndex: 'last_editedBy',
+      key: 'last_editedBy',
     },
     {
       title: 'Preview',
