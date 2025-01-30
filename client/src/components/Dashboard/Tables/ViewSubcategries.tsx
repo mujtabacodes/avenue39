@@ -8,7 +8,9 @@ import axios from 'axios';
 import { LiaEdit } from 'react-icons/lia';
 import { Category, SubCategory } from '@/types/interfaces';
 import revalidateTag from '@/components/ServerActons/ServerAction';
+import Swal from 'sweetalert2';
 
+import Cookies from 'js-cookie';
 
 interface CategoryProps {
   setMenuType: React.Dispatch<SetStateAction<string>>;
@@ -45,29 +47,24 @@ const ViewSubcategries = ({
   //   (loggedInUser.role == 'Admin' ? loggedInUser.canEditCategory : true);
 
   const confirmDelete = (key: any) => {
-    handleDelete(key)
-    // Modal.confirm({
-    //   title: 'Are you sure you want to delete this category?',
-    //   content: 'Once deleted, the category cannot be recovered.',
-    //   onOk: () => handleDelete(key),
-    //   okText: 'Yes',
-    //   cancelText: 'No',
-    //   okButtonProps: {
-    //     style: {
-    //       backgroundColor: 'black', 
-    //       color: 'white', 
-    //       outlineColor: 'black', 
-    //     },
-    //   },
-    //   cancelButtonProps: {
-    //     style: {
-    //       borderColor: 'black',
-    //       color: 'black', 
-    //       outlineColor: 'black', 
-    //     },
-    //   },
-    // });
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'Once deleted, the Sub Category cannot be recovered.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, keep it',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        handleDelete(key)
+      }
+    });
+
   };
+  const token = Cookies.get('2guysAdminToken');
+  const superAdminToken = Cookies.get('superAdminToken');
+  let finalToken = token ? token : superAdminToken;
+
 
   const handleDelete = async (key: any) => {
     try {
@@ -76,6 +73,7 @@ const ViewSubcategries = ({
         {
           headers: {
             subcategoryId: key,
+            'token': finalToken,
           },
         },
       );

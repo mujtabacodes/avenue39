@@ -5,9 +5,9 @@ import SubCategoryProducts from '@/components/SubCategory/SubCategoryProducts';
 import React from 'react'
 
 interface SlugPageProps {
-   params: {
+   params: Promise<{
      slug: string[];
-   };
+   }>;
  }
 const SlugPage: React.FC<SlugPageProps> = async ({params}) => {
    const {slug} = await params;
