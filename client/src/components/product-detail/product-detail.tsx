@@ -338,7 +338,7 @@ const ProductDetail = ({
             <div className="flex gap-2 mb-4 w-full sm:w-1/2  md:w-full">
               <Button
                 variant={'outline'}
-                className="text-primary w-full h-12 rounded-2xl flex gap-3"
+                className="text-primary w-full h-12 rounded-2xl flex gap-3 uppercase"
                 onClick={(e) => handleAddToCard(e)}
               >
                 Add to cart
