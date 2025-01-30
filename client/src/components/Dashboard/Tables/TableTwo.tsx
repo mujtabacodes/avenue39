@@ -141,11 +141,24 @@ const TableTwo = ({
       key: 'name',
     },
     {
-      title: 'Date',
+      title: 'Create At',
       dataIndex: 'createdAt',
       key: 'date',
       render: (text: any, record: any) => {
         const createdAt = new Date(record.createdAt);
+        const formattedDate = `${createdAt.getFullYear()}-${String(createdAt.getMonth() + 1).padStart(2, '0')}-${String(
+          createdAt.getDate(),
+        ).padStart(2, '0')}`;
+        return <span>{formattedDate}</span>;
+      },
+    },
+
+    {
+      title: 'Updated At',
+      dataIndex: 'createdAt',
+      key: 'date',
+      render: (text: any, record: any) => {
+        const createdAt = new Date(record.updatedAt);
         const formattedDate = `${createdAt.getFullYear()}-${String(createdAt.getMonth() + 1).padStart(2, '0')}-${String(
           createdAt.getDate(),
         ).padStart(2, '0')}`;
@@ -157,12 +170,17 @@ const TableTwo = ({
       dataIndex: 'createdAt',
       key: 'time',
       render: (text: any, record: any) => {
-        const createdAt = new Date(record.createdAt);
+        const createdAt = new Date(record.updatedAt);
         const formattedTime = `${String(createdAt.getHours()).padStart(2, '0')}:${String(
           createdAt.getMinutes(),
         ).padStart(2, '0')}`;
         return <span>{formattedTime}</span>;
       },
+    },
+    {
+      title: 'Edited By',
+      dataIndex: 'last_editedBy',
+      key: 'last_editedBy',
     },
     {
       title: 'Edit',
@@ -196,46 +214,46 @@ const TableTwo = ({
 
   return (
     <div>
-        <>
-          <div className="flex justify-between mb-4 items-center text-dark dark:text-white">
-            <input
-              className="peer lg:p-3 p-2 block outline-none border rounded-md border-gray-200 dark:bg-boxdark dark:bg-transparent dark:border-white text-11 xs:text-sm dark:focus:border-primary focus:border-dark focus:ring-dark-500 disabled:opacity-50 disabled:pointer-events-none dark:text-black"
-              type="search"
-              placeholder="Search Category"
-              value={searchTerm}
-              onChange={handleSearchChange}
-            />
-            <div>
-              <p
-                className={`${canAddCategory && 'cursor-pointer'
-                  } lg:p-2 md:p-2 ${canAddCategory &&
-                  'bg-black dark:bg-main dark:border-0 text-white rounded-md border   '
-                  } flex justify-center ${!canAddCategory && 'cursor-not-allowed '
-                  }`}
-                onClick={() => {
-                  seteditCategory && seteditCategory(null);
-                  if (canAddCategory) {
-                    setMenuType('Add Category');
-                  }
-                }}
-              >
-                Add Category
-              </p>
-            </div>
+      <>
+        <div className="flex justify-between mb-4 items-center text-dark dark:text-white">
+          <input
+            className="peer lg:p-3 p-2 block outline-none border rounded-md border-gray-200 dark:bg-boxdark dark:bg-transparent dark:border-white text-11 xs:text-sm dark:focus:border-primary focus:border-dark focus:ring-dark-500 disabled:opacity-50 disabled:pointer-events-none dark:text-black"
+            type="search"
+            placeholder="Search Category"
+            value={searchTerm}
+            onChange={handleSearchChange}
+          />
+          <div>
+            <p
+              className={`${canAddCategory && 'cursor-pointer'
+                } lg:p-2 md:p-2 ${canAddCategory &&
+                'bg-black dark:bg-main dark:border-0 text-white rounded-md border   '
+                } flex justify-center ${!canAddCategory && 'cursor-not-allowed '
+                }`}
+              onClick={() => {
+                seteditCategory && seteditCategory(null);
+                if (canAddCategory) {
+                  setMenuType('Add Category');
+                }
+              }}
+            >
+              Add Category
+            </p>
           </div>
+        </div>
 
-          {filteredCategories && filteredCategories.length > 0 ? (
-            <Table
-              className="overflow-x-scroll lg:overflow-auto"
-              dataSource={filteredCategories}
-              columns={columns}
-              pagination={false}
-              rowKey="id"
-            />
-          ) : (
-            'No Categories found'
-          )}
-        </>
+        {filteredCategories && filteredCategories.length > 0 ? (
+          <Table
+            className="overflow-x-scroll lg:overflow-auto"
+            dataSource={filteredCategories}
+            columns={columns}
+            pagination={false}
+            rowKey="id"
+          />
+        ) : (
+          'No Categories found'
+        )}
+      </>
     </div>
   );
 };

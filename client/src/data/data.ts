@@ -189,7 +189,7 @@ export const AddproductsinitialValues: IProductAdd = {
   hoverImagePublicId: '',
   productImages: [],
   spacification: [],
-  colors: [],
+  sizes: [],
   additionalInformation: [],
   categories: [],
   subcategories: [],
@@ -198,6 +198,8 @@ export const AddproductsinitialValues: IProductAdd = {
   Meta_Description:'',
   Images_Alt_Text:'',
   sale_counter: '',
+  filters: [],
+  
 };
 
 export const options = [
