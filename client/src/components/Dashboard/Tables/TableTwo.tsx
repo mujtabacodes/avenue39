@@ -1,7 +1,7 @@
 'use client';
 
 import React, { SetStateAction, useState } from 'react';
-import { Table, notification} from 'antd';
+import { Table, notification } from 'antd';
 import Image from 'next/image';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import axios from 'axios';
@@ -9,7 +9,8 @@ import { LiaEdit } from 'react-icons/lia';
 import { Category } from '@/types/interfaces';
 import { ICategory } from '@/types/types';
 import revalidateTag from '@/components/ServerActons/ServerAction';
-
+import Cookies from 'js-cookie';
+import Swal from 'sweetalert2';
 
 interface CategoryProps {
   setMenuType: React.Dispatch<SetStateAction<string>>;
@@ -33,6 +34,10 @@ const TableTwo = ({
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
   };
+  const token = Cookies.get('2guysAdminToken');
+  const superAdminToken = Cookies.get('superAdminToken');
+  let finalToken = token ? token : superAdminToken;
+
   const filteredCategories: ICategory[] =
     category && category
       .filter(
@@ -60,28 +65,19 @@ const TableTwo = ({
   const canEditCategory = true;
 
   const confirmDelete = (key: any) => {
-    handleDelete(key)
-    // Modal.confirm({
-    //   title: 'Are you sure you want to delete this category?',
-    //   content: 'Once deleted, the category cannot be recovered.',
-    //   onOk: () => handleDelete(key),
-    //   okText: 'Yes',
-    //   cancelText: 'No',
-    //   okButtonProps: {
-    //     style: {
-    //       backgroundColor: 'black',
-    //       color: 'white',
-    //       outlineColor: 'black',
-    //     },
-    //   },
-    //   cancelButtonProps: {
-    //     style: {
-    //       borderColor: 'black',
-    //       color: 'black',
-    //       outlineColor: 'black',
-    //     },
-    //   },
-    // });
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'Once deleted, the Category cannot be recovered.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, keep it',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        handleDelete(key);
+      }
+    });
+
   };
 
   const handleDelete = async (key: any) => {
@@ -91,6 +87,9 @@ const TableTwo = ({
         {
           params: {
             categoryId: key,
+          },
+          headers: {
+            'token': finalToken,
           },
         },
       );
