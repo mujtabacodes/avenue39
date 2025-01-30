@@ -14,6 +14,8 @@ import { LiaEdit } from 'react-icons/lia';
 import { generateSlug } from '@/config';
 import { product } from '@/types/interfaces';
 import revalidateTag from '@/components/ServerActons/ServerAction';
+import Cookies from 'js-cookie';
+import Swal from 'sweetalert2';
 
 interface Product {
   id: string;
@@ -96,29 +98,24 @@ const ViewProduct: React.FC<CategoryProps> = ({
 
 
   const confirmDelete = (key: any) => {
-    handleDelete(key)
-    // Modal.confirm({
-    //   title: 'Are you sure you want to delete this product?',
-    //   content: 'Once deleted, the product cannot be recovered.',
-    //   onOk: () => handleDelete(key),
-    //   okText: 'Yes',
-    //   cancelText: 'No',
-    //   okButtonProps: {
-    //     style: {
-    //       backgroundColor: 'black', 
-    //       color: 'white', 
-    //       outlineColor: 'black', 
-    //     },
-    //   },
-    //   cancelButtonProps: {
-    //     style: {
-    //       borderColor: 'black',
-    //       color: 'black', 
-    //       outlineColor: 'black', 
-    //     },
-    //   },
-    // });
+
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'Once deleted, the Product cannot be recovered.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, keep it',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        handleDelete(key)
+      }
+    });
+
   };
+  const token = Cookies.get('2guysAdminToken');
+  const superAdminToken = Cookies.get('superAdminToken');
+  let finalToken = token ? token : superAdminToken;
 
   const handleDelete = async (key: string) => {
     // alert(key);
@@ -128,6 +125,7 @@ const ViewProduct: React.FC<CategoryProps> = ({
         {
           headers: {
             productId: key,
+            'token': finalToken,
           },
         },
       );
