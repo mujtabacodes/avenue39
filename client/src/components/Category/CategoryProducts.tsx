@@ -1,13 +1,14 @@
 import React from 'react'
 import NotFound from '@/app/not-found';
-import Shop from '@/app/products/shop';
+import Shop from '@/components/Shop/shop';
 import ProductBanner from '@/components/discount-banner/product-banner';
 import { generateSlug } from '@/config';
 import { fetchCategories, fetchProducts } from '@/config/fetch'
 import { menuData } from '@/data/menu';
 import { ICategory } from '@/types/types';
 
-const CategoryPage = async ({ name }: { name: string  }) => {
+const CategoryProducts = async ({ slug }: { slug: string[]  }) => {
+   const name = slug[0];
    const [products, categories] = await Promise.all([fetchProducts(), fetchCategories()])
    const findCategory = categories.find((item) => generateSlug(item.name) === name);
    if (!findCategory) {
@@ -50,4 +51,4 @@ const CategoryPage = async ({ name }: { name: string  }) => {
    )
 }
 
-export default CategoryPage
+export default CategoryProducts

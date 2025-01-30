@@ -94,7 +94,7 @@ const Card: React.FC<CardProps> = ({
 
   const { averageRating } = calculateRatingsPercentage(filteredReviews);
   const handleNavigation = () => {
-    Navigate.push(`/product/${generateSlug(card?.name || '')}`);
+    Navigate.push(`/${generateSlug(card?.categories && card?.categories[0].name || '')}/${generateSlug(card?.subcategories && card?.subcategories[0].name || '')}/${generateSlug(card?.name || '')}`);
   };
 
   if (!card) {
@@ -220,7 +220,7 @@ const Card: React.FC<CardProps> = ({
               </p>
               )}
             </div>
-
+              {card.categories?.map((item) => item.name)}
           {averageRating > 0 && (
             <div className="flex gap-1 items-center justify-center mt-1 h-5">
               {renderStars({ star: averageRating })}

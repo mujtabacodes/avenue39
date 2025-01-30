@@ -212,7 +212,6 @@ export const staticHeaderCategories: string[] = [
   'Chairs',
   'Tables',
   'Lighting',
-  'Tv Cabinets',
   'Clearance',
   'New Arrivals',
   'Accessories',

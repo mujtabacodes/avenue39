@@ -1,5 +1,5 @@
-import React, { useState, useEffect, ReactNode } from 'react';
-import { usePathname, useSearchParams } from 'next/navigation';
+import React, { useState, ReactNode } from 'react';
+import { usePathname } from 'next/navigation';
 import TopHero from '@/components/top-hero';
 import Container from '@/components/ui/Container';
 import { productsbredcrumbs } from '@/data/data';
@@ -15,7 +15,6 @@ import {
 } from '@/components/ui/select';
 import Card from '@/components/ui/card';
 import LandscapeCard from '@/components/ui/landscape-card';
-import CardSkaleton from '../Skaleton/productscard';
 import { ICategory, IProduct } from '@/types/types';
 import SubCategoriesRow from './subcategories-row';
 interface ProductPageProps {
@@ -26,127 +25,115 @@ interface ProductPageProps {
   category: ICategory[] | undefined
   ProductData: IProduct[]
   isCategory: boolean | undefined
+  selectedSubCategoriesName?: string
+  selectedCategoriesName?: string
 }
 
 const ProductPage = ({
   productBanner,
   layout,
   Setlayout,
-  category,
+  // category,
   ProductData,
-  isCategory
+  // isCategory,
+  selectedSubCategoriesName,
+  selectedCategoriesName
 
 }: ProductPageProps) => {
-  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-  const [selectedSubCategories, setSelectedSubCategories] = useState<string[]>([]);
-  const [selectedCategoriesName, setSelectedCategoriesName] = useState<
-    string | undefined
-  >();
-  const [selectedSubCategoriesName, setSelectedSubCategoriesName] = useState<string | undefined>();
+  // const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  // const [selectedSubCategories, setSelectedSubCategories] = useState<string[]>([]);
   const [sortOption, setSortOption] = useState<string>('default');
-  const [filterLoading, setFilterLoading] = useState<boolean>(false);
+  // const [filterLoading, setFilterLoading] = useState<boolean>(false);
   const pathname = usePathname();
-  const searchParams = useSearchParams();
 
-  useEffect(() => {
-    const currentCategory = pathname
-      .split('/')
-      .pop()
-      ?.toUpperCase()
-      .replace('-', ' ');
-    const categoryId = searchParams.get('id');
+  // useEffect(() => {
+  //   const currentCategory = pathname
+  //     .split('/')
+  //     .pop()
+  //     ?.toUpperCase()
+  //     .replace('-', ' ');
+  //   const categoryId = searchParams.get('id');
 
-    const isInSubcategories = category?.some(
-      (cat: { subcategories?: { name: string }[] }) =>
-        cat.subcategories?.some(
-          (subcat: { name: string }) =>
-            subcat.name.toUpperCase() === currentCategory,
-        ),
-    );
+  //   const isInSubcategories = category?.some(
+  //     (cat: { subcategories?: { name: string }[] }) =>
+  //       cat.subcategories?.some(
+  //         (subcat: { name: string }) =>
+  //           subcat.name.toUpperCase() === currentCategory,
+  //       ),
+  //   );
 
-    if (currentCategory) {
-      if (categoryId) {
-        const categoryMatch = category?.find(
-          (cat: any) => cat.id.toString() === categoryId,
-        );
+  //   if (currentCategory) {
+  //     if (categoryId) {
+  //       const categoryMatch = category?.find(
+  //         (cat: any) => cat.id.toString() === categoryId,
+  //       );
 
-        if (categoryMatch) {
-          setSelectedCategories([categoryMatch.name.toUpperCase()]);
-          if (categoryMatch.subcategories) {
-            const subcategoryMatch = categoryMatch.subcategories.find(
-              (subcat: any) => subcat.name.toUpperCase() === currentCategory,
-            );
-            if (subcategoryMatch) {
-              setSelectedSubCategories([
-                `SUB_${subcategoryMatch.name.toUpperCase()}`,
-              ]);
-            }
-          }
-        }
-      } else {
-        if (
-          currentCategory &&
-          category?.some(
-            (cat: { name: string }) =>
-              cat.name.toUpperCase() === currentCategory,
-          )
-        ) {
-          handleCategoryChange(currentCategory, true, false);
-        } else if (currentCategory && isInSubcategories) {
-          handleCategoryChange(currentCategory, true, true);
-        }
-      }
-    }
-  }, [pathname, category, searchParams]);
+  //       if (categoryMatch) {
+  //         setSelectedCategories([categoryMatch.name.toUpperCase()]);
+  //         if (categoryMatch.subcategories) {
+  //           const subcategoryMatch = categoryMatch.subcategories.find(
+  //             (subcat: any) => subcat.name.toUpperCase() === currentCategory,
+  //           );
+  //           if (subcategoryMatch) {
+  //             setSelectedSubCategories([
+  //               `SUB_${subcategoryMatch.name.toUpperCase()}`,
+  //             ]);
+  //           }
+  //         }
+  //       }
+  //     } else {
+  //       if (
+  //         currentCategory &&
+  //         category?.some(
+  //           (cat: { name: string }) =>
+  //             cat.name.toUpperCase() === currentCategory,
+  //         )
+  //       ) {
+  //         handleCategoryChange(currentCategory, true, false);
+  //       } else if (currentCategory && isInSubcategories) {
+  //         handleCategoryChange(currentCategory, true, true);
+  //       }
+  //     }
+  //   }
+  // }, [pathname, category, searchParams]);
 
-  const handleCategoryChange = (
-    categoryOrSubCategory: string,
-    isChecked: boolean,
-    isSubCategory: boolean,
-  ) => {
-    setFilterLoading(true);
-    const setter = isSubCategory
-      ? setSelectedSubCategories
-      : setSelectedCategories;
-    setter((prev) =>
-      isChecked
-        ? [...prev, categoryOrSubCategory]
-        : prev.filter((cat) => cat !== categoryOrSubCategory),
-    );
-    setTimeout(() => {
-      setFilterLoading(false);
-    }, 200);
-  };
+  // const handleCategoryChange = (
+  //   categoryOrSubCategory: string,
+  //   isChecked: boolean,
+  //   isSubCategory: boolean,
+  // ) => {
+  //   setFilterLoading(true);
+  //   const setter = isSubCategory
+  //     ? setSelectedSubCategories
+  //     : setSelectedCategories;
+  //   setter((prev) =>
+  //     isChecked
+  //       ? [...prev, categoryOrSubCategory]
+  //       : prev.filter((cat) => cat !== categoryOrSubCategory),
+  //   );
+  //   setTimeout(() => {
+  //     setFilterLoading(false);
+  //   }, 200);
+  // };
 
   const handleSortChange = (sort: string) => setSortOption(sort);
 
-
-
-  setTimeout(() => {
-    if (selectedSubCategories) {
-      setSelectedSubCategoriesName(selectedSubCategories.at(0));
-    }
-    if (selectedCategories) {
-      setSelectedCategoriesName(selectedCategories.at(0));
-    }
-  }, 200);
-  
   const filteredCards = ProductData.filter((card) => {
     if (pathname === '/products') {
       return card.discountPrice > 0 && card.stock > 0;
     }
     return true;
   })
-    .filter((card) => {
-      if (selectedSubCategories.length > 0) {
-
-        return card.subcategories?.some((sub) =>
-          selectedSubCategories.includes(`SUB_${sub.name.toUpperCase()}`),
-        );
-      } else if (selectedCategories.length > 0 && isCategory) {
-        return card.categories?.some((cat) => selectedCategories.includes(cat.name))
-      } else return pathname === '/products' && true;
-    })
+    // .filter((card) => {
+    //   if (selectedSubCategories.length > 0) {
+    //     console.log(selectedSubCategories,'selectedSubCategories')
+    //     return card.subcategories?.some((sub) =>
+    //       selectedSubCategories.includes(`SUB_${sub.name.toUpperCase()}`),
+    //     );
+    //   } else if (selectedCategories.length > 0 && isCategory) {
+    //     return card.categories?.some((cat) => selectedCategories.includes(cat.name))
+    //   } else return pathname === '/products' && true;
+    // })
     .sort((a, b) => {
       switch (sortOption) {
         case 'name': {
@@ -166,8 +153,6 @@ const ProductPage = ({
           return 0;
       }
     });
-
-  console.log(filteredCards, "filteredCards", ProductData)
   return (
     <>
       <TopHero
@@ -210,30 +195,30 @@ const ProductPage = ({
                 <MdWindow className="cursor-pointer text-3xl" onClick={() => Setlayout('grid')} />
                 <ImList className="cursor-pointer text-2xl" onClick={() => Setlayout('list')} />
               </div>
-              <p className="block whitespace-nowrap ">Showing {!filterLoading && filteredCards.length > 0 ? filteredCards.length : 0} results</p>
+              <p className="block whitespace-nowrap ">Showing {filteredCards.length > 0 ? filteredCards.length : 0} results</p>
             </div>
             <SubCategoriesRow />
           </div>
-          {filterLoading ? (
+          {/* {filterLoading ? (
             <CardSkaleton />
-          ) : (
+          ) : ( */}
 
-            <div className={`grid gap-4 md:gap-8 mt-4 ${layout === 'grid' ? 'grid-cols-1 xs:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 2xl:grid-cols-5 ' : 'grid-cols-1'}`}>
-              {filteredCards.length > 0 ? (
-                filteredCards.map((card) => (
-                  <div key={card.id} className='flex'>
-                    {layout === 'grid' ? (
-                      <Card card={card} category isLoading={false} cardImageHeight="h-[300px] xsm:h-[220px] sm:h-[400px] md:h-[350px] xl:h-[220px] 2xl:h-[280px] w-full" />
-                    ) : (
-                      <LandscapeCard card={card} isLoading={false} />
-                    )}
-                  </div>
-                ))
-              ) : (
-                <p>No Product Found</p>
-              )}
-            </div>
-          )}
+          <div className={`grid gap-4 md:gap-8 mt-4 ${layout === 'grid' ? 'grid-cols-1 xs:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 2xl:grid-cols-5 ' : 'grid-cols-1'}`}>
+            {filteredCards.length > 0 ? (
+              filteredCards.map((card) => (
+                <div key={card.id} className='flex'>
+                  {layout === 'grid' ? (
+                    <Card card={card} category isLoading={false} cardImageHeight="h-[300px] xsm:h-[220px] sm:h-[400px] md:h-[350px] xl:h-[220px] 2xl:h-[280px] w-full" />
+                  ) : (
+                    <LandscapeCard card={card} isLoading={false} />
+                  )}
+                </div>
+              ))
+            ) : (
+              <p>No Product Found</p>
+            )}
+          </div>
+          {/* )} */}
         </div>
       </Container>
     </>

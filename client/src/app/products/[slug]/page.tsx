@@ -2,7 +2,7 @@ import { Suspense } from 'react';
 // import product from '../../../../public/images/product.jpg';
 import ProductBanner from '@/components/discount-banner/product-banner';
 
-import Shop from '../shop';
+import Shop from '../../../components/Shop/shop';
 import { headers } from 'next/headers';
 import { Metadata } from 'next';
 import { ProductDetailSkeleton } from '@/components/product-detail/skelton';

@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import Shop from "./shop";
+import Shop from "../../components/Shop/shop";
 import MegaSale from "@/components/discount-banner/mega-sale";
 // import mega from '../../../public/images/mega.png'
 import { Metadata } from "next";
