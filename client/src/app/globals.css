@@ -369,3 +369,7 @@ color: white;
  .detail{
   font-family:var(--font-helvetica) !important;
  }
+
+ .swal2-actions .swal2-confirm {
+  background-color: #ff5858 !important;
+}
