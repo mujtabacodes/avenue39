@@ -48,10 +48,6 @@ const MenuLink: React.FC<MenuLinkProps> = ({
         >{item.name}</Link>
       )
       )}
-      <Link
-        href='/products'
-        className={`flex gap-1 items-center text-red-600 dark:text-red-600`}
-      >Sale</Link>
     </>
   );
 };
