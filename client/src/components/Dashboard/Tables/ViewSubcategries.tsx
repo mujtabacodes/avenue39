@@ -1,7 +1,7 @@
 'use client';
 
 import React, { SetStateAction, useState } from 'react';
-import { Table, notification} from 'antd';
+import { Table, notification } from 'antd';
 import Image from 'next/image';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import axios from 'axios';
@@ -126,7 +126,7 @@ const ViewSubcategries = ({
       key: 'name',
     },
     {
-      title: 'Date',
+      title: 'Create At',
       dataIndex: 'createdAt',
       key: 'date',
       render: (text: any, record: any) => {
@@ -138,16 +138,33 @@ const ViewSubcategries = ({
       },
     },
     {
+      title: 'Updated At',
+      dataIndex: 'createdAt',
+      key: 'date',
+      render: (text: any, record: any) => {
+        const createdAt = new Date(record.updatedAt);
+        const formattedDate = `${createdAt.getFullYear()}-${String(createdAt.getMonth() + 1).padStart(2, '0')}-${String(
+          createdAt.getDate(),
+        ).padStart(2, '0')}`;
+        return <span>{formattedDate}</span>;
+      },
+    },
+    {
       title: 'Time',
       dataIndex: 'createdAt',
       key: 'time',
       render: (text: any, record: any) => {
-        const createdAt = new Date(record.createdAt);
+        const createdAt = new Date(record.updatedAt);
         const formattedTime = `${String(createdAt.getHours()).padStart(2, '0')}:${String(
           createdAt.getMinutes(),
         ).padStart(2, '0')}`;
         return <span>{formattedTime}</span>;
       },
+    },
+    {
+      title: 'Edited By',
+      dataIndex: 'last_editedBy',
+      key: 'last_editedBy',
     },
     {
       title: 'Edit',
@@ -165,9 +182,8 @@ const ViewSubcategries = ({
       key: 'action',
       render: (text: any, record: any) => (
         <RiDeleteBin6Line
-          className={`cursor-pointer ${canDeleteCategory && 'text-red-500 dark:text-red-700'} ${
-            !canDeleteCategory && 'cursor-not-allowed text-slate-300'
-          }`}
+          className={`cursor-pointer ${canDeleteCategory && 'text-red-500 dark:text-red-700'} ${!canDeleteCategory && 'cursor-not-allowed text-slate-300'
+            }`}
           // className="cursor-pointer text-red-500"
           size={20}
           onClick={() => {
@@ -182,47 +198,45 @@ const ViewSubcategries = ({
 
   return (
     <div>
-        <>
-          <div className="flex justify-between mb-4 items-center text-dark dark:text-white">
+      <>
+        <div className="flex justify-between mb-4 items-center text-dark dark:text-white">
           <input
-              className="peer lg:p-3 p-2 block outline-none border rounded-md border-gray-200 dark:bg-boxdark dark:bg-transparent dark:border-white text-11 xs:text-sm dark:focus:border-primary focus:border-dark focus:ring-dark-500 disabled:opacity-50 disabled:pointer-events-none dark:text-black"
-              type="search"
-              placeholder="Search Sub Categories"
-              value={searchTerm}
-              onChange={handleSearchChange}
-            />
-            <div>
-              <p
-                className={`${canAddCategory && 'cursor-pointer'} p-2 ${
-                  canAddCategory &&
-                  'dark:bg-main dark:border-0 bg-black text-white rounded-md border'
-                } flex justify-center ${
-                  !canAddCategory && 'cursor-not-allowed '
+            className="peer lg:p-3 p-2 block outline-none border rounded-md border-gray-200 dark:bg-boxdark dark:bg-transparent dark:border-white text-11 xs:text-sm dark:focus:border-primary focus:border-dark focus:ring-dark-500 disabled:opacity-50 disabled:pointer-events-none dark:text-black"
+            type="search"
+            placeholder="Search Sub Categories"
+            value={searchTerm}
+            onChange={handleSearchChange}
+          />
+          <div>
+            <p
+              className={`${canAddCategory && 'cursor-pointer'} p-2 ${canAddCategory &&
+                'dark:bg-main dark:border-0 bg-black text-white rounded-md border'
+                } flex justify-center ${!canAddCategory && 'cursor-not-allowed '
                 }`}
-                onClick={() => {
-                  seteditCategory && seteditCategory(null);
-                  if (canAddCategory) {
-                    setMenuType('Add Sub Categories');
-                  }
-                }}
-              >
-                Add Sub Category
-              </p>
-            </div>
+              onClick={() => {
+                seteditCategory && seteditCategory(null);
+                if (canAddCategory) {
+                  setMenuType('Add Sub Categories');
+                }
+              }}
+            >
+              Add Sub Category
+            </p>
           </div>
+        </div>
 
-          {filteredSubCategories && filteredSubCategories.length > 0  ? (
-            <Table
-              className="overflow-x-scroll lg:overflow-auto"
-              dataSource={filteredSubCategories}
-              columns={columns}
-              pagination={false}
-              rowKey="id"
-            />
-          ) : (
-            'No Sub Categories found'
-          )}
-        </>
+        {filteredSubCategories && filteredSubCategories.length > 0 ? (
+          <Table
+            className="overflow-x-scroll lg:overflow-auto"
+            dataSource={filteredSubCategories}
+            columns={columns}
+            pagination={false}
+            rowKey="id"
+          />
+        ) : (
+          'No Sub Categories found'
+        )}
+      </>
     </div>
   );
 };

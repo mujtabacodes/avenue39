@@ -24,7 +24,7 @@ import { Checkbox } from 'antd';
 import showToast from '@components/Toaster/Toaster';
 import revalidateTag from '@/components/ServerActons/ServerAction';
 import { ICategory } from '@/types/types';
-
+import Cookies from 'js-cookie';
 
 const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
   EditInitialValues,
@@ -101,6 +101,9 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
 
     CategoryHandler();
   }, []);
+  const token = Cookies.get('2guysAdminToken');
+  const superAdminToken = Cookies.get('superAdminToken');
+  let finalToken = token ? token : superAdminToken;
   const onSubmit = async (values: any, { resetForm }: any) => {
     console.log(values, 'sale_counter');
     values.categories = selectedCategoryIds;
@@ -140,7 +143,11 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
       if (updateFlag && EditInitialValues?.id) {
         newValues = { id: EditInitialValues.id, ...newValues };
       }
-      const response = await axios.post(url, newValues);
+      const response = await axios.post(url, newValues, {
+        headers: {
+          'token': finalToken,
+        },
+      });
       revalidateTag('products');
       Toaster(
         'success',
@@ -414,9 +421,9 @@ const handleImageIndex = (
                             placeholder="Discount Price"
                             min="0"
                             className={`w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${formik.touched.discountPrice &&
-                                formik.errors.discountPrice
-                                ? 'border-red-500'
-                                : ''
+                              formik.errors.discountPrice
+                              ? 'border-red-500'
+                              : ''
                               }`}
                           />
                           {formik.touched.discountPrice &&
@@ -439,9 +446,9 @@ const handleImageIndex = (
                           min={new Date().toISOString().slice(0, 16)}
                           placeholder="Select Date and Time"
                           className={`w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${formik.touched.sale_counter &&
-                              formik.errors.sale_counter
-                              ? 'border-red-500'
-                              : ''
+                            formik.errors.sale_counter
+                            ? 'border-red-500'
+                            : ''
                             }`}
                         />
                       </div>
@@ -459,8 +466,8 @@ const handleImageIndex = (
                               value={formik.values.Meta_Title}
                               placeholder="Meta Title"
                               className={`w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${formik.touched.name && formik.errors.name
-                                  ? 'border-red-500'
-                                  : ''
+                                ? 'border-red-500'
+                                : ''
                                 }`}
                             />
                             {formik.touched.Meta_Title &&
@@ -482,8 +489,8 @@ const handleImageIndex = (
                               value={formik.values.Canonical_Tag}
                               placeholder="Canonical Tag"
                               className={`w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${formik.touched.name && formik.errors.name
-                                  ? 'border-red-500'
-                                  : ''
+                                ? 'border-red-500'
+                                : ''
                                 }`}
                             />
 
@@ -505,9 +512,9 @@ const handleImageIndex = (
                             value={formik.values.Meta_Description}
                             placeholder="Meta Description"
                             className={`w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${formik.touched.description &&
-                                formik.errors.description
-                                ? 'border-red-500'
-                                : ''
+                              formik.errors.description
+                              ? 'border-red-500'
+                              : ''
                               }`}
                           />
                           {formik.touched.Meta_Description &&
@@ -531,8 +538,8 @@ const handleImageIndex = (
                               value={formik.values.Images_Alt_Text}
                               placeholder="Images Alt Text"
                               className={`w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${formik.touched.name && formik.errors.name
-                                  ? 'border-red-500'
-                                  : ''
+                                ? 'border-red-500'
+                                : ''
                                 }`}
                             />
                             {formik.touched.Images_Alt_Text &&
@@ -660,8 +667,8 @@ const handleImageIndex = (
                         placeholder="How many items available"
                         min="0"
                         className={`w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${formik.touched.stock && formik.errors.stock
-                            ? 'border-red-500'
-                            : ''
+                          ? 'border-red-500'
+                          : ''
                           }`}
                       />
                       {formik.touched.stock && formik.errors.stock ? (

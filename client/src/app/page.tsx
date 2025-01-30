@@ -1,19 +1,17 @@
-
-'use client';
 import React from 'react';
 import {testimonialcards } from '@/data';
 import SofaBanner from '@/components/discount-banner/sofa-banner';
 import Testimonial from '@/components/testimonial/testimonial';
 import HeroVideo from '@/components/Home/hero-video';
 import WhatsIcon from '@/components/whatsapp';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
 import Catalogue from '@/components/Catalogue/Catalogue';
 import AllCategory from '@/components/CategoryCard/AllCategory';
 import NewArrival from '@/components/newarrival';
 import ColorBanner from '@/components/ColorBanner/ColorBanner';
+import { fetchProducts } from '@/config/fetch';
 
-export default function Home() {
+export default async function Home() {
+  const products = await fetchProducts();
   return (
     <>
       <WhatsIcon />
@@ -21,7 +19,7 @@ export default function Home() {
       <ColorBanner/>
       <SofaBanner />
       <NewArrival/>
-      <AllCategory/>
+      <AllCategory products={products} />
       <Catalogue/>
       {testimonialcards && testimonialcards.length > 50 && (
         <Testimonial testimonialitems={testimonialcards} />

@@ -14,7 +14,6 @@ import {
 import { Popover } from 'antd';
 import { useSelector } from 'react-redux';
 import { State } from '@/redux/store';
-import { menuData } from '@/data/menu';
 import { generateSlug } from '@/config';
 import { IoIosHeartEmpty } from 'react-icons/io';
 import SocialLink from '../social-link';
@@ -23,8 +22,15 @@ import { loggedInUserAction } from '@/redux/slices/user/userSlice';
 import Cookies from 'js-cookie';
 import { useAppDispatch } from '@components/Others/HelperRedux';
 import { useRouter } from 'next/navigation';
-const BottomBar: React.FC = () => {
+import { ICategory } from '@/types/types';
+import MenuLink from '../menu-link';
+
+interface BottomBarProps {
+  categories: ICategory[];
+}
+const BottomBar: React.FC<BottomBarProps> = ({ categories }) => {
   const [open, setOpen] = useState(false);
+  const [isSheetOpen, setIsSheetOpen] = useState(false);
   const userDetails = useSelector(
     (state: State) => state.usrSlice.loggedInUser,
   );
@@ -50,16 +56,17 @@ const BottomBar: React.FC = () => {
       console.log(err);
     }
   };
- 
+  const hideSheet = () => {
+    setIsSheetOpen(false);
+  };
   const { loggedInUser } = useSelector((state: State) => state.usrSlice)
   const [profilePhoto, setProfilePhoto] = useState<any>([]);
   useEffect(() => {
     if (loggedInUser) {
-      setProfilePhoto({imageUrl : loggedInUser?.userImageUrl, public_id : loggedInUser.userPublicId})
+      setProfilePhoto({ imageUrl: loggedInUser?.userImageUrl, public_id: loggedInUser.userPublicId })
     }
-  
+
   }, [loggedInUser])
-  
   return (
     <div className="flex justify-between items-center px-4 md:hidden py-3 border-t w-full fixed bottom-0 bg-white z-50">
       <Link href={'/'}>
@@ -70,40 +77,18 @@ const BottomBar: React.FC = () => {
       </Link>
       {/* <Link href={"/"}><FaRegHeart size={25} /></Link> */}
 
-      <Sheet>
+      <Sheet open={isSheetOpen}>
         <SheetTrigger asChild>
           <div className="relative w-14">
             <div className="triangle-shape bg-black text-white cursor-pointer z-50">
-              <MdCategory size={25} />
+              <MdCategory size={25} onClick={() => setIsSheetOpen(true)} />
             </div>
           </div>
         </SheetTrigger>
         <SheetContent className="pb-5">
           <div className="pt-10 space-y-2">
-            {Object.keys(menuData).map((menu, menuIndex) => {
-              if (
-                menu === 'tvCabinets' ||
-                menu === 'clearance' ||
-                menu === 'megaSale'
-              ) {
-                const isMegaSale = menu === 'megaSale';
-
-                return (
-                  <SheetClose asChild key={menuIndex}>
-
-                  <div
-                    
-                    onClick={()=>{route.push(`/products/${generateSlug(menuData[menu][0]?.title || '')}`)}}
-                    
-                    className={`block font-bold hover:underline ${isMegaSale ? 'text-red-600' : ''}`}
-                    >
-                    {menu.replace(/([A-Z])/g, ' $1').toUpperCase()}
-                  </div>
-                    </SheetClose>
-                );
-              }
-
-              return (
+            {categories.map((menu, menuIndex) => (
+              menu.subcategories && menu.subcategories?.length > 0 ? (
                 <Accordion
                   key={menuIndex}
                   type="single"
@@ -112,31 +97,36 @@ const BottomBar: React.FC = () => {
                 >
                   <AccordionItem value={`item-${menuIndex}`}>
                     <AccordionTrigger className="font-bold">
-                      {menu.replace(/([A-Z])/g, ' $1').toUpperCase()}
+                      <Link
+                        href={`/products/${generateSlug(menu.name)}`}
+                        className="hover:underline font-semibold text-15 flex gap-2 items-center"
+                        onClick={hideSheet}
+                      >
+                        {menu.name}
+                      </Link>
                     </AccordionTrigger>
                     <AccordionContent>
                       <SheetClose asChild>
                         <div className="grid font-semibold space-y-2 px-4">
-                          {menuData[menu].map((subItem, subIndex) => (
-                            <div
-                              key={subIndex}
-                              onClick={()=>{route.push(`/products/${generateSlug(subItem.title || '')}`)}}
-                             
-                              className="hover:underline font-semibold text-15 flex gap-2 items-center"
-                            >
-                              {subItem.title}
-                            </div>
-                          ))}
+                        <MenuLink
+                              menudata={menu}
+                              onLinkClick={hideSheet}
+                            />
                         </div>
                       </SheetClose>
                     </AccordionContent>
                   </AccordionItem>
                 </Accordion>
-              );
-            })}
+              ) : (
+                <Link href={`/products/${generateSlug(menu.name)}`} key={menuIndex} onClick={hideSheet} className='hover:underline font-semibold text-15 py-1 block uppercase w-fit'>{menu.name}</Link>
+              )
+
+            )
+            )}
+            <Link href={'/products'} onClick={hideSheet} className='hover:underline text-red-500 font-semibold text-15 py-1 block uppercase w-fit'>Sale</Link>
           </div>
           <div className='mt-3'>
-          <SocialLink />
+            <SocialLink iconColor='text-black' />
           </div>
         </SheetContent>
       </Sheet>
@@ -184,18 +174,18 @@ const BottomBar: React.FC = () => {
           onOpenChange={handleOpenChange}
         >
           <div className="flex gap-2 items-center whitespace-nowrap cursor-pointer">
-          <div className="h-8 w-8 rounded-full overflow-hidden">
-                  <Image
-                    src={
-                      profilePhoto && profilePhoto.imageUrl
-                        ? profilePhoto.imageUrl
-                        : "/images/dummy-avatar.jpg"
-                    }
-                    width={55}
-                    height={55}
-                    alt={loggedInUser.name}
-                  />
-                </div>
+            <div className="h-8 w-8 rounded-full overflow-hidden">
+              <Image
+                src={
+                  profilePhoto && profilePhoto.imageUrl
+                    ? profilePhoto.imageUrl
+                    : "/images/dummy-avatar.jpg"
+                }
+                width={55}
+                height={55}
+                alt={loggedInUser.name}
+              />
+            </div>
           </div>
         </Popover>
       )}
