@@ -17,8 +17,6 @@ const SubCategoriesRow = () => {
 
   useEffect(() => {
     const categoryKey = path.replace('/', '');
-    console.log(categoryKey)
-    console.log(categoryKey, 'categoryKey')
     const categoryName =
       categoryKey === 'lighting'
         ? 'Lighting'

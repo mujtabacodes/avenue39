@@ -9,24 +9,23 @@ import { Navigation, Pagination } from 'swiper/modules';
 import banner8 from '@/assets/images/banners/banner8.png';
 import { HiOutlineShoppingBag } from 'react-icons/hi';
 import { categories } from '@/data/data';
-import { useParams } from 'next/navigation';
 import Image from 'next/image';
+import { generateSlug } from '@/config';
 
 interface ProductBannerProps {
   showArrows?: boolean;
   showFallback?: boolean;
+  subCategoriesName?: string
 }
 
 const ProductBanner: React.FC<ProductBannerProps> = ({
   showArrows = true,
   showFallback = true,
+  subCategoriesName
 }) => {
-  const { slug } = useParams();
-  const parent = { slug };
-  const mainparent = parent.slug;
 
   const matchedCategory = categories.find(
-    (category: any) => category.maintitle === mainparent
+    (category: any) => category.maintitle === generateSlug(subCategoriesName || '')
   );
   const sliderData = matchedCategory?.data;
 
