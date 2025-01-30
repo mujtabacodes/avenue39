@@ -249,6 +249,7 @@ const Product = ({ params, similarProducts, reviews, product, products }: { para
             swiperGap=" justify-between gap-2 xs:gap-6 md:gap-3"
             detailsWidth="w-full md:w-1/2 lg:w-9/12 2xl:w-2/6"
             products={products}
+            reviews={reviews}
           />
         )}
       </Container>

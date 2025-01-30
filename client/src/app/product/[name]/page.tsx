@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import Product from '../product';
+import Product from '../../../components/Product/product';
 import { IProduct, IProductDetail } from '@/types/types';
 import { Metadata } from 'next';
 import { headers } from 'next/headers';
