@@ -6,6 +6,7 @@ import { fetchCategories } from '@/config/fetch';
 import { ICategory } from '@/types/types';
 import { useQuery } from '@tanstack/react-query';
 import { menuData } from '@/data/menu';
+import Navbar from './nav-bar';
 
 const Header = () => {
   const [sortedCategories, setSortedCategories] = useState<ICategory[]>([]);
@@ -39,6 +40,7 @@ const Header = () => {
   return (
     <>
       <TopNav />
+      <Navbar />
       <MenuBar categories={sortedCategories} loading={loading}
       //  menuData={menuData} loading={loading} error={error}
       />

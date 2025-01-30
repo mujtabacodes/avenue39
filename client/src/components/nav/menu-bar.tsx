@@ -71,7 +71,7 @@ const MenuBar = ({ categories, loading }: { categories?: ICategory[], loading: b
   };
 
   return (
-    <div className={`${isSticky ? `sticky ${userDetails ? 'top-20' : 'top-0'} z-20` : 'relative md:pb-12'}`}>
+    <div className={`${isSticky ? `sticky ${userDetails ? 'top-20' : 'top-16'} z-20` : 'relative md:pb-12'}`}>
       <div
         className={`bg-white shadow-md mb-1 pt-3 hidden md:block z-20 ${isSticky ? '' : 'absolute w-full top-0'
           }`}
