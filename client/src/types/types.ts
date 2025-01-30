@@ -135,6 +135,7 @@ export interface IProduct {
   createdAt?: string;
   sale_counter?: string;
   sortedSubcategories?: ICategory[];
+  sizes?: string[];
 }
 export interface specsDetails {
   id: number;
@@ -152,7 +153,7 @@ export interface IProductAdd {
   hoverImagePublicId: string;
   productImages: ProductImage[];
   spacification: Array<{ specsDetails: string; _id: string }>;
-  colors?: string[];
+  sizes?: string[];
   additionalInformation: AdditionalInformation[];
   categories: number[];
   subcategories: number[];
@@ -161,6 +162,7 @@ export interface IProductAdd {
   Meta_Description: string;
   Images_Alt_Text: string;
   sale_counter?: string;
+  filters?: any[];
 }
 export interface ITestimonialCard {
   id: number;
