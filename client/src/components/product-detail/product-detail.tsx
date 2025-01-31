@@ -79,7 +79,11 @@ const ProductDetail = ({
     min: 0,
     sec: 0,
   });
+  const [activeIndex, setActiveIndex] = useState(0);
 
+  const handleClick = (index: number) => {
+    setActiveIndex(index);
+  };
 
   function formatPrice(price: any) {
     if (!price) return 0; // Handle undefined or null price
@@ -177,7 +181,24 @@ const ProductDetail = ({
   const handle3D = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
   };
+  const filters = [
+    {
+      heading: 'Color',
+      additionalInformation: [
+        { name: 'Black' },
+        { name: 'Blue' },
+        { name: 'Brown' },
+        { name: 'White' },
+      ],
+    },
+  ];
 
+  const sizes = [
+    "1 seater",
+    "2 seater",
+    "3 seater",
+    "Full set"
+  ]
   return (
     <div
       className={`flex flex-col md:flex-row w-full justify-between font-Helveticalight overflow-hidden ${gap} my-6 relative`}
@@ -271,6 +292,40 @@ const ProductDetail = ({
             //   : 
             truncateText(product?.description, 120)}
         </p>
+
+        <div className="p-4">
+          <h2 className="font-bold text-xl">{filters[0].heading}: {filters[0].additionalInformation[activeIndex].name}</h2>
+          <div className="flex space-x-4 mt-2">
+            {filters[0].additionalInformation.map((color, index) => (
+              <div
+                key={index}
+                onClick={() => handleClick(index)}
+                className={`cursor-pointer border rounded-lg p-2 flex items-center justify-center transition ${activeIndex === index
+                  ? 'border-black font-bold shadow-md'
+                  : 'hover:shadow-lg'
+                  }`}
+              >
+                <span>{color.name}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="p-4">
+          <h2 className="font-bold text-xl mb-2">Size:</h2>
+          <div className="flex space-x-4">
+            {sizes.map((size, index) => (
+              <div
+                key={index}
+                className={`cursor-pointer border rounded-lg px-4 py-2 text-center transition'bg-gray-100 text-gray-700 hover:bg-gray-200' // Inactive styles
+                  }`}
+              >
+                <span className="block text-lg">{size.split(' ')[0]}</span>
+                <span className="block text-sm">{size.split(' ')[1]}</span>
+              </div>
+            ))}
+          </div>
+        </div>
 
         {product.sale_counter &&
           Object.values(timeLeft).some((value) => value > 0) && (

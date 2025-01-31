@@ -205,17 +205,17 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
     });
   };
 
-const handleImageIndex = (
-  index: number,
-  newImageIndex: number | string,
-  setImagesUrlhandler: React.Dispatch<React.SetStateAction< any>>
-) => {
-  setImagesUrlhandler((prev:any) => {
+  const handleImageIndex = (
+    index: number,
+    newImageIndex: number | string,
+    setImagesUrlhandler: React.Dispatch<React.SetStateAction<any>>
+  ) => {
+    setImagesUrlhandler((prev: any) => {
 
-    const updatedImagesUrl = prev.map((item:any, i:number) => i === index ? { ...item, altText: newImageIndex } : item);
-    return updatedImagesUrl;
-  });
-};
+      const updatedImagesUrl = prev.map((item: any, i: number) => i === index ? { ...item, altText: newImageIndex } : item);
+      return updatedImagesUrl;
+    });
+  };
 
   return (
     <>
@@ -284,7 +284,7 @@ const handleImageIndex = (
                                   name="altText"
                                   value={item.altText}
                                   onChange={(e) =>
-                              handleImageIndex(index, String(e.target.value), setposterimageUrl)
+                                    handleImageIndex(index, String(e.target.value), setposterimageUrl)
                                   }
                                 />
                               </div>
@@ -311,8 +311,8 @@ const handleImageIndex = (
                           value={formik.values.name}
                           placeholder="Title"
                           className={`w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${formik.touched.name && formik.errors.name
-                              ? 'border-red-500'
-                              : ''
+                            ? 'border-red-500'
+                            : ''
                             }`}
                         />
                         {formik.touched.name && formik.errors.name ? (
@@ -332,9 +332,9 @@ const handleImageIndex = (
                           value={formik.values.description}
                           placeholder="description"
                           className={`w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${formik.touched.description &&
-                              formik.errors.description
-                              ? 'border-red-500'
-                              : ''
+                            formik.errors.description
+                            ? 'border-red-500'
+                            : ''
                             }`}
                         />
                         {formik.touched.description &&
@@ -363,8 +363,8 @@ const handleImageIndex = (
                             placeholder="Product Price"
                             min="0"
                             className={`w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${formik.touched.price && formik.errors.price
-                                ? 'border-red-500'
-                                : ''
+                              ? 'border-red-500'
+                              : ''
                               }`}
                           />
                           {formik.touched.price && formik.errors.price ? (
@@ -905,7 +905,7 @@ const handleImageIndex = (
                       </h3>
                     </div>
                     <div className="flex flex-col py-4 px-6">
-                      <FieldArray name="filter">
+                      <FieldArray name="filters">
                         {({ push: pushSection, remove: removeSection }) => (
                           <>
                             {(formik.values.filter || []).map(
@@ -1043,14 +1043,14 @@ const handleImageIndex = (
                                       }
                                       placeholder="Model Name"
                                       className={`w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${model.name &&
-                                          (
-                                            formik.errors
-                                              .additionalInformation as FormikErrors<
-                                                FormValues['additionalInformation']
-                                              >
-                                          )?.[index]
-                                          ? 'border-red-500 dark:border-white'
-                                          : ''
+                                        (
+                                          formik.errors
+                                            .additionalInformation as FormikErrors<
+                                              FormValues['additionalInformation']
+                                            >
+                                        )?.[index]
+                                        ? 'border-red-500 dark:border-white'
+                                        : ''
                                         }`}
                                     />
                                     <input
@@ -1065,14 +1065,14 @@ const handleImageIndex = (
                                       }
                                       placeholder="Model Detail"
                                       className={`w-full rounded-lg ml-2 border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${model.detail &&
-                                          (
-                                            formik.errors
-                                              .additionalInformation as FormikErrors<
-                                                FormValues['additionalInformation']
-                                              >
-                                          )?.[index]
-                                          ? 'border-red-500 dark:border-white'
-                                          : ''
+                                        (
+                                          formik.errors
+                                            .additionalInformation as FormikErrors<
+                                              FormValues['additionalInformation']
+                                            >
+                                        )?.[index]
+                                        ? 'border-red-500 dark:border-white'
+                                        : ''
                                         }`}
                                     />
                                     <button
@@ -1125,14 +1125,14 @@ const handleImageIndex = (
                                     }
                                     placeholder="Specification Details"
                                     className={`w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${spec.specsDetails &&
-                                        (
-                                          formik.errors
-                                            .spacification as FormikErrors<
-                                              FormValues['spacification']
-                                            >
-                                        )?.[index]?.specsDetails
-                                        ? 'border-red-500'
-                                        : ''
+                                      (
+                                        formik.errors
+                                          .spacification as FormikErrors<
+                                            FormValues['spacification']
+                                          >
+                                      )?.[index]?.specsDetails
+                                      ? 'border-red-500'
+                                      : ''
                                       }`}
                                   />
                                   <button
@@ -1185,9 +1185,9 @@ const handleImageIndex = (
                                     }
                                     placeholder="Size Name (1 seater, 2 seater, etc)"
                                     className={`w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${(formik.touched as any).sizes?.[index] && (
-                                        formik.errors.sizes as FormikErrors<FormValues['sizes']>)?.[index]
-                                        ? 'border-red-500'
-                                        : ''
+                                      formik.errors.sizes as FormikErrors<FormValues['sizes']>)?.[index]
+                                      ? 'border-red-500'
+                                      : ''
                                       }`}
 
                                   />
