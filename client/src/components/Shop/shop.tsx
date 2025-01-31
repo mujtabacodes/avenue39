@@ -7,12 +7,17 @@ const Shop = ({
   productBanner,
   categories,
   ProductData,
-  isCategory
+  isCategory,
+  findCategory,
+  categoryName
+
 }: {
   productBanner?: ReactNode;
   categories?: ICategory[];
   ProductData: IProduct[];
-  isCategory?: boolean
+  isCategory?: boolean;
+  findCategory?: string;
+  categoryName: ICategory;
 }) => {
   const [layout, Setlayout] = useState<string>('grid');
   return (
@@ -24,6 +29,8 @@ const Shop = ({
         category={categories}
         ProductData={ProductData}
         isCategory={isCategory}
+        findCategory={findCategory}
+        categoryName={categoryName}
       />
     </>
   );

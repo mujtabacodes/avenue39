@@ -1,6 +1,7 @@
 import NotFound from '@/app/not-found';
-import CategoryPage from '@/components/Category/CategoryPage';
-import SunCategoryPage from '@/components/SubCategory/page';
+import CategoryProducts from '@/components/Category/CategoryProducts';
+import SingleProduct from '@/components/Product/SingleProduct';
+import SubCategoryProducts from '@/components/SubCategory/SubCategoryProducts';
 import React from 'react'
 
 interface SlugPageProps {
@@ -10,11 +11,13 @@ interface SlugPageProps {
  }
 const SlugPage: React.FC<SlugPageProps> = async ({params}) => {
    const {slug} = await params;
-   console.log(slug,'slug')
+   
    if(slug.length === 1){
-      return <CategoryPage name={slug[0]} />
+      return <CategoryProducts slug={slug} />
    } else if (slug.length === 2) {
-      return <SunCategoryPage name={slug[1]} />
+      return <SubCategoryProducts slug={slug} />
+   } else if (slug.length === 3) {
+      return <SingleProduct slug={slug} />
    }
   return <NotFound />
 }

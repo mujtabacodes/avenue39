@@ -79,13 +79,13 @@ const MenuBar = ({ categories, loading }: { categories?: ICategory[], loading: b
         <Container className="flex flex-wrap items-center justify-between">
           {loading ? (
             staticHeaderCategories.map((item, index) => (
-              <Link href={`/products/${generateSlug(item)}`} key={index} className={`menu-item text-13 lg:text-15 pb-2 tracking-wide family-Helvetica uppercase whitespace-nowrap ${item === 'Sale' ? 'text-red-500' : 'text-black'}`}>{item}</Link>
+              <Link href={`/${generateSlug(item)}`} key={index} className={`menu-item text-13 lg:text-15 pb-2 tracking-wide family-Helvetica uppercase whitespace-nowrap ${item === 'Sale' ? 'text-red-500' : 'text-black'}`}>{item}</Link>
             ))
           ) : (
             <>
               {categories?.map((item) => (
                 <div className="relative" key={item.id}>
-                  <Link href={`/products/${generateSlug(item.name)}`}
+                  <Link href={`/${generateSlug(item.name)}`}
                     className={`relative menu-item text-13 lg:text-15 pb-2 tracking-wide family-Helvetica uppercase whitespace-nowrap text-black dark:text-black flex flex-row gap-2 items-center cursor-pointer ${isActiveMenu === item.name.toLowerCase() ? 'linkactive' : 'link-underline'}`}
                     onMouseEnter={() => handleMouseEnter(item.name)}
                     onMouseLeave={handleMouseLeave}

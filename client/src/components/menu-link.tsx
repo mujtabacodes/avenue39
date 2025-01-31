@@ -39,9 +39,8 @@ const MenuLink: React.FC<MenuLinkProps> = ({
     <>
       {subCategory?.map((item, index) => (
         <Link
-          href={item.name === 'Accessories' ? '/products/accessories'
-            : `/products/${generateSlug(item.name)}${`?id=${menudata.id}`
-            }`
+          href={item.name === 'Accessories' ? '/accessories'
+            : `/${generateSlug(menudata.name)}/${generateSlug(item.name)}`
           }
           className={`flex gap-1 items-center`}
           key={index}
