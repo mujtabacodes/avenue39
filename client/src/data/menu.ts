@@ -41,10 +41,16 @@ export const menuData: MenuData = {
     {
       categoryId: 3,
       link: '/products',
+      title: 'TV Stands',
+      icon: tvCabinets,
+    },
+    {
+      categoryId: 3,
+      link: '/products',
       title: 'Accessories',
       icon: accessories,
     },
-    { link: '/products', title: 'Sale', icon: "/images/sale.png" }
+    // { link: '/products', title: 'Sale', icon: "/images/sale.png" }
   ],
   living: [
     { 
@@ -63,7 +69,7 @@ export const menuData: MenuData = {
     {
       categoryId: 4,
       link: '/products',
-      title: 'TV Cabinets',
+      title: 'TV Stands',
       icon: tvCabinets,
     },
     { categoryId: 4, link: '/products', title: 'Side Tables', icon: sideTable },
@@ -105,7 +111,7 @@ export const menuData: MenuData = {
     {
       categoryId: 5,
       link: '/products',
-      title: 'TV Cabinets',
+      title: 'TV Stands',
       icon: tvCabinets,
     },
     { categoryId: 5, link: '/products', title: 'Sofa Beds', icon: sofaBed },

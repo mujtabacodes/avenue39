@@ -235,5 +235,5 @@ export interface IHomeProducts {
 
 export interface IProductsImage {
   name: string,
-  posterImageUrl: string | StaticImport
+  posterImageUrl: string;
 }

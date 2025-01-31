@@ -1,6 +1,6 @@
 import React from 'react';
 import { IProduct } from '@/types/types'; // Make sure this import is correct for your types
-import { IHomeProducts, IProductsImage } from '@/types/interfaces';
+import { IProductsImage } from '@/types/interfaces';
 
 interface ProductGridProps {
   products: IProduct[]; // Array of products to render

@@ -73,6 +73,11 @@ const Card: React.FC<CardProps> = ({
     ...card,
     quantity: 1,
   };
+  useEffect(() => {
+    const cardImage = productImages?.find((item: any) => item.name === card?.name);
+    console.log(cardImage,'cardImage')
+    setCardImage(cardImage as IHomeProducts);
+  },[productImages])
   const handleAddToCard = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
     const existingCartItem = cartItems.find((item) => item.id === card?.id);
@@ -105,12 +110,6 @@ const Card: React.FC<CardProps> = ({
     return <CardSkeleton skeletonHeight={skeletonHeight} />;
   }
   const imgIndex = card.productImages.slice(-1)[0];
-
-  useEffect(() => {
-    const cardImage = productImages?.find((item: any) => item.name === card.name);
-    console.log(cardImage,'cardImage')
-    setCardImage(cardImage as IHomeProducts);
-  },[productImages])
   return (
     <div
       className={`text-center product-card  hover:cursor-pointer mb-2 flex flex-col ${slider ? '' : ' justify-between'} h-auto  p-1 rounded-[35px] w-full`}

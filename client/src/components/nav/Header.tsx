@@ -10,7 +10,7 @@ import Navbar from './nav-bar';
 
 const Header = () => {
   const [sortedCategories, setSortedCategories] = useState<ICategory[]>([]);
-  const { data: categories = [] , isLoading: loading} = useQuery<ICategory[], Error>({
+  const { data: categories = [] } = useQuery<ICategory[], Error>({
     queryKey: ['categories'],
     queryFn: fetchCategories,
   });
@@ -20,13 +20,13 @@ const Header = () => {
       const categoriesNotInMenuData: ICategory[] = [];
       Object.keys(menuData).forEach((categoryKey) => {
         const categoryItems = menuData[categoryKey];
-        const matchingCategories = categories.filter((category) =>
+        const matchingCategories = categories.filter((category: ICategory) =>
           categoryItems.some((item) => item.categoryId === category.id)
         );
         customSortedCategories.push(...matchingCategories);
       });
       const remainingCategories = categories.filter(
-        (category) => !customSortedCategories.some((sortedCategory) => sortedCategory.id === category.id)
+        (category: ICategory) => !customSortedCategories.some((sortedCategory) => sortedCategory.id === category.id)
       );
       categoriesNotInMenuData.push(...remainingCategories);
       const newArrivalsCategory = categoriesNotInMenuData.find(
@@ -50,7 +50,7 @@ const Header = () => {
     <>
       <TopNav />
       <Navbar />
-      <MenuBar categories={sortedCategories} loading={loading}
+      <MenuBar categories={sortedCategories}
       //  menuData={menuData} loading={loading} error={error}
       />
       <BottomBar categories={sortedCategories} />
