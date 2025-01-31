@@ -42,6 +42,7 @@ const Product = ({cetagories , productsData}: {cetagories: ICategory[] , product
     filters:editProduct && editProduct?.filters || [],
   };
   console.log(EditInitialValues,"EditInitialValues")
+  console.log(editProduct,"editProduct")
 
   let productFlag: boolean = selecteMenu === 'Add All Products' ? true : false;
 

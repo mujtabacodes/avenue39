@@ -279,8 +279,8 @@ export const homeProducts: IHomeProducts[] = [
         posterImageUrl: "/images/HomeProducts/Living/Arti.png"
       },
       {
-        name: "Sapori Dining Table",
-        posterImageUrl: "/images/HomeProducts/Dining/Sapori.png"
+        name: "Marlin Tub Chair",
+        posterImageUrl: "/images/HomeProducts/Living/Marlin.png"
       },
       {
         name: "Fiori Side Cabinet",
@@ -297,6 +297,56 @@ export const homeProducts: IHomeProducts[] = [
       {
         name: "Trattori Barstool",
         posterImageUrl: "/images/HomeProducts/Dining/Trattori.png"
+      },
+    ]
+  },
+  {
+    name: 'bedroom',
+    products: [
+      {
+        name: "Tavola Bedside Table",
+        posterImageUrl: "/images/HomeProducts/Bedroom/Tavola.png"
+      },
+      {
+        name: "Moderno Bedside Table",
+        posterImageUrl: "/images/HomeProducts/Bedroom/Moderno.png"
+      },
+      {
+        name: "Ombra Bedside Table",
+        posterImageUrl: "/images/HomeProducts/Bedroom/Ombra.png"
+      },
+      {
+        name: "Accenti Bedside Table",
+        posterImageUrl: "/images/HomeProducts/Bedroom/Accenti.png"
+      },
+      {
+        name: "Vista Sofa Bed",
+        posterImageUrl: "/images/HomeProducts/Bedroom/Vista.png"
+      },
+    ]
+  },
+  {
+    name: 'accessories',
+    products: [
+      {
+        name: "A Pair of Droplet Stands",
+        posterImageUrl: "/images/HomeProducts/Accessories/Droplet.png"
+      },
+      {
+        name: "A Pair of Layered Elegance",
+        posterImageUrl: "/images/HomeProducts/Accessories/Layered.png"
+      },
+      {
+        name: "Abstract Vase",
+        posterImageUrl: "/images/HomeProducts/Accessories/Abstract.png"
+      },
+      {
+        name: "Pair of Monolith Sphere Towers",
+        posterImageUrl: "/images/HomeProducts/Accessories/Monolith.png"
+      },
+      {
+        name: "Pair of Rooted Egg Stands",
+        posterImageUrl: "/images/HomeProducts/Accessories/Rooted.png"
       },
     ]
   },

@@ -534,8 +534,8 @@ export const Bedroom= [
 ]
 export const Accessories= [
   'A Pair of Droplet Stands',
-  'A Pair of Monolith Sphere Towers',
+  'Pair of Monolith Sphere Towers',
   'A Pair of Layered Elegance',
-  'A Pair of Rooted Egg Stands',
+  'Pair of Rooted Egg Stands',
   'Abstract Vase',
 ]
