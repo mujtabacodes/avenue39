@@ -11,6 +11,7 @@ interface SlugPageProps {
  }
 const SlugPage: React.FC<SlugPageProps> = async ({params}) => {
    const {slug} = await params;
+   
    if(slug.length === 1){
       return <CategoryProducts slug={slug} />
    } else if (slug.length === 2) {

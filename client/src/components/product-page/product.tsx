@@ -25,8 +25,8 @@ interface ProductPageProps {
   category: ICategory[] | undefined
   ProductData: IProduct[]
   isCategory: boolean | undefined
-  selectedSubCategoriesName?: string
-  selectedCategoriesName?: string
+  findCategory?: string
+  categoryName?: ICategory
 }
 
 const ProductPage = ({
@@ -36,8 +36,7 @@ const ProductPage = ({
   // category,
   ProductData,
   // isCategory,
-  selectedSubCategoriesName,
-  selectedCategoriesName
+  categoryName,
 
 }: ProductPageProps) => {
   // const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
@@ -45,6 +44,7 @@ const ProductPage = ({
   const [sortOption, setSortOption] = useState<string>('default');
   // const [filterLoading, setFilterLoading] = useState<boolean>(false);
   const pathname = usePathname();
+console.log(productBanner, "productBanner")
 
   // useEffect(() => {
   //   const currentCategory = pathname
@@ -153,12 +153,14 @@ const ProductPage = ({
           return 0;
       }
     });
+
+
   return (
     <>
       <TopHero
         breadcrumbs={productsbredcrumbs}
-        categoryName={selectedCategoriesName}
-        subCategorName={selectedSubCategoriesName}
+        categoryName={categoryName?.name}
+        subCategorName={''}
       />
       <Container className="my-5 flex flex-col md:flex-row gap-4 md:gap-8">
         {/* <div className="w-full md:w-2/6 lg:w-[392px] hidden md:block">
@@ -172,8 +174,13 @@ const ProductPage = ({
         </div> */}
         {/* <div className="w-full md:w-4/6 lg:w-9/12"> */}
         <div className="w-full">
-          {productBanner}
-
+          <div className='flex flex-col items-center'>
+            <h1 className='text-[45px] font-helvetica font-bold'>{categoryName?.name}</h1>
+            <Container>
+            <p className='text-center'>{categoryName?.description} Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus mollitia placeat fugiat hic dolore error, rerum numquam delectus esse! Nam pariatur expedita, earum voluptatum suscipit nemo tempore optio neque quis.lorem  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reprehenderit, possimus, enim nihil assumenda corrupti accusantium excepturi dolore officiis voluptas dolores repellendus sequi maiores suscipit sint pariatur dignissimos magni, inventore quas. Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus distinctio qui aliquam quod, sed dignissimos optio minus, neque soluta, ducimus recusandae laborum quisquam praesentium totam. Neque animi non temporibus necessitatibus.</p>
+            </Container>
+          
+          </div>
           <div className="sm:mt-4 mt-10 flex items-center justify-between gap-4 py-2 px-2 flex-col md:flex-row">
             <div className="flex items-center gap-4">
 
