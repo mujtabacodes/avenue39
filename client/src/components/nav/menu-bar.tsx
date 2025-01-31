@@ -10,7 +10,7 @@ import { useSelector } from 'react-redux';
 import { ICategory } from '@/types/types';
 import { staticHeaderCategories } from '@/data/menu';
 
-const MenuBar = ({ categories, loading }: { categories?: ICategory[], loading: boolean }) => {
+const MenuBar = ({ categories }: { categories?: ICategory[] }) => {
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const [isSticky, setIsSticky] = useState<boolean>(false);
   const [hoveringMenu, setHoveringMenu] = useState<boolean>(false);
@@ -77,7 +77,7 @@ const MenuBar = ({ categories, loading }: { categories?: ICategory[], loading: b
           }`}
       >
         <Container className="flex flex-wrap items-center justify-between">
-          {loading ? (
+          {categories && categories?.length < 1 ? (
             staticHeaderCategories.map((item, index) => (
               <Link href={`/${generateSlug(item)}`} key={index} className={`menu-item text-13 lg:text-15 pb-2 tracking-wide family-Helvetica uppercase whitespace-nowrap ${item === 'Sale' ? 'text-red-500' : 'text-black'}`}>{item}</Link>
             ))

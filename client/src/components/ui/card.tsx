@@ -1,5 +1,5 @@
 "use client"
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import Image from 'next/image';
@@ -31,6 +31,7 @@ import {
   DialogTrigger,
 } from '../ui/dialog';
 import { message } from 'antd';
+import { IHomeProducts, IProductsImage } from '@/types/interfaces';
 import Link from 'next/link';
 interface CardProps {
   card?: IProduct;
@@ -45,6 +46,7 @@ interface CardProps {
   isLandscape?: boolean;
   calculateHeight?: string;
   portSpace?: string;
+  productImages?: IProductsImage[]
 }
 
 const Card: React.FC<CardProps> = ({
@@ -57,10 +59,12 @@ const Card: React.FC<CardProps> = ({
   isHomepage,
   isLandscape,
   calculateHeight,
-  portSpace
+  portSpace,
+  productImages
 }) => {
   const dispatch = useDispatch<Dispatch>();
   const cartItems = useSelector((state: State) => state.cart.items);
+  const [ cardImage , setCardImage ] = useState<IHomeProducts | undefined>(undefined)
   const pathname = usePathname();
 
 
@@ -72,6 +76,11 @@ const Card: React.FC<CardProps> = ({
     ...card,
     quantity: 1,
   };
+  useEffect(() => {
+    const cardImage = productImages?.find((item: any) => item.name === card?.name);
+    console.log(cardImage,'cardImage')
+    setCardImage(cardImage as IHomeProducts);
+  },[productImages])
   const handleAddToCard = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
     const existingCartItem = cartItems.find((item) => item.id === card?.id);
@@ -142,7 +151,7 @@ const Card: React.FC<CardProps> = ({
                   <div className={`${cardImageHeight} flex justify-center items-center px-2`}>
                     <Link href={handleNavigation()}>
                       <Image
-                        src={imgIndex.imageUrl}
+                        src={cardImage?.posterImageUrl || imgIndex.imageUrl}
                         alt={imgIndex.altText || 'image'}
                         width={600}
                         height={600}
@@ -159,7 +168,7 @@ const Card: React.FC<CardProps> = ({
                   <div className={`${cardImageHeight} bg-[#E3E4E6] flex justify-center items-center rounded-[35px] ${portSpace ? portSpace : 'px-2'}`}>
                     <Link href={handleNavigation()}>
                       <Image
-                        src={imgIndex?.imageUrl || ''}
+                        src={cardImage?.posterImageUrl || imgIndex.imageUrl}
                         alt={imgIndex?.altText || 'image'}
                         onClick={() => handleNavigation()}
                         width={600}
@@ -200,8 +209,7 @@ const Card: React.FC<CardProps> = ({
               <div className={` ${cardImageHeight} flex justify-center items-center`}>
 
                 <Image
-
-                  src={card.posterImageUrl}
+                  src={cardImage?.posterImageUrl || imgIndex.imageUrl}
                   alt={card.posterImageAltText || card.name}
                   onClick={() => handleNavigation()}
                   width={600}

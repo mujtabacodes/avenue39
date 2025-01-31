@@ -10,7 +10,7 @@ import Navbar from './nav-bar';
 
 const Header = () => {
   const [sortedCategories, setSortedCategories] = useState<ICategory[]>([]);
-  const { data: categories = [] , isLoading: loading} = useQuery<ICategory[], Error>({
+  const { data: categories = [] } = useQuery<ICategory[], Error>({
     queryKey: ['categories'],
     queryFn: fetchCategories,
   });
@@ -18,31 +18,39 @@ const Header = () => {
     if (categories.length > 0) {
       const customSortedCategories: ICategory[] = [];
       const categoriesNotInMenuData: ICategory[] = [];
-
       Object.keys(menuData).forEach((categoryKey) => {
         const categoryItems = menuData[categoryKey];
-        const matchingCategories = categories.filter((category) =>
+        const matchingCategories = categories.filter((category: ICategory) =>
           categoryItems.some((item) => item.categoryId === category.id)
         );
         customSortedCategories.push(...matchingCategories);
       });
-      const remainingCategories = categories.filter((category) =>
-        !customSortedCategories.some((sortedCategory) => sortedCategory.id === category.id)
+      const remainingCategories = categories.filter(
+        (category: ICategory) => !customSortedCategories.some((sortedCategory) => sortedCategory.id === category.id)
       );
       categoriesNotInMenuData.push(...remainingCategories);
+      const newArrivalsCategory = categoriesNotInMenuData.find(
+        (category) => category.name.toLowerCase() === "new arrivals"
+      );
+      const otherCategories = categoriesNotInMenuData.filter(
+        (category) => category.name.toLowerCase() !== "new arrivals"
+      );
       const finalSortedCategories = [
         ...customSortedCategories,
-        ...categoriesNotInMenuData,
+        ...otherCategories,
+        ...(newArrivalsCategory ? [newArrivalsCategory] : [])
       ];
+  
       setSortedCategories(finalSortedCategories);
     }
   }, [categories]);
+  
   console.log(sortedCategories,'sortedCategories')
   return (
     <>
       <TopNav />
       <Navbar />
-      <MenuBar categories={sortedCategories} loading={loading}
+      <MenuBar categories={sortedCategories}
       //  menuData={menuData} loading={loading} error={error}
       />
       <BottomBar categories={sortedCategories} />
