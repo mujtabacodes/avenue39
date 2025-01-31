@@ -9,6 +9,7 @@ export const Helvetica = localFont({
   ],
   variable: '--font-helvetica',
 });
+
 export const Helveticalight = localFont({
   src: [
     {

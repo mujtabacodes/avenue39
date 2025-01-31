@@ -210,7 +210,7 @@ const ProductPage = ({
                 <MdWindow className="cursor-pointer text-3xl" onClick={() => Setlayout('grid')} />
                 <ImList className="cursor-pointer text-2xl" onClick={() => Setlayout('list')} />
               </div>
-              <p className="block whitespace-nowrap">Showing {!filterLoading && filteredCards.length > 0 ? filteredCards.length : 0} results</p>
+              <p className="block whitespace-nowrap ">Showing {!filterLoading && filteredCards.length > 0 ? filteredCards.length : 0} results</p>
             </div>
 
             <SubCategoriesRow />
