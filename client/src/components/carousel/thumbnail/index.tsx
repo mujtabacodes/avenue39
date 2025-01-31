@@ -28,6 +28,7 @@ interface ThumbProps {
   isZoom?: Boolean;
   swiperGap?: String;
   isLoading: boolean;
+  activeIndex?: Number;
 }
 
 const Thumbnail: React.FC<ThumbProps> = ({
@@ -35,8 +36,8 @@ const Thumbnail: React.FC<ThumbProps> = ({
   isZoom,
   swiperGap,
   isLoading,
-  altText
-
+  altText,
+  activeIndex
 }) => {
   const prevRef = useRef<HTMLDivElement>(null);
   const nextRef = useRef<HTMLDivElement>(null);
@@ -58,6 +59,10 @@ const Thumbnail: React.FC<ThumbProps> = ({
       })
     );
   };
+
+  useEffect(() => {
+    handleSlideChange(Number(activeIndex));
+  }, [activeIndex]);
 
   useEffect(() => {
     preloadImages(thumbs.map((thumb) => thumb.imageUrl || '')).then(() => {
