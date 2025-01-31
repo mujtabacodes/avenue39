@@ -24,7 +24,7 @@ const AllCategory = ({products}: {products: IProduct[]}) => {
       (a, b) => titles.indexOf(a.name) - titles.indexOf(b.name)
     );
   };
- console.log(filterByCategoryAndTitle(products, 'Living', Living) , 'Living');
+ console.log(filterByCategoryAndTitle(products, 'Accessories', Accessories) , 'Accessories');
   return (
     <div className='pt-1'>
       <CatProduct products={filterByCategoryAndTitle(products, 'Dining', Dining)} CategoryName='Shop Your Dining' redirect='dining'/>

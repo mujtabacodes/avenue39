@@ -189,10 +189,9 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
       selectedCategoryIds.includes(category.id),
     );
     const subcategories = selectedCategories?.flatMap(
-      (category: any) => category.subcategories,
+      (category: ICategory) => category.subcategories,
     );
-    console.log(subcategories, 'subcategories')
-    setFilteredSubcategories(subcategories);
+    setFilteredSubcategories(subcategories || []);
   }, [selectedCategoryIds, categoriesList]);
 
   const handleSubcategoryChange = (subcategoryId: number, checked: boolean) => {
