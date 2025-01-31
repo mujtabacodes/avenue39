@@ -33,8 +33,6 @@ import { HiMinusSm, HiPlusSm } from 'react-icons/hi';
 import { openDrawer } from '@/redux/slices/drawer';
 import { CartItem } from '@/redux/slices/cart/types';
 import { useRouter } from 'next/navigation';
-import { useQuery } from '@tanstack/react-query';
-import { fetchReviews } from '@/config/fetch';
 import { calculateRatingsPercentage, renderStars } from '@/config';
 import { TbCube3dSphere } from 'react-icons/tb';
 import Product3D from '../3DView/Product3D';
@@ -52,14 +50,17 @@ const ProductDetail = ({
   gap,
   swiperGap,
   detailsWidth,
-  products }
+  products,
+  reviews
+}
   : {
     params: IProductDetail;
     isZoom?: Boolean;
     gap?: String;
     swiperGap?: String;
     detailsWidth?: String;
-    products?: IProduct[]
+    products?: IProduct[];
+    reviews?: IReview[]
   }) => {
   // const description: string = '';
   // const [isExpanded, setIsExpanded] = useState(false);
@@ -120,13 +121,6 @@ const ProductDetail = ({
       return () => clearInterval(timerId);
     }
   }, [product]);
-
-  const {
-    data: reviews = [],
-  } = useQuery<IReview[], Error>({
-    queryKey: ['reviews'],
-    queryFn: fetchReviews,
-  });
   const productId = product?.id;
   // const filteredReviews = reviews.filter(
   //   (review) => review.productId === productId,
@@ -338,7 +332,7 @@ const ProductDetail = ({
             <div className="flex gap-2 mb-4 w-full sm:w-1/2  md:w-full">
               <Button
                 variant={'outline'}
-                className="text-primary w-full h-12 rounded-2xl flex gap-3"
+                className="text-primary w-full h-12 rounded-2xl flex gap-3 uppercase"
                 onClick={(e) => handleAddToCard(e)}
               >
                 Add to cart

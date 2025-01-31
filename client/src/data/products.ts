@@ -1,3 +1,4 @@
+import { IHomeProducts } from '@/types/interfaces';
 import { IProduct } from '@/types/types';
 import productImg1 from '@images/products/imageeee.png';
 
@@ -204,3 +205,99 @@ export const products: IProduct[] = [
     categoriesId: 3,
   },
 ];
+
+
+
+
+export const homeProducts: IHomeProducts[] = [
+  {
+    name: 'dining',
+    products: [
+      {
+        name: "Trulli Dining Chair",
+        posterImageUrl: "/images/HomeProducts/Dining/Trulli.png"
+      },
+      {
+        name: "Korla Dining Chair",
+        posterImageUrl: "/images/HomeProducts/Dining/Korla.png"
+      },
+      {
+        name: "Parisio Dining Chair",
+        posterImageUrl: "/images/HomeProducts/Dining/Parisio.png"
+      },
+      {
+        name: "Savio Dining Chair",
+        posterImageUrl: "/images/HomeProducts/Dining/Savio.png"
+      },
+      {
+        name: "Flavia Dining Chair",
+        posterImageUrl: "/images/HomeProducts/Dining/Flavia.png"
+      },
+      {
+        name: "Sapori Dining Table",
+        posterImageUrl: "/images/HomeProducts/Dining/Sapori.png"
+      },
+      {
+        name: "Fiori Side Cabinet",
+        posterImageUrl: "/images/HomeProducts/Dining/Fiori.png"
+      },
+      {
+        name: "Floki Barstool",
+        posterImageUrl: "/images/HomeProducts/Dining/Floki.png"
+      },
+      {
+        name: "Venice Barstool",
+        posterImageUrl: "/images/HomeProducts/Dining/Venice.png"
+      },
+      {
+        name: "Trattori Barstool",
+        posterImageUrl: "/images/HomeProducts/Dining/Trattori.png"
+      },
+    ]
+  },
+  {
+    name: 'living',
+    products: [
+      {
+        name: "The Lisbon Sofa Set",
+        posterImageUrl: "/images/HomeProducts/Living/Lisbon.png"
+      },
+      {
+        name: "Lucius Coffee Table Set",
+        posterImageUrl: "/images/HomeProducts/Living/Lucius.png"
+      },
+      {
+        name: "Finestra Side Table",
+        posterImageUrl: "/images/HomeProducts/Living/Finestra.png"
+      },
+      {
+        name: "Vaunchy Side Table",
+        posterImageUrl: "/images/HomeProducts/Living/Vaunchy.png"
+      },
+      {
+        name: "Arti Side Table",
+        posterImageUrl: "/images/HomeProducts/Living/Arti.png"
+      },
+      {
+        name: "Sapori Dining Table",
+        posterImageUrl: "/images/HomeProducts/Dining/Sapori.png"
+      },
+      {
+        name: "Fiori Side Cabinet",
+        posterImageUrl: "/images/HomeProducts/Dining/Fiori.png"
+      },
+      {
+        name: "Floki Barstool",
+        posterImageUrl: "/images/HomeProducts/Dining/Floki.png"
+      },
+      {
+        name: "Venice Barstool",
+        posterImageUrl: "/images/HomeProducts/Dining/Venice.png"
+      },
+      {
+        name: "Trattori Barstool",
+        posterImageUrl: "/images/HomeProducts/Dining/Trattori.png"
+      },
+    ]
+  },
+]

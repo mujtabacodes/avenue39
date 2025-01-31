@@ -13,7 +13,7 @@ import { categoryInitialValues, categoryValidationSchema } from '@/data/data';
 import ProtectedRoute from '@/hooks/AuthHookAdmin';
 import Loader from '@components/Loader/Loader';
 import revalidateTag from '../ServerActons/ServerAction';
-
+import Cookies from 'js-cookie';
 
 interface editCategoryProps {
   seteditCategory: any;
@@ -41,6 +41,11 @@ const FormLayout = ({
   const [loading, setloading] = useState<boolean>(false);
   const [editCategoryName, setEditCategoryName] = useState<Category | null | undefined>(CategoryName);
   console.log(setEditCategoryName)
+
+  const token = Cookies.get('2guysAdminToken');
+  const superAdminToken = Cookies.get('superAdminToken');
+  let finalToken = token ? token : superAdminToken;
+
   const onSubmit = async (values: Category, { resetForm }: any) => {
     try {
       setloading(true);
@@ -55,6 +60,11 @@ const FormLayout = ({
       const response = await axios.post(
         url,
         updateFlag ? { ...newValue, id: editCategory.id } : newValue,
+        {
+          headers: {
+            'token': finalToken,
+          },
+        }
       );
       revalidateTag('categories')
       console.log(response, 'response');
@@ -154,8 +164,8 @@ const FormLayout = ({
                           value={formik.values.name}
                           placeholder="Title"
                           className={`w-full rounded-lg border-[1.5px]  px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whitebg-black dark:text-white ${formik.touched.name && formik.errors.name
-                              ? 'border-red-500'
-                              : ''
+                            ? 'border-red-500'
+                            : ''
                             }`}
                         />
                         {formik.touched.name && formik.errors.name ? (
@@ -175,8 +185,8 @@ const FormLayout = ({
                           value={formik.values.description}
                           placeholder="Description"
                           className={`w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter  dark:text-white dark:focus:border-primary ${formik.touched.name && formik.errors.name
-                              ? 'border-red-500'
-                              : ''
+                            ? 'border-red-500'
+                            : ''
                             }`}
                         />
                         {formik.touched.name && formik.errors.name ? (

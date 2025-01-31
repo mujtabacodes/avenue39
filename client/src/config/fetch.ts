@@ -15,13 +15,20 @@ export const fetchProducts = async () => {
 
 };
 
-export const fetchCategories = async (): Promise<ICategory[]> => {
-  const result = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/category/get-all`, {
-    next: { tags: ['categories'] },
-  });
-  const response = await result.json();
-  return response;
+export const fetchCategories = async (): Promise<ICategory[] | any> => {
+  try {
+    const result = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/category/get-all`, {
+      next: { tags: ['categories'] },
+    });
+    const response = await result.json();
+    return response;
+  } catch (error) {
+    console.log(error, "error")
+  }
+
 };
+
+
 export const fetchSubCategories = async (): Promise<ICategory[]> => {
   const result = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/subcategories/get-all`, {
     next: { tags: ['subcategories'] },

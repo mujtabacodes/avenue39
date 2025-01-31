@@ -1,18 +1,12 @@
+'use client'
 import React from 'react';
 import CatProduct from './CatProduct';
-import { useQuery } from '@tanstack/react-query';
-import { fetchProducts } from '@/config/fetch';
 import { IProduct } from '@/types/types';
 import CatProduct1 from './CatProduct1';
 import { generateSlug } from '@/config';
 import { Accessories, Bedroom, Dining, Living } from '@/data/data';
 
-const AllCategory = () => {
-  const { data: products = [] } = useQuery<IProduct[], Error>({
-    queryKey: ['products'],
-    queryFn: fetchProducts,
-  });
-
+const AllCategory = ({products}: {products: IProduct[]}) => {
   const filterByCategoryAndTitle = (
     products: IProduct[],
     categoryName: string,
@@ -30,7 +24,7 @@ const AllCategory = () => {
       (a, b) => titles.indexOf(a.name) - titles.indexOf(b.name)
     );
   };
-
+ console.log(filterByCategoryAndTitle(products, 'Living', Living) , 'Living');
   return (
     <div className='pt-1'>
       <CatProduct products={filterByCategoryAndTitle(products, 'Dining', Dining)} CategoryName='Shop Your Dining' redirect='dining'/>

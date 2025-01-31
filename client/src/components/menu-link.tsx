@@ -1,97 +1,53 @@
-import { StaticImageData } from 'next/image';
 import Link from 'next/link';
-import React from 'react';
-import { Skeleton } from './ui/skeleton';
+import React, { useEffect, useState } from 'react';
 import { generateSlug } from '@/config';
-
-export interface MenuItem {
-  categoryId?: number;
-  icon: string | StaticImageData;
-  title: string;
-  link: string;
-}
+import { ICategory } from '@/types/types';
+import { menuData } from '@/data/menu';
 
 interface MenuLinkProps {
-  menudata: MenuItem[];
-  onLinkClick: () => void;
+  menudata: ICategory;
+  onLinkClick?: () => void;
   loading?: boolean;
-  pathname: string;
 }
 
 const MenuLink: React.FC<MenuLinkProps> = ({
   menudata,
   onLinkClick,
-  loading,
-  // pathname,
 }) => {
+  const [subCategory, setSubCategory] = useState<ICategory[] | undefined>([]);
+  useEffect(() => {
+    const categoryName =
+      menudata.name.toLowerCase() === 'lighting'
+        ? 'Lighting'
+        : menudata.name.toLowerCase() === 'home office'
+          ? 'homeOffice'
+          : menudata.name.toLowerCase();
+    const menuItems = menuData[categoryName];
+    const sortedSubcategories = menudata.subcategories?.sort((a, b) => {
+      const indexA = menuItems.findIndex(item => item.title.toLowerCase() === a.name.toLowerCase());
+      const indexB = menuItems.findIndex(item => item.title.toLowerCase() === b.name.toLowerCase());
+      if (indexA === -1 && indexB === -1) {
+        return a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1;
+      }
+      if (indexA === -1) return -1;
+      if (indexB === -1) return 1;
+      return indexA - indexB;
+    });
+    setSubCategory(sortedSubcategories)
+  }, [menudata]);
   return (
     <>
-      {loading
-        ? Array.from({ length: 4 }).map((_, index) => (
-            <div className="flex gap-2 items-center" key={index}>
-              <Skeleton className="h-6 w-32 rounded-md" />
-            </div>
-          ))
-        : menudata.map((item, index) => {
-            // const isActive = pathname.includes(
-            //   `${item.link}/${generateSlug(item.title)}`,
-            // );
-
-            return (
-              <Link
-                href={
-                  item.title === 'Sale'
-                    ? '/products' : item.title === 'Accessories' ? '/products/accessories'
-                    : `${item.link}/${generateSlug(item.title)}${
-                        `?id=${item.categoryId}`
-                          // ? 
-                          // [
-                          //     'Accessories',
-                          //     'Dining Tables',
-                          //     'Dining Chairs',
-                          //     'Sofas',
-                          //     'Armchairs',
-                          //     'Accent Chairs',
-                          //     'TV Cabinets',
-                          //     'Side Table',
-                          //     'Sofa Beds',
-                          //     'Table Lamps',
-                          //     'Bedside Tables',
-                          //     'Office Tables',
-                          //     'Coffee Tables',
-                          //     'Side Tables',
-                          //     'accessories',
-
-                          //   ].includes(item.title)
-                          //   `?id=${item.categoryId}`
-                          // : ''
-                      }`
-                }
-                className={`flex gap-1 items-center  `}
-                key={index}
-                onClick={onLinkClick}
-              >
-                {/* <div className={`rounded-md h-20 w-20 p-2 border flex justify-center items-center ${
-                  isActive ? 'border-main' : ''
-                }`}>
-                  <Image
-                    src={item.icon}
-                    alt={item.title}
-                    width={80}
-                    height={80}
-                    className="h-[54px] w-[62px]"
-                  />
-                </div> */}
-                <span
-                  className={`text-14 tracking-wide family-Helvetica  whitespace-nowrap text-black link-underline pb-1 ${
-                    item.title === 'Sale' ? 'text-red-600' : ''
-                  }`}
-                >
-                  {item.title}
-                </span>
-              </Link>
-            );
-          })}
+      {subCategory?.map((item, index) => (
+        <Link
+          href={item.name === 'Accessories' ? '/accessories'
+            : `/${generateSlug(menudata.name)}/${generateSlug(item.name)}`
+          }
+          className={`flex gap-1 items-center`}
+          key={index}
+          onClick={onLinkClick}
+        >{item.name}</Link>
+      )
+      )}
     </>
   );
 };
