@@ -136,6 +136,14 @@ export interface IProduct {
   sale_counter?: string;
   sortedSubcategories?: ICategory[];
   sizes?: string[];
+  filter?: Filter[];
+}
+interface Filter {
+  heading: string;
+  additionalInformation: {
+    name: string;
+    price: string;
+  }[];
 }
 export interface specsDetails {
   id: number;
