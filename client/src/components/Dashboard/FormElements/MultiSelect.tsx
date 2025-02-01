@@ -186,9 +186,8 @@ const MultiSelect: React.FC<DropdownProps> = ({ id }) => {
               </div>
               <div className="w-full px-4">
                 <div
-                  className={`max-h-select absolute left-0 top-full z-40 w-full overflow-y-auto rounded bg-white shadow dark:bg-form-input ${
-                    isOpen() ? "" : "hidden"
-                  }`}
+                  className={`max-h-select absolute left-0 top-full z-40 w-full overflow-y-auto rounded bg-white shadow dark:bg-form-input ${isOpen() ? "" : "hidden"
+                    }`}
                   ref={dropdownRef}
                   onFocus={() => setShow(true)}
                   onBlur={() => setShow(false)}
@@ -201,9 +200,8 @@ const MultiSelect: React.FC<DropdownProps> = ({ id }) => {
                           onClick={(event) => select(index, event)}
                         >
                           <div
-                            className={`relative flex w-full items-center border-l-2 border-transparent p-2 pl-2 ${
-                              option.selected ? "border-primary" : ""
-                            }`}
+                            className={`relative flex w-full items-center border-l-2 border-transparent p-2 pl-2 ${option.selected ? "border-primary" : ""
+                              }`}
                           >
                             <div className="flex w-full items-center">
                               <div className="mx-2 leading-6">

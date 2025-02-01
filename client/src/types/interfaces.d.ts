@@ -52,9 +52,9 @@ export interface Product {
 export interface Category {
   name: string;
   description?: string;
-  meta_description?:string;
-  meta_title?:string;
-  canonical_tag?:string;
+  meta_description?: string;
+  meta_title?: string;
+  canonical_tag?: string;
   images_alt_text?: string;
   posterImageUrl?: IMAGE_INTERFACE;
 }
@@ -87,7 +87,7 @@ interface Images {
   imageUrl: CloudinaryImage[];
 }
 
-export interface ProductWithImages extends Product, Images {}
+export interface ProductWithImages extends Product, Images { }
 
 export interface FormValues {
   name: string;
@@ -175,15 +175,15 @@ export interface Categories_Types {
 }
 
 export interface product {
-  posterImageUrl: { public_id: string, imageUrl: string, altText:string};
-  hoverImageUrl: { public_id: string, imageUrl: string, altText:string };
+  posterImageUrl: { public_id: string, imageUrl: string, altText: string };
+  hoverImageUrl: { public_id: string, imageUrl: string, altText: string };
   _id: string;
   name: string;
   description: string;
   salePrice: number;
   purchasePrice: number;
   category: string;
-  imageUrl: Array<{ public_id: string, imageUrl: string, _id: string, altText:string }>;
+  imageUrl: Array<{ public_id: string, imageUrl: string, _id: string, altText: string }>;
   discountPrice: number;
   colors: Array<{ colorName: string; _id: string }>;
   modelDetails: Array<{ name: string; detail: string; _id: string }>;
@@ -191,13 +191,13 @@ export interface product {
   createdAt: string;
   starRating: string;
   reviews: string;
-  productImages?:any;
+  productImages?: any;
   additionalInformation?: any;
   sizes: Array<string>;
   stock?: string;
-  
+
   updatedAt: string;
-  
+
   price: string;
   __v: number;
   code: string;
@@ -206,10 +206,10 @@ export interface product {
   URL: string
   Canonical_Tag: string
   Images_Alt_Text: string
-  Og_title : string
+  Og_title: string
   Og_description: string
   Og_Image: string
-  OgUrl:string
+  OgUrl: string
 }
 
 /* eslint-disable */
@@ -218,10 +218,22 @@ declare module 'react-qr-scanner' {
   interface QrReaderProps {
     delay?: number;
     onError?: (error: any) => void;
-    onScan?: (data: string | null) => void;  
+    onScan?: (data: string | null) => void;
     style?: React.CSSProperties;
   }
-  class QrReader extends Component<QrReaderProps, {}> {} 
+  class QrReader extends Component<QrReaderProps, {}> { }
   export default QrReader;
 }
 /* eslint-enable */
+
+
+export interface IHomeProducts {
+  name: string;
+  products: IProductsImage[];
+  posterImageUrl?: string;
+}
+
+export interface IProductsImage {
+  name: string,
+  posterImageUrl: string;
+}

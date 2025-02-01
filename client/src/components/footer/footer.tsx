@@ -223,11 +223,11 @@ const Footer: React.FC = () => {
           <div className="mt-4 text-[#686868]">
             <div className=" w-full max-w-56 rounded-sm ">
               <Link
-                href="mailto:cs@avenue.com"
+                href="mailto:cs@avenue39.com"
                 rel="noreferrer"
                 target="_blank"
               >
-                cs@avenue.com
+                cs@avenue39.com
               </Link>
             </div>
           </div>

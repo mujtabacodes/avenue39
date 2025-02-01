@@ -1415,9 +1415,9 @@ export const tankyousildercards: ICard[] = [
 ];
 export const TermsCondition = [
   {
-    title: 'What’s in These Terms?',
+    title: 'What are in these terms & Con?',
     description: [
-      "These Terms and Conditions (T&Cs) take effect the moment when you start using Avenue 39's website (www.avenue39.com) and the services provided by Avenue 39. The T&Cs are compulsory to all the visitors of the Avenue39 website, and consumers of our products and services which contain sophisticated rules on your behavior while browsing on the site, purchasing goods and engaging with the content. These Avenue39 Terms and Conditions include provisions related to the use of the site, product purchasing, account management, intellectual property, and dispute resolution. You are aware that you have accepted all the guidelines and procedures mentioned in this clause in the term and conditions of this agreement. Avenue39 reserves all the ownership rights in respect to content, information or any product/service which may be published on this site until full immediate payment is received from the customer for the purchased product.",
+      "These Terms and Conditions (T&Cs) take effect the moment when you start using Avenue 39's website (www.avenue39.com) and the services provided by Avenue 39. The T&Cs are compulsory to all the visitors of the Avenue39 website, and consumers of our products and services which contain sophisticated rules on your behavior while browsing on the site, purchasing goods and engaging with the content. These Avenue39 Terms and Conditions include provisions related to the use of the site, product purchasing, account management, intellectual property, and dispute resolution. You are aware that you have accepted all the guidelines and procedures mentioned in this clause in the terms and conditions of this agreement. Avenue39 reserves all the ownership rights in respect to content, information or any product/service which may be published on this site until full immediate payment is received from the customer for the purchased product.",
       'Avenue39 was then incorporated and registered under the laws of the local jurisdiction where it operates. Main office is situated at 23 22nd Street, Al Quoz Industrial Area 4 - Dubai and which is our leading trade office.',
       'If you have any issues, inquiries, or general customer support, please email our sales team at [[EMAIL_LINK]]. We guarantee that our customer service is always readily available and will handle any customer concerns you may have about our products, services, or the terms of use in our website speedily.',
       'Taking our website and its terms into account, your consent implies your acceptance and appreciation of these T&Cs. This is a legal agreement, and when you continue to operate on a given website, you will be deemed to agree and abide by the rules and regulations stipulated here.',
@@ -1534,18 +1534,18 @@ export const ReturnPolicy = [
   {
     title: '',
     description: [
-      'Avege39 is a brand people can trust as we keep their experience of our products beyond their expectations. However, we come to terms with the fact that occasionally, it is just impossible to prevent returns.',
-      'Avenue39 has a fair and logical return and refund policy. As we make our payment policy quite transparent to everyone, possible returns within 7 days of acceptance or purchase of your item for a full refund or exchange. Comprise the rule that you are supposed to bring only the items that are unworn and new just as they were delivered for you.',
+      'Avenue39 is a brand people can trust as we keep their experience of our products beyond their expectations. However, we come to terms with the fact that occasionally, it is just impossible to prevent returns.',
+      'Avenue39 has a fair and logical return and refund policy. As we make our payment policy quite transparent to everyone, possible returns within 7 days of acceptance or purchase of your item for a full refund or exchange. The policy requires that you return items that are unworn and in the same new condition as when they were delivered to you.',
       'All rights, the initiators of returns are asked to return the products to their usual store when they do not achieve the expected result.',
       'To start the return procedure, follow these steps:',
       '1. Send an email to us with your concerns and complaints due to which you made the decision to return the product.',
       '2. The customer care service will contact you as soon as they receive the email you have sent to [[EMAIL_LINK]] within 24 hours from getting the product.',
       '3. Within the email textbox area include details such as your name, order number and the phone number used to process your purchase.',
-      'IWe will always emphasize on the promptity with Avenue39. You will receive the detailed guidance within 1 working day. Even more, they will inform you if your product can be accepted or not.',
+      'We will always emphasize on the promptity with Avenue39. You will receive the detailed guidance within 1 working day. Even more, they will inform you if your product can be accepted or not.',
     ],
   },
   {
-    title: 'Condition for returning item; what items can be returned?',
+    title: 'Conditions for returning items; what items can be returned?',
     description: [
       'To qualify for a full refund of your purchase with Avenue39, you need to check the following conditions, to find whether your product is eligible or not:',
       '1. These provided items must not have been worn and nor altered by the customer.',
@@ -1602,7 +1602,7 @@ export const ShippingPolicy = [
   {
     title: 'Additional Services and Charges',
     description: [
-      "After you have successfully placed an order on our website, we will make sure to ship the product immediately. Once your order is shipped by Avenue39, a tracking number will be shared with you via email or order confirmation page. This number will help you to track your order's progress via the courier company’s website.",
+      "After you have successfully placed an order on our website, we will make sure to ship the product immediately. Once your order is shipped by Avenue39, you can track its progress through the courier company's website using the tracking details available on the order confirmation page.",
     ],
   },
   {

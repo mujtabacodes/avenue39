@@ -7,12 +7,13 @@ import TopHero from '@/components/top-hero';
 import Container from '@/components/ui/Container';
 import { cartbredcrumbs } from '@/data/data';
 import { State } from '@/redux/store';
+import { IProduct } from '@/types/types';
 import Link from 'next/link';
 import React from 'react';
 import { IoBagOutline } from 'react-icons/io5';
-import {  useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
-const Cart = () => {
+const Cart = ({ similarProducts }: { similarProducts: IProduct[] }) => {
   const cartItems = useSelector((state: State) => state.cart.items);
   return (
     <>
@@ -27,7 +28,7 @@ const Cart = () => {
                 <div className="">
                   <Link
                     href="/products"
-                    className="bg-[#F6F6F6] px-6 flex justify-center items-center text-[#666666] h-[73px] hover:border-[#666666] border border-[#F6F6F6]"
+                    className="bg-main px-6 flex justify-center items-center rounded-2xl text-white h-[60px] hover:border-[#666666] border border-[#F6F6F6] font-helvetica"
                   >
                     Continue Shopping
                   </Link>
@@ -42,11 +43,11 @@ const Cart = () => {
           <div className="flex justify-center items-center w-full h-96">
             <div className="flex flex-col gap-4 items-center">
               <IoBagOutline size={100} className="text-black" />
-              <p className="font-medium text-2xl">No Items In Cart</p>
+              <p className="font-medium text-2xl font-helvetica">No Items In Cart</p>
               <div className="">
                 <Link
                   href="/products"
-                  className="bg-[#F6F6F6] px-6 flex justify-center items-center  hover:border-[#666666] border-[#F6F6F6] text-[#666666] h-[73px]"
+                  className="bg-main px-6 flex justify-center items-center rounded-2xl text-white h-[60px] hover:border-[#666666] border border-[#F6F6F6] font-helvetica"
                 >
                   Continue Shopping
                 </Link>
@@ -56,8 +57,8 @@ const Cart = () => {
         )}
       </Container>
       <Container className="my-10">
-        <p className="text-[51px] font-medium text-center">Similar Products</p>
-        <FeatureSlider title={false} />
+        <p className="text-xl  md:text-[40px] font-Helveticalight text-center">Similar Products</p>
+        <FeatureSlider similarProducts={similarProducts} title={false} />
       </Container>
       <Services />
     </>

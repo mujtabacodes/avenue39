@@ -13,11 +13,10 @@ import { menuData } from '@/data/menu';
 
 const SubCategoriesRow = () => {
   const path = usePathname();
-  // const cat = path?.split('/').filter(Boolean).pop();
   const [subCategory, setSubCategory] = useState<MenuItem[]>([]);
 
   useEffect(() => {
-    const categoryKey = path?.split('/')[2];
+    const categoryKey = path.replace('/', '');
     const categoryName =
       categoryKey === 'lighting'
         ? 'Lighting'
@@ -27,14 +26,13 @@ const SubCategoriesRow = () => {
     const subcategory = menuData[categoryName] || [];
     setSubCategory(subcategory);
   }, [path]);
-
   return (subCategory.length > 0 &&
     <div
-      className={`relative px-2 sm:px-8 ${subCategory.length === 2
-          ? 'w-full md:w-6/12 lg:4/12 xl:2/12'
-          : subCategory.length === 4
-            ? 'w-full sm:w-6/12'
-            : 'w-full sm:w-8/12'
+      className={`relative ps-2 sm:ps-8 ${subCategory.length === 2
+        ? 'w-full md:w-6/12 lg:4/12 xl:2/12'
+        : subCategory.length === 4
+          ? 'w-full sm:w-6/12'
+          : 'w-full sm:w-8/12'
         }`}
     >
       <button

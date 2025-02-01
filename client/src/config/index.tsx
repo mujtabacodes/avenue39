@@ -1,4 +1,3 @@
-'use client';
 import { selectTotalPrice, totalProductsInCart } from '@/redux/slices/cart';
 import { State } from '@/redux/store';
 import React, { Fragment } from 'react';
@@ -11,7 +10,7 @@ export const SubTotal = () => {
     selectTotalPrice(state.cart),
   );
 
-  return <Fragment>{totalPrice}</Fragment>;
+  return <Fragment>{totalPrice.toLocaleString()}</Fragment>;
 };
 
 export const TotalProducts = () => {

@@ -2,27 +2,37 @@
 import React, { useState, useEffect } from 'react';
 import Container from '../ui/Container';
 import MenuLink from '../menu-link';
-import { menuData } from '@/data/menu';
-import { useRouter, usePathname, useSearchParams } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import { generateSlug } from '@/config';
 import Link from 'next/link';
 import { State } from '@/redux/store';
 import { useSelector } from 'react-redux';
+import { ICategory } from '@/types/types';
+import { staticHeaderCategories } from '@/data/menu';
 
-const MenuBar = () => {
+const MenuBar = ({ categories }: { categories?: ICategory[] }) => {
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const [isSticky, setIsSticky] = useState<boolean>(false);
-  // const [loading, setLoading] = useState<boolean>(false);
   const [hoveringMenu, setHoveringMenu] = useState<boolean>(false);
-  const route = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const categoryId: string | any = searchParams.get('id');
-  // const [ActivatedMenu, setActivatedMenu] = useState<string | null>(null);
+  const categoryId: string | null = searchParams.get('id');
   const [isActiveMenu, setisActiveMenu] = useState<string | null>(null);
   const userDetails = useSelector(
     (state: State) => state.usrSlice.loggedInUser,
   );
+  useEffect(() => {
+    const pathSplit = pathname.split('/');
+    const name = pathSplit.splice(pathSplit.length - 1);
+    if (categoryId) {
+      const activeMenu = categories?.find((item) => item.id === Number(categoryId))
+      setisActiveMenu(activeMenu?.name.replace('-', ' ').toLowerCase() || null)
+      console.log(pathname, 'pathname', name, activeMenu, categories)
+    } else {
+      setisActiveMenu(name.toString().replace('-', ' '))
+      console.log(pathname, 'pathname', name)
+    }
+  }, [pathname, categories, searchParams])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -34,37 +44,21 @@ const MenuBar = () => {
     };
   }, []);
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      const target = event.target as HTMLElement;
-      if (
-        target.closest('.megamenu-container') === null &&
-        target.closest('.menu-item') === null
-      ) {
-        setActiveMenu(null);
-      }
-    };
-    document.addEventListener('click', handleClickOutside);
-    return () => {
-      document.removeEventListener('click', handleClickOutside);
-    };
-  }, []);
-
-  const handleMegaSaleClick = () => {
-    route.push('/products');
-  };
-
-  const handleCategoryMenuClick = (menu: string) => {
-    setActiveMenu(menu);
-    // setActivatedMenu(menu);
-    if (menu === 'homeOffice') {
-      route.push(`/products/home-office`);
-    } else if (menu === 'NewArrivals') {
-      route.push(`/products/new-arrivals`);
-    } else {
-      route.push(`/products/${generateSlug(menu)}`);
-    }
-  };
+  // useEffect(() => {
+  //   const handleClickOutside = (event: MouseEvent) => {
+  //     const target = event.target as HTMLElement;
+  //     if (
+  //       target.closest('.megamenu-container') === null &&
+  //       target.closest('.menu-item') === null
+  //     ) {
+  //       setActiveMenu(null);
+  //     }
+  //   };
+  //   document.addEventListener('click', handleClickOutside);
+  //   return () => {
+  //     document.removeEventListener('click', handleClickOutside);
+  //   };
+  // }, []);
 
   const handleMouseEnter = (menu: string) => {
     setActiveMenu(menu);
@@ -76,46 +70,6 @@ const MenuBar = () => {
     }
   };
 
-  let CategoryFunction = () => {
-    if (pathname === '/products') {
-      setisActiveMenu('SALE');
-      return;
-    }
-    if (pathname === '/products/new-arrivals') {
-      setisActiveMenu('New Arrivals');
-      return;
-    }
-
-    if (!categoryId) {
-      let categoryName = pathname.split('/').pop()?.replaceAll('-', '');
-
-      for (const key in menuData) {
-        if (categoryName?.toLowerCase() === generateSlug(key).toLowerCase()) {
-          setisActiveMenu(key);
-          return key;
-        }
-      }
-    }
-
-    for (const key in menuData) {
-      const items = menuData[key];
-      console.log(items, 'item');
-      if (categoryId && items.some((item) => item.categoryId == categoryId)) {
-        console.log(key, 'item');
-        setisActiveMenu(key);
-        return key;
-      }
-    }
-    return null;
-  };
-
-  useEffect(() => {
-    setisActiveMenu(null);
-    CategoryFunction();
-  }, [activeMenu, categoryId, pathname]);
-
-  // console.log(isActiveMenu, "isActiveMenu")
-
   return (
     <div className={`${isSticky ? `sticky ${userDetails ? 'top-20' : 'top-16'} z-20` : 'relative md:pb-12'}`}>
       <div
@@ -123,63 +77,23 @@ const MenuBar = () => {
           }`}
       >
         <Container className="flex flex-wrap items-center justify-between">
-          {
-          // loading ? (
-          //   <div className="flex gap-4">
-          //     {Array.from({ length: 9 }).map((_, index) => (
-          //       <Skeleton key={index} className="h-6 w-36" />
-          //     ))}
-          //   </div>
-          // ) : (
-            Object.keys(menuData).map((menu) => {
-              if (menu === 'SALE') {
-                return (
-                  <button
-                    key={menu}
-                    className={`
-                      
-                      menu-item text-13 lg:text-15 pb-2 tracking-wide family-Helvetica uppercase whitespace-nowrap text-red-600 dark:text-red-600 flex flex-row gap-2 items-center cursor-pointer ${
-                        (isActiveMenu && isActiveMenu) == menu
-                          ? 'linkactive'
-                          : 'link-underline'
-                      }`}
-                    onClick={handleMegaSaleClick}
-                  >
-                    SALE
-                  </button>
-                );
-              }
-
-              if (['New Arrivals', 'Clearance', 'Accessories'].includes(menu)) {
-                // console.log(menu, "menue")
-                return (
-                  <Link
-                    href={`/products/${generateSlug(menuData[menu][0]?.title || '')}`}
-                    key={menu}
-                    className={`menu-item text-13 lg:text-15 pb-2 tracking-wide family-Helvetica uppercase whitespace-nowrap text-black dark:text-black flex flex-row gap-2 items-center cursor-pointer ${
-                      (isActiveMenu && isActiveMenu) == menu
-                        ? 'linkactive'
-                        : 'link-underline'
-                    }`}
-                    onClick={() => handleCategoryMenuClick(menu)}
-                  >
-                    {menu.replace(/([A-Z])/g, ' $1').toUpperCase()}
-                  </Link>
-                );
-              }
-
-              return (
-                <div className="relative" key={menu}>
-                  <div
-                    className={`relative menu-item text-13 lg:text-15 pb-2 tracking-wide family-Helvetica uppercase whitespace-nowrap text-black dark:text-black flex flex-row gap-2 items-center cursor-pointer ${isActiveMenu && isActiveMenu === menu ? 'linkactive' : 'link-underline'}`}
-                    onMouseEnter={() => handleMouseEnter(menu)}
+          {categories && categories?.length < 1 ? (
+            staticHeaderCategories.map((item, index) => (
+              <Link href={`/${generateSlug(item)}`} key={index} className={`menu-item text-13 lg:text-15 pb-2 tracking-wide family-Helvetica uppercase whitespace-nowrap ${item === 'Sale' ? 'text-red-500' : 'text-black'}`}>{item}</Link>
+            ))
+          ) : (
+            <>
+              {categories?.map((item) => (
+                <div className="relative" key={item.id}>
+                  <Link href={`/${generateSlug(item.name)}`}
+                    className={`relative menu-item text-13 lg:text-15 pb-2 tracking-wide family-Helvetica uppercase whitespace-nowrap text-black dark:text-black flex flex-row gap-2 items-center cursor-pointer ${isActiveMenu === item.name.toLowerCase() ? 'linkactive' : 'link-underline'}`}
+                    onMouseEnter={() => handleMouseEnter(item.name)}
                     onMouseLeave={handleMouseLeave}
-                    onClick={() => handleCategoryMenuClick(menu)}
                   >
-                    {menu.replace(/([A-Z])/g, ' $1').toUpperCase()}
-                  </div>
+                    {item.name}
+                  </Link>
 
-                  {activeMenu && activeMenu === menu && (
+                  {(activeMenu && activeMenu === item.name) && item.subcategories && item.subcategories.length > 0 && (
                     <div
                       className={`megamenu-container w-[200px] bg-white shadow-lg px-10 py-4 z-20  absolute top-[28px]  rounded-b-xl`}
                       onMouseEnter={() => setHoveringMenu(true)}
@@ -192,10 +106,8 @@ const MenuBar = () => {
                         <div className="w-full space-y-4">
                           <div className="grid grid-cols-1 space-y-2">
                             <MenuLink
-                              menudata={menuData[activeMenu]}
+                              menudata={item}
                               onLinkClick={() => setActiveMenu(null)}
-                              // loading={loading}
-                              pathname={pathname}
                             />
                           </div>
                         </div>
@@ -203,10 +115,12 @@ const MenuBar = () => {
                     </div>
                   )}
                 </div>
-              );
-            }
-          // )
+              ))}
+              <Link href='/products' className={`menu-item text-13 lg:text-15 pb-2 tracking-wide family-Helvetica uppercase whitespace-nowrap text-red-600 dark:text-red-600 flex flex-row gap-2 items-center cursor-pointer ${pathname === '/products' ? 'linkactive' : 'link-underline'}`}>
+                sale
+              </Link></>
           )}
+
         </Container>
       </div>
 

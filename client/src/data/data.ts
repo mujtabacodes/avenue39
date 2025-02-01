@@ -30,7 +30,7 @@ export const wishbredcrumbs = [
 ];
 export const Tersmandcondition = [
   { label: 'Home', href: '/' },
-  { label: 'Terms-Condition' },
+  { label: 'Terms & Conditions' },
 ];
 export const PrivacyPolicybredcrumbs = [
   { label: 'Home', href: '/' },
@@ -38,7 +38,7 @@ export const PrivacyPolicybredcrumbs = [
 ];
 export const TReturnPolicybredcrumbs = [
   { label: 'Home', href: '/' },
-  { label: 'Return-Policy' },
+  { label: 'Return - Policy' },
 ];
 export const TShippingPolicybredcrumbs = [
   { label: 'Home', href: '/' },
@@ -189,7 +189,7 @@ export const AddproductsinitialValues: IProductAdd = {
   hoverImagePublicId: '',
   productImages: [],
   spacification: [],
-  colors: [],
+  sizes: [],
   additionalInformation: [],
   categories: [],
   subcategories: [],
@@ -198,6 +198,8 @@ export const AddproductsinitialValues: IProductAdd = {
   Meta_Description:'',
   Images_Alt_Text:'',
   sale_counter: '',
+  filters: [],
+  
 };
 
 export const options = [
@@ -501,17 +503,18 @@ export const Dining= [
   'Savio Dining Chair',
   'Flavia Dining Chair',
   'Sapori Dining Table',
-  'Fiori Side Console',
+  'Fiori Side Cabinet',
   'Floki Barstool',
   'Venice Barstool',
   'Trattori Barstool',
 ]
 export const Living= [
-  'Marlin Tub Swivel Chair (Brown & cream)',
-  'Marlin Tub Swivel Chair',
   'Marlin Tub Chair',
-  'Marlin Rocking Chair (White& Grey)',
+  'Marlin Tub Swivel Chair (Brown & cream)',
+  'Marlin Tub Swivel Chair (Mustard yellow and black)',
+  // 'Marlin Tub Chair',
   'Marlin Rocking Chair (White & Black)',
+  'Marlin Rocking Chair (White& Grey)',
   'The Lisbon Sofa Set',
   'Lucius Coffee Table Set',
   'Finestra Side Table',
@@ -525,14 +528,14 @@ export const Bedroom= [
   'Ombra Bedside Table',
   'Accenti Bedside Table',
   'Vista Sofa Bed',
-  'Sexton Floor Lamp',
-  'Florento Floor Lamp',
-  'Cipriani Floor Lamp',
+  'Sexton Floor Lamp - Black',
+  'Florento Floor Lamp - White',
+  'Cipriani Floor Lamp - white marble table',
 ]
 export const Accessories= [
   'A Pair of Droplet Stands',
-  'A Pair of Monolith Sphere Towers',
+  'Pair of Monolith Sphere Towers',
   'A Pair of Layered Elegance',
-  'A Pair of Rooted Egg Stands',
+  'Pair of Rooted Egg Stands',
   'Abstract Vase',
 ]

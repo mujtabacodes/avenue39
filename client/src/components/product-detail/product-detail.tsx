@@ -5,6 +5,7 @@ import { CiShoppingCart } from "react-icons/ci";
 import { IProduct, IProductDetail, IReview } from '@/types/types';
 import { NormalText, ProductName, ProductPrice } from '@/styles/typo';
 import { Button } from '../ui/button';
+import QRScanner from '../QR-reader/QR';
 import {
   Dialog,
   DialogContent,
@@ -24,7 +25,7 @@ import {
   tamaralist,
   tamarawhy,
 } from '@/data';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addItem } from '@/redux/slices/cart';
 import { Dispatch } from 'redux';
 import { HiMinusSm, HiPlusSm } from 'react-icons/hi';
@@ -33,14 +34,17 @@ import { openDrawer } from '@/redux/slices/drawer';
 import { CartItem } from '@/redux/slices/cart/types';
 import { useRouter } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
-import { fetchProducts, fetchReviews } from '@/config/fetch';
+import { fetchReviews } from '@/config/fetch';
 import { calculateRatingsPercentage, renderStars } from '@/config';
 import { TbCube3dSphere } from 'react-icons/tb';
 import Product3D from '../3DView/Product3D';
-import ARExperience from '../ARModelViewer';
+// import ARExperience from '../ARModelViewer';
 import { paymentIcons } from '@/data/products';
 import { ProductDetailSkeleton } from './skelton';
 import { message } from 'antd';
+import { State } from '@/redux/store';
+import { BsWhatsapp } from 'react-icons/bs';
+import Link from 'next/link';
 
 const ProductDetail = ({
   params,
@@ -48,23 +52,23 @@ const ProductDetail = ({
   gap,
   swiperGap,
   detailsWidth,
-}: {
-  params: IProductDetail;
-  isZoom?: Boolean;
-  gap?: String;
-  swiperGap?: String;
-  detailsWidth?: String;
-}) => {
-  // const description: string = '';
-  // const [isExpanded, setIsExpanded] = useState(false);
+  products }
+  : {
+    params: IProductDetail;
+    isZoom?: Boolean;
+    gap?: String;
+    swiperGap?: String;
+    detailsWidth?: String;
+    products?: IProduct[]
+  }) => {
+
   const truncateText = (text: any, limit: any) => {
     return text.length > limit ? text.slice(0, limit) + '...' : text;
   };
-  // const [hoveredImage, setHoveredImage] = useState<string | null>(null);
-  // const cartItems = useSelector((state: State) => state.cart.items);
 
   const [count, setCount] = useState(1);
   const dispatch = useDispatch<Dispatch>();
+  const cartItems = useSelector((state: State) => state.cart.items);
   const slug = String(params.name);
   const [timeLeft, setTimeLeft] = useState({
     day: 0,
@@ -73,23 +77,65 @@ const ProductDetail = ({
     sec: 0,
   });
 
-  const {
-    data: products = [],
-    isLoading,
-  } = useQuery<IProduct[], Error>({
-    queryKey: ['products'],
-    queryFn: fetchProducts,
-  });
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [selectedSize, setSelectedSize] = useState(0);
+  const [productPrice, setProductPrice] = useState(0);
+  const product = products?.find((product) => product.name === slug);
 
-  function formatPrice(price:any) {
-  if (!price) return 0; // Handle undefined or null price
-  return price > 1000
-    ? price.toLocaleString('en-US') // Adds commas for prices above 1,000
-    : price; // Leaves the price as is for lower values
-}
+  const handleColorClick = (index: number) => {
+    setActiveIndex(index);
+  };
+
+  const handleSizeClick = (index: number) => {
+    setSelectedSize(index);
+  };
+
+  useEffect(() => {
+    if (!product) return;
+
+    const availableSizes = product.productImages.filter(
+      (img) => product.filter && img.color === product.filter[0]?.additionalInformation[activeIndex]?.name
+    );
+    const price = product.filter && product.filter[0]?.additionalInformation[activeIndex]?.price;
+    setProductPrice(Number(price));
+
+
+    const firstAvailableSize = availableSizes.length > 0
+      ? product.sizes?.findIndex((size) =>
+        availableSizes.some((img) => img.size === size)
+      )
+      : 0;
+
+    setSelectedSize(firstAvailableSize ?? 0);
+  }, [activeIndex, product]);
+
+  useEffect(() => {
+    if (!product) return;
+
+    const selectedSizeValue = product.sizes ? product.sizes[selectedSize] : undefined;
+
+    const availableColors = product.productImages.filter(
+      (img) => img.size === selectedSizeValue
+    );
+
+    const firstAvailableColor = availableColors.length > 0
+      ? product.filter?.[0]?.additionalInformation.findIndex(
+        (color) => color.name === availableColors[0].color
+      )
+      : 0;
+
+    setActiveIndex(firstAvailableColor ?? 0);
+  }, [selectedSize, product]);
+
+
+  function formatPrice(price: any) {
+    if (!price) return 0;
+    return price > 1000
+      ? price.toLocaleString('en-US')
+      : price;
+  }
 
   console.log(slug, 'slug');
-  const product = products.find((product) => product.name === slug);
   const Navigate = useRouter();
   useEffect(() => {
     if (product) {
@@ -128,14 +174,14 @@ const ProductDetail = ({
     queryFn: fetchReviews,
   });
   const productId = product?.id;
-  // const filteredReviews = reviews.filter(
-  //   (review) => review.productId === productId,
-  // );
+
   const filteredReviews = Array.isArray(reviews)
     ? reviews.filter((review) => review.productId === productId)
     : [];
+
   const { averageRating, productReviews } =
     calculateRatingsPercentage(filteredReviews);
+
   if (!product) {
     return <ProductDetailSkeleton />;
   }
@@ -148,7 +194,7 @@ const ProductDetail = ({
     if (count < product.stock) {
       setCount((prevCount) => prevCount + 1);
     } else {
-      message.info(`Only ${product.stock} items in stock!`, 1); // Show warning for 2 seconds
+      message.error(`Only ${product.stock} items in stock!`, 1);
     }
   };
   const itemToAdd: CartItem = {
@@ -158,6 +204,13 @@ const ProductDetail = ({
 
   const handleAddToCard = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
+    const existingCartItem = cartItems.find((item: any) => item.id === product?.id);
+    const currentQuantity = existingCartItem?.quantity || 0;
+    const newQuantity = currentQuantity + count;
+    if (product?.stock && newQuantity > product.stock) {
+      message.error(`Only ${product.stock} items are in stock. You cannot add more than that.`);
+      return;
+    }
     dispatch(addItem(itemToAdd));
     dispatch(openDrawer());
   };
@@ -171,33 +224,35 @@ const ProductDetail = ({
     e.stopPropagation();
   };
 
+
   return (
     <div
-      className={`flex flex-col md:flex-row w-full justify-between overflow-hidden ${gap} my-6 relative`}
+      className={`flex flex-col md:flex-row w-full justify-between font-Helveticalight overflow-hidden ${gap} my-6 relative`}
     >
-      <div className="flex-grow  md:w-1/2 lg:w-7/12 w-full">
+      <div className="flex-grow  md:w-1/2 lg:w-7/12 w-full no-select">
         <Thumbnail
           thumbs={product?.productImages}
           isZoom={isZoom}
           swiperGap={swiperGap}
           // HoverImage={setHoveredImage}
-          isLoading={isLoading}
+          isLoading={false}
+          activeIndex={activeIndex}
+
         />
       </div>
-
       <div className={`${detailsWidth} flex flex-col gap-2 pt-2`}>
         <div className="flex gap-2">
           {product.stock > 0 ? (
-            <div className="bg-[#56B400] p-2 rounded-sm text-white text-xs">
-              IN STOCK {}
+            <div className="bg-[#56B400] p-2 rounded-sm text-white text-xs font-Helveticalight">
+              IN STOCK { }
             </div>
           ) : (
-            <div className="bg-[#EE1C25] p-2 rounded-sm text-white text-xs">
+            <div className="bg-[#EE1C25] p-2 rounded-sm text-white text-xs font-Helveticalight">
               OUT OF STOCK
             </div>
           )}
           {product.discountPrice > 0 && (
-            <div className="bg-[#EE1C25] p-2 rounded-sm text-white text-xs">
+            <div className="bg-[#EE1C25] p-2 rounded-sm text-white text-xs font-helvetica">
               {Math.round(
                 ((product.price - product.discountPrice) / product.price) * 100,
               )}
@@ -211,7 +266,7 @@ const ProductDetail = ({
               twoWeeksAgo.setDate(twoWeeksAgo.getDate() - 14);
 
               return productDate >= twoWeeksAgo ? (
-                <div className="bg-[#00AEEF] p-2 rounded-sm text-white text-xs">
+                <div className="bg-[#00AEEF] p-2 rounded-sm text-white text-xs font-Helveticalight">
                   New
                 </div>
               ) : null;
@@ -220,7 +275,7 @@ const ProductDetail = ({
         <ProductName>{product?.name}</ProductName>
         {averageRating > 1 && (
           <>
-            <div className="flex gap-2 items-center">
+            <div className="flex gap-2 items-center font-Helveticalight">
               <span className="flex items-center">
                 {renderStars({ star: averageRating })}
               </span>
@@ -232,16 +287,23 @@ const ProductDetail = ({
         )}
         {product?.discountPrice > 0 ? (
           <ProductPrice className="flex items-center gap-2">
-            AED {product?.discountPrice}
+            AED {product?.discountPrice > 1000
+              ? product.discountPrice.toLocaleString()
+              : product?.discountPrice}
             <NormalText className="font-normal text-base text-slate-400 line-through">
-              AED{product?.price}
+              AED
+              {product?.price > 1000
+                ? product.price.toLocaleString()
+                : product?.price}
             </NormalText>
           </ProductPrice>
+
         ) : (
           <ProductPrice className="flex items-center gap-2">
-          AED {formatPrice(product?.price)}
-        </ProductPrice>
-        
+            {/* AED {formatPrice(product?.price)} */}
+            {productPrice > 0 ? `AED ${formatPrice(productPrice)}` : `AED ${formatPrice(product?.price)}`}
+          </ProductPrice>
+
         )}
         {/* <div className="flex gap-3 font-semibold">
           <span>AVAILABLE:</span>
@@ -251,13 +313,96 @@ const ProductDetail = ({
             <span className="text-[#EE1C25]">Out Of Stock</span>
           )}
         </div> */}
-        <p className="text-lightdark text-14 tracking-wide leading-6">
+        <p className="text-lightdark text-14 tracking-wide leading-6 font-helvetica">
           {
-          // isExpanded
-          //   ? product?.description
-          //   : 
+            // isExpanded
+            //   ? product?.description
+            //   : 
             truncateText(product?.description, 120)}
         </p>
+
+        <div>
+          {product?.filter && product?.filter.length > 0 && product?.filter[0]?.additionalInformation && (
+            <div className="p-4">
+              <div>
+                <h2 className="font-semibold text-[16px] font-sans Capitalize">
+                  {product?.filter[0]?.heading}{" "}
+                  <span className='capitalize'>
+                    {product?.filter[0]?.additionalInformation[activeIndex]?.name}
+                  </span>
+                </h2>
+
+                <div className="flex space-x-4 mt-2">
+                  {product?.filter[0]?.additionalInformation.map((item, index) => {
+                    const image = product?.productImages.find(
+                      (img) => img.color === item.name
+                    );
+                    if (!image) return null;
+
+                    return (
+                      <div
+                        key={index}
+                        onClick={() => handleColorClick(index)}
+                        className={`cursor-pointer border rounded-lg p-1 flex items-center justify-center transition ${activeIndex === index
+                          ? "border-black font-bold shadow-md"
+                          : "hover:shadow-lg"
+                          }`}
+                      >
+                        {image && (
+                          <Image
+                            src={image.imageUrl}
+                            alt={image.altText || "product image"}
+                            width={48}
+                            height={48}
+                            className="h-[50px] width-[48px] object-cover rounded"
+                          />
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+          )}
+
+          <div className="p-4">
+            {product?.sizes && product?.sizes.length > 0 && (
+              <div>
+                <h2 className="font-semibold text-[16px] font-sans Capitalize">Size:</h2>
+                <div className="flex space-x-4">
+                  {product.sizes.map((size, index) => {
+                    const availableColors = product?.productImages.filter(
+                      (img) => img.size === size
+                    );
+
+                    if (availableColors.length === 0) return null; // Skip sizes that don't have matching colors
+                    const [sizeName, sizeType] = size.split(" ");
+                    return (
+                      <div
+                        key={index}
+                        onClick={() => handleSizeClick(index)}
+                        className={`cursor-pointer border rounded-lg bg-[#F5F5F5] p-4 flex flex-col items-center justify-center h-[60px] w-[60px] transition ${selectedSize === index
+                          ? "border-black shadow-md"
+                          : "hover:shadow-lg"
+                          }`}
+                      >
+                        <span className="block text-[#666666] text-[14px] uppercase font-sans">
+                          {sizeName}
+                        </span>
+                        {sizeType && (
+                          <span className="block text-[10px] uppercase font-sans">
+                            {sizeType}
+                          </span>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+
 
         {product.sale_counter &&
           Object.values(timeLeft).some((value) => value > 0) && (
@@ -280,122 +425,106 @@ const ProductDetail = ({
         {/* <NormalText className="mb-2">
           Hurry Up! Only <span className="text-red-600">12</span> left in stock:
         </NormalText> */}
-        <div className="flex items-center gap-4 justify-between mb-2">
-          <div className="flex items-center border border-gray-300 rounded py-1 md:p-2 md:py-3">
-            <button
-              onClick={onDecrement}
-              className="px-2 text-gray-600  "
-              disabled={count <= 1}
+        {product.stock == 0 ?
+          <>
+            <Link
+              href="https://wa.me/971505974495"
+              target='_blank'
+              rel='noreferrer'
+              className=" ps-5 pe-10 h-12 w-full mt-5 mb-5 text-white bg-[#64B161] rounded-2xl flex justify-center items-center gap-2 hover:bg-[#56B400]"
             >
-              <HiMinusSm size={20} />
-            </button>
-            <span className="mx-2">{count}</span>
-            <button
-              onClick={onIncrement}
-              className="px-2 text-gray-600 disabled:text-gray-300"
-            >
-              <HiPlusSm size={20} />
-            </button>
-          </div>
+              <BsWhatsapp size={25} />
+              <span className="font-light text-sm">PRE-ORDER ONLY</span>
+            </Link>
+          </>
+          :
+          <>
+            <div className="flex items-center gap-4 justify-between mb-2">
+              <div className="flex items-center border border-gray-300 rounded py-1 md:p-2 md:py-3">
+                <button
+                  onClick={onDecrement}
+                  className="px-2 text-gray-600  "
+                  disabled={count <= 1}
+                >
+                  <HiMinusSm size={20} />
+                </button>
+                <span className="mx-2">{count}</span>
+                <button
+                  onClick={onIncrement}
+                  className="px-2 text-gray-600 disabled:text-gray-300"
+                >
+                  <HiPlusSm size={20} />
+                </button>
+              </div>
 
-          {/* <Link
-            href="https://wa.me/971505974495"
-            target='_blank'
-            rel='noreferrer'
-            className="w-fit ps-5 pe-10 h-12 text-white bg-[#64B161] rounded-full flex justify-center items-center gap-2 hover:bg-[#56B400]"
-          >
-            <BsWhatsapp size={35} />
-            <span className="font-light text-sm">PRE-ORDER ONLY</span>
-          </Link> */}
-        </div>
 
-        <Button
-          className="bg-primary text-white flex gap-3 justify-center w-full sm:w-1/2 items-center md:w-full h-12 rounded-2xl mb-3 font-light "
-          onClick={(e) => handleBuyNow(e)}
-        >
-          <CiShoppingCart size={20} /> BUY IT NOW
-        </Button>
-
-        <div className="flex gap-2 mb-4 w-full sm:w-1/2  md:w-full">
-          <Button
-            variant={'outline'}
-            className="text-primary w-full h-12 rounded-2xl flex gap-3"
-            onClick={(e) => handleAddToCard(e)}
-          >
-            Add to cart
-          </Button>
-
-          {/* <Dialog>
-
-          <DialogTrigger asChild>
-          <Button className="bg-warning w-1/2 text-white flex gap-3 h-12 rounded-2xl">
-            TRY AT HOME
-          </Button>
-                </DialogTrigger>
-      
-                <DialogOverlay className="bg-white/80" />
-                <DialogContent className="sm:max-w-[80%] lg:max-w-[60%] bg-white px-0 sm:rounded-none border border-gray shadow-sm gap-0 pb-0">
-                  <DialogHeader>
-                    <DialogTitle className="text-xl xs:text-xl sm:text-2xl md:text-3xl font-bold tracking-wide border-b-2 pb-3 sm:ps-5 md:ps-10 pe-10">
-                   SCAN QR
-                    </DialogTitle>
-                  </DialogHeader>
-                 SCAN qr
-                </DialogContent>
-          </Dialog> */}
-
-          <div className="w-full mx-auto md:w-full">
-            <ARExperience ImageUrl={'/3dmodel/carpet.glb'} />
-          </div>
-          {/* <Dialog>
-            <DialogTrigger asChild>
-              <Button className="bg-warning w-1/2 text-white flex gap-3 h-12 rounded-2xl">
-                TRY AT HOME
-              </Button>
-            </DialogTrigger>
-            
-            <DialogOverlay className="bg-white/80" />
-            <DialogContent className="sm:max-w-[80%] lg:max-w-[30%] bg-white px-0 pt-0 sm:rounded-none border border-gray shadow-sm gap-0 pb-0">
-              <DialogHeader className="flex items-start px-5 pt-0 py-5 border-b-2">
-                <DialogTitle className="text-xl xs:text-xl sm:text-2xl md:text-3xl font-bold tracking-wide">
-                  SCAN QR
-                </DialogTitle>
-              </DialogHeader>
-              <QRScanner
-                hoveredImage={
-                  hoveredImage
-                    ? hoveredImage
-                    : product?.productImages[0].imageUrl
-                      ? product?.productImages[0].imageUrl
-                      : 'not found'
-                }
-                url={slug}
-              />
-            </DialogContent>
-          </Dialog> */}
-        </div>
-        <Dialog>
-          <DialogTrigger asChild>
-            <Button
-              className="bg-[#afa183] text-white flex gap-3 justify-center w-full sm:w-1/2 items-center lg:w-full h-12 rounded-2xl mb-3 font-light  md:w-full"
-              onClick={(e) => handle3D(e)}
-            >
-              <TbCube3dSphere size={20} /> View 3D
-            </Button>
-          </DialogTrigger>
-
-          <DialogOverlay className="bg-white/80" />
-          <DialogContent className="sm:max-w-[80%] lg:max-w-[50%] bg-white px-0 pt-0 sm:rounded-none border border-gray shadow-sm gap-0 pb-0">
-            <DialogHeader className="flex items-start px-5 pt-0 py-5 border-b-2">
-              <DialogTitle className="text-xl xs:text-xl sm:text-2xl md:text-3xl font-bold tracking-wide">
-                3D View
-              </DialogTitle>
-            </DialogHeader>
-            <div className="w-full h-[600px]">
-              <Product3D modelUrl="/3dmodel/model.glb" />
             </div>
-          </DialogContent>
-        </Dialog>
+
+            <Button
+              className="bg-primary text-white flex gap-3 justify-center w-full sm:w-1/2 items-center md:w-full h-12 rounded-2xl mb-3 font-light "
+              onClick={(e) => handleBuyNow(e)}
+            >
+              <CiShoppingCart size={20} /> BUY IT NOW
+            </Button>
+
+            <div className="flex gap-2 mb-4 w-full sm:w-1/2  md:w-full">
+              <Button
+                variant={'outline'}
+                className="text-primary w-full h-12 rounded-2xl flex gap-3 uppercase"
+                onClick={(e) => handleAddToCard(e)}
+              >
+                Add to cart
+              </Button>
+
+              <div className="w-full mx-auto md:w-full">
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Button className="bg-warning w-full text-white flex gap-3 h-12 rounded-2xl">
+                      TRY AT HOME
+                    </Button>
+                  </DialogTrigger>
+
+                  <DialogOverlay className="bg-white/80" />
+                  <DialogContent className="sm:max-w-[80%] lg:max-w-[30%] bg-white px-0 pt-0 sm:rounded-none border border-gray shadow-sm gap-0 pb-0">
+                    <DialogHeader className="flex items-start px-5 pt-0 py-5 border-b-2">
+                      <DialogTitle className="text-xl xs:text-xl sm:text-2xl md:text-3xl font-bold tracking-wide">
+                        SCAN QR
+                      </DialogTitle>
+                    </DialogHeader>
+                    <QRScanner
+                      hoveredImage={product?.productImages[0].imageUrl ? product?.productImages[0].imageUrl : 'not found'}
+                      url={slug}
+                    />
+
+                  </DialogContent>
+                </Dialog>
+              </div>
+            </div>
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button
+                  className="bg-[#afa183] text-white flex gap-3 justify-center w-full sm:w-1/2 items-center lg:w-full h-12 rounded-2xl mb-3 font-light  md:w-full"
+                  onClick={(e) => handle3D(e)}
+                >
+                  <TbCube3dSphere size={20} /> View 3D
+                </Button>
+              </DialogTrigger>
+
+              <DialogOverlay className="bg-white/80" />
+              <DialogContent className="sm:max-w-[80%] lg:max-w-[50%] bg-white px-0 pt-0 sm:rounded-none border border-gray shadow-sm gap-0 pb-0">
+                <DialogHeader className="flex items-start px-5 pt-0 py-5 border-b-2">
+                  <DialogTitle className="text-xl xs:text-xl sm:text-2xl md:text-3xl font-bold tracking-wide">
+                    3D View
+                  </DialogTitle>
+                </DialogHeader>
+                <div className="w-full h-[600px]">
+                  <Product3D modelUrl="/3dmodel/model.glb" />
+                </div>
+              </DialogContent>
+            </Dialog>
+          </>
+        }
+
         <div className="flex items-center justify-center relative mb-2">
           <span className="absolute left-0 w-1/6 border-t border-gray-300"></span>
           <p className="text-center px-3 w-4/6 whitespace-nowrap font-semibold text-sm xs:text-base lg:text-xs xl:text-base">
@@ -411,7 +540,7 @@ const ProductDetail = ({
             </span>
             <p className="text-12">
               Pay 4 interest-free payments of AED{' '}
-              {Math.round(product?.price / 4)}{' '}
+              {((product?.discountPrice ? product?.discountPrice : product?.price) / 4).toFixed(1)} {" "}
               <Dialog>
                 <DialogTrigger asChild>
                   <span className="text-red-600 underline cursor-pointer">
@@ -478,7 +607,7 @@ const ProductDetail = ({
             </span>
             <p className="text-12">
               Pay 4 interest-free payments of AED{' '}
-              {Math.round(product?.price / 4)}.{' '}
+              {((product?.discountPrice ? product?.discountPrice : product?.price) / 4).toFixed(1)} {" "}
               <Dialog>
                 <DialogTrigger asChild>
                   <span className="text-red-600 underline cursor-pointer">

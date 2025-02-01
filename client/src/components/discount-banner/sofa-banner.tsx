@@ -19,17 +19,17 @@ const sofaData_slides = [
   },
   {
     id: 2,
-    title: 'Modern Office Desk',
-    product_price: 'AED 1,800',
+    title: 'Rafael Office Desk',
+    product_price: 'AED 5,500',
     image: sofa1,
-    link: '/product/modern-office-desk',
+    link: '/product/rafael-office-desk',
   },
   {
     id: 3,
-    title: 'Luxury Sofa Set',
-    product_price: 'AED 1,800',
+    title: 'The Lisbon Sofa Set',
+    product_price: 'AED 5,995',
     image: sofa1,
-    link: '/product/luxury-sofa-set',
+    link: '/product/the-lisbon-sofa-set',
   },
 ];
 
@@ -39,16 +39,16 @@ const sliderDataa_sofa = [
     slides: [
       {
         backgroundImage: banner2.src,
-        pro_price: 'AED 4,800', 
+        pro_price: 'AED 6,250', 
         subtitle: 'Magia Office Desk',
         link: '/product/magia-office-desk',
         buttonPosition: 'top', 
       },
       {
         backgroundImage: banner3.src,
-        pro_price: 'AED 4,800', 
+        pro_price: 'AED 1,950', 
         subtitle: 'Mila TV Cabinet/TV Stand',
-        link: '/products',
+        link: '/product/mila-tv-cabinettv-stand',
         buttonPosition: 'bottom', 
       },
     ],
@@ -58,16 +58,16 @@ const sliderDataa_sofa = [
     slides: [
       {
         backgroundImage: banner2.src,
-        pro_price: 'AED 4,800', 
+        pro_price: 'AED 799', 
         subtitle: 'Modern Sofa Set',
-        link: '/product/modern-sofa-set',
+        link: '/product/modern-sofa',
         buttonPosition: 'top', 
       },
       {
         backgroundImage: banner3.src,
-        pro_price: 'AED 4,800', 
-        subtitle: 'Elegant Dining Table',
-        link: '/products',
+        pro_price: 'AED 3,500', 
+        subtitle: 'Bergen Sintered Stone Dining Table',
+        link: '/product/bergen-sintered-stone-dining-table',
         buttonPosition: 'bottom', 
       },
     ],
@@ -92,8 +92,8 @@ const SofaBanner: React.FC = () => {
   };
 
   return (
-    <section className="grid grid-cols-1 lg:grid-cols-2  gap-4 relative px-2 md:px-0 mt-2">
-    <div className="sofa_slider1 bg-lightforeground max-xs:rounded-2xl xs:rounded-r-2xl" 
+    <section className="grid grid-cols-1 lg:grid-cols-2  gap-3 relative px-2 md:px-0 mt-3">
+    <div className="sofa_slider1 bg-lightforeground rounded-2xl" 
         onMouseEnter={handleMouseEnter} 
         onMouseLeave={handleMouseLeave}>
     <Swiper
@@ -112,12 +112,12 @@ const SofaBanner: React.FC = () => {
       >
         {sofaData_slides.map((slide) => (
           <SwiperSlide key={slide.id}>
-            <div className="flex flex-wrap items-center px-2 pb-4 xs:pb-0 xs:px-5 sm:ps-20 md:ps-6 lg:ps-8 3xl:ps-32 h-full xs:h-[400px] sm:h-[500px] md:h-[600px]">
+            <div className="flex flex-wrap items-center px-2 pb-4 xs:pb-0  sm:ps-20 md:ps-6 lg:ps-8 3xl:ps-[123px] h-full xs:h-[400px] sm:h-[500px] md:h-[600px]">
               {/* Text Content */}
               <div className="w-full xs:w-1/3 max-xs:text-center max-xs:pt-5">
                 <div>
                 <Link href={slide.link}
-                      className="py-1 px-3 block w-fit bg-white text-[14px] md:text-2xl lg:text-sm xl:text-xl 2xl:text-3xl rounded-full text-black border border-gray-500 hover:bg-main font-Helveticalight 2xl:whitespace-nowrap max-xs:mx-auto" >
+                      className="py-1 px-3 block w-fit bg-white text-[14px] md:text-2xl lg:text-sm xl:text-xl 2xl:text-3xl rounded-2xl text-black border border-gray-500 hover:bg-main font-Helveticalight 2xl:whitespace-nowrap max-xs:mx-auto" >
                      Shop Best Sellers
                     </Link>
                   <h3 className="font-bold text-16 mt-3">

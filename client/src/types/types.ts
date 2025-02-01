@@ -110,6 +110,10 @@ interface ProductImage {
   public_id: string;
   altText?: string;
   imageIndex?: number;
+
+  size?: string;
+
+  color?: string;
 }
 export interface IProduct {
   id: number;
@@ -134,6 +138,16 @@ export interface IProduct {
   sections?: [];
   createdAt?: string;
   sale_counter?: string;
+  sortedSubcategories?: ICategory[];
+  sizes?: string[];
+  filter?: Filter[];
+}
+interface Filter {
+  heading: string;
+  additionalInformation: {
+    name: string;
+    price: string;
+  }[];
 }
 export interface specsDetails {
   id: number;
@@ -151,7 +165,7 @@ export interface IProductAdd {
   hoverImagePublicId: string;
   productImages: ProductImage[];
   spacification: Array<{ specsDetails: string; _id: string }>;
-  colors?: string[];
+  sizes?: string[];
   additionalInformation: AdditionalInformation[];
   categories: number[];
   subcategories: number[];
@@ -160,6 +174,7 @@ export interface IProductAdd {
   Meta_Description: string;
   Images_Alt_Text: string;
   sale_counter?: string;
+  filters?: any[];
 }
 export interface ITestimonialCard {
   id: number;
@@ -178,7 +193,6 @@ export interface IDiscountProducts {
   imageUrl: StaticImageData;
   title: string;
 }
-
 
 export interface ISocialIcons {
   id: number;
@@ -273,6 +287,7 @@ export interface ICategory {
   Meta_Title?: string;
   Meta_Description?: string;
   Canonical_Tag?: string;
+  subcategories?: ICategory[];
 }
 // Timer slider data type
 export type TSliderItem = {

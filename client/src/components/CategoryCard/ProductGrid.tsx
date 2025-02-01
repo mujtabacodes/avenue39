@@ -1,5 +1,6 @@
 import React from 'react';
 import { IProduct } from '@/types/types'; // Make sure this import is correct for your types
+import { IProductsImage } from '@/types/interfaces';
 
 interface ProductGridProps {
   products: IProduct[]; // Array of products to render
@@ -10,10 +11,11 @@ interface ProductGridProps {
   isLandscape?: boolean;
   calculateHeight?: string;
   portSpace?: string
-
+  productImages: IProductsImage[];
 }
 
-const ProductGrid: React.FC<ProductGridProps> = ({ products, CardComponent, imageHeight,slider , isHomepage, calculateHeight , portSpace , isLandscape }) => {
+const ProductGrid: React.FC<ProductGridProps> = ({ products, productImages, CardComponent, imageHeight,slider , isHomepage, calculateHeight , portSpace , isLandscape }) => {
+  console.log(products,'products Floki')
   return (
     <>
       {products.map((product, index) => (
@@ -28,6 +30,7 @@ const ProductGrid: React.FC<ProductGridProps> = ({ products, CardComponent, imag
           isLandscape={isLandscape}
           calculateHeight={calculateHeight}
           portSpace={portSpace}
+          productImages={productImages}
         />
       ))}
     </>

@@ -1,3 +1,4 @@
+'use client'
 import React from 'react';
 import Container from '../ui/Container';
 import Image from 'next/image';
@@ -10,7 +11,7 @@ import { SaleBannerData } from '@/data/data';
 
 const NewArrival = () => {
   return (
-    <section className="bg-lightbackground my-8 rounded-2xl">
+    <section className="bg-lightbackground mt-6 mb-8 rounded-2xl">
       <Swiper
         modules={[Pagination]}
         pagination={{ clickable: true }}

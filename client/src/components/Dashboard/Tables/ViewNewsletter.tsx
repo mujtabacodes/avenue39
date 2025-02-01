@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Table, notification, Modal } from 'antd';
+import { Table, notification } from 'antd';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import axios from 'axios';
 import { Button } from '@/components/ui/button';
@@ -56,6 +56,7 @@ const ViewNewsletter: React.FC<CategoryProps> = ({
         placement: 'topRight',
       });
     } catch (err) {
+      console.log(err, "err")
       notification.error({
         message: 'Deletion Failed',
         description: 'There was an error deleting the Email.',
@@ -65,13 +66,15 @@ const ViewNewsletter: React.FC<CategoryProps> = ({
   };
 
   const confirmDelete = (key: string) => {
-    Modal.confirm({
-      title: 'Are you sure you want to delete this Email?',
-      content: 'Once deleted, the Email cannot be recovered.',
-      onOk: () => handleDelete(key),
-      okText: 'Yes',
-      cancelText: 'No',
-    });
+    handleDelete(key)
+
+    // Modal.confirm({
+    //   title: 'Are you sure you want to delete this Email?',
+    //   content: 'Once deleted, the Email cannot be recovered.',
+    //   onOk: () => handleDelete(key),
+    //   okText: 'Yes',
+    //   cancelText: 'No',
+    // });
   };
 
   const columns = [
