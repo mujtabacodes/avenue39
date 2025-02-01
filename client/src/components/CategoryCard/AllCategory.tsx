@@ -24,13 +24,19 @@ const AllCategory = ({products}: {products: IProduct[]}) => {
       (a, b) => titles.indexOf(a.name) - titles.indexOf(b.name)
     );
   };
+  const getCategoryDescription = (categoryName: string) => {
+    const matchedCategory = products.flatMap(product => product.categories || [])
+      .find(category => generateSlug(category.name) === generateSlug(categoryName));
+
+    return matchedCategory?.description || '';
+  };
  console.log(filterByCategoryAndTitle(products, 'Accessories', Accessories) , 'Accessories');
   return (
     <div className='pt-1'>
-      <CatProduct products={filterByCategoryAndTitle(products, 'Dining', Dining)} CategoryName='Shop Your Dining' redirect='dining'/>
-      <CatProduct products={filterByCategoryAndTitle(products, 'Living', Living)} CategoryName='Shop Your Living'  reverse landHeight={'calc(100% - 80px)'} portSpace='px-8' sofaHeight={'calc(100% - 60px)'} sideTableHeight={'calc(100% - 20px)'} redirect='living' />
-      <CatProduct1 products={filterByCategoryAndTitle(products, 'Bedroom', Bedroom)} CategoryName='Shop your Bedroom'  redirect='bedroom'/>
-      <CatProduct1 products={filterByCategoryAndTitle(products, 'Accessories', Accessories)} CategoryName='Complement your design with accessories' reverse
+      <CatProduct products={filterByCategoryAndTitle(products, 'Dining', Dining)} CategoryDescription={getCategoryDescription('Dining')} CategoryName='Shop Your Dining' redirect='dining'/>
+      <CatProduct products={filterByCategoryAndTitle(products, 'Living', Living)} CategoryDescription={getCategoryDescription('Living')} CategoryName='Shop Your Living'  reverse landHeight={'calc(100% - 80px)'} portSpace='px-8' sofaHeight={'calc(100% - 60px)'} sideTableHeight={'calc(100% - 20px)'} redirect='living' />
+      <CatProduct1 products={filterByCategoryAndTitle(products, 'Bedroom', Bedroom)} CategoryDescription={getCategoryDescription('Bedroom')} CategoryName='Shop your Bedroom'  redirect='bedroom'/>
+      <CatProduct1 products={filterByCategoryAndTitle(products, 'Accessories', Accessories)} CategoryDescription={getCategoryDescription('Accessories')} CategoryName='Complement your design with accessories' reverse
        redirect='accessories' />
     </div>
   );

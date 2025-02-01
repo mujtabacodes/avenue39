@@ -25,16 +25,16 @@ export const ColorBannerData = [
   {
     imageUrl: '/images/ave1.jpg',  
     imageUrl2: '/images/ave2.png',
-    Heading: 'Design Chair',
-    ShortText: 'is simply dummy text',
-    Description: 'Lorem Ipsum has been the industry`s standard dummy text ever since the 1500s, when an unknown printer took',
+    Heading: 'luxury furniture',
+    // ShortText: 'is simply dummy text',
+    Description: 'Avenue39 is a popular destination for interior designers and home improvement enthusiasts all over the UAE and offers an eclectic selection of luxury home decor.',
   },
   {
     imageUrl: '/images/catalogue/design_chair1.png',  
     imageUrl2: '/images/catalogue/design_chair12.png',
-    Heading: 'Design Chair',
-    ShortText: 'is simply dummy text',
-    Description: 'Lorem Ipsum has been the industry`s standard dummy text ever since the 1500s, when an unknown printer took',
+    Heading: 'dining furniture',
+    // ShortText: 'is simply dummy text',
+    Description: "We're home to beautiful dining chairs that tick off all the latest styles, from Industrial to Minimalist, Scandi to Mid-century. We've designed our dining furniture collection based on customer feedback and the latest trends to make sure it's beautiful, trendy, and durable.",
   },
 ];
 
