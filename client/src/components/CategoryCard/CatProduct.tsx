@@ -16,8 +16,9 @@ interface ICatProduct {
   sofaHeight?: string;
   sideTableHeight?: string;
   redirect?:string;
+  CategoryDescription?:string;
 }
-const CatProduct = ({ reverse, CategoryName, products , landHeight ,portSpace , sofaHeight ,sideTableHeight,redirect }: ICatProduct) => {
+const CatProduct = ({ reverse, CategoryName, products , landHeight ,portSpace , sofaHeight ,sideTableHeight,redirect,CategoryDescription }: ICatProduct) => {
  const productImages = homeProducts.find((item) => item.name === redirect);
  console.log("Products array: ", products , productImages);
   return (
@@ -28,7 +29,17 @@ const CatProduct = ({ reverse, CategoryName, products , landHeight ,portSpace , 
             {CategoryName}
           </p>
         </Link>
-        <div className={`mt-6 sm:mt-12 flex ${reverse ? 'flex-col-reverse' : 'flex-col'}`}>
+        <div className=' max-w-screen-xl mx-auto mt-10 text-center font-Helveticalight px-2 sm:px-4 lg:px-0' >
+          {CategoryDescription ?
+          <p className='text-14 lg:text-[22px]'>{CategoryDescription}</p>
+          :
+          <div className="animate-pulse">
+          <div className="h-5 lg:h-6 bg-gray-300 rounded-md w-3/4 mx-auto mb-2"></div>
+          <div className="h-5 lg:h-6 bg-gray-300 rounded-md w-2/4 mx-auto"></div>
+        </div>
+          }
+        </div>
+        <div className={`mt-6 sm:mt-8 flex ${reverse ? 'flex-col-reverse' : 'flex-col'}`}>
           <div className={`grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 sm:gap-8`}>
             {products.length < 1 && Array(5).fill(null).map((_, index) => (
               <ProductSkeleton imageHeight="h-[270px] xl:h-[290px]" key={index} />
