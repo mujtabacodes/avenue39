@@ -31,7 +31,6 @@ import {
   DialogTrigger,
 } from '../ui/dialog';
 import { message } from 'antd';
-import { IHomeProducts, IProductsImage } from '@/types/interfaces';
 import Link from 'next/link';
 interface CardProps {
   card?: IProduct;
@@ -46,7 +45,8 @@ interface CardProps {
   isLandscape?: boolean;
   calculateHeight?: string;
   portSpace?: string;
-  productImages?: IProductsImage[]
+  productImages?: IProduct[];
+  redirect?: string
 }
 
 const Card: React.FC<CardProps> = ({
@@ -60,11 +60,12 @@ const Card: React.FC<CardProps> = ({
   isLandscape,
   calculateHeight,
   portSpace,
-  productImages
+  productImages,
+  redirect
 }) => {
   const dispatch = useDispatch<Dispatch>();
   const cartItems = useSelector((state: State) => state.cart.items);
-  const [ cardImage , setCardImage ] = useState<IHomeProducts | undefined>(undefined)
+  const [ cardStaticData , setCardStaticData ] = useState<IProduct | undefined>(undefined)
   const pathname = usePathname();
 
 
@@ -77,9 +78,9 @@ const Card: React.FC<CardProps> = ({
     quantity: 1,
   };
   useEffect(() => {
-    const cardImage = productImages?.find((item: any) => item.name === card?.name);
+    const cardImage = productImages?.find((item: IProduct) => item.name === card?.name);
     console.log(cardImage,'cardImage')
-    setCardImage(cardImage as IHomeProducts);
+    setCardStaticData(cardImage);
   },[productImages])
   const handleAddToCard = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
@@ -108,7 +109,8 @@ const Card: React.FC<CardProps> = ({
 
 
   const handleNavigation = (): string => {
-    let mainCategory = card?.categories?.find((value) => value.name.trim().toLocaleLowerCase() === pathname.split('/')[1].trim().toLocaleLowerCase())
+    const CategoryName = redirect ? redirect : isHomepage ? card?.categories && card?.categories[0] : pathname.split('/')[1].trim().toLocaleLowerCase();
+    let mainCategory = card?.categories?.find((value) => value.name.trim().toLocaleLowerCase() === CategoryName)
 
     let subcategory = card?.subcategories && card?.subcategories[0]?.name?.trim().toLocaleLowerCase()
     let url;
@@ -148,10 +150,10 @@ const Card: React.FC<CardProps> = ({
             {Array(2).fill(null).map((_, index) => (
               <SwiperSlide key={index} className="w-full">
                 {imgIndex && isLandscape ? (
-                  <div className={`${cardImageHeight} flex justify-center items-center px-2`}>
-                    <Link href={handleNavigation()}>
+                  <div className='overflow-hidden'>
+                    <Link href={handleNavigation()} className={`${cardImageHeight} flex justify-center items-center px-2`}>
                       <Image
-                        src={cardImage?.posterImageUrl || imgIndex.imageUrl}
+                        src={cardStaticData?.posterImageUrl || imgIndex.imageUrl}
                         alt={imgIndex.altText || 'image'}
                         width={600}
                         height={600}
@@ -165,10 +167,10 @@ const Card: React.FC<CardProps> = ({
 
                   </div>
                 ) : (
-                  <div className={`${cardImageHeight} bg-[#E3E4E6] flex justify-center items-center rounded-[35px] ${portSpace ? portSpace : 'px-2'}`}>
+                  <div className={`${cardImageHeight} bg-[#E3E4E6] flex justify-center overflow-hidden items-center rounded-[35px] ${portSpace ? portSpace : 'px-2'}`}>
                     <Link href={handleNavigation()}>
                       <Image
-                        src={cardImage?.posterImageUrl || imgIndex.imageUrl}
+                        src={cardStaticData?.posterImageUrl || imgIndex.imageUrl}
                         alt={imgIndex?.altText || 'image'}
                         onClick={() => handleNavigation()}
                         width={600}
@@ -209,7 +211,7 @@ const Card: React.FC<CardProps> = ({
               <div className={` ${cardImageHeight} flex justify-center items-center`}>
 
                 <Image
-                  src={cardImage?.posterImageUrl || imgIndex.imageUrl}
+                  src={cardStaticData?.posterImageUrl || imgIndex.imageUrl}
                   alt={card.posterImageAltText || card.name}
                   onClick={() => handleNavigation()}
                   width={600}

@@ -510,11 +510,11 @@ export const Dining= [
 ]
 export const Living= [
   'Marlin Tub Chair',
-  'Marlin Tub Swivel Chair (Brown & cream)',
-  'Marlin Tub Swivel Chair (Mustard yellow and black)',
+  'Marlin Tub Swivel Chair',
   // 'Marlin Tub Chair',
-  'Marlin Rocking Chair (White & Black)',
-  'Marlin Rocking Chair (White& Grey)',
+  'Marlin Rocking Chair',
+  'Capri Leather Swivel Chair',
+  'Braga Armchair',
   'The Lisbon Sofa Set',
   'Lucius Coffee Table Set',
   'Finestra Side Table',
@@ -528,9 +528,9 @@ export const Bedroom= [
   'Ombra Bedside Table',
   'Accenti Bedside Table',
   'Vista Sofa Bed',
-  'Sexton Floor Lamp - Black',
-  'Florento Floor Lamp - White',
-  'Cipriani Floor Lamp - white marble table',
+  'Sexton Floor Lamp',
+  'Florento Floor Lamp',
+  'Cipriani Floor Lamp',
 ]
 export const Accessories= [
   'A Pair of Droplet Stands',

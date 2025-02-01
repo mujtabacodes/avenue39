@@ -230,7 +230,6 @@ declare module 'react-qr-scanner' {
 export interface IHomeProducts {
   name: string;
   products: IProductsImage[];
-  posterImageUrl?: string;
 }
 
 export interface IProductsImage {
