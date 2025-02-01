@@ -44,7 +44,17 @@ const About= () => {
           <h1 className="text-[48px]">WELCOME TO AVENUE39</h1>
           <div className="text-14 space-y-4">
           {data.paragraphs.map((paragraph, index) => (
-        <p key={index}>{paragraph}</p>
+          <p className='my-3'  key={index} dangerouslySetInnerHTML={{ __html: paragraph }} />
+      ))}
+          </div>
+          <div className="text-14 space-y-4">
+          {data.paragraphs2.map((paragraphs2, index) => (
+        <h3 className='my-3 text-20 italic text-red-600' key={index}>{paragraphs2}</h3>
+      ))}
+          </div>
+          <div className="text-14 space-y-4">
+          {data.paragraphs3.map((paragraphs3, index) => (
+        <p className='my-3 '  key={index} dangerouslySetInnerHTML={{ __html: paragraphs3 }} />
       ))}
           </div>
         </div>
