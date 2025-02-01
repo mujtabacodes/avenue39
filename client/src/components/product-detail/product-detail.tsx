@@ -33,6 +33,8 @@ import { HiMinusSm, HiPlusSm } from 'react-icons/hi';
 import { openDrawer } from '@/redux/slices/drawer';
 import { CartItem } from '@/redux/slices/cart/types';
 import { useRouter } from 'next/navigation';
+import { useQuery } from '@tanstack/react-query';
+import { fetchReviews } from '@/config/fetch';
 import { calculateRatingsPercentage, renderStars } from '@/config';
 import { TbCube3dSphere } from 'react-icons/tb';
 import Product3D from '../3DView/Product3D';
@@ -50,25 +52,19 @@ const ProductDetail = ({
   gap,
   swiperGap,
   detailsWidth,
-  products,
-  reviews
-}
+  products }
   : {
     params: IProductDetail;
     isZoom?: Boolean;
     gap?: String;
     swiperGap?: String;
     detailsWidth?: String;
-    products?: IProduct[];
-    reviews?: IReview[]
+    products?: IProduct[]
   }) => {
-  // const description: string = '';
-  // const [isExpanded, setIsExpanded] = useState(false);
+
   const truncateText = (text: any, limit: any) => {
     return text.length > limit ? text.slice(0, limit) + '...' : text;
   };
-  // const [hoveredImage, setHoveredImage] = useState<string | null>(null);
-  // const cartItems = useSelector((state: State) => state.cart.items);
 
   const [count, setCount] = useState(1);
   const dispatch = useDispatch<Dispatch>();
@@ -81,16 +77,65 @@ const ProductDetail = ({
     sec: 0,
   });
 
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [selectedSize, setSelectedSize] = useState(0);
+  const [productPrice, setProductPrice] = useState(0);
+  const product = products?.find((product) => product.name === slug);
+
+  const handleColorClick = (index: number) => {
+    setActiveIndex(index);
+  };
+
+  const handleSizeClick = (index: number) => {
+    setSelectedSize(index);
+  };
+
+  useEffect(() => {
+    if (!product) return;
+
+    const availableSizes = product.productImages.filter(
+      (img) => product.filter && img.color === product.filter[0]?.additionalInformation[activeIndex]?.name
+    );
+    const price = product.filter && product.filter[0]?.additionalInformation[activeIndex]?.price;
+    setProductPrice(Number(price));
+
+
+    const firstAvailableSize = availableSizes.length > 0
+      ? product.sizes?.findIndex((size) =>
+        availableSizes.some((img) => img.size === size)
+      )
+      : 0;
+
+    setSelectedSize(firstAvailableSize ?? 0);
+  }, [activeIndex, product]);
+
+  useEffect(() => {
+    if (!product) return;
+
+    const selectedSizeValue = product.sizes ? product.sizes[selectedSize] : undefined;
+
+    const availableColors = product.productImages.filter(
+      (img) => img.size === selectedSizeValue
+    );
+
+    const firstAvailableColor = availableColors.length > 0
+      ? product.filter?.[0]?.additionalInformation.findIndex(
+        (color) => color.name === availableColors[0].color
+      )
+      : 0;
+
+    setActiveIndex(firstAvailableColor ?? 0);
+  }, [selectedSize, product]);
+
 
   function formatPrice(price: any) {
-    if (!price) return 0; // Handle undefined or null price
+    if (!price) return 0;
     return price > 1000
-      ? price.toLocaleString('en-US') // Adds commas for prices above 1,000
-      : price; // Leaves the price as is for lower values
+      ? price.toLocaleString('en-US')
+      : price;
   }
 
   console.log(slug, 'slug');
-  const product = products?.find((product) => product.name === slug);
   const Navigate = useRouter();
   useEffect(() => {
     if (product) {
@@ -121,15 +166,22 @@ const ProductDetail = ({
       return () => clearInterval(timerId);
     }
   }, [product]);
+
+  const {
+    data: reviews = [],
+  } = useQuery<IReview[], Error>({
+    queryKey: ['reviews'],
+    queryFn: fetchReviews,
+  });
   const productId = product?.id;
-  // const filteredReviews = reviews.filter(
-  //   (review) => review.productId === productId,
-  // );
+
   const filteredReviews = Array.isArray(reviews)
     ? reviews.filter((review) => review.productId === productId)
     : [];
+
   const { averageRating, productReviews } =
     calculateRatingsPercentage(filteredReviews);
+
   if (!product) {
     return <ProductDetailSkeleton />;
   }
@@ -172,6 +224,7 @@ const ProductDetail = ({
     e.stopPropagation();
   };
 
+
   return (
     <div
       className={`flex flex-col md:flex-row w-full justify-between font-Helveticalight overflow-hidden ${gap} my-6 relative`}
@@ -183,9 +236,10 @@ const ProductDetail = ({
           swiperGap={swiperGap}
           // HoverImage={setHoveredImage}
           isLoading={false}
+          activeIndex={activeIndex}
+
         />
       </div>
-
       <div className={`${detailsWidth} flex flex-col gap-2 pt-2`}>
         <div className="flex gap-2">
           {product.stock > 0 ? (
@@ -246,7 +300,8 @@ const ProductDetail = ({
 
         ) : (
           <ProductPrice className="flex items-center gap-2">
-            AED {formatPrice(product?.price)}
+            {/* AED {formatPrice(product?.price)} */}
+            {productPrice > 0 ? `AED ${formatPrice(productPrice)}` : `AED ${formatPrice(product?.price)}`}
           </ProductPrice>
 
         )}
@@ -265,6 +320,89 @@ const ProductDetail = ({
             //   : 
             truncateText(product?.description, 120)}
         </p>
+
+        <div>
+          {product?.filter && product?.filter.length > 0 && product?.filter[0]?.additionalInformation && (
+            <div className="p-4">
+              <div>
+                <h2 className="font-semibold text-[16px] font-sans Capitalize">
+                  {product?.filter[0]?.heading}{" "}
+                  <span className='capitalize'>
+                    {product?.filter[0]?.additionalInformation[activeIndex]?.name}
+                  </span>
+                </h2>
+
+                <div className="flex space-x-4 mt-2">
+                  {product?.filter[0]?.additionalInformation.map((item, index) => {
+                    const image = product?.productImages.find(
+                      (img) => img.color === item.name
+                    );
+                    if (!image) return null;
+
+                    return (
+                      <div
+                        key={index}
+                        onClick={() => handleColorClick(index)}
+                        className={`cursor-pointer border rounded-lg p-1 flex items-center justify-center transition ${activeIndex === index
+                          ? "border-black font-bold shadow-md"
+                          : "hover:shadow-lg"
+                          }`}
+                      >
+                        {image && (
+                          <Image
+                            src={image.imageUrl}
+                            alt={image.altText || "product image"}
+                            width={48}
+                            height={48}
+                            className="h-[50px] width-[48px] object-cover rounded"
+                          />
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+          )}
+
+          <div className="p-4">
+            {product?.sizes && product?.sizes.length > 0 && (
+              <div>
+                <h2 className="font-semibold text-[16px] font-sans Capitalize">Size:</h2>
+                <div className="flex space-x-4">
+                  {product.sizes.map((size, index) => {
+                    const availableColors = product?.productImages.filter(
+                      (img) => img.size === size
+                    );
+
+                    if (availableColors.length === 0) return null; // Skip sizes that don't have matching colors
+                    const [sizeName, sizeType] = size.split(" ");
+                    return (
+                      <div
+                        key={index}
+                        onClick={() => handleSizeClick(index)}
+                        className={`cursor-pointer border rounded-lg bg-[#F5F5F5] p-4 flex flex-col items-center justify-center h-[60px] w-[60px] transition ${selectedSize === index
+                          ? "border-black shadow-md"
+                          : "hover:shadow-lg"
+                          }`}
+                      >
+                        <span className="block text-[#666666] text-[14px] uppercase font-sans">
+                          {sizeName}
+                        </span>
+                        {sizeType && (
+                          <span className="block text-[10px] uppercase font-sans">
+                            {sizeType}
+                          </span>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+
 
         {product.sale_counter &&
           Object.values(timeLeft).some((value) => value > 0) && (
@@ -339,7 +477,6 @@ const ProductDetail = ({
               </Button>
 
               <div className="w-full mx-auto md:w-full">
-                {/* <ARExperience ImageUrl={'/3dmodel/carpet.glb'} /> */}
                 <Dialog>
                   <DialogTrigger asChild>
                     <Button className="bg-warning w-full text-white flex gap-3 h-12 rounded-2xl">

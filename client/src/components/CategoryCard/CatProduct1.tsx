@@ -12,9 +12,10 @@ interface ICatProduct {
   CategoryName: string;
   products:IProduct[];
   redirect: string;
+  CategoryDescription?: string;
 }
 
-const CatProduct1 = ({ reverse, CategoryName,products,redirect }: ICatProduct) => {
+const CatProduct1 = ({ reverse, CategoryName,products,redirect,CategoryDescription }: ICatProduct) => {
   const productImages = homeProducts.find((item) => item.name === redirect);
   return (
     <Container className="my-10">
@@ -24,7 +25,17 @@ const CatProduct1 = ({ reverse, CategoryName,products,redirect }: ICatProduct) =
             {CategoryName}
         </p>
         </Link>    
-      <div className={`mt-6 sm:mt-12 `}>
+        <div className=' max-w-screen-xl mx-auto mt-10 text-center font-Helveticalight px-2 sm:px-4 lg:px-0' >
+          {CategoryDescription ?
+          <p className='text-14 lg:text-[22px]'>{CategoryDescription}</p>
+          :
+          <div className="animate-pulse">
+          <div className="h-5 lg:h-6 bg-gray-300 rounded-md w-3/4 mx-auto mb-2"></div>
+          <div className="h-5 lg:h-6 bg-gray-300 rounded-md w-2/4 mx-auto"></div>
+        </div>
+          }
+        </div>
+      <div className={`mt-6 sm:mt-8 `}>
   
         <div className={`grid grid-cols-12 sm:gap-8 ${reverse ? "hidden" : " block"}`}>
         <div className={`col-span-12 md:col-span-6 xl:col-span-7 `}>

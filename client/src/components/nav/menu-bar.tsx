@@ -70,6 +70,8 @@ const MenuBar = ({ categories }: { categories?: ICategory[] }) => {
     }
   };
 
+
+  console.log(staticHeaderCategories, "staticHeaderCategories")
   return (
     <div className={`${isSticky ? `sticky ${userDetails ? 'top-20' : 'top-16'} z-20` : 'relative md:pb-12'}`}>
       <div
@@ -116,7 +118,7 @@ const MenuBar = ({ categories }: { categories?: ICategory[] }) => {
                   )}
                 </div>
               ))}
-              <Link href='/products' className={`menu-item text-13 lg:text-15 pb-2 tracking-wide family-Helvetica uppercase whitespace-nowrap text-red-600 dark:text-red-600 flex flex-row gap-2 items-center cursor-pointer ${pathname === '/products' ? 'linkactive' : 'link-underline'}`}>
+              <Link href='/accessories' className={`menu-item text-13 lg:text-15 pb-2 tracking-wide family-Helvetica uppercase whitespace-nowrap text-red-600 dark:text-red-600 flex flex-row gap-2 items-center cursor-pointer ${pathname === '/products' ? 'linkactive' : 'link-underline'}`}>
                 sale
               </Link></>
           )}
