@@ -177,7 +177,7 @@ console.log(productBanner, "productBanner")
           <div className='flex flex-col items-center'>
             <h1 className='text-[45px] font-helvetica font-bold'>{categoryName?.name}</h1>
             <Container>
-            <p className='text-center'>{categoryName?.description} Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus mollitia placeat fugiat hic dolore error, rerum numquam delectus esse! Nam pariatur expedita, earum voluptatum suscipit nemo tempore optio neque quis.lorem  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reprehenderit, possimus, enim nihil assumenda corrupti accusantium excepturi dolore officiis voluptas dolores repellendus sequi maiores suscipit sint pariatur dignissimos magni, inventore quas. Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus distinctio qui aliquam quod, sed dignissimos optio minus, neque soluta, ducimus recusandae laborum quisquam praesentium totam. Neque animi non temporibus necessitatibus.</p>
+            <p className='text-center'>{categoryName?.description} </p>
             </Container>
           
           </div>
