@@ -1,4 +1,4 @@
-"use client"
+'use client';
 import React, { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
@@ -9,7 +9,7 @@ import { Dispatch, State } from '@redux/store';
 import { addItem } from '@cartSlice/index';
 import { CartItem } from '@cartSlice/types';
 import { openDrawer } from '@/redux/slices/drawer';
-import { usePathname} from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import ProductDetail from '../product-detail/product-detail';
 import { cn } from '@/lib/utils';
 import {
@@ -33,6 +33,7 @@ import {
 import { message } from 'antd';
 import { IHomeProducts, IProductsImage } from '@/types/interfaces';
 import Link from 'next/link';
+import { re_Calling_products } from '@/data/Re_call_prod';
 interface CardProps {
   card?: IProduct;
   isModel?: boolean;
@@ -46,7 +47,7 @@ interface CardProps {
   isLandscape?: boolean;
   calculateHeight?: string;
   portSpace?: string;
-  productImages?: IProductsImage[]
+  productImages?: IProductsImage[];
 }
 
 const Card: React.FC<CardProps> = ({
@@ -60,27 +61,30 @@ const Card: React.FC<CardProps> = ({
   isLandscape,
   calculateHeight,
   portSpace,
-  productImages
+  productImages,
 }) => {
   const dispatch = useDispatch<Dispatch>();
   const cartItems = useSelector((state: State) => state.cart.items);
-  const [ cardImage , setCardImage ] = useState<IHomeProducts | undefined>(undefined)
+  const [cardImage, setCardImage] = useState<IHomeProducts | undefined>(
+    undefined,
+  );
   const pathname = usePathname();
-
 
   const handleEventProbation = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
-  }
+  };
 
   const itemToAdd: CartItem | any = {
     ...card,
     quantity: 1,
   };
   useEffect(() => {
-    const cardImage = productImages?.find((item: any) => item.name === card?.name);
-    console.log(cardImage,'cardImage')
+    const cardImage = productImages?.find(
+      (item: any) => item.name === card?.name,
+    );
+    console.log(cardImage, 'cardImage');
     setCardImage(cardImage as IHomeProducts);
-  },[productImages])
+  }, [productImages]);
   const handleAddToCard = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
     const existingCartItem = cartItems.find((item) => item.id === card?.id);
@@ -88,7 +92,9 @@ const Card: React.FC<CardProps> = ({
     const newQuantity = currentQuantity + itemToAdd.quantity;
 
     if (newQuantity > (card?.stock || 0)) {
-      message.error(`Only ${card?.stock} items are in stock. You cannot add more than that.`);
+      message.error(
+        `Only ${card?.stock} items are in stock. You cannot add more than that.`,
+      );
       return;
     }
     dispatch(addItem(itemToAdd));
@@ -106,33 +112,52 @@ const Card: React.FC<CardProps> = ({
 
   const { averageRating } = calculateRatingsPercentage(filteredReviews);
 
-
   const handleNavigation = (): string => {
-    let mainCategory = card?.categories?.find((value) => value.name.trim().toLocaleLowerCase() === pathname.split('/')[1].trim().toLocaleLowerCase())
+    let main_Category = pathname.split('/')[1].trim().toLocaleLowerCase();
+    let subCategory = pathname.split('/')[2]?.trim().toLocaleLowerCase();
 
-    let subcategory = card?.subcategories && card?.subcategories[0]?.name?.trim().toLocaleLowerCase()
+    let redirectedMain = re_Calling_products.find(
+      (value: any) =>
+        generateSlug(value.mainCategory).trim().toLowerCase() ===
+          main_Category &&
+        subCategory == generateSlug(value.subCategory).trim().toLowerCase(),
+    );
+
+
+    let mainCategory = card?.categories?.find((value) =>
+        value.name.trim().toLocaleLowerCase() ===
+        (redirectedMain ? redirectedMain.redirect_main_cat.trim().toLocaleLowerCase(): main_Category)
+    );
+
+    let subcategory =card?.subcategories && card?.subcategories[0]?.name?.trim().toLocaleLowerCase();
     let url;
-    console.log(mainCategory?.name, 'filteredCards', card)
-    if (!mainCategory) return "/"
 
-    if (subcategory) {
-      url = '/' + generateSlug(mainCategory.name || '') + '/' + generateSlug(subcategory || '') + '/' + generateSlug(card?.name || '')
+    console.log(redirectedMain, 'redirectedMain', mainCategory);
 
-      return url
+    if (!mainCategory) return card?.categories && card?.categories[0].name.toLowerCase() || "";
+
+    if (subcategory) {url = '/' +
+        generateSlug(mainCategory.name || '') +
+        '/' +
+        generateSlug(subcategory || '') +
+        '/' +
+        generateSlug(card?.name || '');
+
+      return url;
     }
 
-    url = '/' + generateSlug(mainCategory.name || '') + '/' + generateSlug(card?.name || '')
+    url ='/' +generateSlug(mainCategory.name || '') +'/' + generateSlug(card?.name || '');
 
-    return url
+    return url;
   };
-
 
   if (!card) {
     return <CardSkeleton skeletonHeight={skeletonHeight} />;
   }
   const imgIndex = card.productImages.slice(-1)[0];
   return (
-    <Link href={handleNavigation()}
+    <Link
+      href={handleNavigation()}
       className={`text-center product-card  mb-2 flex flex-col ${slider ? '' : ' justify-between'} h-auto  p-1 rounded-[35px] w-full`}
     >
       <div className="relative w-full overflow-hidden rounded-t-[35px] group">
@@ -145,57 +170,65 @@ const Card: React.FC<CardProps> = ({
             loop={true}
             modules={[Pagination]}
           >
-            {Array(2).fill(null).map((_, index) => (
-              <SwiperSlide key={index} className="w-full">
-                {imgIndex && isLandscape ? (
-                  <div className={`${cardImageHeight} flex justify-center items-center px-2`}>
-                    <Link href={handleNavigation()}>
-                      <Image
-                        src={cardImage?.posterImageUrl || imgIndex.imageUrl}
-                        alt={imgIndex.altText || 'image'}
-                        width={600}
-                        height={600}
-                        className={cn(
-                          'object-contain rounded-[35px] w-full',
-                          className,
-                        )}
-                        style={{ height: calculateHeight ? calculateHeight : 'calc(100% - 20px)' }}
-                      />
-                    </Link>
+            {Array(2)
+              .fill(null)
+              .map((_, index) => (
+                <SwiperSlide key={index} className="w-full">
+                  {imgIndex && isLandscape ? (
+                    <div
+                      className={`${cardImageHeight} flex justify-center items-center px-2`}
+                    >
+                      <Link href={handleNavigation()}>
+                        <Image
+                          src={cardImage?.posterImageUrl || imgIndex.imageUrl}
+                          alt={imgIndex.altText || 'image'}
+                          width={600}
+                          height={600}
+                          className={cn(
+                            'object-contain rounded-[35px] w-full',
+                            className,
+                          )}
+                          style={{
+                            height: calculateHeight
+                              ? calculateHeight
+                              : 'calc(100% - 20px)',
+                          }}
+                        />
+                      </Link>
+                    </div>
+                  ) : (
+                    <div
+                      className={`${cardImageHeight} bg-[#E3E4E6] flex justify-center items-center rounded-[35px] ${portSpace ? portSpace : 'px-2'}`}
+                    >
+                      <Link href={handleNavigation()}>
+                        <Image
+                          src={cardImage?.posterImageUrl || imgIndex.imageUrl}
+                          alt={imgIndex?.altText || 'image'}
+                          onClick={() => handleNavigation()}
+                          width={600}
+                          height={600}
+                          className={cn(
+                            'object-contain rounded-[35px] w-full',
+                            className,
+                          )}
+                        />
+                      </Link>
+                    </div>
+                  )}
 
-                  </div>
-                ) : (
-                  <div className={`${cardImageHeight} bg-[#E3E4E6] flex justify-center items-center rounded-[35px] ${portSpace ? portSpace : 'px-2'}`}>
-                    <Link href={handleNavigation()}>
-                      <Image
-                        src={cardImage?.posterImageUrl || imgIndex.imageUrl}
-                        alt={imgIndex?.altText || 'image'}
-                        onClick={() => handleNavigation()}
-                        width={600}
-                        height={600}
-                        className={cn(
-                          'object-contain rounded-[35px] w-full',
-                          className,
-                        )}
-                      />
-                    </Link>
-                  </div>
-                )}
-
-                {card.discountPrice > 1 && (
-                  <p className="absolute top-1 -left-9 px-7 transform -rotate-45 bg-[#FF0000] text-white text-14 font-bold w-[120px] h-[40px] flex justify-center items-center">
-                    {Math.round(
-                      ((card.price - card.discountPrice) / card.price) * 100,
-                    )}
-                    %
-                  </p>
-                )}
-              </SwiperSlide>
-            ))}
-
+                  {card.discountPrice > 1 && (
+                    <p className="absolute top-1 -left-9 px-7 transform -rotate-45 bg-[#FF0000] text-white text-14 font-bold w-[120px] h-[40px] flex justify-center items-center">
+                      {Math.round(
+                        ((card.price - card.discountPrice) / card.price) * 100,
+                      )}
+                      %
+                    </p>
+                  )}
+                </SwiperSlide>
+              ))}
           </Swiper>
         ) : (
-          <div className='bg-[#E3E4E6] rounded-[35px]'>
+          <div className="bg-[#E3E4E6] rounded-[35px]">
             {/* <span className='pb-10'>{card.subcategories?.map((item) => item.name)}</span> */}
             {card.discountPrice > 0 && (
               <p className="absolute top-1 -left-9 px-7 transform -rotate-45 bg-[#FF0000] text-white text-14 font-bold w-[120px] h-[40px] flex justify-center items-center">
@@ -206,8 +239,9 @@ const Card: React.FC<CardProps> = ({
               </p>
             )}
             {isHomepage ? (
-              <div className={` ${cardImageHeight} flex justify-center items-center`}>
-
+              <div
+                className={` ${cardImageHeight} flex justify-center items-center`}
+              >
                 <Image
                   src={cardImage?.posterImageUrl || imgIndex.imageUrl}
                   alt={card.posterImageAltText || card.name}
@@ -217,45 +251,48 @@ const Card: React.FC<CardProps> = ({
                   className={
                     'rounded-[35px] w-full px-2 object-contain cursor-pointer'
                   }
-                  style={{ height: calculateHeight ? calculateHeight : 'calc(100% - 20px)' }}
+                  style={{
+                    height: calculateHeight
+                      ? calculateHeight
+                      : 'calc(100% - 20px)',
+                  }}
                 />
-              </div>)
-              : (
-                <Link href={handleNavigation()}>
-
-
-                  <Image
-                    src={card.posterImageUrl}
-                    alt={card.posterImageAltText || card.name}
-                    onClick={() => handleNavigation()}
-                    width={600}
-                    height={600}
-                    className={cn(
-                      'object-cover rounded-[35px] w-full',
-                      className,
-                      skeletonHeight,
-                      cardImageHeight,
-                    )}
-                  />
-                </Link>
-              )}
+              </div>
+            ) : (
+              <Link href={handleNavigation()}>
+                <Image
+                  src={card.posterImageUrl}
+                  alt={card.posterImageAltText || card.name}
+                  onClick={() => handleNavigation()}
+                  width={600}
+                  height={600}
+                  className={cn(
+                    'object-cover rounded-[35px] w-full',
+                    className,
+                    skeletonHeight,
+                    cardImageHeight,
+                  )}
+                />
+              </Link>
+            )}
           </div>
         )}
 
         <div className="space-y-3">
           <h3 className="text-sm md:text-[22px] text-gray-600 font-Helveticalight mt-2 group-hover:font-bold group-hover:text-black">
-
-
-            <Link className='cursor-pointer' href={handleNavigation()}> {card.name}</Link>
+            <Link className="cursor-pointer" href={handleNavigation()}>
+              {' '}
+              {card.name}
+            </Link>
           </h3>
           <div>
             {card.discountPrice > 0 ? (
               <div className="flex gap-2 justify-center">
                 <p className="text-sm md:text-18 font-bold line-through font-Helveticalight">
-                  AED{" "} {new Intl.NumberFormat().format(card.price)}
+                  AED {new Intl.NumberFormat().format(card.price)}
                 </p>
                 <p className="text-sm md:text-18 font-bold text-[#FF0000]">
-                  AED{" "} {new Intl.NumberFormat().format(card.discountPrice)}
+                  AED {new Intl.NumberFormat().format(card.discountPrice)}
                 </p>
               </div>
             ) : (
@@ -264,7 +301,7 @@ const Card: React.FC<CardProps> = ({
               </p>
             )}
           </div>
-        {averageRating > 0 && (
+          {averageRating > 0 && (
             <div className="flex gap-1 items-center justify-center mt-1 h-5">
               {renderStars({ star: averageRating })}
             </div>
@@ -294,7 +331,8 @@ const Card: React.FC<CardProps> = ({
                 d="M11.8,1.49H.768c-.722,0-.683.292-.62,1.037L.558,7.76c.07.834.011.632.894.758L9.57,9.551,9.14,10.8H.4c-.118.442-.279,1.163-.4,1.656H1.453l.14-.5H8.578c1.6-.027,1.442.407,1.826-.978L13.159.959h1.322V0h-2.32c-.108.4-.257,1.082-.357,1.49ZM8.13,12.293a1.121,1.121,0,1,0,1.121,1.121A1.122,1.122,0,0,0,8.13,12.293Zm-4.625,0a1.121,1.121,0,1,0,1.121,1.121A1.122,1.122,0,0,0,3.5,12.293Zm7.333-7.2H9.052L9.7,2.385h1.884l-.218.811h-.007l-.522,1.9ZM8.766,2.386,8.118,5.095H6.4l.651-2.706,1.718,0Zm-2.653,0L5.463,5.095H3.817l.648-2.7,1.648,0Zm-2.583,0L2.882,5.1H1.235L1.053,2.924C1,2.319.9,2.4,1.482,2.4l2.048,0ZM1.293,5.783H2.717l-.47,1.959-.116-.015c-.718-.1-.671.062-.727-.616L1.293,5.783Zm1.86,2.083.5-2.083H5.3l-.552,2.3L3.152,7.866Zm2.5.339.583-2.424H7.954L7.319,8.433,5.65,8.206Zm2.574.351.664-2.774h1.761L9.825,8.776l-1.6-.219Z"
                 fillRule="evenodd"
               />
-            </svg>Add to Cart
+            </svg>
+            Add to Cart
           </button>
 
           <Dialog>
