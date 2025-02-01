@@ -61,13 +61,10 @@ const ProductDetail = ({
     detailsWidth?: String;
     products?: IProduct[]
   }) => {
-  // const description: string = '';
-  // const [isExpanded, setIsExpanded] = useState(false);
+
   const truncateText = (text: any, limit: any) => {
     return text.length > limit ? text.slice(0, limit) + '...' : text;
   };
-  // const [hoveredImage, setHoveredImage] = useState<string | null>(null);
-  // const cartItems = useSelector((state: State) => state.cart.items);
 
   const [count, setCount] = useState(1);
   const dispatch = useDispatch<Dispatch>();

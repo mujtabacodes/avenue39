@@ -212,6 +212,17 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
   ) => {
     setImagesUrlhandler((prev: any) => {
 
+      const updatedImagesUrl = prev.map((item: any, i: number) => i === index ? { ...item, index: newImageIndex } : item);
+      return updatedImagesUrl;
+    });
+  };
+  const handleImageAltText = (
+    index: number,
+    newImageIndex: number | string,
+    setImagesUrlhandler: React.Dispatch<React.SetStateAction<any>>
+  ) => {
+    setImagesUrlhandler((prev: any) => {
+
       const updatedImagesUrl = prev.map((item: any, i: number) => i === index ? { ...item, altText: newImageIndex } : item);
       return updatedImagesUrl;
     });
@@ -1346,14 +1357,23 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                                 />
                                 <input
                                   type="text"
-                                  placeholder="Add Image Color"
+                                  placeholder="Add Image index"
                                   className=" rounded-b-md p-2 text-sm focus:outline-none w-full "
-                                  value={item.color}
+                                  value={item.index}
                                   onChange={(e) =>
-                                    handleImageColor(index, e.target.value, setImagesUrl)
+                                    handleImageIndex(index, e.target.value, setImagesUrl)
                                   }
                                 />
                               </div>
+                              <input
+                                type="text"
+                                placeholder="Add Image Color"
+                                className=" rounded-b-md p-2 text-sm focus:outline-none w-full "
+                                value={item.color}
+                                onChange={(e) =>
+                                  handleImageColor(index, e.target.value, setImagesUrl)
+                                }
+                              />
                               <input
                                 className="border mt-2 w-full rounded-md border-stroke px-2 text-14 py-2 focus:border-primary active:border-primary outline-none"
                                 placeholder="altText"
@@ -1361,7 +1381,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                                 name="altText"
                                 value={item.altText}
                                 onChange={(e) =>
-                                  handleImageIndex(index, String(e.target.value), setImagesUrl)
+                                  handleImageAltText(index, String(e.target.value), setImagesUrl)
                                 }
                               />
                               <input
