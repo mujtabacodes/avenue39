@@ -110,6 +110,10 @@ interface ProductImage {
   public_id: string;
   altText?: string;
   imageIndex?: number;
+
+  size?: string;
+
+  color?: string;
 }
 export interface IProduct {
   id: number;
@@ -189,7 +193,6 @@ export interface IDiscountProducts {
   imageUrl: StaticImageData;
   title: string;
 }
-
 
 export interface ISocialIcons {
   id: number;

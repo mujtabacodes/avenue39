@@ -204,17 +204,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
     });
   };
 
-  const handleImageIndex = (
-    index: number,
-    newImageIndex: number | string,
-    setImagesUrlhandler: React.Dispatch<React.SetStateAction<any>>
-  ) => {
-    setImagesUrlhandler((prev: any) => {
 
-      const updatedImagesUrl = prev.map((item: any, i: number) => i === index ? { ...item, index: newImageIndex } : item);
-      return updatedImagesUrl;
-    });
-  };
   const handleImageAltText = (
     index: number,
     newImageIndex: number | string,
@@ -317,7 +307,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                                   name="altText"
                                   value={item.altText}
                                   onChange={(e) =>
-                                    handleImageIndex(index, String(e.target.value), setposterimageUrl)
+                                    handleImageAltText(index, String(e.target.value), setposterimageUrl)
                                   }
                                 />
                               </div>
@@ -1302,7 +1292,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                                 name="altText"
                                 value={item.altText}
                                 onChange={(e) =>
-                                  handleImageIndex(
+                                  handleImageAltText(
                                     index,
                                     String(e.target.value),
                                     sethoverImage
@@ -1354,15 +1344,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                                   src={item.imageUrl}
                                   alt={`productImage-${index}`}
                                 />
-                                <input
-                                  type="text"
-                                  placeholder="Add Image index"
-                                  className=" rounded-b-md p-2 text-sm focus:outline-none w-full "
-                                  value={item.index}
-                                  onChange={(e) =>
-                                    handleImageIndex(index, e.target.value, setImagesUrl)
-                                  }
-                                />
+
                               </div>
                               <input
                                 type="text"

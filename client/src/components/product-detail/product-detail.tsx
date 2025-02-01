@@ -76,16 +76,56 @@ const ProductDetail = ({
     min: 0,
     sec: 0,
   });
+
   const [activeIndex, setActiveIndex] = useState(0);
   const [selectedSize, setSelectedSize] = useState(0);
+  const [productPrice, setProductPrice] = useState(0);
+  const product = products?.find((product) => product.name === slug);
 
-  const handleClick = (index: number) => {
+  const handleColorClick = (index: number) => {
     setActiveIndex(index);
-
   };
-  const handleSize = (index: number) => {
+
+  const handleSizeClick = (index: number) => {
     setSelectedSize(index);
   };
+
+  useEffect(() => {
+    if (!product) return;
+
+    const availableSizes = product.productImages.filter(
+      (img) => product.filter && img.color === product.filter[0]?.additionalInformation[activeIndex]?.name
+    );
+    const price = product.filter && product.filter[0]?.additionalInformation[activeIndex]?.price;
+    setProductPrice(Number(price));
+
+
+    const firstAvailableSize = availableSizes.length > 0
+      ? product.sizes?.findIndex((size) =>
+        availableSizes.some((img) => img.size === size)
+      )
+      : 0;
+
+    setSelectedSize(firstAvailableSize ?? 0);
+  }, [activeIndex, product]);
+
+  useEffect(() => {
+    if (!product) return;
+
+    const selectedSizeValue = product.sizes ? product.sizes[selectedSize] : undefined;
+
+    const availableColors = product.productImages.filter(
+      (img) => img.size === selectedSizeValue
+    );
+
+    const firstAvailableColor = availableColors.length > 0
+      ? product.filter?.[0]?.additionalInformation.findIndex(
+        (color) => color.name === availableColors[0].color
+      )
+      : 0;
+
+    setActiveIndex(firstAvailableColor ?? 0);
+  }, [selectedSize, product]);
 
 
   function formatPrice(price: any) {
@@ -96,7 +136,6 @@ const ProductDetail = ({
   }
 
   console.log(slug, 'slug');
-  const product = products?.find((product) => product.name === slug);
   const Navigate = useRouter();
   useEffect(() => {
     if (product) {
@@ -261,7 +300,8 @@ const ProductDetail = ({
 
         ) : (
           <ProductPrice className="flex items-center gap-2">
-            AED {formatPrice(product?.price)}
+            {/* AED {formatPrice(product?.price)} */}
+            {productPrice > 0 ? `AED ${formatPrice(productPrice)}` : `AED ${formatPrice(product?.price)}`}
           </ProductPrice>
 
         )}
@@ -281,28 +321,29 @@ const ProductDetail = ({
             truncateText(product?.description, 120)}
         </p>
 
-
-        {product?.filter && (
-          <div className="p-4">
-            {product?.filter && (
+        <div>
+          {product?.filter && product?.filter.length > 0 && product?.filter[0]?.additionalInformation && (
+            <div className="p-4">
               <div>
-                <h2 className="font-bold text-xl">
-                  {product?.filter[0].heading}:{" "}
-                  {product?.filter[0].additionalInformation[activeIndex].name}
+                <h2 className="font-semibold text-[16px] font-sans Capitalize">
+                  {product?.filter[0]?.heading}{" "}
+                  <span className='capitalize'>
+                    {product?.filter[0]?.additionalInformation[activeIndex]?.name}
+                  </span>
                 </h2>
 
                 <div className="flex space-x-4 mt-2">
-                  {product?.filter[0].additionalInformation.map((item, index) => {
+                  {product?.filter[0]?.additionalInformation.map((item, index) => {
                     const image = product?.productImages.find(
-                      // @ts-ignore
                       (img) => img.color === item.name
                     );
+                    if (!image) return null;
 
                     return (
                       <div
                         key={index}
-                        onClick={() => handleClick(index, image)}
-                        className={`cursor-pointer border rounded-lg p-2 flex items-center justify-center transition ${activeIndex === index
+                        onClick={() => handleColorClick(index)}
+                        className={`cursor-pointer border rounded-lg p-1 flex items-center justify-center transition ${activeIndex === index
                           ? "border-black font-bold shadow-md"
                           : "hover:shadow-lg"
                           }`}
@@ -313,8 +354,45 @@ const ProductDetail = ({
                             alt={image.altText || "product image"}
                             width={48}
                             height={48}
-                            className="object-cover rounded"
+                            className="h-[50px] width-[48px] object-cover rounded"
                           />
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+          )}
+
+          <div className="p-4">
+            {product?.sizes && product?.sizes.length > 0 && (
+              <div>
+                <h2 className="font-semibold text-[16px] font-sans Capitalize">Size:</h2>
+                <div className="flex space-x-4">
+                  {product.sizes.map((size, index) => {
+                    const availableColors = product?.productImages.filter(
+                      (img) => img.size === size
+                    );
+
+                    if (availableColors.length === 0) return null; // Skip sizes that don't have matching colors
+                    const [sizeName, sizeType] = size.split(" ");
+                    return (
+                      <div
+                        key={index}
+                        onClick={() => handleSizeClick(index)}
+                        className={`cursor-pointer border rounded-lg bg-[#F5F5F5] p-4 flex flex-col items-center justify-center h-[60px] w-[60px] transition ${selectedSize === index
+                          ? "border-black shadow-md"
+                          : "hover:shadow-lg"
+                          }`}
+                      >
+                        <span className="block text-[#666666] text-[14px] uppercase font-sans">
+                          {sizeName}
+                        </span>
+                        {sizeType && (
+                          <span className="block text-[10px] uppercase font-sans">
+                            {sizeType}
+                          </span>
                         )}
                       </div>
                     );
@@ -323,35 +401,8 @@ const ProductDetail = ({
               </div>
             )}
           </div>
-
-        )}
-
-        <div className="p-4">
-          {product?.sizes && (
-            <div>
-              <h2 className="font-bold text-xl mb-2">Size:</h2>
-              <div className="flex space-x-4">
-                {product.sizes.map((size, index) => (
-                  <div
-                    key={index}
-                    onClick={() => handleSize(index)}
-                    className={`cursor-pointer border rounded-lg p-4 flex flex-col items-center justify-center transition ${selectedSize === index
-                      ? "border-black font-bold shadow-md"
-                      : "hover:shadow-lg"
-                      }`}
-                  >
-                    <span className="block text-lg font-medium">
-                      {size.split(" ")[0]}
-                    </span>
-                    <span className="block text-sm text-gray-500">
-                      {size.split(" ")[1] || ""}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
         </div>
+
 
         {product.sale_counter &&
           Object.values(timeLeft).some((value) => value > 0) && (
