@@ -28,6 +28,7 @@ interface ThumbProps {
   isZoom?: Boolean;
   swiperGap?: String;
   isLoading: boolean;
+  activeIndex?: Number;
 }
 
 const Thumbnail: React.FC<ThumbProps> = ({
@@ -35,16 +36,16 @@ const Thumbnail: React.FC<ThumbProps> = ({
   isZoom,
   swiperGap,
   isLoading,
-  altText
-
+  altText,
+  activeIndex
 }) => {
   const prevRef = useRef<HTMLDivElement>(null);
   const nextRef = useRef<HTMLDivElement>(null);
   const swiperImageRef = useRef<SwiperType | null>(null);
-/* eslint-disable */
+  /* eslint-disable */
   const [currentSlide, setCurrentSlide] = useState<number>(0);
   /* eslint-enable */
-  
+
   const [imagesLoaded, setImagesLoaded] = useState(false);
   const preloadImages = (images: string[]) => {
     return Promise.all(
@@ -58,6 +59,10 @@ const Thumbnail: React.FC<ThumbProps> = ({
       })
     );
   };
+
+  useEffect(() => {
+    handleSlideChange(Number(activeIndex));
+  }, [activeIndex]);
 
   useEffect(() => {
     preloadImages(thumbs.map((thumb) => thumb.imageUrl || '')).then(() => {
@@ -79,10 +84,10 @@ const Thumbnail: React.FC<ThumbProps> = ({
     <div>
       <div className="relative w-full">
         <div className={`w-full flex flex-col-reverse md:flex-row gap-2 sm:gap-3 md:gap-4 lg:gap-5 overflow-hidden relative ${swiperGap}`}>
-          <CustomThumbnailSlickSlider 
-            thumbs={thumbs} 
-            isZoom={isZoom} 
-            onSlideChange={handleSlideChange}  
+          <CustomThumbnailSlickSlider
+            thumbs={thumbs}
+            isZoom={isZoom}
+            onSlideChange={handleSlideChange}
           />
           <div
             className={`w-full md:w-9/12 2xl:w-4/5 md:flex-grow relative border-2 border-gray-100 shadow rounded-lg md:!max-h-[640px]`}
@@ -102,7 +107,7 @@ const Thumbnail: React.FC<ThumbProps> = ({
                 onSwiper={(swiper) => {
                   swiperImageRef.current = swiper;
                 }}
-                
+
               >
                 {thumbs.map((thumb, index) => (
                   <SwiperSlide key={index}>

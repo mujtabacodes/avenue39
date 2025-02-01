@@ -204,17 +204,41 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
     });
   };
 
-const handleImageIndex = (
-  index: number,
-  newImageIndex: number | string,
-  setImagesUrlhandler: React.Dispatch<React.SetStateAction< any>>
-) => {
-  setImagesUrlhandler((prev:any) => {
 
-    const updatedImagesUrl = prev.map((item:any, i:number) => i === index ? { ...item, altText: newImageIndex } : item);
-    return updatedImagesUrl;
-  });
-};
+  const handleImageAltText = (
+    index: number,
+    newImageIndex: number | string,
+    setImagesUrlhandler: React.Dispatch<React.SetStateAction<any>>
+  ) => {
+    setImagesUrlhandler((prev: any) => {
+
+      const updatedImagesUrl = prev.map((item: any, i: number) => i === index ? { ...item, altText: newImageIndex } : item);
+      return updatedImagesUrl;
+    });
+  };
+  const handleImageColor = (
+    index: number,
+    newImageIndex: number | string,
+    setImagesUrlhandler: React.Dispatch<React.SetStateAction<any>>
+  ) => {
+    setImagesUrlhandler((prev: any) => {
+
+      const updatedImagesUrl = prev.map((item: any, i: number) => i === index ? { ...item, color: newImageIndex } : item);
+      return updatedImagesUrl;
+    });
+  };
+
+  const handleImageSize = (
+    index: number,
+    newImageIndex: number | string,
+    setImagesUrlhandler: React.Dispatch<React.SetStateAction<any>>
+  ) => {
+    setImagesUrlhandler((prev: any) => {
+
+      const updatedImagesUrl = prev.map((item: any, i: number) => i === index ? { ...item, size: newImageIndex } : item);
+      return updatedImagesUrl;
+    });
+  };
 
   return (
     <>
@@ -283,7 +307,7 @@ const handleImageIndex = (
                                   name="altText"
                                   value={item.altText}
                                   onChange={(e) =>
-                              handleImageIndex(index, String(e.target.value), setposterimageUrl)
+                                    handleImageAltText(index, String(e.target.value), setposterimageUrl)
                                   }
                                 />
                               </div>
@@ -310,8 +334,8 @@ const handleImageIndex = (
                           value={formik.values.name}
                           placeholder="Title"
                           className={`w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${formik.touched.name && formik.errors.name
-                              ? 'border-red-500'
-                              : ''
+                            ? 'border-red-500'
+                            : ''
                             }`}
                         />
                         {formik.touched.name && formik.errors.name ? (
@@ -331,9 +355,9 @@ const handleImageIndex = (
                           value={formik.values.description}
                           placeholder="description"
                           className={`w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${formik.touched.description &&
-                              formik.errors.description
-                              ? 'border-red-500'
-                              : ''
+                            formik.errors.description
+                            ? 'border-red-500'
+                            : ''
                             }`}
                         />
                         {formik.touched.description &&
@@ -362,8 +386,8 @@ const handleImageIndex = (
                             placeholder="Product Price"
                             min="0"
                             className={`w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${formik.touched.price && formik.errors.price
-                                ? 'border-red-500'
-                                : ''
+                              ? 'border-red-500'
+                              : ''
                               }`}
                           />
                           {formik.touched.price && formik.errors.price ? (
@@ -377,6 +401,7 @@ const handleImageIndex = (
                             </div>
                           ) : null}
                         </div>
+
 
                         {/* <div className="w-[33%]">
                           <label className="mb-3 block text-sm font-medium text-black dark:text-white">
@@ -877,7 +902,6 @@ const handleImageIndex = (
                               ),
                             )}
 
-                            {/* Button to add a new section */}
                             <button
                               type="button"
                               onClick={() =>
@@ -961,6 +985,17 @@ const handleImageIndex = (
                                                 placeholder="Add details (Black, Reactangle, 11cm)"
                                                 className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white"
                                               />
+                                              <input
+                                                type="number"
+                                                name={`filter[${sectionIndex}].additionalInformation[${modelIndex}].price`}
+                                                onChange={formik.handleChange}
+                                                onBlur={formik.handleBlur}
+                                                value={model.price || ''}
+                                                placeholder="price"
+                                                className="w-full rounded-lg ml-1 border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white"
+                                              />
+
+
 
                                               <button
                                                 type="button"
@@ -981,7 +1016,7 @@ const handleImageIndex = (
                                           <button
                                             type="button"
                                             onClick={() =>
-                                              pushInfo({ name: '' })
+                                              pushInfo({ name: '', price: '' })
                                             }
                                             className="px-4 py-2 bg-black text-white dark:bg-main rounded-md shadow-md w-fit"
                                           >
@@ -1042,14 +1077,14 @@ const handleImageIndex = (
                                       }
                                       placeholder="Model Name"
                                       className={`w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${model.name &&
-                                          (
-                                            formik.errors
-                                              .additionalInformation as FormikErrors<
-                                                FormValues['additionalInformation']
-                                              >
-                                          )?.[index]
-                                          ? 'border-red-500 dark:border-white'
-                                          : ''
+                                        (
+                                          formik.errors
+                                            .additionalInformation as FormikErrors<
+                                              FormValues['additionalInformation']
+                                            >
+                                        )?.[index]
+                                        ? 'border-red-500 dark:border-white'
+                                        : ''
                                         }`}
                                     />
                                     <input
@@ -1064,14 +1099,14 @@ const handleImageIndex = (
                                       }
                                       placeholder="Model Detail"
                                       className={`w-full rounded-lg ml-2 border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${model.detail &&
-                                          (
-                                            formik.errors
-                                              .additionalInformation as FormikErrors<
-                                                FormValues['additionalInformation']
-                                              >
-                                          )?.[index]
-                                          ? 'border-red-500 dark:border-white'
-                                          : ''
+                                        (
+                                          formik.errors
+                                            .additionalInformation as FormikErrors<
+                                              FormValues['additionalInformation']
+                                            >
+                                        )?.[index]
+                                        ? 'border-red-500 dark:border-white'
+                                        : ''
                                         }`}
                                     />
                                     <button
@@ -1124,14 +1159,14 @@ const handleImageIndex = (
                                     }
                                     placeholder="Specification Details"
                                     className={`w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${spec.specsDetails &&
-                                        (
-                                          formik.errors
-                                            .spacification as FormikErrors<
-                                              FormValues['spacification']
-                                            >
-                                        )?.[index]?.specsDetails
-                                        ? 'border-red-500'
-                                        : ''
+                                      (
+                                        formik.errors
+                                          .spacification as FormikErrors<
+                                            FormValues['spacification']
+                                          >
+                                      )?.[index]?.specsDetails
+                                      ? 'border-red-500'
+                                      : ''
                                       }`}
                                   />
                                   <button
@@ -1184,9 +1219,9 @@ const handleImageIndex = (
                                     }
                                     placeholder="Size Name (1 seater, 2 seater, etc)"
                                     className={`w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${(formik.touched as any).sizes?.[index] && (
-                                        formik.errors.sizes as FormikErrors<FormValues['sizes']>)?.[index]
-                                        ? 'border-red-500'
-                                        : ''
+                                      formik.errors.sizes as FormikErrors<FormValues['sizes']>)?.[index]
+                                      ? 'border-red-500'
+                                      : ''
                                       }`}
 
                                   />
@@ -1257,7 +1292,7 @@ const handleImageIndex = (
                                 name="altText"
                                 value={item.altText}
                                 onChange={(e) =>
-                                  handleImageIndex(
+                                  handleImageAltText(
                                     index,
                                     String(e.target.value),
                                     sethoverImage
@@ -1309,16 +1344,17 @@ const handleImageIndex = (
                                   src={item.imageUrl}
                                   alt={`productImage-${index}`}
                                 />
-                                <input
-                                  type="number"
-                                  placeholder="Add Image Index"
-                                  className=" rounded-b-md p-2 text-sm focus:outline-none w-full "
-                                  value={item.imageIndex}
-                                  onChange={(e) =>
-                                    handleImageIndex(index, Number(e.target.value), setImagesUrl)
-                                  }
-                                />
+
                               </div>
+                              <input
+                                type="text"
+                                placeholder="Add Image Color"
+                                className=" rounded-b-md p-2 text-sm focus:outline-none w-full "
+                                value={item.color}
+                                onChange={(e) =>
+                                  handleImageColor(index, e.target.value, setImagesUrl)
+                                }
+                              />
                               <input
                                 className="border mt-2 w-full rounded-md border-stroke px-2 text-14 py-2 focus:border-primary active:border-primary outline-none"
                                 placeholder="altText"
@@ -1326,7 +1362,17 @@ const handleImageIndex = (
                                 name="altText"
                                 value={item.altText}
                                 onChange={(e) =>
-                                  handleImageIndex(index, String(e.target.value), setImagesUrl)
+                                  handleImageAltText(index, String(e.target.value), setImagesUrl)
+                                }
+                              />
+                              <input
+                                className="border mt-2 w-full rounded-md border-stroke px-2 text-14 py-2 focus:border-primary active:border-primary outline-none"
+                                placeholder="Size"
+                                type="text"
+                                name="size"
+                                value={item.size}
+                                onChange={(e) =>
+                                  handleImageSize(index, String(e.target.value), setImagesUrl)
                                 }
                               />
                             </div>

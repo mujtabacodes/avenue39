@@ -42,10 +42,12 @@ export class ProductsService {
           status: HttpStatus.FORBIDDEN,
         };
       }
+      //@ts-expect-error
+      const { sizes, filters, ...filteredData } = Data;
 
       await this.prisma.products.create({
         data: {
-          ...Data,
+          ...filteredData,
           hoverImageUrl: productData.hoverImageUrl ?? null,
           hoverImagePublicId: productData.hoverImagePublicId ?? null,
           categories: {
@@ -91,10 +93,13 @@ export class ProductsService {
           (color: { colorName: string }) => color.colorName,
         ) ?? [];
 
+        //@ts-expect-error
+      const { sizes, filters, ...filteredData } = Data;
+
       await this.prisma.products.update({
         where: { id: productData.id },
         data: {
-          ...Data,
+          ...filteredData,
           colors: colors ?? existingProduct.colors ?? [],
           categories: {
             set: productData.categories?.map((id) => ({ id })) ?? [],

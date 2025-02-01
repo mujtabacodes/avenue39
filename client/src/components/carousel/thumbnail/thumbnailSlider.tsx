@@ -12,9 +12,9 @@ const CustomThumbnailSlickSlider = ({
   isZoom: boolean;
   /* eslint-disable */
   onSlideChange: (index: number) => void;
-   /* eslint-enable */
+  /* eslint-enable */
 }) => {
-  const slickRef = useRef<Slider | null>(null);  
+  const slickRef = useRef<Slider | null>(null);
   const settings = {
     infinite: thumbs.length > 1,
     centerMode: true,
@@ -26,7 +26,7 @@ const CustomThumbnailSlickSlider = ({
     verticalSwiping: true,
     arrows: thumbs.length > 1,
     nextArrow: <div id="nextArrow" className="slick-next-arrow !flex !justify-center !items-center">
-        <FaSortDown  size={25} className="text-black "/>
+      <FaSortDown size={25} className="text-black " />
     </div>,
     responsive: [
       {
@@ -58,15 +58,16 @@ const CustomThumbnailSlickSlider = ({
       },
     ],
     beforeChange: (_: number, next: number) => {
+      console.log("beforeChange", next);
       onSlideChange(next);
     }
   };
 
   return (
     <div className="w-full md:w-3/12 lg:w-1/5 h-fit max-h-[300px]">
-      <Slider 
+      <Slider
         ref={slickRef}
-        {...settings} 
+        {...settings}
         className="product-slider custom-Slick"
       >
         {thumbs.map((thumb, index) => (
@@ -76,6 +77,9 @@ const CustomThumbnailSlickSlider = ({
               src={thumb.imageUrl || '/default-image.jpg'}
               width={150}
               height={150}
+              onClick={() => {
+                console.log(thumb)
+              }}
               alt={thumb.altText || 'Thumbnail'}
             />
           </div>
