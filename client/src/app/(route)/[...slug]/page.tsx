@@ -166,6 +166,7 @@ const subCategory = async (slug: string[], url: string) => {
   };
 };
 
+
 export async function generateMetadata({
   params,
 }: SlugPageProps): Promise<Metadata> {
