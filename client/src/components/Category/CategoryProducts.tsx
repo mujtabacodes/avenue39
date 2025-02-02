@@ -16,8 +16,6 @@ const CategoryProducts = async ({ slug }: { slug: string[]  }) => {
       return <NotFound />
    }
 
-
-
    const categoryName = name === 'lighting' ? 'Lighting' : name === 'home-office' ? 'homeOffice' : name;
    const subcategory = menuData[categoryName] || []
 
