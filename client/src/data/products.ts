@@ -283,20 +283,20 @@ export const homeProducts: IHomeProducts[] = [
         posterImageUrl: "/images/HomeProducts/Living/Marlin.png"
       },
       {
-        name: "Fiori Side Cabinet",
-        posterImageUrl: "/images/HomeProducts/Dining/Fiori.png"
+        name: "Marlin Tub Swivel Chair",
+        posterImageUrl: "/images/HomeProducts/Living/Swivel.png"
       },
       {
-        name: "Floki Barstool",
-        posterImageUrl: "/images/HomeProducts/Dining/Floki.png"
+        name: "Marlin Rocking Chair",
+        posterImageUrl: "/images/HomeProducts/Living/rocking.png"
       },
       {
-        name: "Venice Barstool",
-        posterImageUrl: "/images/HomeProducts/Dining/Venice.png"
+        name: "Braga Armchair",
+        posterImageUrl: "/images/HomeProducts/Living/Braga.png"
       },
       {
-        name: "Trattori Barstool",
-        posterImageUrl: "/images/HomeProducts/Dining/Trattori.png"
+        name: "Capri Leather Swivel Chair",
+        posterImageUrl: "/images/HomeProducts/Living/Capri.png"
       },
     ]
   },
@@ -322,6 +322,26 @@ export const homeProducts: IHomeProducts[] = [
       {
         name: "Vista Sofa Bed",
         posterImageUrl: "/images/HomeProducts/Bedroom/Vista.png"
+      },
+      {
+        name: "Milano Sofa Bed ",
+        posterImageUrl: "/images/HomeProducts/Bedroom/Vista.png"
+      },
+      {
+        name: "Yakuba Side Table",
+        posterImageUrl: "/images/HomeProducts/Bedroom/Yakuba.png"
+      },
+      {
+        name: "Sexton Floor Lamp",
+        posterImageUrl: "/images/HomeProducts/Bedroom/Sexton.png"
+      },
+      {
+        name: "Florento Floor Lamp",
+        posterImageUrl: "/images/HomeProducts/Bedroom/Florento.png"
+      },
+      {
+        name: "Cipriani Floor Lamp",
+        posterImageUrl: "/images/HomeProducts/Bedroom/Cipriani.png"
       },
     ]
   },

@@ -31,7 +31,7 @@ const NewArrival = () => {
                   >
                     {item.title}
                   </Link>
-                  <div className='my-2'>
+                  <div className='my-2 text-center'>
                   <h3 className="font-extrabold text-xs sm:text-base lg:text-lg pt-2 lg:pt-4">{item.productName}</h3>
                   <p className="font-extrabold text-sm sm:text-lg lg:text-xl">{item.price}</p></div></div>
                 </div>

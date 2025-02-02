@@ -74,7 +74,7 @@ const SideBySideMagnifier: React.FC<SideBySideMagnifierProps> = ({
           height={800}
           quality={100}
           alt={altText || ''}
-          className="w-full h-full object-cover "
+          className="w-full h-full object-fill"
         />
       </div>
 
