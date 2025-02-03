@@ -1,11 +1,13 @@
 import { fetchCategories, fetchProducts, fetchSubCategories } from "@/config/fetch";
-import Product from "./Products";
+import dynamic from 'next/dynamic'
+const Product = dynamic(() => import('./Products'), {
+  loading: () => <p>Loading...</p>,
+})
 
 const Productspage = async () => {
-  const cetagories = await fetchCategories();
-  const subcetagories = await fetchSubCategories();
-  const products = await fetchProducts();
-  return ( <Product cetagories={cetagories} productsData={products} subcetagories={subcetagories}  />  );
+  const [cetagories, products] = await Promise.all([fetchCategories(), fetchProducts()]);
+
+  return ( <Product cetagories={cetagories} productsData={products} />  );
 };
 
 export default Productspage;

@@ -120,7 +120,6 @@ const ViewProduct: React.FC<CategoryProps> = ({
   let finalToken = token ? token : superAdminToken;
 
   const handleDelete = async (key: string) => {
-    // alert(key);
     try {
       const response = await axios.delete(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/product/delete-product`,

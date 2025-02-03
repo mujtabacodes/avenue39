@@ -11,10 +11,7 @@ import { SubCategoryComponentProps_dashboard } from '@/types/Pages_props';
 
 const SubCategoryComponent = ({subCategories , cetagories}: SubCategoryComponentProps_dashboard) => {
   const [menuType, setMenuType] = useState<string>('Sub Categories');
-  const [editCategory, seteditCategory] = useState<
-  Category | undefined | null
-  >();
-console.log(editCategory,'editCategory editCategory')
+  const [editCategory, seteditCategory] = useState<Category | undefined | null>();
   return (
     <DefaultLayout>
       <Breadcrumb pageName={menuType} />

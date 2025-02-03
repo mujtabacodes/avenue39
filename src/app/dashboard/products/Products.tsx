@@ -52,7 +52,6 @@ const Product = ({ cetagories, productsData }: { cetagories: ICategory[], produc
       {productFlag ? (
         <ViewProduct
           Categories={products}
-          // subcetagories={subcetagories}
           setCategory={setProducts}
           setselecteMenu={setselecteMenu}
           setEditProduct={setEditProduct}
