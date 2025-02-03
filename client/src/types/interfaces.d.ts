@@ -52,6 +52,7 @@ export interface Product {
 export interface Category {
   name: string;
   description?: string;
+  short_description?: string;
   meta_description?: string;
   meta_title?: string;
   canonical_tag?: string;

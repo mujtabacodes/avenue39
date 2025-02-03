@@ -27,7 +27,7 @@ const AllCategory = ({ products }: { products: IProduct[] }) => {
     const matchedCategory = products.flatMap(product => product.categories || [])
       .find(category => generateSlug(category.name) === generateSlug(categoryName));
 
-    return matchedCategory?.description || '';
+    return matchedCategory?.short_description || '';
   };
   console.log(filterByCategoryAndTitle(products, Living), 'Dining Items');
   return (

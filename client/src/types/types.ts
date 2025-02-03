@@ -283,6 +283,7 @@ export interface ICategory {
   posterImagePublicId?: string;
   categories?: any;
   description?: string;
+  short_description?: string;
   Images_Alt_Text?: string;
   Meta_Title?: string;
   Meta_Description?: string;

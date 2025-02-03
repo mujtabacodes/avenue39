@@ -31,6 +31,7 @@ const FormLayout = ({
       ? {
         name: editCategory.name, description: editCategory.description,
         meta_title: editCategory.meta_title || '',
+        short_description: editCategory.short_description || '',
         meta_description: editCategory.meta_description || '',
         canonical_tag: editCategory.canonical_tag || '',
         images_alt_text: editCategory.images_alt_text || ''
@@ -77,7 +78,7 @@ const FormLayout = ({
       );
       updateFlag ? seteditCategory(null) : null;
       setposterimageUrl(null);
-
+      setMenuType('Categories')
       resetForm();
     } catch (err) {
       console.log('error occurred', err);
@@ -184,6 +185,26 @@ const FormLayout = ({
                           onChange={formik.handleChange}
                           value={formik.values.description}
                           placeholder="Description"
+                          className={`w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter  dark:text-white dark:focus:border-primary ${formik.touched.name && formik.errors.name
+                            ? 'border-red-500'
+                            : ''
+                            }`}
+                        />
+                        {formik.touched.name && formik.errors.name ? (
+                          <div className="text-red-500 text-sm">
+                            {formik.errors.name}
+                          </div>
+                        ) : null}
+                      </div>
+                      <div>
+                        <label className="mb-3 block py-4 px-2 text-sm font-medium text-black dark:text-white">
+                          Short Description
+                        </label>
+                        <textarea
+                          name="short_description"
+                          onChange={formik.handleChange}
+                          value={formik.values.short_description}
+                          placeholder="Short Description"
                           className={`w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter  dark:text-white dark:focus:border-primary ${formik.touched.name && formik.errors.name
                             ? 'border-red-500'
                             : ''

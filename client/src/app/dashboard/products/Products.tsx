@@ -8,7 +8,7 @@ import { useState } from 'react';
 import FormElements from '@components/Dashboard/FormElements';
 import { ICategory, IProduct } from '@/types/types';
 
-const Product = ({cetagories , productsData}: {cetagories: ICategory[] , productsData: IProduct[]} ) => {
+const Product = ({cetagories , productsData ,subcetagories }: {cetagories: ICategory[] , productsData: IProduct[] ,subcetagories:ICategory[]} ) => {
   const [editProduct, setEditProduct] = useState<any | undefined>();
   const [products, setProducts] = useState<any[]>(productsData);
   const [selecteMenu, setselecteMenu] = useState<string>('Add All Products');
@@ -52,6 +52,7 @@ const Product = ({cetagories , productsData}: {cetagories: ICategory[] , product
       {productFlag ? (
         <ViewProduct
           Categories={products}
+          subcetagories={subcetagories}
           setCategory={setProducts}
           setselecteMenu={setselecteMenu}
           setEditProduct={setEditProduct}

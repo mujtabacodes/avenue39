@@ -33,6 +33,7 @@ interface CategoryProps {
   /* eslint-enable */
   loading?: boolean;
   setEditProduct: any;
+  subcetagories: any;
 }
 
 const ViewProduct: React.FC<CategoryProps> = ({
@@ -41,6 +42,7 @@ const ViewProduct: React.FC<CategoryProps> = ({
   setselecteMenu,
   loading,
   setEditProduct,
+  subcetagories,
 }) => {
   const [searchTerm, setSearchTerm] = useState<string>('');
 
