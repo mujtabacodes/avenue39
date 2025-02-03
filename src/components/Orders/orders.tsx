@@ -28,7 +28,9 @@ const OrderList = ({
   const filteredData = searchTerm
     ? orderData.filter((order) =>
         ['user_email', 'address', 'phoneNumber', 'orderId']
-          .map((key) => order[key as keyof IOrder]?.toString().toLowerCase() || '')
+          .map(
+            (key) => order[key as keyof IOrder]?.toString().toLowerCase() || '',
+          )
           .some((value) => value.includes(searchTerm.toLowerCase())),
       )
     : orderData;

@@ -123,8 +123,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                       <Link
                         href="/dashboard"
                         className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium  duration-300 ease-in-out hover:bg-black dark:hover:bg-main ${
-                          pathname === '/dashboard' &&
-                          'bg-black dark:bg-main'
+                          pathname === '/dashboard' && 'bg-black dark:bg-main'
                         }`}
                         onClick={(e) => {
                           e.preventDefault();
@@ -168,7 +167,10 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               </SidebarLinkGroup>
 
               <SidebarLinkGroup
-                activeCondition={pathname === '/dashboard/category' || pathname === '/dashboard/subcategory'}
+                activeCondition={
+                  pathname === '/dashboard/category' ||
+                  pathname === '/dashboard/subcategory'
+                }
               >
                 {(handleClick, open) => {
                   return (
@@ -176,8 +178,10 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                       <Link
                         href="#"
                         className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-black dark:hover:bg-main ${
-                          pathname === '/dashboard/category' || pathname === '/dashboard/subcategory' ?
-                          'bg-black dark:bg-main' : ''
+                          pathname === '/dashboard/category' ||
+                          pathname === '/dashboard/subcategory'
+                            ? 'bg-black dark:bg-main'
+                            : ''
                         }`}
                         onClick={(e) => {
                           e.preventDefault();
@@ -418,7 +422,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                             : setSidebarExpanded(true);
                         }}
                       >
-                        <BiEnvelope  size={20} className="text-white" />
+                        <BiEnvelope size={20} className="text-white" />
                         User Newsletter
                         <MdOutlineKeyboardArrowDown
                           size={30}

@@ -59,31 +59,30 @@ const Footer: React.FC = () => {
       <div className="container w-full sm:w-1/2 flex flex-col items-center mx-auto md:mb-[110px]">
         <Image src={logo} alt="logo" className="w-40" />
 
-<div className='w-fit'>
-        <p className="mt-6 tracking-wide font-Helveticalight text-13 lg:text-15 text-[#686868] max-sm:text-center">
-        Get Our Exclusive Handpicked Furniture Catalogue
-        </p>
-        <form className="mt-6 max-md:mb-5" onSubmit={handleNewsLetter}>
-          <div className="relative">
-            <input
-              type="email"
-              placeholder="Enter your mail address"
-              className="bg-white text-black w-full ps-3 py-5 rounded-2xl text-xs"
-              value={email}
-              onChange={handleChange}
-              disabled={isLoading}
-            />
-            <Button
-              variant={'secondary'}
-              className="text-white bg-black hover:bg-slate-700 absolute top-2 right-3 rounded-2xl px-2 font-extralight text-xs p-2"
-              disabled={isLoading}
-            >
-              {isLoading ? 'Subscribing...' : 'Submit'}
-            </Button>
-          </div>
-        </form>
-
-</div>
+        <div className="w-fit">
+          <p className="mt-6 tracking-wide font-Helveticalight text-13 lg:text-15 text-[#686868] max-sm:text-center">
+            Get Our Exclusive Handpicked Furniture Catalogue
+          </p>
+          <form className="mt-6 max-md:mb-5" onSubmit={handleNewsLetter}>
+            <div className="relative">
+              <input
+                type="email"
+                placeholder="Enter your mail address"
+                className="bg-white text-black w-full ps-3 py-5 rounded-2xl text-xs"
+                value={email}
+                onChange={handleChange}
+                disabled={isLoading}
+              />
+              <Button
+                variant={'secondary'}
+                className="text-white bg-black hover:bg-slate-700 absolute top-2 right-3 rounded-2xl px-2 font-extralight text-xs p-2"
+                disabled={isLoading}
+              >
+                {isLoading ? 'Subscribing...' : 'Submit'}
+              </Button>
+            </div>
+          </form>
+        </div>
       </div>
 
       {/* <Container className="grid grid-cols-5 sm:gap-x-4 md:gap-x-5 lg:gap-x-8 gap-y-8 px-4 mx-auto  items-center justify-between bg-green-300"> */}
@@ -155,7 +154,7 @@ const Footer: React.FC = () => {
             Terms & Policies
           </h5>
           <ul className=" leading-8 xl:leading-[38px] tracking-wide font-Helveticalight text-13 lg:text-15  mt-6 text-[#686868]">
-          <li>
+            <li>
               <Link href="/terms-condition" className="hover:underline">
                 Terms & Conditions
               </Link>
@@ -169,7 +168,7 @@ const Footer: React.FC = () => {
               <Link href="/privacy-policy" className="hover:underline">
                 Privacy Policy
               </Link>
-            </li>  
+            </li>
             <li>
               <Link href="/return-policy" className="hover:underline">
                 Return Policy

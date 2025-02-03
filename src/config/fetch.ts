@@ -1,43 +1,49 @@
-import { ICategory,IReview } from '@/types/types';
+import { ICategory, IReview } from '@/types/types';
 import axios from 'axios';
 
 export const fetchProducts = async () => {
   try {
-    const result = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/product/get-all`, {
-      next: { tags: ['products'] },
-    });
+    const result = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/product/get-all`,
+      {
+        next: { tags: ['products'] },
+      },
+    );
     if (!result.ok) {
-    console.log(result, "result")
+      console.log(result, 'result');
 
-      return []
+      return [];
     }
     const response = await result.json();
-    
+
     return response;
   } catch (error) {
-    console.log(error, "error")
+    console.log(error, 'error');
   }
-
 };
 
 export const fetchCategories = async (): Promise<ICategory[] | any> => {
   try {
-    const result = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/category/get-all`, {
-      next: { tags: ['categories'] },
-    });
+    const result = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/category/get-all`,
+      {
+        next: { tags: ['categories'] },
+      },
+    );
     const response = await result.json();
     return response;
   } catch (error) {
-    console.log(error, "error")
+    console.log(error, 'error');
   }
-
 };
 
-
 export const fetchSubCategories = async (): Promise<ICategory[]> => {
-  const result = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/subcategories/get-all`, {
-    next: { tags: ['subcategories'] },
-  });
+  const result = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/subcategories/get-all`,
+    {
+      next: { tags: ['subcategories'] },
+    },
+  );
   const response = await result.json();
   return response;
 };
@@ -49,13 +55,11 @@ export const fetchReviews = async (): Promise<IReview[]> => {
   return response.data;
 };
 
+export const TrimUrlHandler = (name: string | undefined) => {
+  if (!name) return '';
 
-export const TrimUrlHandler = (name: string | undefined)=>{
-if(!name)return ''
-
-return name.trim().toLowerCase()
-
-}
+  return name.trim().toLowerCase();
+};
 // export const fetchProducts = async (): Promise<IProduct[]> => {
 //   return new Promise<IProduct[]>((resolve, reject) => {
 //     setTimeout(async () => {
@@ -70,5 +74,3 @@ return name.trim().toLowerCase()
 //     }, 10000);
 //   });
 // };
-
-

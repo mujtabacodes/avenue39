@@ -1,5 +1,5 @@
-import { Metadata } from "next";
-import ProfileComponent from "./ProfileComponent";
+import { Metadata } from 'next';
+import ProfileComponent from './ProfileComponent';
 
 export const metadata: Metadata = {
   title: 'Profile Avenue 39',
@@ -18,12 +18,8 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'profile',
   },
-} 
+};
 function Profile() {
-
-
-  return (
-    <ProfileComponent />
-  );
+  return <ProfileComponent />;
 }
 export default Profile;

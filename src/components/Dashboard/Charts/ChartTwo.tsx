@@ -1,20 +1,20 @@
-'use client'
+'use client';
 
-import { ApexOptions } from "apexcharts";
-import axios, { AxiosResponse } from "axios";
-import React, { useLayoutEffect, useState } from "react";
-import ReactApexChart from "react-apexcharts";
+import { ApexOptions } from 'apexcharts';
+import axios, { AxiosResponse } from 'axios';
+import React, { useLayoutEffect, useState } from 'react';
+import ReactApexChart from 'react-apexcharts';
 import Cookies from 'js-cookie';
-import { useAppSelector } from "@/components/Others/HelperRedux";
+import { useAppSelector } from '@/components/Others/HelperRedux';
 import { Skeleton } from 'antd';
 
-let baseColorArray =  ["#80CAEE", "#3C50E0",]
+let baseColorArray = ['#80CAEE', '#3C50E0'];
 
 const options: ApexOptions = {
   colors: baseColorArray,
   chart: {
-    fontFamily: "Satoshi, sans-serif",
-    type: "bar",
+    fontFamily: 'Satoshi, sans-serif',
+    type: 'bar',
     height: 335,
     stacked: true,
     toolbar: {
@@ -31,7 +31,7 @@ const options: ApexOptions = {
         plotOptions: {
           bar: {
             borderRadius: 0,
-            columnWidth: "25%",
+            columnWidth: '25%',
           },
         },
       },
@@ -41,23 +41,23 @@ const options: ApexOptions = {
     bar: {
       horizontal: false,
       borderRadius: 0,
-      columnWidth: "25%",
-      borderRadiusApplication: "end",
-      borderRadiusWhenStacked: "last",
+      columnWidth: '25%',
+      borderRadiusApplication: 'end',
+      borderRadiusWhenStacked: 'last',
     },
   },
   dataLabels: {
     enabled: false,
   },
   xaxis: {
-    categories: ["S", "M", "T", "W", "T", "F", "S"],
+    categories: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
   },
   legend: {
-    position: "top",
-    horizontalAlign: "left",
-    fontFamily: "Satoshi",
+    position: 'top',
+    horizontalAlign: 'left',
+    fontFamily: 'Satoshi',
     fontWeight: 500,
-    fontSize: "14px",
+    fontSize: '14px',
     // markers: {
     //   radius: 99,
     // },
@@ -75,11 +75,11 @@ interface ChartTwoState {
 }
 
 const ChartTwo: React.FC = () => {
-  const { loggedInUser }: any = useAppSelector(state => state.usersSlice);
+  const { loggedInUser }: any = useAppSelector((state) => state.usersSlice);
   const [state, setState] = useState<ChartTwoState | undefined>();
   const [loading, setLoading] = useState(true);
 
-  let AdminType = loggedInUser && loggedInUser.role == "super-Admin";
+  let AdminType = loggedInUser && loggedInUser.role == 'super-Admin';
 
   const getWeeklySales = async () => {
     try {
@@ -87,37 +87,38 @@ const ChartTwo: React.FC = () => {
       const superAdmintoken = Cookies.get('superAdminToken');
       let finaltoken = token ? token : superAdmintoken;
 
-      let response: AxiosResponse = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/sales-record/getWeeklySales_record`, {
-        headers: {
-          "token": finaltoken
-        }
-      });
-console.log(response.data, "data")
+      let response: AxiosResponse = await axios.get(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/sales-record/getWeeklySales_record`,
+        {
+          headers: {
+            token: finaltoken,
+          },
+        },
+      );
+      console.log(response.data, 'data');
       let reports = response.data;
-      console.log(reports, "reports")
+      console.log(reports, 'reports');
 
-  
-let defaultArray = [
-  {
-  name: "Revenue",
-  data: reports.map((item:any)=>item.revenue)
-},
-{
-  name: "Sold Products",
-  data: reports.map((item:any)=>item.total_sold_product)
-},
-]
-      
+      let defaultArray = [
+        {
+          name: 'Revenue',
+          data: reports.map((item: any) => item.revenue),
+        },
+        {
+          name: 'Sold Products',
+          data: reports.map((item: any) => item.total_sold_product),
+        },
+      ];
+
       setState({ series: defaultArray });
       setLoading(false);
-      
     } catch (err: any) {
-      console.log(err, "err");
+      console.log(err, 'err');
       setLoading(false);
     }
   };
 
-  console.log(state, "setState")
+  console.log(state, 'setState');
 
   useLayoutEffect(() => {
     getWeeklySales();
@@ -128,12 +129,15 @@ let defaultArray = [
       <div className="mb-4 justify-between gap-4 sm:flex">
         <div>
           <h4 className="text-xl font-semibold dark:text-white">
-            {AdminType ? "Sales, Revenue and Profit " : "Sales And Revenue "}
+            {AdminType ? 'Sales, Revenue and Profit ' : 'Sales And Revenue '}
           </h4>
         </div>
         <div>
           <div className="relative inline-block">
-            <p className="inline-flex appearance-none bg-transparent py-1 pl-3 pr-8 text-sm font-medium outline-none dark:text-white"> Current Week</p>
+            <p className="inline-flex appearance-none bg-transparent py-1 pl-3 pr-8 text-sm font-medium outline-none dark:text-white">
+              {' '}
+              Current Week
+            </p>
           </div>
         </div>
       </div>
@@ -149,7 +153,7 @@ let defaultArray = [
                 series={state.series}
                 type="bar"
                 height={350}
-                width={"100%"}
+                width={'100%'}
               />
             )
           )}

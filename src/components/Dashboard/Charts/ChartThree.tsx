@@ -1,8 +1,8 @@
-'use client'
+'use client';
 
-import { ApexOptions } from "apexcharts";
-import React, { useState, useEffect } from "react";
-import ReactApexChart from "react-apexcharts";
+import { ApexOptions } from 'apexcharts';
+import React, { useState, useEffect } from 'react';
+import ReactApexChart from 'react-apexcharts';
 import { Skeleton } from 'antd';
 
 interface ChartThreeState {
@@ -11,20 +11,20 @@ interface ChartThreeState {
 
 const options: ApexOptions = {
   chart: {
-    fontFamily: "Satoshi, sans-serif",
-    type: "donut",
+    fontFamily: 'Satoshi, sans-serif',
+    type: 'donut',
   },
-  colors: ["#3C50E0", "#6577F3", "#8FD0EF", "#0FADCF"],
-  labels: ["Desktop", "Tablet", "Mobile", "Unknown"],
+  colors: ['#3C50E0', '#6577F3', '#8FD0EF', '#0FADCF'],
+  labels: ['Desktop', 'Tablet', 'Mobile', 'Unknown'],
   legend: {
     show: false,
-    position: "bottom",
+    position: 'bottom',
   },
   plotOptions: {
     pie: {
       donut: {
-        size: "65%",
-        background: "transparent",
+        size: '65%',
+        background: 'transparent',
       },
     },
   },
@@ -55,7 +55,7 @@ const ChartThree: React.FC = () => {
   const [state, setState] = useState<ChartThreeState>({
     series: [65, 34, 12, 56],
   });
-  console.log(setState, "setState")
+  console.log(setState, 'setState');
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

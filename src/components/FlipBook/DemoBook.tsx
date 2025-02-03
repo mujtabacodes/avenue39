@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import React, {  useRef } from "react";
-import HTMLFlipBook from "react-pageflip";
-import PageCover from "./PageCover";
-import { bookData as originalBookData } from "@/data/bookData";
-import FlipsPage from "./FlipsPage";
-import Image from "next/image";
+import React, { useRef } from 'react';
+import HTMLFlipBook from 'react-pageflip';
+import PageCover from './PageCover';
+import { bookData as originalBookData } from '@/data/bookData';
+import FlipsPage from './FlipsPage';
+import Image from 'next/image';
 
 const DemoBook: React.FC = () => {
   const flipBook = useRef<any>(null);
@@ -14,9 +14,9 @@ const DemoBook: React.FC = () => {
   const adjustBookData = (data: typeof originalBookData) => {
     if (data.length % 2 !== 0) {
       data.push({
-        type: "page",
+        type: 'page',
         number: data.length,
-        content: "The End", 
+        content: 'The End',
         image: '/images/catalogue/catelog1.jpg',
       });
     }
@@ -27,8 +27,9 @@ const DemoBook: React.FC = () => {
 
   return (
     <div className="relative">
-      <HTMLFlipBook 
-        width={450} height={600}
+      <HTMLFlipBook
+        width={450}
+        height={600}
         size="stretch"
         minWidth={450}
         maxWidth={450}
@@ -43,7 +44,7 @@ const DemoBook: React.FC = () => {
         drawShadow={true}
         flippingTime={1000}
         useMouseEvents={true}
-        style={{ margin: "0 auto" }}
+        style={{ margin: '0 auto' }}
         usePortrait={true}
         startZIndex={0}
         autoSize={true}
@@ -53,15 +54,27 @@ const DemoBook: React.FC = () => {
         swipeDistance={30}
       >
         {bookData.map((page: any, index: number) =>
-          page.type === "cover" ? (
+          page.type === 'cover' ? (
             <PageCover key={index}>
-              <Image width={450} height={600} src={page.image} alt={page.content} className="shadow-md object-cover" />
+              <Image
+                width={450}
+                height={600}
+                src={page.image}
+                alt={page.content}
+                className="shadow-md object-cover"
+              />
             </PageCover>
           ) : (
             <FlipsPage key={index} number={page.number}>
-              <Image width={450} height={600} src={page.image} alt={page.content} className="shadow-md object-cover" />
+              <Image
+                width={450}
+                height={600}
+                src={page.image}
+                alt={page.content}
+                className="shadow-md object-cover"
+              />
             </FlipsPage>
-          )
+          ),
         )}
       </HTMLFlipBook>
 

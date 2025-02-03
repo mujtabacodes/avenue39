@@ -47,7 +47,7 @@ const OrderHistory: React.FC = () => {
           setOrdersHistory(res.data);
         }
       } catch (error) {
-        console.error('Error fetching order history:',error);
+        console.error('Error fetching order history:', error);
       } finally {
         setOrdersHistoryLoading(false);
       }
@@ -114,9 +114,12 @@ const OrderHistory: React.FC = () => {
           paymentStatus.paymentStatus
         ) {
           return <span className="text-green-600">Paid</span>;
-        } else if (!paymentStatus.checkoutStatus && paymentStatus.paymentStatus) {
-        return <span className="text-green-600">Paid</span>;
-      }
+        } else if (
+          !paymentStatus.checkoutStatus &&
+          paymentStatus.paymentStatus
+        ) {
+          return <span className="text-green-600">Paid</span>;
+        }
         return <span className="text-gray-500">Unknown</span>;
       },
     },
@@ -203,7 +206,10 @@ const OrderHistory: React.FC = () => {
                           product.productData.posterImageUrl ||
                           product.productData.hoverImageUrl
                         }
-                        alt={product.productData.posterImageAltText || product.productData.name}
+                        alt={
+                          product.productData.posterImageAltText ||
+                          product.productData.name
+                        }
                       />
                     ) : (
                       <p>Image not available</p>

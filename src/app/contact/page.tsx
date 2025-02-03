@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'contact',
   },
-}
+};
 
 const Contact = () => {
   return (

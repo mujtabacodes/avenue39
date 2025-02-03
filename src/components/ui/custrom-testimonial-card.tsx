@@ -22,19 +22,17 @@ const CustromTestimonialCard: React.FC<CardProps> = ({ card }) => {
   };
   return (
     <div className="relative bg-white rounded-sm border-2 border-[#EEEEEE]  text-start py-6 px-5 w-full xl:max-w-72 ">
-      <div className='flex items-center gap-3'>
+      <div className="flex items-center gap-3">
         <Image
           src={card.profile.src}
           alt="profile image"
-          className='rounded-full'
+          className="rounded-full"
           width={50}
           height={50}
         />
         <div>
           <h4 className="font-medium text-14">{card.name}</h4>
-          <span className='flex items-center mt-1'>
-          {renderStars()}
-          </span>
+          <span className="flex items-center mt-1">{renderStars()}</span>
         </div>
       </div>
       <p className="mt-5 text-[#666666] text-sm leading-5">{card.comment}</p>

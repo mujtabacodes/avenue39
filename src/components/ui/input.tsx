@@ -11,7 +11,7 @@ export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {}
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, id, name, onChange , value, ...props }, ref) => {
+  ({ className, type, id, name, onChange, value, ...props }, ref) => {
     const [showPassword, setShowPassword] = React.useState(false);
     const [inputType, setInputType] = React.useState(type);
 
@@ -26,8 +26,8 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           return <FaRegUser className="text-20 text-black" />;
         case 'email':
           return <FaRegEnvelopeOpen className="text-20 text-black" />;
-          case 'search':
-            return <IoSearchSharp className="text-20 text-black" />;
+        case 'search':
+          return <IoSearchSharp className="text-20 text-black" />;
         case 'username':
           return <FaRegUser className="text-20 text-black" />;
         case 'phone':
@@ -41,7 +41,9 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
 
     return (
       <div className="relative flex items-center h-[76px] w-full rounded-full border-input custom-login-input bg-[#F6F6F6]">
-        <div className="absolute left-8 custom-login-input-icon">{getIcon()}</div>
+        <div className="absolute left-8 custom-login-input-icon">
+          {getIcon()}
+        </div>
         <input
           type={inputType}
           id={id}

@@ -15,7 +15,7 @@ const SocialLink: React.FC<LinkSocial> = ({
   className,
   linkClass,
   socialSize,
-  iconColor
+  iconColor,
 }) => {
   return (
     <div className={`flex justify-start gap-3 md:gap-7 ${className}`}>

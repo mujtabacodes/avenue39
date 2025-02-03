@@ -23,7 +23,7 @@ interface CategoryProps {
 const ViewNewsletter: React.FC<CategoryProps> = ({
   Categories,
   setCategory,
-  setselecteMenu
+  setselecteMenu,
 }) => {
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
@@ -56,7 +56,7 @@ const ViewNewsletter: React.FC<CategoryProps> = ({
         placement: 'topRight',
       });
     } catch (err) {
-      console.log(err, "err")
+      console.log(err, 'err');
       notification.error({
         message: 'Deletion Failed',
         description: 'There was an error deleting the Email.',
@@ -66,7 +66,7 @@ const ViewNewsletter: React.FC<CategoryProps> = ({
   };
 
   const confirmDelete = (key: string) => {
-    handleDelete(key)
+    handleDelete(key);
 
     // Modal.confirm({
     //   title: 'Are you sure you want to delete this Email?',

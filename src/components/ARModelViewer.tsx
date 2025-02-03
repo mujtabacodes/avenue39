@@ -37,12 +37,12 @@
 //       });
 
 //       const textureLoader = new THREE.TextureLoader();
-//     if(!ImageUrl) return 
+//     if(!ImageUrl) return
 //       const texture = textureLoader.load(ImageUrl);
-//       const geometry = new THREE.PlaneGeometry(2, 2); 
+//       const geometry = new THREE.PlaneGeometry(2, 2);
 //       const material = new THREE.MeshBasicMaterial({ map: texture });
 //       const plane = new THREE.Mesh(geometry, material);
-//       plane.position.set(0, 0, -3); 
+//       plane.position.set(0, 0, -3);
 //       scene.add(plane);
 
 //       const onWindowResize = () => {
@@ -55,7 +55,6 @@
 //       };
 
 //       window.addEventListener('resize', onWindowResize);
-
 
 //       const animate = () => {
 //         renderer.setAnimationLoop(() => {
@@ -76,8 +75,6 @@
 // };
 
 // export default ARExperience;
-
-
 
 'use client';
 
@@ -102,11 +99,19 @@ const ARExperience: React.FC<ARExperienceProps> = ({ ImageUrl }) => {
       const scene = new THREE.Scene();
       sceneRef.current = scene;
 
-      const camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.01, 20);
+      const camera = new THREE.PerspectiveCamera(
+        70,
+        window.innerWidth / window.innerHeight,
+        0.01,
+        20,
+      );
       camera.position.set(0, 1.6, 0); // Simulate head height in AR
       cameraRef.current = camera;
 
-      const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+      const renderer = new THREE.WebGLRenderer({
+        antialias: true,
+        alpha: true,
+      });
       renderer.setSize(window.innerWidth, window.innerHeight);
       renderer.xr.enabled = true;
       containerRef.current.appendChild(renderer.domElement);
@@ -149,7 +154,11 @@ const ARExperience: React.FC<ARExperienceProps> = ({ ImageUrl }) => {
             const cameraRotation = cameraRef.current.rotation;
 
             // Keep the plane in front of the camera at a fixed distance
-            planeRef.current.position.set(cameraPosition.x, cameraPosition.y, cameraPosition.z - 0.5); // Adjust Z for proper distance
+            planeRef.current.position.set(
+              cameraPosition.x,
+              cameraPosition.y,
+              cameraPosition.z - 0.5,
+            ); // Adjust Z for proper distance
             planeRef.current.rotation.copy(cameraRotation); // Align the plane's rotation with the camera
           }
 

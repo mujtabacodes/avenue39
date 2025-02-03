@@ -15,16 +15,20 @@ const cartSlice = createSlice({
     addItem: (state, action: PayloadAction<CartItem>) => {
       const item = action.payload;
       const existingItem = state.items.find((i) => i.id === item.id);
-    
+
       if (existingItem) {
         const newQuantity = existingItem.quantity + item.quantity;
         if (newQuantity > (item.stock || 0)) {
-          message.error(`Only ${item?.stock} items are in stock. You cannot add more.`);
+          message.error(
+            `Only ${item?.stock} items are in stock. You cannot add more.`,
+          );
         }
         existingItem.quantity = newQuantity;
       } else {
         if (item.quantity > (item.stock || 0)) {
-          message.error(`Cannot add more than ${item.stock} items to the cart.`);
+          message.error(
+            `Cannot add more than ${item.stock} items to the cart.`,
+          );
         }
         state.items.push(item);
       }

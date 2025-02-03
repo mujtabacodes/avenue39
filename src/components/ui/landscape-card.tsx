@@ -13,7 +13,13 @@ import {
   generateSlug,
   renderStars,
 } from '@/config';
-import { Dialog, DialogContent, DialogOverlay, DialogTitle, DialogTrigger } from './dialog';
+import {
+  Dialog,
+  DialogContent,
+  DialogOverlay,
+  DialogTitle,
+  DialogTrigger,
+} from './dialog';
 import ProductDetail from '../product-detail/product-detail';
 import { CartItem } from '@/redux/slices/cart/types';
 import { addItem } from '@/redux/slices/cart';
@@ -92,22 +98,22 @@ const LandscapeCard: React.FC<CardProps> = ({ card, isLoading }) => {
     ...card,
     quantity: 1,
   };
-   const handleAddToCard = (e: React.MouseEvent<HTMLElement>) => {
-      e.stopPropagation();
-      const existingCartItem = cartItems.find((item) => item.id === card?.id);
-      const currentQuantity = existingCartItem?.quantity || 0;
-      const newQuantity = currentQuantity + itemToAdd.quantity;
-      if (newQuantity > (card?.stock || 0)) {
-        message.error(`Only ${card?.stock} items are in stock. You cannot add more than that.`);
-        return;
-      }
-      dispatch(addItem(itemToAdd));
-      dispatch(openDrawer());
-    };
+  const handleAddToCard = (e: React.MouseEvent<HTMLElement>) => {
+    e.stopPropagation();
+    const existingCartItem = cartItems.find((item) => item.id === card?.id);
+    const currentQuantity = existingCartItem?.quantity || 0;
+    const newQuantity = currentQuantity + itemToAdd.quantity;
+    if (newQuantity > (card?.stock || 0)) {
+      message.error(
+        `Only ${card?.stock} items are in stock. You cannot add more than that.`,
+      );
+      return;
+    }
+    dispatch(addItem(itemToAdd));
+    dispatch(openDrawer());
+  };
 
-  const {
-    data: reviews = [],
-  } = useQuery<IReview[], Error>({
+  const { data: reviews = [] } = useQuery<IReview[], Error>({
     queryKey: ['reviews'],
     queryFn: fetchReviews,
   });
@@ -130,7 +136,10 @@ const LandscapeCard: React.FC<CardProps> = ({ card, isLoading }) => {
           <PiEyeThin size={17} className="cursor-pointer" />
           <CiHeart size={18} className="cursor-pointer" />
         </div> */}
-        <div onClick={() => handleAddToWishlist(card)} className=" w-10 h-12 absolute right-2 top-2 rounded-xl  flex justify-center items-center border bg-white hover:border-main hover:bg-main hover:text-white  cursor-pointer">
+        <div
+          onClick={() => handleAddToWishlist(card)}
+          className=" w-10 h-12 absolute right-2 top-2 rounded-xl  flex justify-center items-center border bg-white hover:border-main hover:bg-main hover:text-white  cursor-pointer"
+        >
           <IoIosHeartEmpty size={25} />
         </div>
         {loading ? (
@@ -146,7 +155,8 @@ const LandscapeCard: React.FC<CardProps> = ({ card, isLoading }) => {
         )}
         {card.discountPrice > 0 && !loading && (
           <span className="absolute -top-1 -left-11 px-7 transform -rotate-45 bg-[#FF0000] text-white text-14 font-bold w-[120px] h-[40px] flex justify-center items-center">
-            {(Math.round(((card.price - card.discountPrice) / card.price) * 100))}%
+            {Math.round(((card.price - card.discountPrice) / card.price) * 100)}
+            %
           </span>
         )}
       </div>

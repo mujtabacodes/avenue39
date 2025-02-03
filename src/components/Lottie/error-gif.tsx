@@ -1,18 +1,18 @@
-'use client'
-import React from "react";
-import { useLottie } from "lottie-react";
+'use client';
+import React from 'react';
+import { useLottie } from 'lottie-react';
 
 const style = {
-    height: 250,
-  };
+  height: 250,
+};
 
-const Lottie = ({data} :any) => {
+const Lottie = ({ data }: any) => {
   const options = {
     animationData: data,
     loop: true,
   };
 
-  const { View } = useLottie(options , style);
+  const { View } = useLottie(options, style);
 
   return <>{View}</>;
 };

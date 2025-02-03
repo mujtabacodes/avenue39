@@ -25,14 +25,16 @@ const MenuBar = ({ categories }: { categories?: ICategory[] }) => {
     const pathSplit = pathname.split('/');
     const name = pathSplit.splice(pathSplit.length - 1);
     if (categoryId) {
-      const activeMenu = categories?.find((item) => item.id === Number(categoryId))
-      setisActiveMenu(activeMenu?.name.replace('-', ' ').toLowerCase() || null)
-      console.log(pathname, 'pathname', name, activeMenu, categories)
+      const activeMenu = categories?.find(
+        (item) => item.id === Number(categoryId),
+      );
+      setisActiveMenu(activeMenu?.name.replace('-', ' ').toLowerCase() || null);
+      console.log(pathname, 'pathname', name, activeMenu, categories);
     } else {
-      setisActiveMenu(name.toString().replace('-', ' '))
-      console.log(pathname, 'pathname', name)
+      setisActiveMenu(name.toString().replace('-', ' '));
+      console.log(pathname, 'pathname', name);
     }
-  }, [pathname, categories, searchParams])
+  }, [pathname, categories, searchParams]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -70,24 +72,33 @@ const MenuBar = ({ categories }: { categories?: ICategory[] }) => {
     }
   };
 
-
-  console.log(staticHeaderCategories, "staticHeaderCategories")
+  console.log(staticHeaderCategories, 'staticHeaderCategories');
   return (
-    <div className={`${isSticky ? `sticky ${userDetails ? 'top-20' : 'top-16'} z-20` : 'relative md:pb-12'}`}>
+    <div
+      className={`${isSticky ? `sticky ${userDetails ? 'top-20' : 'top-16'} z-20` : 'relative md:pb-12'}`}
+    >
       <div
-        className={`bg-white shadow-md mb-1 pt-3 hidden md:block z-20 ${isSticky ? '' : 'absolute w-full top-0'
-          }`}
+        className={`bg-white shadow-md mb-1 pt-3 hidden md:block z-20 ${
+          isSticky ? '' : 'absolute w-full top-0'
+        }`}
       >
         <Container className="flex flex-wrap items-center justify-between">
           {categories && categories?.length < 1 ? (
             staticHeaderCategories.map((item, index) => (
-              <Link href={`/${generateSlug(item)}`} key={index} className={`menu-item text-13 lg:text-15 pb-2 tracking-wide family-Helvetica uppercase whitespace-nowrap ${item === 'Sale' ? 'text-red-500' : 'text-black'}`}>{item}</Link>
+              <Link
+                href={`/${generateSlug(item)}`}
+                key={index}
+                className={`menu-item text-13 lg:text-15 pb-2 tracking-wide family-Helvetica uppercase whitespace-nowrap ${item === 'Sale' ? 'text-red-500' : 'text-black'}`}
+              >
+                {item}
+              </Link>
             ))
           ) : (
             <>
               {categories?.map((item) => (
                 <div className="relative" key={item.id}>
-                  <Link href={`/${generateSlug(item.name)}`}
+                  <Link
+                    href={`/${generateSlug(item.name)}`}
                     className={`relative menu-item text-13 lg:text-15 pb-2 tracking-wide family-Helvetica uppercase whitespace-nowrap text-black dark:text-black flex flex-row gap-2 items-center cursor-pointer ${isActiveMenu === item.name.toLowerCase() ? 'linkactive' : 'link-underline'}`}
                     onMouseEnter={() => handleMouseEnter(item.name)}
                     onMouseLeave={handleMouseLeave}
@@ -95,34 +106,40 @@ const MenuBar = ({ categories }: { categories?: ICategory[] }) => {
                     {item.name}
                   </Link>
 
-                  {(activeMenu && activeMenu === item.name) && item.subcategories && item.subcategories.length > 0 && (
-                    <div
-                      className={`megamenu-container w-[200px] bg-white shadow-lg px-10 py-4 z-20  absolute top-[28px]  rounded-b-xl`}
-                      onMouseEnter={() => setHoveringMenu(true)}
-                      onMouseLeave={() => {
-                        setHoveringMenu(false);
-                        setActiveMenu(null);
-                      }}
-                    >
-                      <div className="flex gap-4">
-                        <div className="w-full space-y-4">
-                          <div className="grid grid-cols-1 space-y-2">
-                            <MenuLink
-                              menudata={item}
-                              onLinkClick={() => setActiveMenu(null)}
-                            />
+                  {activeMenu &&
+                    activeMenu === item.name &&
+                    item.subcategories &&
+                    item.subcategories.length > 0 && (
+                      <div
+                        className={`megamenu-container w-[200px] bg-white shadow-lg px-10 py-4 z-20  absolute top-[28px]  rounded-b-xl`}
+                        onMouseEnter={() => setHoveringMenu(true)}
+                        onMouseLeave={() => {
+                          setHoveringMenu(false);
+                          setActiveMenu(null);
+                        }}
+                      >
+                        <div className="flex gap-4">
+                          <div className="w-full space-y-4">
+                            <div className="grid grid-cols-1 space-y-2">
+                              <MenuLink
+                                menudata={item}
+                                onLinkClick={() => setActiveMenu(null)}
+                              />
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  )}
+                    )}
                 </div>
               ))}
-              <Link href='/accessories' className={`menu-item text-13 lg:text-15 pb-2 tracking-wide family-Helvetica uppercase whitespace-nowrap text-red-600 dark:text-red-600 flex flex-row gap-2 items-center cursor-pointer ${pathname === '/products' ? 'linkactive' : 'link-underline'}`}>
+              <Link
+                href="/accessories"
+                className={`menu-item text-13 lg:text-15 pb-2 tracking-wide family-Helvetica uppercase whitespace-nowrap text-red-600 dark:text-red-600 flex flex-row gap-2 items-center cursor-pointer ${pathname === '/products' ? 'linkactive' : 'link-underline'}`}
+              >
                 sale
-              </Link></>
+              </Link>
+            </>
           )}
-
         </Container>
       </div>
 

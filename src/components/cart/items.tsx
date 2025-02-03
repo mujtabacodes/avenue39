@@ -40,10 +40,14 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
   const removeProductFromCart = (id: number) => {
     dispatch(removeItem(id));
   };
-  const updateProductQuantity = (id: number, quantity: number , stock:number) => {
+  const updateProductQuantity = (
+    id: number,
+    quantity: number,
+    stock: number,
+  ) => {
     if (quantity > 0) {
-      if(quantity > stock){
-        alert('Insufficient stock. Please reduce quantity.')
+      if (quantity > stock) {
+        alert('Insufficient stock. Please reduce quantity.');
       } else {
         dispatch(updateItemQuantity({ id, quantity }));
       }
@@ -101,7 +105,6 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
               className={`xl:w-12 w-12 h-10 rounded-3xl relative flex justify-center items-center  cursor-pointer ${cartItems.length > 0 ? 'text-white bg-main' : 'text-black  border-black'}`}
               onClick={handleOpenDrawer}
             >
-    
               <GiShoppingCart size={27} style={{ transform: 'scaleX(-1)' }} />
               {cartItems.length > 0 && (
                 <div className="w-4 h-4 rounded-full bg-black text-white flex justify-center items-center absolute top-2 right-2 text-10">
@@ -124,7 +127,7 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                 </div>
               </div>
               <h3 className="font-medium md:text-xl uppercase flex items-center gap-2">
-              <GiShoppingCart size={25} /> My Cart{' '}
+                <GiShoppingCart size={25} /> My Cart{' '}
                 {totalPrice !== 0 && (
                   <span>
                     (<TotalProducts />)
@@ -151,7 +154,7 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                 </div>
               </div>
             ) : (
-          <Fragment>
+              <Fragment>
                 <div className="flex-1 overflow-x-auto mr-6 custom-scroll">
                   <ul className="space-y-4">
                     {cartItems.map((item: any) => (
@@ -177,15 +180,26 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                             {item?.discountPrice > 0 ? (
                               <ProductPrice className="flex gap-2 flex-wrap mb-4 !text-[15px] text-nowrap">
                                 <span>
-                                AED {(item?.discountPrice * item.quantity).toLocaleString()}
+                                  AED{' '}
+                                  {(
+                                    item?.discountPrice * item.quantity
+                                  ).toLocaleString()}
                                 </span>
                                 <NormalText className="text-slate-400 line-through w-[70px] text-end text-nowrap !text-[15px]">
-                                AED {(item?.price * item.quantity).toLocaleString()}
+                                  AED{' '}
+                                  {(
+                                    item?.price * item.quantity
+                                  ).toLocaleString()}
                                 </NormalText>
                               </ProductPrice>
                             ) : (
                               <ProductPrice className="flex gap-2 flex-wrap mb-4 !text-[15px] text-nowrap">
-                                <span>AED {(item?.price * item.quantity).toLocaleString()}</span>
+                                <span>
+                                  AED{' '}
+                                  {(
+                                    item?.price * item.quantity
+                                  ).toLocaleString()}
+                                </span>
                                 {/* <NormalText className="text-slate-400 line-through w-20 text-end text-nowrap !text-[15px]">
                             </NormalText> */}
                               </ProductPrice>
@@ -303,10 +317,18 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                         count={item.quantity}
                         stock={item.stock}
                         onIncrement={() =>
-                          updateProductQuantity(item.id, item.quantity + 1 , item.stock)
+                          updateProductQuantity(
+                            item.id,
+                            item.quantity + 1,
+                            item.stock,
+                          )
                         }
                         onDecrement={() =>
-                          updateProductQuantity(item.id, item.quantity - 1 , item.stock)
+                          updateProductQuantity(
+                            item.id,
+                            item.quantity - 1,
+                            item.stock,
+                          )
                         }
                       />
                     )}
@@ -320,49 +342,68 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
                       count={item.quantity}
                       stock={item.stock}
                       onIncrement={() =>
-                        updateProductQuantity(item.id, item.quantity + 1 ,item.stock )
+                        updateProductQuantity(
+                          item.id,
+                          item.quantity + 1,
+                          item.stock,
+                        )
                       }
                       onDecrement={() =>
-                        updateProductQuantity(item.id, item.quantity - 1 , item.stock)
+                        updateProductQuantity(
+                          item.id,
+                          item.quantity - 1,
+                          item.stock,
+                        )
                       }
                     />
                   )}
                 </div>
                 <div className="w-52 xl:w-64 flex gap-2 xl:gap-4 items-center justify-between">
-  {item.discountPrice > 0 ? (
-    <>
-      <p className="text-12 xl:text-14 text-nowrap font-normal text-end w-16 line-through text-[#A5A5A5]">
-        AED <span>{(item?.price * item.quantity).toLocaleString()}</span>
-      </p>
-      <p className="text-14 xs:text-16 xl:text-[20px] font-bold text-nowrap">
-        AED <span>{(item?.discountPrice * item.quantity).toLocaleString()}</span>
-      </p>
-    </>
-  ) : (
-    <>
-      <p className="text-14 xs:text-16 xl:text-[20px] font-bold text-center w-full pl-20">
-        AED <span>{(item?.price * item.quantity).toLocaleString()}</span>
-      </p>
-    </>
-  )}
-  <div>
-    {!isCheckoutPage && (
-      <div className="flex items-center gap-2">
-        {/* <Link href={`/product/${generateSlug(item.name)}`}>
+                  {item.discountPrice > 0 ? (
+                    <>
+                      <p className="text-12 xl:text-14 text-nowrap font-normal text-end w-16 line-through text-[#A5A5A5]">
+                        AED{' '}
+                        <span>
+                          {(item?.price * item.quantity).toLocaleString()}
+                        </span>
+                      </p>
+                      <p className="text-14 xs:text-16 xl:text-[20px] font-bold text-nowrap">
+                        AED{' '}
+                        <span>
+                          {(
+                            item?.discountPrice * item.quantity
+                          ).toLocaleString()}
+                        </span>
+                      </p>
+                    </>
+                  ) : (
+                    <>
+                      <p className="text-14 xs:text-16 xl:text-[20px] font-bold text-center w-full pl-20">
+                        AED{' '}
+                        <span>
+                          {(item?.price * item.quantity).toLocaleString()}
+                        </span>
+                      </p>
+                    </>
+                  )}
+                  <div>
+                    {!isCheckoutPage && (
+                      <div className="flex items-center gap-2">
+                        {/* <Link href={`/product/${generateSlug(item.name)}`}>
           <MdModeEdit className="cursor-pointer" size={20} />
         </Link> */}
-        <FaTrash
-          className="cursor-pointer"
-          size={15}
-          onClick={(e) => {
-            e.stopPropagation();
-            removeProductFromCart(item.id);
-          }}
-        />
-      </div>
-    )}
-  </div>
-</div>
+                        <FaTrash
+                          className="cursor-pointer"
+                          size={15}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            removeProductFromCart(item.id);
+                          }}
+                        />
+                      </div>
+                    )}
+                  </div>
+                </div>
               </div>
             </div>
           ))}
@@ -372,9 +413,3 @@ const CartItems = ({ isCartPage, isCheckoutPage }: ICartItems) => {
   );
 };
 export default CartItems;
-
-
-
-
-
-

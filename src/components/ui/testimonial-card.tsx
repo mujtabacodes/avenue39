@@ -9,7 +9,6 @@ interface CardProps {
 }
 
 const TestimonialCard: React.FC<CardProps> = ({ card }) => {
-
   const renderStars = () => {
     const stars = [];
     for (let i = 1; i <= 5; i++) {
@@ -43,7 +42,9 @@ const TestimonialCard: React.FC<CardProps> = ({ card }) => {
           Customer
         </p>
         <p className="mt-2 md:mt-4 text-17 leading-9">{card.comment}</p>
-        <div className="flex items-center gap-2 mt-4 md:mt-10">{renderStars()}</div>
+        <div className="flex items-center gap-2 mt-4 md:mt-10">
+          {renderStars()}
+        </div>
       </div>
     </div>
   );

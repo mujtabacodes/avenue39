@@ -13,10 +13,10 @@ import { Navigation, Pagination } from 'swiper/modules';
 import CardSkaleton from '../Skaleton/productscard';
 
 const BestSellingSlider: React.FC = () => {
-  const {
-    data: products = [],
-    isLoading: isProductsLoading,
-  } = useQuery<IProduct[], Error>({
+  const { data: products = [], isLoading: isProductsLoading } = useQuery<
+    IProduct[],
+    Error
+  >({
     queryKey: ['products'],
     queryFn: fetchProducts,
   });
@@ -40,23 +40,24 @@ const BestSellingSlider: React.FC = () => {
       {products.length > 0 ? (
         <>
           <div className="text-end mb-3 px-4 flex justify-between">
-          <h1 className="lg:text-3xl text-2xl text-left font-semibold flex">Best Sellers</h1>
-           <div>
-           <button
-              className="button"
-              onClick={previous}
-              style={{ marginRight: '10px' }}
-            >
-              <IoIosArrowBack size={30} />
-            </button>
-            <button className="button" onClick={next}>
-              <IoIosArrowForward size={30} />
-            </button>
-           </div>
+            <h1 className="lg:text-3xl text-2xl text-left font-semibold flex">
+              Best Sellers
+            </h1>
+            <div>
+              <button
+                className="button"
+                onClick={previous}
+                style={{ marginRight: '10px' }}
+              >
+                <IoIosArrowBack size={30} />
+              </button>
+              <button className="button" onClick={next}>
+                <IoIosArrowForward size={30} />
+              </button>
+            </div>
           </div>
 
           <Swiper
-        
             ref={swiperRef}
             slidesPerView={1}
             spaceBetween={20}
@@ -91,13 +92,13 @@ const BestSellingSlider: React.FC = () => {
               },
               460: {
                 slidesPerView: 1.5,
-              }
+              },
             }}
             modules={[Navigation, Pagination]}
             className="mySwiper "
           >
             {products.map((card) => (
-              <SwiperSlide key={card.id} className='mb-8'>
+              <SwiperSlide key={card.id} className="mb-8">
                 <FeatureCard
                   isLoading={isProductsLoading}
                   card={card}
@@ -108,7 +109,7 @@ const BestSellingSlider: React.FC = () => {
           </Swiper>
         </>
       ) : (
-        <CardSkaleton/>
+        <CardSkaleton />
       )}
     </div>
   );

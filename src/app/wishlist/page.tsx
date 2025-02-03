@@ -5,7 +5,7 @@ import TopHero from '@/components/top-hero';
 import { wishbredcrumbs } from '@/data/data';
 import Container from '@/components/ui/Container';
 import Counter from '@/components/Counter/Counter';
-import { message,} from 'antd';
+import { message } from 'antd';
 import { addItem } from '@cartSlice/index';
 import { CartItem } from '@cartSlice/types';
 import { openDrawer } from '@/redux/slices/drawer';
@@ -40,7 +40,7 @@ const Wishlist = () => {
       if (item.id === id) {
         if (newCount > (item.stock || 0)) {
           message.error(
-            `Only ${item.stock} items are in stock. Please reduce the quantity.`
+            `Only ${item.stock} items are in stock. Please reduce the quantity.`,
           );
           return item;
         }
@@ -48,13 +48,12 @@ const Wishlist = () => {
       }
       return item;
     });
-  
+
     setWishlist(updatedWishlist);
     localStorage.setItem('wishlist', JSON.stringify(updatedWishlist));
   };
   const handleDeleteItem = (id: string) => {
-
-    const updatedWishlist = wishlist.filter(item => item.id !== id);
+    const updatedWishlist = wishlist.filter((item) => item.id !== id);
     setWishlist(updatedWishlist);
     localStorage.setItem('wishlist', JSON.stringify(updatedWishlist));
     message.success('Product removed from Wishlist successfully!');
@@ -78,12 +77,14 @@ const Wishlist = () => {
   const handleAddToCart = (product: IProduct) => {
     const cart = JSON.parse(localStorage.getItem('cart') || '[]');
     //@ts-ignore
-    const existingItem = cartItems.find((item: CartItem) => item.id === product.id);
+    const existingItem = cartItems.find(
+      (item: CartItem) => item.id === product.id,
+    );
     if (existingItem) {
       const totalQuantity = existingItem.quantity + product.count;
       if (totalQuantity > (product.stock || 0)) {
         message.error(
-          `Product already exists in the cart. You cannot add more than ${product.stock} units. Please reduce the quantity.`
+          `Product already exists in the cart. You cannot add more than ${product.stock} units. Please reduce the quantity.`,
         );
         return;
       }
@@ -92,30 +93,42 @@ const Wishlist = () => {
           ? {
               ...item,
               count: totalQuantity,
-              totalPrice: (product.discountPrice || product.price) * totalQuantity,
-            }: item
+              totalPrice:
+                (product.discountPrice || product.price) * totalQuantity,
+            }
+          : item,
       );
       localStorage.setItem('cart', JSON.stringify(updatedCart));
       window.dispatchEvent(new Event('cartChanged'));
       message.success('Quantity updated in the cart!');
     } else {
-      const totalQuantityInCart = cart.reduce((accum: number, item: IProduct) => {
-        if (item.id === product.id) {
-          return accum + item.count;
-        }
-        return accum;}, 0);
+      const totalQuantityInCart = cart.reduce(
+        (accum: number, item: IProduct) => {
+          if (item.id === product.id) {
+            return accum + item.count;
+          }
+          return accum;
+        },
+        0,
+      );
       if (totalQuantityInCart + product.count > (product.stock || 0)) {
-        message.error(`You cannot add more of this product. Total stock is ${product.stock}, and you already have ${totalQuantityInCart} in your cart.`);
+        message.error(
+          `You cannot add more of this product. Total stock is ${product.stock}, and you already have ${totalQuantityInCart} in your cart.`,
+        );
         return;
       }
       if (product.count > (product.stock || 0)) {
-        message.error(`Cannot add to cart. Total stock for this product is ${product.stock}.`);return;
+        message.error(
+          `Cannot add to cart. Total stock for this product is ${product.stock}.`,
+        );
+        return;
       }
       const newItem = { ...product, count: product.count };
       cart.push(newItem);
       localStorage.setItem('cart', JSON.stringify(cart));
       window.dispatchEvent(new Event('cartChanged'));
-      message.success('Product added to Cart successfully!');}
+      message.success('Product added to Cart successfully!');
+    }
     const updatedWishlist = wishlist.filter((item) => item.id !== product.id);
     setWishlist(updatedWishlist);
     localStorage.setItem('wishlist', JSON.stringify(updatedWishlist));
@@ -128,16 +141,16 @@ const Wishlist = () => {
     dispatch(addItem(itemToAdd));
     dispatch(openDrawer());
   };
-  
-  
-  
+
   return (
     <>
       <TopHero breadcrumbs={wishbredcrumbs} />
       {wishlist.length > 0 ? (
-
         wishlist.map((product, index) => (
-          <Container className="grid grid-cols-12 gap-3  bg-white shadow my-5 items-center mt-2 py-2" key={index}>
+          <Container
+            className="grid grid-cols-12 gap-3  bg-white shadow my-5 items-center mt-2 py-2"
+            key={index}
+          >
             <div className="col-span-12 md:col-span-4 lg:col-span-4 xl:col-span-5 2xl:col-span-6">
               <div className="flex items-center gap-3">
                 <Link href={`/products/${generateSlug(product.name)}`}>
@@ -150,7 +163,11 @@ const Wishlist = () => {
                   />
                 </Link>
                 <div className="space-y-2 py-2 md:py-0">
-                  <Link href={`/products/${generateSlug(product.name)}`}><span className="font-medium text-14 lg:text-16">{product.name}</span></Link>
+                  <Link href={`/products/${generateSlug(product.name)}`}>
+                    <span className="font-medium text-14 lg:text-16">
+                      {product.name}
+                    </span>
+                  </Link>
                   <div className="block md:hidden space-y-2">
                     <div className=" flex items-center gap-4 ">
                       <p className="font-medium md:font-bold text-12 lg:text-xl xl:text-2xl">
@@ -166,12 +183,9 @@ const Wishlist = () => {
                           AED <span>{product.price}</span>
                         </p>
                       )}
-                      <div className='flex items-center gap-4'>
-                        <Link href={`/product/${generateSlug(product.name)}`} >
-                          <MdModeEdit
-                            className="cursor-pointer"
-                            size={20}
-                          />
+                      <div className="flex items-center gap-4">
+                        <Link href={`/product/${generateSlug(product.name)}`}>
+                          <MdModeEdit className="cursor-pointer" size={20} />
                         </Link>
                         <FaTrash
                           className="cursor-pointer"
@@ -181,7 +195,12 @@ const Wishlist = () => {
                       </div>
                     </div>
                     <div className="flex flex-wrap gap-4 items-center">
-                      <Counter count={product.count} onChangeCount={(newCount) => handleCountChange(product.id, newCount)} />
+                      <Counter
+                        count={product.count}
+                        onChangeCount={(newCount) =>
+                          handleCountChange(product.id, newCount)
+                        }
+                      />
                       <button
                         className="bg-main px-2 lg:px-4 py-2 rounded-md text-white w-fit"
                         onClick={() => handleAddToCart(product)}
@@ -194,11 +213,16 @@ const Wishlist = () => {
               </div>
             </div>
             <div className="hidden md:block md:col-span-3 lg:col-span-3 xl:col-span-2 2xl:col-span-2">
-              <Counter count={product.count} onChangeCount={(newCount) => handleCountChange(product.id, newCount)} />
+              <Counter
+                count={product.count}
+                onChangeCount={(newCount) =>
+                  handleCountChange(product.id, newCount)
+                }
+              />
             </div>
             <div className="hidden md:block md:col-span-3 lg:col-span-3 xl:col-span-3 2xl:col-span-3">
               <div className="flex items-center justify-evenly gap-1 lg:gap-4">
-                <div className='flex items-center  gap-1 lg:gap-4'>
+                <div className="flex items-center  gap-1 lg:gap-4">
                   <p className="font-medium md:font-bold text-12 lg:text-xl xl:text-2xl">
                     AED{' '}
                     <span>
@@ -213,12 +237,9 @@ const Wishlist = () => {
                     </p>
                   )}
                 </div>
-                <div className='flex items-center gap-4'>
-                  <Link href={`/product/${generateSlug(product.name)}`} >
-                    <MdModeEdit
-                      className="cursor-pointer"
-                      size={20}
-                    />
+                <div className="flex items-center gap-4">
+                  <Link href={`/product/${generateSlug(product.name)}`}>
+                    <MdModeEdit className="cursor-pointer" size={20} />
                   </Link>
                   <FaTrash
                     className="cursor-pointer"

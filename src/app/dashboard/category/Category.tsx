@@ -9,32 +9,32 @@ import Addcategory from '@components/AddCategory/Addcategory';
 import { Category as Categorytype } from '@/types/interfaces';
 import { ICategory } from '@/types/types';
 
-const Category = ({cetagories}: {cetagories : ICategory[]}) => {
-   const [menuType, setMenuType] = useState<string>('Categories');
-   const [editCategory, seteditCategory] = useState<
-   Categorytype | undefined | null
-   >();
-   return (
-     <DefaultLayout>
-       <Breadcrumb pageName={menuType} />
-       {menuType === 'Categories' ? (
-         <div className="flex flex-col gap-10">
-           <TableTwo
-             setMenuType={setMenuType}
-             seteditCategory={seteditCategory}
-             editCategory={editCategory}
-             cetagories={cetagories}
-           />
-         </div>
-       ) : (
-         <Addcategory
-           setMenuType={setMenuType}
-           seteditCategory={seteditCategory}
-           editCategory={editCategory}
-         />
-       )}
-     </DefaultLayout>
-   );
-}
+const Category = ({ cetagories }: { cetagories: ICategory[] }) => {
+  const [menuType, setMenuType] = useState<string>('Categories');
+  const [editCategory, seteditCategory] = useState<
+    Categorytype | undefined | null
+  >();
+  return (
+    <DefaultLayout>
+      <Breadcrumb pageName={menuType} />
+      {menuType === 'Categories' ? (
+        <div className="flex flex-col gap-10">
+          <TableTwo
+            setMenuType={setMenuType}
+            seteditCategory={seteditCategory}
+            editCategory={editCategory}
+            cetagories={cetagories}
+          />
+        </div>
+      ) : (
+        <Addcategory
+          setMenuType={setMenuType}
+          seteditCategory={seteditCategory}
+          editCategory={editCategory}
+        />
+      )}
+    </DefaultLayout>
+  );
+};
 
-export default ProtectedRoute(Category)
+export default ProtectedRoute(Category);

@@ -1,5 +1,5 @@
-'use client'
-import Link from "next/link";
+'use client';
+import Link from 'next/link';
 interface BreadcrumbProps {
   pageName: string;
 }
@@ -17,7 +17,9 @@ const Breadcrumb = ({ pageName }: BreadcrumbProps) => {
               Dashboard /
             </Link>
           </li>
-          <li className="font-medium text-primary dark:text-white">{pageName}</li>
+          <li className="font-medium text-primary dark:text-white">
+            {pageName}
+          </li>
         </ol>
       </nav>
     </div>

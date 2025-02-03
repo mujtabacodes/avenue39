@@ -8,11 +8,16 @@ import { useState } from 'react';
 import FormElements from '@components/Dashboard/FormElements';
 import { ICategory, IProduct } from '@/types/types';
 
-const Product = ({ cetagories, productsData }: { cetagories: ICategory[], productsData: IProduct[] }) => {
+const Product = ({
+  cetagories,
+  productsData,
+}: {
+  cetagories: ICategory[];
+  productsData: IProduct[];
+}) => {
   const [editProduct, setEditProduct] = useState<any | undefined>();
   const [products, setProducts] = useState<any[]>(productsData);
   const [selecteMenu, setselecteMenu] = useState<string>('Add All Products');
-
 
   const EditInitialValues: any = {
     name: editProduct?.name,
@@ -37,12 +42,12 @@ const Product = ({ cetagories, productsData }: { cetagories: ICategory[], produc
     Og_Image: editProduct && editProduct?.Meta_Title,
     OgUrl: editProduct && editProduct?.Meta_Title,
     sale_counter: editProduct && editProduct?.sale_counter,
-    colors: editProduct && editProduct?.colors || [],
-    sizes: editProduct && editProduct?.sizes || [],
-    filter: editProduct && editProduct?.filter || [],
+    colors: (editProduct && editProduct?.colors) || [],
+    sizes: (editProduct && editProduct?.sizes) || [],
+    filter: (editProduct && editProduct?.filter) || [],
   };
-  console.log(EditInitialValues, "EditInitialValues")
-  console.log(editProduct, "editProduct")
+  console.log(EditInitialValues, 'EditInitialValues');
+  console.log(editProduct, 'editProduct');
 
   let productFlag: boolean = selecteMenu === 'Add All Products' ? true : false;
 
@@ -64,8 +69,8 @@ const Product = ({ cetagories, productsData }: { cetagories: ICategory[], produc
           setEditProduct={setEditProduct}
           EditProductValue={
             EditInitialValues &&
-              (EditInitialValues.name !== undefined ||
-                EditInitialValues.category !== undefined)
+            (EditInitialValues.name !== undefined ||
+              EditInitialValues.category !== undefined)
               ? EditInitialValues
               : undefined
           }

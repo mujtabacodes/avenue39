@@ -29,7 +29,7 @@
 .no-select {
   user-select: none;
 }
-.slick-list{
+.slick-list {
   height: auto !important;
 }
 .hero-slider-wrapper .slick-list {
@@ -274,7 +274,7 @@
     height: 30px;
   }
 }
-@media (min-width:300px) and  (max-width: 893px) {
+@media (min-width: 300px) and (max-width: 893px) {
   .column-swipper .swiper-wrapper {
     flex-direction: row !important; /* Change direction to row for mobile/tablets */
     gap: 10px; /* Adjust gap as needed */

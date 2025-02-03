@@ -1,4 +1,3 @@
-
 import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
 import { IoIosHeartEmpty } from 'react-icons/io';
@@ -13,7 +12,7 @@ const WishlistCount = () => {
 
   useEffect(() => {
     calculateWishlistCount();
-    
+
     const handleWishlistChange = () => {
       calculateWishlistCount();
     };
@@ -28,14 +27,14 @@ const WishlistCount = () => {
   return (
     <div
       className={`xl:w-12 w-12 h-10 rounded-3xl relative flex justify-center items-center cursor-pointer ${
-        wishlistCount > 0 ? "bg-main border-main text-white" : "border-black"
+        wishlistCount > 0 ? 'bg-main border-main text-white' : 'border-black'
       }`}
     >
       <Link href={'/wishlist'}>
-        <IoIosHeartEmpty size={26} className='font-bold' />
+        <IoIosHeartEmpty size={26} className="font-bold" />
       </Link>
       {wishlistCount > 0 && (
-        <div className='w-4 h-4 rounded-full flex justify-center items-center absolute right-2 top-2 bg-black text-white text-10'>
+        <div className="w-4 h-4 rounded-full flex justify-center items-center absolute right-2 top-2 bg-black text-white text-10">
           {wishlistCount}
         </div>
       )}

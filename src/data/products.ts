@@ -7,32 +7,46 @@ export const paymentIcons = [
   { src: '/images/paymentIcons/visacard-logo.webp', alt: 'visacard' },
   { src: '/images/paymentIcons/apply-pay-black.webp', alt: 'applypay' },
   { src: '/images/paymentIcons/googlepay-logo.webp', alt: 'googlepay' },
- 
 ];
 
 export const SliderImages = [
-  { src: '/images/HomeSliderImage/exclusive.webp', alt: 'exclusive', link: '/products' },
-  { src: '/images/HomeSliderImage/fresh.webp', alt: 'exclusive', link: '/products' },
-  { src: '/images/HomeSliderImage/popular.webp', alt: 'exclusive', link: '/products' },
+  {
+    src: '/images/HomeSliderImage/exclusive.webp',
+    alt: 'exclusive',
+    link: '/products',
+  },
+  {
+    src: '/images/HomeSliderImage/fresh.webp',
+    alt: 'exclusive',
+    link: '/products',
+  },
+  {
+    src: '/images/HomeSliderImage/popular.webp',
+    alt: 'exclusive',
+    link: '/products',
+  },
 ];
 export const bannerData = {
-  imageUrl: '/images/catalogue/sofa.png', 
-  title: 'CATALOGUE' ,
+  imageUrl: '/images/catalogue/sofa.png',
+  title: 'CATALOGUE',
   buttonText: 'DOWNLOAD ',
-  fileUrl: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',    
+  fileUrl:
+    'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
 };
 export const ColorBannerData = [
   {
-    imageUrl: '/images/ave1.jpg',  
+    imageUrl: '/images/ave1.jpg',
     imageUrl2: '/images/ave2.png',
     Heading: 'luxury furniture',
-    Description: 'Avenue39 is a popular destination for interior designers and home improvement enthusiasts all over the UAE and offers an eclectic selection of luxury home decor.',
+    Description:
+      'Avenue39 is a popular destination for interior designers and home improvement enthusiasts all over the UAE and offers an eclectic selection of luxury home decor.',
   },
   {
-    imageUrl: '/images/catalogue/design_chair1.png',  
+    imageUrl: '/images/catalogue/design_chair1.png',
     imageUrl2: '/images/catalogue/design_chair12.png',
     Heading: 'dining furniture',
-    Description: "We're home to beautiful dining chairs that tick off all the latest styles, from Industrial to Minimalist, Scandi to Mid-century. We've designed our dining furniture collection based on customer feedback and the latest trends to make sure it's beautiful, trendy, and durable.",
+    Description:
+      "We're home to beautiful dining chairs that tick off all the latest styles, from Industrial to Minimalist, Scandi to Mid-century. We've designed our dining furniture collection based on customer feedback and the latest trends to make sure it's beautiful, trendy, and durable.",
   },
 ];
 
@@ -204,168 +218,165 @@ export const products: IProduct[] = [
   },
 ];
 
-
-
-
 export const homeProducts: IHomeProducts[] = [
   {
     name: 'dining',
     products: [
       {
-        name: "Trulli Dining Chair",
-        posterImageUrl: "/images/HomeProducts/Dining/Trulli.png"
+        name: 'Trulli Dining Chair',
+        posterImageUrl: '/images/HomeProducts/Dining/Trulli.png',
       },
       {
-        name: "Korla Dining Chair",
-        posterImageUrl: "/images/HomeProducts/Dining/Korla.png"
+        name: 'Korla Dining Chair',
+        posterImageUrl: '/images/HomeProducts/Dining/Korla.png',
       },
       {
-        name: "Parisio Dining Chair",
-        posterImageUrl: "/images/HomeProducts/Dining/Parisio.png"
+        name: 'Parisio Dining Chair',
+        posterImageUrl: '/images/HomeProducts/Dining/Parisio.png',
       },
       {
-        name: "Savio Dining Chair",
-        posterImageUrl: "/images/HomeProducts/Dining/Savio.png"
+        name: 'Savio Dining Chair',
+        posterImageUrl: '/images/HomeProducts/Dining/Savio.png',
       },
       {
-        name: "Flavia Dining Chair",
-        posterImageUrl: "/images/HomeProducts/Dining/Flavia.png"
+        name: 'Flavia Dining Chair',
+        posterImageUrl: '/images/HomeProducts/Dining/Flavia.png',
       },
       {
-        name: "Sapori Dining Table",
-        posterImageUrl: "/images/HomeProducts/Dining/Sapori.png"
+        name: 'Sapori Dining Table',
+        posterImageUrl: '/images/HomeProducts/Dining/Sapori.png',
       },
       {
-        name: "Fiori Side Cabinet",
-        posterImageUrl: "/images/HomeProducts/Dining/Fiori.png"
+        name: 'Fiori Side Cabinet',
+        posterImageUrl: '/images/HomeProducts/Dining/Fiori.png',
       },
       {
-        name: "Floki Barstool",
-        posterImageUrl: "/images/HomeProducts/Dining/Floki.png"
+        name: 'Floki Barstool',
+        posterImageUrl: '/images/HomeProducts/Dining/Floki.png',
       },
       {
-        name: "Venice Barstool",
-        posterImageUrl: "/images/HomeProducts/Dining/Venice.png"
+        name: 'Venice Barstool',
+        posterImageUrl: '/images/HomeProducts/Dining/Venice.png',
       },
       {
-        name: "Trattori Barstool",
-        posterImageUrl: "/images/HomeProducts/Dining/Trattori.png"
+        name: 'Trattori Barstool',
+        posterImageUrl: '/images/HomeProducts/Dining/Trattori.png',
       },
-    ]
+    ],
   },
   {
     name: 'living',
     products: [
       {
-        name: "The Lisbon Sofa Set",
-        posterImageUrl: "/images/HomeProducts/Living/Lisbon.png"
+        name: 'The Lisbon Sofa Set',
+        posterImageUrl: '/images/HomeProducts/Living/Lisbon.png',
       },
       {
-        name: "Lucius Coffee Table Set",
-        posterImageUrl: "/images/HomeProducts/Living/Lucius.png"
+        name: 'Lucius Coffee Table Set',
+        posterImageUrl: '/images/HomeProducts/Living/Lucius.png',
       },
       {
-        name: "Finestra Side Table",
-        posterImageUrl: "/images/HomeProducts/Living/Finestra.png"
+        name: 'Finestra Side Table',
+        posterImageUrl: '/images/HomeProducts/Living/Finestra.png',
       },
       {
-        name: "Vaunchy Side Table",
-        posterImageUrl: "/images/HomeProducts/Living/Vaunchy.png"
+        name: 'Vaunchy Side Table',
+        posterImageUrl: '/images/HomeProducts/Living/Vaunchy.png',
       },
       {
-        name: "Arti Side Table",
-        posterImageUrl: "/images/HomeProducts/Living/Arti.png"
+        name: 'Arti Side Table',
+        posterImageUrl: '/images/HomeProducts/Living/Arti.png',
       },
       {
-        name: "Marlin Tub Chair",
-        posterImageUrl: "/images/HomeProducts/Living/Marlin.png"
+        name: 'Marlin Tub Chair',
+        posterImageUrl: '/images/HomeProducts/Living/Marlin.png',
       },
       {
-        name: "Marlin Tub Swivel Chair",
-        posterImageUrl: "/images/HomeProducts/Living/Swivel.png"
+        name: 'Marlin Tub Swivel Chair',
+        posterImageUrl: '/images/HomeProducts/Living/Swivel.png',
       },
       {
-        name: "Marlin Rocking Chair",
-        posterImageUrl: "/images/HomeProducts/Living/rocking.png"
+        name: 'Marlin Rocking Chair',
+        posterImageUrl: '/images/HomeProducts/Living/rocking.png',
       },
       {
-        name: "Braga Armchair",
-        posterImageUrl: "/images/HomeProducts/Living/Braga.png"
+        name: 'Braga Armchair',
+        posterImageUrl: '/images/HomeProducts/Living/Braga.png',
       },
       {
-        name: "Capri Leather Swivel Chair",
-        posterImageUrl: "/images/HomeProducts/Living/Capri.png"
+        name: 'Capri Leather Swivel Chair',
+        posterImageUrl: '/images/HomeProducts/Living/Capri.png',
       },
-    ]
+    ],
   },
   {
     name: 'bedroom',
     products: [
       {
-        name: "Tavola Bedside Table",
-        posterImageUrl: "/images/HomeProducts/Bedroom/Tavola.png"
+        name: 'Tavola Bedside Table',
+        posterImageUrl: '/images/HomeProducts/Bedroom/Tavola.png',
       },
       {
-        name: "Moderno Bedside Table",
-        posterImageUrl: "/images/HomeProducts/Bedroom/Moderno.png"
+        name: 'Moderno Bedside Table',
+        posterImageUrl: '/images/HomeProducts/Bedroom/Moderno.png',
       },
       {
-        name: "Ombra Bedside Table",
-        posterImageUrl: "/images/HomeProducts/Bedroom/Ombra.png"
+        name: 'Ombra Bedside Table',
+        posterImageUrl: '/images/HomeProducts/Bedroom/Ombra.png',
       },
       {
-        name: "Accenti Bedside Table",
-        posterImageUrl: "/images/HomeProducts/Bedroom/Accenti.png"
+        name: 'Accenti Bedside Table',
+        posterImageUrl: '/images/HomeProducts/Bedroom/Accenti.png',
       },
       {
-        name: "Vista Sofa Bed",
-        posterImageUrl: "/images/HomeProducts/Bedroom/Vista.png"
+        name: 'Vista Sofa Bed',
+        posterImageUrl: '/images/HomeProducts/Bedroom/Vista.png',
       },
       {
-        name: "Milano Sofa Bed ",
-        posterImageUrl: "/images/HomeProducts/Bedroom/Vista.png"
+        name: 'Milano Sofa Bed ',
+        posterImageUrl: '/images/HomeProducts/Bedroom/Vista.png',
       },
       {
-        name: "Yakuba Side Table",
-        posterImageUrl: "/images/HomeProducts/Bedroom/Yakuba.png"
+        name: 'Yakuba Side Table',
+        posterImageUrl: '/images/HomeProducts/Bedroom/Yakuba.png',
       },
       {
-        name: "Sexton Floor Lamp",
-        posterImageUrl: "/images/HomeProducts/Bedroom/Sexton.png"
+        name: 'Sexton Floor Lamp',
+        posterImageUrl: '/images/HomeProducts/Bedroom/Sexton.png',
       },
       {
-        name: "Florento Floor Lamp",
-        posterImageUrl: "/images/HomeProducts/Bedroom/Florento.png"
+        name: 'Florento Floor Lamp',
+        posterImageUrl: '/images/HomeProducts/Bedroom/Florento.png',
       },
       {
-        name: "Cipriani Floor Lamp",
-        posterImageUrl: "/images/HomeProducts/Bedroom/Cipriani.png"
+        name: 'Cipriani Floor Lamp',
+        posterImageUrl: '/images/HomeProducts/Bedroom/Cipriani.png',
       },
-    ]
+    ],
   },
   {
     name: 'accessories',
     products: [
       {
-        name: "A Pair of Droplet Stands",
-        posterImageUrl: "/images/HomeProducts/Accessories/Droplet.png"
+        name: 'A Pair of Droplet Stands',
+        posterImageUrl: '/images/HomeProducts/Accessories/Droplet.png',
       },
       {
-        name: "A Pair of Layered Elegance",
-        posterImageUrl: "/images/HomeProducts/Accessories/Layered.png"
+        name: 'A Pair of Layered Elegance',
+        posterImageUrl: '/images/HomeProducts/Accessories/Layered.png',
       },
       {
-        name: "Abstract Vase",
-        posterImageUrl: "/images/HomeProducts/Accessories/Abstract.png"
+        name: 'Abstract Vase',
+        posterImageUrl: '/images/HomeProducts/Accessories/Abstract.png',
       },
       {
-        name: "Pair of Monolith Sphere Towers",
-        posterImageUrl: "/images/HomeProducts/Accessories/Monolith.png"
+        name: 'Pair of Monolith Sphere Towers',
+        posterImageUrl: '/images/HomeProducts/Accessories/Monolith.png',
       },
       {
-        name: "Pair of Rooted Egg Stands",
-        posterImageUrl: "/images/HomeProducts/Accessories/Rooted.png"
+        name: 'Pair of Rooted Egg Stands',
+        posterImageUrl: '/images/HomeProducts/Accessories/Rooted.png',
       },
-    ]
+    ],
   },
-]
+];

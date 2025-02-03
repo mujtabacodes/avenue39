@@ -47,7 +47,7 @@ interface CardProps {
   calculateHeight?: string;
   portSpace?: string;
   productImages?: IProduct[];
-  redirect?: string
+  redirect?: string;
 }
 
 const Card: React.FC<CardProps> = ({
@@ -62,11 +62,13 @@ const Card: React.FC<CardProps> = ({
   calculateHeight,
   portSpace,
   productImages,
-  redirect
+  redirect,
 }) => {
   const dispatch = useDispatch<Dispatch>();
   const cartItems = useSelector((state: State) => state.cart.items);
-  const [ cardStaticData , setCardStaticData ] = useState<IProduct | undefined>(undefined)
+  const [cardStaticData, setCardStaticData] = useState<IProduct | undefined>(
+    undefined,
+  );
   const pathname = usePathname();
 
   const handleEventProbation = (e: React.MouseEvent<HTMLElement>) => {
@@ -78,10 +80,12 @@ const Card: React.FC<CardProps> = ({
     quantity: 1,
   };
   useEffect(() => {
-    const cardImage = productImages?.find((item: IProduct) => item.name === card?.name);
-    console.log(cardImage,'cardImage')
+    const cardImage = productImages?.find(
+      (item: IProduct) => item.name === card?.name,
+    );
+    console.log(cardImage, 'cardImage');
     setCardStaticData(cardImage);
-  },[productImages])
+  }, [productImages]);
   const handleAddToCard = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
     const existingCartItem = cartItems.find((item) => item.id === card?.id);
@@ -110,7 +114,11 @@ const Card: React.FC<CardProps> = ({
   const { averageRating } = calculateRatingsPercentage(filteredReviews);
 
   const handleNavigation = (): string => {
-    let main_Category = redirect ? redirect : isHomepage ? card?.categories && card?.categories[0] : pathname.split('/')[1].trim().toLocaleLowerCase()
+    let main_Category = redirect
+      ? redirect
+      : isHomepage
+        ? card?.categories && card?.categories[0]
+        : pathname.split('/')[1].trim().toLocaleLowerCase();
     let subCategory = pathname.split('/')[2]?.trim().toLocaleLowerCase();
 
     let redirectedMain = re_Calling_products.find(
@@ -119,18 +127,26 @@ const Card: React.FC<CardProps> = ({
           main_Category &&
         subCategory == generateSlug(value.subCategory).trim().toLowerCase(),
     );
-    let mainCategory = card?.categories?.find((value) =>
+    let mainCategory = card?.categories?.find(
+      (value) =>
         value.name.trim().toLocaleLowerCase() ===
-        (redirectedMain ? redirectedMain.redirect_main_cat.trim().toLocaleLowerCase(): main_Category)
+        (redirectedMain
+          ? redirectedMain.redirect_main_cat.trim().toLocaleLowerCase()
+          : main_Category),
     );
-    let subcategory =card?.subcategories && card?.subcategories[0]?.name?.trim().toLocaleLowerCase();
+    let subcategory =
+      card?.subcategories &&
+      card?.subcategories[0]?.name?.trim().toLocaleLowerCase();
     let url;
 
     console.log(redirectedMain, 'redirectedMain', mainCategory);
 
-    if (!mainCategory) return card?.categories && card?.categories[0].name.toLowerCase() || "";
+    if (!mainCategory)
+      return (card?.categories && card?.categories[0].name.toLowerCase()) || '';
 
-    if (subcategory) {url = '/' +
+    if (subcategory) {
+      url =
+        '/' +
         generateSlug(mainCategory.name || '') +
         '/' +
         generateSlug(subcategory || '') +
@@ -140,7 +156,11 @@ const Card: React.FC<CardProps> = ({
       return url;
     }
 
-    url ='/' +generateSlug(mainCategory.name || '') +'/' + generateSlug(card?.name || '');
+    url =
+      '/' +
+      generateSlug(mainCategory.name || '') +
+      '/' +
+      generateSlug(card?.name || '');
 
     return url;
   };
@@ -164,42 +184,56 @@ const Card: React.FC<CardProps> = ({
             loop={true}
             modules={[Pagination]}
           >
-            {Array(2).fill(null).map((_, index) => (
-              <SwiperSlide key={index} className="w-full">
-                {imgIndex && isLandscape ? (
-                  <div className='overflow-hidden'>
-                    <Link href={handleNavigation()} className={`${cardImageHeight} flex justify-center items-center px-2`}>
-                      <Image
-                        src={cardStaticData?.posterImageUrl || imgIndex.imageUrl}
-                        alt={imgIndex.altText || 'image'}
-                        width={600}
-                        height={600}
-                        className={cn(
-                          'object-contain rounded-[35px] w-full',
-                          className,
-                        )}
-                        style={{ height: calculateHeight ? calculateHeight : 'calc(100% - 20px)' }}
-                      />
-                    </Link>
-
-                  </div>
-                ) : (
-                  <div className={`${cardImageHeight} bg-[#E3E4E6] flex justify-center overflow-hidden items-center rounded-[35px] ${portSpace ? portSpace : 'px-2'}`}>
-                    <Link href={handleNavigation()}>
-                      <Image
-                        src={cardStaticData?.posterImageUrl || imgIndex.imageUrl}
-                        alt={imgIndex?.altText || 'image'}
-                        onClick={() => handleNavigation()}
-                        width={600}
-                        height={600}
-                        className={cn(
-                          'object-contain rounded-[35px] w-full',
-                          className,
-                        )}
-                      />
-                    </Link>
-                  </div>
-                )}
+            {Array(2)
+              .fill(null)
+              .map((_, index) => (
+                <SwiperSlide key={index} className="w-full">
+                  {imgIndex && isLandscape ? (
+                    <div className="overflow-hidden">
+                      <Link
+                        href={handleNavigation()}
+                        className={`${cardImageHeight} flex justify-center items-center px-2`}
+                      >
+                        <Image
+                          src={
+                            cardStaticData?.posterImageUrl || imgIndex.imageUrl
+                          }
+                          alt={imgIndex.altText || 'image'}
+                          width={600}
+                          height={600}
+                          className={cn(
+                            'object-contain rounded-[35px] w-full',
+                            className,
+                          )}
+                          style={{
+                            height: calculateHeight
+                              ? calculateHeight
+                              : 'calc(100% - 20px)',
+                          }}
+                        />
+                      </Link>
+                    </div>
+                  ) : (
+                    <div
+                      className={`${cardImageHeight} bg-[#E3E4E6] flex justify-center overflow-hidden items-center rounded-[35px] ${portSpace ? portSpace : 'px-2'}`}
+                    >
+                      <Link href={handleNavigation()}>
+                        <Image
+                          src={
+                            cardStaticData?.posterImageUrl || imgIndex.imageUrl
+                          }
+                          alt={imgIndex?.altText || 'image'}
+                          onClick={() => handleNavigation()}
+                          width={600}
+                          height={600}
+                          className={cn(
+                            'object-contain rounded-[35px] w-full',
+                            className,
+                          )}
+                        />
+                      </Link>
+                    </div>
+                  )}
 
                   {card.discountPrice > 1 && (
                     <p className="absolute top-1 -left-9 px-7 transform -rotate-45 bg-[#FF0000] text-white text-14 font-bold w-[120px] h-[40px] flex justify-center items-center">

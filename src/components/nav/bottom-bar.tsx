@@ -59,14 +59,16 @@ const BottomBar: React.FC<BottomBarProps> = ({ categories }) => {
   const hideSheet = () => {
     setIsSheetOpen(false);
   };
-  const { loggedInUser } = useSelector((state: State) => state.usrSlice)
+  const { loggedInUser } = useSelector((state: State) => state.usrSlice);
   const [profilePhoto, setProfilePhoto] = useState<any>([]);
   useEffect(() => {
     if (loggedInUser) {
-      setProfilePhoto({ imageUrl: loggedInUser?.userImageUrl, public_id: loggedInUser.userPublicId })
+      setProfilePhoto({
+        imageUrl: loggedInUser?.userImageUrl,
+        public_id: loggedInUser.userPublicId,
+      });
     }
-
-  }, [loggedInUser])
+  }, [loggedInUser]);
   return (
     <div className="flex justify-between items-center px-4 md:hidden py-3 border-t w-full fixed bottom-0 bg-white z-50">
       <Link href={'/'}>
@@ -87,7 +89,7 @@ const BottomBar: React.FC<BottomBarProps> = ({ categories }) => {
         </SheetTrigger>
         <SheetContent className="pb-5">
           <div className="pt-10 space-y-2">
-            {categories.map((menu, menuIndex) => (
+            {categories.map((menu, menuIndex) =>
               menu.subcategories && menu.subcategories?.length > 0 ? (
                 <Accordion
                   key={menuIndex}
@@ -108,25 +110,33 @@ const BottomBar: React.FC<BottomBarProps> = ({ categories }) => {
                     <AccordionContent>
                       <SheetClose asChild>
                         <div className="grid font-semibold space-y-2 px-4">
-                        <MenuLink
-                              menudata={menu}
-                              onLinkClick={hideSheet}
-                            />
+                          <MenuLink menudata={menu} onLinkClick={hideSheet} />
                         </div>
                       </SheetClose>
                     </AccordionContent>
                   </AccordionItem>
                 </Accordion>
               ) : (
-                <Link href={`/products/${generateSlug(menu.name)}`} key={menuIndex} onClick={hideSheet} className='hover:underline font-semibold text-15 py-1 block uppercase w-fit'>{menu.name}</Link>
-              )
-
-            )
+                <Link
+                  href={`/products/${generateSlug(menu.name)}`}
+                  key={menuIndex}
+                  onClick={hideSheet}
+                  className="hover:underline font-semibold text-15 py-1 block uppercase w-fit"
+                >
+                  {menu.name}
+                </Link>
+              ),
             )}
-            <Link href={'/products'} onClick={hideSheet} className='hover:underline text-red-500 font-semibold text-15 py-1 block uppercase w-fit'>Sale</Link>
+            <Link
+              href={'/products'}
+              onClick={hideSheet}
+              className="hover:underline text-red-500 font-semibold text-15 py-1 block uppercase w-fit"
+            >
+              Sale
+            </Link>
           </div>
-          <div className='mt-3'>
-            <SocialLink iconColor='text-black' />
+          <div className="mt-3">
+            <SocialLink iconColor="text-black" />
           </div>
         </SheetContent>
       </Sheet>
@@ -179,7 +189,7 @@ const BottomBar: React.FC<BottomBarProps> = ({ categories }) => {
                 src={
                   profilePhoto && profilePhoto.imageUrl
                     ? profilePhoto.imageUrl
-                    : "/images/dummy-avatar.jpg"
+                    : '/images/dummy-avatar.jpg'
                 }
                 width={55}
                 height={55}

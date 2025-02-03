@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import React, { useState, useEffect } from 'react';
 import { FaStar } from 'react-icons/fa';
 interface StarRatingProps {
@@ -8,7 +8,11 @@ interface StarRatingProps {
   onChange?: (rating: number) => void;
   /* eslint-enable */
 }
-const StarRating: React.FC<StarRatingProps> = ({ disabled = false, defaultValue = 0, onChange }) => {
+const StarRating: React.FC<StarRatingProps> = ({
+  disabled = false,
+  defaultValue = 0,
+  onChange,
+}) => {
   const [rating, setRating] = useState(defaultValue);
 
   useEffect(() => {

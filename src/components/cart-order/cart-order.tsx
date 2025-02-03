@@ -18,8 +18,7 @@ const CartOrder: React.FC = () => {
     selectTotalPrice(state.cart),
   );
 
-
-  console.log(filteredCities, "filteredCities")
+  console.log(filteredCities, 'filteredCities');
   const formik = useFormik({
     initialValues: {
       country: '',
@@ -41,7 +40,8 @@ const CartOrder: React.FC = () => {
     }
   }, [formik.values.country]);
 
-  const progressBarPercentage = totalPrice > 1000 ? 100 : (totalPrice / 1000) * 100;
+  const progressBarPercentage =
+    totalPrice > 1000 ? 100 : (totalPrice / 1000) * 100;
   const remainingAmount = 1000 - totalPrice;
   return (
     <div className="shadow border border-[#EEEEEE] rounded-md p-2 md:p-4 w-full space-y-5 mt-5 md:mt-0">
@@ -55,33 +55,52 @@ const CartOrder: React.FC = () => {
       <div className="flex justify-between items-center pt-4">
         <p className="text-[#666666] font-bold text-20">Total</p>
         <p className="font-medium text-[26px]">
-          AED <span><SubTotal /></span>
+          AED{' '}
+          <span>
+            <SubTotal />
+          </span>
         </p>
       </div>
       <div className="mt-4 space-y-3">
-        <p className='text-xs xl:text-14'>We offer FREE NEXT DAY delivery throughout Dubai city for any orders above AED 1,000. For all other areas of mainland UAE, your order will reach you within 2 working days.</p>
+        <p className="text-xs xl:text-14">
+          We offer FREE NEXT DAY delivery throughout Dubai city for any orders
+          above AED 1,000. For all other areas of mainland UAE, your order will
+          reach you within 2 working days.
+        </p>
         {totalPrice >= 1000 ? (
           <div className="relative w-full bg-gray-200 h-10 rounded-full">
             <div
               className="bg-green-500 h-10 rounded-full"
-              style={{ width: "100%" }}
+              style={{ width: '100%' }}
             >
               <p className="text-white font-medium absolute inset-0 flex justify-center items-center px-2 text-xs xl:text-14 md:text-sm">
-                Congratulations! You&apos;ve got free shipping! <BsTruck className='text-20 ms-2' />
+                Congratulations! You&apos;ve got free shipping!{' '}
+                <BsTruck className="text-20 ms-2" />
               </p>
             </div>
           </div>
         ) : (
           <>
-            <p className="text-[#666666] text-xs font-medium">AED {remainingAmount} away from free delivery</p>
+            <p className="text-[#666666] text-xs font-medium">
+              AED {remainingAmount} away from free delivery
+            </p>
             <div className="w-full bg-gray-200 h-10 rounded-full ">
-              <div className="bg-green-500 h-10 rounded-full flex justify-center items-center w-full" style={{ width: `${progressBarPercentage}%` }}>
-                <p className="text-white font-medium text-center">{Math.round(progressBarPercentage)}%</p><BsTruck className='text-20 ms-2 text-white' /></div></div>
+              <div
+                className="bg-green-500 h-10 rounded-full flex justify-center items-center w-full"
+                style={{ width: `${progressBarPercentage}%` }}
+              >
+                <p className="text-white font-medium text-center">
+                  {Math.round(progressBarPercentage)}%
+                </p>
+                <BsTruck className="text-20 ms-2 text-white" />
+              </div>
+            </div>
           </>
         )}
       </div>
       <div className="border-t-2">
-        <Link href={"/checkout"}
+        <Link
+          href={'/checkout'}
           className="text-18 bg-black hover:bg-white border-2 rounded-2xl border-black hover:text-black text-white w-full mt-2 h-[60px] flex justify-center items-center "
           onClick={() => Navigate.push('/checkout')}
         >
