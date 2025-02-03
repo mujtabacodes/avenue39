@@ -6,6 +6,11 @@ export const fetchProducts = async () => {
     const result = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/product/get-all`, {
       next: { tags: ['products'] },
     });
+    if (!result.ok) {
+    console.log(result, "result")
+
+      return []
+    }
     const response = await result.json();
     
     return response;

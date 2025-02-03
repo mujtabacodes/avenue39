@@ -8,7 +8,7 @@ import { useState } from 'react';
 import FormElements from '@components/Dashboard/FormElements';
 import { ICategory, IProduct } from '@/types/types';
 
-const Product = ({cetagories , productsData ,subcetagories }: {cetagories: ICategory[] , productsData: IProduct[] ,subcetagories:ICategory[]} ) => {
+const Product = ({ cetagories, productsData }: { cetagories: ICategory[], productsData: IProduct[] }) => {
   const [editProduct, setEditProduct] = useState<any | undefined>();
   const [products, setProducts] = useState<any[]>(productsData);
   const [selecteMenu, setselecteMenu] = useState<string>('Add All Products');
@@ -29,20 +29,20 @@ const Product = ({cetagories , productsData ,subcetagories }: {cetagories: ICate
     imagesUrl: editProduct && editProduct.productImages,
     sections: editProduct && editProduct?.sections,
     additionalInformation: editProduct && editProduct.additionalInformation,
-    Images_Alt_Text:editProduct && editProduct?.Images_Alt_Text,
-    Meta_Title:editProduct && editProduct?.Meta_Title,
-    Meta_Description:editProduct && editProduct?.Meta_Description,
-    Canonical_Tag:editProduct && editProduct?.Canonical_Tag,
-    Og_title:editProduct && editProduct?.Meta_Title,
-    Og_Image:editProduct && editProduct?.Meta_Title,
-    OgUrl:editProduct && editProduct?.Meta_Title,
-    sale_counter:editProduct && editProduct?.sale_counter,
-    colors:editProduct && editProduct?.colors || [],
-    sizes:editProduct && editProduct?.sizes || [],
-    filters:editProduct && editProduct?.filters || [],
+    Images_Alt_Text: editProduct && editProduct?.Images_Alt_Text,
+    Meta_Title: editProduct && editProduct?.Meta_Title,
+    Meta_Description: editProduct && editProduct?.Meta_Description,
+    Canonical_Tag: editProduct && editProduct?.Canonical_Tag,
+    Og_title: editProduct && editProduct?.Meta_Title,
+    Og_Image: editProduct && editProduct?.Meta_Title,
+    OgUrl: editProduct && editProduct?.Meta_Title,
+    sale_counter: editProduct && editProduct?.sale_counter,
+    colors: editProduct && editProduct?.colors || [],
+    sizes: editProduct && editProduct?.sizes || [],
+    filter: editProduct && editProduct?.filter || [],
   };
-  console.log(EditInitialValues,"EditInitialValues")
-  console.log(editProduct,"editProduct")
+  console.log(EditInitialValues, "EditInitialValues")
+  console.log(editProduct, "editProduct")
 
   let productFlag: boolean = selecteMenu === 'Add All Products' ? true : false;
 
@@ -52,7 +52,7 @@ const Product = ({cetagories , productsData ,subcetagories }: {cetagories: ICate
       {productFlag ? (
         <ViewProduct
           Categories={products}
-          subcetagories={subcetagories}
+          // subcetagories={subcetagories}
           setCategory={setProducts}
           setselecteMenu={setselecteMenu}
           setEditProduct={setEditProduct}
@@ -64,13 +64,13 @@ const Product = ({cetagories , productsData ,subcetagories }: {cetagories: ICate
           setEditProduct={setEditProduct}
           EditProductValue={
             EditInitialValues &&
-            (EditInitialValues.name !== undefined ||
-              EditInitialValues.category !== undefined)
+              (EditInitialValues.name !== undefined ||
+                EditInitialValues.category !== undefined)
               ? EditInitialValues
               : undefined
           }
           categoriesList={cetagories}
-          />
+        />
       )}
     </DefaultLayout>
   );

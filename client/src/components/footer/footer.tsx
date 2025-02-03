@@ -59,29 +59,33 @@ const Footer: React.FC = () => {
       <div className="container w-full sm:w-1/2 flex flex-col items-center mx-auto md:mb-[110px]">
         <Image src={logo} alt="logo" className="w-40" />
 
+<div className='w-fit'>
         <p className="mt-6 tracking-wide font-Helveticalight text-13 lg:text-15 text-[#686868] max-sm:text-center">
-          Get updates by subscribe our weekly newsletter
+        Get Our Exclusive Handpicked Furniture Catalogue
         </p>
         <form className="mt-6 max-md:mb-5" onSubmit={handleNewsLetter}>
           <div className="relative">
             <input
               type="email"
               placeholder="Enter your mail address"
-              className="bg-white text-black w-full ps-3 py-5 pe-[156px] lg:pe-[185px] xl:pe-[185px] rounded-2xl text-xs"
+              className="bg-white text-black w-full ps-3 py-5 rounded-2xl text-xs"
               value={email}
               onChange={handleChange}
               disabled={isLoading}
             />
             <Button
               variant={'secondary'}
-              className="text-white bg-black hover:bg-slate-700 absolute top-2 right-3 rounded-2xl px-2 font-extralight text-xs"
+              className="text-white bg-black hover:bg-slate-700 absolute top-2 right-3 rounded-2xl px-2 font-extralight text-xs p-2"
               disabled={isLoading}
             >
-              {isLoading ? 'Subscribing...' : 'Subscribe Now'}
+              {isLoading ? 'Subscribing...' : 'Submit'}
             </Button>
           </div>
         </form>
+
+</div>
       </div>
+
       {/* <Container className="grid grid-cols-5 sm:gap-x-4 md:gap-x-5 lg:gap-x-8 gap-y-8 px-4 mx-auto  items-center justify-between bg-green-300"> */}
       <Container className="flex flex-wrap justify-between gap-10 ">
         <div className=" px-2">
