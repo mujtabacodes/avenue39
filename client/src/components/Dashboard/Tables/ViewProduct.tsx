@@ -16,6 +16,7 @@ import { product } from '@/types/interfaces';
 import revalidateTag from '@/components/ServerActons/ServerAction';
 import Cookies from 'js-cookie';
 import Swal from 'sweetalert2';
+import Link from 'next/link';
 
 interface Product {
   id: string;
@@ -224,11 +225,7 @@ const ViewProduct: React.FC<CategoryProps> = ({
       key: 'Preview',
       width: 120,
       render: (text: any, record: Product) => {
-        const handleClick = () => {
-          const url = `/product/${generateSlug(record.name)}`;
-          window.open(url, '_blank');
-        };
-        return <FaRegEye className="cursor-pointer" onClick={handleClick} />;
+        return <Link className='hover:text-black' target='_blank' href={`/product/${generateSlug(record.name)}`}><FaRegEye /></Link>  ;
       },
     },
     {
