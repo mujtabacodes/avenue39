@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { generateSlug } from '@/config';
 import { ICategory } from '@/types/types';
 import { menuData } from '@/data/menu';
+import { re_Calling_products } from '@/data/Re_call_prod';
+import { TrimUrlHandler } from '@/config/fetch';
 
 interface MenuLinkProps {
   menudata: ICategory;
@@ -10,10 +12,7 @@ interface MenuLinkProps {
   loading?: boolean;
 }
 
-const MenuLink: React.FC<MenuLinkProps> = ({
-  menudata,
-  onLinkClick,
-}) => {
+const MenuLink: React.FC<MenuLinkProps> = ({ menudata, onLinkClick }) => {
   const [subCategory, setSubCategory] = useState<ICategory[] | undefined>([]);
   useEffect(() => {
     const categoryName =
@@ -24,8 +23,12 @@ const MenuLink: React.FC<MenuLinkProps> = ({
           : menudata.name.toLowerCase();
     const menuItems = menuData[categoryName];
     const sortedSubcategories = menudata.subcategories?.sort((a, b) => {
-      const indexA = menuItems.findIndex(item => item.title.toLowerCase() === a.name.toLowerCase());
-      const indexB = menuItems.findIndex(item => item.title.toLowerCase() === b.name.toLowerCase());
+      const indexA = menuItems.findIndex(
+        (item) => item.title.toLowerCase() === a.name.toLowerCase(),
+      );
+      const indexB = menuItems.findIndex(
+        (item) => item.title.toLowerCase() === b.name.toLowerCase(),
+      );
       if (indexA === -1 && indexB === -1) {
         return a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1;
       }
@@ -33,21 +36,40 @@ const MenuLink: React.FC<MenuLinkProps> = ({
       if (indexB === -1) return 1;
       return indexA - indexB;
     });
-    setSubCategory(sortedSubcategories)
+    setSubCategory(sortedSubcategories);
   }, [menudata]);
+
+  const routinghandler = (mainCategory: string, subCategory: string) => {
+    const routedCat = re_Calling_products.find(
+      (value) =>
+        TrimUrlHandler(value.mainCategory) === TrimUrlHandler(mainCategory) &&
+        TrimUrlHandler(subCategory) == TrimUrlHandler(value.subCategory),
+    );
+    let routedMainCategory;
+    let routedSubCategory;
+    if (routedCat) {
+      routedMainCategory = routedCat.redirect_main_cat;
+      routedSubCategory = routedCat.redirectsubCat;
+    }
+    return `/${generateSlug(routedMainCategory || mainCategory)}/${generateSlug(routedSubCategory || subCategory)}`;
+  };
+
   return (
     <>
       {subCategory?.map((item, index) => (
         <Link
-          href={item.name === 'Accessories' ? '/accessories'
-            : `/${generateSlug(menudata.name)}/${generateSlug(item.name)}`
+          href={
+            item.name === 'Accessories'
+              ? '/accessories'
+              : routinghandler(menudata.name, item.name)
           }
           className={`flex gap-1 items-center`}
           key={index}
           onClick={onLinkClick}
-        >{item.name}</Link>
-      )
-      )}
+        >
+          {item.name}
+        </Link>
+      ))}
     </>
   );
 };

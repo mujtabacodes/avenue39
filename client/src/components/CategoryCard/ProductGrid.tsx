@@ -1,5 +1,5 @@
 import React from 'react';
-import { IProduct } from '@/types/types'; // Make sure this import is correct for your types
+import { IProduct } from '@/types/types';
 import { IProductsImage } from '@/types/interfaces';
 
 interface ProductGridProps {
@@ -12,9 +12,10 @@ interface ProductGridProps {
   calculateHeight?: string;
   portSpace?: string
   productImages: IProductsImage[];
+  redirect?: string
 }
 
-const ProductGrid: React.FC<ProductGridProps> = ({ products, productImages, CardComponent, imageHeight,slider , isHomepage, calculateHeight , portSpace , isLandscape }) => {
+const ProductGrid: React.FC<ProductGridProps> = ({ products, productImages, CardComponent, imageHeight,slider , isHomepage, calculateHeight , portSpace , isLandscape,redirect }) => {
   console.log(products,'products Floki')
   return (
     <>
@@ -31,6 +32,7 @@ const ProductGrid: React.FC<ProductGridProps> = ({ products, productImages, Card
           calculateHeight={calculateHeight}
           portSpace={portSpace}
           productImages={productImages}
+          redirect={redirect}
         />
       ))}
     </>

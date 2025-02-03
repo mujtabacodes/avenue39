@@ -44,6 +44,13 @@ export const fetchReviews = async (): Promise<IReview[]> => {
   return response.data;
 };
 
+
+export const TrimUrlHandler = (name: string | undefined)=>{
+if(!name)return ''
+
+return name.trim().toLowerCase()
+
+}
 // export const fetchProducts = async (): Promise<IProduct[]> => {
 //   return new Promise<IProduct[]>((resolve, reject) => {
 //     setTimeout(async () => {

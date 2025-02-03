@@ -10,14 +10,11 @@ import { ICategory } from '@/types/types';
 const CategoryProducts = async ({ slug }: { slug: string[]  }) => {
    const name = slug[0];
    const categories = await fetchCategories()
-
-console.log(categories, "categories")  
+ 
    const findCategory = categories && categories?.find((item:any) => generateSlug(item.name) === name);
    if (!findCategory) {
       return <NotFound />
    }
-
-
 
    const categoryName = name === 'lighting' ? 'Lighting' : name === 'home-office' ? 'homeOffice' : name;
    const subcategory = menuData[categoryName] || []

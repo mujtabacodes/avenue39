@@ -12,9 +12,10 @@ interface ICatProduct {
   CategoryName: string;
   products:IProduct[];
   redirect: string;
+  CategoryDescription?: string;
 }
 
-const CatProduct1 = ({ reverse, CategoryName,products,redirect }: ICatProduct) => {
+const CatProduct1 = ({ reverse, CategoryName,products,redirect,CategoryDescription }: ICatProduct) => {
   const productImages = homeProducts.find((item) => item.name === redirect);
   return (
     <Container className="my-10">
@@ -24,7 +25,17 @@ const CatProduct1 = ({ reverse, CategoryName,products,redirect }: ICatProduct) =
             {CategoryName}
         </p>
         </Link>    
-      <div className={`mt-6 sm:mt-12 `}>
+        <div className=' max-w-screen-xl mx-auto mt-10 text-center font-Helveticalight px-2 sm:px-4 lg:px-0' >
+          {CategoryDescription ?
+          <p className='text-14 lg:text-[22px]'>{CategoryDescription}</p>
+          :
+          <div className="animate-pulse">
+          <div className="h-5 lg:h-6 bg-gray-300 rounded-md w-3/4 mx-auto mb-2"></div>
+          <div className="h-5 lg:h-6 bg-gray-300 rounded-md w-2/4 mx-auto"></div>
+        </div>
+          }
+        </div>
+      <div className={`mt-6 sm:mt-8 `}>
   
         <div className={`grid grid-cols-12 sm:gap-8 ${reverse ? "hidden" : " block"}`}>
         <div className={`col-span-12 md:col-span-6 xl:col-span-7 `}>
@@ -32,21 +43,21 @@ const CatProduct1 = ({ reverse, CategoryName,products,redirect }: ICatProduct) =
             {products.length < 1 && Array(3).fill(null).map((_, index) => (
               <ProductSkeleton imageHeight="h-[210px] xl:h-[496.5px]" key={index} />
             ))}
-              <ProductGrid products={products.slice(6, 9)} productImages={productImages?.products || []}  CardComponent={Card} isHomepage={true} imageHeight="h-[210px] xl:h-[496.5px] w-full" />
+              <ProductGrid products={products.slice(6, 9)} productImages={productImages?.products || []}  CardComponent={Card} isHomepage={true} redirect={redirect} imageHeight="h-[210px] xl:h-[496.5px] w-full" />
             </div>
           </div>
           <div className={`col-span-12 md:col-span-6 xl:col-span-5`}>
           {products.length < 1 && (
              <ProductSkeleton imageHeight="h-[210px] xl:h-[496.5px]" />
             )}
-              <ProductGrid products={products.slice(5, 6)} productImages={productImages?.products || []} CardComponent={Card} slider={true} imageHeight="h-[210px] xl:h-[496.5px] w-full" portSpace={'px-10'} />
+              <ProductGrid products={products.slice(5, 6)} productImages={productImages?.products || []} CardComponent={Card} slider={true} redirect={redirect} imageHeight="h-[210px] xl:h-[496.5px] w-full" portSpace={'px-10'} />
           </div>
         </div>
         <div className={`grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 sm:gap-8`}>
         {products.length < 1 && Array(5).fill(null).map((_, index) => (
               <ProductSkeleton imageHeight="h-[270px] xl:h-[290px]" key={index} />
             ))}
-          <ProductGrid products={products.slice(0, 5)} productImages={productImages?.products || []} CardComponent={Card} isHomepage={true} imageHeight="h-[270px] xl:h-[290px]" />
+          <ProductGrid products={products.slice(0, 5)} productImages={productImages?.products || []} CardComponent={Card} isHomepage={true} redirect={redirect} imageHeight="h-[270px] xl:h-[290px]" />
         </div>
       </div>
     </div>

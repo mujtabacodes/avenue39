@@ -56,8 +56,8 @@ const ColorBanner: React.FC = () => {
               <div className="flex flex-col justify-center items-center lg:w-[30%] w-full pb-2 text-center mx-auto">
                 <div style={{ width: `${isWide}px`}}>
                 <div className="font-Helveticalight">
-                  <h2 className="text-2xl pb-1">{slide.Heading}</h2>
-                  <p className="text-sm font-normal pb-2">{slide.ShortText}</p>
+                  <h2 className="text-2xl pb-1 uppercase font-semibold">{slide.Heading}</h2>
+                  {/* <p className="text-sm font-normal pb-2">{slide.ShortText}</p> */}
                   <p className="text-18 font-extralight">{slide.Description}</p>
                 </div>
                 <div className="w-fit lg:h-full xl:mt-20 md:mt-10 mt-10 px-2 mx-auto">

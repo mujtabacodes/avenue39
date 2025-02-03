@@ -44,7 +44,7 @@ const ProductPage = ({
   const [sortOption, setSortOption] = useState<string>('default');
   // const [filterLoading, setFilterLoading] = useState<boolean>(false);
   const pathname = usePathname();
-console.log(productBanner, "productBanner")
+console.log(productBanner, "productBanner", pathname)
 
   // useEffect(() => {
   //   const currentCategory = pathname
@@ -124,16 +124,6 @@ console.log(productBanner, "productBanner")
     }
     return true;
   })
-    // .filter((card) => {
-    //   if (selectedSubCategories.length > 0) {
-    //     console.log(selectedSubCategories,'selectedSubCategories')
-    //     return card.subcategories?.some((sub) =>
-    //       selectedSubCategories.includes(`SUB_${sub.name.toUpperCase()}`),
-    //     );
-    //   } else if (selectedCategories.length > 0 && isCategory) {
-    //     return card.categories?.some((cat) => selectedCategories.includes(cat.name))
-    //   } else return pathname === '/products' && true;
-    // })
     .sort((a, b) => {
       switch (sortOption) {
         case 'name': {
@@ -157,11 +147,11 @@ console.log(productBanner, "productBanner")
 
   return (
     <>
-      <TopHero
+{    <TopHero
         breadcrumbs={productsbredcrumbs}
         categoryName={categoryName?.name}
         subCategorName={''}
-      />
+      />}
       <Container className="my-5 flex flex-col md:flex-row gap-4 md:gap-8">
         {/* <div className="w-full md:w-2/6 lg:w-[392px] hidden md:block">
           <SidebarFilter
@@ -174,13 +164,16 @@ console.log(productBanner, "productBanner")
         </div> */}
         {/* <div className="w-full md:w-4/6 lg:w-9/12"> */}
         <div className="w-full">
-          <div className='flex flex-col items-center'>
+
+       { pathname=="/new-arrivals" ? "": 
+       
+       <div className='flex flex-col items-center'>
             <h1 className='text-[45px] font-helvetica font-bold'>{categoryName?.name}</h1>
             <Container>
-            <p className='text-center'>{categoryName?.description} Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus mollitia placeat fugiat hic dolore error, rerum numquam delectus esse! Nam pariatur expedita, earum voluptatum suscipit nemo tempore optio neque quis.lorem  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reprehenderit, possimus, enim nihil assumenda corrupti accusantium excepturi dolore officiis voluptas dolores repellendus sequi maiores suscipit sint pariatur dignissimos magni, inventore quas. Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus distinctio qui aliquam quod, sed dignissimos optio minus, neque soluta, ducimus recusandae laborum quisquam praesentium totam. Neque animi non temporibus necessitatibus.</p>
+            <p className='text-center'>{categoryName?.description} </p>
             </Container>
           
-          </div>
+          </div>}
           <div className="sm:mt-4 mt-10 flex items-center justify-between gap-4 py-2 px-2 flex-col md:flex-row">
             <div className="flex items-center gap-4">
 
@@ -202,6 +195,8 @@ console.log(productBanner, "productBanner")
                 <MdWindow className="cursor-pointer text-3xl" onClick={() => Setlayout('grid')} />
                 <ImList className="cursor-pointer text-2xl" onClick={() => Setlayout('list')} />
               </div>
+
+
               <p className="block whitespace-nowrap ">Showing {filteredCards.length > 0 ? filteredCards.length : 0} results</p>
             </div>
             <SubCategoriesRow />
@@ -215,7 +210,7 @@ console.log(productBanner, "productBanner")
               filteredCards.map((card) => (
                 <div key={card.id} className='flex'>
                   {layout === 'grid' ? (
-                    <Card card={card} category isLoading={false} cardImageHeight="h-[300px] xsm:h-[220px] sm:h-[400px] md:h-[350px] xl:h-[220px] 2xl:h-[280px] w-full" />
+                    <Card card={card} isLoading={false} cardImageHeight="h-[300px] xsm:h-[220px] sm:h-[400px] md:h-[350px] xl:h-[220px] 2xl:h-[280px] w-full" />
                   ) : (
                     <LandscapeCard card={card} isLoading={false} />
                   )}
