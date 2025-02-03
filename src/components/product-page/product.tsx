@@ -2,7 +2,7 @@ import React, { useState, ReactNode } from 'react';
 import { usePathname } from 'next/navigation';
 import TopHero from '@/components/top-hero';
 import Container from '@/components/ui/Container';
-import { productsbredcrumbs } from '@/data/data';
+import { newArrivals, productsbredcrumbs } from '@/data/data';
 import { ImList } from 'react-icons/im';
 import { MdWindow } from 'react-icons/md';
 import {
@@ -165,8 +165,18 @@ console.log(productBanner, "productBanner", pathname)
         {/* <div className="w-full md:w-4/6 lg:w-9/12"> */}
         <div className="w-full">
 
-       { pathname=="/new-arrivals" ? "": 
-       
+       { pathname=="/new-arrivals" ? 
+     <div className="flex flex-col items-center">
+        {newArrivals.map((item, index) => (
+          <div key={index} className="text-center">
+            <h1 className="text-[45px] font-helvetica font-bold">{item.title}</h1>
+            <Container>
+              <p>{item.description}</p>
+            </Container>
+          </div>
+        ))}
+      </div>
+       : 
        <div className='flex flex-col items-center'>
             <h1 className='text-[45px] font-helvetica font-bold'>{categoryName?.name}</h1>
             <Container>
