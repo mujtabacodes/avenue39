@@ -19,9 +19,8 @@ const config = {
       },
     },
     extend: {
-      backgroundColor:{
+      backgroundColor: {
         // login: 'url("src/assets/images/login.png")',
-  
       },
       fontSize: {
         9: '9px',
@@ -113,15 +112,15 @@ const config = {
       },
     },
     screens: {
-      'xsm': '380px',
-      'xs': '480px',
-      'sm': '640px',
-      'md': '895px',
-      'lg': '1024px',
-      'xl': '1280px',
+      xsm: '380px',
+      xs: '480px',
+      sm: '640px',
+      md: '895px',
+      lg: '1024px',
+      xl: '1280px',
       '2xl': '1536px',
       '3xl': '1736px',
-    }
+    },
   },
   plugins: [require('tailwindcss-animate')],
 } satisfies Config;

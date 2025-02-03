@@ -60,22 +60,22 @@ const FeatureCard: React.FC<CardProps> = ({
     quantity: 1,
   };
 
-   const handleAddToCard = (e: React.MouseEvent<HTMLElement>) => {
-      e.stopPropagation();
-      const existingCartItem = cartItems.find((item) => item.id === card?.id);
-      const currentQuantity = existingCartItem?.quantity || 0;
-      const newQuantity = currentQuantity + itemToAdd.quantity;
-      if (newQuantity > (card?.stock || 0)) {
-        message.error(`Only ${card?.stock} items are in stock. You cannot add more than that.`);
-        return;
-      }
-      dispatch(addItem(itemToAdd));
-      dispatch(openDrawer());
-    };
+  const handleAddToCard = (e: React.MouseEvent<HTMLElement>) => {
+    e.stopPropagation();
+    const existingCartItem = cartItems.find((item) => item.id === card?.id);
+    const currentQuantity = existingCartItem?.quantity || 0;
+    const newQuantity = currentQuantity + itemToAdd.quantity;
+    if (newQuantity > (card?.stock || 0)) {
+      message.error(
+        `Only ${card?.stock} items are in stock. You cannot add more than that.`,
+      );
+      return;
+    }
+    dispatch(addItem(itemToAdd));
+    dispatch(openDrawer());
+  };
 
-  const {
-    data: reviews = [],
-  } = useQuery<IReview[], Error>({
+  const { data: reviews = [] } = useQuery<IReview[], Error>({
     queryKey: ['reviews'],
     queryFn: fetchReviews,
   });
@@ -105,20 +105,27 @@ const FeatureCard: React.FC<CardProps> = ({
       totalPrice: product.discountPrice ? product.discountPrice : product.price,
     };
     let existingWishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
-    const existingItemIndex = existingWishlist.findIndex((item: any) => item.id === newWishlistItem.id);
+    const existingItemIndex = existingWishlist.findIndex(
+      (item: any) => item.id === newWishlistItem.id,
+    );
     if (existingItemIndex !== -1) {
       const currentCount = existingWishlist[existingItemIndex].count;
       if (product.stock && currentCount + 1 > product.stock) {
-        message.error(`Only ${product.stock} items are in stock. You cannot add more to your wishlist.`);
+        message.error(
+          `Only ${product.stock} items are in stock. You cannot add more to your wishlist.`,
+        );
         return;
       }
       existingWishlist[existingItemIndex].count += 1;
       existingWishlist[existingItemIndex].totalPrice =
         existingWishlist[existingItemIndex].count *
-        (existingWishlist[existingItemIndex].discountPrice || existingWishlist[existingItemIndex].price);
+        (existingWishlist[existingItemIndex].discountPrice ||
+          existingWishlist[existingItemIndex].price);
     } else {
       if (product.stock && newWishlistItem.count > product.stock) {
-        message.error(`Only ${product.stock} items are in stock. You cannot add more to your wishlist.`);
+        message.error(
+          `Only ${product.stock} items are in stock. You cannot add more to your wishlist.`,
+        );
         return;
       }
       existingWishlist.push(newWishlistItem);
@@ -126,9 +133,8 @@ const FeatureCard: React.FC<CardProps> = ({
     localStorage.setItem('wishlist', JSON.stringify(existingWishlist));
     message.success('Product added to Wishlist successfully!');
     window.dispatchEvent(new Event('WishlistChanged'));
-    console.log(existingWishlist, "existingWishlist");
+    console.log(existingWishlist, 'existingWishlist');
   };
-  
 
   return (
     <div className="space-y-3 px-4 relative">
@@ -136,41 +142,51 @@ const FeatureCard: React.FC<CardProps> = ({
         <Skeleton className={cardHeight} />
       ) : (
         <div className="relative group overflow-hidden rounded-2xl">
-          <div onClick={handleAddToCard} className=" w-10 h-10 absolute right-4 top-4 rounded-xl  flex justify-center items-center border bg-white hover:border-main hover:bg-main hover:text-white  cursor-pointer">
+          <div
+            onClick={handleAddToCard}
+            className=" w-10 h-10 absolute right-4 top-4 rounded-xl  flex justify-center items-center border bg-white hover:border-main hover:bg-main hover:text-white  cursor-pointer"
+          >
             <IoBagOutline size={20} />
           </div>
-          <div className='flex flex-col gap-4 opacity-0 group-hover:opacity-100 duration-300 transition-all absolute top-20 right-4'>
-          <div onClick={() => handleAddToWishlist(card)} className=" w-10 h-10 rounded-xl  flex justify-center items-center border bg-white hover:border-main hover:bg-main hover:text-white  cursor-pointer opacity-0 group-hover:opacity-100 duration-300 transition-all">
-            <IoIosHeartEmpty size={20} />
-          </div>
-          {!isModel && (
-            <Dialog>
-              <DialogTrigger>
-                <div className=" py-3 z-20 w-10 h-10 rounded-xl flex justify-center items-center border bg-white hover:border-main hover:bg-main hover:text-white cursor-pointer opacity-0 group-hover:opacity-100 duration-300 transition-all">
-                  <IoEyeOutline size={20} />
-                </div>
-              </DialogTrigger>
-              <DialogOverlay />
-              <DialogContent className="max-w-[1400px] w-11/12 bg-white px-0 sm:rounded-3xl border border-black shadow-none gap-0 pb-0">
-                <VisuallyHidden>
-                  <DialogTitle>Product Detail</DialogTitle>
-                </VisuallyHidden>
-                <div className="pb-6 px-5 xs:px-10 me-4 xs:me-7 mt-6 max-h-[80vh] overflow-y-auto custom-scroll">
-                  <ProductDetail
-                    params={card}
-                    isZoom={false}
-                    gap="gap-10 md:gap-20"
-                    swiperGap="gap-5"
-                    detailsWidth="w-full md:w-1/2 lg:w-2/5"
-                  />
-                </div>
-              </DialogContent>
-            </Dialog>
-          )}
+          <div className="flex flex-col gap-4 opacity-0 group-hover:opacity-100 duration-300 transition-all absolute top-20 right-4">
+            <div
+              onClick={() => handleAddToWishlist(card)}
+              className=" w-10 h-10 rounded-xl  flex justify-center items-center border bg-white hover:border-main hover:bg-main hover:text-white  cursor-pointer opacity-0 group-hover:opacity-100 duration-300 transition-all"
+            >
+              <IoIosHeartEmpty size={20} />
+            </div>
+            {!isModel && (
+              <Dialog>
+                <DialogTrigger>
+                  <div className=" py-3 z-20 w-10 h-10 rounded-xl flex justify-center items-center border bg-white hover:border-main hover:bg-main hover:text-white cursor-pointer opacity-0 group-hover:opacity-100 duration-300 transition-all">
+                    <IoEyeOutline size={20} />
+                  </div>
+                </DialogTrigger>
+                <DialogOverlay />
+                <DialogContent className="max-w-[1400px] w-11/12 bg-white px-0 sm:rounded-3xl border border-black shadow-none gap-0 pb-0">
+                  <VisuallyHidden>
+                    <DialogTitle>Product Detail</DialogTitle>
+                  </VisuallyHidden>
+                  <div className="pb-6 px-5 xs:px-10 me-4 xs:me-7 mt-6 max-h-[80vh] overflow-y-auto custom-scroll">
+                    <ProductDetail
+                      params={card}
+                      isZoom={false}
+                      gap="gap-10 md:gap-20"
+                      swiperGap="gap-5"
+                      detailsWidth="w-full md:w-1/2 lg:w-2/5"
+                    />
+                  </div>
+                </DialogContent>
+              </Dialog>
+            )}
           </div>
           {card.discountPrice > 0 && (
             <div className="absolute -top-1 -left-[56px] px-7 transform -rotate-45 bg-[#FF0000] text-white text-14 font-bold w-[150px] h-[45px] flex justify-center items-center">
-              {(Math.round(((card.price - card.discountPrice) / card.price) * 100))}%</div>
+              {Math.round(
+                ((card.price - card.discountPrice) / card.price) * 100,
+              )}
+              %
+            </div>
           )}
 
           <div onClick={() => handleNavigation()} className="cursor-pointer">

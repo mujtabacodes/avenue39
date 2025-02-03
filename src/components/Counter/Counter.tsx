@@ -1,10 +1,10 @@
-"use client";
+'use client';
 import { message } from 'antd';
 import React from 'react';
 import { HiMinusSm, HiPlusSm } from 'react-icons/hi';
 
 interface CounterProps {
-  count: number; 
+  count: number;
   /* eslint-disable */
   onChangeCount: (count: number) => void;
   /* eslint-enable */
@@ -35,13 +35,13 @@ const Counter: React.FC<CounterProps> = ({ count, onChangeCount }) => {
       message.error('Cannot go below 1!');
     }
   };
-console.log(count,"count")
+  console.log(count, 'count');
   return (
     <div className="flex items-center border border-gray-300 rounded py-1 md:p-2 md:py-3 w-fit">
       <button
         onClick={onDecrement}
         className="px-2 text-gray-600"
-        disabled={count <= 0} 
+        disabled={count <= 0}
       >
         <HiMinusSm size={20} />
       </button>

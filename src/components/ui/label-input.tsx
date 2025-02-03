@@ -4,13 +4,17 @@ import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 import { cn } from '@/lib/utils';
 import { Label } from '@radix-ui/react-label';
 
-export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+export interface InputProps
+  extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   labelClass?: string;
 }
 
 const LabelInput = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, labelClass, type, id, name, label, onChange, value, ...props }, ref) => {
+  (
+    { className, labelClass, type, id, name, label, onChange, value, ...props },
+    ref,
+  ) => {
     const [showPassword, setShowPassword] = React.useState(false);
     const [inputType, setInputType] = React.useState(type);
 
@@ -21,16 +25,21 @@ const LabelInput = React.forwardRef<HTMLInputElement, InputProps>(
 
     return (
       <div className="relative flex flex-col w-full">
-        <Label htmlFor={id} className={cn(
-              'mb-1 px-8 text-xs sm:text-sm font-semibold text-[#666666] ',
-              labelClass,
-            )} >
+        <Label
+          htmlFor={id}
+          className={cn(
+            'mb-1 px-8 text-xs sm:text-sm font-semibold text-[#666666] ',
+            labelClass,
+          )}
+        >
           {label}
         </Label>
-        <div className={cn(
-              'relative flex items-center h-[50px] w-full  rounded-full border-input bg-[#F6F6F6]',
-              className,
-            )}>
+        <div
+          className={cn(
+            'relative flex items-center h-[50px] w-full  rounded-full border-input bg-[#F6F6F6]',
+            className,
+          )}
+        >
           <input
             type={inputType}
             id={id}

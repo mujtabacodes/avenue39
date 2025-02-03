@@ -9,8 +9,7 @@ const Shop = ({
   ProductData,
   isCategory,
   findCategory,
-  categoryName
-
+  categoryName,
 }: {
   productBanner?: ReactNode;
   categories?: ICategory[];

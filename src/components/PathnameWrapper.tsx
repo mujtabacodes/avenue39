@@ -8,14 +8,15 @@ import Header from './nav/Header';
 const PathnameWrapper = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname() as string;
 
-  const withoutHeaderPages = [
-    '/dashboard',
-    '/thanks',
-  ];
+  const withoutHeaderPages = ['/dashboard', '/thanks'];
   return (
     <>
       {withoutHeaderPages.includes(pathname) ||
-      pathname.split('/').includes('dashboard') ? pathname === '/dashboard/Admin-login' ?  <Header /> : null : (
+      pathname.split('/').includes('dashboard') ? (
+        pathname === '/dashboard/Admin-login' ? (
+          <Header />
+        ) : null
+      ) : (
         <>
           <Header />
         </>
@@ -23,7 +24,11 @@ const PathnameWrapper = ({ children }: { children: React.ReactNode }) => {
       {children}
       {pathname !== '/' &&
       (withoutHeaderPages.includes(pathname) ||
-        pathname.split('/').includes('dashboard')) ? pathname === '/dashboard/Admin-login' ?  <Footer /> : null : (
+        pathname.split('/').includes('dashboard')) ? (
+        pathname === '/dashboard/Admin-login' ? (
+          <Footer />
+        ) : null
+      ) : (
         <Footer />
       )}
     </>

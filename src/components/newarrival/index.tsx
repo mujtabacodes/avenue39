@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import React from 'react';
 import Container from '../ui/Container';
 import Image from 'next/image';
@@ -31,10 +31,16 @@ const NewArrival = () => {
                   >
                     {item.title}
                   </Link>
-                  <div className='my-2 text-center'>
-                  <h3 className="font-extrabold text-xs sm:text-base lg:text-lg pt-2 lg:pt-4">{item.productName}</h3>
-                  <p className="font-extrabold text-sm sm:text-lg lg:text-xl">{item.price}</p></div></div>
+                  <div className="my-2 text-center">
+                    <h3 className="font-extrabold text-xs sm:text-base lg:text-lg pt-2 lg:pt-4">
+                      {item.productName}
+                    </h3>
+                    <p className="font-extrabold text-sm sm:text-lg lg:text-xl">
+                      {item.price}
+                    </p>
+                  </div>
                 </div>
+              </div>
               <div className="w-full md:w-1/2 h-full">
                 <Image
                   src={item.imageSrc}

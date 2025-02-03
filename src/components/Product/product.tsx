@@ -11,10 +11,22 @@ import { Table } from 'antd';
 import { Skeleton } from '@/components/ui/skeleton';
 import NoProduct from '@/components/ui/no-product';
 
-const Product = ({ params, similarProducts, reviews, product, products }: { params: IProductDetail, reviews: IReview[], product: IProduct, similarProducts: IProduct[], products: IProduct[] }) => {
+const Product = ({
+  params,
+  similarProducts,
+  reviews,
+  product,
+  products,
+}: {
+  params: IProductDetail;
+  reviews: IReview[];
+  product: IProduct;
+  similarProducts: IProduct[];
+  products: IProduct[];
+}) => {
   const slug = params.name;
-  console.log(slug, 'slug')
-  console.log(reviews, 'reviews')
+  console.log(slug, 'slug');
+  console.log(reviews, 'reviews');
   const additional_columns_handler = () => {
     const section = product?.sections;
     if (section && section.length > 0) {
@@ -24,17 +36,23 @@ const Product = ({ params, similarProducts, reviews, product, products }: { para
           <div className="space-y-2">
             {sec.additionalInformation?.map((item: any, idx: number) => (
               <div key={idx} className="space-y-2">
-                <p className="text-black text-17 font-normal leading-7">{item.name}</p>
-                <p className="text-slate-400 text-17 font-normal leading-7">{item.detail}</p>
+                <p className="text-black text-17 font-normal leading-7">
+                  {item.name}
+                </p>
+                <p className="text-slate-400 text-17 font-normal leading-7">
+                  {item.detail}
+                </p>
               </div>
             ))}
           </div>
         ),
       }));
-      setTabs((prevTabs) => [...prevTabs, ...dynamicTabs].filter(
-        (tab, index, self) =>
-          index === self.findIndex((t) => t.label === tab.label)
-      ));
+      setTabs((prevTabs) =>
+        [...prevTabs, ...dynamicTabs].filter(
+          (tab, index, self) =>
+            index === self.findIndex((t) => t.label === tab.label),
+        ),
+      );
     }
   };
 
@@ -63,12 +81,13 @@ const Product = ({ params, similarProducts, reviews, product, products }: { para
         <div className=" flex flex-col md:flex-row gap-6 md:gap-10 border shadow-sm rounded-2xl max-w-screen-sm  font-helvetica ">
           <p className="text-slate-400 text-14 md:text-17 font-normal leading-7 w-full p-2">
             <Skeleton className="text-slate-400 text-17 font-normal leading-7 font-helvetica" />
-            {product?.description ? <span className='font-helvetica'>{product.description}</span>  : (
+            {product?.description ? (
+              <span className="font-helvetica">{product.description}</span>
+            ) : (
               <Skeleton className="text-slate-400 text-17 font-normal leading-7" />
             )}
           </p>
-          {product?.spacification && product?.spacification.length > 0 &&
-
+          {product?.spacification && product?.spacification.length > 0 && (
             <div className="w-full md:w-2/5 border-t-2 md:border-t-0 border-s-0 md:border-s-2 py-4 md:pb-10 font-helvetica">
               <h5 className="px-0 md:ps-12 font-bold text-15 uppercase">
                 specification
@@ -79,8 +98,7 @@ const Product = ({ params, similarProducts, reviews, product, products }: { para
                 ))}
               </ul>
             </div>
-
-          }
+          )}
         </div>
       ),
     },
@@ -198,24 +216,20 @@ const Product = ({ params, similarProducts, reviews, product, products }: { para
       label: 'Additional Information',
       content: (
         <>
-          {
-            dataSource && dataSource.length > 0 ?
-              <Table
-                columns={columns}
-                dataSource={dataSource}
-                pagination={false}
-                bordered
-                rowKey="name"
-                className="detail font-helvetica"
-              />
-              : null
-          }
-
+          {dataSource && dataSource.length > 0 ? (
+            <Table
+              columns={columns}
+              dataSource={dataSource}
+              pagination={false}
+              bordered
+              rowKey="name"
+              className="detail font-helvetica"
+            />
+          ) : null}
         </>
       ),
     },
-
-  ])
+  ]);
 
   const cartpageBreadcrumbs = [
     { label: 'Home', href: '/' },
@@ -223,12 +237,9 @@ const Product = ({ params, similarProducts, reviews, product, products }: { para
     { label: product?.name ?? 'Product Page' },
   ];
 
-
   useEffect(() => {
-    additional_columns_handler()
-  }, [product])
-
-
+    additional_columns_handler();
+  }, [product]);
 
   return (
     <div>
@@ -241,19 +252,21 @@ const Product = ({ params, similarProducts, reviews, product, products }: { para
             title="No Product Found"
             titleClass="font-medium text-2xl md:text-3xl"
           />
-        ) : (product &&
-          <ProductDetail
-            params={product}
-            isZoom={true}
-            gap="lg:gap-20 md:gap-20 sm:gap-10 gap-10"
-            swiperGap=" justify-between gap-2 xs:gap-6 md:gap-3"
-            detailsWidth="w-full md:w-1/2 lg:w-9/12 2xl:w-2/6"
-            products={products}
-          />
+        ) : (
+          product && (
+            <ProductDetail
+              params={product}
+              isZoom={true}
+              gap="lg:gap-20 md:gap-20 sm:gap-10 gap-10"
+              swiperGap=" justify-between gap-2 xs:gap-6 md:gap-3"
+              detailsWidth="w-full md:w-1/2 lg:w-9/12 2xl:w-2/6"
+              products={products}
+            />
+          )
         )}
       </Container>
       {product && (
-        <div className=''>
+        <div className="">
           <DetailTabs tabs={tabs} />
         </div>
       )}

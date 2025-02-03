@@ -1,5 +1,5 @@
 import React from 'react';
-import {testimonialcards } from '@/data';
+import { testimonialcards } from '@/data';
 import SofaBanner from '@/components/discount-banner/sofa-banner';
 import Testimonial from '@/components/testimonial/testimonial';
 import HeroVideo from '@/components/Home/hero-video';
@@ -16,11 +16,11 @@ export default async function Home() {
     <>
       <WhatsIcon />
       <HeroVideo />
-      <ColorBanner/>
+      <ColorBanner />
       <SofaBanner />
-      <NewArrival/>
+      <NewArrival />
       <AllCategory products={products} />
-      <Catalogue/>
+      <Catalogue />
       {testimonialcards && testimonialcards.length > 50 && (
         <Testimonial testimonialitems={testimonialcards} />
       )}

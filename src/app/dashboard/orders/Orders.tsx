@@ -7,8 +7,7 @@ import OrderList from '@/components/Orders/orders';
 import { LuView } from 'react-icons/lu';
 import { IOrder, IProduct } from '@/types/types';
 
-
-const Orders = ({orderData}: {orderData: IOrder[]}) => {
+const Orders = ({ orderData }: { orderData: IOrder[] }) => {
   const [selectedProducts, setSelectedProducts] = useState<IProduct[]>([]);
   const [visible, setVisible] = useState(false);
 

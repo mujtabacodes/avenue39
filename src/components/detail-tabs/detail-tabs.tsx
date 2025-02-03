@@ -28,7 +28,8 @@ const DetailTabs: FC<DetailTabsProps> = ({ tabs }) => {
                   : 'text-slate-400'
               }`}
               onClick={() => setActiveTab(index)}
-            >{tab.label}
+            >
+              {tab.label}
               {activeTab === index && (
                 <TiArrowSortedUp
                   size={30}
@@ -42,12 +43,11 @@ const DetailTabs: FC<DetailTabsProps> = ({ tabs }) => {
       <div className="border-t-[1px]  font-helvetica">
         <Container className="px-4">
           <div className="w-full sm:w-2/3 lg:w-3/4 sm:px-4 .font-Helveticalight">
-            {tabs[activeTab].content}            
+            {tabs[activeTab].content}
           </div>
           <div className="w-full relative mt-10">
-              <BestSellingSlider />
-            </div>
-
+            <BestSellingSlider />
+          </div>
         </Container>
       </div>
     </div>

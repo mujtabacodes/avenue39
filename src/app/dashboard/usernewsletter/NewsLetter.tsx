@@ -7,10 +7,10 @@ import Breadcrumb from '@components/Dashboard/Breadcrumbs/Breadcrumb';
 import ProtectedRoute from '@/hooks/AuthHookAdmin';
 
 interface Product {
-   id: string;
-   email: string;
- }
-const NewsLetter = ({newsLetters}: {newsLetters: Product[]}) => {
+  id: string;
+  email: string;
+}
+const NewsLetter = ({ newsLetters }: { newsLetters: Product[] }) => {
   const [products, setProducts] = useState<Product[]>(newsLetters);
   const [selecteMenu, setselecteMenu] = useState<string>('Add All Products');
 
@@ -20,8 +20,8 @@ const NewsLetter = ({newsLetters}: {newsLetters: Product[]}) => {
     <DefaultLayout>
       <Breadcrumb pageName={productFlag ? 'Newsletter' : 'BroadCast Email'} />
       <ViewNewsletter
-        Categories={products} 
-        setCategory={setProducts} 
+        Categories={products}
+        setCategory={setProducts}
         setselecteMenu={setselecteMenu}
       />
     </DefaultLayout>

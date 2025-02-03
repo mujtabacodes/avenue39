@@ -1,7 +1,7 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import Thumbnail from '../carousel/thumbnail';
-import { CiShoppingCart } from "react-icons/ci";
+import { CiShoppingCart } from 'react-icons/ci';
 import { IProduct, IProductDetail, IReview } from '@/types/types';
 import { NormalText, ProductName, ProductPrice } from '@/styles/typo';
 import { Button } from '../ui/button';
@@ -52,16 +52,15 @@ const ProductDetail = ({
   gap,
   swiperGap,
   detailsWidth,
-  products }
-  : {
-    params: IProductDetail;
-    isZoom?: Boolean;
-    gap?: String;
-    swiperGap?: String;
-    detailsWidth?: String;
-    products?: IProduct[]
-  }) => {
-
+  products,
+}: {
+  params: IProductDetail;
+  isZoom?: Boolean;
+  gap?: String;
+  swiperGap?: String;
+  detailsWidth?: String;
+  products?: IProduct[];
+}) => {
   const truncateText = (text: any, limit: any) => {
     return text.length > limit ? text.slice(0, limit) + '...' : text;
   };
@@ -94,17 +93,22 @@ const ProductDetail = ({
     if (!product) return;
 
     const availableSizes = product.productImages.filter(
-      (img) => product.filter && img.color === product.filter[0]?.additionalInformation[activeIndex]?.name
+      (img) =>
+        product.filter &&
+        img.color ===
+          product.filter[0]?.additionalInformation[activeIndex]?.name,
     );
-    const price = product.filter && product.filter[0]?.additionalInformation[activeIndex]?.price;
+    const price =
+      product.filter &&
+      product.filter[0]?.additionalInformation[activeIndex]?.price;
     setProductPrice(Number(price));
 
-
-    const firstAvailableSize = availableSizes.length > 0
-      ? product.sizes?.findIndex((size) =>
-        availableSizes.some((img) => img.size === size)
-      )
-      : 0;
+    const firstAvailableSize =
+      availableSizes.length > 0
+        ? product.sizes?.findIndex((size) =>
+            availableSizes.some((img) => img.size === size),
+          )
+        : 0;
 
     setSelectedSize(firstAvailableSize ?? 0);
   }, [activeIndex, product]);
@@ -112,27 +116,27 @@ const ProductDetail = ({
   useEffect(() => {
     if (!product) return;
 
-    const selectedSizeValue = product.sizes ? product.sizes[selectedSize] : undefined;
+    const selectedSizeValue = product.sizes
+      ? product.sizes[selectedSize]
+      : undefined;
 
     const availableColors = product.productImages.filter(
-      (img) => img.size === selectedSizeValue
+      (img) => img.size === selectedSizeValue,
     );
 
-    const firstAvailableColor = availableColors.length > 0
-      ? product.filter?.[0]?.additionalInformation.findIndex(
-        (color) => color.name === availableColors[0].color
-      )
-      : 0;
+    const firstAvailableColor =
+      availableColors.length > 0
+        ? product.filter?.[0]?.additionalInformation.findIndex(
+            (color) => color.name === availableColors[0].color,
+          )
+        : 0;
 
     setActiveIndex(firstAvailableColor ?? 0);
   }, [selectedSize, product]);
 
-
   function formatPrice(price: any) {
     if (!price) return 0;
-    return price > 1000
-      ? price.toLocaleString('en-US')
-      : price;
+    return price > 1000 ? price.toLocaleString('en-US') : price;
   }
 
   console.log(slug, 'slug');
@@ -167,9 +171,7 @@ const ProductDetail = ({
     }
   }, [product]);
 
-  const {
-    data: reviews = [],
-  } = useQuery<IReview[], Error>({
+  const { data: reviews = [] } = useQuery<IReview[], Error>({
     queryKey: ['reviews'],
     queryFn: fetchReviews,
   });
@@ -204,11 +206,15 @@ const ProductDetail = ({
 
   const handleAddToCard = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
-    const existingCartItem = cartItems.find((item: any) => item.id === product?.id);
+    const existingCartItem = cartItems.find(
+      (item: any) => item.id === product?.id,
+    );
     const currentQuantity = existingCartItem?.quantity || 0;
     const newQuantity = currentQuantity + count;
     if (product?.stock && newQuantity > product.stock) {
-      message.error(`Only ${product.stock} items are in stock. You cannot add more than that.`);
+      message.error(
+        `Only ${product.stock} items are in stock. You cannot add more than that.`,
+      );
       return;
     }
     dispatch(addItem(itemToAdd));
@@ -224,7 +230,6 @@ const ProductDetail = ({
     e.stopPropagation();
   };
 
-
   return (
     <div
       className={`flex flex-col md:flex-row w-full justify-between font-Helveticalight overflow-hidden ${gap} my-6 relative`}
@@ -237,14 +242,13 @@ const ProductDetail = ({
           // HoverImage={setHoveredImage}
           isLoading={false}
           activeIndex={activeIndex}
-
         />
       </div>
       <div className={`${detailsWidth} flex flex-col gap-2 pt-2`}>
         <div className="flex gap-2">
           {product.stock > 0 ? (
             <div className="bg-[#56B400] p-2 rounded-sm text-white text-xs font-Helveticalight">
-              IN STOCK { }
+              IN STOCK {}
             </div>
           ) : (
             <div className="bg-[#EE1C25] p-2 rounded-sm text-white text-xs font-Helveticalight">
@@ -287,7 +291,8 @@ const ProductDetail = ({
         )}
         {product?.discountPrice > 0 ? (
           <ProductPrice className="flex items-center gap-2">
-            AED {product?.discountPrice > 1000
+            AED{' '}
+            {product?.discountPrice > 1000
               ? product.discountPrice.toLocaleString()
               : product?.discountPrice}
             <NormalText className="font-normal text-base text-slate-400 line-through">
@@ -297,13 +302,13 @@ const ProductDetail = ({
                 : product?.price}
             </NormalText>
           </ProductPrice>
-
         ) : (
           <ProductPrice className="flex items-center gap-2">
             {/* AED {formatPrice(product?.price)} */}
-            {productPrice > 0 ? `AED ${formatPrice(productPrice)}` : `AED ${formatPrice(product?.price)}`}
+            {productPrice > 0
+              ? `AED ${formatPrice(productPrice)}`
+              : `AED ${formatPrice(product?.price)}`}
           </ProductPrice>
-
         )}
         {/* <div className="flex gap-3 font-semibold">
           <span>AVAILABLE:</span>
@@ -317,74 +322,86 @@ const ProductDetail = ({
           {
             // isExpanded
             //   ? product?.description
-            //   : 
-            truncateText(product?.description, 120)}
+            //   :
+            truncateText(product?.description, 120)
+          }
         </p>
 
         <div>
-          {product?.filter && product?.filter.length > 0 && product?.filter[0]?.additionalInformation && (
-            <div className="p-4">
-              <div>
-                <h2 className="font-semibold text-[16px] font-sans Capitalize">
-                  {product?.filter[0]?.heading}{" "}
-                  <span className='capitalize'>
-                    {product?.filter[0]?.additionalInformation[activeIndex]?.name}
-                  </span>
-                </h2>
+          {product?.filter &&
+            product?.filter.length > 0 &&
+            product?.filter[0]?.additionalInformation && (
+              <div className="p-4">
+                <div>
+                  <h2 className="font-semibold text-[16px] font-sans Capitalize">
+                    {product?.filter[0]?.heading}{' '}
+                    <span className="capitalize">
+                      {
+                        product?.filter[0]?.additionalInformation[activeIndex]
+                          ?.name
+                      }
+                    </span>
+                  </h2>
 
-                <div className="flex space-x-4 mt-2">
-                  {product?.filter[0]?.additionalInformation.map((item, index) => {
-                    const image = product?.productImages.find(
-                      (img) => img.color === item.name
-                    );
-                    if (!image) return null;
+                  <div className="flex space-x-4 mt-2">
+                    {product?.filter[0]?.additionalInformation.map(
+                      (item, index) => {
+                        const image = product?.productImages.find(
+                          (img) => img.color === item.name,
+                        );
+                        if (!image) return null;
 
-                    return (
-                      <div
-                        key={index}
-                        onClick={() => handleColorClick(index)}
-                        className={`cursor-pointer border rounded-lg p-1 flex items-center justify-center transition ${activeIndex === index
-                          ? "border-black font-bold shadow-md"
-                          : "hover:shadow-lg"
-                          }`}
-                      >
-                        {image && (
-                          <Image
-                            src={image.imageUrl}
-                            alt={image.altText || "product image"}
-                            width={48}
-                            height={48}
-                            className="h-[50px] width-[48px] object-cover rounded"
-                          />
-                        )}
-                      </div>
-                    );
-                  })}
+                        return (
+                          <div
+                            key={index}
+                            onClick={() => handleColorClick(index)}
+                            className={`cursor-pointer border rounded-lg p-1 flex items-center justify-center transition ${
+                              activeIndex === index
+                                ? 'border-black font-bold shadow-md'
+                                : 'hover:shadow-lg'
+                            }`}
+                          >
+                            {image && (
+                              <Image
+                                src={image.imageUrl}
+                                alt={image.altText || 'product image'}
+                                width={48}
+                                height={48}
+                                className="h-[50px] width-[48px] object-cover rounded"
+                              />
+                            )}
+                          </div>
+                        );
+                      },
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
-          )}
+            )}
 
           <div className="p-4">
             {product?.sizes && product?.sizes.length > 0 && (
               <div>
-                <h2 className="font-semibold text-[16px] font-sans Capitalize">Size:</h2>
+                <h2 className="font-semibold text-[16px] font-sans Capitalize">
+                  Size:
+                </h2>
                 <div className="flex space-x-4">
                   {product.sizes.map((size, index) => {
                     const availableColors = product?.productImages.filter(
-                      (img) => img.size === size
+                      (img) => img.size === size,
                     );
 
                     if (availableColors.length === 0) return null; // Skip sizes that don't have matching colors
-                    const [sizeName, sizeType] = size.split(" ");
+                    const [sizeName, sizeType] = size.split(' ');
                     return (
                       <div
                         key={index}
                         onClick={() => handleSizeClick(index)}
-                        className={`cursor-pointer border rounded-lg bg-[#F5F5F5] p-4 flex flex-col items-center justify-center h-[60px] w-[60px] transition ${selectedSize === index
-                          ? "border-black shadow-md"
-                          : "hover:shadow-lg"
-                          }`}
+                        className={`cursor-pointer border rounded-lg bg-[#F5F5F5] p-4 flex flex-col items-center justify-center h-[60px] w-[60px] transition ${
+                          selectedSize === index
+                            ? 'border-black shadow-md'
+                            : 'hover:shadow-lg'
+                        }`}
                       >
                         <span className="block text-[#666666] text-[14px] uppercase font-sans">
                           {sizeName}
@@ -402,7 +419,6 @@ const ProductDetail = ({
             )}
           </div>
         </div>
-
 
         {product.sale_counter &&
           Object.values(timeLeft).some((value) => value > 0) && (
@@ -425,19 +441,19 @@ const ProductDetail = ({
         {/* <NormalText className="mb-2">
           Hurry Up! Only <span className="text-red-600">12</span> left in stock:
         </NormalText> */}
-        {product.stock == 0 ?
+        {product.stock == 0 ? (
           <>
             <Link
               href="https://wa.me/971505974495"
-              target='_blank'
-              rel='noreferrer'
+              target="_blank"
+              rel="noreferrer"
               className=" ps-5 pe-10 h-12 w-full mt-5 mb-5 text-white bg-[#64B161] rounded-2xl flex justify-center items-center gap-2 hover:bg-[#56B400]"
             >
               <BsWhatsapp size={25} />
               <span className="font-light text-sm">PRE-ORDER ONLY</span>
             </Link>
           </>
-          :
+        ) : (
           <>
             <div className="flex items-center gap-4 justify-between mb-2">
               <div className="flex items-center border border-gray-300 rounded py-1 md:p-2 md:py-3">
@@ -456,8 +472,6 @@ const ProductDetail = ({
                   <HiPlusSm size={20} />
                 </button>
               </div>
-
-
             </div>
 
             <Button
@@ -492,10 +506,13 @@ const ProductDetail = ({
                       </DialogTitle>
                     </DialogHeader>
                     <QRScanner
-                      hoveredImage={product?.productImages[0].imageUrl ? product?.productImages[0].imageUrl : 'not found'}
+                      hoveredImage={
+                        product?.productImages[0].imageUrl
+                          ? product?.productImages[0].imageUrl
+                          : 'not found'
+                      }
                       url={slug}
                     />
-
                   </DialogContent>
                 </Dialog>
               </div>
@@ -523,7 +540,7 @@ const ProductDetail = ({
               </DialogContent>
             </Dialog>
           </>
-        }
+        )}
 
         <div className="flex items-center justify-center relative mb-2">
           <span className="absolute left-0 w-1/6 border-t border-gray-300"></span>
@@ -540,7 +557,11 @@ const ProductDetail = ({
             </span>
             <p className="text-12">
               Pay 4 interest-free payments of AED{' '}
-              {((product?.discountPrice ? product?.discountPrice : product?.price) / 4).toFixed(1)} {" "}
+              {(
+                (product?.discountPrice
+                  ? product?.discountPrice
+                  : product?.price) / 4
+              ).toFixed(1)}{' '}
               <Dialog>
                 <DialogTrigger asChild>
                   <span className="text-red-600 underline cursor-pointer">
@@ -607,7 +628,11 @@ const ProductDetail = ({
             </span>
             <p className="text-12">
               Pay 4 interest-free payments of AED{' '}
-              {((product?.discountPrice ? product?.discountPrice : product?.price) / 4).toFixed(1)} {" "}
+              {(
+                (product?.discountPrice
+                  ? product?.discountPrice
+                  : product?.price) / 4
+              ).toFixed(1)}{' '}
               <Dialog>
                 <DialogTrigger asChild>
                   <span className="text-red-600 underline cursor-pointer">

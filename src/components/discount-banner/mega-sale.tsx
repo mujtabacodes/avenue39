@@ -1,4 +1,3 @@
-
 import banner6 from '@images/banners/banner6.png';
 import CounDown from '@/components/countdown/coundown';
 

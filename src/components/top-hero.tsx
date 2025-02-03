@@ -41,7 +41,7 @@ const TopHero: React.FC<TopHeroProps> = ({
             {breadcrumbs.map((breadcrumb, index) => (
               <React.Fragment key={index}>
                 <BreadcrumbComponentItem className="flex items-center sm:gap-1">
-                  { breadcrumb.href ? (
+                  {breadcrumb.href ? (
                     <BreadcrumbLink
                       className="text-14 font-medium text-[#959595]"
                       href={breadcrumb.href}
@@ -53,12 +53,19 @@ const TopHero: React.FC<TopHeroProps> = ({
                       <BreadcrumbSeparator>
                         <BsSlash />
                       </BreadcrumbSeparator>
-                      {subCategorName ? <BreadcrumbLink className={`text-14 font-medium text-[#959595]`} href={`/products/${categoryName.replaceAll(' ', '-').toLowerCase()}`}>
-                        {categoryName}
-                      </BreadcrumbLink> : <BreadcrumbPage className="text-14 font-semibold text-black">
-                        {categoryName}
-                      </BreadcrumbPage>}
-                      
+                      {subCategorName ? (
+                        <BreadcrumbLink
+                          className={`text-14 font-medium text-[#959595]`}
+                          href={`/products/${categoryName.replaceAll(' ', '-').toLowerCase()}`}
+                        >
+                          {categoryName}
+                        </BreadcrumbLink>
+                      ) : (
+                        <BreadcrumbPage className="text-14 font-semibold text-black">
+                          {categoryName}
+                        </BreadcrumbPage>
+                      )}
+
                       {subCategorName ? (
                         <>
                           {' '}

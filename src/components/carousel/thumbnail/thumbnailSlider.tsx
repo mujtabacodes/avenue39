@@ -18,16 +18,21 @@ const CustomThumbnailSlickSlider = ({
   const settings = {
     infinite: thumbs.length > 1,
     centerMode: true,
-    centerPadding: "0",
+    centerPadding: '0',
     slidesToShow: 1,
     speed: 500,
     focusOnSelect: true,
     vertical: true,
     verticalSwiping: true,
     arrows: thumbs.length > 1,
-    nextArrow: <div id="nextArrow" className="slick-next-arrow !flex !justify-center !items-center">
-      <FaSortDown size={25} className="text-black " />
-    </div>,
+    nextArrow: (
+      <div
+        id="nextArrow"
+        className="slick-next-arrow !flex !justify-center !items-center"
+      >
+        <FaSortDown size={25} className="text-black " />
+      </div>
+    ),
     responsive: [
       {
         breakpoint: 895,
@@ -58,9 +63,9 @@ const CustomThumbnailSlickSlider = ({
       },
     ],
     beforeChange: (_: number, next: number) => {
-      console.log("beforeChange", next);
+      console.log('beforeChange', next);
       onSlideChange(next);
-    }
+    },
   };
 
   return (
@@ -71,14 +76,17 @@ const CustomThumbnailSlickSlider = ({
         className="product-slider custom-Slick"
       >
         {thumbs.map((thumb, index) => (
-          <div key={index} className="column-swiper-slider swiper-slide xsm:mx-0 mx-2">
+          <div
+            key={index}
+            className="column-swiper-slider swiper-slide xsm:mx-0 mx-2"
+          >
             <Image
               className={`rounded-lg shadow-md aspect-square ${isZoom ? 'md:h-[120px] 2xl:h-[160px] md:w-[120px] 2xl:w-[160px]' : 'h-[130px] w-[130px]'}`}
               src={thumb.imageUrl || '/default-image.jpg'}
               width={150}
               height={150}
               onClick={() => {
-                console.log(thumb)
+                console.log(thumb);
               }}
               alt={thumb.altText || 'Thumbnail'}
             />

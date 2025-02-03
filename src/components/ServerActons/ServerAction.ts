@@ -1,9 +1,9 @@
-"use server";
+'use server';
 
-import { revalidateTag as revalidate } from "next/cache";
+import { revalidateTag as revalidate } from 'next/cache';
 
-async function revalidateTag(name:string) {
-    revalidate(name);
+async function revalidateTag(name: string) {
+  revalidate(name);
 }
 
 export default revalidateTag;

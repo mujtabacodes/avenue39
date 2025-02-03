@@ -14,9 +14,7 @@ import Swal from 'sweetalert2';
 
 interface CategoryProps {
   setMenuType: React.Dispatch<SetStateAction<string>>;
-  seteditCategory?: React.Dispatch<
-    SetStateAction<Category | undefined | null>
-  >;
+  seteditCategory?: React.Dispatch<SetStateAction<Category | undefined | null>>;
   editCategory?: Category | undefined | null;
   cetagories?: ICategory[];
 }
@@ -24,7 +22,7 @@ interface CategoryProps {
 const TableTwo = ({
   setMenuType,
   seteditCategory,
-  cetagories
+  cetagories,
 }: CategoryProps) => {
   const [category, setCategory] = useState<ICategory[] | undefined>(cetagories);
   // const [loading, setLoading] = useState<boolean>(false);
@@ -39,17 +37,22 @@ const TableTwo = ({
   let finalToken = token ? token : superAdminToken;
 
   const filteredCategories: ICategory[] =
-    category && category
-      .filter(
-        (category) =>
-          category.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          category.description && category.description.toLowerCase().includes(searchTerm.toLowerCase()),
-      )
-      .sort((a, b) => {
-        const dateA = a.createdAt ? new Date(a.createdAt).getTime() : 0;
-        const dateB = b.createdAt ? new Date(b.createdAt).getTime() : 0;
-        return dateB - dateA;
-      }) || [];
+    (category &&
+      category
+        .filter(
+          (category) =>
+            category.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            (category.description &&
+              category.description
+                .toLowerCase()
+                .includes(searchTerm.toLowerCase())),
+        )
+        .sort((a, b) => {
+          const dateA = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+          const dateB = b.createdAt ? new Date(b.createdAt).getTime() : 0;
+          return dateB - dateA;
+        })) ||
+    [];
   console.log(filteredCategories, 'Filter Cetagories');
 
   const canDeleteCategory = true;
@@ -77,7 +80,6 @@ const TableTwo = ({
         handleDelete(key);
       }
     });
-
   };
 
   const handleDelete = async (key: any) => {
@@ -89,19 +91,19 @@ const TableTwo = ({
             categoryId: key,
           },
           headers: {
-            'token': finalToken,
+            token: finalToken,
           },
         },
       );
       setCategory((prev: any) => prev.filter((item: any) => item.id != key));
-      revalidateTag('categories')
+      revalidateTag('categories');
       notification.success({
         message: 'Category Deleted',
         description: 'The category has been successfully deleted.',
         placement: 'topRight',
       });
     } catch (err) {
-      console.log(err, "err")
+      console.log(err, 'err');
       notification.error({
         message: 'Deletion Failed',
         description: 'There was an error deleting the category.',
@@ -197,8 +199,9 @@ const TableTwo = ({
       key: 'action',
       render: (text: any, record: any) => (
         <RiDeleteBin6Line
-          className={`cursor-pointer ${canDeleteCategory && 'text-red-500 dark:text-red-700'} ${!canDeleteCategory && 'cursor-not-allowed text-slate-300'
-            }`}
+          className={`cursor-pointer ${canDeleteCategory && 'text-red-500 dark:text-red-700'} ${
+            !canDeleteCategory && 'cursor-not-allowed text-slate-300'
+          }`}
           // className="cursor-pointer text-red-500"
           size={20}
           onClick={() => {
@@ -224,11 +227,12 @@ const TableTwo = ({
           />
           <div>
             <p
-              className={`${canAddCategory && 'cursor-pointer'
-                } lg:p-2 md:p-2 ${canAddCategory &&
+              className={`${canAddCategory && 'cursor-pointer'} lg:p-2 md:p-2 ${
+                canAddCategory &&
                 'bg-black dark:bg-main dark:border-0 text-white rounded-md border   '
-                } flex justify-center ${!canAddCategory && 'cursor-not-allowed '
-                }`}
+              } flex justify-center ${
+                !canAddCategory && 'cursor-not-allowed '
+              }`}
               onClick={() => {
                 seteditCategory && seteditCategory(null);
                 if (canAddCategory) {

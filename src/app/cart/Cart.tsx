@@ -43,7 +43,9 @@ const Cart = ({ similarProducts }: { similarProducts: IProduct[] }) => {
           <div className="flex justify-center items-center w-full h-96">
             <div className="flex flex-col gap-4 items-center">
               <IoBagOutline size={100} className="text-black" />
-              <p className="font-medium text-2xl font-helvetica">No Items In Cart</p>
+              <p className="font-medium text-2xl font-helvetica">
+                No Items In Cart
+              </p>
               <div className="">
                 <Link
                   href="/products"
@@ -57,7 +59,9 @@ const Cart = ({ similarProducts }: { similarProducts: IProduct[] }) => {
         )}
       </Container>
       <Container className="my-10">
-        <p className="text-xl  md:text-[40px] font-Helveticalight text-center">Similar Products</p>
+        <p className="text-xl  md:text-[40px] font-Helveticalight text-center">
+          Similar Products
+        </p>
         <FeatureSlider similarProducts={similarProducts} title={false} />
       </Container>
       <Services />

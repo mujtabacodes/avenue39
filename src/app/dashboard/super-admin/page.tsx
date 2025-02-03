@@ -18,7 +18,6 @@ const SuperAdmin = () => {
   useEffect(() => {
     const superAdminToken = Cookies.get('superAdminToken');
     console.log('toke super admin' + superAdminToken);
-
   }, [Navigate]);
 
   const EditInitialValues: any = {

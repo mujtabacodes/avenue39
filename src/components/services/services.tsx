@@ -7,7 +7,7 @@ interface servicesProps {
   className?: string;
 }
 
-const Services: React.FC<servicesProps> = ({className}) => {
+const Services: React.FC<servicesProps> = ({ className }) => {
   return (
     <section className={`py-10 ${className ? className : ''}`}>
       <Container>

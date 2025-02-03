@@ -1,4 +1,3 @@
-
 import React from 'react';
 import Container from '../ui/Container';
 import Card from '../ui/card';
@@ -15,57 +14,125 @@ interface ICatProduct {
   portSpace?: string;
   sofaHeight?: string;
   sideTableHeight?: string;
-  redirect?:string;
-  CategoryDescription?:string;
+  redirect?: string;
+  CategoryDescription?: string;
 }
-const CatProduct = ({ reverse, CategoryName, products , landHeight ,portSpace , sofaHeight ,sideTableHeight,redirect,CategoryDescription }: ICatProduct) => {
- const productImages = homeProducts.find((item) => item.name === redirect);
- console.log("Products array: ", products , productImages);
+const CatProduct = ({
+  reverse,
+  CategoryName,
+  products,
+  landHeight,
+  portSpace,
+  sofaHeight,
+  sideTableHeight,
+  redirect,
+  CategoryDescription,
+}: ICatProduct) => {
+  const productImages = homeProducts.find((item) => item.name === redirect);
+  console.log('Products array: ', products, productImages);
   return (
     <Container className="my-10">
-      <div className='relative px-2 md:px-6 border-2 border-[#707070] rounded-[40px] sm:rounded-[87px]'>
-        <Link href={`/${redirect}`} className="absolute -top-5 left-1/2 transform -translate-x-1/2 rounded-xl border bg-white xs:left-20 xs:transform-none hover:font-bold">
+      <div className="relative px-2 md:px-6 border-2 border-[#707070] rounded-[40px] sm:rounded-[87px]">
+        <Link
+          href={`/${redirect}`}
+          className="absolute -top-5 left-1/2 transform -translate-x-1/2 rounded-xl border bg-white xs:left-20 xs:transform-none hover:font-bold"
+        >
           <p className="px-2 md:text-3xl font-Helveticalight capitalize text-center">
             {CategoryName}
           </p>
         </Link>
-        <div className=' max-w-screen-xl mx-auto mt-10 text-center font-Helveticalight px-2 sm:px-4 lg:px-0' >
-          {CategoryDescription ?
-          <p className='text-14 lg:text-[22px]'>{CategoryDescription}</p>
-          :
-          <div className="animate-pulse">
-          <div className="h-5 lg:h-6 bg-gray-300 rounded-md w-3/4 mx-auto mb-2"></div>
-          <div className="h-5 lg:h-6 bg-gray-300 rounded-md w-2/4 mx-auto"></div>
+        <div className=" max-w-screen-xl mx-auto mt-10 text-center font-Helveticalight px-2 sm:px-4 lg:px-0">
+          {CategoryDescription ? (
+            <p className="text-14 lg:text-[22px]">{CategoryDescription}</p>
+          ) : (
+            <div className="animate-pulse">
+              <div className="h-5 lg:h-6 bg-gray-300 rounded-md w-3/4 mx-auto mb-2"></div>
+              <div className="h-5 lg:h-6 bg-gray-300 rounded-md w-2/4 mx-auto"></div>
+            </div>
+          )}
         </div>
-          }
-        </div>
-        <div className={`mt-6 sm:mt-8 flex ${reverse ? 'flex-col-reverse' : 'flex-col'}`}>
-          <div className={`grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 sm:gap-8`}>
-            {products.length < 1 && Array(5).fill(null).map((_, index) => (
-              <ProductSkeleton imageHeight="h-[270px] xl:h-[290px]" key={index} />
-            ))}
-            <ProductGrid products={products.slice(0, 5)} productImages={productImages?.products || []} CardComponent={Card} imageHeight="h-[270px] xl:h-[290px]" isHomepage={true} calculateHeight={sofaHeight} redirect={redirect} />
+        <div
+          className={`mt-6 sm:mt-8 flex ${reverse ? 'flex-col-reverse' : 'flex-col'}`}
+        >
+          <div
+            className={`grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 sm:gap-8`}
+          >
+            {products.length < 1 &&
+              Array(5)
+                .fill(null)
+                .map((_, index) => (
+                  <ProductSkeleton
+                    imageHeight="h-[270px] xl:h-[290px]"
+                    key={index}
+                  />
+                ))}
+            <ProductGrid
+              products={products.slice(0, 5)}
+              productImages={productImages?.products || []}
+              CardComponent={Card}
+              imageHeight="h-[270px] xl:h-[290px]"
+              isHomepage={true}
+              calculateHeight={sofaHeight}
+              redirect={redirect}
+            />
           </div>
           <div className="grid grid-cols-12 sm:gap-8">
-            <div className={`col-span-12 md:col-span-6 xl:col-span-5 ${reverse ? 'order-2' : 'order-1'}`}>
+            <div
+              className={`col-span-12 md:col-span-6 xl:col-span-5 ${reverse ? 'order-2' : 'order-1'}`}
+            >
               {products.length < 5 && (
-                <ProductSkeleton imageHeight="h-[300px] xs:h-[580px] lg:h-[600px] xl:h-[834.46px]" />)}
-              <ProductGrid products={products.slice(5, 6)} productImages={productImages?.products || []} CardComponent={Card} slider={true} isLandscape={false} portSpace={portSpace} redirect={redirect} imageHeight="h-[300px] xs:h-[580px] lg:h-[600px] xl:h-[834.46px]" />
+                <ProductSkeleton imageHeight="h-[300px] xs:h-[580px] lg:h-[600px] xl:h-[834.46px]" />
+              )}
+              <ProductGrid
+                products={products.slice(5, 6)}
+                productImages={productImages?.products || []}
+                CardComponent={Card}
+                slider={true}
+                isLandscape={false}
+                portSpace={portSpace}
+                redirect={redirect}
+                imageHeight="h-[300px] xs:h-[580px] lg:h-[600px] xl:h-[834.46px]"
+              />
             </div>
-            <div className={`col-span-12 md:col-span-6 xl:col-span-7 ${reverse ? 'order-1' : 'order-2'}`}>
+            <div
+              className={`col-span-12 md:col-span-6 xl:col-span-7 ${reverse ? 'order-1' : 'order-2'}`}
+            >
               {products.length < 6 && (
-                <ProductSkeleton imageHeight="h-[200px] xl:h-[345.15px]" />)}
-              <ProductGrid products={products.slice(6, 7)} productImages={productImages?.products || []} CardComponent={Card} slider={true} isLandscape={true} imageHeight="h-[200px] xl:h-[345.15px]" calculateHeight={landHeight} redirect={redirect} />
+                <ProductSkeleton imageHeight="h-[200px] xl:h-[345.15px]" />
+              )}
+              <ProductGrid
+                products={products.slice(6, 7)}
+                productImages={productImages?.products || []}
+                CardComponent={Card}
+                slider={true}
+                isLandscape={true}
+                imageHeight="h-[200px] xl:h-[345.15px]"
+                calculateHeight={landHeight}
+                redirect={redirect}
+              />
               <div className="grid grid-cols-1 xs:grid-cols-2 xl:grid-cols-3 sm:gap-8">
-                {products.length < 7 && Array(3).fill(null).map((_, index) => (
-                  <ProductSkeleton imageHeight="h-[210px] xl:h-[353.64px]" key={index} />
-                ))}
-                <ProductGrid products={products.slice(7, 10)} productImages={productImages?.products || []} CardComponent={Card} isHomepage={true} imageHeight="h-[210px] xl:h-[333.64px]" calculateHeight={sideTableHeight ||'calc(100% - 10px)'} redirect={redirect} />
+                {products.length < 7 &&
+                  Array(3)
+                    .fill(null)
+                    .map((_, index) => (
+                      <ProductSkeleton
+                        imageHeight="h-[210px] xl:h-[353.64px]"
+                        key={index}
+                      />
+                    ))}
+                <ProductGrid
+                  products={products.slice(7, 10)}
+                  productImages={productImages?.products || []}
+                  CardComponent={Card}
+                  isHomepage={true}
+                  imageHeight="h-[210px] xl:h-[333.64px]"
+                  calculateHeight={sideTableHeight || 'calc(100% - 10px)'}
+                  redirect={redirect}
+                />
               </div>
             </div>
           </div>
         </div>
-
       </div>
     </Container>
   );

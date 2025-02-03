@@ -105,7 +105,7 @@ function ProfileComponent() {
       showToast('success', res.data.message);
       dispatch(loggedInUserAction(res.data.user));
     } catch (err) {
-      console.log(err)
+      console.log(err);
       showToast('error', 'Their is something wrong!');
     }
   };

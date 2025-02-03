@@ -16,7 +16,6 @@ interface FeatureProps {
 }
 
 const FeatureSlider: React.FC<FeatureProps> = ({ similarProducts, title }) => {
-
   const swiperRef = useRef<any>(null);
 
   const next = () => {
@@ -42,14 +41,21 @@ const FeatureSlider: React.FC<FeatureProps> = ({ similarProducts, title }) => {
     }
   };
   return (
-    <div className="slider-container" onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}>
+    <div
+      className="slider-container"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
       {similarProducts?.length ? (
         <>
-          <div className={`text-end mb-3 px-4 flex ${title ? 'justify-between' : 'justify-end'}`}>
-            {title && <p className="lg:text-3xl text-2xl text-left font-semibold ">
-              Similar Products
-            </p>}
+          <div
+            className={`text-end mb-3 px-4 flex ${title ? 'justify-between' : 'justify-end'}`}
+          >
+            {title && (
+              <p className="lg:text-3xl text-2xl text-left font-semibold ">
+                Similar Products
+              </p>
+            )}
             <div>
               <button
                 className="button"
@@ -101,21 +107,20 @@ const FeatureSlider: React.FC<FeatureProps> = ({ similarProducts, title }) => {
               },
               460: {
                 slidesPerView: 1.5,
-              }
+              },
             }}
             modules={[Navigation, Autoplay, Pagination]}
             className="mySwiper"
           >
-            {
-              similarProducts.map((card: IProduct) => (
-                <SwiperSlide className='mb-10' key={card.id}>
-                  <Card
-                    card={card}
-                    isLoading={false}
-                    cardImageHeight="h-[280px] xsm:h-[220px] sm:h-[240px] md:h-[270px] xl:h-[220px] 2xl:h-[280px]"
-                  />
-                </SwiperSlide>
-              ))}
+            {similarProducts.map((card: IProduct) => (
+              <SwiperSlide className="mb-10" key={card.id}>
+                <Card
+                  card={card}
+                  isLoading={false}
+                  cardImageHeight="h-[280px] xsm:h-[220px] sm:h-[240px] md:h-[270px] xl:h-[220px] 2xl:h-[280px]"
+                />
+              </SwiperSlide>
+            ))}
           </Swiper>
         </>
       ) : (

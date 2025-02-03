@@ -25,7 +25,11 @@ const Counter: React.FC<CounterProps> = ({
         <HiMinusSm size={20} />
       </button>
       <span className="mx-2">{count}</span>
-      <button onClick={onIncrement} disabled={ stock && stock <= count || false} className="px-2 text-gray-600 disabled:text-gray-300">
+      <button
+        onClick={onIncrement}
+        disabled={(stock && stock <= count) || false}
+        className="px-2 text-gray-600 disabled:text-gray-300"
+      >
         <HiPlusSm size={20} />
       </button>
     </div>

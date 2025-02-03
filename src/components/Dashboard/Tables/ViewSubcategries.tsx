@@ -14,9 +14,7 @@ import Cookies from 'js-cookie';
 
 interface CategoryProps {
   setMenuType: React.Dispatch<SetStateAction<string>>;
-  seteditCategory?: React.Dispatch<
-    SetStateAction<Category | undefined | null>
-  >;
+  seteditCategory?: React.Dispatch<SetStateAction<Category | undefined | null>>;
   editCategory?: Category | undefined | null;
   subCategories?: SubCategory[];
 }
@@ -24,17 +22,20 @@ interface CategoryProps {
 const ViewSubcategries = ({
   setMenuType,
   seteditCategory,
-  subCategories
+  subCategories,
 }: CategoryProps) => {
-  const [category, setCategory] = useState<SubCategory[] | undefined>(subCategories);
+  const [category, setCategory] = useState<SubCategory[] | undefined>(
+    subCategories,
+  );
   // const [loading, setLoading] = useState<boolean>(false);
   // const [colorMode, toggleColorMode] = useColorMode();
   const [searchTerm, setSearchTerm] = useState<string>('');
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
   };
-  const filteredSubCategories: SubCategory[] | undefined = category?.filter((category) =>
-    category.name.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredSubCategories: SubCategory[] | undefined = category?.filter(
+    (category) =>
+      category.name.toLowerCase().includes(searchTerm.toLowerCase()),
   );
   // const { loggedInUser }: any = useAppSelector((state) => state.usersSlice);
 
@@ -56,15 +57,13 @@ const ViewSubcategries = ({
       cancelButtonText: 'No, keep it',
     }).then((result) => {
       if (result.isConfirmed) {
-        handleDelete(key)
+        handleDelete(key);
       }
     });
-
   };
   const token = Cookies.get('2guysAdminToken');
   const superAdminToken = Cookies.get('superAdminToken');
   let finalToken = token ? token : superAdminToken;
-
 
   const handleDelete = async (key: any) => {
     try {
@@ -73,19 +72,19 @@ const ViewSubcategries = ({
         {
           headers: {
             subcategoryId: key,
-            'token': finalToken,
+            token: finalToken,
           },
         },
       );
       setCategory((prev: any) => prev.filter((item: any) => item.id != key));
-      revalidateTag('subcategories')
+      revalidateTag('subcategories');
       notification.success({
         message: 'Category Deleted',
         description: 'The category has been successfully deleted.',
         placement: 'topRight',
       });
     } catch (err) {
-      console.log(err, "err")
+      console.log(err, 'err');
       notification.error({
         message: 'Deletion Failed',
         description: 'There was an error deleting the category.',
@@ -180,8 +179,9 @@ const ViewSubcategries = ({
       key: 'action',
       render: (text: any, record: any) => (
         <RiDeleteBin6Line
-          className={`cursor-pointer ${canDeleteCategory && 'text-red-500 dark:text-red-700'} ${!canDeleteCategory && 'cursor-not-allowed text-slate-300'
-            }`}
+          className={`cursor-pointer ${canDeleteCategory && 'text-red-500 dark:text-red-700'} ${
+            !canDeleteCategory && 'cursor-not-allowed text-slate-300'
+          }`}
           // className="cursor-pointer text-red-500"
           size={20}
           onClick={() => {
@@ -207,10 +207,12 @@ const ViewSubcategries = ({
           />
           <div>
             <p
-              className={`${canAddCategory && 'cursor-pointer'} p-2 ${canAddCategory &&
+              className={`${canAddCategory && 'cursor-pointer'} p-2 ${
+                canAddCategory &&
                 'dark:bg-main dark:border-0 bg-black text-white rounded-md border'
-                } flex justify-center ${!canAddCategory && 'cursor-not-allowed '
-                }`}
+              } flex justify-center ${
+                !canAddCategory && 'cursor-not-allowed '
+              }`}
               onClick={() => {
                 seteditCategory && seteditCategory(null);
                 if (canAddCategory) {

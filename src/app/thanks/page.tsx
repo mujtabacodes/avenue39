@@ -42,8 +42,6 @@ const ThankYouPage = () => {
     return () => clearTimeout(timer);
   }, []);
 
-
-
   const id = searchParams.get('id');
   const amount_cents = searchParams.get('amount_cents');
   const paymentStatus = searchParams.get('success');
@@ -75,7 +73,7 @@ const ThankYouPage = () => {
   };
   const [payementDetails, setpayementDetails] =
     useState<PaymentQueryParams>(paymentObject);
-console.log(setpayementDetails,"setpayementDetails")
+  console.log(setpayementDetails, 'setpayementDetails');
   const dbFunctionHandler = async () => {
     try {
       if (

@@ -3,7 +3,10 @@ import { useEffect, useState } from 'react';
 const useColorMode = () => {
   const [colorMode, setColorMode] = useState<'light' | 'dark'>(() => {
     if (typeof window !== 'undefined') {
-      const savedColorMode = localStorage.getItem('colorMode') as 'light' | 'dark' | null;
+      const savedColorMode = localStorage.getItem('colorMode') as
+        | 'light'
+        | 'dark'
+        | null;
       return savedColorMode || 'light';
     }
     return 'light';

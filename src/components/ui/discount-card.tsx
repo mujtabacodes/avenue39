@@ -20,10 +20,7 @@ interface DiscountCardProps {
 }
 
 const DiscountCard: React.FC<DiscountCardProps> = () => {
-  const {
-    data: products = [],
-    isLoading,
-  } = useQuery<IProduct[], Error>({
+  const { data: products = [], isLoading } = useQuery<IProduct[], Error>({
     queryKey: ['products'],
     queryFn: fetchProducts,
   });

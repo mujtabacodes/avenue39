@@ -11,7 +11,7 @@ import { uploadPhotosToBackend } from '@/utils/helperFunctions';
 
 interface PROPS {
   setImagesUrl?: React.Dispatch<SetStateAction<any[]>>;
-  setposterimageUrl?:| React.Dispatch<SetStateAction<any[] | null | undefined>>;
+  setposterimageUrl?: React.Dispatch<SetStateAction<any[] | null | undefined>>;
   sethoverImage?: React.Dispatch<SetStateAction<any[] | null | undefined>>;
 }
 
@@ -30,11 +30,12 @@ const UploadFile = ({
     const files = Array.from(e.dataTransfer.files) as File[];
 
     try {
-      const response = await uploadPhotosToBackend(fileFlage ? [files[0]] : files);
+      const response = await uploadPhotosToBackend(
+        fileFlage ? [files[0]] : files,
+      );
       setImagesUrl && setImagesUrl((prev) => [...prev, ...response]);
       setposterimageUrl && setposterimageUrl(response);
       sethoverImage && sethoverImage(response);
-     
     } catch (error) {
       console.error('Failed to upload photos:', error);
     } finally {
@@ -45,9 +46,11 @@ const UploadFile = ({
   const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     const files = e.target.files ? Array.from(e.target.files) : [];
-    
+
     try {
-      const response = await uploadPhotosToBackend(fileFlage ? [files[0]]: files);
+      const response = await uploadPhotosToBackend(
+        fileFlage ? [files[0]] : files,
+      );
       setImagesUrl && setImagesUrl((prev) => [...prev, ...response]);
       //@ts-ignore
       setposterimageUrl && setposterimageUrl(response);

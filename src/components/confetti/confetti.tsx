@@ -7,7 +7,7 @@ export default function Confetti() {
   useEffect(() => {
     fire();
 
-    return ;
+    return;
   }, []);
 
   const getInstance = useCallback((instance: any) => {

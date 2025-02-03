@@ -37,7 +37,7 @@ const Thumbnail: React.FC<ThumbProps> = ({
   swiperGap,
   isLoading,
   altText,
-  activeIndex
+  activeIndex,
 }) => {
   const prevRef = useRef<HTMLDivElement>(null);
   const nextRef = useRef<HTMLDivElement>(null);
@@ -56,7 +56,7 @@ const Thumbnail: React.FC<ThumbProps> = ({
           img.onload = resolve;
           img.onerror = reject;
         });
-      })
+      }),
     );
   };
 
@@ -83,7 +83,9 @@ const Thumbnail: React.FC<ThumbProps> = ({
   return (
     <div>
       <div className="relative w-full">
-        <div className={`w-full flex flex-col-reverse md:flex-row gap-2 sm:gap-3 md:gap-4 lg:gap-5 overflow-hidden relative ${swiperGap}`}>
+        <div
+          className={`w-full flex flex-col-reverse md:flex-row gap-2 sm:gap-3 md:gap-4 lg:gap-5 overflow-hidden relative ${swiperGap}`}
+        >
           <CustomThumbnailSlickSlider
             thumbs={thumbs}
             isZoom={isZoom}
@@ -107,7 +109,6 @@ const Thumbnail: React.FC<ThumbProps> = ({
                 onSwiper={(swiper) => {
                   swiperImageRef.current = swiper;
                 }}
-
               >
                 {thumbs.map((thumb, index) => (
                   <SwiperSlide key={index}>

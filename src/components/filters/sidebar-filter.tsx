@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { usePathname, useSearchParams } from 'next/navigation';  
+import { usePathname, useSearchParams } from 'next/navigation';
 import CategoryFilter from './category-filter';
 import { saleitems } from '@/data';
 import { Slider, SliderPrimitive } from '@/components/ui/slider';
@@ -10,8 +10,11 @@ import Link from 'next/link';
 
 /* eslint-disable */
 interface SidebarFilterProps {
-
-  onCategoryChange: (category: string, isChecked: boolean, isSubCategory: boolean) => void;
+  onCategoryChange: (
+    category: string,
+    isChecked: boolean,
+    isSubCategory: boolean,
+  ) => void;
   onPriceChange: (range: [number, number]) => void;
   sideBanner: StaticImageData;
   category: any;
@@ -36,9 +39,13 @@ const SidebarFilter = ({
     onPriceChange([start, end]);
   };
 
-  const handleCategoryChange = (name: string, isChecked: boolean, isSubCategory = false) => {
+  const handleCategoryChange = (
+    name: string,
+    isChecked: boolean,
+    isSubCategory = false,
+  ) => {
     onCategoryChange(name.toUpperCase(), isChecked, isSubCategory);
-  
+
     if (!isSubCategory) {
       setSelectedCategories((prev) => {
         if (isChecked) {
@@ -50,7 +57,9 @@ const SidebarFilter = ({
     } else {
       setSelectedCategories((prev) => {
         const updatedCategories = [...prev];
-        const categoryIndex = updatedCategories.findIndex((cat) => cat.toUpperCase() === name);
+        const categoryIndex = updatedCategories.findIndex(
+          (cat) => cat.toUpperCase() === name,
+        );
         if (isChecked && categoryIndex === -1) {
           updatedCategories.push(name.toUpperCase());
         } else if (!isChecked && categoryIndex !== -1) {
@@ -65,11 +74,17 @@ const SidebarFilter = ({
     if (category && category.length > 0) {
       setSelectedCategories([]);
       const categoryId = searchParams.get('id');
-      const currentCategory = pathname.split('/').pop()?.toUpperCase().replace("-", " ");
+      const currentCategory = pathname
+        .split('/')
+        .pop()
+        ?.toUpperCase()
+        .replace('-', ' ');
       if (currentCategory) {
         if (categoryId) {
-          const categoryMatch = category.find((cat: any) => cat.id.toString() === categoryId);
-          
+          const categoryMatch = category.find(
+            (cat: any) => cat.id.toString() === categoryId,
+          );
+
           if (categoryMatch) {
             setSelectedCategories((prev) => {
               if (!prev.includes(categoryMatch.name)) {
@@ -77,21 +92,28 @@ const SidebarFilter = ({
               }
               return prev;
             });
-            const subcategoryMatch = categoryMatch.subcategories?.find((subcat: any) => 
-              subcat.name.toUpperCase() === currentCategory
+            const subcategoryMatch = categoryMatch.subcategories?.find(
+              (subcat: any) => subcat.name.toUpperCase() === currentCategory,
             );
             if (subcategoryMatch) {
               setSelectedCategories((prev) => {
-                if (!prev.includes(`SUB_${subcategoryMatch.name.toUpperCase()}`)) {
-                  return [...prev, `SUB_${subcategoryMatch.name.toUpperCase()}`];
+                if (
+                  !prev.includes(`SUB_${subcategoryMatch.name.toUpperCase()}`)
+                ) {
+                  return [
+                    ...prev,
+                    `SUB_${subcategoryMatch.name.toUpperCase()}`,
+                  ];
                 }
                 return prev;
               });
             }
           }
         } else {
-          const mainCategoryMatch = category.find((cat: any) => cat.name.toUpperCase() === currentCategory);
-  
+          const mainCategoryMatch = category.find(
+            (cat: any) => cat.name.toUpperCase() === currentCategory,
+          );
+
           if (mainCategoryMatch) {
             setSelectedCategories((prev) => {
               if (!prev.includes(mainCategoryMatch.name)) {
@@ -101,8 +123,10 @@ const SidebarFilter = ({
             });
           } else {
             category.forEach((cat: any) => {
-              const subCategoryMatch = cat.subcategories?.find((subcat: any) => subcat.name.toUpperCase() === currentCategory);
-  
+              const subCategoryMatch = cat.subcategories?.find(
+                (subcat: any) => subcat.name.toUpperCase() === currentCategory,
+              );
+
               if (subCategoryMatch) {
                 setSelectedCategories((prev) => {
                   const updatedCategories = [...prev];
@@ -120,7 +144,7 @@ const SidebarFilter = ({
         }
       }
     }
-  }, [pathname, category , searchParams]);
+  }, [pathname, category, searchParams]);
 
   useEffect(() => {
     if (selectedCategories.length > 0 && category.length > 0) {
@@ -128,12 +152,11 @@ const SidebarFilter = ({
         const categoryObj = category.find((cat: any) => cat.name === catName);
         return categoryObj ? categoryObj.subcategories : [];
       });
-      const uniqueSubcategories = selectedSubcategories.filter((value, index, self) =>
-        index === self.findIndex((t) => (
-          t.name === value.name
-        ))
+      const uniqueSubcategories = selectedSubcategories.filter(
+        (value, index, self) =>
+          index === self.findIndex((t) => t.name === value.name),
       );
-  
+
       setSubcategories(uniqueSubcategories);
     } else {
       setSubcategories([]);
@@ -191,7 +214,13 @@ const SidebarFilter = ({
             ))}
           </div>
           <div className="mt-10">
-            <Link href={sideBannerProduct ? `/product/${sideBannerProduct}` : '/products'}>
+            <Link
+              href={
+                sideBannerProduct
+                  ? `/product/${sideBannerProduct}`
+                  : '/products'
+              }
+            >
               <Image src={sideBanner} alt="sale banner" className="mx-auto" />
             </Link>
           </div>
