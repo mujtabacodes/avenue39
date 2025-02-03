@@ -6,7 +6,12 @@ import '@styles/style.css';
 import Providers from '@/redux/provider';
 import PathnameWrapper from '@/components/PathnameWrapper';
 import { ToastContainer } from 'react-toastify';
-import { belgium, Helvetica, Helveticalight, jadyn } from '@/components/language';
+import {
+  belgium,
+  Helvetica,
+  Helveticalight,
+  jadyn,
+} from '@/components/language';
 
 export const metadata: Metadata = {
   title: 'Avenue 39',

@@ -22,11 +22,11 @@ interface ProductPageProps {
   layout: string;
   Setlayout: React.Dispatch<React.SetStateAction<string>>;
   fullUrl?: string;
-  category: ICategory[] | undefined
-  ProductData: IProduct[]
-  isCategory: boolean | undefined
-  findCategory?: string
-  categoryName?: ICategory
+  category: ICategory[] | undefined;
+  ProductData: IProduct[];
+  isCategory: boolean | undefined;
+  findCategory?: string;
+  categoryName?: ICategory;
 }
 
 const ProductPage = ({
@@ -37,14 +37,13 @@ const ProductPage = ({
   ProductData,
   // isCategory,
   categoryName,
-
 }: ProductPageProps) => {
   // const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   // const [selectedSubCategories, setSelectedSubCategories] = useState<string[]>([]);
   const [sortOption, setSortOption] = useState<string>('default');
   // const [filterLoading, setFilterLoading] = useState<boolean>(false);
   const pathname = usePathname();
-console.log(productBanner, "productBanner", pathname)
+  console.log(productBanner, 'productBanner', pathname);
 
   // useEffect(() => {
   //   const currentCategory = pathname
@@ -123,35 +122,35 @@ console.log(productBanner, "productBanner", pathname)
       return card.discountPrice > 0 && card.stock > 0;
     }
     return true;
-  })
-    .sort((a, b) => {
-      switch (sortOption) {
-        case 'name': {
-          return a.name.trim().localeCompare(b.name.trim());
-        }
-        case 'max': {
-          const priceA = a.discountPrice > 0 ? a.discountPrice : a.price;
-          const priceB = b.discountPrice > 0 ? b.discountPrice : b.price;
-          return priceB - priceA;
-        }
-        case 'min': {
-          const minPriceA = a.discountPrice > 0 ? a.discountPrice : a.price;
-          const minPriceB = b.discountPrice > 0 ? b.discountPrice : b.price;
-          return minPriceA - minPriceB;
-        }
-        default:
-          return 0;
+  }).sort((a, b) => {
+    switch (sortOption) {
+      case 'name': {
+        return a.name.trim().localeCompare(b.name.trim());
       }
-    });
-
+      case 'max': {
+        const priceA = a.discountPrice > 0 ? a.discountPrice : a.price;
+        const priceB = b.discountPrice > 0 ? b.discountPrice : b.price;
+        return priceB - priceA;
+      }
+      case 'min': {
+        const minPriceA = a.discountPrice > 0 ? a.discountPrice : a.price;
+        const minPriceB = b.discountPrice > 0 ? b.discountPrice : b.price;
+        return minPriceA - minPriceB;
+      }
+      default:
+        return 0;
+    }
+  });
 
   return (
     <>
-{    <TopHero
-        breadcrumbs={productsbredcrumbs}
-        categoryName={categoryName?.name}
-        subCategorName={''}
-      />}
+      {
+        <TopHero
+          breadcrumbs={productsbredcrumbs}
+          categoryName={categoryName?.name}
+          subCategorName={''}
+        />
+      }
       <Container className="my-5 flex flex-col md:flex-row gap-4 md:gap-8">
         {/* <div className="w-full md:w-2/6 lg:w-[392px] hidden md:block">
           <SidebarFilter
@@ -164,31 +163,32 @@ console.log(productBanner, "productBanner", pathname)
         </div> */}
         {/* <div className="w-full md:w-4/6 lg:w-9/12"> */}
         <div className="w-full">
-
-       { pathname=="/new-arrivals" ? 
-     <div className="flex flex-col items-center">
-        {newArrivals.map((item, index) => (
-          <div key={index} className="text-center">
-            <h1 className="text-[45px] font-helvetica font-bold">{item.title}</h1>
-            <Container>
-              <p>{item.description}</p>
-            </Container>
-          </div>
-        ))}
-      </div>
-       : 
-       <div className='flex flex-col items-center'>
-            <h1 className='text-[45px] font-helvetica font-bold'>{categoryName?.name}</h1>
-            <Container>
-            <p className='text-center'>{categoryName?.description} </p>
-            </Container>
-          
-          </div>}
+          {pathname == '/new-arrivals' ? (
+            <div className="flex flex-col items-center">
+              {newArrivals.map((item, index) => (
+                <div key={index} className="text-center">
+                  <h1 className="text-[45px] font-helvetica font-bold">
+                    {item.title}
+                  </h1>
+                  <Container>
+                    <p>{item.description}</p>
+                  </Container>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="flex flex-col items-center">
+              <h1 className="text-[45px] font-helvetica font-bold">
+                {categoryName?.name}
+              </h1>
+              <Container>
+                <p className="text-center">{categoryName?.description} </p>
+              </Container>
+            </div>
+          )}
           <div className="sm:mt-4 mt-10 flex items-center justify-between gap-4 py-2 px-2 flex-col md:flex-row">
             <div className="flex items-center gap-4">
-
-              <div className='flex gap-2 items-center'>
-
+              <div className="flex gap-2 items-center">
                 <Select onValueChange={handleSortChange}>
                   <SelectTrigger>
                     <SelectValue placeholder="Sort by: Default" />
@@ -202,12 +202,20 @@ console.log(productBanner, "productBanner", pathname)
                     </SelectGroup>
                   </SelectContent>
                 </Select>
-                <MdWindow className="cursor-pointer text-3xl" onClick={() => Setlayout('grid')} />
-                <ImList className="cursor-pointer text-2xl" onClick={() => Setlayout('list')} />
+                <MdWindow
+                  className="cursor-pointer text-3xl"
+                  onClick={() => Setlayout('grid')}
+                />
+                <ImList
+                  className="cursor-pointer text-2xl"
+                  onClick={() => Setlayout('list')}
+                />
               </div>
 
-
-              <p className="block whitespace-nowrap ">Showing {filteredCards.length > 0 ? filteredCards.length : 0} results</p>
+              <p className="block whitespace-nowrap ">
+                Showing {filteredCards.length > 0 ? filteredCards.length : 0}{' '}
+                results
+              </p>
             </div>
             <SubCategoriesRow />
           </div>
@@ -215,12 +223,18 @@ console.log(productBanner, "productBanner", pathname)
             <CardSkaleton />
           ) : ( */}
 
-          <div className={`grid gap-4 md:gap-8 mt-4 ${layout === 'grid' ? 'grid-cols-1 xs:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 2xl:grid-cols-5 ' : 'grid-cols-1'}`}>
+          <div
+            className={`grid gap-4 md:gap-8 mt-4 ${layout === 'grid' ? 'grid-cols-1 xs:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 2xl:grid-cols-5 ' : 'grid-cols-1'}`}
+          >
             {filteredCards.length > 0 ? (
               filteredCards.map((card) => (
-                <div key={card.id} className='flex'>
+                <div key={card.id} className="flex">
                   {layout === 'grid' ? (
-                    <Card card={card} isLoading={false} cardImageHeight="h-[300px] xsm:h-[220px] sm:h-[400px] md:h-[350px] xl:h-[220px] 2xl:h-[280px] w-full" />
+                    <Card
+                      card={card}
+                      isLoading={false}
+                      cardImageHeight="h-[300px] xsm:h-[220px] sm:h-[400px] md:h-[350px] xl:h-[220px] 2xl:h-[280px] w-full"
+                    />
                   ) : (
                     <LandscapeCard card={card} isLoading={false} />
                   )}

@@ -53,11 +53,12 @@ export const menuData: MenuData = {
     // { link: '/products', title: 'Sale', icon: "/images/sale.png" }
   ],
   living: [
-    { 
+    {
       categoryId: 4,
-       link: '/products',
-        title: 'Sofas',
-         icon: sofa },
+      link: '/products',
+      title: 'Sofas',
+      icon: sofa,
+    },
 
     { categoryId: 4, link: '/products', title: 'Armchairs', icon: armchair },
     {
@@ -86,8 +87,7 @@ export const menuData: MenuData = {
       title: 'Accessories',
       icon: accessories,
     },
-    { link: '/products', title: 'Sale', icon: "/images/sale.png" }
-
+    { link: '/products', title: 'Sale', icon: '/images/sale.png' },
   ],
   bedroom: [
     {
@@ -121,8 +121,7 @@ export const menuData: MenuData = {
       title: 'Accessories',
       icon: accessories,
     },
-    { link: '/products', title: 'Sale', icon: "/images/sale.png" }
-
+    { link: '/products', title: 'Sale', icon: '/images/sale.png' },
   ],
   homeOffice: [
     {
@@ -137,8 +136,7 @@ export const menuData: MenuData = {
       title: 'Office Chairs',
       icon: officeChair,
     },
-    { link: '/products', title: 'Sale', icon: "/images/sale.png" }
-
+    { link: '/products', title: 'Sale', icon: '/images/sale.png' },
   ],
   chairs: [
     { categoryId: 6, link: '/products', title: 'Armchairs', icon: armchair },
@@ -156,8 +154,7 @@ export const menuData: MenuData = {
       icon: diningChair,
     },
     { categoryId: 6, link: '/products', title: 'Barstools', icon: barstool },
-    { link: '/products', title: 'Sale', icon: "/images/sale.png" }
-
+    { link: '/products', title: 'Sale', icon: '/images/sale.png' },
   ],
   tables: [
     {
@@ -185,10 +182,9 @@ export const menuData: MenuData = {
       title: 'Bedside Tables',
       icon: bedsideTables,
     },
-    { link: '/products', title: 'Sale', icon: "/images/sale.png" }
-
+    { link: '/products', title: 'Sale', icon: '/images/sale.png' },
   ],
-  
+
   Lighting: [
     {
       categoryId: 9,
@@ -202,13 +198,12 @@ export const menuData: MenuData = {
       title: 'Table Lamps',
       icon: tableLamps,
     },
-    { link: '/products', title: 'Sale', icon: "/images/sale.png" }
+    { link: '/products', title: 'Sale', icon: '/images/sale.png' },
   ],
   Accessories: [{ link: '/products', title: 'Accessories', icon: icon3 }],
-  "New Arrivals": [{ link: '/products', title: 'New Arrivals', icon: icon3 }],
+  'New Arrivals': [{ link: '/products', title: 'New Arrivals', icon: icon3 }],
   SALE: [{ link: '/products', title: '', icon: icon3 }],
 };
-
 
 export const staticHeaderCategories: string[] = [
   'Dining',
@@ -221,5 +216,5 @@ export const staticHeaderCategories: string[] = [
   // 'Clearance',
   'Accessories',
   'New Arrivals',
-  'Sale'
-]
+  'Sale',
+];

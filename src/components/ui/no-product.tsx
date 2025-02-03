@@ -2,13 +2,18 @@ import React from 'react';
 import { ImNotification } from 'react-icons/im';
 
 interface NoProductProps {
-    cardHeight?: string;
-    iconSize?: number;
-    title?: string;
-    titleClass?: string;
+  cardHeight?: string;
+  iconSize?: number;
+  title?: string;
+  titleClass?: string;
 }
 
-const NoProduct: React.FC<NoProductProps> = ({cardHeight , iconSize , title , titleClass}) => {
+const NoProduct: React.FC<NoProductProps> = ({
+  cardHeight,
+  iconSize,
+  title,
+  titleClass,
+}) => {
   return (
     <div
       className={`flex justify-center items-center w-full h-[400px] md:h-[250px] lg:h-[400px] ${cardHeight ? cardHeight : 'xl:h-[672px]'}`}

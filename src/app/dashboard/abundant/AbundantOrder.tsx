@@ -6,7 +6,11 @@ import { formatDate } from '@/config';
 import { LuView } from 'react-icons/lu';
 import OrderList from '@/components/Orders/orders';
 import { IOrder, IProduct } from '@/types/types';
-const AbundantOrder = ({abundantOrderData}: {abundantOrderData: IOrder[]}) => {
+const AbundantOrder = ({
+  abundantOrderData,
+}: {
+  abundantOrderData: IOrder[];
+}) => {
   const [visible, setVisible] = useState(false);
   const [selectedProducts, setSelectedProducts] = useState<IProduct[]>([]);
 

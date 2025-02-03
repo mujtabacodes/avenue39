@@ -115,7 +115,7 @@ const CreateAdmin = ({
       }
     } finally {
       setLoading(false);
-      console.log(error)
+      console.log(error);
     }
   };
 

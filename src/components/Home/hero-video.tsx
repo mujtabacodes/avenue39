@@ -20,7 +20,7 @@ const HeroVideo: React.FC = () => {
           Your browser does not support the video tag.
         </video>
 
-        <Container className='relative'>
+        <Container className="relative">
           <div className="absolute bottom-2 sm:bottom-8 right-4 sm:right-8 bg-black bg-opacity-40 text-white px-4 py-3 rounded-xl shadow-lg">
             <div className="relative">
               <p className="drop-shadow-md text-[20px] sm:text-[40px] md:text-[50px] lg:text-[53px] leading-tight font-Helveticalight">
@@ -34,9 +34,7 @@ const HeroVideo: React.FC = () => {
               </p>
             </div>
           </div>
-
         </Container>
-
       </div>
       {/* </> */}
     </>

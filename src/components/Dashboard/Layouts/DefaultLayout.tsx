@@ -1,7 +1,7 @@
-"use client";
-import React, { useState} from "react";
-import Sidebar from "@components/Dashboard/Sidebar";
-import Header from "@components/Dashboard/Header";
+'use client';
+import React, { useState } from 'react';
+import Sidebar from '@components/Dashboard/Sidebar';
+import Header from '@components/Dashboard/Header';
 
 export default function DefaultLayout({
   children,
@@ -32,7 +32,6 @@ export default function DefaultLayout({
           {/* <!-- ===== Main Content End ===== --> */}
         </div>
       </div>
-  
     </>
   );
 }

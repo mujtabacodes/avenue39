@@ -12,7 +12,7 @@ import { RiLogoutBoxLine } from 'react-icons/ri';
 
 const DropdownUser = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const { loggedInUser }: any = useAppSelector(state => state.usersSlice);
+  const { loggedInUser }: any = useAppSelector((state) => state.usersSlice);
 
   const router = useRouter();
 
@@ -34,7 +34,6 @@ const DropdownUser = () => {
     document.addEventListener('click', clickHandler);
     return () => document.removeEventListener('click', clickHandler);
   });
-
 
   // close if the esc key is pressed
   useEffect(() => {
@@ -86,15 +85,16 @@ const DropdownUser = () => {
               alt={loggedInUser?.name}
             />
           </div>
-          <MdKeyboardArrowDown className='text-white' />
+          <MdKeyboardArrowDown className="text-white" />
         </div>
       </div>
       <div
         ref={dropdown}
         onFocus={() => setDropdownOpen(true)}
         onBlur={() => setDropdownOpen(false)}
-        className={`absolute right-0 mt-1 flex w-62 flex-col rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark dark:bg-black dark:text-white dark:bg-boxdark dark:border-blue-50 ${dropdownOpen === true ? 'block' : 'hidden'
-          }`}
+        className={`absolute right-0 mt-1 flex w-62 flex-col rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark dark:bg-black dark:text-white dark:bg-boxdark dark:border-blue-50 ${
+          dropdownOpen === true ? 'block' : 'hidden'
+        }`}
       >
         <ul className="flex flex-col w-44 space-y-6 border-b border-stroke px-6 py-3 dark:border-strokedark">
           <li>

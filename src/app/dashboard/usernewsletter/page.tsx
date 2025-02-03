@@ -1,6 +1,5 @@
-import axios from "axios";
-import NewsLetter from "./NewsLetter";
-
+import axios from 'axios';
+import NewsLetter from './NewsLetter';
 
 const productHandler = async () => {
   try {
@@ -16,10 +15,8 @@ const productHandler = async () => {
 };
 
 const UserNewsletter = async () => {
-  const newsLetters =  await productHandler();
-  return (
-    <NewsLetter newsLetters={newsLetters} />
-  );
+  const newsLetters = await productHandler();
+  return <NewsLetter newsLetters={newsLetters} />;
 };
 
 export default UserNewsletter;

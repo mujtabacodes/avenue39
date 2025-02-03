@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import UseAuth from '@/hooks/useAuth';
 const Login = () => {
   const [activeTab, setActiveTab] = useState('login');
-  console.log(setActiveTab,"setActiveTab")
+  console.log(setActiveTab, 'setActiveTab');
   const router = useRouter();
   const handleTabChange = (value: string) => {
     router.push(`/${value}`);

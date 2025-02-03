@@ -8,9 +8,7 @@ interface starProps {
 }
 
 const RenderStars: React.FC<starProps> = ({ card }) => {
-  const {
-    data: reviews = [],
-  } = useQuery<IReview[], Error>({
+  const { data: reviews = [] } = useQuery<IReview[], Error>({
     queryKey: ['reviews'],
     queryFn: fetchReviews,
   });
@@ -23,7 +21,9 @@ const RenderStars: React.FC<starProps> = ({ card }) => {
     : [];
   const { averageRating } = calculateRatingsPercentage(filteredReviews);
   return (
-    <div className="flex gap-1">{averageRating > 1 && renderStars({ star: averageRating })}</div>
+    <div className="flex gap-1">
+      {averageRating > 1 && renderStars({ star: averageRating })}
+    </div>
   );
 };
 

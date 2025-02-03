@@ -20,7 +20,6 @@ export function ProductName({ children, className }: ITypo) {
   );
 }
 
-
 export function ProductPrice({ children, className }: ITypo) {
   return (
     <div
@@ -32,9 +31,7 @@ export function ProductPrice({ children, className }: ITypo) {
 }
 export function NormalText({ children, className }: any) {
   return (
-    <div
-      className={` text-[20px] text-justify text-primary  ${className}`}
-    >
+    <div className={` text-[20px] text-justify text-primary  ${className}`}>
       {children}
     </div>
   );

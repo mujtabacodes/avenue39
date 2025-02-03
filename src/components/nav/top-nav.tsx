@@ -14,9 +14,9 @@ const TopNav = () => {
           <div className="w-fit"></div>
         </div>
         <div className="w-full lg:max-w-[48%] xl:max-w-[50%] 2xl:max-w-[43%] max-sm:pl-1 2xl:mr-6">
-          <div className=" gap-2 flex items-center">   
-          <Image className='' src={ramadan2} alt='ramadan1'/>
-            <p className='uppercase tracking-[0.8px] 2xl:tracking-[1.6px] font-medium text-11 2xl:text-13 xl:whitespace-nowrap ml-2'>
+          <div className=" gap-2 flex items-center">
+            <Image className="" src={ramadan2} alt="ramadan1" />
+            <p className="uppercase tracking-[0.8px] 2xl:tracking-[1.6px] font-medium text-11 2xl:text-13 xl:whitespace-nowrap ml-2">
               This Ramadan elevate your home’s style with the best offers.{' '}
               <Link
                 className="text-red-600 border-b border-red-600 hover:text-red-800"
@@ -24,8 +24,12 @@ const TopNav = () => {
               >
                 SHOP SALE
               </Link>
-            </p>        
-            <Image className='transform translate-x-3' src={ramadan1} alt='ramadan1'/>
+            </p>
+            <Image
+              className="transform translate-x-3"
+              src={ramadan1}
+              alt="ramadan1"
+            />
           </div>
         </div>
         <div className="gap-3 lg:gap-3 flex justify-end items-center w-2/12">

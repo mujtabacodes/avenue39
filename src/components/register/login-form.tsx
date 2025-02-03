@@ -25,11 +25,11 @@ interface TabsProps {
 /* eslint-enable */
 
 export function LoginForm({ onTabChange, activeTab }: TabsProps) {
-const [terms, setterms] = useState<CheckedState>(false)
+  const [terms, setterms] = useState<CheckedState>(false);
 
   const Navigate = useRouter();
   const dispatch = useDispatch();
-  const SignupInitialValues:any = {
+  const SignupInitialValues: any = {
     first_name: '',
     last_name: '',
     email: '',
@@ -45,9 +45,9 @@ const [terms, setterms] = useState<CheckedState>(false)
   const signupMutation = useMutation({
     mutationFn: (formData: typeof SignupInitialValues) => {
       return axios.post(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/signup`, formData,
-        { withCredentials: true }
-
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/signup`,
+        formData,
+        { withCredentials: true },
       );
     },
     onSuccess: (res) => {
@@ -59,7 +59,11 @@ const [terms, setterms] = useState<CheckedState>(false)
       }
     },
     onError: (error: any) => {
-      showToast('error', error.message || 'An error occurred while signing up. Please try again later.');
+      showToast(
+        'error',
+        error.message ||
+          'An error occurred while signing up. Please try again later.',
+      );
       console.error('Error signing up:', error);
     },
   });
@@ -69,7 +73,7 @@ const [terms, setterms] = useState<CheckedState>(false)
       return axios.post(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/login`,
         formData,
-        { withCredentials: true }
+        { withCredentials: true },
       );
     },
     onSuccess: (res) => {
@@ -81,7 +85,7 @@ const [terms, setterms] = useState<CheckedState>(false)
         dispatch(loggedInUserAction(res.data.user));
         Cookies.set('user_token', res.data.token, {
           expires: 24 * 60 * 60 * 1000,
-          path: '/'
+          path: '/',
         });
         Navigate.push('/');
       }
@@ -96,20 +100,27 @@ const [terms, setterms] = useState<CheckedState>(false)
     initialValues: SignupInitialValues,
     onSubmit: (values) => {
       const { first_name, last_name, confirm_password, ...rest } = values;
-      console.log(first_name, last_name, confirm_password, 'values', values, values.email);
+      console.log(
+        first_name,
+        last_name,
+        confirm_password,
+        'values',
+        values,
+        values.email,
+      );
 
-      if (!first_name || !last_name || values.password.trim() === "" || values.email.trim() === "") {
+      if (
+        !first_name ||
+        !last_name ||
+        values.password.trim() === '' ||
+        values.email.trim() === ''
+      ) {
         showToast('error', 'Ensure name, email, and password are filled.');
-      }
-      
-      else if (values.password !== confirm_password) {
+      } else if (values.password !== confirm_password) {
         showToast('error', 'Passwords do not match.');
-      }
-      else if (!terms) {
+      } else if (!terms) {
         showToast('error', 'Please agree to the terms and conditions.');
-      }
-      
-      else {
+      } else {
         const modifiedValues: any = {
           ...rest,
           name: `${first_name} ${last_name}`.trim(),
@@ -132,20 +143,30 @@ const [terms, setterms] = useState<CheckedState>(false)
   });
 
   return (
-    <Tabs defaultValue={`${activeTab ? activeTab : 'login'}`} onValueChange={onTabChange} className="p-2">
+    <Tabs
+      defaultValue={`${activeTab ? activeTab : 'login'}`}
+      onValueChange={onTabChange}
+      className="p-2"
+    >
       <TabsList className=" w-full text-center space-x-4 flex justify-center items-center">
-        <Link href={`/login`} className={`sm:text-2xl font-bold whitespace-nowrap flex items-center gap-2 ${activeTab === 'login' && 'text-black'}`}>
+        <Link
+          href={`/login`}
+          className={`sm:text-2xl font-bold whitespace-nowrap flex items-center gap-2 ${activeTab === 'login' && 'text-black'}`}
+        >
           <FaRegUser />
           Sign in
         </Link>
         <span className="h-10 border border-black" />
-        <Link href={`/register`} className={`sm:text-2xl font-bold whitespace-nowrap flex items-center gap-2 ${activeTab === 'register' && 'text-black'}`}>
+        <Link
+          href={`/register`}
+          className={`sm:text-2xl font-bold whitespace-nowrap flex items-center gap-2 ${activeTab === 'register' && 'text-black'}`}
+        >
           <FaRegUser />
           Sign up
         </Link>
       </TabsList>
       <TabsContent value="login">
-        { }
+        {}
         <form onSubmit={Signin.handleSubmit} className="space-y-5 mt-10">
           <Input
             id="email"
@@ -184,7 +205,7 @@ const [terms, setterms] = useState<CheckedState>(false)
 
       <TabsContent value="register">
         <form onSubmit={Signup.handleSubmit} className="mt-10">
-          <div className='space-y-5 sm:space-y-0 sm:grid grid-cols-2 custom-input-wrapper gap-5 mb-5'>
+          <div className="space-y-5 sm:space-y-0 sm:grid grid-cols-2 custom-input-wrapper gap-5 mb-5">
             <Input
               id="first_name"
               name="first_name"
@@ -234,14 +255,23 @@ const [terms, setterms] = useState<CheckedState>(false)
               value={Signup.values.confirm_password}
             />
             <div className="flex items-center space-x-2 px-2 col-span-2">
-              <Checkbox id="terms" value={terms as any} onCheckedChange={(check:CheckedState)=>setterms(check)} />
+              <Checkbox
+                id="terms"
+                value={terms as any}
+                onCheckedChange={(check: CheckedState) => setterms(check)}
+              />
               <label
                 htmlFor="terms"
                 className="text-sm text-gray-400 space-x-1 font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer "
               >
                 <span>By creating your account you agree to our</span>
               </label>
-              <Link href='/terms-condition' className='text-black cursor-pointer'>Terms and Conditions</Link>
+              <Link
+                href="/terms-condition"
+                className="text-black cursor-pointer"
+              >
+                Terms and Conditions
+              </Link>
             </div>
           </div>
           <Button
@@ -250,11 +280,7 @@ const [terms, setterms] = useState<CheckedState>(false)
             disabled={signupMutation.isPending ? true : false}
             className="w-full h-[76px] custom-login-button"
           >
-            {signupMutation.isPending ? (
-              <Loader color="white" />
-            ) : (
-              'Sign up'
-            )}
+            {signupMutation.isPending ? <Loader color="white" /> : 'Sign up'}
           </Button>
         </form>
       </TabsContent>

@@ -1053,9 +1053,9 @@ export const productData = [
 export const data = {
   paragraphs: [
     `We've spent decades researching and partnering with furniture manufacturers to understand the requirements of our customers and what we can do to meet their needs.`,
-    "Every chair, every table, every sofa-handpicked, tested, and sourced with care, because we know that when it comes to furnishing your space, nothing but the best will do. That’s exactly why <b>Avenue39</b> was born.",
-    "After spending over a decade in the UAE, we realized there was a gap in the market for furniture that’s not just stylish, but thoughtfully sourced and genuinely high-quality. So, we decided to do something about it. Unlike the mass-produced, soulless pieces you find everywhere, we wanted to bring in furniture we’d proudly have in our own homes.",
-    "We began our journey with a simple idea: to make high-quality, unique, and modern furniture accessible to everyone. During this exciting journey, we built strong relationships with some of the finest furniture manufacturers, but not just anyone who makes the cut. As part of our quality control process, our Avenue39 team personally visits factories to make sure that the craftsmanship meets our standards. We also make sure the people behind the pieces are treated fairly and with respect. If a factory doesn't meet our quality and ethical standards, we walk away. No compromises.", 
+    'Every chair, every table, every sofa-handpicked, tested, and sourced with care, because we know that when it comes to furnishing your space, nothing but the best will do. That’s exactly why <b>Avenue39</b> was born.',
+    'After spending over a decade in the UAE, we realized there was a gap in the market for furniture that’s not just stylish, but thoughtfully sourced and genuinely high-quality. So, we decided to do something about it. Unlike the mass-produced, soulless pieces you find everywhere, we wanted to bring in furniture we’d proudly have in our own homes.',
+    "We began our journey with a simple idea: to make high-quality, unique, and modern furniture accessible to everyone. During this exciting journey, we built strong relationships with some of the finest furniture manufacturers, but not just anyone who makes the cut. As part of our quality control process, our Avenue39 team personally visits factories to make sure that the craftsmanship meets our standards. We also make sure the people behind the pieces are treated fairly and with respect. If a factory doesn't meet our quality and ethical standards, we walk away. No compromises.",
   ],
   paragraphs2: [
     '"We call it "attention to detail," but you can just call it "getting it right.”',
@@ -1065,8 +1065,8 @@ export const data = {
     'Once we’re satisfied with a piece, it still has a long way to go before it reaches you. Every item is quality-checked before being loaded into shipping containers bound for Dubai. And when it arrives at our warehouse? Another round of inspections. But we don’t stop there. Our team is actually rewarded for finding faults, not passing them, meaning only the absolute best furniture gets approved for sale.',
     'We get it—furniture shopping isn’t always easy. You see something online, and it looks great, but what if it doesn’t feel right once it’s in your home? That’s exactly why we introduced our Try Before You Buy guarantee. Here’s how it works: when we deliver and assemble your new furniture, you get 30 minutes to test it out, feel the materials, see how it fits your space, and decide if it’s truly what you want. If you love it, fantastic—it’s yours. If not, no stress. We’ll pack it back up, take it away, and process your refund immediately (the exact timing depends on your bank, but usually within 7 days).',
     'Not going to be home when we deliver? No problem. We can leave the item unassembled, so you can take your time deciding. If within 7 days you change your mind, just email us at <a href="mailto:cs@avenue39.com" class="font-bold text-red-600 hover:underline ">cs@avenue39.com</a> to get a return number. Once the item is back with us and confirmed to be in perfect condition, your refund will be processed right away. No hidden fees, no fine print—just a smooth, straightforward experience.',
-    'So go ahead, explore our collection, and let’s make your home a place that truly feels like you.'
-  ]
+    'So go ahead, explore our collection, and let’s make your home a place that truly feels like you.',
+  ],
 };
 export const products = [
   {
@@ -1615,4 +1615,3 @@ export const ShippingPolicy = [
     ],
   },
 ];
-

@@ -1,11 +1,6 @@
 'use client';
 import React, { useState, useEffect, useLayoutEffect } from 'react';
-import {
-  Formik,
-  FieldArray,
-  FormikErrors,
-  Form,
-} from 'formik';
+import { Formik, FieldArray, FormikErrors, Form } from 'formik';
 
 import Imageupload from '@components/ImageUpload/Imageupload';
 import { RxCross2 } from 'react-icons/rx';
@@ -33,27 +28,31 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
   setEditProduct,
   categoriesList,
 }) => {
-  const [imagesUrl, setImagesUrl] = useState<any[]>(EditInitialValues ? EditInitialValues.productImages : [],);
-  const [posterimageUrl, setposterimageUrl] = useState<any[] | undefined | null>(
+  const [imagesUrl, setImagesUrl] = useState<any[]>(
+    EditInitialValues ? EditInitialValues.productImages : [],
+  );
+  const [posterimageUrl, setposterimageUrl] = useState<
+    any[] | undefined | null
+  >(
     EditInitialValues
       ? [
-        {
-          imageUrl: EditInitialValues.posterImageUrl,
-          public_id: EditInitialValues.posterImagePublicId,
-          altText: EditInitialValues.posterImageAltText,
-        },
-      ]
+          {
+            imageUrl: EditInitialValues.posterImageUrl,
+            public_id: EditInitialValues.posterImagePublicId,
+            altText: EditInitialValues.posterImageAltText,
+          },
+        ]
       : [],
   );
   const [hoverImage, sethoverImage] = useState<any[] | null | undefined>(
     EditInitialValues
       ? [
-        {
-          imageUrl: EditInitialValues.hoverImageUrl,
-          public_id: EditInitialValues.hoverImagePublicId,
-          altText: EditInitialValues.hoverImageAltText,
-        },
-      ]
+          {
+            imageUrl: EditInitialValues.hoverImageUrl,
+            public_id: EditInitialValues.hoverImagePublicId,
+            altText: EditInitialValues.hoverImageAltText,
+          },
+        ]
       : [],
   );
   const [loading, setloading] = useState<boolean>(false);
@@ -61,8 +60,6 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
     any | null | undefined
   >(EditProductValue);
   const [imgError, setError] = useState<string | null | undefined>();
-
-
 
   useLayoutEffect(() => {
     const CategoryHandler = async () => {
@@ -77,13 +74,16 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
           __v,
           ...EditInitialProductValues
         } = EditInitialValues as any;
-        console.log(EditInitialProductValues, "EditInitialProductValues")
-        console.log(posterImageUrl,
+        console.log(EditInitialProductValues, 'EditInitialProductValues');
+        console.log(
+          posterImageUrl,
           imageUrl,
           _id,
           createdAt,
           updatedAt,
-          __v, "EditInitialValues")
+          __v,
+          'EditInitialValues',
+        );
         const categoryIds =
           EditInitialValues.categories?.map((category: any) => category.id) ||
           [];
@@ -109,7 +109,6 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
     values.categories = selectedCategoryIds;
     values.subcategories = selectedSubcategoryIds;
 
-
     try {
       setError(null);
       let posterImageUrl = posterimageUrl && posterimageUrl[0];
@@ -127,7 +126,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
         hoverImageAltText: posterImageUrl.altText,
         productImages: imagesUrl,
         sale_counter:
-          (values.sale_counter === '') || (EditInitialValues.sale_counter == null)
+          values.sale_counter === '' || EditInitialValues.sale_counter == null
             ? ''
             : values.sale_counter
               ? values.sale_counter
@@ -145,7 +144,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
       }
       const response = await axios.post(url, newValues, {
         headers: {
-          'token': finalToken,
+          token: finalToken,
         },
       });
       revalidateTag('products');
@@ -181,7 +180,9 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
   };
 
   const [selectedCategoryIds, setSelectedCategoryIds] = useState<number[]>([]);
-  const [selectedSubcategoryIds, setSelectedSubcategoryIds] = useState<number[]>([]);
+  const [selectedSubcategoryIds, setSelectedSubcategoryIds] = useState<
+    number[]
+  >([]);
   const [filteredSubcategories, setFilteredSubcategories] = useState<any>([]);
 
   useEffect(() => {
@@ -204,26 +205,27 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
     });
   };
 
-
   const handleImageAltText = (
     index: number,
     newImageIndex: number | string,
-    setImagesUrlhandler: React.Dispatch<React.SetStateAction<any>>
+    setImagesUrlhandler: React.Dispatch<React.SetStateAction<any>>,
   ) => {
     setImagesUrlhandler((prev: any) => {
-
-      const updatedImagesUrl = prev.map((item: any, i: number) => i === index ? { ...item, altText: newImageIndex } : item);
+      const updatedImagesUrl = prev.map((item: any, i: number) =>
+        i === index ? { ...item, altText: newImageIndex } : item,
+      );
       return updatedImagesUrl;
     });
   };
   const handleImageColor = (
     index: number,
     newImageIndex: number | string,
-    setImagesUrlhandler: React.Dispatch<React.SetStateAction<any>>
+    setImagesUrlhandler: React.Dispatch<React.SetStateAction<any>>,
   ) => {
     setImagesUrlhandler((prev: any) => {
-
-      const updatedImagesUrl = prev.map((item: any, i: number) => i === index ? { ...item, color: newImageIndex } : item);
+      const updatedImagesUrl = prev.map((item: any, i: number) =>
+        i === index ? { ...item, color: newImageIndex } : item,
+      );
       return updatedImagesUrl;
     });
   };
@@ -231,11 +233,12 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
   const handleImageSize = (
     index: number,
     newImageIndex: number | string,
-    setImagesUrlhandler: React.Dispatch<React.SetStateAction<any>>
+    setImagesUrlhandler: React.Dispatch<React.SetStateAction<any>>,
   ) => {
     setImagesUrlhandler((prev: any) => {
-
-      const updatedImagesUrl = prev.map((item: any, i: number) => i === index ? { ...item, size: newImageIndex } : item);
+      const updatedImagesUrl = prev.map((item: any, i: number) =>
+        i === index ? { ...item, size: newImageIndex } : item,
+      );
       return updatedImagesUrl;
     });
   };
@@ -307,7 +310,11 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                                   name="altText"
                                   value={item.altText}
                                   onChange={(e) =>
-                                    handleImageAltText(index, String(e.target.value), setposterimageUrl)
+                                    handleImageAltText(
+                                      index,
+                                      String(e.target.value),
+                                      setposterimageUrl,
+                                    )
                                   }
                                 />
                               </div>
@@ -333,10 +340,11 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                           onBlur={formik.handleBlur}
                           value={formik.values.name}
                           placeholder="Title"
-                          className={`w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${formik.touched.name && formik.errors.name
-                            ? 'border-red-500'
-                            : ''
-                            }`}
+                          className={`w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${
+                            formik.touched.name && formik.errors.name
+                              ? 'border-red-500'
+                              : ''
+                          }`}
                         />
                         {formik.touched.name && formik.errors.name ? (
                           <div className="text-red-500 dark:text-red-700 text-sm">
@@ -354,14 +362,15 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                           onChange={formik.handleChange}
                           value={formik.values.description}
                           placeholder="description"
-                          className={`w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${formik.touched.description &&
+                          className={`w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${
+                            formik.touched.description &&
                             formik.errors.description
-                            ? 'border-red-500'
-                            : ''
-                            }`}
+                              ? 'border-red-500'
+                              : ''
+                          }`}
                         />
                         {formik.touched.description &&
-                          formik.errors.description ? (
+                        formik.errors.description ? (
                           <div className="text-red-500 dark:text-red-700 text-sm">
                             {
                               formik.errors.description as FormikErrors<
@@ -385,10 +394,11 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                             value={formik.values.price}
                             placeholder="Product Price"
                             min="0"
-                            className={`w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${formik.touched.price && formik.errors.price
-                              ? 'border-red-500'
-                              : ''
-                              }`}
+                            className={`w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${
+                              formik.touched.price && formik.errors.price
+                                ? 'border-red-500'
+                                : ''
+                            }`}
                           />
                           {formik.touched.price && formik.errors.price ? (
                             <div className="text-red-500 dark:text-red-700 text-sm">
@@ -401,7 +411,6 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                             </div>
                           ) : null}
                         </div>
-
 
                         {/* <div className="w-[33%]">
                           <label className="mb-3 block text-sm font-medium text-black dark:text-white">
@@ -444,14 +453,15 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                             value={formik.values.discountPrice}
                             placeholder="Discount Price"
                             min="0"
-                            className={`w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${formik.touched.discountPrice &&
+                            className={`w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${
+                              formik.touched.discountPrice &&
                               formik.errors.discountPrice
-                              ? 'border-red-500'
-                              : ''
-                              }`}
+                                ? 'border-red-500'
+                                : ''
+                            }`}
                           />
                           {formik.touched.discountPrice &&
-                            formik.errors.discountPrice ? (
+                          formik.errors.discountPrice ? (
                             <div className="text-red-500 dark:text-red-700 text-sm">
                               {formik.errors.discountPrice as String}
                             </div>
@@ -469,11 +479,12 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                           value={formik.values.sale_counter}
                           min={new Date().toISOString().slice(0, 16)}
                           placeholder="Select Date and Time"
-                          className={`w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${formik.touched.sale_counter &&
+                          className={`w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${
+                            formik.touched.sale_counter &&
                             formik.errors.sale_counter
-                            ? 'border-red-500'
-                            : ''
-                            }`}
+                              ? 'border-red-500'
+                              : ''
+                          }`}
                         />
                       </div>
                       <div className="mt-4 space-y-4">
@@ -489,13 +500,14 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                               onBlur={formik.handleBlur}
                               value={formik.values.Meta_Title}
                               placeholder="Meta Title"
-                              className={`w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${formik.touched.name && formik.errors.name
-                                ? 'border-red-500'
-                                : ''
-                                }`}
+                              className={`w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${
+                                formik.touched.name && formik.errors.name
+                                  ? 'border-red-500'
+                                  : ''
+                              }`}
                             />
                             {formik.touched.Meta_Title &&
-                              formik.errors.Meta_Title ? (
+                            formik.errors.Meta_Title ? (
                               <div className="text-red text-sm">
                                 {formik.errors.Meta_Title as String}
                               </div>
@@ -512,14 +524,15 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                               onChange={formik.handleChange}
                               value={formik.values.Canonical_Tag}
                               placeholder="Canonical Tag"
-                              className={`w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${formik.touched.name && formik.errors.name
-                                ? 'border-red-500'
-                                : ''
-                                }`}
+                              className={`w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${
+                                formik.touched.name && formik.errors.name
+                                  ? 'border-red-500'
+                                  : ''
+                              }`}
                             />
 
                             {formik.touched.Canonical_Tag &&
-                              formik.errors.Canonical_Tag ? (
+                            formik.errors.Canonical_Tag ? (
                               <div className="text-red text-sm">
                                 {formik.errors.Canonical_Tag as String}
                               </div>
@@ -535,14 +548,15 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                             onChange={formik.handleChange}
                             value={formik.values.Meta_Description}
                             placeholder="Meta Description"
-                            className={`w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${formik.touched.description &&
+                            className={`w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${
+                              formik.touched.description &&
                               formik.errors.description
-                              ? 'border-red-500'
-                              : ''
-                              }`}
+                                ? 'border-red-500'
+                                : ''
+                            }`}
                           />
                           {formik.touched.Meta_Description &&
-                            formik.errors.Meta_Description ? (
+                          formik.errors.Meta_Description ? (
                             <div className="text-red text-sm">
                               {formik.errors.Meta_Description as String}
                             </div>
@@ -561,13 +575,14 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                               onBlur={formik.handleBlur}
                               value={formik.values.Images_Alt_Text}
                               placeholder="Images Alt Text"
-                              className={`w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${formik.touched.name && formik.errors.name
-                                ? 'border-red-500'
-                                : ''
-                                }`}
+                              className={`w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${
+                                formik.touched.name && formik.errors.name
+                                  ? 'border-red-500'
+                                  : ''
+                              }`}
                             />
                             {formik.touched.Images_Alt_Text &&
-                              formik.errors.Images_Alt_Text ? (
+                            formik.errors.Images_Alt_Text ? (
                               <div className="text-red text-sm">
                                 {formik.errors.Images_Alt_Text as String}
                               </div>
@@ -643,32 +658,34 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                             Subcategories
                           </h2>
                           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            {filteredSubcategories.map((subcategory: ICategory) => (
-                              <div
-                                key={subcategory.id}
-                                className="flex items-center space-x-2 p-2 border rounded"
-                              >
-                                <Checkbox
-                                  checked={selectedSubcategoryIds.includes(
-                                    subcategory.id,
-                                  )}
-                                  className="custom-checkbox"
-                                  onChange={(e) =>
-                                    handleSubcategoryChange(
-                                      subcategory.id,
-                                      e.target.checked,
-                                    )
-                                  }
-                                  id={`subcategory-${subcategory.id}`}
-                                />
-                                <label
-                                  htmlFor={`subcategory-${subcategory.id}`}
-                                  className="ml-2 text-black dark:text-white"
+                            {filteredSubcategories.map(
+                              (subcategory: ICategory) => (
+                                <div
+                                  key={subcategory.id}
+                                  className="flex items-center space-x-2 p-2 border rounded"
                                 >
-                                  {subcategory.name}
-                                </label>
-                              </div>
-                            ))}
+                                  <Checkbox
+                                    checked={selectedSubcategoryIds.includes(
+                                      subcategory.id,
+                                    )}
+                                    className="custom-checkbox"
+                                    onChange={(e) =>
+                                      handleSubcategoryChange(
+                                        subcategory.id,
+                                        e.target.checked,
+                                      )
+                                    }
+                                    id={`subcategory-${subcategory.id}`}
+                                  />
+                                  <label
+                                    htmlFor={`subcategory-${subcategory.id}`}
+                                    className="ml-2 text-black dark:text-white"
+                                  >
+                                    {subcategory.name}
+                                  </label>
+                                </div>
+                              ),
+                            )}
                           </div>
                         </div>
                       </div>
@@ -690,10 +707,11 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                         value={formik.values.stock}
                         placeholder="How many items available"
                         min="0"
-                        className={`w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${formik.touched.stock && formik.errors.stock
-                          ? 'border-red-500'
-                          : ''
-                          }`}
+                        className={`w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${
+                          formik.touched.stock && formik.errors.stock
+                            ? 'border-red-500'
+                            : ''
+                        }`}
                       />
                       {formik.touched.stock && formik.errors.stock ? (
                         <div className="text-red-500 dark:text-red-700 text-sm">
@@ -701,9 +719,6 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                         </div>
                       ) : null}
                     </div>
-
-
-
 
                     {/* {VariationOption === 'withoutVariation' && (
                       <>
@@ -844,45 +859,50 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                                         <div className="flex flex-col gap-2">
                                           {(
                                             section.additionalInformation || []
-                                          ).map((model: any, modelIndex: number) => (
-                                            <div
-                                              key={modelIndex}
-                                              className="flex items-center"
-                                            >
-                                              <input
-                                                type="text"
-                                                name={`sections[${sectionIndex}].additionalInformation[${modelIndex}].name`}
-                                                onChange={formik.handleChange}
-                                                onBlur={formik.handleBlur}
-                                                value={model.name || ''}
-                                                placeholder="Model Name"
-                                                className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white"
-                                              />
-
-                                              <input
-                                                type="text"
-                                                name={`sections[${sectionIndex}].additionalInformation[${modelIndex}].detail`}
-                                                onChange={formik.handleChange}
-                                                onBlur={formik.handleBlur}
-                                                value={model.detail || ''}
-                                                placeholder="Model Detail"
-                                                className="w-full rounded-lg ml-2 border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white"
-                                              />
-
-                                              <button
-                                                type="button"
-                                                onClick={() =>
-                                                  removeInfo(modelIndex)
-                                                }
-                                                className="ml-2 text-red-500"
+                                          ).map(
+                                            (
+                                              model: any,
+                                              modelIndex: number,
+                                            ) => (
+                                              <div
+                                                key={modelIndex}
+                                                className="flex items-center"
                                               >
-                                                <RxCross2
-                                                  className="text-red-500 dark:text-white"
-                                                  size={25}
+                                                <input
+                                                  type="text"
+                                                  name={`sections[${sectionIndex}].additionalInformation[${modelIndex}].name`}
+                                                  onChange={formik.handleChange}
+                                                  onBlur={formik.handleBlur}
+                                                  value={model.name || ''}
+                                                  placeholder="Model Name"
+                                                  className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white"
                                                 />
-                                              </button>
-                                            </div>
-                                          ))}
+
+                                                <input
+                                                  type="text"
+                                                  name={`sections[${sectionIndex}].additionalInformation[${modelIndex}].detail`}
+                                                  onChange={formik.handleChange}
+                                                  onBlur={formik.handleBlur}
+                                                  value={model.detail || ''}
+                                                  placeholder="Model Detail"
+                                                  className="w-full rounded-lg ml-2 border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white"
+                                                />
+
+                                                <button
+                                                  type="button"
+                                                  onClick={() =>
+                                                    removeInfo(modelIndex)
+                                                  }
+                                                  className="ml-2 text-red-500"
+                                                >
+                                                  <RxCross2
+                                                    className="text-red-500 dark:text-white"
+                                                    size={25}
+                                                  />
+                                                </button>
+                                              </div>
+                                            ),
+                                          )}
 
                                           {/* Button to add a new model within the current section */}
                                           <button
@@ -919,7 +939,6 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                       </FieldArray>
                     </div>
                   </div>
-
 
                   <div className="rounded-sm border border-stroke bg-white  dark:bg-black">
                     <div className="border-b border-stroke py-4 px-6 dark:border-strokedark">
@@ -970,47 +989,51 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                                         remove: removeInfo,
                                       }) => (
                                         <div className="flex flex-col gap-2">
-                                          {(filter.additionalInformation || []
-                                          ).map((model: any, modelIndex: number) => (
-                                            <div
-                                              key={modelIndex}
-                                              className="flex items-center"
-                                            >
-                                              <input
-                                                type="text"
-                                                name={`filter[${sectionIndex}].additionalInformation[${modelIndex}].name`}
-                                                onChange={formik.handleChange}
-                                                onBlur={formik.handleBlur}
-                                                value={model.name || ''}
-                                                placeholder="Add details (Black, Reactangle, 11cm)"
-                                                className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white"
-                                              />
-                                              <input
-                                                type="number"
-                                                name={`filter[${sectionIndex}].additionalInformation[${modelIndex}].price`}
-                                                onChange={formik.handleChange}
-                                                onBlur={formik.handleBlur}
-                                                value={model.price || ''}
-                                                placeholder="price"
-                                                className="w-full rounded-lg ml-1 border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white"
-                                              />
-
-
-
-                                              <button
-                                                type="button"
-                                                onClick={() =>
-                                                  removeInfo(modelIndex)
-                                                }
-                                                className="ml-2 text-red-500"
+                                          {(
+                                            filter.additionalInformation || []
+                                          ).map(
+                                            (
+                                              model: any,
+                                              modelIndex: number,
+                                            ) => (
+                                              <div
+                                                key={modelIndex}
+                                                className="flex items-center"
                                               >
-                                                <RxCross2
-                                                  className="text-red-500 dark:text-white"
-                                                  size={25}
+                                                <input
+                                                  type="text"
+                                                  name={`filter[${sectionIndex}].additionalInformation[${modelIndex}].name`}
+                                                  onChange={formik.handleChange}
+                                                  onBlur={formik.handleBlur}
+                                                  value={model.name || ''}
+                                                  placeholder="Add details (Black, Reactangle, 11cm)"
+                                                  className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white"
                                                 />
-                                              </button>
-                                            </div>
-                                          ))}
+                                                <input
+                                                  type="number"
+                                                  name={`filter[${sectionIndex}].additionalInformation[${modelIndex}].price`}
+                                                  onChange={formik.handleChange}
+                                                  onBlur={formik.handleBlur}
+                                                  value={model.price || ''}
+                                                  placeholder="price"
+                                                  className="w-full rounded-lg ml-1 border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white"
+                                                />
+
+                                                <button
+                                                  type="button"
+                                                  onClick={() =>
+                                                    removeInfo(modelIndex)
+                                                  }
+                                                  className="ml-2 text-red-500"
+                                                >
+                                                  <RxCross2
+                                                    className="text-red-500 dark:text-white"
+                                                    size={25}
+                                                  />
+                                                </button>
+                                              </div>
+                                            ),
+                                          )}
 
                                           {/* Button to add a new model within the current section */}
                                           <button
@@ -1076,16 +1099,17 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                                         ].name
                                       }
                                       placeholder="Model Name"
-                                      className={`w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${model.name &&
+                                      className={`w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${
+                                        model.name &&
                                         (
                                           formik.errors
                                             .additionalInformation as FormikErrors<
-                                              FormValues['additionalInformation']
-                                            >
+                                            FormValues['additionalInformation']
+                                          >
                                         )?.[index]
-                                        ? 'border-red-500 dark:border-white'
-                                        : ''
-                                        }`}
+                                          ? 'border-red-500 dark:border-white'
+                                          : ''
+                                      }`}
                                     />
                                     <input
                                       type="text"
@@ -1098,16 +1122,17 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                                         ].detail
                                       }
                                       placeholder="Model Detail"
-                                      className={`w-full rounded-lg ml-2 border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${model.detail &&
+                                      className={`w-full rounded-lg ml-2 border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${
+                                        model.detail &&
                                         (
                                           formik.errors
                                             .additionalInformation as FormikErrors<
-                                              FormValues['additionalInformation']
-                                            >
+                                            FormValues['additionalInformation']
+                                          >
                                         )?.[index]
-                                        ? 'border-red-500 dark:border-white'
-                                        : ''
-                                        }`}
+                                          ? 'border-red-500 dark:border-white'
+                                          : ''
+                                      }`}
                                     />
                                     <button
                                       type="button"
@@ -1158,16 +1183,17 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                                         .specsDetails
                                     }
                                     placeholder="Specification Details"
-                                    className={`w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${spec.specsDetails &&
+                                    className={`w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${
+                                      spec.specsDetails &&
                                       (
                                         formik.errors
                                           .spacification as FormikErrors<
-                                            FormValues['spacification']
-                                          >
+                                          FormValues['spacification']
+                                        >
                                       )?.[index]?.specsDetails
-                                      ? 'border-red-500'
-                                      : ''
-                                      }`}
+                                        ? 'border-red-500'
+                                        : ''
+                                    }`}
                                   />
                                   <button
                                     type="button"
@@ -1195,7 +1221,6 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                     </div>
                   </div>
 
-
                   <div className="rounded-sm border border-stroke bg-white  dark:bg-black">
                     <div className="border-b border-stroke py-4 px-4 dark:border-strokedark">
                       <h3 className="font-medium text-black dark:text-white">
@@ -1214,16 +1239,18 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                                     name={`sizes[${index}]`}
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
-                                    value={
-                                      formik.values.sizes[index]
-                                    }
+                                    value={formik.values.sizes[index]}
                                     placeholder="Size Name (1 seater, 2 seater, etc)"
-                                    className={`w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${(formik.touched as any).sizes?.[index] && (
-                                      formik.errors.sizes as FormikErrors<FormValues['sizes']>)?.[index]
-                                      ? 'border-red-500'
-                                      : ''
-                                      }`}
-
+                                    className={`w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${
+                                      (formik.touched as any).sizes?.[index] &&
+                                      (
+                                        formik.errors.sizes as FormikErrors<
+                                          FormValues['sizes']
+                                        >
+                                      )?.[index]
+                                        ? 'border-red-500'
+                                        : ''
+                                    }`}
                                   />
                                   <button
                                     type="button"
@@ -1240,7 +1267,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                             )}
                             <button
                               type="button"
-                              onClick={() => push("")}
+                              onClick={() => push('')}
                               className="px-4 py-2 bg-black text-white dark:bg-gray-800  rounded-md shadow-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-black w-fit"
                             >
                               Add Sizes (1 seater, 2 seater,etc)
@@ -1295,8 +1322,7 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                                   handleImageAltText(
                                     index,
                                     String(e.target.value),
-                                    sethoverImage
-
+                                    sethoverImage,
                                   )
                                 }
                               />
@@ -1344,7 +1370,6 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                                   src={item.imageUrl}
                                   alt={`productImage-${index}`}
                                 />
-
                               </div>
                               <input
                                 type="text"
@@ -1352,7 +1377,11 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                                 className=" rounded-b-md p-2 text-sm focus:outline-none w-full "
                                 value={item.color}
                                 onChange={(e) =>
-                                  handleImageColor(index, e.target.value, setImagesUrl)
+                                  handleImageColor(
+                                    index,
+                                    e.target.value,
+                                    setImagesUrl,
+                                  )
                                 }
                               />
                               <input
@@ -1362,7 +1391,11 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                                 name="altText"
                                 value={item.altText}
                                 onChange={(e) =>
-                                  handleImageAltText(index, String(e.target.value), setImagesUrl)
+                                  handleImageAltText(
+                                    index,
+                                    String(e.target.value),
+                                    setImagesUrl,
+                                  )
                                 }
                               />
                               <input
@@ -1372,7 +1405,11 @@ const FormElements: React.FC<ADDPRODUCTFORMPROPS> = ({
                                 name="size"
                                 value={item.size}
                                 onChange={(e) =>
-                                  handleImageSize(index, String(e.target.value), setImagesUrl)
+                                  handleImageSize(
+                                    index,
+                                    String(e.target.value),
+                                    setImagesUrl,
+                                  )
                                 }
                               />
                             </div>

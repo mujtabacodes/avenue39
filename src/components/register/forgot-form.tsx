@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import React, { useState } from 'react';
 import Loader from '../Loader/Loader';
 import { Input } from '../ui/input';
@@ -28,20 +28,23 @@ const ForgotForm = () => {
       setError('Please enter a valid email address.');
       return;
     }
-    setLoading(true); 
+    setLoading(true);
 
     try {
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/forget-password`,
-        { email }
+        { email },
       );
       console.log('Email sent:', email);
       showToast('success', `Email sent: ${response.data.message}`);
     } catch (err: any) {
-      console.error('Error sending Email:', err.response?.data?.message || err.message);
+      console.error(
+        'Error sending Email:',
+        err.response?.data?.message || err.message,
+      );
       showToast('error', 'Failed to send Email. Please try again.');
     } finally {
-      setLoading(false); 
+      setLoading(false);
       router.push('/login');
     }
   };

@@ -328,10 +328,10 @@ const Checkout = () => {
                           AED{' '}
                           <span>
                             {(totalPrice > 1000
-                            ? totalPrice
-                            : totalPrice + shippingfee
+                              ? totalPrice
+                              : totalPrice + shippingfee
                             ).toLocaleString()}
-                            </span>
+                          </span>
                         </p>
                       </div>
                     </div>

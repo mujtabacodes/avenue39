@@ -9,18 +9,20 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: 'bg-black text-white hover:text-black hover:bg-white hover:border-black hover:border',
+        default:
+          'bg-black text-white hover:text-black hover:bg-white hover:border-black hover:border',
         destructive:
           'bg-destructive text-destructive-foreground hover:bg-destructive/90',
         outline:
           'border border-input bg-background hover:bg-accent hover:text-accent-foreground',
-        secondary:
-          'bg-secondary text-black hover:bg-lightbackground',
+        secondary: 'bg-secondary text-black hover:bg-lightbackground',
         ghost: 'hover:bg-accent hover:text-accent-foreground',
         link: 'bg-white text-black underline-offset-4 hover:bg-black hover:text-white rounded-3xl text-sm',
-        login: 'bg-black text-white underline-offset-4 hover:bg-black hover:text-white rounded-full text-sm',
+        login:
+          'bg-black text-white underline-offset-4 hover:bg-black hover:text-white rounded-full text-sm',
         underline: 'bg-transparent text-black hover:underline text-sm',
-        black: 'bg-black text-white hover:text-black hover:bg-white text-sm rounded-md border-2 border-black ',
+        black:
+          'bg-black text-white hover:text-black hover:bg-white text-sm rounded-md border-2 border-black ',
       },
       size: {
         default: 'h-10 px-4 py-2',
@@ -48,7 +50,6 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     const Comp = asChild ? Slot : 'button';
     return (
       <Comp
-      
         className={cn(buttonVariants({ variant, size, className }))}
         ref={ref}
         {...props}

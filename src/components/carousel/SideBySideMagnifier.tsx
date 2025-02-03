@@ -1,11 +1,11 @@
-import Image from "next/image";
-import React, { useState, useRef, useEffect } from "react";
+import Image from 'next/image';
+import React, { useState, useRef, useEffect } from 'react';
 
 interface SideBySideMagnifierProps {
   imageSrc: string;
-  largeImageSrc: string; 
+  largeImageSrc: string;
   zoomScale?: number;
-  inPlace?: boolean; 
+  inPlace?: boolean;
   alignTop?: boolean;
   altText?: string;
 }
@@ -20,7 +20,7 @@ const SideBySideMagnifier: React.FC<SideBySideMagnifierProps> = ({
 }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [magnifierPosition, setMagnifierPosition] = useState({ x: 0, y: 0 });
-  const [backgroundPosition, setBackgroundPosition] = useState<string>("0% 0%");
+  const [backgroundPosition, setBackgroundPosition] = useState<string>('0% 0%');
   const [displayInPlace, setDisplayInPlace] = useState(inPlace);
   const containerRef = useRef<HTMLDivElement | null>(null);
 
@@ -55,9 +55,7 @@ const SideBySideMagnifier: React.FC<SideBySideMagnifierProps> = ({
   };
 
   return (
-    <div className="relative h-full" 
-    ref={containerRef}
-    >
+    <div className="relative h-full" ref={containerRef}>
       <div
         className="relative w-full h-full   cursor-zoom-in"
         onMouseEnter={() => setIsHovered(true)}
@@ -65,7 +63,7 @@ const SideBySideMagnifier: React.FC<SideBySideMagnifierProps> = ({
         onMouseMove={handleMouseMove}
         style={{
           backgroundImage: `url(${imageSrc})`,
-          backgroundSize: "cover",
+          backgroundSize: 'cover',
         }}
       >
         <Image
@@ -81,19 +79,19 @@ const SideBySideMagnifier: React.FC<SideBySideMagnifierProps> = ({
       {isHovered && (
         <div
           className={`absolute pointer-events-none ${
-            displayInPlace ? "in-place" : "side-by-side"
+            displayInPlace ? 'in-place' : 'side-by-side'
           }`}
           style={{
-            width: displayInPlace ? "100%" :  "",
-            height: displayInPlace ? "100%" :  "",
-            top: displayInPlace ? "0" : `${magnifierPosition.y}px`,
-            left: displayInPlace ? "0" : "320px", 
+            width: displayInPlace ? '100%' : '',
+            height: displayInPlace ? '100%' : '',
+            top: displayInPlace ? '0' : `${magnifierPosition.y}px`,
+            left: displayInPlace ? '0' : '320px',
             backgroundImage: `url(${largeImageSrc})`,
             backgroundPosition: backgroundPosition,
             backgroundSize: `${zoomScale * 100}%`,
-            border: "1px solid orange",
+            border: '1px solid orange',
             zIndex: 10,
-            boxShadow: "0 0 5px rgba(0, 0, 0, 0.5)",
+            boxShadow: '0 0 5px rgba(0, 0, 0, 0.5)',
           }}
         ></div>
       )}

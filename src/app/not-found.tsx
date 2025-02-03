@@ -1,6 +1,6 @@
-import Link from "next/link";
-import gitImg from "@images/json/404.json";
-import Lottie from "@/components/Lottie/error-gif";
+import Link from 'next/link';
+import gitImg from '@images/json/404.json';
+import Lottie from '@/components/Lottie/error-gif';
 
 export default function NotFound() {
   return (

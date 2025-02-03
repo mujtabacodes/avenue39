@@ -1,16 +1,26 @@
-'use client'
-import { ApexOptions } from "apexcharts";
-import React, { useLayoutEffect, useState } from "react";
-import ReactApexChart from "react-apexcharts";
+'use client';
+import { ApexOptions } from 'apexcharts';
+import React, { useLayoutEffect, useState } from 'react';
+import ReactApexChart from 'react-apexcharts';
 import Cookies from 'js-cookie';
-import axios from "axios";
-import { useAppSelector } from "@components/Others/HelperRedux";
-import { Skeleton } from "antd";
+import axios from 'axios';
+import { useAppSelector } from '@components/Others/HelperRedux';
+import { Skeleton } from 'antd';
 
 const getMonthNamesUpToCurrent = () => {
   const monthNames = [
-    "Jan", "Feb", "Mar", "Apr", "May", "Jun",
-    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
   ];
 
   const today = new Date();
@@ -20,21 +30,21 @@ const getMonthNamesUpToCurrent = () => {
   return monthNames.slice(0, currentMonth + 1);
 };
 
-let baseColorArray = ["#80CAEE", "#3C50E0"];
+let baseColorArray = ['#80CAEE', '#3C50E0'];
 const options: ApexOptions = {
   legend: {
     show: false,
-    position: "top",
-    horizontalAlign: "left",
+    position: 'top',
+    horizontalAlign: 'left',
   },
   colors: baseColorArray,
   chart: {
-    fontFamily: "Satoshi, sans-serif",
+    fontFamily: 'Satoshi, sans-serif',
     height: 335,
-    type: "area",
+    type: 'area',
     dropShadow: {
       enabled: true,
-      color: "#623CEA14",
+      color: '#623CEA14',
       top: 10,
       blur: 4,
       left: 0,
@@ -64,7 +74,7 @@ const options: ApexOptions = {
   ],
   stroke: {
     width: [2, 2],
-    curve: "straight",
+    curve: 'straight',
   },
   grid: {
     xaxis: {
@@ -83,8 +93,8 @@ const options: ApexOptions = {
   },
   markers: {
     size: 4,
-    colors: "#fff",
-    strokeColors: ["#3056D3", "#80CAEE"],
+    colors: '#fff',
+    strokeColors: ['#3056D3', '#80CAEE'],
     strokeWidth: 3,
     strokeOpacity: 0.9,
     strokeDashArray: 0,
@@ -96,7 +106,7 @@ const options: ApexOptions = {
     },
   },
   xaxis: {
-    type: "category",
+    type: 'category',
     categories: getMonthNamesUpToCurrent(),
     axisBorder: {
       show: false,
@@ -108,7 +118,7 @@ const options: ApexOptions = {
   yaxis: {
     title: {
       style: {
-        fontSize: "0px",
+        fontSize: '0px',
       },
     },
     min: 0,
@@ -124,11 +134,11 @@ interface ChartOneState {
 }
 
 const ChartOne: React.FC = () => {
-  const { loggedInUser }: any = useAppSelector(state => state.usersSlice);
+  const { loggedInUser }: any = useAppSelector((state) => state.usersSlice);
 
-  let AdminType = loggedInUser && loggedInUser.role === "super-Admin";
+  let AdminType = loggedInUser && loggedInUser.role === 'super-Admin';
   const [state, setState] = useState<ChartOneState | undefined>();
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(true);
 
   const getMonthlyRecord = async () => {
     try {
@@ -136,26 +146,29 @@ const ChartOne: React.FC = () => {
       const superAdmintoken = Cookies.get('superAdminToken');
       const finalToken = token ? token : superAdmintoken;
 
-      const response = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/sales-record/getMonthlySales`, {
-        headers: {
-          "token": finalToken
-        }
-      });
+      const response = await axios.get(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/sales-record/getMonthlySales`,
+        {
+          headers: {
+            token: finalToken,
+          },
+        },
+      );
 
       const reports = response.data;
 
       let chartColors = [...baseColorArray];
 
-      const keys = ["Revenue", "Sales"];
+      const keys = ['Revenue', 'Sales'];
       if (AdminType) {
-        keys.unshift("Profit");
-        chartColors.unshift("#336699");
+        keys.unshift('Profit');
+        chartColors.unshift('#336699');
       }
 
-      const defaultArray = keys.map(key => {
+      const defaultArray = keys.map((key) => {
         return {
           name: key,
-          data: reports.map((report: any) => report[key] || 0)
+          data: reports.map((report: any) => report[key] || 0),
         };
       });
 
@@ -163,9 +176,9 @@ const ChartOne: React.FC = () => {
 
       setState({ series: defaultArray });
     } catch (err) {
-      console.error("Error fetching monthly record:", err);
+      console.error('Error fetching monthly record:', err);
     } finally {
-      setLoading(false); 
+      setLoading(false);
     }
   };
 
@@ -174,7 +187,7 @@ const ChartOne: React.FC = () => {
   }, []);
 
   return (
-    <div className="col-span-12 rounded-sm border border-stroke bg-white px-5 pb-5 pt-7 shadow-default sm:px-7 xl:col-span-8 dark:bg-black dark:text-white dark:bg-boxdark dark:drop-shadow-none dark:border-blue-50">      
+    <div className="col-span-12 rounded-sm border border-stroke bg-white px-5 pb-5 pt-7 shadow-default sm:px-7 xl:col-span-8 dark:bg-black dark:text-white dark:bg-boxdark dark:drop-shadow-none dark:border-blue-50">
       <div className="flex flex-wrap items-start justify-between gap-3 sm:flex-nowrap dark:bg-black dark:text-white dark:bg-boxdark dark:drop-shadow-none dark:border-blue-50">
         <div className="flex w-full flex-wrap gap-3 sm:gap-5">
           <div className="flex min-w-48">
@@ -186,7 +199,7 @@ const ChartOne: React.FC = () => {
             </div>
           </div>
           <div className="flex min-w-48">
-          <span className="mr-2 mt-1 flex h-4 w-full max-w-4 items-center justify-center rounded-full border border-primary dark:bg-boxdark dark:drop-shadow-none dark:border-blue-50 dak:bg-white">
+            <span className="mr-2 mt-1 flex h-4 w-full max-w-4 items-center justify-center rounded-full border border-primary dark:bg-boxdark dark:drop-shadow-none dark:border-blue-50 dak:bg-white">
               <span className="block h-2.5 w-full max-w-2.5 rounded-full bg-primary dark:bg-white"></span>
             </span>
             <div className="w-full">
@@ -214,7 +227,7 @@ const ChartOne: React.FC = () => {
                 series={state.series}
                 type="area"
                 height={350}
-                width={"100%"}
+                width={'100%'}
               />
             )
           )}

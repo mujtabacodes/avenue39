@@ -1,35 +1,34 @@
-'use client'
-import Link from "next/link";
-import DarkModeSwitcher from "./DarkModeSwitcher";
-import DropdownUser from "./DropdownUser";
-import Image from "next/image";
-import logoimage from "@assets/icons/whitelogo.png"
-import { FaBars } from "react-icons/fa";
+'use client';
+import Link from 'next/link';
+import DarkModeSwitcher from './DarkModeSwitcher';
+import DropdownUser from './DropdownUser';
+import Image from 'next/image';
+import logoimage from '@assets/icons/whitelogo.png';
+import { FaBars } from 'react-icons/fa';
 
 const Header = (props: {
   sidebarOpen: string | boolean | undefined;
   setSidebarOpen: any;
 }) => {
-
   return (
     <header className="sticky top-0 z-40 flex w-full bg-main dark:bg-black text-white drop-shadow-1 dark:bg-boxdark dark:drop-shadow-none border dark:border-blue-50 border-t-0 border-l-0">
       <div className="flex flex-grow items-center justify-between px-4 py-1 shadow-2 md:px-6 2xl:px-11">
         <div className="flex items-center gap-1 xs:gap-2 sm:gap-4 lg:hidden text-black dark:text-white">
-
-        <FaBars className="text-white" size={15}  aria-controls="sidebar"
+          <FaBars
+            className="text-white"
+            size={15}
+            aria-controls="sidebar"
             onClick={(e) => {
               e.stopPropagation();
               props.setSidebarOpen(!props.sidebarOpen);
-            }} />
+            }}
+          />
 
-
-          <Link className="block flex-shrink-0 lg:hidden w-20 xs:w-[100px]" href="/">
-            <Image
-              width={100}
-              height={100}
-              src={logoimage}
-              alt="Logo"
-            />
+          <Link
+            className="block flex-shrink-0 lg:hidden w-20 xs:w-[100px]"
+            href="/"
+          >
+            <Image width={100} height={100} src={logoimage} alt="Logo" />
           </Link>
         </div>
 

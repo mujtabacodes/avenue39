@@ -10,13 +10,24 @@ interface ProductGridProps {
   isHomepage?: boolean;
   isLandscape?: boolean;
   calculateHeight?: string;
-  portSpace?: string
+  portSpace?: string;
   productImages: IProductsImage[];
-  redirect?: string
+  redirect?: string;
 }
 
-const ProductGrid: React.FC<ProductGridProps> = ({ products, productImages, CardComponent, imageHeight,slider , isHomepage, calculateHeight , portSpace , isLandscape,redirect }) => {
-  console.log(products,'products Floki')
+const ProductGrid: React.FC<ProductGridProps> = ({
+  products,
+  productImages,
+  CardComponent,
+  imageHeight,
+  slider,
+  isHomepage,
+  calculateHeight,
+  portSpace,
+  isLandscape,
+  redirect,
+}) => {
+  console.log(products, 'products Floki');
   return (
     <>
       {products.map((product, index) => (

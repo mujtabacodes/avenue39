@@ -59,12 +59,12 @@ const Settings = () => {
         posterImageUrl: loggedInUser.posterImageUrl,
         posterImagePublicId: loggedInUser.posterImagePublicId,
       };
-/* eslint-disable */
+      /* eslint-disable */
       if (loggedInUser) {
         let { name, posterImageUrl, posterImagePublicId, ...extractedData } =
           loggedInUser;
         console.log(extractedData, 'extractedData');
-/* eslint-enable */
+        /* eslint-enable */
         if (profilePhoto) {
           initialFormData = {
             ...initialFormData,

@@ -136,19 +136,20 @@ function Admins({ setselecteMenu, setEditAdmin }: any) {
     {
       title: 'Edit',
       key: 'edit',
-      render: (text: any, record: any) =>
+      render: (text: any, record: any) => (
         // editLoading === record.id ? (
         //   <Loader />
         // ) : (
-          <FaEdit
-            className="cursor-pointer text-slate-500"
-            size={20}
-            onClick={() => {
-              setEditAdmin(record);
-              setselecteMenu('');
-            }}
-          />
-        // ),
+        <FaEdit
+          className="cursor-pointer text-slate-500"
+          size={20}
+          onClick={() => {
+            setEditAdmin(record);
+            setselecteMenu('');
+          }}
+        />
+      ),
+      // ),
     },
     {
       title: 'Actions',

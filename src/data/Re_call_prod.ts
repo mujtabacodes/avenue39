@@ -4,16 +4,16 @@ export const re_Calling_products = [
     mainCategory: 'LIVING',
     subCategory: 'Sofas',
     ////////////////
-    redirectsubCat : "Sofas",
-    redirect_main_cat: "CHAIRS"
+    redirectsubCat: 'Sofas',
+    redirect_main_cat: 'CHAIRS',
   },
   {
     id: 2,
     mainCategory: 'LIVING',
     subCategory: 'Armchairs',
     ////////////////
-    redirectsubCat : "Armchairs",
-    redirect_main_cat: "CHAIRS"
+    redirectsubCat: 'Armchairs',
+    redirect_main_cat: 'CHAIRS',
   },
 
   {
@@ -21,24 +21,24 @@ export const re_Calling_products = [
     mainCategory: 'LIVING',
     subCategory: 'Accent Chairs',
     ////////////////
-    redirectsubCat : "Accent Chairs",
-    redirect_main_cat: "CHAIRS"
+    redirectsubCat: 'Accent Chairs',
+    redirect_main_cat: 'CHAIRS',
   },
   {
     id: 4,
     mainCategory: 'LIVING',
     subCategory: 'Coffee Tables',
     ////////////////
-    redirectsubCat : "Coffee Tables",
-    redirect_main_cat: "TABLES"
+    redirectsubCat: 'Coffee Tables',
+    redirect_main_cat: 'TABLES',
   },
   {
     id: 4,
     mainCategory: 'LIVING',
     subCategory: 'Side Tables',
     ////////////////
-    redirectsubCat : "Side Tables",
-    redirect_main_cat: "TABLES"
+    redirectsubCat: 'Side Tables',
+    redirect_main_cat: 'TABLES',
   },
 
   {
@@ -46,8 +46,8 @@ export const re_Calling_products = [
     mainCategory: 'BEDROOM',
     subCategory: 'Table Lamps',
     ////////////////
-    redirectsubCat : "Table Lamps",
-    redirect_main_cat: "LIGHTING"
+    redirectsubCat: 'Table Lamps',
+    redirect_main_cat: 'LIGHTING',
   },
 
   {
@@ -55,72 +55,71 @@ export const re_Calling_products = [
     mainCategory: 'BEDROOM',
     subCategory: 'Accent Chairs',
     ////////////////
-    redirectsubCat : "Accent Chairs",
-    redirect_main_cat: "CHAIRS"
+    redirectsubCat: 'Accent Chairs',
+    redirect_main_cat: 'CHAIRS',
   },
   {
     id: 6.5,
     mainCategory: 'BEDROOM',
     subCategory: 'Sofa Beds',
     ////////////////
-    redirectsubCat : "Sofa Beds",
-    redirect_main_cat: "LIVING"
+    redirectsubCat: 'Sofa Beds',
+    redirect_main_cat: 'LIVING',
   },
   {
     id: 7,
     mainCategory: 'CHAIRS',
     subCategory: 'Dining Chairs',
     ////////////////
-    redirectsubCat : "Dining Chairs",
-    redirect_main_cat: "DINING"
+    redirectsubCat: 'Dining Chairs',
+    redirect_main_cat: 'DINING',
   },
   {
     id: 8,
     mainCategory: 'TABLES',
     subCategory: 'Dining Tables',
     ////////////////
-    redirectsubCat : "Dining Tables",
-    redirect_main_cat: "DINING"
+    redirectsubCat: 'Dining Tables',
+    redirect_main_cat: 'DINING',
   },
   {
     id: 9,
     mainCategory: 'TABLES',
     subCategory: 'Office Tables',
     ////////////////
-    redirectsubCat : "Office Tables",
-    redirect_main_cat: "HOME OFFICE"
+    redirectsubCat: 'Office Tables',
+    redirect_main_cat: 'HOME OFFICE',
   },
   {
     id: 10,
     mainCategory: 'TABLES',
     subCategory: 'Bedside Tables',
     ////////////////
-    redirectsubCat : "Bedside Tables",
-    redirect_main_cat: "BEDROOM"
+    redirectsubCat: 'Bedside Tables',
+    redirect_main_cat: 'BEDROOM',
   },
   {
     id: 10,
     mainCategory: 'TABLES',
     subCategory: 'Bedside Tables',
     ////////////////
-    redirectsubCat : "Bedside Tables",
-    redirect_main_cat: "BEDROOM"
+    redirectsubCat: 'Bedside Tables',
+    redirect_main_cat: 'BEDROOM',
   },
   {
     id: 10,
     mainCategory: 'TABLES',
     subCategory: 'Bedside Tables',
     ////////////////
-    redirectsubCat : "Bedside Tables",
-    redirect_main_cat: "BEDROOM"
+    redirectsubCat: 'Bedside Tables',
+    redirect_main_cat: 'BEDROOM',
   },
-    {
+  {
     id: 10,
     mainCategory: 'TABLES',
     subCategory: 'Bedside Tables',
     ////////////////
-    redirectsubCat : "Bedside Tables",
-    redirect_main_cat: "BEDROOM"
+    redirectsubCat: 'Bedside Tables',
+    redirect_main_cat: 'BEDROOM',
   },
-
 ];

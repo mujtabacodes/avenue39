@@ -1,10 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import {
-  Table, notification,
-
-} from 'antd';
+import { Table, notification } from 'antd';
 import Image from 'next/image';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import axios from 'axios';
@@ -16,6 +13,7 @@ import { product } from '@/types/interfaces';
 import revalidateTag from '@/components/ServerActons/ServerAction';
 import Cookies from 'js-cookie';
 import Swal from 'sweetalert2';
+import Link from 'next/link';
 
 interface Product {
   id: string;
@@ -50,7 +48,6 @@ const ViewProduct: React.FC<CategoryProps> = ({
     setSearchTerm(e.target.value);
   };
 
-
   // const canAddProduct=loggedInUser && (loggedInUser.role =='Admin' ?   loggedInUser.canAddProduct : true )
   const canAddProduct = true;
   // const canDeleteProduct =
@@ -62,9 +59,7 @@ const ViewProduct: React.FC<CategoryProps> = ({
   //   (loggedInUser.role == 'Admin' ? loggedInUser.canEditproduct : true);
   const canEditproduct = true;
 
-
   const filteredProducts: Product[] =
-
     Categories?.filter((product: any) => {
       const searchtext = searchTerm.trim().toLowerCase();
 
@@ -73,34 +68,37 @@ const ViewProduct: React.FC<CategoryProps> = ({
         product.description.toLowerCase().includes(searchtext) ||
         product.price.toString().includes(searchtext) ||
         product.discountPrice.toString().includes(searchtext) ||
-        (product.colors && product.colors.some((color: string) => color.toLowerCase().includes(searchtext))) ||
-        (product.spacification && product.spacification.some((spec: any) =>
-          Object.values(spec).some((value: any) =>
-            value.toString().toLowerCase().includes(searchtext)
-          )
-        )) ||
+        (product.colors &&
+          product.colors.some((color: string) =>
+            color.toLowerCase().includes(searchtext),
+          )) ||
+        (product.spacification &&
+          product.spacification.some((spec: any) =>
+            Object.values(spec).some((value: any) =>
+              value.toString().toLowerCase().includes(searchtext),
+            ),
+          )) ||
         product.additionalInformation.some((info: any) =>
           Object.values(info).some((value: any) =>
-            value.toString().toLowerCase().includes(searchtext)
-          )
+            value.toString().toLowerCase().includes(searchtext),
+          ),
         ) ||
-        (product.categories && product.categories.some((category: any) =>
-          category.name.toLowerCase().includes(searchtext)
-        )) ||
-        (product.subcategories && product.subcategories.some((subcategory: any) =>
-          subcategory.name.toLowerCase().includes(searchtext)
-        ))
+        (product.categories &&
+          product.categories.some((category: any) =>
+            category.name.toLowerCase().includes(searchtext),
+          )) ||
+        (product.subcategories &&
+          product.subcategories.some((subcategory: any) =>
+            subcategory.name.toLowerCase().includes(searchtext),
+          ))
       );
-    })
-      .sort((a: product, b: product) => {
-        const dateA = a.createdAt ? new Date(a.createdAt).getTime() : 0;
-        const dateB = b.createdAt ? new Date(b.createdAt).getTime() : 0;
-        return dateB - dateA;
-      }) || [];
-
+    }).sort((a: product, b: product) => {
+      const dateA = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+      const dateB = b.createdAt ? new Date(b.createdAt).getTime() : 0;
+      return dateB - dateA;
+    }) || [];
 
   const confirmDelete = (key: any) => {
-
     Swal.fire({
       title: 'Are you sure?',
       text: 'Once deleted, the Product cannot be recovered.',
@@ -110,10 +108,9 @@ const ViewProduct: React.FC<CategoryProps> = ({
       cancelButtonText: 'No, keep it',
     }).then((result) => {
       if (result.isConfirmed) {
-        handleDelete(key)
+        handleDelete(key);
       }
     });
-
   };
   const token = Cookies.get('2guysAdminToken');
   const superAdminToken = Cookies.get('superAdminToken');
@@ -127,7 +124,7 @@ const ViewProduct: React.FC<CategoryProps> = ({
         {
           headers: {
             productId: key,
-            'token': finalToken,
+            token: finalToken,
           },
         },
       );
@@ -140,7 +137,7 @@ const ViewProduct: React.FC<CategoryProps> = ({
         placement: 'topRight',
       });
     } catch (err) {
-      console.log(err)
+      console.log(err);
       notification.error({
         message: 'Deletion Failed',
         description: 'There was an error deleting the product.',
@@ -160,7 +157,7 @@ const ViewProduct: React.FC<CategoryProps> = ({
           src={`${record?.posterImageUrl}`}
           alt={`Image of ${record.name}`}
           width={200}
-          className=' sm:w-[80px] sm:h-[80px] rounded-md object-contain'
+          className=" sm:w-[80px] sm:h-[80px] rounded-md object-contain"
           height={200}
         />
       ),
@@ -224,11 +221,15 @@ const ViewProduct: React.FC<CategoryProps> = ({
       key: 'Preview',
       width: 120,
       render: (text: any, record: Product) => {
-        const handleClick = () => {
-          const url = `/product/${generateSlug(record.name)}`;
-          window.open(url, '_blank');
-        };
-        return <FaRegEye className="cursor-pointer" onClick={handleClick} />;
+        return (
+          <Link
+            className="hover:text-black"
+            target="_blank"
+            href={`/product/${generateSlug(record.name)}`}
+          >
+            <FaRegEye />
+          </Link>
+        );
       },
     },
     {
@@ -237,8 +238,9 @@ const ViewProduct: React.FC<CategoryProps> = ({
       width: 150,
       render: (text: any, record: Product) => (
         <LiaEdit
-          className={`${canEditproduct ? 'cursor-pointer' : ''} ${!canEditproduct ? 'cursor-not-allowed text-slate-200' : ''
-            }`}
+          className={`${canEditproduct ? 'cursor-pointer' : ''} ${
+            !canEditproduct ? 'cursor-not-allowed text-slate-200' : ''
+          }`}
           size={20}
           onClick={() => {
             if (canEditproduct) {
@@ -255,8 +257,9 @@ const ViewProduct: React.FC<CategoryProps> = ({
       width: 150,
       render: (text: any, record: Product) => (
         <RiDeleteBin6Line
-          className={`${canDeleteProduct ? 'text-red-600 cursor-pointer' : ''} ${!canDeleteProduct ? 'cursor-not-allowed text-slate-200' : ''
-            }`}
+          className={`${canDeleteProduct ? 'text-red-600 cursor-pointer' : ''} ${
+            !canDeleteProduct ? 'cursor-not-allowed text-slate-200' : ''
+          }`}
           size={20}
           onClick={() => {
             // if (canDeleteProduct) {
@@ -286,11 +289,15 @@ const ViewProduct: React.FC<CategoryProps> = ({
             />
             <div>
               <p
-                className={`${canAddProduct && 'cursor-pointer rounded-md text-nowrap text-12 xs:text-base'
-                  } p-2 ${canAddProduct && 'bg-primary text-white rounded-md border'
-                  } flex justify-center dark:bg-main dark:border-0 ${!canAddProduct &&
+                className={`${
+                  canAddProduct &&
+                  'cursor-pointer rounded-md text-nowrap text-12 xs:text-base'
+                } p-2 ${
+                  canAddProduct && 'bg-primary text-white rounded-md border'
+                } flex justify-center dark:bg-main dark:border-0 ${
+                  !canAddProduct &&
                   'cursor-not-allowed bg-gray-500 text-white rounded-md'
-                  }`}
+                }`}
                 onClick={() => {
                   if (canAddProduct) {
                     setselecteMenu('Add Products');
