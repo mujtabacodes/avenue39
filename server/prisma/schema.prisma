@@ -55,7 +55,7 @@ model Products {
   salesRecords          sales_record_products[] @relation("ProductsTosales_record_products")
   last_editedBy         String?
   sizes                 Json[]                  @default([])
-  filters               Json[]                  @default([])
+  filter                Json[]                  @default([])
 }
 
 model Categories {
@@ -73,6 +73,7 @@ model Categories {
   images_alt_text     String?
   updatedAt           DateTime        @default(now())
   last_editedBy       String?
+  short_description   String?
 }
 
 model SubCategories {
@@ -89,6 +90,7 @@ model SubCategories {
   images_alt_text     String?
   updatedAt           DateTime     @default(now())
   last_editedBy       String?
+  short_description   String?
 }
 
 model Reviews {
