@@ -3,52 +3,28 @@ import { ICategory, IProduct, IReview } from '@/types/types';
 import axios from 'axios';
 import { generateSlug } from '.';
 
-export const fetchProducts = async () => {
-  try {
-    const result = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/product/get-all`,
-      {
-        next: { tags: ['products'] },
-      },
-    );
-    if (!result.ok) {
-      console.log(result, 'result');
-
-      return [];
-    }
-    const response = await result.json();
-
-    return response;
-  } catch (error) {
-    console.log(error, 'error');
-  }
-};
-
-export const fetchCategories = async (): Promise<ICategory[] | any> => {
-  try {
-    const result = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/category/get-all`,
-      {
-        next: { tags: ['categories'] },
-      },
-    );
-    const response = await result.json();
-    return response;
-  } catch (error) {
-    console.log(error, 'error');
-  }
-};
-
-export const fetchSubCategories = async (): Promise<ICategory[]> => {
-  const result = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/subcategories/get-all`,
-    {
-      next: { tags: ['subcategories'] },
-    },
+export const fetchProducts = async (): Promise<IProduct[]> => {
+  console.log(`${process.env.NEXT_PUBLIC_BASE_URL}`);
+  const response = await axios.get(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/product/get-all`,
   );
-  const response = await result.json();
-  return response;
+  return response.data;
 };
+
+export const fetchCategories = async (): Promise<ICategory[]> => {
+  const response = await axios.get(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/category/get-all`,
+  );
+  return response.data;
+};
+export const fetchSubCategories = async (): Promise<ICategory[]> => {
+  const response = await axios.get(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/subcategories/get-all`,
+  );
+  return response.data;
+};
+
+
 
 export const fetchReviews = async (): Promise<IReview[]> => {
   const response = await axios.get(
